@@ -122,24 +122,24 @@ trans_te = transforms.Compose([
 ])
 
 
-chain = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
+chain = mk_task_folder(extensions={"domain1": "jpg", "domain2": "jpg", "domain3": "jpg"},
                        list_str_y=["chair", "car"],
                        dict_domain_folder_name2class={
-                           "caltech": {"auto": "car", "stuhl": "chair"},
-                           "sun": {"vehicle": "car", "sofa": "chair"},
-                           "labelme": {"drive": "car", "sit": "chair"}
+                           "domain1": {"auto": "car", "stuhl": "chair"},
+                           "domain2": {"vehicle": "car", "sofa": "chair"},
+                           "domain3": {"drive": "car", "sit": "chair"}
                        },
                        dict_domain_img_trans={
-                           "caltech": trans_tr,
-                           "sun": trans_tr,
-                           "labelme": trans_tr,
+                           "domain1": trans_tr,
+                           "domain2": trans_tr,
+                           "domain3": trans_tr,
                        },
                        img_trans_te=trans_te,
                        isize=ImSize(3, 224, 224),
                        dict_domain2imgroot={
-                           "caltech": os.path.join("/path/to/1st_domain", "folder_a"),
-                           "sun": os.path.join("/path/to/2nd_domain", "folder_b"),
-                           "labelme": os.path.join("/path/to/3rd_domain", "folder_c")},
+                           "domain1": os.path.join("/path/to/1st_domain", "folder_a"),
+                           "domain2": os.path.join("/path/to/2nd_domain", "folder_b"),
+                           "domain3": os.path.join("/path/to/3rd_domain", "folder_c")},
                        taskna="task_demo")
 
 def get_task(na=None):  # libDG will call this function to get the task
