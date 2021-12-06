@@ -177,6 +177,8 @@ as the absolute path to each domain's data.
 taskna: user defined task name
 ```
 
+# Design
+![Design Diagram](libDG.svg)
 
 # Credits
 Contact: Xudong Sun (smilesun.east@gmail.com, Institute of AI for Health, Helmholtz Munich, Germany)
