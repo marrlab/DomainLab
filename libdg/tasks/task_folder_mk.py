@@ -13,7 +13,25 @@ def mk_task_folder(extensions,
                    taskna,
                    succ=None):
     """
-    task maker: e.g.
+    Make libDG task by specifying each domain with folder structures
+    :param extensions: a python dictionary with key as the domain name
+    and value as the file extensions of the image.
+    :param list_str_y: a python list with user defined class name where
+    the order of the list matters.
+    :param dict_domain_folder_name2class: a python dictionary, with key
+    as the user specified domain name, value as a dictionary to map the
+    sub-folder name of each domain's class folder into the user defined
+    common class name.
+    :param dict_domain_img_trans: a python dictionary with keys as the user
+    specified domain name, value as a user defined torchvision transform.
+    This feature allows carrying out different transformation (composition) to different
+    domains at training time.
+    :param img_trans_te: at test or inference time, we do not have knowledge
+    of domain information so only a unique transform (composition) is allowed.
+    :isize: libdg.tasks.ImSize(image channel, image height, image width)
+    :dict_domain2imgroot: a python dictionary with keys as user specified domain
+    names and values as the absolute path to each domain's data.
+    :taskna: user defined task name
     """
     class NodeTaskFolderDummy(NodeTaskFolderClassNaMismatch):
         @property
