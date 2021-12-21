@@ -1,0 +1,181 @@
+import torch
+from torch.nn import functional as F
+
+from libdg.algos.compos.matchdg_base import MatchAlgoBase
+from libdg.algos.compos.matchdg_utils import dist_cosine_agg, dist_pairwise_cosine
+
+
+class MatchCtrErm(MatchAlgoBase):
+    """
+    Contrastive Learning
+    """
+    def __init__(self, task, phi, args, device, exp, flag_erm=False):
+        """
+        """
+        super().__init__(task, phi, args, device, exp)
+        self.epo_loss_tr = 0
+        self.flag_erm = flag_erm
+        self.epos = self.args.epochs_ctr
+        self.epos_per_match = self.args.epos_per_match_update
+        self.str_phase = "ctr"
+        self.lambda_ctr = 1.0
+        if self.flag_erm:
+            self.lambda_ctr = self.args.penalty_ws
+            self.epos = self.args.epochs_erm
+            self.str_phase = "erm"
+            self.init_erm_phase()
+        else:
+            self.mk_match_tensor(epoch=0)
+
+    def train(self):
+        for epoch in range(self.epos):
+            self.tr_epoch(epoch)
+
+    def tr_epoch(self, epoch):
+        """
+        # data in one batch comes from two sources: one part from loader,
+        # the other part from match tensor
+        """
+        self.epo_loss_tr = 0
+        print(self.str_phase, "epoch", epoch)
+        #
+        if (epoch + 1) % self.epos_per_match == 0:
+            self.mk_match_tensor(epoch)
+
+        ind_shuffle = torch.randperm(self.tensor_ref_domain2each_domain_x.size(0))
+        tuple_tensor_refdomain2each = torch.split(self.tensor_ref_domain2each_domain_x[ind_shuffle],
+                                                  self.args.bs, dim=0)
+        # Splits the tensor into chunks. Each chunk is a view of the original tensor.
+        # return is a tuple of the splited chunks
+        tuple_tensor_ref_domain2each_y = torch.split(self.tensor_ref_domain2each_domain_y[ind_shuffle],
+                                                     self.args.bs, dim=0)
+        print("number of batches in match tensor: ", len(tuple_tensor_refdomain2each))
+        print("single batch match tensor size: ", tuple_tensor_refdomain2each[0].shape)
+
+        for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
+        # the 4th output of self.loader is not used at all, is only used for creating the match tensor
+            self.opt.zero_grad()
+            loss_e = torch.tensor(0.0).to(self.device)
+            x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
+            y_e = torch.argmax(y_e, dim=1).to(self.device)
+            d_e = torch.argmax(d_e, dim=1).numpy()
+
+            loss_ctr = torch.tensor(0.0).to(self.device)
+            logit_yhat = self.phi(x_e)  # FIXME
+            loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
+
+            num_batches = len(tuple_tensor_refdomain2each)
+
+            if batch_idx >= num_batches:
+                print("ref/base domain vs each domain match traversed one sweep, starting new epoch")
+                break
+
+            curr_batch_size = tuple_tensor_refdomain2each[batch_idx].shape[0]
+
+            batch_tensor_ref_domain2each = tuple_tensor_refdomain2each[batch_idx].to(self.device)
+            # make order 5 tensor: (ref_domain, domain, channel, img_h, img_w) with first dimension as batch size
+            batch_tensor_ref_domain2each = batch_tensor_ref_domain2each.view(
+                batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
+                batch_tensor_ref_domain2each.shape[2],
+                batch_tensor_ref_domain2each.shape[3],
+                batch_tensor_ref_domain2each.shape[4])
+            # now batch_tensor_ref_domain2each first dim will not be batch_size!
+            # batch_tensor_ref_domain2each.shape torch.Size([40, channel, 224, 224])
+            batch_feat_ref_domain2each = self.phi(batch_tensor_ref_domain2each)
+            # batch_feat_ref_domain2each.shape torch.Size[40, 512]
+            # torch.sum(torch.isnan(batch_tensor_ref_domain2each))
+            # assert not torch.sum(torch.isnan(batch_feat_ref_domain2each))
+            flag_isnan = torch.any(torch.isnan(batch_feat_ref_domain2each))
+            if flag_isnan:
+                raise RuntimeError("batch_feat_ref_domain2each NAN!")  # usually because learning rate is too big
+            # for contrastive training phase, the last layer of the model is replaced with identity
+
+            batch_ref_domain2each_y = tuple_tensor_ref_domain2each_y[batch_idx].to(self.device)
+            batch_ref_domain2each_y = batch_ref_domain2each_y.view(batch_ref_domain2each_y.shape[0]*batch_ref_domain2each_y.shape[1])
+
+            loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
+
+            # Creating tensor of shape (domain size, total domains, feat size )
+            if len(batch_feat_ref_domain2each.shape) == 4:
+                batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(
+                    curr_batch_size,
+                    len(self.num_domain_tr),
+                    batch_feat_ref_domain2each.shape[1]*batch_feat_ref_domain2each.shape[2]*batch_feat_ref_domain2each.shape[3])
+            else:
+                batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(curr_batch_size, self.num_domain_tr, batch_feat_ref_domain2each.shape[1])
+
+            batch_ref_domain2each_y = batch_ref_domain2each_y.view(curr_batch_size, self.num_domain_tr)
+
+            batch_tensor_ref_domain2each = \
+                batch_tensor_ref_domain2each.view(curr_batch_size,
+                                                  self.num_domain_tr,
+                                                  batch_tensor_ref_domain2each.shape[1],
+                                                  batch_tensor_ref_domain2each.shape[2],
+                                                  batch_tensor_ref_domain2each.shape[3])
+
+            # Contrastive Loss: class \times domain \times domain
+            counter_same_cls_diff_domain = 1
+            for y_c in range(self.dim_y):
+
+                subset_same_cls = (batch_ref_domain2each_y[:, 0] == y_c)
+                subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
+                feat_same_cls = batch_feat_ref_domain2each[subset_same_cls]
+                feat_diff_cls = batch_feat_ref_domain2each[subset_diff_cls]
+                #print('class', y_c, "with same class and different class: ",
+                #      feat_same_cls.shape[0], feat_diff_cls.shape[0])
+
+                if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
+                    print("no instances of label ", y_c, " in the current batch, continue")
+                    continue
+
+                if torch.sum(torch.isnan(feat_diff_cls)):
+                    raise RuntimeError('feat_diff_cls has nan entrie(s)')
+
+                feat_diff_cls = feat_diff_cls.view(
+                    feat_diff_cls.shape[0]*feat_diff_cls.shape[1],
+                    feat_diff_cls.shape[2])
+
+                for d_i in range(feat_same_cls.shape[1]):
+                    dist_diff_cls_same_domain = dist_pairwise_cosine(
+                        feat_same_cls[:, d_i, :], feat_diff_cls[:, :])
+
+                    if torch.sum(torch.isnan(dist_diff_cls_same_domain)):
+                        raise RuntimeError('dist_diff_cls_same_domain NAN')
+
+                    # iterate other domains
+                    for d_j in range(feat_same_cls.shape[1]):
+                        if d_i >= d_j:
+                            continue
+                        dist_same_cls_diff_domain = dist_cosine_agg(feat_same_cls[:, d_i, :],
+                                                                    feat_same_cls[:, d_j, :])
+
+                        if torch.sum(torch.isnan(dist_same_cls_diff_domain)):
+                            raise RuntimeError('dist_same_cls_diff_domain NAN')
+
+                        if self.flag_erm:
+                            loss_ctr += dist_same_cls_diff_domain
+                        else:
+                            i_dist_same_cls_diff_domain = 1.0 - dist_same_cls_diff_domain
+                            i_dist_same_cls_diff_domain = i_dist_same_cls_diff_domain / self.args.tau
+                            partition = torch.log(torch.exp(i_dist_same_cls_diff_domain) + dist_diff_cls_same_domain)
+                            loss_ctr += -1 * torch.sum(i_dist_same_cls_diff_domain - partition)
+                        counter_same_cls_diff_domain += i_dist_same_cls_diff_domain.shape[0]
+
+            loss_ctr = loss_ctr / counter_same_cls_diff_domain
+
+            coeff = (epoch + 1)/(self.epos + 1)
+            loss_e += self.lambda_ctr * coeff * loss_ctr
+
+            if self.flag_erm:
+                loss_e += (loss_erm_rnd_loader + loss_erm_match_tensor)
+
+            loss_e.backward(retain_graph=False)
+            self.opt.step()
+            self.epo_loss_tr += loss_e.detach().item()
+
+            del loss_ctr
+            torch.cuda.empty_cache()
+
+        if not self.flag_erm:
+            # Save ctr model's weights post each epoch
+            self.save_model_ctr_phase()

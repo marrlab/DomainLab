@@ -1,0 +1,85 @@
+@startuml
+' 
+' *--  composition
+' <|-- extension
+' o-- aggregation
+' --  association (1 to n or 1 to 1 or n to 1)
+' ..>
+'Dependency is a weaker form of bond which indicates that one class depends on 
+'another because it uses it at some point in time. One class depends on 
+'another if the independent class is a parameter variable or local variable of 
+'a method of the dependent class. This is different from an association, where 
+'an attribute of the dependent class is an instance of the independent class. 
+'Sometimes the relationship between two classes is very weak. They are not 
+'implemented with member variables at all. Rather they might be implemented as 
+'member function arguments.
+package task {
+  abstract class Task {
+    + dim_y
+  }
+  Task <|-- TaskFolder
+}
+
+package algos {
+  abstract class AlgoBuilder {}
+  class ConcreteAlgoBuilder {}
+  package trainer {
+    class Trainer {}
+  }
+  package observer {
+    class Observer {}
+  }
+  package model_selection {
+    class ModelSel {}
+  }
+} 
+
+package dataset <<DataBase>>{
+  class Dataset {
+    --
+    __get__item__
+    --
+    --
+  }
+}
+
+package model{
+  abstract class Model {
+  + int dim_y
+  + int dim_d
+  }
+  abstract class ModelBuilder {
+  +build_part_a()
+  +build_part_b()
+  }
+  class ConcreteModel {}
+  class ConcreteModelBuilder {}
+}
+
+
+package components {
+  package common_networks {
+  }
+  package patterns{}
+  package experiment {
+    class Experiment {}
+    class TaskHandler{}
+  }
+}
+
+
+Experiment *-- Task
+Experiment *-- Trainer
+Trainer *-- Observer
+Trainer *-- Model
+Task o-- Dataset
+Model <|-- ConcreteModel
+Model *-- ModelBuilder
+Experiment *-- AlgoBuilder
+Experiment *-- TaskHandler
+ConcreteModelBuilder -- common_networks
+ConcreteAlgoBuilder -- Trainer
+ConcreteAlgoBuilder -- Observer
+ConcreteAlgoBuilder -- ModelSel
+ConcreteModelBuilder -- ConcreteModel
+@enduml
