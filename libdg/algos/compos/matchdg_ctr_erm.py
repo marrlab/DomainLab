@@ -55,7 +55,7 @@ class MatchCtrErm(MatchAlgoBase):
         for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
         # the 4th output of self.loader is not used at all, is only used for creating the match tensor
             self.opt.zero_grad()
-            loss_e = torch.tensor(0.0).to(self.device)
+            loss_e = torch.tensor(0.0, requires_grad=True).to(self.device)
             x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
             y_e = torch.argmax(y_e, dim=1).to(self.device)
             d_e = torch.argmax(d_e, dim=1).numpy()
