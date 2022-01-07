@@ -30,7 +30,7 @@ class TrainerMatchDG(AbstractTrainer):
                                task=self.task,
                                args=self.args,
                                device=self.device,
-                               flag_erm=False)
+                               flag_erm=True)
 
     def tr_epoch(self, epoch):
         self.model.train()

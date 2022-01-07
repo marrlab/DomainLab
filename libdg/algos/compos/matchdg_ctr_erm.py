@@ -125,7 +125,7 @@ class MatchCtrErm(MatchAlgoBase):
                 #      feat_same_cls.shape[0], feat_diff_cls.shape[0])
 
                 if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
-                    print("no instances of label ", y_c, " in the current batch, continue")
+                    # print("no instances of label ", y_c, " in the current batch, continue")
                     continue
 
                 if torch.sum(torch.isnan(feat_diff_cls)):
