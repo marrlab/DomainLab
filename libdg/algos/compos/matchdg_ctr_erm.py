@@ -55,12 +55,14 @@ class MatchCtrErm(MatchAlgoBase):
         for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
         # the 4th output of self.loader is not used at all, is only used for creating the match tensor
             self.opt.zero_grad()
-            loss_e = torch.tensor(0.0, requires_grad=True).to(self.device)
             x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
             y_e = torch.argmax(y_e, dim=1).to(self.device)
             d_e = torch.argmax(d_e, dim=1).numpy()
-
-            loss_ctr = torch.tensor(0.0).to(self.device)
+            # for each batch, the list loss is re-initialized
+            list_batch_loss_ctr = []  # CTR (contrastive) loss for CTR/ERM phase are different
+            # for a single batch,  loss need to be aggregated across different combinations of
+            # domains. Defining a leaf node can cause problem by loss_ctr += xxx, a list with
+            # python built-in "sum" can aggregate these losses within one batch
             logit_yhat = self.phi(x_e)  # FIXME
             loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
 
@@ -152,28 +154,40 @@ class MatchCtrErm(MatchAlgoBase):
                         if torch.sum(torch.isnan(dist_same_cls_diff_domain)):
                             raise RuntimeError('dist_same_cls_diff_domain NAN')
 
+                        # CTR (contrastive) loss is exclusive for CTR phase and ERM phase
+
                         if self.flag_erm:
-                            loss_ctr += dist_same_cls_diff_domain
+                            list_batch_loss_ctr.append(torch.sum(dist_same_cls_diff_domain))
                         else:
                             i_dist_same_cls_diff_domain = 1.0 - dist_same_cls_diff_domain
                             i_dist_same_cls_diff_domain = i_dist_same_cls_diff_domain / self.args.tau
                             partition = torch.log(torch.exp(i_dist_same_cls_diff_domain) + dist_diff_cls_same_domain)
-                            loss_ctr += -1 * torch.sum(i_dist_same_cls_diff_domain - partition)
-                        counter_same_cls_diff_domain += i_dist_same_cls_diff_domain.shape[0]
+                            list_batch_loss_ctr.append(-1 * torch.sum(i_dist_same_cls_diff_domain - partition))
 
-            loss_ctr = loss_ctr / counter_same_cls_diff_domain
+                        counter_same_cls_diff_domain += dist_same_cls_diff_domain.shape[0]
+
+            loss_ctr = sum(list_batch_loss_ctr) / counter_same_cls_diff_domain
 
             coeff = (epoch + 1)/(self.epos + 1)
-            loss_e += self.lambda_ctr * coeff * loss_ctr
+            # loss aggregation is over different domain combinations of the same batch
+            # https://discuss.pytorch.org/t/leaf-variable-was-used-in-an-inplace-operation/308
+            # Loosely, tensors you create directly are leaf variables.
+            # Tensors that are the result of a differentiable operation are not leaf variables
 
             if self.flag_erm:
-                loss_e += (loss_erm_rnd_loader + loss_erm_match_tensor)
+                # extra loss of ERM phase: the ERM loss (the CTR loss for the ctr phase and erm
+                # phase are different)
+                # erm loss comes from two different data loaders, one is rnd (random) data loader
+                # the other one is the data loader from the match tensor
+                loss_e = (loss_erm_rnd_loader + loss_erm_match_tensor) + \
+                    self.lambda_ctr * coeff * loss_ctr
+            else:
+                loss_e = self.lambda_ctr * coeff * loss_ctr
 
             loss_e.backward(retain_graph=False)
             self.opt.step()
             self.epo_loss_tr += loss_e.detach().item()
 
-            del loss_ctr
             torch.cuda.empty_cache()
 
         if not self.flag_erm:
