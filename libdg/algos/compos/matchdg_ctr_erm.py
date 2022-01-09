@@ -179,10 +179,11 @@ class MatchCtrErm(MatchAlgoBase):
                 # phase are different)
                 # erm loss comes from two different data loaders, one is rnd (random) data loader
                 # the other one is the data loader from the match tensor
-                loss_e = (loss_erm_rnd_loader + loss_erm_match_tensor) + \
+                loss_e = torch.tensor(0.0, requires_grad=True) + (loss_erm_rnd_loader + loss_erm_match_tensor) + \
                     self.lambda_ctr * coeff * loss_ctr
             else:
-                loss_e = self.lambda_ctr * coeff * loss_ctr
+                loss_e = torch.tensor(0.0, requires_grad=True) + self.lambda_ctr * coeff * loss_ctr
+            # FIXME: without torch.tensor(0.0), after a few epochs, error "'float' object has no attribute 'backward'"
 
             loss_e.backward(retain_graph=False)
             self.opt.step()
