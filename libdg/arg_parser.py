@@ -25,8 +25,8 @@ def mk_parser_main():
     parser.add_argument('--nocu', action='store_true', default=False,
                         help='disables CUDA')
 
-    parser.add_argument('--nogen', action='store_true', default=False,
-                        help='do not save generated images')
+    parser.add_argument('--gen', action='store_true', default=False,
+                        help='save generated images')
 
     parser.add_argument('--keep_model', action='store_true', default=False,
                         help='do not delete model at the end of training')
