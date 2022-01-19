@@ -57,6 +57,7 @@ class MatchPair():
                     self.dict_domain_data[domain_idx]['data'][global_ind] = x_e[flag_curr_domain][local_ind]
                     # flag_curr_domain are subset indicator for selection of domain
                     self.dict_domain_data[domain_idx]['label'][global_ind] = y_e[flag_curr_domain][local_ind]
+                    breakpoint()
                     # copy trainining batch to dict_domain_data
                     self.dict_domain_data[domain_idx]['idx'][global_ind] = idx_e[flag_curr_domain][local_ind]
                     self.domain_count[domain_idx] += 1
