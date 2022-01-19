@@ -38,21 +38,24 @@ class MatchCtrErm(MatchAlgoBase):
         """
         self.epo_loss_tr = 0
         print(self.str_phase, "epoch", epoch)
-        #
+        # update match tensor
         if (epoch + 1) % self.epos_per_match == 0:
             self.mk_match_tensor(epoch)
 
-        ind_shuffle = torch.randperm(self.tensor_ref_domain2each_domain_x.size(0))
-        tuple_tensor_refdomain2each = torch.split(self.tensor_ref_domain2each_domain_x[ind_shuffle],
+        inds_shuffle = torch.randperm(self.tensor_ref_domain2each_domain_x.size(0))
+        # NOTE: match tensor size: N(ref domain size) * #(train domains) * (image size: c*h*w)
+        # self.tensor_ref_domain2each_domain_x[inds_shuffle] shuffles the match tensor at the first dimension
+        tuple_tensor_refdomain2each = torch.split(self.tensor_ref_domain2each_domain_x[inds_shuffle],
                                                   self.args.bs, dim=0)
-        # Splits the tensor into chunks. Each chunk is a view of the original tensor.
+        # Splits the tensor into chunks. Each chunk is a view of the original tensor of batch size self.args.bs
         # return is a tuple of the splited chunks
-        tuple_tensor_ref_domain2each_y = torch.split(self.tensor_ref_domain2each_domain_y[ind_shuffle],
+        tuple_tensor_ref_domain2each_y = torch.split(self.tensor_ref_domain2each_domain_y[inds_shuffle],
                                                      self.args.bs, dim=0)
         print("number of batches in match tensor: ", len(tuple_tensor_refdomain2each))
         print("single batch match tensor size: ", tuple_tensor_refdomain2each[0].shape)
 
         for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
+        # random loader with same batch size as the match tensor loader
         # the 4th output of self.loader is not used at all, is only used for creating the match tensor
             self.opt.zero_grad()
             x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
@@ -63,8 +66,11 @@ class MatchCtrErm(MatchAlgoBase):
             # for a single batch,  loss need to be aggregated across different combinations of
             # domains. Defining a leaf node can cause problem by loss_ctr += xxx, a list with
             # python built-in "sum" can aggregate these losses within one batch
-            logit_yhat = self.phi(x_e)  # FIXME
-            loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
+
+            if self.flag_erm:
+                logit_yhat = self.phi(x_e)  # FIXME
+                breakpoint()
+                loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
 
             num_batches = len(tuple_tensor_refdomain2each)
 
@@ -77,13 +83,13 @@ class MatchCtrErm(MatchAlgoBase):
             batch_tensor_ref_domain2each = tuple_tensor_refdomain2each[batch_idx].to(self.device)
             # make order 5 tensor: (ref_domain, domain, channel, img_h, img_w) with first dimension as batch size
             batch_tensor_ref_domain2each = batch_tensor_ref_domain2each.view(
-                batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
-                batch_tensor_ref_domain2each.shape[2],
-                batch_tensor_ref_domain2each.shape[3],
-                batch_tensor_ref_domain2each.shape[4])
+                batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],   # clamp the first two dimensions so the phi network could map image to feature
+                batch_tensor_ref_domain2each.shape[2],   # channel
+                batch_tensor_ref_domain2each.shape[3],   # img_h
+                batch_tensor_ref_domain2each.shape[4])   # img_w
             # now batch_tensor_ref_domain2each first dim will not be batch_size!
             # batch_tensor_ref_domain2each.shape torch.Size([40, channel, 224, 224])
-            batch_feat_ref_domain2each = self.phi(batch_tensor_ref_domain2each)
+            batch_feat_ref_domain2each = self.phi(batch_tensor_ref_domain2each)   # FIXME: change to extract_feature?
             # batch_feat_ref_domain2each.shape torch.Size[40, 512]
             # torch.sum(torch.isnan(batch_tensor_ref_domain2each))
             # assert not torch.sum(torch.isnan(batch_feat_ref_domain2each))
@@ -95,25 +101,24 @@ class MatchCtrErm(MatchAlgoBase):
             batch_ref_domain2each_y = tuple_tensor_ref_domain2each_y[batch_idx].to(self.device)
             batch_ref_domain2each_y = batch_ref_domain2each_y.view(batch_ref_domain2each_y.shape[0]*batch_ref_domain2each_y.shape[1])
 
+            # FIXME: self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y)
             loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
-
             # Creating tensor of shape (domain size, total domains, feat size )
-            if len(batch_feat_ref_domain2each.shape) == 4:
-                batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(
-                    curr_batch_size,
-                    len(self.num_domain_tr),
-                    batch_feat_ref_domain2each.shape[1]*batch_feat_ref_domain2each.shape[2]*batch_feat_ref_domain2each.shape[3])
-            else:
-                batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(curr_batch_size, self.num_domain_tr, batch_feat_ref_domain2each.shape[1])
+            # The match tensor's first two dimension [(Ref domain size) * (# train domains)] has been clamped together to get features extracted through self.phi
+            # it has to be reshaped into the match tensor shape, the same for the extracted feature here, it has to reshaped into the shape of the match tensor
+            # to make sure that the reshape only happens at the first two dimension, the feature dim has to be kept intact
+            dim_feat = batch_feat_ref_domain2each.shape[1]
+            batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(curr_batch_size, self.num_domain_tr, dim_feat)
 
             batch_ref_domain2each_y = batch_ref_domain2each_y.view(curr_batch_size, self.num_domain_tr)
 
+            # The match tensor's first two dimension [(Ref domain size) * (# train domains)] has been clamped together to get features extracted through self.phi
             batch_tensor_ref_domain2each = \
                 batch_tensor_ref_domain2each.view(curr_batch_size,
                                                   self.num_domain_tr,
-                                                  batch_tensor_ref_domain2each.shape[1],
-                                                  batch_tensor_ref_domain2each.shape[2],
-                                                  batch_tensor_ref_domain2each.shape[3])
+                                                  batch_tensor_ref_domain2each.shape[1],   # channel
+                                                  batch_tensor_ref_domain2each.shape[2],   # img_h
+                                                  batch_tensor_ref_domain2each.shape[3])   # img_w
 
             # Contrastive Loss: class \times domain \times domain
             counter_same_cls_diff_domain = 1
