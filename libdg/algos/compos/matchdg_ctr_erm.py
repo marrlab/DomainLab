@@ -69,7 +69,6 @@ class MatchCtrErm(MatchAlgoBase):
 
             if self.flag_erm:
                 logit_yhat = self.phi(x_e)  # FIXME
-                breakpoint()
                 loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
 
             num_batches = len(tuple_tensor_refdomain2each)
