@@ -101,7 +101,9 @@ class MatchCtrErm(MatchAlgoBase):
             batch_ref_domain2each_y = batch_ref_domain2each_y.view(batch_ref_domain2each_y.shape[0]*batch_ref_domain2each_y.shape[1])
 
             # FIXME: self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y)
-            loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
+
+            if self.flag_erm:
+                loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
             # Creating tensor of shape (domain size, total domains, feat size )
             # The match tensor's first two dimension [(Ref domain size) * (# train domains)] has been clamped together to get features extracted through self.phi
             # it has to be reshaped into the match tensor shape, the same for the extracted feature here, it has to reshaped into the shape of the match tensor

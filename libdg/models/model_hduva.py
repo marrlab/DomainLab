@@ -49,7 +49,13 @@ class ModelHDUVA(VAEXYDClassif):
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError
+        q_topic, topic_q, \
+            qzd, zd_q, \
+            qzx, zx_q, \
+            qzy, zy_q = self.encoder(tensor_x)
+        logit_y = self.net_classif_y(zy_q)
+        return logit_y
+
 
     def init_p_topic_batch(self, batch_size, device):
         """
@@ -59,6 +65,9 @@ class ModelHDUVA(VAEXYDClassif):
         return prior
 
     def forward(self, x, y, d=None):
+        return self.cal_loss(x, y, d)
+
+    def cal_loss(self, x, y, d=None):
         """
         :param x:
         :param y:
