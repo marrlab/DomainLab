@@ -24,7 +24,7 @@ class MatchDictInit():
             dict_data[key] = {}
             num_rows = self.get_num_rows(key)
             dict_data[key]['data'] = torch.rand((num_rows, self.i_c, self.i_w, self.i_h))
-            # FIXME: some labels won't be filled at all
+            # FIXME: some labels won't be filled at all, when using training loader since the incomplete batch is dropped
             dict_data[key]['label'] = torch.rand((num_rows, 1))  # scalar label
             dict_data[key]['idx'] = torch.randint(low=0, high=1, size=(num_rows, 1))
         return dict_data

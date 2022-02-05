@@ -17,7 +17,7 @@ class MatchAlgoBase():
         self.dim_y = task.dim_y
 
         self.args = args
-        self.loader = task.loader_tr
+        self.loader = task.loader_tr  # FIXME: training loader always drop the last batch, so inside matchdg, for the data storage tensor, loader is re-initialized by disabling drop
         self.device = device
         self.phi = phi.to(self.device)
         #
