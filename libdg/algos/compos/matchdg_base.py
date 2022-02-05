@@ -68,7 +68,7 @@ class MatchAlgoBase():
                               list_tr_domain_size=self.list_tr_domain_size)
 
         self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
-            obj_match(self.device, self.loader, self.phi, (epoch > 0))
+            obj_match(self.device, self.loader, self.phi, (epoch>0))  # FIXME: what is the usefulness of (epoch > 0) as argument
 
 
 def get_base_domain_size4match_dg(task):

@@ -112,13 +112,14 @@ class MatchPair():
                 size_curr_domain_curr_cls = global_inds_curr_domain_curr_cls.shape[0]
                 if size_curr_domain_curr_cls == 0:  # there is no class y_c in current domain
                     print("current domain", curr_domain_ind, " does not contain class ", y_c)
-                    continue
+                    raise RuntimeError("current domain does not contain all classes")
 
                 # compute base domain features for class label y_c
                 x_base_domain_curr_cls = self.dict_domain_data[base_domain_idx]['data'][flags_base_domain_curr_cls]
                 # pick out base domain class label y_c images
                 # split data into chunks
                 tuple_batch_x_base_domain_curr_cls = torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
+                # FIXME. when x_base_domain_curr_cls is smaller than the self.bs_match, then there is only one batch
                 list_base_feat = []
                 for batch_x_base_domain_curr_cls in tuple_batch_x_base_domain_curr_cls:
                     with torch.no_grad():
@@ -179,9 +180,11 @@ class MatchPair():
                         counter_ref_dset_size += 1
 
             if counter_ref_dset_size != self.virtual_ref_dset_size:
-                warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
+                breakpoint()
                 print("counter_ref_dset_size", counter_ref_dset_size)
                 print("self.virtual_ref_dset_size", self.virtual_ref_dset_size)
+                # warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
+                raise RuntimeError("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
 
 
         for key in self.dict_virtual_dset2each_domain.keys():
@@ -195,8 +198,11 @@ class MatchPair():
                 for d_j in range(self.dict_virtual_dset2each_domain[key]['label'].shape[0]):
                     if d_j > d_i:
                         if self.dict_virtual_dset2each_domain[key]['label'][d_i] != self.dict_virtual_dset2each_domain[key]['label'][d_j]:
+                            breakpoint()
                             wrong_case += 1
         print('Total Label MisMatch across pairs: ', wrong_case)
+        if wrong_case != 0:
+            raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
 
         list_ref_domain_each_domain = []
         list_ref_domain_each_domain_label = []
