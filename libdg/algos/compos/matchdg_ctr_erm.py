@@ -105,8 +105,7 @@ class MatchCtrErm(MatchAlgoBase):
 
             if self.flag_erm:
                 # loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
-                breakpoint()
-                # FIXME: batch_ref_domain2each_y is probability?
+                # FIXME: check if batch_ref_domain2each_y is continuous number which means it is at its initial value, not yet filled
                 loss_erm_match_tensor = self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
             # Creating tensor of shape (domain size, total domains, feat size )
             # The match tensor's first two dimension [(Ref domain size) * (# train domains)] has been clamped together to get features extracted through self.phi

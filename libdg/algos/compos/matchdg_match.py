@@ -175,7 +175,6 @@ class MatchPair():
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
                         # FIXME: label initially were set to random continuous value, which is a technique to check if every data has been filled
-                        breakpoint()
                         counter_curr_cls_base_domain += 1
                         counter_ref_dset_size += 1
 
