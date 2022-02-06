@@ -83,6 +83,8 @@ class DsetSubFolder(DatasetFolder):
                        if os.path.isdir(os.path.join(dir, d)) and d in self.list_class_dir]
         flag_user_input_classes_in_folder = (set(self.list_class_dir) <= set(classes))
         if not flag_user_input_classes_in_folder:
+            print("user provided class names:", self.list_class_dir)
+            print("subfolder names from folder")
             raise RuntimeError("user provided class names does not match the subfolder names")
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}
