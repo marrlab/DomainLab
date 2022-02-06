@@ -63,28 +63,28 @@ class DsetSubFolder(DatasetFolder):
         self.samples = samples
         self.targets = [s[1] for s in samples]
 
-    def _find_classes(self, dir):
+    def _find_classes(self, mdir):
         """
         Finds the class folders in a dataset.
         Args:
-            dir (string): Root directory path.
+            mdir (string): Root mdirectory path.
         Returns:
-            tuple: (classes, class_to_idx) where classes are relative to (dir),
+            tuple: (classes, class_to_idx) where classes are relative to (mdir),
             and class_to_idx is a dictionary.
         Ensures:
-            No class is a subdirectory of another.
+            No class is a submdirectory of another.
         """
         if sys.version_info >= (3, 5):
             # Faster and available in Python 3.5 and above
-            classes = [d.name for d in os.scandir(dir) \
+            classes = [d.name for d in os.scandir(mdir) \
                        if d.is_dir() and d.name in self.list_class_dir]
         else:
-            classes = [d for d in os.listdir(dir) \
-                       if os.path.isdir(os.path.join(dir, d)) and d in self.list_class_dir]
+            classes = [d for d in os.listdir(mdir) \
+                       if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir]
         flag_user_input_classes_in_folder = (set(self.list_class_dir) <= set(classes))
         if not flag_user_input_classes_in_folder:
             print("user provided class names:", self.list_class_dir)
-            print("subfolder names from folder")
+            print("subfolder names from folder:", mdir, classes)
             raise RuntimeError("user provided class names does not match the subfolder names")
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}
