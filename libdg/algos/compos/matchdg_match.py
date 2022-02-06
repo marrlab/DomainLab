@@ -4,6 +4,7 @@ import torch
 from libdg.algos.compos.matchdg_utils import MatchDictVirtualRefDset2EachDomain
 from libdg.algos.compos.matchdg_utils import MatchDictNumDomain2SizeDomain
 from libdg.utils.utils_class import store_args
+from libdg.tasks.utils_task import mk_loader
 
 
 class MatchPair():
@@ -40,16 +41,20 @@ class MatchPair():
         """
         copy all data from loader, then store them in memory variable self.dict_domain_data
         """
-        for _, (x_e, y_e, d_e, idx_e) in enumerate(loader):
+        list_idx_several_ds = []  # NOTE: loader contains data from several dataset
+        loader_full_data = mk_loader(loader.dataset, bsize=loader.batch_size, drop_last=False)
+        # FIXME: training loader will always drop the last incomplete batch
+        for _, (x_e, y_e, d_e, idx_e) in enumerate(loader_full_data):
             # traverse mixed domain data from loader
+            list_idx_several_ds.extend(list(idx_e.cpu().numpy()))
             x_e = x_e
             y_e = torch.argmax(y_e, dim=1)
             d_e = torch.argmax(d_e, dim=1).numpy()
             unique_domains = np.unique(d_e)   # get all domains in current batch
             for domain_idx in unique_domains:
-                flag_curr_domain = (d_e == domain_idx)
+                flag_curr_domain = (d_e == domain_idx)  # select all instances belong to one domain
                 # flag_curr_domain is subset indicator of True of False for selection of data from the mini-batch
-                global_indices = idx_e[flag_curr_domain]
+                global_indices = idx_e[flag_curr_domain] # get global index of all instances of the current domain
                 # global_indices are subset of idx_e, which contains global index of data from the loader
                 for local_ind in range(global_indices.shape[0]):
                     # FIXME: the following is just coping all data to self.dict_domain_data (in memory with ordering), which seems redundant
@@ -60,7 +65,8 @@ class MatchPair():
                     # copy trainining batch to dict_domain_data
                     self.dict_domain_data[domain_idx]['idx'][global_ind] = idx_e[flag_curr_domain][local_ind]
                     self.domain_count[domain_idx] += 1
-
+        assert len(list_idx_several_ds) == len(loader.dataset)    # if all data has been re-organized(filled) into the current tensor
+        # NOTE: check if self.dict_domain_data[domain_idx]['label'] has some instances that are initial continuous value instead of class label
         for domain in range(self.num_domains_tr):
             if self.domain_count[domain] != self.list_tr_domain_size[domain]:
                 warnings.warn("domain_count show matching dictionary missing data!")
@@ -106,13 +112,14 @@ class MatchPair():
                 size_curr_domain_curr_cls = global_inds_curr_domain_curr_cls.shape[0]
                 if size_curr_domain_curr_cls == 0:  # there is no class y_c in current domain
                     print("current domain", curr_domain_ind, " does not contain class ", y_c)
-                    continue
+                    raise RuntimeError("current domain does not contain all classes")
 
                 # compute base domain features for class label y_c
                 x_base_domain_curr_cls = self.dict_domain_data[base_domain_idx]['data'][flags_base_domain_curr_cls]
                 # pick out base domain class label y_c images
                 # split data into chunks
                 tuple_batch_x_base_domain_curr_cls = torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
+                # FIXME. when x_base_domain_curr_cls is smaller than the self.bs_match, then there is only one batch
                 list_base_feat = []
                 for batch_x_base_domain_curr_cls in tuple_batch_x_base_domain_curr_cls:
                     with torch.no_grad():
@@ -168,13 +175,15 @@ class MatchPair():
 
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
+                        # FIXME: label initially were set to random continuous value, which is a technique to check if every data has been filled
                         counter_curr_cls_base_domain += 1
                         counter_ref_dset_size += 1
 
             if counter_ref_dset_size != self.virtual_ref_dset_size:
-                warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
                 print("counter_ref_dset_size", counter_ref_dset_size)
                 print("self.virtual_ref_dset_size", self.virtual_ref_dset_size)
+                # warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
+                raise RuntimeError("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
 
 
         for key in self.dict_virtual_dset2each_domain.keys():
@@ -188,8 +197,11 @@ class MatchPair():
                 for d_j in range(self.dict_virtual_dset2each_domain[key]['label'].shape[0]):
                     if d_j > d_i:
                         if self.dict_virtual_dset2each_domain[key]['label'][d_i] != self.dict_virtual_dset2each_domain[key]['label'][d_j]:
+                            # raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
                             wrong_case += 1
         print('Total Label MisMatch across pairs: ', wrong_case)
+        if wrong_case != 0:
+            raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
 
         list_ref_domain_each_domain = []
         list_ref_domain_each_domain_label = []

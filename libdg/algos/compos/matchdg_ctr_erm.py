@@ -59,8 +59,10 @@ class MatchCtrErm(MatchAlgoBase):
         # the 4th output of self.loader is not used at all, is only used for creating the match tensor
             self.opt.zero_grad()
             x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
-            y_e = torch.argmax(y_e, dim=1).to(self.device)
-            d_e = torch.argmax(d_e, dim=1).numpy()
+            # y_e_scalar = torch.argmax(y_e, dim=1).to(self.device)
+            y_e = y_e.to(self.device)
+            # d_e = torch.argmax(d_e, dim=1).numpy()
+            d_e = d_e.to(self.device)
             # for each batch, the list loss is re-initialized
             list_batch_loss_ctr = []  # CTR (contrastive) loss for CTR/ERM phase are different
             # for a single batch,  loss need to be aggregated across different combinations of
@@ -68,8 +70,9 @@ class MatchCtrErm(MatchAlgoBase):
             # python built-in "sum" can aggregate these losses within one batch
 
             if self.flag_erm:
-                logit_yhat = self.phi(x_e)  # FIXME
-                loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
+                # logit_yhat = self.phi(x_e)  # FIXME
+                # loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
+                loss_erm_rnd_loader = self.phi.cal_loss(x_e, y_e, d_e)
 
             num_batches = len(tuple_tensor_refdomain2each)
 
@@ -103,7 +106,11 @@ class MatchCtrErm(MatchAlgoBase):
             # FIXME: self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y)
 
             if self.flag_erm:
-                loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
+                # loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
+                # FIXME: check if batch_ref_domain2each_y is continuous number which means it is at its initial value, not yet filled
+                # FIMXE: shall we leave batch_ref_domain2each_y scalar so it takes less memory?
+                loss_erm_match_tensor = self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
+
             # Creating tensor of shape (domain size, total domains, feat size )
             # The match tensor's first two dimension [(Ref domain size) * (# train domains)] has been clamped together to get features extracted through self.phi
             # it has to be reshaped into the match tensor shape, the same for the extracted feature here, it has to reshaped into the shape of the match tensor
@@ -185,7 +192,7 @@ class MatchCtrErm(MatchAlgoBase):
                 # phase are different)
                 # erm loss comes from two different data loaders, one is rnd (random) data loader
                 # the other one is the data loader from the match tensor
-                loss_e = torch.tensor(0.0, requires_grad=True) + (loss_erm_rnd_loader + loss_erm_match_tensor) + \
+                loss_e = torch.tensor(0.0, requires_grad=True) + torch.mean(loss_erm_rnd_loader) + torch.mean(loss_erm_match_tensor) + \
                     self.lambda_ctr * coeff * loss_ctr
             else:
                 loss_e = torch.tensor(0.0, requires_grad=True) + self.lambda_ctr * coeff * loss_ctr

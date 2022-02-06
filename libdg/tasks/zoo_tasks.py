@@ -33,7 +33,7 @@ class TaskChainNodeGetter(object):
                                list_str_y=["chair", "car"],
                                dict_domain_folder_name2class={
                                    "caltech": {"auto": "car", "stuhl": "chair"},
-                                   "sun": {"viehcle": "car", "sofa": "chair"},
+                                   "sun": {"vehicle": "car", "sofa": "chair"},
                                    "labelme": {"drive": "car", "sit": "chair"}
                                },
                                dict_domain_img_trans={
