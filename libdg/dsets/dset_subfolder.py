@@ -76,6 +76,8 @@ class DsetSubFolder(DatasetFolder):
         """
         if sys.version_info >= (3, 5):
             # Faster and available in Python 3.5 and above
+            list_subfolders = [subfolder.name for subfolder in list(os.scandir(mdir))]
+            print("list of subfolders", list_subfolders)
             classes = [d.name for d in os.scandir(mdir) \
                        if d.is_dir() and d.name in self.list_class_dir]
         else:
