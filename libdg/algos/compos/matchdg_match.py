@@ -180,7 +180,6 @@ class MatchPair():
                         counter_ref_dset_size += 1
 
             if counter_ref_dset_size != self.virtual_ref_dset_size:
-                breakpoint()
                 print("counter_ref_dset_size", counter_ref_dset_size)
                 print("self.virtual_ref_dset_size", self.virtual_ref_dset_size)
                 # warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
@@ -198,7 +197,7 @@ class MatchPair():
                 for d_j in range(self.dict_virtual_dset2each_domain[key]['label'].shape[0]):
                     if d_j > d_i:
                         if self.dict_virtual_dset2each_domain[key]['label'][d_i] != self.dict_virtual_dset2each_domain[key]['label'][d_j]:
-                            breakpoint()
+                            # raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
                             wrong_case += 1
         print('Total Label MisMatch across pairs: ', wrong_case)
         if wrong_case != 0:

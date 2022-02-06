@@ -30,6 +30,9 @@ class ModelDeepAll(AModelClassif):
 
     def cal_loss(self, tensor_x, tensor_y, tensor_d):
         logit_y = self.net(tensor_x)
-        _, y_target = tensor_y.max(dim=1)
+        if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape)==1):
+            y_target = tensor_y
+        else:
+            _, y_target = tensor_y.max(dim=1)
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         return lc_y

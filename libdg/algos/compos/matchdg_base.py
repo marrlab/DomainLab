@@ -75,14 +75,18 @@ def get_base_domain_size4match_dg(task):
     """
     Base domain is a dataset where each class set come from one of the nominal domains
     """
-    domain_keys = task.get_list_domains()
+    # FIXME: base domain should be calculated only on training domains instead of all the domains!
+    # domain_keys = task.get_list_domains()
+    domain_keys = task.list_domain_tr
     base_domain_size = 0
     classes = task.list_str_y
     for mclass in classes:
         num = 0
-        for domain_key in domain_keys:
+        ref_domain = -1
+        for _, domain_key in enumerate(domain_keys):
             if task.dict_domain_class_count[domain_key][mclass] > num:
+                ref_domain = domain_key
                 num = task.dict_domain_class_count[domain_key][mclass]
-        print("for class ", mclass, " bigest sample size is ", num)
+        print("for class ", mclass, " bigest sample size is ", num, "ref domain is", ref_domain)
         base_domain_size += num
     return base_domain_size
