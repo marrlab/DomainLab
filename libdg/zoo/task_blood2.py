@@ -31,8 +31,8 @@ task = mk_task_folder(extensions={"dib": "jpg", "mllmar": "TIF", "amlmatek": "ti
                                   "basophil": "basophil",
                                   "eosinophil": "eosinophil"},
                           # "neutrophil": "neutrophil"},
-                          "mllmar": {"05MONO": "monocyte",
-                                     "10EOS": "eosinophil",
+                          "mllmar": {"05-MONO": "monocyte",
+                                     "10-EOS": "eosinophil",
                                      # "04-LGL": "lym",
                                      # "11-STAB": "neutrophil"
                                      "09-BASO":"basophil"},
