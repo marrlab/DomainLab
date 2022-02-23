@@ -82,11 +82,20 @@ class DsetDomainVecDecorator(Dataset):
         """
         :param idx:
         """
-        tensor, vec_class = self.dset.__getitem__(idx)
+        tensor, vec_class, *_ = self.dset.__getitem__(idx)
         return tensor, vec_class, self.vec_domain
 
     def __len__(self):
         return self.dset.__len__()
+
+
+class DsetDomainVecDecoratorImgPath(DsetDomainVecDecorator):
+    def __getitem__(self, idx):
+        """
+        :param idx:
+        """
+        tensor, vec_class, path = self.dset.__getitem__(idx)
+        return tensor, vec_class, self.vec_domain, path
 
 
 class DsetClassVecDecorator(Dataset):
@@ -132,7 +141,7 @@ class DsetClassVecDecorator(Dataset):
         ind_old = numpy.argmax(vec_class)
         class_local = self.dict_old_idx2old_class[ind_old]
         vec_class_new = self.dict_class_na_local2vec_new[class_local]
-        return tensor, vec_class_new
+        return tensor, vec_class_new, path
 
     def __len__(self):
         return self.dset.__len__()

@@ -30,9 +30,9 @@ class ObVisitor(AObVisitor):
         print("epoch:", epoch)
         self.epo = epoch
         if epoch % self.epo_te == 0:
-            breakpoint()
             acc_tr_pool = PerfClassif.cal_acc(self.host_trainer.model, self.loader_tr, self.device)
             print("pooled train domain acc: ", acc_tr_pool)
+            # test set has no domain label, so can be more custom
             acc_te = PerfClassif.cal_acc(self.host_trainer.model, self.loader_te, self.device)
             self.acc_te = acc_te
             print("out of domain test acc: ", acc_te)
