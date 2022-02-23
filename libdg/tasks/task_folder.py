@@ -72,10 +72,15 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
                              extensions=self.extensions[na_domain],
                              transform=trans,
                              target_transform=mk_fun_label2onehot(len(self.list_str_y)))
+        breakpoint()
+        # dset.path2imgs
         dict_folder_name2class_global = self._dict_domain_folder_name2class[na_domain]
         dset = DsetClassVecDecorator(dset, dict_folder_name2class_global, self.list_str_y)
+        breakpoint()
         # Always use the DsetInMemDecorator at the last step
         # since it does not have other needed attributes in bewteen
         if args.dmem:
             dset = DsetInMemDecorator(dset, na_domain)
+        if hasattr(dset.dset, "path2imgs"):
+            path2imgs = dset.dset.path2imgs
         return dset

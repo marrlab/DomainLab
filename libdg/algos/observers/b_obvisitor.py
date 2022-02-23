@@ -18,6 +18,7 @@ class ObVisitor(AObVisitor):
         observer trainer
         """
         self.host_trainer = None
+        self.task = self.exp.task
         self.loader_te = self.exp.task.loader_te
         self.loader_tr = self.exp.task.loader_tr
         self.epo_te = self.exp.args.epo_te
@@ -29,6 +30,7 @@ class ObVisitor(AObVisitor):
         print("epoch:", epoch)
         self.epo = epoch
         if epoch % self.epo_te == 0:
+            breakpoint()
             acc_tr_pool = PerfClassif.cal_acc(self.host_trainer.model, self.loader_tr, self.device)
             print("pooled train domain acc: ", acc_tr_pool)
             acc_te = PerfClassif.cal_acc(self.host_trainer.model, self.loader_te, self.device)
@@ -64,8 +66,8 @@ class ObVisitor(AObVisitor):
         to be called by a decorator
         """
         if not self.keep_model:
-            self.exp.visitor.remove("epoch")
+            self.exp.visitor.remove("epoch")    # the last epoch
             # epoch exist to still have a model to evaluate if the training stops in between
             self.exp.visitor.remove("final")
             self.exp.visitor.remove()
-            self.exp.visitor.remove("oracle")
+            self.exp.visitor.remove("oracle")   # oracle means use out-of-domain test accuracy to select the model

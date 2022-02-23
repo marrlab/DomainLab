@@ -43,14 +43,14 @@ def mk_onehot(dim, ind):
     return vec
 
 
-def mk_loader(dset, bsize, drop_last=True):
+def mk_loader(dset, bsize, drop_last=True, shuffle=True):
     """
     :param bs: batch size
     """
     loader = torch.utils.data.DataLoader(
         dataset=dset,
         batch_size=bsize,
-        shuffle=True,
+        shuffle=shuffle,
         # shuffle must be true so the last incomplete batch get used in anohter epoch
         num_workers=1,   # FIXME:
         drop_last=drop_last)
