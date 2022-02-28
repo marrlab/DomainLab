@@ -8,6 +8,17 @@ from libdg.utils.perf import PerfClassif
 from libdg.compos.exp.exp_utils import ExpModelPersistVisitor
 
 
+def pred2file(loader_te, model, device):
+    model.eval()
+    model_local = model.to(device)
+    for i, (x_s, y_s, *_, path) in enumerate(loader_te):
+        x_s, y_s = x_s.to(device), y_s.to(device)
+        pred, *_ = model_local.infer_y_vpicn(x_s)
+        print(path)
+        breakpoint()
+
+
+
 class ObVisitor(AObVisitor):
     """
     Observer + Visitor pattern for model selection
@@ -21,6 +32,7 @@ class ObVisitor(AObVisitor):
         self.task = self.exp.task
         self.loader_te = self.exp.task.loader_te
         self.loader_tr = self.exp.task.loader_tr
+        # Note loader_tr behaves/inherit different properties than loader_te
         self.epo_te = self.exp.args.epo_te
         self.epo = None
         self.acc_te = None
@@ -36,6 +48,7 @@ class ObVisitor(AObVisitor):
             acc_te = PerfClassif.cal_acc(self.host_trainer.model, self.loader_te, self.device)
             self.acc_te = acc_te
             print("out of domain test acc: ", acc_te)
+            pred2file(self.loader_te, self.host_trainer.model, self.device)
         if self.model_sel.update():
             print("model selected")
             self.exp.visitor.save(self.host_trainer.model)

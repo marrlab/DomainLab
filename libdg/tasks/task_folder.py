@@ -4,7 +4,7 @@ When class names and numbers does not match across different domains
 from torch.utils.data.dataset import ConcatDataset
 from torchvision import transforms
 from libdg.tasks.b_task import NodeTaskDict
-from libdg.tasks.utils_task import DsetClassVecDecorator
+from libdg.tasks.utils_task import DsetClassVecDecorator, DsetClassVecDecoratorImgPath
 from libdg.dsets.dset_subfolder import DsetSubFolder
 from libdg.dsets.utils_data import mk_fun_label2onehot, fun_img_path_loader_default
 from libdg.dsets.utils_data import DsetInMemDecorator
@@ -74,7 +74,7 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
                              target_transform=mk_fun_label2onehot(len(self.list_str_y)))
         # dset.path2imgs
         dict_folder_name2class_global = self._dict_domain_folder_name2class[na_domain]
-        dset = DsetClassVecDecorator(dset, dict_folder_name2class_global, self.list_str_y)
+        dset = DsetClassVecDecoratorImgPath(dset, dict_folder_name2class_global, self.list_str_y)
         # Always use the DsetInMemDecorator at the last step
         # since it does not have other needed attributes in bewteen
         if args.dmem:
