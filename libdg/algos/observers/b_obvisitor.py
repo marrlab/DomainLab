@@ -8,7 +8,7 @@ from libdg.algos.observers.a_observer import AObVisitor
 from libdg.utils.utils_class import store_args
 from libdg.utils.perf import PerfClassif
 from libdg.compos.exp.exp_utils import ExpModelPersistVisitor
-
+from libdg.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 
 def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scalar=False):
     model.eval()
@@ -26,6 +26,7 @@ def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scal
         with open(fa, 'a') as f:
             for pair in list_pair_path_pred:
                 print(str(pair)[1:-1], file=f)  # 1:-1 removes brackets of tuple
+    print("prediction saved in file ", fa)
 
 
 class ObVisitor(AObVisitor):
@@ -81,7 +82,8 @@ class ObVisitor(AObVisitor):
         acc_te = PerfClassif.cal_acc(model_ld, self.loader_te, self.device)
         print("persisted model acc: ", acc_te)
         self.exp.visitor(acc_te)
-        pred2file(self.loader_te, self.host_trainer.model, self.device)
+        if isinstance(self.exp.task, NodeTaskFolderClassNaMismatch):
+            pred2file(self.loader_te, self.host_trainer.model, self.device)
 
     def clean_up(self):
         """
