@@ -12,6 +12,8 @@ from libdg.utils.utils_class import store_args
 
 
 class ImSize():
+    """ImSize."""
+
     @store_args
     def __init__(self, i_c, i_h, i_w):
         """
@@ -43,14 +45,14 @@ def mk_onehot(dim, ind):
     return vec
 
 
-def mk_loader(dset, bsize, drop_last=True):
+def mk_loader(dset, bsize, drop_last=True, shuffle=True):
     """
     :param bs: batch size
     """
     loader = torch.utils.data.DataLoader(
         dataset=dset,
         batch_size=bsize,
-        shuffle=True,
+        shuffle=shuffle,
         # shuffle must be true so the last incomplete batch get used in anohter epoch
         num_workers=1,   # FIXME:
         drop_last=drop_last)
@@ -82,11 +84,26 @@ class DsetDomainVecDecorator(Dataset):
         """
         :param idx:
         """
-        tensor, vec_class = self.dset.__getitem__(idx)
+        tensor, vec_class, *_ = self.dset.__getitem__(idx)
         return tensor, vec_class, self.vec_domain
 
     def __len__(self):
+        """__len__."""
         return self.dset.__len__()
+
+
+class DsetDomainVecDecoratorImgPath(DsetDomainVecDecorator):
+    """
+    Except returning x, y, d, additionally, the path of x is
+    returned currently not in use since it is mostly important
+    to print predictions together with path  for the test domain
+    """
+    def __getitem__(self, idx):
+        """
+        :param idx:
+        """
+        tensor, vec_class, path = self.dset.__getitem__(idx)
+        return tensor, vec_class, self.vec_domain, path
 
 
 class DsetClassVecDecorator(Dataset):
@@ -135,7 +152,22 @@ class DsetClassVecDecorator(Dataset):
         return tensor, vec_class_new
 
     def __len__(self):
+        """__len__."""
         return self.dset.__len__()
+
+
+class DsetClassVecDecoratorImgPath(DsetClassVecDecorator):
+    def __getitem__(self, idx):
+        """
+        :param idx:
+        This function is mainly
+        """
+        tensor, vec_class, path = self.dset.__getitem__(idx)
+        vec_class = vec_class.numpy()
+        ind_old = numpy.argmax(vec_class)
+        class_local = self.dict_old_idx2old_class[ind_old]
+        vec_class_new = self.dict_class_na_local2vec_new[class_local]
+        return tensor, vec_class_new, path
 
 
 class LoaderDomainLabel():
@@ -143,6 +175,11 @@ class LoaderDomainLabel():
     wraps a dataset with domain label and into a loader
     """
     def __init__(self, batch_size, dim_d):
+        """__init__.
+
+        :param batch_size:
+        :param dim_d:
+        """
         self.batch_size = batch_size
         self.dim_d = dim_d
 
@@ -162,6 +199,10 @@ class LoaderDomainLabel():
 
 
 def tensor1hot2ind(tensor_label):
+    """tensor1hot2ind.
+
+    :param tensor_label:
+    """
     _, label_ind = torch.max(tensor_label, dim=1)
     npa_label_ind = label_ind.numpy()
     return npa_label_ind

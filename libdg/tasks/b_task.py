@@ -61,7 +61,7 @@ class NodeTaskDict(NodeTaskDGClassif):
             dset_te = self.get_dset_by_domain(args, na_domain)
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))
-        self._loader_te = mk_loader(dset_te, args.bs)
+        self._loader_te = mk_loader(dset_te, args.bs, drop_last=False, shuffle=False)
         self.count_domain_class()
 
     def count_domain_class(self):

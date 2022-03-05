@@ -1,10 +1,10 @@
 """
 https://github.com/pytorch/vision/blob/bb5af1d77658133af8be8c9b1a13139722315c3a/torchvision/datasets/folder.py#L93
-https://pytorch.org/vision/stable/_modules/torchvision/datasets/folder.html#DatasetFolder.make_dataset
+https://pytorch.org/vision/stable/_modules/torchvision/datasets/folder.html#DatasetFolder.fetch_img_paths
 """
 import os
 import sys
-from typing import cast, Callable, Tuple
+from typing import cast, Callable, Tuple, Any
 from torchvision.datasets import DatasetFolder
 
 
@@ -19,8 +19,8 @@ def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bo
     return filename.lower().endswith(extensions)
 
 
-def make_dataset(dir, class_to_idx, extensions=None, is_valid_file=None):
-    images = []
+def fetch_img_paths(dir, class_to_idx, extensions=None, is_valid_file=None):
+    list_tuple_path_cls_ind = []
     dir = os.path.expanduser(dir)
     if not ((extensions is None) ^ (is_valid_file is None)):
         raise ValueError(
@@ -37,9 +37,9 @@ def make_dataset(dir, class_to_idx, extensions=None, is_valid_file=None):
                 path = os.path.join(root, fname)
                 if is_valid_file(path):
                     item = (path, class_to_idx[target])
-                    images.append(item)   # FIXME
+                    list_tuple_path_cls_ind.append(item)   # FIXME
 
-    return images
+    return list_tuple_path_cls_ind
 
 
 class DsetSubFolder(DatasetFolder):
@@ -57,11 +57,29 @@ class DsetSubFolder(DatasetFolder):
             super().__init__(root, loader, extensions=None, transform=transform,   # FIXME:extension
                          target_transform=target_transform, is_valid_file=is_valid_file)
         classes, class_to_idx = self._find_classes(self.root)
-        samples = make_dataset(self.root, class_to_idx, None, is_valid_file)
+        samples = fetch_img_paths(self.root, class_to_idx, None, is_valid_file)
         self.classes = classes
         self.class_to_idx = class_to_idx
         self.samples = samples
         self.targets = [s[1] for s in samples]
+        self.path2imgs = [s[0] for s in samples]
+
+    def __getitem__(self, index: int) -> Tuple[Any, Any]:
+        """
+        Args:
+            index (int): Index
+
+        Returns:
+            tuple: (sample, target) where target is class_index of the target class.
+        """
+        path, target = self.samples[index]
+        sample = self.loader(path)
+        if self.transform is not None:
+            sample = self.transform(sample)
+        if self.target_transform is not None:
+            target = self.target_transform(target)
+
+        return sample, target, path
 
     def _find_classes(self, mdir):
         """

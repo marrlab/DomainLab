@@ -14,12 +14,16 @@ class PerfClassif():
             """
             :param list_vec_preds: list of batches
             """
+            assert len(list_vec_preds) > 0
             correct_count = 0
             obs_count = 0
             for pred, label in zip(list_vec_preds, list_vec_labels):
                 correct_count += torch.sum(torch.sum(pred == label, dim=1) == dim_target)
                 obs_count += pred.shape[0]  # batch size
-            acc = (correct_count.float()) / obs_count
+            if isinstance(correct_count, int):
+                acc = (correct_count) / obs_count
+            else:
+                acc = (correct_count.float()) / obs_count
             # AttributeError: 'int' object has no attribute 'float'
             # reason: batchsize is too big
             return acc
