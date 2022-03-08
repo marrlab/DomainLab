@@ -15,7 +15,7 @@ class TrainerBasic(TrainerClassif):
             tensor_x, vec_y, vec_d = \
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             self.optimizer.zero_grad()
-            loss = self.model(tensor_x, vec_y, vec_d)
+            loss = self.model.cal_loss(tensor_x, vec_y, vec_d)  # FIXME
             loss = loss.sum()
             loss.backward()
             self.optimizer.step()

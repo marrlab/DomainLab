@@ -38,13 +38,13 @@ By default, libDG generate outputs to a folder called "zoutput" relative to the 
 ```
 zoutput/
 ├── aggrsts (aggregation of results)
-│   ├── task1_test_domain1_tagName.csv
-│   ├── task2_test_domain3_tagName.csv
-│   
-│  
+│   ├── task1_test_domain1_tagName.csv
+│   ├── task2_test_domain3_tagName.csv
+│   
+│  
 ├── [gen] (counterfactual image generation)
-│   ├── task1_test_domain1
-│   
+│   ├── task1_test_domain1
+│   
 └── saved_models (persisted pytorch model)
     ├── task1_algo1_git-commit-hashtag1_seed_1.model
     ├── task1_algo1_git-commit-hashtag1_seed_1.model_oracle
@@ -67,21 +67,21 @@ It might also be the case that some classes exist in one data source but does no
 Folder structure of the 1st domain:
 ```
     ── /path/to/1st_domain/folder_a
-       ├── auto
-       ├── hund
-       ├── mensch
-       ├── stuhl
-       └── vogel
+       ├── auto
+       ├── hund
+       ├── mensch
+       ├── stuhl
+       └── vogel
     
 ```
 Folder structure of the 2nd domain:
 
 ```
     ── /path/to/2nd_domain/folder_b
-       ├── bird
-       ├── drive
-       ├── sit
-       └── husky
+       ├── bird
+       ├── drive
+       ├── sit
+       └── husky
 ```
 Folder structure of the 3rd domain: 
 
@@ -180,6 +180,12 @@ taskna: user defined task name
 
 # Design
 ![Design Diagram](libDG.svg)
+
+# Extend libDG with your own algorithm and/or contribute to libDG
+- implement libdg/algos/builder_your-algorithm-name.py
+- add your algorihtm into libdg/algos/zoo_algos.py by `chain = NodeAlgoBuilder[your-algorithm-name](chain)`
+- note that all algorithms will be converted to lower case!
+- make a pull request (optional)
 
 # Credits
 Contact: Xudong Sun (smilesun.east@gmail.com, Institute of AI for Health, Helmholtz Munich, Germany)

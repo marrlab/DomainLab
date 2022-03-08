@@ -74,6 +74,11 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         return self._loader_tr
 
     @property
+    def loader_val(self):
+        """loader of validation dataset on the training domains"""
+        return self._loader_val
+
+    @property
     def loader_te(self):
         """loader of mixed test domains"""
         return self._loader_te
@@ -86,11 +91,13 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         """
         return type(self).__name__[8:].lower()
 
-    def get_na(self, na_te):
+    def get_na(self, na_tr, na_te):
         """
         task name appended with configurations
+        :param na_tr: training domain names
+        :param na_te: test domain names
         """
-        list_tr, list_te = self.get_list_domains_tr_te(na_te)
+        list_tr, list_te = self.get_list_domains_tr_te(na_tr, na_te)
         str_tr = "_".join(list_tr)
         str_te = "_".join(list_te)
         return "_".join([self.task_name, "te", str_te])  # train domain names are too long
@@ -101,7 +108,7 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         """
         return request == self.task_name
 
-    def get_list_domains_tr_te(self, te_id):
+    def get_list_domains_tr_te(self, tr_id, te_id):
         """
         For static DG task, get train and test domains list
         """
@@ -121,8 +128,27 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
             else:
                 raise RuntimeError("test domain should be either int or str")
         assert set(list_domain_te).issubset(set(list_domains))
-        list_domain_tr = [did for did in list_domains if did not in list_domain_te]
+
+        if tr_id is None:
+            list_domain_tr = [did for did in list_domains if did not in list_domain_te]
+        else:
+            if not isinstance(tr_id, list):
+                tr_id = [tr_id]
+            list_domain_tr = []
+            for ele in tr_id:
+                if isinstance(ele, int):
+                    list_domain_tr.append(list_domains[ele])
+                elif isinstance(ele, str):
+                    if ele.isdigit():
+                        list_domain_tr.append(list_domains[int(ele)])
+                    else:
+                        list_domain_tr.append(ele)
+                else:
+                    raise RuntimeError("training domain should be either int or str")
         assert set(list_domain_tr).issubset(set(list_domains))
+        if set(list_domain_tr) & set(list_domain_te):
+            raise RuntimeError("training and test domains should not overlap")
+
         self.dim_d_tr = len(list_domain_tr)
         self._list_domain_tr = list_domain_tr
         return list_domain_tr, list_domain_te
