@@ -7,6 +7,28 @@ from libdg.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from libdg.tasks.utils_task import img_loader2dir
 
 
+def parse_domain_id(list_domain_id, list_domains):
+    """
+    Convert ids to a list of domain names.
+    :param list_domain_id: domain id or ids provided as an int or str, or a list of int or str.
+    :param list_domains: list of available domains
+    """
+    if not isinstance(list_domain_id, list):
+        list_domain_id = [list_domain_id]
+    list_domains_subset = []
+    for ele in list_domain_id:
+        if isinstance(ele, int):
+            list_domains_subset.append(list_domains[ele])
+        elif isinstance(ele, str):
+            if ele.isdigit():
+                list_domains_subset.append(list_domains[int(ele)])
+            else:
+                list_domains_subset.append(ele)
+        else:
+            raise RuntimeError("domain ids should be either int or str")
+    return list_domains_subset
+
+
 class NodeTaskDGClassif(AbstractChainNodeHandler):
     """
     Domain Generalization Classification Task
@@ -113,39 +135,16 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         For static DG task, get train and test domains list
         """
         list_domains = self.get_list_domains()
-        if not isinstance(te_id, list):
-            te_id = [te_id]
 
-        list_domain_te = []
-        for ele in te_id:
-            if isinstance(ele, int):
-                list_domain_te.append(list_domains[ele])
-            elif isinstance(ele, str):
-                if ele.isdigit():
-                    list_domain_te.append(list_domains[int(ele)])
-                else:
-                    list_domain_te.append(ele)
-            else:
-                raise RuntimeError("test domain should be either int or str")
+        list_domain_te = parse_domain_id(te_id, list_domains)
         assert set(list_domain_te).issubset(set(list_domains))
 
         if tr_id is None:
             list_domain_tr = [did for did in list_domains if did not in list_domain_te]
         else:
-            if not isinstance(tr_id, list):
-                tr_id = [tr_id]
-            list_domain_tr = []
-            for ele in tr_id:
-                if isinstance(ele, int):
-                    list_domain_tr.append(list_domains[ele])
-                elif isinstance(ele, str):
-                    if ele.isdigit():
-                        list_domain_tr.append(list_domains[int(ele)])
-                    else:
-                        list_domain_tr.append(ele)
-                else:
-                    raise RuntimeError("training domain should be either int or str")
+            list_domain_tr = parse_domain_id(tr_id, list_domains)
         assert set(list_domain_tr).issubset(set(list_domains))
+
         if set(list_domain_tr) & set(list_domain_te):
             raise RuntimeError("training and test domains should not overlap")
 
