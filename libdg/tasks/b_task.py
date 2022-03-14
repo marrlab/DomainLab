@@ -10,6 +10,12 @@ from libdg.tasks.utils_task import mk_loader, mk_onehot, DsetDomainVecDecorator
 from libdg.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
+def dset_decoration_args_algo(args, ddset):
+    if "match" in args.aname:  # FIXME: are there ways not to use this if statement?
+            ddset = DsetIndDecorator4XYD(ddset)
+    return ddset
+
+
 class NodeTaskDict(NodeTaskDGClassif):
     """
     Use dictionaries to create train and test domain split
@@ -50,8 +56,9 @@ class NodeTaskDict(NodeTaskDGClassif):
             dset = self.get_dset_by_domain(args, na_domain)
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)
             ddset = DsetDomainVecDecorator(dset, vec_domain, na_domain)
-            if args.aname == "matchdg":  # FIXME: are there ways not to use this if statement?
-                ddset = DsetIndDecorator4XYD(ddset)
+            ddset = dset_decoration_args_algo(args, ddset)
+            # FIXME: Task is constructed independently from Algorithm
+            # are there ways not to use if statement on args.aname?
             self.dict_dset.update({na_domain: ddset})
         ddset_mix = ConcatDataset(tuple(self.dict_dset.values()))
         self._loader_tr = mk_loader(ddset_mix, args.bs)
