@@ -77,6 +77,9 @@ def mk_parser_main():
     arg_group_task.add_argument('--bs', type=int, default=100,
                                 help='loader batch size for mixed domains')
 
+    arg_group_task.add_argument('--split', type=float, default=0,
+                                help='proportion of training, 0 means no train-validation split')
+
     arg_group_task.add_argument('--te_d', nargs='*', default=None,
                                 help='test domain names separated by single space, \
                                 will be parsed to be list of strings')

@@ -35,19 +35,30 @@ class NodeTaskMNISTColor10(NodeTaskDict):
             list_domains.append(domain)
         return list_domains
 
-    def get_dset_by_domain(self, args, na_domain, split=False):
+    def get_dset_by_domain(self, args, na_domain, split=True):
+        """get_dset_by_domain.
+        :param args:
+        :param na_domain:
+        :param split: for test set, no need to split
+        args.split: by default, split is set to be zero which in python can
+        be evaluated in if statement, in which case, no validation set will be
+        created. Otherwise, this argument is the split ratio
+        """
+        ratio_split = float(args.split) if split else False
+        # by default, split is set to be zero which in python can
+        # be evaluated in if statement, in which case, no validation
+        # set will be created. Otherwise, this argument is
+        # the split ratio
         ind_global = self.get_list_domains().index(na_domain)
         dset = DsetMNISTColorSoloDefault(ind_global, args.dpath)
+        train_set = dset
+        val_set = dset
         # split dset into training and test
-        if split:
-            # FIXME: hardcoded 80/20 split for now...
-            train_len = int(len(dset) * 0.8)
+        if ratio_split:
+            train_len = int(len(dset) * ratio_split)
             val_len = len(dset) - train_len
             train_set, val_set = random_split(dset, [train_len, val_len])
-            return train_set, val_set
-        else:
-            # FIXME: adjust returns to return the same type of object in either case
-            return dset
+        return train_set, val_set
 
 def test_fun():
     from libdg.utils.arg_parser import mk_parser_main

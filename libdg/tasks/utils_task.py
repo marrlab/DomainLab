@@ -49,6 +49,8 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
     """
     :param bs: batch size
     """
+    if len(dset) < bsize:
+        bsize = len(dset)
     loader = torch.utils.data.DataLoader(
         dataset=dset,
         batch_size=bsize,
