@@ -37,7 +37,9 @@ class NodeTaskFolder(NodeTaskDict):
     def extensions(self, str_format):
         self.dict_att["img_extensions"] = str_format
 
-    def get_dset_by_domain(self, args, na_domain):
+    def get_dset_by_domain(self, args, na_domain, split=False):
+        if float(args.split):
+            raise RuntimeError("this task does not support spliting training domain yet")
         if self._dict_domain_img_trans:
             trans = self._dict_domain_img_trans[na_domain]
             if na_domain not in self.list_domain_tr:
@@ -50,14 +52,16 @@ class NodeTaskFolder(NodeTaskDict):
                              extensions=self.extensions,
                              transform=trans,
                              target_transform=mk_fun_label2onehot(len(self.list_str_y)))
-        return dset
+        return dset, dset  # FIXME: validation by default set to be training set
 
 
 class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
     """
     when the folder names of the same class from different domains have different names
     """
-    def get_dset_by_domain(self, args, na_domain):
+    def get_dset_by_domain(self, args, na_domain, split=False):
+        if float(args.split):
+            raise RuntimeError("this task does not support spliting training domain yet")
         print("reading domain:", na_domain)
         domain_class_dirs = self._dict_domain_folder_name2class[na_domain].keys()
         if self._dict_domain_img_trans:
@@ -79,4 +83,4 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
         # since it does not have other needed attributes in bewteen
         if args.dmem:
             dset = DsetInMemDecorator(dset, na_domain)
-        return dset
+        return dset, dset # FIXME: validation by default set to be training set

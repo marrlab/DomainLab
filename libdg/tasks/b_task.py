@@ -49,26 +49,37 @@ class NodeTaskDict(NodeTaskDGClassif):
         """
         create a dictionary of datasets
         """
-        list_domain_tr, list_domain_te = self.get_list_domains_tr_te(args.te_d)
+        list_domain_tr, list_domain_te = self.get_list_domains_tr_te(args.tr_d, args.te_d)
         self.dict_dset = dict()
+        self.dict_dset_val = dict()
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
-            dset = self.get_dset_by_domain(args, na_domain)
+            dset_tr, dset_val = self.get_dset_by_domain(args, na_domain)
+            # FIXME: currently, different task has different default values for
+            # split, for TaskFolder split default to False, for mnist, split
+            # default to True
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)
-            ddset = DsetDomainVecDecorator(dset, vec_domain, na_domain)
-            ddset = dset_decoration_args_algo(args, ddset)
-            # FIXME: Task is constructed independently from Algorithm
-            # are there ways not to use if statement on args.aname?
-            self.dict_dset.update({na_domain: ddset})
+            ddset_tr = DsetDomainVecDecorator(dset_tr, vec_domain, na_domain)
+            ddset_val = DsetDomainVecDecorator(dset_val, vec_domain, na_domain)
+            ddset_tr = dset_decoration_args_algo(args, ddset_tr)
+            ddset_val = dset_decoration_args_algo(args, ddset_val)
+            self.dict_dset.update({na_domain: ddset_tr})
+            self.dict_dset_val.update({na_domain: ddset_val})
         ddset_mix = ConcatDataset(tuple(self.dict_dset.values()))
         self._loader_tr = mk_loader(ddset_mix, args.bs)
+
+        ddset_mix_val = ConcatDataset(tuple(self.dict_dset_val.values()))
+        self._loader_val = mk_loader(ddset_mix_val, args.bs)
+
         self.dict_dset_te = dict()
         # No need to have domain Label for test
         for na_domain in list_domain_te:
-            dset_te = self.get_dset_by_domain(args, na_domain)
+            dset_te, *_ = self.get_dset_by_domain(args, na_domain, split=False)
+            # FIXME: since get_dset_by_domain always return two datasets,
+            # train and validation, this is not needed in test domain
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))
-        self._loader_te = mk_loader(dset_te, args.bs, drop_last=False, shuffle=False)
+        self._loader_te = mk_loader(dset_te, args.bs, drop_last=False)
         self.count_domain_class()
 
     def count_domain_class(self):
@@ -87,6 +98,7 @@ class NodeTaskDict(NodeTaskDGClassif):
         labels_count = torch.zeros(self.dim_y, dtype=torch.long)
         for _, target, *_ in dset:
             labels_count += target.long()
+
         list_count = list(labels_count.cpu().numpy())
         dict_class_count = dict()
         for name, count in zip(self.list_str_y, list_count):

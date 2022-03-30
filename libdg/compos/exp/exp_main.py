@@ -55,6 +55,6 @@ class Exp():
 def test_exp():
     from libdg.utils.arg_parser import mk_parser_main
     parser = mk_parser_main()
-    args = parser.parse_args(["--te_d", "2", "--task", "mnistcolor4", "--debug"])
+    args = parser.parse_args(["--te_d", "2", "--task", "mnistcolor10", "--debug"])
     exp = Exp(args)
     exp.execute()
