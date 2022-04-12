@@ -6,3 +6,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepal
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=32 --aname=dann
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=hduva --nocu
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=20 --aname=matchdg --epochs_ctr=3 --epochs_erm=3   # learning rate is crutial for having NAN
+
+# the algorithm has to be NodeAlgoBuilderXXXX, where XXXX is user defined algorithm name, in the command line, --aname has to be exactly that string.
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=libdg/zoo/algos/builder_deepall_copy.py --aname=deepall2
+
