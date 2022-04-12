@@ -4,6 +4,7 @@ from libdg.algos.builder_deepall import NodeAlgoBuilderDeepAll
 from libdg.algos.builder_dann import NodeAlgoBuilderDANN
 from libdg.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from libdg.algos.builder_matchdg import NodeAlgoBuilderMatchDG
+from libdg.utils.u_import import import_path
 
 
 class AlgoBuilderChainNodeGetter(object):
@@ -13,6 +14,15 @@ class AlgoBuilderChainNodeGetter(object):
     """
     def __init__(self, args):
         self.request = RequestArgs2ExpCmd(args)()
+        self.args = args
+
+    def register_external_node(self, chain):
+        if self.args.apath is None:
+            return chain
+        node_module = import_path(self.args.apath)
+        node_fun = node_module.build_node()  # FIXME: build_node API need
+        newchain = node_fun()(chain)
+        return newchain
 
     def __call__(self):
         """
@@ -24,5 +34,6 @@ class AlgoBuilderChainNodeGetter(object):
         chain = NodeAlgoBuilderDANN(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
         chain = NodeAlgoBuilderMatchDG(chain)
+        chain = self.register_external_node(chain)
         node = chain.handle(self.request)
         return node
