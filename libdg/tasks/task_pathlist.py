@@ -5,6 +5,10 @@ each line consistiing of a pair, where the first slot contains the path
 of an image and the second slot contains the label of numerical string.
 """
 import os
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
+# "too many opened files" https://github.com/pytorch/pytorch/issues/11201
+
 from torchvision import transforms
 from libdg.tasks.b_task import NodeTaskDict
 from libdg.dsets.utils_data import mk_fun_label2onehot
@@ -49,7 +53,7 @@ def mk_node_task_path_list(isize,
             if self._dict_domain_img_trans:
                 trans = self._dict_domain_img_trans[na_domain]
             else:
-                trans = transforms.ToTensor()
+                trans = trans4all
             root_img = self.dict_domain2imgroot[na_domain]
             path2filelist = list_domain_path[na_domain]
             path2filelist = os.path.expanduser(path2filelist)
