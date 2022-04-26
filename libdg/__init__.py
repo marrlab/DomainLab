@@ -1,3 +1,4 @@
+__docformat__ = "restructuredtext"
 from . import tasks
 
 algos = {

@@ -30,6 +30,9 @@ class ModelDAN(AModelClassif):
         return vec_one_hot, prob, ind, confidence, na_class
 
     def forward(self, tensor_x, tensor_y, tensor_d):
+        return self.cal_loss(tensor_x, tensor_y, tensor_d)
+
+    def cal_loss(self, tensor_x, tensor_y, tensor_d):
         feat = self.net_encoder(tensor_x)
         logit_d = self.net_discriminator(AutoGradFunReverseMultiply.apply(feat, self.alpha))
         logit_y = self.net_classifier(feat)

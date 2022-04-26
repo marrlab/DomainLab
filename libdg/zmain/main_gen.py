@@ -1,13 +1,19 @@
+"""
+command line generate images
+"""
 import os
 import torch
-from exp.exp_cuda_seed import set_seed
-from tasks.zoo_tasks import TaskChainNodeGetter
-from arg_parser import mk_parser_main
+from libdg.compos.exp.exp_cuda_seed import set_seed
+from libdg.tasks.zoo_tasks import TaskChainNodeGetter
+from libdg.arg_parser import mk_parser_main
 from libdg.utils.utils_cuda import get_device
 from libdg.utils.flows_gen_img_model import fun_gen
-from libdg.compos.pcr.request import RequestTask
+
 
 def main_gen(args, task=None, model=None, device=None):
+    """
+    command line generate images
+    """
     device = get_device(args.nocu)
     node = TaskChainNodeGetter(args)()
     node.init_business(args)
@@ -19,7 +25,8 @@ def main_gen(args, task=None, model=None, device=None):
 
 if __name__ == "__main__":
     parser = mk_parser_main()
-    parser.add_argument('--mpath', type=str, default=None, help="path for persisted model")
+    parser.add_argument('--mpath', type=str, default=None,
+                        help="path for persisted model")
     args = parser.parse_args()
     set_seed(args.seed)
     main_gen(args)

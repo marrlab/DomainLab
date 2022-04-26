@@ -1,9 +1,8 @@
 """
 Trainer for TopicVAE
 """
-import torch
-from train.train_interface import AbstractTrainer
-from train.train_match_dg import TrainerMatchDG
+from libdg.algos.trainers.train_matchdg import TrainerMatchDG
+
 
 def get_wrap_ctr_trainer(base):
     class TrainerWrapCTR(base):
