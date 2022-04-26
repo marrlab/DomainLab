@@ -1,15 +1,15 @@
 LibDG: Library of Domain Generalization
 ================================================
-# Domain Generalization and libDG
+## Domain Generalization and libDG
 
-## Domain Generalization
+### Domain Generalization
 
 Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains so the learned feature can generalize to new unseen domains. 
 
 A typical setting of evaluating domain generalization algorithm is the so called leave-one-domain-out scheme, where one dataset is collected from each distribution. Each time, one dataset/domain is left as test-set to estimate the generalization performance of a model trained upon the rest of domains/datasets.
 
 
-## Why a dedicated library?
+### Why a dedicated library?
 
 Domain generalization algorithm try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss.
 
@@ -22,7 +22,7 @@ Once you came across a claim,  that a domain generalization algorithm $A$ can ge
 To maximally decouple these attributing factors, LibDG was implemented with software design patterns, where
 
 - Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file.
-- To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument. See [Task Specification](libdg/task/README.md) 
+- To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument. See [Task Specification](libdg/tasks/README.md) 
 
 # Getting started
 ## Basic usage
@@ -35,7 +35,7 @@ LibDG comes with some minimal toy-dataset to test its basis functionality. To tr
 ```
 python main_out.py --te_d=caltech --tpath=./libdg/zoo/task_vlcs.py --debug --bs=20 --aname=diva
 ```
-where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](libdg/task/README.md). `--aname` specifies which algorithm to use, see [Available Algorithms](libdg/algos/README.md)
+where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](libdg/tasks/README.md). `--aname` specifies which algorithm to use, see [Available Algorithms](libdg/algos/README.md)
 
 For usage of other arguments, check with `python main_out.py --help`
 
