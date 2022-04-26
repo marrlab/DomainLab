@@ -1,8 +1,18 @@
 # Task Specification
 LibDG offers various ways to specify the domain generalization task. 
 
+## TaskPathList
+CSV file specifying the path of an image file, comma separated with its class label.
+See example here: 
+[TaskPathList](../libdg/zoo/demo_task_path_list.py)  where data can be download from (https://domaingeneralization.github.io/#data)
+
+The user should specify the location of the python file like below
+```
+python main_out.py --te_d=sketch --tpath=libdg/zoo/demo_task_path_list.py --debug --bs=2
+```
+
 ## TaskFolder
-One way to specify task is by reading directly from structured folders where each folder contains one domain.
+Structured folders where each folder contains one domain.
 
 #### Data organization
 To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name "folder_a", "folder_b" and "folder_c" respectively as shown below. 

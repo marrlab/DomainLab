@@ -13,11 +13,11 @@ A typical setting of evaluating domain generalization algorithm is the so called
 
 Domain generalization algorithm try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss.
 
-Once you came across a claim,  that a domain generalization algorithm $A$ can generate a "better" model  $h$ upon some datasets $D$ with "better" performance $T$ compared to other algorithms, have you ever wondered:
+Once you came across a claim,  that a domain generalization algorithm A can generate a "better" model  h upon some datasets D with "better" performance compared to other algorithms, have you ever wondered:
 
-- Is this mostly attributed to a more "powerful" neural network architecture of model $A$ compared to others? What will happen if I change the backbone neural network of algorithm $A$ from ResNet to AlexNet?
+- Is this mostly attributed to a more "powerful" neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?
 - Is this mostly attributed the protocol of estimating the generalization performance? e.g. dataset split, Will this algorithm "work" for my datasets?
-- Is this mostly attributed to the "clever" regularization algorithm $A$ has used?
+- Is this mostly attributed to the "clever" regularization algorithm A has used?
 
 To maximally decouple these attributing factors, LibDG was implemented with software design patterns, where
 
@@ -63,6 +63,10 @@ zoutput/
 # Extend libDG with a domain generalization algorithm
 
 ## Playground extension
+Look at this example:
+```
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=libdg/zoo/algos/builder_deepall_copy.py --aname=deepall2
+```
 
 ## Contribute to libDG by implementing a serious algorithm
 - implement libdg/algos/builder_your-algorithm-name.py
