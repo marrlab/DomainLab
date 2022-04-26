@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 from torch.nn import functional as F
 
@@ -29,7 +30,10 @@ def get_label_na(tensor_ind, list_str_na):
     """
     given list of label names in strings, map tensor of index to label names
     """
-    arr_ind = tensor_ind.cpu().numpy().squeeze()
-    list_ind = list(arr_ind)
+    arr_ind_np = tensor_ind.cpu().numpy()
+    arr_ind = np.squeeze(arr_ind_np, axis=1)   # explicitly use axis=1 to deal with edge case of only
+    # instance left
+    # list_ind = list(arr_ind): if there is only dimension 1 tensor_ind, then there is a problem
+    list_ind = arr_ind.tolist()
     list_na = [list_str_na[ind] for ind in list_ind]
     return list_na

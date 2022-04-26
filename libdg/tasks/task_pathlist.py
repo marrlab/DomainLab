@@ -1,14 +1,18 @@
 """
-When class names and numbers does not match across different domains
+The class TaskPathList provide the user an interface to provide a file with
+each line consistiing of a pair, where the first slot contains the path
+(either absolute or relative if the user knows from where libDG is executed)
+of an image and the second slot contains the label of numerical string.
 """
 import os
-from torch.utils.data.dataset import ConcatDataset
+import torch.multiprocessing
+torch.multiprocessing.set_sharing_strategy('file_system')
+# "too many opened files" https://github.com/pytorch/pytorch/issues/11201
+
 from torchvision import transforms
 from libdg.tasks.b_task import NodeTaskDict
-from libdg.dsets.utils_data import mk_fun_label2onehot, fun_img_path_loader_default
-from libdg.dsets.dset_img_path_list import DsetImPathList
 from libdg.dsets.utils_data import mk_fun_label2onehot
-
+from libdg.dsets.dset_img_path_list import DsetImPathList
 
 
 def mk_node_task_path_list(isize,
@@ -17,75 +21,90 @@ def mk_node_task_path_list(isize,
                            dict_class_label2name,
                            dict_domain2imgroot,
                            dict_d2filepath_list_img,
+                           dict_d2filepath_list_img_val,
+                           dict_d2filepath_list_img_te,
                            succ=None):
+    """mk_node_task_path_list.
+
+    :param isize:
+    :param list_str_y:
+    :param trans4all:
+    :param dict_class_label2name:
+    :param dict_domain2imgroot:
+    :param dict_d2filepath_list_img:
+    :param dict_d2filepath_list_img_val:
+    :param dict_d2filepath_list_img_te:
+    :param succ:
+    """
     class NodeTaskPathList(NodeTaskDict):
         """
-        imgpath: art_painting/dog/pic_376.jpg 1
+        The class TaskPathList provide the user an interface to provide a file
+        with each line consisting of a pair separated by comma, where the
+        first slot contains the path (either absolute or relative if the user
+        knows from where libDG is executed) of an image and the second slot
+        contains the class label as a numerical string.
+        e.g.: /path/2/file/art_painting/dog/pic_376.jpg 1
         """
-        def get_dset_by_domain(self, args, na_domain):
+        def _get_complete_domain(self, na_domain, list_domain_path):
+            """_get_complete_domain.
+
+            :param na_domain:
+            """
             if self._dict_domain_img_trans:
                 trans = self._dict_domain_img_trans[na_domain]
             else:
-                trans = transforms.ToTensor()
+                trans = trans4all
             root_img = self.dict_domain2imgroot[na_domain]
-            path2filelist = self._dict_domain2filepath_list_im[na_domain]
+            path2filelist = list_domain_path[na_domain]
             path2filelist = os.path.expanduser(path2filelist)
             root_img = os.path.expanduser(root_img)
             dset = DsetImPathList(root_img, path2filelist, trans_img=trans,
-                                  trans_target=mk_fun_label2onehot(len(self.list_str_y)))
+                                  trans_target=mk_fun_label2onehot(
+                                      len(self.list_str_y)))
             return dset
 
+        def get_dset_by_domain(self, args, na_domain, split=True):
+            """get_dset_by_domain.
+
+            :param args:
+            :param na_domain:
+            :param split: for test set, use the whole
+            """
+            if not split:  # no train/val split for test domain
+                dset = self._get_complete_domain(
+                    na_domain,
+                    self._dict_domain2filepath_list_im_te)
+                return dset, dset  # FIXME: avoid returning two identical
+
+            dset = self._get_complete_domain(
+                na_domain,
+                self._dict_domain2filepath_list_im)
+
+            dset_val = self._get_complete_domain(
+                na_domain,
+                self._dict_domain2filepath_list_im_val)
+
+            return dset, dset_val
+
         def conf(self, args):
+            """conf.
+
+            :param args:
+            """
             self.list_str_y = list_str_y
             self.isize = isize
             self.dict_domain2imgroot = dict_domain2imgroot
             self._dict_domain2filepath_list_im = dict_d2filepath_list_img
+            self._dict_domain2filepath_list_im_val = dict_d2filepath_list_img_val
+            self._dict_domain2filepath_list_im_te = dict_d2filepath_list_img_te
             self.set_list_domains(list(self.dict_domain2imgroot.keys()))
 
         def init_business(self, args):
+            """init_business.
+
+            :param args:
+            """
             self.conf(args)
             super().init_business(args)
 
     return NodeTaskPathList(succ)
-
-
-
-def test_fun():
-    """
-    """
-    from libdg.utils.arg_parser import mk_parser_main
-    from libdg.tasks.utils_task import img_loader2dir, ImSize
-
-
-    node = mk_node_task_path_list(
-        isize=ImSize(3, 224, 224),
-        list_str_y=["dog", "elephant", "giraffe", "guitar", "horse", "house", "person"],
-        dict_class_label2name={"1": "dog",
-                               "2": "elephant",
-                               "3": "giraffe",
-                               "4": "guitar",
-                               "5": "horse",
-                               "6": "house",
-                               "7": "person"},
-        dict_d2filepath_list_img={
-            "art_painting": "~/Documents/dataset/PACS/h5kfold/art_painting_train_kfold.txt",
-            "cartoon": "~/Documents/dataset/PACS/h5kfold/cartoon_train_kfold.txt",
-            "photo": "~/Documents/dataset/PACS/h5kfold/photo_train_kfold.txt",
-            "sketch": "~/Documents/dataset/PACS/h5kfold/sketch_train_kfold.txt"},
-        dict_domain2imgroot={
-            'art_painting': "~/Documents/dataset/PACS/raw",
-            'cartoon': "~/Documents/dataset/PACS/raw",
-            'photo': "~/Documents/dataset/PACS/raw",
-            'sketch': "~/Documents/dataset/PACS/raw"},
-        trans4all=transforms.ToTensor())
-
-
-    parser = mk_parser_main()
-    args = parser.parse_args(["--te_d", "1"])
-    node.init_business(args)
-
-
-    img_loader2dir(node._loader_te, list_domain_na=node.get_list_domains(),
-                   list_class_na=node.list_str_y, folder="zout/test_loader/pacs", batches=10)
-    img_loader2dir(node._loader_tr, list_domain_na=node.get_list_domains(),
-                   list_class_na=node.list_str_y, folder="zout/test_loader/pacs", batches=10)
