@@ -8,7 +8,8 @@ See example here:
 
 The user should specify the location of the python file like below
 ```
-python main_out.py --te_d=sketch --tpath=libdg/zoo/demo_task_path_list.py --debug --bs=2
+# suppose the current directory is the root directory of libDG
+python main_out.py --te_d=sketch --tpath=./examples/demo_task_path_list.py --debug --bs=2
 ```
 
 ## TaskFolder

@@ -32,9 +32,9 @@ cd libDG
 ```
 LibDG comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.
 ```
-python main_out.py --te_d=caltech --tpath=./libdg/zoo/task_vlcs.py --debug --bs=20 --aname=diva
+python main_out.py --te_d=caltech --tpath=./examples/task_vlcs.py --debug --bs=20 --aname=diva
 ```
-where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](libdg/tasks/README.md). `--aname` specifies which algorithm to use, see [Available Algorithms](libdg/algos/README.md)
+where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](libdg/tasks/README.md). `--aname` specifies which algorithm to use, see [Available Algorithms](libdg/algos/README.md), `--bs` specifies the batch size, `--debug` restrain only running for 2 epochs and save results with prefix 'debug'.
 
 For usage of other arguments, check with `python main_out.py --help`
 
@@ -64,7 +64,7 @@ zoutput/
 ## Playground extension
 Look at this example:
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=libdg/zoo/algos/builder_deepall_copy.py --aname=deepall2
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=./examples/algos/builder_deepall_copy.py --aname=deepall2
 ```
 
 ## Contribute to libDG by implementing a serious algorithm
