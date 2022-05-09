@@ -32,21 +32,38 @@ class TaskChainNodeGetter(object):
         chain = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
                                list_str_y=["chair", "car"],
                                dict_domain_folder_name2class={
-                                   "caltech": {"auto": "car", "stuhl": "chair"},
-                                   "sun": {"vehicle": "car", "sofa": "chair"},
-                                   "labelme": {"drive": "car", "sit": "chair"}
+                                   "caltech": {"auto": "car",
+                                               "stuhl": "chair"},
+                                   "sun": {"vehicle": "car",
+                                           "sofa": "chair"},
+                                   "labelme": {"drive": "car",
+                                               "sit": "chair"}
                                },
                                dict_domain_img_trans={
-                                   "caltech": transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]),
-                                   "sun": transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]),
-                                   "labelme": transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]),
+                                   "caltech": transforms.Compose(
+                                       [transforms.Resize((224, 224)),
+                                        transforms.ToTensor()]),
+                                   "sun": transforms.Compose(
+                                       [transforms.Resize((224, 224)),
+                                        transforms.ToTensor()]),
+                                   "labelme": transforms.Compose(
+                                       [transforms.Resize((224, 224)),
+                                        transforms.ToTensor()]),
                                },
-                               img_trans_te=transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]),
+                               img_trans_te=transforms.Compose(
+                                   [transforms.Resize((224, 224)),
+                                    transforms.ToTensor()]),
                                isize=ImSize(3, 224, 224),
                                dict_domain2imgroot={
-                                   "caltech": os.path.join(path_this_file, "../zdpath/vlcs_mini/caltech/"),
-                                   "sun": os.path.join(path_this_file, "../zdpath/vlcs_mini/sun/"),
-                                   "labelme": os.path.join(path_this_file, "../zdpath/vlcs_mini/labelme/")},
+                                   "caltech": os.path.join(
+                                       path_this_file,
+                                       "../../data/vlcs_mini/caltech/"),
+                                   "sun": os.path.join(
+                                       path_this_file,
+                                       "../../data/vlcs_mini/sun/"),
+                                   "labelme": os.path.join(
+                                       path_this_file,
+                                       "../../data/vlcs_mini/labelme/")},
                                taskna="mini_vlcs",
                                succ=chain)
 
@@ -56,7 +73,9 @@ class TaskChainNodeGetter(object):
             chain = node
             if self.args.task is None:
                 print("")
-                print("overriding args.task ", self.args.task, " to  ", node.task_name)
+                print("overriding args.task ",
+                      self.args.task, " to  ",
+                      node.task_name)
                 print("")
                 self.request = node.task_name  # FIXME
         node = chain.handle(self.request)
