@@ -4,7 +4,7 @@ LibDG offers various ways to specify the domain generalization task.
 ## TaskPathList
 CSV file specifying the path of an image file, comma separated with its class label.
 See example here: 
-[TaskSpecificationWithPathList](../../examples/demo_task_path_list.py)  where data can be download from (https://domaingeneralization.github.io/#data)
+[TaskSpecificationWithPathList](../../examples/demo_task_path_list.py)  where data can be download from (https://domaingeneralization.github.io/#data) or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
 
 The user should specify the location of the python file like below
 ```
