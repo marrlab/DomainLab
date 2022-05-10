@@ -44,7 +44,7 @@ def mk_parser_main():
                         help='absolute directory to store outputs')
 
     parser.add_argument('--dpath', type=str, default="zdpath",
-                        help="path for dataset")
+                        help="path for storing downloaded dataset")
 
     parser.add_argument('--tpath', type=str, default=None,
                         help="path for custom task, should implement get_task function")
@@ -81,16 +81,18 @@ def mk_parser_main():
                                 help='loader batch size for mixed domains')
 
     arg_group_task.add_argument('--split', type=float, default=0,
-                                help='proportion of training, 0 means no train-validation split')
+                                help='proportion of training, \
+                                0 means no train-validation split')
 
     arg_group_task.add_argument('--te_d', nargs='*', default=None,
                                 help='test domain names separated by single space, \
                                 will be parsed to be list of strings')
 
     arg_group_task.add_argument('--tr_d', nargs='*', default=None,
-                                help='training domain names separated by single space, \
-                                will be parsed to be list of strings; if not provided \
-                                then all available domains that are not assigned to \
+                                help='training domain names separated by \
+                                single space, will be parsed to be list of \
+                                strings; if not provided then all available \
+                                domains that are not assigned to \
                                 the test set will be used as training domains')
 
     arg_group_vae = parser.add_argument_group('vae')
