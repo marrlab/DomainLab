@@ -37,7 +37,7 @@ python main_out.py --te_d=caltech --tpath=./examples/task_vlcs.py --debug --bs=2
 where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](libdg/tasks/README.md). `--aname` specifies which algorithm to use, see [Available Algorithms](libdg/algos/README.md), `--bs` specifies the batch size, `--debug` restrain only running for 2 epochs and save results with prefix 'debug'.
 
 For usage of other arguments, check with `python main_out.py --help`
-See also [Examples](libdg/examples.sh).
+See also [Examples](./examples.sh).
 
 ### Output structure
 By default, libDG generate outputs to a folder called "zoutput" relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)
