@@ -1,9 +1,9 @@
 from libdg.compos.a_nn_builder import AbstractFeatExtractNNBuilderChainNode
-from libdg.compos.nn_alex import Alex4DeepAll
+from libdg.compos.nn_alex import Alex4DeepAll, AlexNetNoLastLayer
 
 
 class NodeFeatExtractNNBuilderAlex(AbstractFeatExtractNNBuilderChainNode):
-    def init_business(self, flag_pretrain, dim_feat):
+    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False):
         """
         initialize **and** return the heavy weight business object for doing
         the real job
@@ -12,7 +12,9 @@ class NodeFeatExtractNNBuilderAlex(AbstractFeatExtractNNBuilderChainNode):
         :return: the constructed service object
         """
         self.net_feat_extract = Alex4DeepAll(flag_pretrain, dim_feat)
-        return self.net_feat_extract
+        if remove_last_layer:
+            self.net_feat_extract = Alex4DeepAll(flag_pretrain, dim_feat)
+        return self.net_feat_extract = AlexNetNoLastLayer(flag_pretrain)
 
     def is_myjob(self, args):
         """is_myjob.
