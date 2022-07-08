@@ -39,36 +39,23 @@ where `--tpath` specifies the path of a user specified python file which defines
 For usage of other arguments, check with `python main_out.py --help`
 See also [Examples](./examples.sh).
 
-### Output structure
-By default, libDG generate outputs to a folder called "zoutput" relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)
-
-```
-zoutput/
-├── aggrsts (aggregation of results)
-│   ├── task1_test_domain1_tagName.csv
-│   ├── task2_test_domain3_tagName.csv
-│   
-│  
-├── [gen] (counterfactual image generation)
-│   ├── task1_test_domain1
-│   
-└── saved_models (persisted pytorch model)
-    ├── task1_algo1_git-commit-hashtag1_seed_1.model
-    ├── task1_algo1_git-commit-hashtag1_seed_1.model_oracle
-```
+### Output structure and results storage
+[Output structure](./doc_output.md)
 
 # Design
 ![Design Diagram](libDG.svg)
 
-# Extend libDG with a domain generalization algorithm
+# Extend libDG with a custom domain generalization algorithm
 
-## Playground extension
-Look at this example:
+## External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG
+Look at this dummy example:
 ```
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=./examples/algos/builder_deepall_copy.py --aname=deepall2
 ```
+where the template file corresponding to "--apath" can be found in the example folder of this repository, LibDG will read this file 
+and build an external node.
 
-## Contribute to libDG by implementing a serious algorithm
+## Internal extension by integrating an algorithm into LibDG
 - implement libdg/algos/builder_your-algorithm-name.py
 - add your algorithm into libdg/algos/zoo_algos.py by adding `chain = NodeAlgoBuilder[your-algorithm-name](chain)`
 - note that all algorithms will be converted to lower case!
