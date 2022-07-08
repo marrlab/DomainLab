@@ -22,7 +22,7 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                              MSelOracleVisitor(
                                  MSelTrLoss(max_es=args.es)), device)
 
-        net = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        net = FeatExtractNNBuilderChainNodeGetter(args, task)()  # request
         net.init_business()
 
         model = ModelDeepAll(net, list_str_y=task.list_str_y)
