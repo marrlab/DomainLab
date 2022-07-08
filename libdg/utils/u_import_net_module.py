@@ -26,11 +26,11 @@ def import_net_module_from_path(path_net_feat_extract):
                            of this pytorch module must be %s and the module \
                            must contain signature %s"
                            % (name_custom_net, name_signature))
-    net = getattr(module_external, name=name_custom_net)
-    assert "dim_feat" in str(inspect.signature(net.__init__))
-    assert "i_c" in str(inspect.signature(net.__init__))
-    assert "i_h" in str(inspect.signature(net.__init__))
-    assert "i_w" in str(inspect.signature(net.__init__))
+    net = getattr(module_external, name_custom_net)
+    # assert "dim_feat" in str(inspect.signature(net.__init__))
+    # assert "i_c" in str(inspect.signature(net.__init__))
+    # assert "i_h" in str(inspect.signature(net.__init__))
+    # assert "i_w" in str(inspect.signature(net.__init__))
 
 
 def build_external_obj_net_module_feat_extract(mpath, dim_feat, i_c, i_h, i_w):
@@ -49,10 +49,7 @@ def build_external_obj_net_module_feat_extract(mpath, dim_feat, i_c, i_h, i_w):
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:
-            net = net_module.getattr(name_fun)(dim_feat,
-                                               i_c,
-                                               i_h,
-                                               i_w)
+            net = getattr(net_module, name_fun)(dim_feat, i_c, i_h, i_w)
         except Exception:
             print("function %s should return a neural network (pytorch module) that \
                    that extract features from an image of channel i_c, \

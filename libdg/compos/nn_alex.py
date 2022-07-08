@@ -2,9 +2,10 @@ import torch.nn as nn
 from torchvision import models as torchvisionmodels
 
 from libdg.compos.nn import LayerId
+from libdg.compos.nn_torchvision import NetTorchVisionBase
 
 
-class AlexNetBase(nn.Module):
+class AlexNetBase(NetTorchVisionBase):
     """
     AlexNet(
     (features): Sequential(
@@ -35,24 +36,9 @@ class AlexNetBase(nn.Module):
     )
     -
     """
-    def __init__(self, flag_pretrain):
-        super().__init__()
-        self.net_torch_alex = torchvisionmodels.alexnet(pretrained=flag_pretrain)
-
-    def forward(self, tensor):
-        """
-        delegate forward operation to self.net_torch_alex
-        """
-        out = self.net_torch_alex(tensor)
-        return out
-
-    def show(self):
-        """
-        print out which layer will be optimized
-        """
-        for name, param in self.net_torch_alex.named_parameters():
-            if param.requires_grad:
-                print("layers that will be optimized: \t", name)
+    def fetch_net(self, flag_pretrain):
+        self.net_torchvision = torchvisionmodels.alexnet(
+            pretrained=flag_pretrain)
 
 
 class Alex4DeepAll(AlexNetBase):
@@ -61,10 +47,10 @@ class Alex4DeepAll(AlexNetBase):
     """
     def __init__(self, flag_pretrain, dim_y):
         super().__init__(flag_pretrain)
-        if self.net_torch_alex.classifier[6].out_features != dim_y:
-            print("original alex net out dim", self.net_torch_alex.classifier[6].out_features)
-            num_ftrs = self.net_torch_alex.classifier[6].in_features
-            self.net_torch_alex.classifier[6] = nn.Linear(num_ftrs, dim_y)
+        if self.net_torchvision.classifier[6].out_features != dim_y:
+            print("original alex net out dim", self.net_torchvision.classifier[6].out_features)
+            num_ftrs = self.net_torchvision.classifier[6].in_features
+            self.net_torchvision.classifier[6] = nn.Linear(num_ftrs, dim_y)
             print("re-initialized to ", dim_y)
 
 
@@ -76,7 +62,7 @@ class AlexNetNoLastLayer(AlexNetBase):
     """
     def __init__(self, flag_pretrain):
         super().__init__(flag_pretrain)
-        self.net_torch_alex.classifier[6] = LayerId()
+        self.net_torchvision.classifier[6] = LayerId()
 
 def test_AlexNetConvClassif():
     import torch

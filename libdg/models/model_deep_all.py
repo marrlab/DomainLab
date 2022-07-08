@@ -9,7 +9,7 @@ from libdg.utils.utils_classif import logit2preds_vpic, get_label_na
 class ModelDeepAll(AModelClassif):
     def __init__(self, net, list_str_y, list_str_d=None):
         super().__init__(list_str_y, list_str_d)
-        self.net = net
+        self.add_module("net", net)
 
     def cal_logit_y(self, tensor_x):
         """

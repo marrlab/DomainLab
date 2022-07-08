@@ -1,5 +1,6 @@
 import abc
 import os
+import copy
 import datetime
 from pathlib import Path
 
@@ -58,7 +59,12 @@ class ExpModelPersistVisitor():
         file_na = self.model_path
         if suffix is not None:
             file_na = "_".join([file_na, suffix])
-        torch.save(model, file_na)
+        if self.host.args.npath is not None:
+            torch.save(copy.deepcopy(model.state_dict()), file_na)
+        # checkpoint = {'model': Net(), 'state_dict': model.state_dict(),'optimizer' :optimizer.state_dict()}
+        else:
+            torch.save(model, file_na)
+        # torch.save(checkpoint, 'Checkpoint.pth')
 
     def remove(self, suffix=None):
         """
@@ -76,7 +82,11 @@ class ExpModelPersistVisitor():
         path = self.model_path
         if suffix is not None:
             path = "_".join([self.model_path, suffix])
-        model = torch.load(path, map_location="cpu")
+        if self.host.args.npath is not None:
+            model = copy.deepcopy(self.host.trainer.model)
+            model.load_state_dict(torch.load(path, map_location="cpu"))
+        else:
+            model = torch.load(path, map_location="cpu")
         return model
 
 
