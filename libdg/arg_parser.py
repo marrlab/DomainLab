@@ -47,10 +47,20 @@ def mk_parser_main():
                         help="path for storing downloaded dataset")
 
     parser.add_argument('--tpath', type=str, default=None,
-                        help="path for custom task, should implement get_task function")
+                        help="path for custom task, should implement \
+                        get_task function")
+
+    parser.add_argument('--npath', type=str, default=None,
+                        help="path of custom neural network for feature \
+                        extraction")
+
+    parser.add_argument('--nname', type=str, default=None,
+                        help="name of custom neural network for feature \
+                        extraction")
 
     parser.add_argument('--apath', type=str, default=None,
-                        help="path for custom AlgorithmBuilder that inherit the interface of LibDG")
+                        help="path for custom AlgorithmBuilder that inherit \
+                        the interface of LibDG")
 
     parser.add_argument('--exptag', type=str, default="exptag",
                         help='tag as prefix of result aggregation file name \
