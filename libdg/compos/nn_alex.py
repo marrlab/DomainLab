@@ -50,7 +50,6 @@ class Alex4DeepAll(AlexNetBase):
         if self.net_torchvision.classifier[6].out_features != dim_y:
             print("original alex net out dim", self.net_torchvision.classifier[6].out_features)
             num_ftrs = self.net_torchvision.classifier[6].in_features
-            breakpoint()
             self.net_torchvision.classifier[6] = nn.Linear(num_ftrs, dim_y)
             print("re-initialized to ", dim_y)
 
