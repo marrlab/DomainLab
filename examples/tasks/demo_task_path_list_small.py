@@ -1,5 +1,5 @@
 from torchvision import transforms
-from libdg.tasks.task_pathlist import mk_node_task_path_list
+kkkjjlibdg.tasks.task_pathlist import mk_node_task_path_list
 from libdg.arg_parser import mk_parser_main
 from libdg.tasks.utils_task import img_loader2dir, ImSize
 

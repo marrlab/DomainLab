@@ -7,11 +7,15 @@ from libdg.compos.nn_torchvision import NetTorchVisionBase
 
 class ResNetBase(NetTorchVisionBase):
     """
+    Since ResNet can be fetched from torchvision
     """
     def fetch_net(self, flag_pretrain):
+        """fetch_net.
+
+        :param flag_pretrain:
+        """
         self.net_torchvision = torchvisionmodels.resnet.resnet50(
             pretrained=flag_pretrain)
-    # def remove_last_layer(self):
 
 
 class ResNet4DeepAll(ResNetBase):
@@ -19,18 +23,36 @@ class ResNet4DeepAll(ResNetBase):
     change the size of the last layer
     """
     def __init__(self, flag_pretrain, dim_y):
+        """__init__.
+
+        :param flag_pretrain:
+        :param dim_y:
+        """
         super().__init__(flag_pretrain)
         num_final_in = self.net_torchvision.fc.in_features
         self.net_torchvision.fc = nn.Linear(num_final_in, dim_y)
 
 
 class ResNetNoLastLayer(ResNetBase):
+    """ResNetNoLastLayer."""
+
     def __init__(self, flag_pretrain):
+        """__init__.
+
+        :param flag_pretrain:
+        """
         super().__init__(flag_pretrain)
         self.net_torchvision.fc = LayerId()
 
 
 def build_feat_extract_net(dim_y, remove_last_layer):
+    """
+    This function is compulsory to return a neural network feature extractor.
+    :param dim_y: number of classes to be classify can be None
+    if remove_last_layer = True
+    :param remove_last_layer: for resnet for example, whether
+    remove the last layer or not.
+    """
     if remove_last_layer:
         return ResNetNoLastLayer(flag_pretrain=True)
     return ResNet4DeepAll(flag_pretrain=True, dim_y=dim_y)

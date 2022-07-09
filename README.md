@@ -16,12 +16,13 @@ Once you came across a claim,  that a domain generalization algorithm A can gene
 
 - Is this mostly attributed to a more "powerful" neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?
 - Is this mostly attributed the protocol of estimating the generalization performance? e.g. dataset split, Will this algorithm "work" for my datasets?
-- Is this mostly attributed to the "clever" regularization algorithm A has used?
+- Is this mostly attributed to the "clever" regularization algorithm or a special loss function A has used for the neural network?
 
 To maximally decouple these attributing factors, LibDG was implemented with software design patterns, where
 
-- Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file.
-- To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument. See [Task Specification](libdg/tasks/README.md) 
+- Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See [Specify Custom Neural Networks for an algorithm](libdg/compos/doc_custom_nn.md) 
+
+- To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument, so that all domain generalization algorithms could be compared fairly. See [Task Specification](libdg/tasks/README.md) 
 
 # Getting started
 ## Basic usage
@@ -32,11 +33,16 @@ cd libDG
 ```
 LibDG comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.
 ```
-python main_out.py --te_d=caltech --tpath=./examples/task_vlcs.py --debug --bs=20 --aname=diva
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=20 --aname=diva
 ```
 where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](libdg/tasks/README.md). `--aname` specifies which algorithm to use, see [Available Algorithms](libdg/algos/README.md), `--bs` specifies the batch size, `--debug` restrain only running for 2 epochs and save results with prefix 'debug'.
 
-For usage of other arguments, check with `python main_out.py --help`
+For usage of other arguments, check with 
+
+```
+python main_out.py --help
+```
+
 See also [Examples](./examples.sh).
 
 ### Output structure and results storage
@@ -50,10 +56,9 @@ See also [Examples](./examples.sh).
 ## External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG
 Look at this dummy example:
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=./examples/algos/builder_deepall_copy.py --aname=deepall2
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom
 ```
-where the template file corresponding to "--apath" can be found in the example folder of this repository, LibDG will read this file 
-and build an external node.
+where the template file corresponding to "--apath" defines a class which inherit specified interfaces.
 
 ## Internal extension by integrating an algorithm into LibDG
 - implement libdg/algos/builder_your-algorithm-name.py
