@@ -4,14 +4,8 @@ from libdg.algos.observers.b_obvisitor import ObVisitor
 from libdg.algos.msels.c_msel_oracle import MSelOracleVisitor
 from libdg.algos.msels.c_msel import MSelTrLoss
 from libdg.algos.trainers.train_matchdg import TrainerMatchDG
-from libdg.compos.nn_alex import AlexNetNoLastLayer, Alex4DeepAll
-from libdg.models.model_deep_all import ModelDeepAll
-from libdg.models.wrapper_matchdg import ModelWrapMatchDGLogit
 from libdg.utils.utils_cuda import get_device
 from libdg.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-
-from libdg.utils.u_import_net_module import \
-    build_external_obj_net_module_feat_extract, import_net_module_from_path
 
 
 class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
@@ -25,14 +19,21 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args.nocu)
 
-        erm_builder = FeatExtractNNBuilderChainNodeGetter(args, task)()  # request
-        erm_net = erm_builder.init_business(flag_pretrain=True, dim_feat=task.dim_y)
+        erm_builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        erm_net = erm_builder.init_business(
+            flag_pretrain=True, dim_feat=task.dim_y,
+            remove_last_layer=False, args=args)
         model = erm_net.to(device)
 
-        ctr_builder = FeatExtractNNBuilderChainNodeGetter(args, task)()  # request
-        ctr_net = ctr_builder.init_business(flag_pretrain=True, dim_feat=task.dim_y, remove_last_layer=True)
+        ctr_builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        ctr_net = ctr_builder.init_business(
+            flag_pretrain=True, dim_feat=task.dim_y,
+            remove_last_layer=True, args=args)
         ctr_model = ctr_net.to(device)
 
-        observer = ObVisitor(exp, MSelOracleVisitor(MSelTrLoss(max_es=args.es)), device)
-        trainer = TrainerMatchDG(exp, task, ctr_model, model, observer, args, device)
+        observer = ObVisitor(exp,
+                             MSelOracleVisitor(MSelTrLoss(max_es=args.es)),
+                             device)
+        trainer = TrainerMatchDG(exp, task, ctr_model, model, observer, args,
+                                 device)
         return trainer
