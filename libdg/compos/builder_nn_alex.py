@@ -3,7 +3,11 @@ from libdg.compos.nn_alex import Alex4DeepAll, AlexNetNoLastLayer
 
 
 class NodeFeatExtractNNBuilderAlex(AbstractFeatExtractNNBuilderChainNode):
-    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False):
+    """NodeFeatExtractNNBuilderAlex.
+    Uniform interface to return AlexNet and other neural network as feature
+    extractor from torchvision or external python file"""
+    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False,
+                      args=None):
         """
         initialize **and** return the heavy weight business object for doing
         the real job
@@ -20,8 +24,8 @@ class NodeFeatExtractNNBuilderAlex(AbstractFeatExtractNNBuilderChainNode):
 
     def is_myjob(self, args):
         """is_myjob.
-        :param args_nname: command line arguments: "--nname": \
-            name of the torchvision model
+        :param args: command line arguments:
+            "--nname": name of the torchvision model
         """
         if args.npath is not None:
             return False

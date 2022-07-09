@@ -9,10 +9,8 @@ class FeatExtractNNBuilderChainNodeGetter(object):
     1. Hardcoded chain
     3. Return selected node
     """
-    def __init__(self, args, task):
+    def __init__(self, args):
         self.request = args
-        self.args = args
-        self.task = task
 
     def __call__(self):
         """
@@ -21,7 +19,7 @@ class FeatExtractNNBuilderChainNodeGetter(object):
         2. hard code seems to be the best solution
         """
         chain = NodeFeatExtractNNBuilderAlex(None)
-        if self.args.npath is None:
+        if self.request.npath is None:
             node = chain.handle(self.request)
         else:
             node = NodeFeatExtractNNBuilderExternFromFile(None)

@@ -4,7 +4,7 @@ from libdg.utils.u_import_net_module import \
 
 
 class NodeFeatExtractNNBuilderExternFromFile(AbstractFeatExtractNNBuilderChainNode):
-    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False):
+    def init_business(self, flag_pretrain, dim_feat, remove_last_layer, args):
         """
         initialize **and** return the heavy weight business object for doing
         the real job
@@ -13,5 +13,5 @@ class NodeFeatExtractNNBuilderExternFromFile(AbstractFeatExtractNNBuilderChainNo
         :return: the constructed service object
         """
         net = build_external_obj_net_module_feat_extract(
-                self.args.npath, self.task.dim_y)
+                args.npath, dim_feat, remove_last_layer)
         return net

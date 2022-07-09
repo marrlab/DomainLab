@@ -27,13 +27,15 @@ def import_net_module_from_path(path_net_feat_extract):
                            must contain signature %s"
                            % (name_custom_net, name_signature))
     net = getattr(module_external, name_custom_net)
+    return net
     # assert "dim_feat" in str(inspect.signature(net.__init__))
     # assert "i_c" in str(inspect.signature(net.__init__))
     # assert "i_h" in str(inspect.signature(net.__init__))
     # assert "i_w" in str(inspect.signature(net.__init__))
 
 
-def build_external_obj_net_module_feat_extract(mpath, dim_feat, i_c, i_h, i_w):
+def build_external_obj_net_module_feat_extract(mpath, dim_feat,
+                                               remove_last_layer):
     """ The user provide a function to initiate an object of the neural network,
     which is fine for training but problematic for persistence of the trained
     model since it is created externally.
@@ -45,15 +47,14 @@ def build_external_obj_net_module_feat_extract(mpath, dim_feat, i_c, i_h, i_w):
     :param i_w: width of image
     """
     net_module = import_path(mpath)
-    name_signature = "build_feat_extract_net(dim_feat, i_c, i_h, i_w)"  # FIXME: hard coded
+    name_signature = "build_feat_extract_net(dim_feat, remove_last_layer)"  # FIXME: hard coded, move to top level __init__ definition in libdg
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:
-            net = getattr(net_module, name_fun)(dim_feat, i_c, i_h, i_w)
+            net = getattr(net_module, name_fun)(dim_feat, remove_last_layer)
         except Exception:
             print("function %s should return a neural network (pytorch module) that \
-                   that extract features from an image of channel i_c, \
-                   height i_h, width i_w" % (name_signature))
+                   that extract features from an image" % (name_signature))
             raise
         if net is None:
             raise RuntimeError("the pytorch module returned by %s is None"

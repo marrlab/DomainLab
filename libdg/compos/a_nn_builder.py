@@ -24,7 +24,7 @@ class AbstractFeatExtractNNBuilderChainNode(AbstractChainNodeHandler):
         super().__init__(successor_node)
 
     @store_args
-    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False):
+    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False, args=None):
         """
         initialize **and** return the heavy weight business object for doing
         the real job
@@ -34,9 +34,11 @@ class AbstractFeatExtractNNBuilderChainNode(AbstractChainNodeHandler):
         """
         return NotImplementedError
 
-    def is_myjob(self, args_nname):
+    def is_myjob(self, args):
         """is_myjob.
-        :param args_nname: command line arguments: "--nname": \
-            name of the torchvision model
+        :param args_nname: command line arguments:
+            "--nname": name of the torchvision model
+            "--npath": path to the user specified python file with neural
+            network definition
         """
         return NotImplementedError

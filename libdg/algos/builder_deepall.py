@@ -22,8 +22,9 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                              MSelOracleVisitor(
                                  MSelTrLoss(max_es=args.es)), device)
 
-        builder = FeatExtractNNBuilderChainNodeGetter(args, task)()  # request
-        net = builder.init_business(flag_pretrain=True, dim_feat=task.dim_y)
+        builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        net = builder.init_business(flag_pretrain=True, dim_feat=task.dim_y,
+                                    remove_last_layer=False, args=args)
 
         model = ModelDeepAll(net, list_str_y=task.list_str_y)
         trainer = TrainerBasic(model, task, observer, device, args)
