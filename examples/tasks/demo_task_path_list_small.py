@@ -45,6 +45,6 @@ def get_task(na=None):
             'cartoon': "~/Documents/datasets/pacs/raw",
             'photo': "~/Documents/datasets/pacs/raw",
             'sketch': "~/Documents/datasets/pacs/raw"},
-        trans4all=transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]))  # FIXME:
-    #  FIXME: 224 is already provided in image size
+        trans4all=transforms.Compose([transforms.Resize((224, 224)),
+                                      transforms.ToTensor()]))
     return node
