@@ -1,5 +1,11 @@
+"""
+data(images), as well as the txt file indicating the filenames of images can be
+download from
+- (https://domaingeneralization.github.io/#data)
+- or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
+"""
 from torchvision import transforms
-kkkjjlibdg.tasks.task_pathlist import mk_node_task_path_list
+from libdg.tasks.task_pathlist import mk_node_task_path_list
 from libdg.arg_parser import mk_parser_main
 from libdg.tasks.utils_task import img_loader2dir, ImSize
 

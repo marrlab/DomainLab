@@ -48,23 +48,21 @@ See also [Examples](./examples.sh).
 ### Output structure and results storage
 [Output structure](./doc_output.md)
 
+## Custom Usage
+
+### Define your task 
+Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See
+[Task Specification](libdg/tasks/README.md) 
+
+### Custom Neural network 
+This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
+[Specify Custom Neural Networks for an algorithm](libdg/compos/doc_custom_nn.md) 
+
 # Design
 ![Design Diagram](libDG.svg)
 
-# Extend libDG with a custom domain generalization algorithm
-
-## External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG
-Look at this dummy example:
-```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom
-```
-where the template file corresponding to "--apath" defines a class which inherit specified interfaces.
-
-## Internal extension by integrating an algorithm into LibDG
-- implement libdg/algos/builder_your-algorithm-name.py
-- add your algorithm into libdg/algos/zoo_algos.py by adding `chain = NodeAlgoBuilder[your-algorithm-name](chain)`
-- note that all algorithms will be converted to lower case!
-- make a pull request
+# Extend or contribute to libDG with a custom domain generalization algorithm
+[Extend or Contibute](./doc_extend_contribute.md)
 
 # Credits
 Contact: Xudong Sun (smilesun.east@gmail.com, Institute of AI for Health, Helmholtz Munich, Germany)

@@ -1,19 +1,22 @@
 # Task Specification
-LibDG offers various ways to specify the domain generalization task. 
+LibDG offers various ways to specify the domain generalization task according to user's need.
 
 ## TaskPathList
-CSV file specifying the path of an image file, comma separated with its class label.
-See example here: 
-[TaskSpecificationWithPathList](../../examples/tasks/demo_task_path_list_small.py)  where data can be download from (https://domaingeneralization.github.io/#data) or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
+The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.
+
+See example here: [TaskSpecificationWithPathList](../../examples/tasks/demo_task_path_list_small.py)  Data(images), as well as the txt file indicating the filenames of images can be
+download from
+- (https://domaingeneralization.github.io/#data)
+- or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
 
 The user should specify the location of the python file like below
 ```
 # suppose the current directory is the root directory of libDG
-python main_out.py --te_d=sketch --tpath=./examples/tasks/demo_task_path_list_small.py --debug --bs=2
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2
 ```
 
 ## TaskFolder
-Structured folders where each folder contains one domain.
+In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.
 
 #### Data organization
 To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name "folder_a", "folder_b" and "folder_c" respectively as shown below. 
