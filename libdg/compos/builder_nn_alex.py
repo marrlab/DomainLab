@@ -12,9 +12,11 @@ class NodeFeatExtractNNBuilderAlex(AbstractFeatExtractNNBuilderChainNode):
         :return: the constructed service object
         """
         self.net_feat_extract = Alex4DeepAll(flag_pretrain, dim_feat)
-        if remove_last_layer:
+        if not remove_last_layer:
             self.net_feat_extract = Alex4DeepAll(flag_pretrain, dim_feat)
-        return self.net_feat_extract = AlexNetNoLastLayer(flag_pretrain)
+        else:
+            self.net_feat_extract = AlexNetNoLastLayer(flag_pretrain)
+        return self.net_feat_extract
 
     def is_myjob(self, args):
         """is_myjob.

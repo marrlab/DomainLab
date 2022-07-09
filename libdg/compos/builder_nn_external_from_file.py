@@ -4,7 +4,7 @@ from libdg.utils.u_import_net_module import \
 
 
 class NodeFeatExtractNNBuilderExternFromFile(AbstractFeatExtractNNBuilderChainNode):
-    def init_business(self, flag_pretrain, dim_feat):
+    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False):
         """
         initialize **and** return the heavy weight business object for doing
         the real job

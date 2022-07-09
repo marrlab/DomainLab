@@ -23,8 +23,14 @@ class ResNet4DeepAll(ResNetBase):
         num_final_in = self.net_torchvision.fc.in_features
         self.net_torchvision.fc = nn.Linear(num_final_in, dim_y)
 
-class NetFeatExtract(ResNet4DeepAll):
-    pass
 
-def build_feat_extract_net(dim_feat, i_c=None, i_h=None, i_w=None):
+class ResNetNoLastLayer(ResNetBase):
+    def __init__(self, flag_pretrain):
+        super().__init__(flag_pretrain)
+        self.net_torchvision.fc = LayerId()
+
+
+def build_feat_extract_net(dim_feat, remove_last_layer):
+    if remove_last_layer:
+        return ResNetNoLastLayer(flag_pretrain=True)
     return ResNet4DeepAll(flag_pretrain=True, dim_y=dim_feat)
