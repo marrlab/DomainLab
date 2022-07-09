@@ -25,7 +25,6 @@ class EncoderConnectLastFeatLayer2Z(nn.Module):
 
         size_last_layer_before_z = get_flat_dim(
             self.net_feat_extract, i_c, i_h, i_w)
-        raise RuntimeError("sag")
 
         self.net_fc_mean = nn.Sequential(
             nn.Linear(size_last_layer_before_z, z_dim))
