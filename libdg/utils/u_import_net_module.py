@@ -9,7 +9,7 @@ def import_net_module_from_path(path_net_feat_extract):
     :param path_net_feat_extract: path of the python file which contains the
     definition of the custom neural network
     """
-    name_signature = "__init__(self, dim_feat, i_c, i_h, i_w)"  # FIXME: hard coded
+    name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # FIXME: hard coded
     name_custom_net = "NetFeatExtract"
     na_external_module = "name_external_module"   # the dummy module name
     spec = importlib.util.spec_from_file_location(
@@ -28,30 +28,30 @@ def import_net_module_from_path(path_net_feat_extract):
                            % (name_custom_net, name_signature))
     net = getattr(module_external, name_custom_net)
     return net
-    # assert "dim_feat" in str(inspect.signature(net.__init__))
+    # assert "dim_y" in str(inspect.signature(net.__init__))
     # assert "i_c" in str(inspect.signature(net.__init__))
     # assert "i_h" in str(inspect.signature(net.__init__))
     # assert "i_w" in str(inspect.signature(net.__init__))
 
 
-def build_external_obj_net_module_feat_extract(mpath, dim_feat,
+def build_external_obj_net_module_feat_extract(mpath, dim_y,
                                                remove_last_layer):
     """ The user provide a function to initiate an object of the neural network,
     which is fine for training but problematic for persistence of the trained
     model since it is created externally.
     :param mpath: path of external python file where the neural network
     architecture is defined
-    :param dim_feat: dimension of features
+    :param dim_y: dimension of features
     :param i_c: number of channels of image
     :param i_h: height of image
     :param i_w: width of image
     """
     net_module = import_path(mpath)
-    name_signature = "build_feat_extract_net(dim_feat, remove_last_layer)"  # FIXME: hard coded, move to top level __init__ definition in libdg
+    name_signature = "build_feat_extract_net(dim_y, remove_last_layer)"  # FIXME: hard coded, move to top level __init__ definition in libdg
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:
-            net = getattr(net_module, name_fun)(dim_feat, remove_last_layer)
+            net = getattr(net_module, name_fun)(dim_y, remove_last_layer)
         except Exception:
             print("function %s should return a neural network (pytorch module) that \
                    that extract features from an image" % (name_signature))

@@ -4,7 +4,7 @@ import torch.nn as nn
 from libdg.utils.utils_class import store_args
 
 from libdg.compos.vae.compos.encoder import LSEncoderConvBnReluPool
-from libdg.compos.vae.compos.encoder_alex import Encoder4096
+from libdg.compos.vae.compos.encoder_alex import EncoderConnectLastFeatLayer2Z
 from libdg.compos.vae.compos.encoder_domain_topic import EncoderImg2TopicDirZd
 
 
@@ -78,7 +78,8 @@ class XYDTEncoderAlex(XYDTEncoderElevator):
     This class only reimplemented constructor of parent class
     """
     @store_args
-    def __init__(self, device, topic_dim, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w, conv_stride=1):
+    def __init__(self, device, topic_dim, zd_dim,
+                 zx_dim, zy_dim, i_c, i_h, i_w, conv_stride=1):
         """
         :param zd_dim:
         :param zx_dim:
@@ -95,7 +96,7 @@ class XYDTEncoderAlex(XYDTEncoderElevator):
         net_infer_zx = LSEncoderConvBnReluPool(
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
-        net_infer_zy = Encoder4096(self.zy_dim, True)
+        net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True, i_c, i_h, i_w, None)
         net_infer_zd_topic = EncoderImg2TopicDirZd(num_topics=topic_dim,
                                                    zd_dim=self.zd_dim,
                                                    i_c=self.i_c,

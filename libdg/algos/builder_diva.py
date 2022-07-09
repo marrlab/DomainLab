@@ -18,7 +18,8 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w)
+        request = RequestVAEBuilderCHW(
+            task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
         model = ModelDIVA(node,
                           zd_dim=args.zd_dim, zy_dim=args.zy_dim,
@@ -33,9 +34,13 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         device = get_device(args.nocu)
         if not args.gen:
             observer = ObVisitorCleanUp(
-                ObVisitor(exp, MSelOracleVisitor(MSelTrLoss(max_es=args.es)), device))
+                ObVisitor(exp,
+                          MSelOracleVisitor(MSelTrLoss(max_es=args.es)),
+                          device))
         else:
             observer = ObVisitorCleanUp(
-                ObVisitorGen(exp, MSelOracleVisitor(MSelTrLoss(max_es=args.es)), device))
+                ObVisitorGen(exp,
+                             MSelOracleVisitor(MSelTrLoss(max_es=args.es)),
+                             device))
         trainer = TrainerDIVA(model, task, observer, device, aconf=args)
         return trainer

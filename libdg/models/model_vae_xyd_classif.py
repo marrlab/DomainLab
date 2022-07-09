@@ -23,7 +23,8 @@ class VAEXYDClassif(AModelClassif):
         :param chain_node_builder: constructed object
         """
         super().__init__(list_str_y, list_str_d)
-        self.chain_node_builder.init_business(self.zd_dim, self.zx_dim, self.zy_dim)
+        self.chain_node_builder.init_business(
+            self.zd_dim, self.zx_dim, self.zy_dim)
         self.i_c = self.chain_node_builder.i_c
         self.i_h = self.chain_node_builder.i_h
         self.i_w = self.chain_node_builder.i_w
@@ -50,9 +51,11 @@ class VAEXYDClassif(AModelClassif):
         self.add_module("encoder", self.chain_node_builder.build_encoder())
         self.add_module("decoder", self.chain_node_builder.build_decoder())
         self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(self.dim_y, self.zy_dim))
+                        self.chain_node_builder.construct_cond_prior(
+                            self.dim_y, self.zy_dim))
         self.add_module("net_classif_y",
-                        self.chain_node_builder.construct_classifier(self.zy_dim, self.dim_y))
+                        self.chain_node_builder.construct_classifier(
+                            self.zy_dim, self.dim_y))
 
     def init_p_zx4batch(self, batch_size, device):
         """
@@ -79,25 +82,3 @@ class VAEXYDClassif(AModelClassif):
         vec_one_hot, prob, ind, confidence = logit2preds_vpic(logit_y)
         na_class = get_label_na(ind, self.list_str_y)
         return vec_one_hot, prob, ind, confidence, na_class
-
-
-def testvae():
-    y_dim = 10
-    d_dim = 3
-    batch_size = 5
-    ims = 28
-    imc = 3
-    from libdg.compos.vae.utils_request_chain_builder import RequestVAEBuilderCHW, VAEChainNodeGetter
-    from libdg.utils.test_img import mk_rand_xyd
-    from libdg.utils.utils_classif import mk_dummy_label_list_str
-
-    request = RequestVAEBuilderCHW(imc, ims, ims)
-    node = VAEChainNodeGetter(request)()
-
-    list_str_y = mk_dummy_label_list_str("class", y_dim)
-    list_str_d = mk_dummy_label_list_str("domain", d_dim)
-
-    model = VAEXYDClassif(node, zd_dim=8, zy_dim=8, zx_dim=8, list_str_y=list_str_y, list_str_d=list_str_d)
-    imgs, y, d = mk_rand_xyd(ims, y_dim, d_dim, batch_size)
-    one_hot, mat_prob, ind, confi, na = model.infer_y(imgs)
-    confi.numpy()

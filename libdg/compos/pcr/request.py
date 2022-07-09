@@ -3,7 +3,7 @@ from libdg.utils.utils_class import store_args
 
 class RequestVAEBuilderCHW():
     @store_args
-    def __init__(self, i_c, i_h, i_w):
+    def __init__(self, i_c, i_h, i_w, args):
         pass
 
 

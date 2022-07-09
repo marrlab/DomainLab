@@ -23,14 +23,14 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
 
         erm_builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
         erm_net = erm_builder.init_business(
-            flag_pretrain=True, dim_feat=task.dim_y,
+            flag_pretrain=True, dim_y=task.dim_y,
             remove_last_layer=False, args=args)
         model = ModelDeepAll(erm_net, list_str_y=task.list_str_y)
         model = ModelWrapMatchDGLogit(model, list_str_y=task.list_str_y)
         model = model.to(device)
         ctr_builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
         ctr_net = ctr_builder.init_business(
-            flag_pretrain=True, dim_feat=task.dim_y,
+            flag_pretrain=True, dim_y=task.dim_y,
             remove_last_layer=True, args=args)
         ctr_model = ctr_net.to(device)
 

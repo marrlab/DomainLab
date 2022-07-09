@@ -4,7 +4,8 @@ Builder
 2. p(z_y|y) **and** p(z_d|d)
 """
 from libdg.compos.vae.a_vae_builder import AbstractVAEBuilderChainNode
-from libdg.compos.vae.compos.decoder_cond_prior import LSCondPriorLinearBnReluLinearSoftPlus
+from libdg.compos.vae.compos.decoder_cond_prior import \
+    LSCondPriorLinearBnReluLinearSoftPlus
 from libdg.compos.net_classif import ClassifDropoutReluLinear
 
 

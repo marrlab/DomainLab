@@ -1,5 +1,6 @@
 """
-Integrate Chain-of-Responsibility and Builder Patter to construct VAE encoder and decoder
+Integrate Chain-of-Responsibility and Builder Patter to construct VAE
+encoder and decoder
 """
 
 import abc
@@ -11,10 +12,12 @@ from libdg.utils.utils_class import store_args
 class AbstractVAEBuilderChainNode(AbstractChainNodeHandler):
     """
     to ensure chain of responsibility node AbstractChainNodeHandler always
-    work even some node can not start their heavy weight business object, avoid override the
+    work even some node can not start their heavy weight business object,
+    avoid override the
     initializer so that node construction is always light weight.
     """
     def __init__(self, successor_node):
+        self.args = None
         self.zd_dim = None
         self.zx_dim = None
         self.zy_dim = None

@@ -30,7 +30,7 @@ class ResNetNoLastLayer(ResNetBase):
         self.net_torchvision.fc = LayerId()
 
 
-def build_feat_extract_net(dim_feat, remove_last_layer):
+def build_feat_extract_net(dim_y, remove_last_layer):
     if remove_last_layer:
         return ResNetNoLastLayer(flag_pretrain=True)
-    return ResNet4DeepAll(flag_pretrain=True, dim_y=dim_feat)
+    return ResNet4DeepAll(flag_pretrain=True, dim_y=dim_y)

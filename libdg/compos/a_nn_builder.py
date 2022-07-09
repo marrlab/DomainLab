@@ -24,7 +24,7 @@ class AbstractFeatExtractNNBuilderChainNode(AbstractChainNodeHandler):
         super().__init__(successor_node)
 
     @store_args
-    def init_business(self, flag_pretrain, dim_feat, remove_last_layer=False, args=None):
+    def init_business(self, flag_pretrain, dim_y, remove_last_layer=False, args=None):
         """
         initialize **and** return the heavy weight business object for doing
         the real job

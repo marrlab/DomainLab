@@ -85,6 +85,10 @@ def mk_parser_main():
     parser.add_argument('--task', metavar="ta", type=str,
                         help='task name')
 
+    arg_group_ae = parser.add_argument_group('ae args')
+    arg_group_ae.add_argument('--domain_encoder', type=int, default=None,
+                              help='encoder for extracting domain information')
+
     arg_group_task = parser.add_argument_group('task args')
 
     arg_group_task.add_argument('--bs', type=int, default=100,

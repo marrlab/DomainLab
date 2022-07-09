@@ -50,6 +50,7 @@ class Alex4DeepAll(AlexNetBase):
         if self.net_torchvision.classifier[6].out_features != dim_y:
             print("original alex net out dim", self.net_torchvision.classifier[6].out_features)
             num_ftrs = self.net_torchvision.classifier[6].in_features
+            breakpoint()
             self.net_torchvision.classifier[6] = nn.Linear(num_ftrs, dim_y)
             print("re-initialized to ", dim_y)
 
@@ -57,8 +58,8 @@ class Alex4DeepAll(AlexNetBase):
 class AlexNetNoLastLayer(AlexNetBase):
     """
     Change the last layer of AlexNet with identity layer,
-    the classifier from VAE can then have the same layer depth as deep_all model
-    so it is fair for comparison
+    the classifier from VAE can then have the same layer depth as deep_all
+    model so it is fair for comparison
     """
     def __init__(self, flag_pretrain):
         super().__init__(flag_pretrain)
