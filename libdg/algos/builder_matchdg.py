@@ -6,6 +6,8 @@ from libdg.algos.msels.c_msel import MSelTrLoss
 from libdg.algos.trainers.train_matchdg import TrainerMatchDG
 from libdg.utils.utils_cuda import get_device
 from libdg.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from libdg.models.model_deep_all import ModelDeepAll
+from libdg.models.wrapper_matchdg import ModelWrapMatchDGLogit
 
 
 class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
@@ -23,8 +25,9 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         erm_net = erm_builder.init_business(
             flag_pretrain=True, dim_feat=task.dim_y,
             remove_last_layer=False, args=args)
-        model = erm_net.to(device)
-
+        model = ModelDeepAll(erm_net, list_str_y=task.list_str_y)
+        model = ModelWrapMatchDGLogit(model, list_str_y=task.list_str_y)
+        model = model.to(device)
         ctr_builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
         ctr_net = ctr_builder.init_business(
             flag_pretrain=True, dim_feat=task.dim_y,
