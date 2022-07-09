@@ -19,6 +19,7 @@ python main_out.py --te_d=caltech --tpath=examples/task_vlcs.py --debug --bs=2 -
 
 # ImagePath Task
 python main_out.py --te_d=sketch --tpath=examples/demo_task_path_list.py --debug --bs=2
+python main_out.py --te_d=sketch --tpath=examples/demo_task_path_list.py --debug --bs=2 --npath=examples/nets/resnet.py
 
 
 # HDUVA uses lots of memory can only be tested on large mem
