@@ -6,15 +6,17 @@ download from
 """
 from torchvision import transforms
 from libdg.tasks.task_pathlist import mk_node_task_path_list
-from libdg.arg_parser import mk_parser_main
-from libdg.tasks.utils_task import img_loader2dir, ImSize
+from libdg.tasks.utils_task import ImSize
 
 
 def get_task(na=None):
     node = mk_node_task_path_list(
+        # specify image size, must be consistent with the transformation
         isize=ImSize(3, 224, 224),
+        # specify the names for all classes to classify
         list_str_y=["dog", "elephant", "giraffe", "guitar",
                     "horse", "house", "person"],
+        # give an index to each class to classify
         dict_class_label2name={"1": "dog",
                                "2": "elephant",
                                "3": "giraffe",
@@ -22,29 +24,48 @@ def get_task(na=None):
                                "5": "horse",
                                "6": "house",
                                "7": "person"},
+
+        #####################################################################
+        # specify where to find the text file for each domain containing the
+        # relative path to corresponding images
+
+        # folder data is with respect to the current working directory
+        # e.g. libDG
+
+        # # 1. specify the list of images used for training set
         dict_d2filepath_list_img={
-            "art_painting": "~/Documents/datasets/pacs_split/art_painting_100.txt",
-            "cartoon": "~/Documents/datasets/pacs_split/cartoon_100.txt",
-            "photo": "~/Documents/datasets/pacs_split/photo_100.txt",
-            "sketch": "~/Documents/datasets/pacs_split/sketch_100.txt"},
+            "art_painting": "data/pacs_split/art_painting_10.txt",
+            "cartoon": "data/datasets/pacs_split/cartoon_10.txt",
+            "photo": "data/datasets/pacs_split/photo_10.txt",
+            "sketch": "data/datasets/pacs_split/sketch_10.txt"},
 
+        # # 2. specify the list of images used for test set
         dict_d2filepath_list_img_te={
-            "art_painting": "~/Documents/datasets/pacs_split/art_painting_10.txt",
-            "cartoon": "~/Documents/datasets/pacs_split/cartoon_10.txt",
-            "photo": "~/Documents/datasets/pacs_split/photo_10.txt",
-            "sketch": "~/Documents/datasets/pacs_split/sketch_10.txt"},
+            "art_painting": "data/pacs_split/art_painting_10.txt",
+            "cartoon": "data/pacs_split/cartoon_10.txt",
+            "photo": "data/pacs_split/photo_10.txt",
+            "sketch": "data/pacs_split/sketch_10.txt"},
 
+        # # 3. specify the list of images used for validation set
         dict_d2filepath_list_img_val={
-            "art_painting": "~/Documents/datasets/pacs_split/art_painting_10.txt",
-            "cartoon": "~/Documents/datasets/pacs_split/cartoon_10.txt",
-            "photo": "~/Documents/datasets/pacs_split/photo_10.txt",
-            "sketch": "~/Documents/datasets/pacs_split/sketch_10.txt"},
+            "art_painting": "data/pacs_split/art_painting_10.txt",
+            "cartoon": "data/pacs_split/cartoon_10.txt",
+            "photo": "data/pacs_split/photo_10.txt",
+            "sketch": "data/pacs_split/sketch_10.txt"},
+        #####################################################################
 
+        # specify the (absolute) root folder storing the images of each domain:
+        # replace with the path where each domain of your pacs images are
+        # stored. pacs images can be download from
+        # - (https://domaingeneralization.github.io/#data)
+        # - or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
         dict_domain2imgroot={
             'art_painting': "~/Documents/datasets/pacs/raw",
             'cartoon': "~/Documents/datasets/pacs/raw",
             'photo': "~/Documents/datasets/pacs/raw",
             'sketch': "~/Documents/datasets/pacs/raw"},
-        trans4all=transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]))  # FIXME:
-    #  FIXME: 224 is already provided in image size
+        # specify the pytorch transformation you want to apply to the image
+        trans4all=transforms.Compose(
+            [transforms.Resize((224, 224)),
+             transforms.ToTensor()]))
     return node

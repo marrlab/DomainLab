@@ -30,9 +30,9 @@ python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --
 
 ## ImagePath Task
 ### ImagePath Task with default algorithm
-python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list.py --debug --bs=2
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2
 ### ImagePath Task with externally user defined neural network
-python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list.py --debug --bs=2 --npath=examples/nets/resnet.py
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py
 
 
 # HDUVA uses lots of memory can only be tested on large mem
