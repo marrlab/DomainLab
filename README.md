@@ -25,8 +25,20 @@ To maximally decouple these attributing factors, LibDG was implemented with soft
 - To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument, so that all domain generalization algorithms could be compared fairly. See [Task Specification](libdg/tasks/README.md) 
 
 # Getting started
+## Installation
+
+- Install via python-poetry:
+Read the python-poetry documentation https://python-poetry.org/ and use the configuration file in this repository.
+
+- **Or** only install dependencies via pip
+```
+git clone git@github.com:smilesun/libDG.git
+cd libDG
+pip install -r requirements.txt
+```
+
 ## Basic usage
-Clone the repository if you do not want to install it
+Suppose you have the dependencies ready
 ```
 git clone git@github.com:smilesun/libDG.git
 cd libDG
