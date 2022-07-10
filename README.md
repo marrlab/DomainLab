@@ -38,9 +38,8 @@ pip install -r requirements.txt
 ```
 
 ## Basic usage
-Suppose you have the dependencies ready
+Suppose you have the dependencies ready, change directory to the repository:
 ```
-git clone git@github.com:smilesun/libDG.git
 cd libDG
 ```
 LibDG comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.
@@ -57,8 +56,8 @@ python main_out.py --help
 
 See also [Examples](./examples.sh).
 
-### Output structure and results storage
-[Output structure](./doc_output.md)
+### Output structure (results storage) and Performance Measure
+[Output structure and Performance Measure](./doc_output.md)
 
 ## Custom Usage
 
