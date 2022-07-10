@@ -5,9 +5,9 @@ python main_out.py --te_d=0 --task=mnistcolor10 --keep_model
 python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10
 
 # use hduva on color mnist, train on 2 domains
-python main_out.py --tr_d 0 1 2 --te_d 3 --task=mnistcolor10 --aname=hduva
+python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --aname=hduva
 # hduva is domain-unsupervised, so it works also with a single domain
-python main_out.py --tr_d 0  --te_d 3 4 --task=mnistcolor10 --aname=hduva
+python main_out.py --tr_d 0  --te_d 3 4 --bs=2 --task=mnistcolor10 --aname=hduva
 
 # Default tasks (mini_vlcs) (224*224 sized image)
 ## model diva with default neural network
