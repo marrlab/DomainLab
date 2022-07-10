@@ -17,9 +17,9 @@ def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scal
     model_local = model.to(device)
     for i, (x_s, y_s, *_, path) in enumerate(loader_te):
         x_s, y_s = x_s.to(device), y_s.to(device)
-        pred, *_ = model_local.infer_y_vpicn(x_s)
+        _, prob, *_ = model_local.infer_y_vpicn(x_s)
         # print(path)
-        list_pred_list = pred.tolist()
+        list_pred_list = prob.tolist()
         list_label_list = y_s.tolist()
         if flag_pred_scalar:
             list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
