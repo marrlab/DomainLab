@@ -136,7 +136,8 @@ class NodeVAEBuilderImg224Topic(NodeVAEBuilderImg224):
                                   self.zy_dim,
                                   self.i_c,
                                   self.i_h,
-                                  self.i_w, conv_stride=1)
+                                  self.i_w, conv_stride=1,
+                                  args=self.args)
         return encoder
 
     def build_decoder(self, topic_dim):

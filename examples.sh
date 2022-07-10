@@ -1,4 +1,4 @@
-# Hard coded tasks
+# colored version of mnist where each color represent one domain, in total 10 colors
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model
 python main_out.py --te_d 0 1 2 --tr_d 3 4 5 6 7 8 9 --task=mnistcolor10 --keep_model
 
@@ -36,7 +36,7 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 
 
 # HDUVA uses lots of memory can only be tested on large mem
-#python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=hduva --nocu
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=hduva --nocu
 
 # Custom algorithm defined in external python file
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom

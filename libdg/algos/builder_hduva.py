@@ -18,7 +18,8 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w)
+        request = RequestVAEBuilderCHW(
+            task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args.nocu)
         node = VAEChainNodeGetter(request, args.topic_dim)()
         model = ModelHDUVA(node,
@@ -35,7 +36,8 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
                            beta_x=args.beta_x,
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
+        model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
         observer = ObVisitorCleanUp(
-            ObVisitor(exp, MSelOracleVisitor(MSelTrLoss(max_es=args.es)), device))
+            ObVisitor(exp, model_sel, device))
         trainer = TrainerBasic(model, task, observer, device, args)
         return trainer

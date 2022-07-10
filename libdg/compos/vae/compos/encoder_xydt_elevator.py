@@ -79,7 +79,9 @@ class XYDTEncoderAlex(XYDTEncoderElevator):
     """
     @store_args
     def __init__(self, device, topic_dim, zd_dim,
-                 zx_dim, zy_dim, i_c, i_h, i_w, conv_stride=1):
+                 zx_dim, zy_dim, i_c, i_h, i_w,
+                 args,
+                 conv_stride=1):
         """
         :param zd_dim:
         :param zx_dim:
@@ -92,11 +94,13 @@ class XYDTEncoderAlex(XYDTEncoderElevator):
         # Given input size: (64x1x1).
         # Calculated output size: (64x0x0).
         # Output size is too small
-        # if self.zx_dim != 0: pytorch can generate emtpy tensor, so no need to judge here
+        # if self.zx_dim != 0: pytorch can generate emtpy tensor,
+        # so no need to judge here
         net_infer_zx = LSEncoderConvBnReluPool(
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
-        net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True, i_c, i_h, i_w, None)
+        net_infer_zy = EncoderConnectLastFeatLayer2Z(
+            self.zy_dim, True, i_c, i_h, i_w, args)
         net_infer_zd_topic = EncoderImg2TopicDirZd(num_topics=topic_dim,
                                                    zd_dim=self.zd_dim,
                                                    i_c=self.i_c,
@@ -106,13 +110,3 @@ class XYDTEncoderAlex(XYDTEncoderElevator):
                                                    conv_stride=conv_stride)
 
         super().__init__(net_infer_zd_topic, net_infer_zx, net_infer_zy)
-
-
-
-def test_XYDEncoderConvBnReluPool():
-    """test"""
-    from libdg.utils.utils_cuda import get_device
-    device=get_device(False)
-    model = XYDTEncoderConvBnReluPool(device, 3, 8, 8, 8, 3, 64, 64)
-    img = torch.rand(2, 3, 64, 64)
-    q_topic, topic_q, q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = model(img)
