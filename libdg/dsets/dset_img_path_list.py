@@ -27,7 +27,7 @@ class DsetImPathList(data.Dataset):
             img = self.trans_img(img)
         if self.trans_target is not None:
             target = self.trans_target(target)
-        return img, target
+        return img, target, path_img
 
     def __len__(self):
         return len(self.list_tuple_img_label)

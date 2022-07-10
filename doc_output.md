@@ -5,7 +5,9 @@ By default, libDG generate outputs to a folder called "zoutput" relative to the 
 zoutput/
 ├── aggrsts (aggregation of results)
 │   ├── task1_test_domain1_tagName.csv
+│   ├── task1_test_domain1_tagName_instance_wise_prediction.txt
 │   ├── task2_test_domain3_tagName.csv
+│   ├── task2_test_domain3_tagName_instance_wise_prediction.txt
 │   
 │  
 ├── [gen] (counterfactual image generation)

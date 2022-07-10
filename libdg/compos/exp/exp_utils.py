@@ -114,10 +114,11 @@ class AggWriter(ExpModelPersistVisitor):
         acc_name = "acc"
         epos_name = "epos"
         dict_cols = {acc_name: None,
-                     "algo":self.algo_name,
-                     epos_name:None,
+                     "algo": self.algo_name,
+                     epos_name: None,
                      "seed": self.seed,
-                     "aggtag": self.agg_tag,   # algorithm configuration for instance
+                     "aggtag": self.agg_tag,
+                     # algorithm configuration for instance
                      "mname": "mname_" + self.model_name,
                      "commit": "commit_" + self.git_tag}
         return dict_cols, acc_name, epos_name

@@ -35,9 +35,9 @@ def get_task(na=None):
         # # 1. specify the list of images used for training set
         dict_d2filepath_list_img={
             "art_painting": "data/pacs_split/art_painting_10.txt",
-            "cartoon": "data/datasets/pacs_split/cartoon_10.txt",
-            "photo": "data/datasets/pacs_split/photo_10.txt",
-            "sketch": "data/datasets/pacs_split/sketch_10.txt"},
+            "cartoon": "data/pacs_split/cartoon_10.txt",
+            "photo": "data/pacs_split/photo_10.txt",
+            "sketch": "data/pacs_split/sketch_10.txt"},
 
         # # 2. specify the list of images used for test set
         dict_d2filepath_list_img_te={

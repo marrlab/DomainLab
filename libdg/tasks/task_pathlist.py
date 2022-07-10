@@ -15,6 +15,10 @@ from libdg.dsets.utils_data import mk_fun_label2onehot
 from libdg.dsets.dset_img_path_list import DsetImPathList
 
 
+class NodeTaskPathListDummy(NodeTaskDict):
+    pass
+
+
 def mk_node_task_path_list(isize,
                            list_str_y,
                            trans4all,
@@ -36,7 +40,7 @@ def mk_node_task_path_list(isize,
     :param dict_d2filepath_list_img_te:
     :param succ:
     """
-    class NodeTaskPathList(NodeTaskDict):
+    class NodeTaskPathList(NodeTaskPathListDummy):
         """
         The class TaskPathList provide the user an interface to provide a file
         with each line consisting of a pair separated by comma, where the

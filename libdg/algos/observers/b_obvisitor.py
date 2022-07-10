@@ -9,6 +9,8 @@ from libdg.utils.utils_class import store_args
 from libdg.utils.perf import PerfClassif
 from libdg.compos.exp.exp_utils import ExpModelPersistVisitor
 from libdg.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
+from libdg.tasks.task_pathlist import NodeTaskPathListDummy
+
 
 def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scalar=False):
     model.eval()
@@ -83,8 +85,15 @@ class ObVisitor(AObVisitor):
         acc_te = PerfClassif.cal_acc(model_ld, self.loader_te, self.device)
         print("persisted model acc: ", acc_te)
         self.exp.visitor(acc_te)
-        if isinstance(self.exp.task, NodeTaskFolderClassNaMismatch):
-            pred2file(self.loader_te, self.host_trainer.model, self.device)
+        flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
+        flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
+        if flag_task_folder or flag_task_path_list:
+            fname4agg = self.exp.visitor.get_fpath()
+            file_prefix = os.path.splitext(fname4agg)[0]  # remove ".csv"
+            file_name = file_prefix + "_instance_wise_predictions.txt"
+            pred2file(
+                self.loader_te, self.host_trainer.model, self.device,
+                fa=file_name)
 
     def clean_up(self):
         """
