@@ -88,8 +88,8 @@ class ObVisitor(AObVisitor):
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4agg = self.exp.visitor.get_fpath()
-            file_prefix = os.path.splitext(fname4agg)[0]  # remove ".csv"
+            fname4model = self.exp.visitor.model_path
+            file_prefix = os.path.splitext(fname4model)[0]  # remove ".csv"
             file_name = file_prefix + "_instance_wise_predictions.txt"
             pred2file(
                 self.loader_te, self.host_trainer.model, self.device,
