@@ -53,10 +53,10 @@ def get_task(na=None):
         # replace with the path where each domain of your pacs images are
         # stored.
         dict_domain2imgroot={
-            'art_painting': "data/pacs_mini_10/art_painting",
-            'cartoon': "data/pacs_mini_10/cartoon",
-            'photo': "data/pacs_mini_10/photo",
-            'sketch': "data/pacs_mini_10/sketch"},
+            'art_painting': "data/pacs_mini_10",
+            'cartoon': "data/pacs_mini_10",
+            'photo': "data/pacs_mini_10",
+            'sketch': "data/pacs_mini_10"},
         # specify the pytorch transformation you want to apply to the image
         trans4all=transforms.Compose(
             [transforms.Resize((224, 224)),
