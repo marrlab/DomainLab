@@ -1,9 +1,3 @@
-"""
-data(images), as well as the txt file indicating the filenames of images can be
-download from
-- (https://domaingeneralization.github.io/#data)
-- or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
-"""
 from torchvision import transforms
 from libdg.tasks.task_pathlist import mk_node_task_path_list
 from libdg.tasks.utils_task import ImSize
@@ -54,16 +48,15 @@ def get_task(na=None):
             "sketch": "data/pacs_split/sketch_10.txt"},
         #####################################################################
 
-        # specify the (absolute) root folder storing the images of each domain:
+        # specify the (absolute or relative with respect to working directory
+        # of python) root folder storing the images of each domain:
         # replace with the path where each domain of your pacs images are
-        # stored. pacs images can be download from
-        # - (https://domaingeneralization.github.io/#data)
-        # - or (https://drive.google.com/drive/folders/0B6x7gtvErXgfUU1WcGY5SzdwZVk?resourcekey=0-2fvpQY_QSyJf2uIECzqPuQ)
+        # stored.
         dict_domain2imgroot={
-            'art_painting': "~/Documents/datasets/pacs/raw",
-            'cartoon': "~/Documents/datasets/pacs/raw",
-            'photo': "~/Documents/datasets/pacs/raw",
-            'sketch': "~/Documents/datasets/pacs/raw"},
+            'art_painting': "data/pacs_mini_10/art_painting",
+            'cartoon': "data/pacs_mini_10/cartoon",
+            'photo': "data/pacs_mini_10/photo",
+            'sketch': "data/pacs_mini_10/sketch"},
         # specify the pytorch transformation you want to apply to the image
         trans4all=transforms.Compose(
             [transforms.Resize((224, 224)),
