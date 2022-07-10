@@ -1,6 +1,7 @@
 from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImg28, \
     NodeVAEBuilderImg64, NodeVAEBuilderImg224
-from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImg224Topic
+from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImgTopic
+from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImgTopicMNIST
 
 
 class VAEChainNodeGetter(object):
@@ -23,7 +24,8 @@ class VAEChainNodeGetter(object):
         2. hard code seems to be the best solution
         """
         if self.topic_dim is not None:
-            chain = NodeVAEBuilderImg224Topic(None)
+            chain = NodeVAEBuilderImgTopic(None)
+            chain = NodeVAEBuilderImgTopicMNIST(chain)
         else:
             chain = NodeVAEBuilderImg28(None)
             chain = NodeVAEBuilderImg64(chain)

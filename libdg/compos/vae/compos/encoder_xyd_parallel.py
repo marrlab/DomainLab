@@ -124,5 +124,6 @@ class XYDEncoderParallelExtern(XYDEncoderParallel):
         net_infer_zx = LSEncoderConvBnReluPool(
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
-        net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True, args)
+        net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True,
+                                                     i_c, i_h, i_w, args)
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)

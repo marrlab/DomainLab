@@ -1,6 +1,13 @@
 # colored version of mnist where each color represent one domain, in total 10 colors
+## leave one domain out
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model
-python main_out.py --te_d 0 1 2 --tr_d 3 4 5 6 7 8 9 --task=mnistcolor10 --keep_model
+## choose train and test
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10
+
+# use hduva on color mnist, train on 2 domains
+python main_out.py --tr_d 0 1 2 --te_d 3 --task=mnistcolor10 --aname=hduva
+# hduva is domain-unsupervised, so it works also with a single domain
+python main_out.py --tr_d 0  --te_d 3 4 --task=mnistcolor10 --aname=hduva
 
 # Default tasks (mini_vlcs) (224*224 sized image)
 ## model diva with default neural network
@@ -34,9 +41,6 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 ### ImagePath Task with externally user defined neural network
 python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py
 
-
-# HDUVA uses lots of memory can only be tested on large mem
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=hduva --nocu
 
 # Custom algorithm defined in external python file
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom
