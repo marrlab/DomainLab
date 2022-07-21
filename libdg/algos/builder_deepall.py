@@ -5,7 +5,6 @@ from libdg.algos.msels.c_msel import MSelTrLoss
 from libdg.algos.msels.c_msel_oracle import MSelOracleVisitor
 from libdg.algos.observers.b_obvisitor import ObVisitor
 from libdg.utils.utils_cuda import get_device
-from libdg.compos.nn_alex import Alex4DeepAll
 from libdg.models.model_deep_all import ModelDeepAll
 from libdg.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 
