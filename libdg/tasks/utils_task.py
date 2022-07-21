@@ -56,7 +56,7 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
         batch_size=bsize,
         shuffle=shuffle,
         # shuffle must be true so the last incomplete batch get used in anohter epoch
-        num_workers=1,   # FIXME:
+        num_workers=int(0),   # FIXME:
         drop_last=drop_last)
     return loader
 
