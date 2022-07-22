@@ -54,7 +54,7 @@ def mk_parser_main():
                         help="path of custom neural network for feature \
                         extraction")
 
-    parser.add_argument('--nname', type=str, default="alexnet",
+    parser.add_argument('--nname', type=str, default=None,
                         help="name of custom neural network for feature \
                         extraction")
 

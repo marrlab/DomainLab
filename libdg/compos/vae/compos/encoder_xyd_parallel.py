@@ -71,7 +71,9 @@ class XYDEncoderParallelConvBnReluPool(XYDEncoderParallel):
 
 class XYDEncoderParallelAlex(XYDEncoderParallel):
     """
-    This class only reimplemented constructor of parent class
+    This class only reimplemented constructor of parent class,
+    at the end of the constructor of this class, the parent
+    class contructor is called
     """
     @store_args
     def __init__(self, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w, args,
@@ -103,7 +105,9 @@ class XYDEncoderParallelAlex(XYDEncoderParallel):
 
 class XYDEncoderParallelExtern(XYDEncoderParallel):
     """
-    This class only reimplemented constructor of parent class
+    This class only reimplemented constructor of parent class,
+    at the end of the constructor of this class, the parent
+    class contructor is called
     """
     @store_args
     def __init__(self, zd_dim, zx_dim, zy_dim, args,
@@ -113,17 +117,14 @@ class XYDEncoderParallelExtern(XYDEncoderParallel):
         :param zx_dim:
         :param zy_dim:
         """
-        # conv_stride=2 on size 28 got RuntimeError:
-        # Given input size: (64x1x1).
-        # Calculated output size: (64x0x0).
-        # Output size is too small
-        net_infer_zd = LSEncoderConvBnReluPool(
-            self.zd_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
-        # if self.zx_dim != 0: pytorch can generate emtpy tensor, so no need to judge here
+        net_infer_zd = EncoderConnectLastFeatLayer2Z(self.zd_dim, True,
+                                                     i_c, i_h, i_w, args)
+        # if self.zx_dim != 0: pytorch can generate emtpy tensor,
+        # so no need to judge zx_dim=0 here
         net_infer_zx = LSEncoderConvBnReluPool(
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
+
         net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True,
                                                      i_c, i_h, i_w, args)
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)

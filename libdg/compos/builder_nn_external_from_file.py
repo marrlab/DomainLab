@@ -12,6 +12,35 @@ class NodeFeatExtractNNBuilderExternFromFile(AbstractFeatExtractNNBuilderChainNo
         function
         :return: the constructed service object
         """
+        if args.npath is None:
+            raise RuntimeError("npath argument not specified")
         net = build_external_obj_net_module_feat_extract(
                 args.npath, dim_y, remove_last_layer)
         return net
+
+    def is_myjob(self, args):
+        """is_myjob.
+        """
+        return args.npath is not None
+
+
+def mkNodeFeatExtractNNBuilderExternFromFile(name_of_net):
+    class NodeFeatExtractNNBuilderExternFromFile(AbstractFeatExtractNNBuilderChainNode):
+        def init_business(self, flag_pretrain, dim_y, remove_last_layer, args):
+            """
+            initialize **and** return the heavy weight business object for
+            doing the real job
+            :param request: subclass can override request object to be
+            string or function
+            :return: the constructed service object
+            """
+            pyfile4net = getattr(args, name_of_net)
+            net = build_external_obj_net_module_feat_extract(
+                    pyfile4net, dim_y, remove_last_layer)
+            return net
+
+        def is_myjob(self, args):
+            """is_myjob.
+            """
+            pyfile4net = getattr(args, name_of_net)
+            return pyfile4net is not None

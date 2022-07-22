@@ -26,6 +26,4 @@ class NodeFeatExtractNNBuilderAlex(AbstractFeatExtractNNBuilderChainNode):
         :param args: command line arguments:
             "--nname": name of the torchvision model
         """
-        if args.npath is not None:
-            return False
         return args.nname == "alexnet"

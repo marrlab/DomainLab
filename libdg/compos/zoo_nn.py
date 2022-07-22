@@ -19,8 +19,6 @@ class FeatExtractNNBuilderChainNodeGetter(object):
         2. hard code seems to be the best solution
         """
         chain = NodeFeatExtractNNBuilderAlex(None)
-        if self.request is None or self.request.npath is None:
-            node = chain.handle(self.request)
-        else:
-            node = NodeFeatExtractNNBuilderExternFromFile(None)
+        chain = NodeFeatExtractNNBuilderExternFromFile(chain)
+        node = chain.handle(self.request)
         return node
