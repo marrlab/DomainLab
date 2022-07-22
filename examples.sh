@@ -2,9 +2,9 @@
 set -e  # exit upon first error
 # colored version of mnist where each color represent one domain, in total 10 colors
 ## leave one domain out
-python main_out.py --te_d=0 --task=mnistcolor10 --keep_model
+python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=diva
 ## choose train and test
-python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva
 
 # use hduva on color mnist, train on 2 domains
 python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --aname=hduva 
@@ -32,16 +32,16 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchd
 
 ## Folder Task
 ### Folder Task with default neural network
-python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --nname=alexnet
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --nname=alexnet --aname=diva
 ### Folder Task with externally user defined neural network
-python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --npath=examples/nets/resnet.py --aname=diva
 
 
 ## ImagePath Task
 ### ImagePath Task with default algorithm
-python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --nname=alexnet
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --nname=alexnet --aname=diva
 ### ImagePath Task with externally user defined neural network
-python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --aname=diva
 
 
 # Custom algorithm defined in external python file

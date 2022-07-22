@@ -21,7 +21,8 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                              MSelOracleVisitor(
                                  MSelTrLoss(max_es=args.es)), device)
 
-        builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        builder = FeatExtractNNBuilderChainNodeGetter(
+            args, "npath")()  # request, #FIXME, constant string
         net = builder.init_business(flag_pretrain=True, dim_y=task.dim_y,
                                     remove_last_layer=False, args=args)
 

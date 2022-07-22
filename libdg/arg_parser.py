@@ -76,7 +76,7 @@ def mk_parser_main():
                         will be ignored by other methods')
 
     parser.add_argument('--aname', metavar="an", type=str,
-                        default='diva',
+                        default=None,
                         help='algorithm name')
 
     parser.add_argument('--acon', metavar="ac", type=str, default=None,
