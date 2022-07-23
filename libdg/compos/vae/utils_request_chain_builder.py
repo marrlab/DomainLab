@@ -1,7 +1,8 @@
-from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImg28, \
-    NodeVAEBuilderImg64, NodeVAEBuilderImg224
+from libdg.compos.vae.zoo_vae_builders_classif import \
+    NodeVAEBuilderImgConvBnPool, NodeVAEBuilderImgAlex, NodeVAEBuilderArg
 from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImgTopic
-from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImgTopicMNIST
+from libdg.compos.vae.zoo_vae_builders_classif import \
+    NodeVAEBuilderImgTopicMNIST
 
 
 class VAEChainNodeGetter(object):
@@ -27,8 +28,8 @@ class VAEChainNodeGetter(object):
             chain = NodeVAEBuilderImgTopic(None)
             chain = NodeVAEBuilderImgTopicMNIST(chain)
         else:
-            chain = NodeVAEBuilderImg28(None)
-            chain = NodeVAEBuilderImg64(chain)
-            chain = NodeVAEBuilderImg224(chain)
+            chain = NodeVAEBuilderImgConvBnPool(None)
+            chain = NodeVAEBuilderImgAlex(chain)
+            chain = NodeVAEBuilderArg(chain)
         node = chain.handle(self.request)
         return node

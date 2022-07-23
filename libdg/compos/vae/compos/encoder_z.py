@@ -9,20 +9,21 @@ class EncoderConnectLastFeatLayer2Z(nn.Module):
     """
     Connect the last layer of a feature extraction
     neural network to the latent representation
+    This class should be transparent to where to fetch the network
     """
     def __init__(self, z_dim, flag_pretrain,
-                 i_c, i_h, i_w, args):
+                 i_c, i_h, i_w, args, arg_name,
+                 arg_path_name):
         """__init__.
         :param hidden_size:
         """
         super().__init__()
-
-        net_builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        net_builder = FeatExtractNNBuilderChainNodeGetter(
+            args, arg_name, arg_path_name)()  # request
 
         self.net_feat_extract = net_builder.init_business(
             flag_pretrain=flag_pretrain, dim_y=None,
             remove_last_layer=True, args=args)
-
         size_last_layer_before_z = get_flat_dim(
             self.net_feat_extract, i_c, i_h, i_w)
 

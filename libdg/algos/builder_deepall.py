@@ -5,7 +5,6 @@ from libdg.algos.msels.c_msel import MSelTrLoss
 from libdg.algos.msels.c_msel_oracle import MSelOracleVisitor
 from libdg.algos.observers.b_obvisitor import ObVisitor
 from libdg.utils.utils_cuda import get_device
-from libdg.compos.nn_alex import Alex4DeepAll
 from libdg.models.model_deep_all import ModelDeepAll
 from libdg.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 
@@ -22,7 +21,9 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                              MSelOracleVisitor(
                                  MSelTrLoss(max_es=args.es)), device)
 
-        builder = FeatExtractNNBuilderChainNodeGetter(args)()  # request
+        builder = FeatExtractNNBuilderChainNodeGetter(
+            args, arg_name_of_net="nname",
+            arg_path_of_net="npath")()  # request, #FIXME, constant string
         net = builder.init_business(flag_pretrain=True, dim_y=task.dim_y,
                                     remove_last_layer=False, args=args)
 

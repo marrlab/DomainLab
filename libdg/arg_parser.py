@@ -54,9 +54,17 @@ def mk_parser_main():
                         help="path of custom neural network for feature \
                         extraction")
 
-    parser.add_argument('--nname', type=str, default="alexnet",
-                        help="name of custom neural network for feature \
+    parser.add_argument('--npath_dom', type=str, default=None,
+                        help="path of custom neural network for feature \
                         extraction")
+
+    parser.add_argument('--nname', type=str, default=None,
+                        help="name of custom neural network for feature \
+                        extraction of classification")
+
+    parser.add_argument('--nname_dom', type=str, default=None,
+                        help="name of custom neural network for feature \
+                        extraction of domain")
 
     parser.add_argument('--apath', type=str, default=None,
                         help="path for custom AlgorithmBuilder that inherit \
@@ -76,7 +84,7 @@ def mk_parser_main():
                         will be ignored by other methods')
 
     parser.add_argument('--aname', metavar="an", type=str,
-                        default='diva',
+                        default=None,
                         help='algorithm name')
 
     parser.add_argument('--acon', metavar="ac", type=str, default=None,

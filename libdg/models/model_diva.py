@@ -26,13 +26,22 @@ class ModelDIVA(VAEXYDClassif):
                          list_str_y, list_d_tr)
         self.dim_d_tr = len(self.list_d_tr)
         if self.zd_dim > 0:
-            self.add_module("net_p_zd", self.chain_node_builder.construct_cond_prior(self.dim_d_tr, self.zd_dim))
-            self.add_module("net_classif_d", self.chain_node_builder.construct_classifier(self.zd_dim, self.dim_d_tr))
+            self.add_module(
+                "net_p_zd",
+                self.chain_node_builder.construct_cond_prior(
+                    self.dim_d_tr, self.zd_dim))
+            self.add_module(
+                "net_classif_d",
+                self.chain_node_builder.construct_classifier(
+                    self.zd_dim, self.dim_d_tr))
 
     def warm_up_beta(self, epoch, beta_steady=1.0, steps=100):
-        self.beta_d = min([beta_steady, beta_steady * ((epoch+1) * 1.) / steps])  # for zd
-        self.beta_y = min([beta_steady, beta_steady * ((epoch+1) * 1.) / steps])  # for zy
-        self.beta_x = min([beta_steady, beta_steady * ((epoch+1) * 1.) / steps])  # for zx
+        self.beta_d = min([beta_steady,
+                           beta_steady * ((epoch+1) * 1.) / steps])  # for zd
+        self.beta_y = min([beta_steady,
+                           beta_steady * ((epoch+1) * 1.) / steps])  # for zy
+        self.beta_x = min([beta_steady,
+                           beta_steady * ((epoch+1) * 1.) / steps])  # for zx
 
     def get_list_str_y(self):
         return self._list_str_y
@@ -52,9 +61,12 @@ class ModelDIVA(VAEXYDClassif):
         z_concat = self.decoder.concat_ydx(zy_q, zd_q, zx_q)
         loss_recon_x, _, _ = self.decoder(z_concat, x)
 
-        zd_p_minus_zd_q = torch.sum(p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
-        zx_p_minus_zx_q = torch.sum(p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
-        zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
+        zd_p_minus_zd_q = torch.sum(
+            p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
+        zx_p_minus_zx_q = torch.sum(
+            p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
+        zy_p_minus_zy_q = torch.sum(
+            p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
         _, d_target = d.max(dim=1)
         lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
