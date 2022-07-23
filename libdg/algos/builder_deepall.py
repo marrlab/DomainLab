@@ -22,7 +22,8 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                                  MSelTrLoss(max_es=args.es)), device)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
-            args, "npath")()  # request, #FIXME, constant string
+            args, arg_name_of_net="nname",
+            arg_path_of_net="npath")()  # request, #FIXME, constant string
         net = builder.init_business(flag_pretrain=True, dim_y=task.dim_y,
                                     remove_last_layer=False, args=args)
 

@@ -11,13 +11,15 @@ from libdg.compos.nn import DenseNet
 
 
 class LSEncoderConvBnReluPool(nn.Module):
-    """Location-Scale Encoder with Convolution, Batch Normalization, Relu and Pooling.
+    """Location-Scale Encoder with Convolution,
+    Batch Normalization, Relu and Pooling.
     Softplus for scale
     """
     def __init__(self, z_dim, i_channel, i_h, i_w, conv_stride):
         """
         :param z_dim:
-        nn.Sequential allows output dim to be zero. So z_dim here can be set to be zero
+        nn.Sequential allows output dim to be zero.
+        So z_dim here can be set to be zero
         :param i_channel:
         :param i_h:
         :param i_w:
@@ -28,7 +30,8 @@ class LSEncoderConvBnReluPool(nn.Module):
         self.i_h = i_h
         self.i_w = i_w
 
-        self.conv = mk_conv_bn_relu_pool(self.i_channel, conv_stride=conv_stride)
+        self.conv = mk_conv_bn_relu_pool(self.i_channel,
+                                         conv_stride=conv_stride)
         # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
         self.flat_dim = get_flat_dim(self.conv, i_channel, i_h, i_w)
         self.fc_loc = nn.Sequential(nn.Linear(self.flat_dim, z_dim))
@@ -56,19 +59,6 @@ class LSEncoderConvBnReluPool(nn.Module):
         return q_zd, zd_q
 
 
-def test_LSEncoderConvStride1BnReluPool():
-    """test"""
-    from libdg.utils.test_img import mk_img
-    img_size = 28
-    img = mk_img(img_size)
-    model = LSEncoderConvBnReluPool(z_dim=8, i_channel=3, i_h=img_size, i_w=img_size,
-                                    conv_stride=1)
-    q_zd, zd_q = model(img)
-    q_zd.mean
-    q_zd.scale
-    zd_q
-
-
 class LSEncoderDense(nn.Module):
     """
     Location-Scale Encoder with DenseNet as feature extractor
@@ -77,14 +67,16 @@ class LSEncoderDense(nn.Module):
     def __init__(self, z_dim, dim_input, dim_h=4096):
         """
         :param z_dim:
-        nn.Sequential allows output dim to be zero. So z_dim here can be set to be zero
+        nn.Sequential allows output dim to be zero.
+        So z_dim here can be set to be zero
         :param i_channel:
         :param i_h:
         :param i_w:
         :param conv_stride:
         """
         super().__init__()
-        self.net_feat = DenseNet(input_flat_size=dim_input, out_hidden_size=dim_h)
+        self.net_feat = DenseNet(
+            input_flat_size=dim_input, out_hidden_size=dim_h)
         # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
         self.fc_loc = nn.Sequential(nn.Linear(dim_h, z_dim))
         self.fc_scale = nn.Sequential(nn.Linear(dim_h, z_dim),

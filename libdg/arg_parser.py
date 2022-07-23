@@ -54,9 +54,17 @@ def mk_parser_main():
                         help="path of custom neural network for feature \
                         extraction")
 
+    parser.add_argument('--npath_dom', type=str, default=None,
+                        help="path of custom neural network for feature \
+                        extraction")
+
     parser.add_argument('--nname', type=str, default=None,
                         help="name of custom neural network for feature \
-                        extraction")
+                        extraction of classification")
+
+    parser.add_argument('--nname_dom', type=str, default=None,
+                        help="name of custom neural network for feature \
+                        extraction of domain")
 
     parser.add_argument('--apath', type=str, default=None,
                         help="path for custom AlgorithmBuilder that inherit \

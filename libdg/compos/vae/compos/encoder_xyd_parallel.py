@@ -4,7 +4,7 @@ import torch.nn as nn
 from libdg.utils.utils_class import store_args
 
 from libdg.compos.vae.compos.encoder import LSEncoderConvBnReluPool
-from libdg.compos.vae.compos.encoder_alex import EncoderConnectLastFeatLayer2Z
+from libdg.compos.vae.compos.encoder_z import EncoderConnectLastFeatLayer2Z
 
 
 class XYDEncoderParallel(nn.Module):
@@ -59,7 +59,8 @@ class XYDEncoderParallelConvBnReluPool(XYDEncoderParallel):
         net_infer_zd = LSEncoderConvBnReluPool(
             self.zd_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
-        # if self.zx_dim != 0: pytorch can generate emtpy tensor, so no need to judge here
+        # if self.zx_dim != 0:
+        # pytorch can generate emtpy tensor, so no need to judge here
         net_infer_zx = LSEncoderConvBnReluPool(
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
@@ -99,7 +100,9 @@ class XYDEncoderParallelAlex(XYDEncoderParallel):
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
         net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True,
-                                                     i_c, i_h, i_w, args)
+                                                     i_c, i_h, i_w, args,
+                                                     arg_name="nname",
+                                                     arg_path_name="npath")
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)
 
 
@@ -111,7 +114,7 @@ class XYDEncoderParallelExtern(XYDEncoderParallel):
     """
     @store_args
     def __init__(self, zd_dim, zx_dim, zy_dim, args,
-                 i_c=None, i_h=None, i_w=None, conv_stride=1):
+                 i_c, i_h, i_w, conv_stride=1):
         """
         :param zd_dim:
         :param zx_dim:
@@ -119,7 +122,8 @@ class XYDEncoderParallelExtern(XYDEncoderParallel):
         """
         net_infer_zd = EncoderConnectLastFeatLayer2Z(self.zd_dim, True,
                                                      i_c, i_h, i_w, args,
-                                                     arg_name="npath_dom")
+                                                     arg_name="nname_dom",
+                                                     arg_path_name="npath_dom")
         # if self.zx_dim != 0: pytorch can generate emtpy tensor,
         # so no need to judge zx_dim=0 here
         net_infer_zx = LSEncoderConvBnReluPool(
@@ -127,5 +131,7 @@ class XYDEncoderParallelExtern(XYDEncoderParallel):
             conv_stride=conv_stride)
 
         net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True,
-                                                     i_c, i_h, i_w, args)
+                                                     i_c, i_h, i_w, args,
+                                                     arg_name="nname",
+                                                     arg_path_name="npath")
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)
