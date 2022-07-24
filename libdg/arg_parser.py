@@ -93,10 +93,6 @@ def mk_parser_main():
     parser.add_argument('--task', metavar="ta", type=str,
                         help='task name')
 
-    arg_group_ae = parser.add_argument_group('ae args')
-    arg_group_ae.add_argument('--domain_encoder', type=int, default=None,
-                              help='encoder for extracting domain information')
-
     arg_group_task = parser.add_argument_group('task args')
 
     arg_group_task.add_argument('--bs', type=int, default=100,
@@ -117,6 +113,7 @@ def mk_parser_main():
                                 domains that are not assigned to \
                                 the test set will be used as training domains')
 
+    # args for variational auto encoder
     arg_group_vae = parser.add_argument_group('vae')
     arg_group_vae = add_args2parser_vae(arg_group_vae)
     arg_group_matchdg = parser.add_argument_group('matchdg')

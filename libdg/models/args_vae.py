@@ -7,13 +7,21 @@ def add_args2parser_vae(parser):
                         help='size of latent space for unobserved')
     parser.add_argument('--zy_dim', type=int, default=64,
                         help='size of latent space for class')
+    #  HDUVA
     parser.add_argument('--topic_dim', type=int, default=3,
                         help='dim latent space for topic')
+    parser.add_argument('--topic_h_dim', type=int, default=8,
+                        help='dim latent space for topic')
+    parser.add_argument('--img_h_dim', type=int, default=8,
+                        help='dim latent space for topic')
 
+    # ERM, ELBO
     parser.add_argument('--gamma_y', type=float, default=None,
                         help='multiplier for y classifier')
     parser.add_argument('--gamma_d', type=float, default=None,
                         help='multiplier for d classifier from zd')
+
+
 
     # Beta VAE part
     parser.add_argument('--beta_t', type=float, default=1.,
@@ -22,13 +30,13 @@ def add_args2parser_vae(parser):
                         help='multiplier for KL d')
     parser.add_argument('--beta_x', type=float, default=1.,
                         help='multiplier for KL x')
-
     parser.add_argument('--beta_y', type=float, default=1.,
                         help='multiplier for KL y')
+    #
 
     parser.add_argument('-w', '--warmup', type=int, default=100,
                         help='number of epochs for warm-up. \
-                        Set to 0 to turn warmup off.')   # FIXME
+                        Set to 0 to turn warmup off.')   # FIXME: this should be separate
     return parser
 
 def test_fun():

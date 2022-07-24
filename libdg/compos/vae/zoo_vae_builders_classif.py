@@ -141,9 +141,9 @@ class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
                                  self.i_c,
                                  self.i_h,
                                  self.i_w,
-                                 topic_h_dim=16,
-                                 img_h_dim=16,
-                                 conv_stride=1,
+                                 topic_h_dim=self.args.topic_h_dim,
+                                 img_h_dim=self.args.img_h_dim,
+                                 conv_stride=2,  # FIXME
                                  args=self.args)
         return encoder
 
@@ -159,7 +159,10 @@ class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
         return decoder
 
 
-class NodeVAEBuilderImgTopicMNIST(NodeVAEBuilderImgTopic):
+class NodeVAEBuilderImgSmallTopic(NodeVAEBuilderImgTopic):
+    """
+    for small images like MINIST
+    """
     def is_myjob(self, request):
         """is_myjob.
 
@@ -183,5 +186,8 @@ class NodeVAEBuilderImgTopicMNIST(NodeVAEBuilderImgTopic):
             self.zy_dim,
             self.i_c,
             self.i_h,
-            self.i_w, conv_stride=1)
+            self.i_w,
+            topic_h_dim=self.args.topic_h_dim,
+            img_h_dim=self.args.img_h_dim,
+            conv_stride=1)  # FIXME, conv_stride is for small images
         return encoder

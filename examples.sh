@@ -2,7 +2,12 @@
 set -e  # exit upon first error
 # colored version of mnist where each color represent one domain, in total 10 colors
 ## leave one domain out
+
+start=`date +%s`
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5
+end=`date +%s`
+runtime=$((end-start))
+echo $runtime
 ## choose train and test
 python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5
 

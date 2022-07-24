@@ -44,7 +44,10 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
     """
     @store_args
     def __init__(self, device, topic_dim, zd_dim, zx_dim, zy_dim,
-                 i_c, i_h, i_w, conv_stride=1):
+                 i_c, i_h, i_w,
+                 topic_h_dim,
+                 img_h_dim,
+                 conv_stride):
         """
         :param zd_dim:
         :param zx_dim:
@@ -63,8 +66,8 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
                                                    i_w=self.i_w,
                                                    i_h=self.i_h,
                                                    device=device,
-                                                   topic_h_dim=8,  # FIXME
-                                                   img_h_dim=8,   # FIXME
+                                                   topic_h_dim=topic_h_dim,
+                                                   img_h_dim=img_h_dim,
                                                    conv_stride=conv_stride)
         # if self.zx_dim != 0: pytorch can generate emtpy tensor,
         # so no need to judge here

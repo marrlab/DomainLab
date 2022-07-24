@@ -2,7 +2,7 @@ from libdg.compos.vae.zoo_vae_builders_classif import \
     NodeVAEBuilderImgConvBnPool, NodeVAEBuilderImgAlex, NodeVAEBuilderArg
 from libdg.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImgTopic
 from libdg.compos.vae.zoo_vae_builders_classif import \
-    NodeVAEBuilderImgTopicMNIST
+    NodeVAEBuilderImgSmallTopic
 
 
 class VAEChainNodeGetter(object):
@@ -26,7 +26,7 @@ class VAEChainNodeGetter(object):
         """
         if self.topic_dim is not None:
             chain = NodeVAEBuilderImgTopic(None)
-            chain = NodeVAEBuilderImgTopicMNIST(chain)
+            chain = NodeVAEBuilderImgSmallTopic(chain)
         else:
             chain = NodeVAEBuilderImgConvBnPool(None)
             chain = NodeVAEBuilderImgAlex(chain)

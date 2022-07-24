@@ -30,7 +30,8 @@ class ModelHDUVA(VAEXYDClassif):
 
         # topic to zd follows Gaussian distribution
         self.add_module("net_p_zd",
-                        self.chain_node_builder.construct_cond_prior(self.topic_dim, self.zd_dim))
+                        self.chain_node_builder.construct_cond_prior(
+                            self.topic_dim, self.zd_dim))
 
     def _init_components(self):
         """
@@ -38,12 +39,16 @@ class ModelHDUVA(VAEXYDClassif):
         p(zy)
         q_{classif}(zy)
         """
-        self.add_module("encoder", self.chain_node_builder.build_encoder(self.device, self.topic_dim))
-        self.add_module("decoder", self.chain_node_builder.build_decoder(self.topic_dim))
+        self.add_module("encoder", self.chain_node_builder.build_encoder(
+            self.device, self.topic_dim))
+        self.add_module("decoder", self.chain_node_builder.build_decoder(
+            self.topic_dim))
         self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(self.dim_y, self.zy_dim))
+                        self.chain_node_builder.construct_cond_prior(
+                            self.dim_y, self.zy_dim))
         self.add_module("net_classif_y",
-                        self.chain_node_builder.construct_classifier(self.zy_dim, self.dim_y))
+                        self.chain_node_builder.construct_classifier(
+                            self.zy_dim, self.dim_y))
 
     def cal_logit_y(self, tensor_x):
         """
