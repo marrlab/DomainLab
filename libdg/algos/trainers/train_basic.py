@@ -3,7 +3,7 @@ import torch.optim as optim
 
 
 class TrainerBasic(TrainerClassif):
-    def __init__(self, model, task, observer, device, aconf=None):
+    def __init__(self, model, task, observer, device, aconf):
         super().__init__(model, task, observer, device, aconf)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
         self.epo_loss_tr = None

@@ -35,18 +35,35 @@ class ModelDIVA(VAEXYDClassif):
                 self.chain_node_builder.construct_classifier(
                     self.zd_dim, self.dim_d_tr))
 
-    def warm_up_beta(self, epoch, beta_steady=1.0, steps=100):
-        self.beta_d = min([beta_steady,
-                           beta_steady * ((epoch+1) * 1.) / steps])  # for zd
-        self.beta_y = min([beta_steady,
-                           beta_steady * ((epoch+1) * 1.) / steps])  # for zy
-        self.beta_x = min([beta_steady,
-                           beta_steady * ((epoch+1) * 1.) / steps])  # for zx
+    def hyper_update(self, epoch, fun_scheduler):
+        """hyper_update.
+
+        :param epoch:
+        :param fun_scheduler:
+        """
+        dict_rst = fun_scheduler(epoch)
+        self.beta_d = dict_rst["beta_d"]
+        self.beta_y = dict_rst["beta_y"]
+        self.beta_x = dict_rst["beta_x"]
+
+    def hyper_init(self, functor_scheduler):
+        """hyper_init.
+        :param functor_scheduler:
+        """
+        return functor_scheduler(
+            beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
 
     def get_list_str_y(self):
+        """get_list_str_y."""
         return self._list_str_y
 
     def forward(self, x, y, d):
+        """forward.
+
+        :param x:
+        :param y:
+        :param d:
+        """
         q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(x)
         logit_d = self.net_classif_d(zd_q)
         logit_y = self.net_classif_y(zy_q)
@@ -85,25 +102,12 @@ class ModelDIVA(VAEXYDClassif):
             lc_y, \
             lc_d
 
-def test_fun():
-    from libdg.compos.vae.utils_request_chain_builder import RequestVAEBuilderCHW, VAEChainNodeGetter
-    from libdg.utils.test_img import mk_rand_xyd
-    from libdg.utils.utils_classif import mk_dummy_label_list_str
+    def cal_loss(self, tensor_x, tensor_y, tensor_d):
+        """cal_loss.
 
-    im_h = 64
-    y_dim = 10
-    dim_d_tr = 3
-    batch_size = 5
-
-    request = RequestVAEBuilderCHW(3, im_h, im_h)
-    node = VAEChainNodeGetter(request)()
-
-    list_str_y = mk_dummy_label_list_str("class", y_dim)
-    list_d_tr = mk_dummy_label_list_str("domain", dim_d_tr)
-
-    model = ModelDIVA(node, zd_dim=8, zy_dim=8, zx_dim=8, gamma_d=1.0, gamma_y=1.0,
-                      list_str_y=list_str_y, list_d_tr=list_d_tr)
-    imgs, y_s, d_s = mk_rand_xyd(im_h, y_dim, dim_d_tr, batch_size)
-    one_hot, mat_prob, label, confidence, na = model.infer_y_vpicn(imgs)
-    model(imgs, y_s, d_s)
-    return model, imgs, y_s, d_s
+        :param tensor_x:
+        :param tensor_y:
+        :param tensor_d:
+        """
+        loss, *_ = self.forward(tensor_x, tensor_y, tensor_d)
+        return loss

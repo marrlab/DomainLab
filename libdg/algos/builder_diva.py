@@ -1,5 +1,5 @@
 from libdg.algos.a_algo_builder import NodeAlgoBuilder
-from libdg.algos.trainers.train_diva import TrainerDIVA
+from libdg.algos.trainers.train_visitor import TrainerVisitor
 from libdg.algos.msels.c_msel import MSelTrLoss
 from libdg.algos.msels.c_msel_oracle import MSelOracleVisitor
 from libdg.algos.observers.b_obvisitor import ObVisitor
@@ -42,5 +42,5 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
                 ObVisitorGen(exp,
                              MSelOracleVisitor(MSelTrLoss(max_es=args.es)),
                              device))
-        trainer = TrainerDIVA(model, task, observer, device, aconf=args)
+        trainer = TrainerVisitor(model, task, observer, device, args)
         return trainer

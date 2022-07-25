@@ -14,6 +14,13 @@ class AModelClassif(nn.Module, metaclass=abc.ABCMeta):
     match_feat_fun_na = "cal_logit_y"
 
     @abc.abstractmethod
+    def cal_loss(self, *tensors):
+        """
+        calculate the loss
+        """
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
