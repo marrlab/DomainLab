@@ -1,5 +1,8 @@
 LibDG: Library of Domain Generalization
 ================================================
+<!-- markdown-link-check-disable-next-line -->
+[![GH Actions CI ](https://github.com/volkamerlab/teachopencadd/workflows/CI/badge.svg)](https://github.com/volkamerlab/teachopencadd/actions?query=branch%3Amaster+workflow%3ACI)
+
 ## Domain Generalization and libDG
 
 ### Domain Generalization
