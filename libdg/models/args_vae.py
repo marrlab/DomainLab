@@ -35,8 +35,8 @@ def add_args2parser_vae(parser):
     #
 
     parser.add_argument('-w', '--warmup', type=int, default=100,
-                        help='number of epochs for warm-up. \
-                        Set to 0 to turn warmup off.')   # FIXME: this should be separate
+                        help='number of epochs for hyper-parameter warm-up. \
+                        Set to 0 to turn warmup off.')
     return parser
 
 def test_fun():
