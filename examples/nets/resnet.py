@@ -1,8 +1,8 @@
 import torch.nn as nn
 from torchvision import models as torchvisionmodels
 
-from libdg.compos.nn import LayerId
-from libdg.compos.nn_torchvision import NetTorchVisionBase
+from domainlab.compos.nn import LayerId
+from domainlab.compos.nn_torchvision import NetTorchVisionBase
 
 
 class ResNetBase(NetTorchVisionBase):

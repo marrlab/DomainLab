@@ -1,1 +1,1 @@
-poetry run pytest libdg/*/*.py
+poetry run pytest domainlab/*/*.py

@@ -1,6 +1,6 @@
 from torchvision import transforms
-from libdg.tasks.task_pathlist import mk_node_task_path_list
-from libdg.tasks.utils_task import ImSize
+from domainlab.tasks.task_pathlist import mk_node_task_path_list
+from domainlab.tasks.utils_task import ImSize
 
 
 def get_task(na=None):
