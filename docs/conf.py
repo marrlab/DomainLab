@@ -48,6 +48,7 @@ author = "Xudong Sun, etc"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "myst-parser",
     "sphinx.ext.autosummary",
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",

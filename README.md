@@ -58,7 +58,7 @@ python main_out.py --help
 See also [Examples](./examples.sh).
 
 ### Output structure (results storage) and Performance Measure
-[Output structure and Performance Measure](./doc_output.md)
+[Output structure and Performance Measure](./docs/doc_output.md)
 
 ## Custom Usage
 
@@ -74,7 +74,7 @@ This library decouples the concept of algorithm (model) and neural network archi
 ![Design Diagram](libDG.svg)
 
 # Extend or contribute with a custom domain generalization algorithm
-[Extend or Contibute](./doc_extend_contribute.md)
+[Extend or Contibute](./docs/doc_extend_contribute.md)
 
 # Credits
 Contact: Xudong Sun (smilesun.east@gmail.com, Institute of AI for Health, Helmholtz Munich, Germany)

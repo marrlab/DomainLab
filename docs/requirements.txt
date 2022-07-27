@@ -1,3 +1,4 @@
+myst-parser
 rinohtype
 nbsphinx
 nbsphinx_link
