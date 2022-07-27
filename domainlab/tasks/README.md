@@ -11,7 +11,7 @@ download from
 
 The user should specify the location of the python file like below
 ```
-# suppose the current directory is the root directory of libDG
+# suppose the current directory is the root directory of the repository
 python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2
 ```
 
@@ -58,7 +58,7 @@ Folder structure of the 3rd domain:
         └── vehicle
 ```
 
-#### Specify the task with libDG API
+#### Specify the task with domainlab API
 The user is expected to implement something similar to the following code in a separate python file with a function with signature `get_task(na=None)`.
 ```
 import os
@@ -107,7 +107,7 @@ chain = mk_task_folder(extensions={"domain1": "jpg", "domain2": "jpg", "domain3"
                            "domain3": os.path.join("/path/to/3rd_domain", "folder_c")},
                        taskna="task_demo")
 
-def get_task(na=None):  # libDG will call this function to get the task
+def get_task(na=None):  # the package will call this function to get the task
     return chain
 ```
 The domainlab function to create task in this example is `domainlab.tasks.mk_task_folder`

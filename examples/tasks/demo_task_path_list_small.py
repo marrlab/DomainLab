@@ -24,7 +24,6 @@ def get_task(na=None):
         # relative path to corresponding images
 
         # folder data is with respect to the current working directory
-        # e.g. libDG
 
         # # 1. specify the list of images used for training set
         dict_d2filepath_list_img={

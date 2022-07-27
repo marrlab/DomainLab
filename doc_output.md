@@ -1,5 +1,5 @@
 ### Output structure
-By default, libDG generate outputs to a folder called "zoutput" relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)
+By default, this package(library) generate outputs to a folder called "zoutput" relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)
 
 ```
 zoutput/

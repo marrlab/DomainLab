@@ -1,4 +1,4 @@
-# Extend or contribute to libDG with a custom domain generalization algorithm
+# Extend or contribute with a custom domain generalization algorithm
 
 ## External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG
 Look at this dummy example:

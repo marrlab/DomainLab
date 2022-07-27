@@ -13,7 +13,7 @@ def mk_task_folder(extensions,
                    taskna,
                    succ=None):
     """
-    Make libDG task by specifying each domain with folder structures
+    Make task by specifying each domain with folder structures
     :param extensions: a python dictionary with key as the domain name
     and value as the file extensions of the image.
     :param list_str_y: a python list with user defined class name where

@@ -7,7 +7,8 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
-from domainlab.compos.vae.utils_request_chain_builder import RequestVAEBuilderCHW, VAEChainNodeGetter
+from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
+from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.utils.test_img import mk_rand_xyd
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 
