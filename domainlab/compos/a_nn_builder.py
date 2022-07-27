@@ -35,7 +35,7 @@ class AbstractFeatExtractNNBuilderChainNode(AbstractChainNodeHandler):
         return NotImplementedError
 
     def is_myjob(self, args):
-        """is_myjob.
+        """
         :param args_nname: command line arguments:
             "--nname": name of the torchvision model
             "--npath": path to the user specified python file with neural

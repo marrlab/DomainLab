@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#2196f3">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+  
+    <title>domainlab package &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=teal data-md-color-accent=cyan>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#domainlab" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="domainlab  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">DomainLab</span>
+          <span class="md-header-nav__topic"> domainlab package </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    domainlab
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+            
+            <li class="md-tabs__item"><a href="../README.html" class="md-tabs__link">About</a></li>
+            
+            <li class="md-tabs__item"><a href="contribute.html" class="md-tabs__link">Contribute</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="domainlab documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    <a href="index.html"
+       title="domainlab documentation">DomainLab</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    domainlab
+  </div>
+</a>
+    </div>
+  
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#domainlab--page-root" class="md-nav__link">domainlab package</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#subpackages" class="md-nav__link">Subpackages</a>
+        </li>
+        <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.arg_parser" class="md-nav__link">domainlab.arg_parser module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab" class="md-nav__link">Module contents</a>
+        </li></ul>
+            </nav>
+        </li>
+    
+<li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/domainlab.rst.txt">Show Source</a> </li>
+
+<li id="searchbox" class="md-nav__item"></li>
+
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="domainlab-package">
+<h1 id="domainlab--page-root">domainlab package<a class="headerlink" href="#domainlab--page-root" title="Permalink to this headline">¶</a></h1>
+<section id="subpackages">
+<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="domainlab.algos.html">domainlab.algos package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.algos.compos.html">domainlab.algos.compos package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#module-domainlab.algos.compos.matchdg_args">domainlab.algos.compos.matchdg_args module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#module-domainlab.algos.compos.matchdg_base">domainlab.algos.compos.matchdg_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#module-domainlab.algos.compos.matchdg_ctr_erm">domainlab.algos.compos.matchdg_ctr_erm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#module-domainlab.algos.compos.matchdg_match">domainlab.algos.compos.matchdg_match module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#module-domainlab.algos.compos.matchdg_utils">domainlab.algos.compos.matchdg_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.compos.html#module-domainlab.algos.compos">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html">domainlab.algos.trainers package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.a_trainer">domainlab.algos.trainers.a_trainer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.test_train_diva">domainlab.algos.trainers.test_train_diva module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dann">domainlab.algos.trainers.train_dann module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_matchdg">domainlab.algos.trainers.train_matchdg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_visitor">domainlab.algos.trainers.train_visitor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_wrap_ctr">domainlab.algos.trainers.train_wrap_ctr module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.a_algo_builder">domainlab.algos.a_algo_builder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_dann">domainlab.algos.builder_dann module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_deepall">domainlab.algos.builder_deepall module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_diva">domainlab.algos.builder_diva module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_hduva">domainlab.algos.builder_hduva module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_matchdg">domainlab.algos.builder_matchdg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.zoo_algos">domainlab.algos.zoo_algos module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domainlab.compos.html">domainlab.compos package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.a_nn_builder">domainlab.compos.a_nn_builder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.builder_nn_alex">domainlab.compos.builder_nn_alex module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.builder_nn_external_from_file">domainlab.compos.builder_nn_external_from_file module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.net_adversarial">domainlab.compos.net_adversarial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.net_classif">domainlab.compos.net_classif module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.net_conv">domainlab.compos.net_conv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.net_gated">domainlab.compos.net_gated module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.nn">domainlab.compos.nn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.nn_alex">domainlab.compos.nn_alex module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.nn_torchvision">domainlab.compos.nn_torchvision module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos.zoo_nn">domainlab.compos.zoo_nn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.html#module-domainlab.compos">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domainlab.dsets.html">domainlab.dsets package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.a_dset_mnist_color_rgb_solo">domainlab.dsets.a_dset_mnist_color_rgb_solo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.dset_img_path_list">domainlab.dsets.dset_img_path_list module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.dset_mnist_color_solo_default">domainlab.dsets.dset_mnist_color_solo_default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.dset_poly_domains_mnist_color_default">domainlab.dsets.dset_poly_domains_mnist_color_default module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.dset_subfolder">domainlab.dsets.dset_subfolder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.utils_color_palette">domainlab.dsets.utils_color_palette module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.utils_data">domainlab.dsets.utils_data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.utils_dsets_folder">domainlab.dsets.utils_dsets_folder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets.utils_mnist_static_subset">domainlab.dsets.utils_mnist_static_subset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.dsets.html#module-domainlab.dsets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domainlab.models.html">domainlab.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.a_model_classif">domainlab.models.a_model_classif module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.args_vae">domainlab.models.args_vae module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.model_dann">domainlab.models.model_dann module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.model_deep_all">domainlab.models.model_deep_all module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.model_diva">domainlab.models.model_diva module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.model_hduva">domainlab.models.model_hduva module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.model_vae_xyd_classif">domainlab.models.model_vae_xyd_classif module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.test_model_diva">domainlab.models.test_model_diva module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.test_vae_xyd_classif">domainlab.models.test_vae_xyd_classif module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models.wrapper_matchdg">domainlab.models.wrapper_matchdg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.models.html#module-domainlab.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domainlab.tasks.html">domainlab.tasks package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.a_task">domainlab.tasks.a_task module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.b_task">domainlab.tasks.b_task module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_folder">domainlab.tasks.task_folder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_folder_mk">domainlab.tasks.task_folder_mk module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_mnist_color">domainlab.tasks.task_mnist_color module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_pathlist">domainlab.tasks.task_pathlist module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.test_task_path_list">domainlab.tasks.test_task_path_list module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.utils_task">domainlab.tasks.utils_task module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.utils_task_dset">domainlab.tasks.utils_task_dset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.zoo_tasks">domainlab.tasks.zoo_tasks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="domainlab.utils.html">domainlab.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.flows_gen_img_model">domainlab.utils.flows_gen_img_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.get_git_tag">domainlab.utils.get_git_tag module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.override_interface">domainlab.utils.override_interface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.perf">domainlab.utils.perf module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.test_img">domainlab.utils.test_img module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.u_import">domainlab.utils.u_import module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.u_import_net_module">domainlab.utils.u_import_net_module module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.utils_class">domainlab.utils.utils_class module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.utils_classif">domainlab.utils.utils_classif module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.utils_cuda">domainlab.utils.utils_cuda module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils.utils_img_sav">domainlab.utils.utils_img_sav module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.utils.html#module-domainlab.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-domainlab.arg_parser">
+<span id="domainlab-arg-parser-module"></span><h2 id="module-domainlab.arg_parser">domainlab.arg_parser module<a class="headerlink" href="#module-domainlab.arg_parser" title="Permalink to this headline">¶</a></h2>
+<p>Command line arguments</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.arg_parser.mk_parser_main">
+<span class="sig-prename descclassname"><span class="pre">domainlab.arg_parser.</span></span><span class="sig-name descname"><span class="pre">mk_parser_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/arg_parser.html#mk_parser_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.arg_parser.mk_parser_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Args for command line definition</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.arg_parser.parse_cmd_args">
+<span class="sig-prename descclassname"><span class="pre">domainlab.arg_parser.</span></span><span class="sig-name descname"><span class="pre">parse_cmd_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/arg_parser.html#parse_cmd_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.arg_parser.parse_cmd_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>get args from command line</p>
+</dd></dl>
+</section>
+<section id="module-domainlab">
+<span id="module-contents"></span><h2 id="module-domainlab">Module contents<a class="headerlink" href="#module-domainlab" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021-2022, Marr Lab..
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

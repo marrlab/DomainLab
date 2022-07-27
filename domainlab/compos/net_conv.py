@@ -59,8 +59,8 @@ def test_get_flat_dim():
 
 class NetConvDense(nn.Module):
     """
-    1. For direct topic inference
-    2. For custom deep_all, which is extracting the path of VAE from encoder
+    - For direct topic inference
+    - For custom deep_all, which is extracting the path of VAE from encoder
     till classifier. note in encoder, there is extra layer of hidden to mean
     and scale, in this component, it is replaced with another hidden layer.
     """
