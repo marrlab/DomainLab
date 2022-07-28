@@ -10,6 +10,10 @@ Welcome to domainlab's documentation!
    :maxdepth: 5
    :caption: Contents:
    modules
+   doc_output
+   doc_algos
+   doc_custom_nn
+   doc_tasks
 
 Indices and tables
 ==================

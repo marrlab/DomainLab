@@ -70,21 +70,5 @@ Do you have your own data that comes from different domains? Create a task for y
 This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
 [Specify Custom Neural Networks for an algorithm](domainlab/docs/doc_custom_nn.md) 
 
-# Design
-![Design Diagram](libDG.svg)
-
-# Extend or contribute with a custom domain generalization algorithm
+# [Software](Software) Design, Extend or Contribution, Credits
 [Extend or Contibute](./docs/doc_extend_contribute.md)
-
-# Credits
-Contact: Xudong Sun (smilesun.east@gmail.com, Institute of AI for Health, Helmholtz Munich, Germany)
-
-Please cite our paper if you use this code in your research:
-```
-@inproceedings{sun2021hierarchical,
-  title={Hierarchical Variational Auto-Encoding for Unsupervised Domain Generalization},
-  author={Sun, Xudong and Buettner, Florian},
-  booktitle={ICLR 2021 RobustML workshop, https://arxiv.org/pdf/2101.09436.pdf},
-  year={2021}
-}
-```

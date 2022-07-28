@@ -48,6 +48,7 @@ author = "Xudong Sun, etc"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    # "recommonmark",  # conflict with myst_parser
     "myst_parser",
     "sphinx.ext.autosummary",
     "sphinx.ext.autodoc",
@@ -66,6 +67,21 @@ extensions = [
 
 myst_all_links_external = True
 myst_heading_anchors = 3
+myst_enable_extensions = [
+        "amsmath",
+        "colon_fence",
+        "deflist",
+        "dollarmath",
+        "fieldlist",
+        "html_admonition",
+        "html_image",
+        "linkify",
+        "replacements",
+        "smartquotes",
+        "strikethrough",
+        "substitution",
+        "tasklist",
+]
 # autosummary_generate = True
 # napoleon_google_docstring = False
 # napoleon_use_param = False
@@ -76,8 +92,17 @@ templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-#
+
+# # conflict with MySt
+#source_parsers = {
+#        '.md': 'recommonmark.parser.CommonMarkParser',
+#}
 source_suffix = ['.rst', '.md']
+source_suffix = {
+        '.rst': 'restructuredtext',
+        '.txt': 'markdown',
+        '.md': 'markdown',
+}
 
 # The master toctree document.
 master_doc = "index"
@@ -102,7 +127,7 @@ highlight_language = "none"
 # -- Options for HTML output -------------------------------------------------
 # -- HTML theme settings ------------------------------------------------
 html_short_title = "domainlab"  # FIXME
-html_show_sourcelink = True
+html_show_sourcelink = False
 html_sidebars = {"**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]}
 
 html_theme_path = sphinx_material.html_theme_path()
