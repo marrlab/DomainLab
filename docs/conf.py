@@ -48,7 +48,7 @@ author = "Xudong Sun, etc"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "myst-parser",
+    "myst_parser",
     "sphinx.ext.autosummary",
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",
@@ -64,6 +64,8 @@ extensions = [
     "IPython.sphinxext.ipython_console_highlighting",
 ]
 
+myst_all_links_external = True
+myst_heading_anchors = 3
 # autosummary_generate = True
 # napoleon_google_docstring = False
 # napoleon_use_param = False
@@ -126,8 +128,11 @@ html_theme_options = {
     "master_doc": False,
     "nav_title": "DomainLab",
     "nav_links": [
-        {"href": "../README", "internal": True, "title": "About"},
-        {"href": "contribute", "internal": True, "title": "Contribute"},
+        {"href": "readme_link", "internal": True, "title": "Introduction"},
+        {"href": "doc_tasks", "internal": True, "title": "Task Specification"},
+        {"href": "doc_custom_nn", "internal": True, "title": "Custom Neural Network"},
+        {"href": "doc_output", "internal": True, "title": "Output Structure"},
+        {"href": "doc_extend_contribute", "internal": True, "title": "Contribute"},
         # {
         #     "href": "https://squidfunk.github.io/mkdocs-material/",
         #     "internal": False,

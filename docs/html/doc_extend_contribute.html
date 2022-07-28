@@ -49,7 +49,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>&lt;no title&gt; &#8212; domainlab  documentation</title>
+    <title>Extend or contribute with a custom domain generalization algorithm &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -98,7 +98,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> &lt;no title&gt; </span>
+          <span class="md-header-nav__topic"> Extend or contribute with a custom domain generalization algorithm </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -162,9 +162,15 @@
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
             
-            <li class="md-tabs__item"><a href="../README.html" class="md-tabs__link">About</a></li>
+            <li class="md-tabs__item"><a href="readme_link.html" class="md-tabs__link">Introduction</a></li>
             
-            <li class="md-tabs__item"><a href="contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="#" class="md-tabs__link">Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -210,7 +216,16 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#doc-extend-contribute--page-root" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg" class="md-nav__link">External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG</a>
+        </li>
+        <li class="md-nav__item"><a href="#internal-extension-by-integrating-an-algorithm-into-libdg" class="md-nav__link">Internal extension by integrating an algorithm into LibDG</a>
+        </li></ul>
+            </nav>
+        </li>
     
 <li class="md-nav__item"><a class="md-nav__extra_link" href="_sources/doc_extend_contribute.md.txt">Show Source</a> </li>
 
@@ -225,18 +240,26 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <p># Extend or contribute with a custom domain generalization algorithm</p>
-<p>## External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG
-Look at this dummy example:
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">python</span> <span class="pre">main_out.py</span> <span class="pre">--te_d=caltech</span> <span class="pre">--task=mini_vlcs</span> <span class="pre">--debug</span> <span class="pre">--bs=8</span> <span class="pre">--apath=examples/algos/demo_custom_algo_builder.py</span> <span class="pre">--aname=custom</span>
-<span class="pre">`</span></code>
-where the template file corresponding to “–apath” defines a class which inherit specified interfaces.</p>
-<p>## Internal extension by integrating an algorithm into LibDG
-- implement domainlab/algos/builder_your-algorithm-name.py
-- add your algorithm into domainlab/algos/zoo_algos.py by adding <cite>chain = NodeAlgoBuilder[your-algorithm-name](chain)</cite>
-- note that all algorithms will be converted to lower case!
-- make a pull request</p>
+  <section id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">
+<h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization algorithm<a class="headerlink" href="#doc-extend-contribute--page-root" title="Permalink to this headline">¶</a></h1>
+<section id="external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg">
+<h2 id="external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg">External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG<a class="headerlink" href="#external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg" title="Permalink to this headline">¶</a></h2>
+<p>Look at this dummy example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom
+</pre></div>
+</div>
+<p>where the template file corresponding to “–apath” defines a class which inherit specified interfaces.</p>
+</section>
+<section id="internal-extension-by-integrating-an-algorithm-into-libdg">
+<h2 id="internal-extension-by-integrating-an-algorithm-into-libdg">Internal extension by integrating an algorithm into LibDG<a class="headerlink" href="#internal-extension-by-integrating-an-algorithm-into-libdg" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>implement domainlab/algos/builder_your-algorithm-name.py</p></li>
+<li><p>add your algorithm into domainlab/algos/zoo_algos.py by adding <code class="docutils literal notranslate"><span class="pre">chain</span> <span class="pre">=</span> <span class="pre">NodeAlgoBuilder[your-algorithm-name](chain)</span></code></p></li>
+<li><p>note that all algorithms will be converted to lower case!</p></li>
+<li><p>make a pull request</p></li>
+</ul>
+</section>
+</section>
 
 
           </article>
