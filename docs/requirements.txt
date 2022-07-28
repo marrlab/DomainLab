@@ -3,3 +3,5 @@ rinohtype
 nbsphinx
 nbsphinx_link
 sphinx_material
+commonmark
+recommonmark
