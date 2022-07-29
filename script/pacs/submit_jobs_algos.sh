@@ -1,6 +1,8 @@
-echo "source code directory is $1"
-repodir=$1
-echo "seed range: $2:$3"
+repodir="../.."
+echo "source code directory is $repodir"
+echo "seed range: $1:$2"
+startseed=$1
+endseed=$2
 mkdir -p logs
 currenttime="`date`"
 
@@ -20,5 +22,5 @@ for algo in "deepall" "diva" "hduva" "matchdg"
 do
     echo "algo: $algo"
     JOBNAME="$algo"
-    sbatch --error="logs/${JOBNAME}_error_${currenttime}" --output="logs/${JOBNAME}_output_${currenttime}" --job-name="${JOBNAME}" $scriptname $repodir $algo $2 $3 $epos $algoconf "$paths" "$batchsize"
+    sbatch --error="logs/${JOBNAME}_error_${currenttime}" --output="logs/${JOBNAME}_output_${currenttime}" --job-name="${JOBNAME}" $scriptname $repodir $algo $startseed $endseed $epos $algoconf "$paths" "$batchsize"
 done
