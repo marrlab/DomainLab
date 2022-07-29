@@ -1,5 +1,6 @@
 import os
 import abc
+import warnings
 import torch
 
 import numpy as np
@@ -100,8 +101,11 @@ class ObVisitor(AObVisitor):
         to be called by a decorator
         """
         if not self.keep_model:
-            self.exp.visitor.remove("epoch")    # the last epoch
-            # epoch exist to still have a model to evaluate if the training stops in between
-            self.exp.visitor.remove("final")
-            self.exp.visitor.remove()
-            self.exp.visitor.remove("oracle")   # oracle means use out-of-domain test accuracy to select the model
+            try:
+                self.exp.visitor.remove("oracle")   # oracle means use out-of-domain test accuracy to select the model
+                self.exp.visitor.remove("epoch")    # the last epoch
+                # epoch exist to still have a model to evaluate if the training stops in between
+                self.exp.visitor.remove("final")
+                self.exp.visitor.remove()
+            except Exception as e:
+                warnings.warn("failed to remove model")
