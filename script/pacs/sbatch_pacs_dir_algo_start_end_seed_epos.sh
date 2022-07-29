@@ -6,9 +6,10 @@
 #SBATCH --mem=32G
 #SBATCH -t 48:00:00
 #SBATCH --nice=10000 
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/anaconda3/lib
 set -e
 echo "Starting stuff at `date`"
-# source $HOME/.bashrc    # FIXME
+source $HOME/.bashrc    # FIXME
 nvidia-smi
 
 
