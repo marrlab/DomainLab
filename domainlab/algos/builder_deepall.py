@@ -17,9 +17,8 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args.nocu)
-        observer = ObVisitor(exp,
-                             MSelOracleVisitor(
-                                 MSelTrLoss(max_es=args.es)), device)
+        model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
+        observer = ObVisitor(exp, model_sel, device)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",

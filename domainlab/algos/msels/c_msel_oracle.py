@@ -6,7 +6,8 @@ from domainlab.algos.msels.a_model_sel import AMSel
 
 class MSelOracleVisitor(AMSel):
     """
-    save best out-of-domain test acc model
+    save best out-of-domain test acc model, but do not affect
+    how the final model is selected
     """
     def __init__(self, msel):
         """
@@ -30,6 +31,8 @@ class MSelOracleVisitor(AMSel):
     def if_stop(self):
         """
         if should early stop
+        oracle model selection does not intervene how models get selected
+        by the innermost model selection
         """
         return self.msel.if_stop()
 

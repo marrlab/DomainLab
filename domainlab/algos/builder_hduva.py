@@ -1,5 +1,5 @@
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
@@ -39,5 +39,5 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
         model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
         observer = ObVisitorCleanUp(
             ObVisitor(exp, model_sel, device))
-        trainer = TrainerBasic(model, task, observer, device, args)
+        trainer = TrainerVisitor(model, task, observer, device, args)
         return trainer

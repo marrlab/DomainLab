@@ -40,8 +40,9 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             remove_last_layer=True, args=args)
         ctr_model = ctr_net.to(device)
 
+        model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
         observer = ObVisitor(exp,
-                             MSelOracleVisitor(MSelTrLoss(max_es=args.es)),
+                             model_sel,
                              device)
         trainer = TrainerMatchDG(exp, task, ctr_model, model, observer, args,
                                  device)
