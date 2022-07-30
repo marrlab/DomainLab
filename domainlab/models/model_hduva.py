@@ -12,6 +12,24 @@ class ModelHDUVA(VAEXYDClassif):
     """
     Hierarchical Domain Unsupervised Variational Auto-Encoding
     """
+    def hyper_update(self, epoch, fun_scheduler):
+        """hyper_update.
+
+        :param epoch:
+        :param fun_scheduler:
+        """
+        dict_rst = fun_scheduler(epoch)
+        self.beta_d = dict_rst["beta_d"]
+        self.beta_y = dict_rst["beta_y"]
+        self.beta_x = dict_rst["beta_x"]
+
+    def hyper_init(self, functor_scheduler):
+        """hyper_init.
+        :param functor_scheduler:
+        """
+        return functor_scheduler(
+            beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
+
     @store_args
     def __init__(self, chain_node_builder,
                  zy_dim, zd_dim,
