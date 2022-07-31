@@ -57,6 +57,37 @@ def test_get_flat_dim():
     get_flat_dim(model, 3, 28, 28)
 
 
+
+class NetConvBnReluPool2(nn.Module):
+    """
+    - For direct topic inference
+    - For custom deep_all, which is extracting the path of VAE from encoder
+    till classifier. note in encoder, there is extra layer of hidden to mean
+    and scale, in this component, it is replaced with another hidden layer.
+    """
+    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h):
+        """
+        :param dim_out_h:
+        """
+        super().__init__()
+        self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
+        torch.nn.init.xavier_uniform_(self.conv_net[0].weight)  # FIXME: this line should go inside mk_conv_bn_relu_pool
+        torch.nn.init.xavier_uniform_(self.conv_net[4].weight)
+
+        ###
+        self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
+        self.layer_last = nn.Linear(self.hdim, dim_out_h),
+
+    def forward(self, tensor_x):
+        """
+        :param tensor_x: image
+        """
+        conv_out = self.conv_net(tensor_x)  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
+        flat = conv_out.view(-1, self.hdim)   # 1024 =   64 * (4*4)
+        hidden = self.layer_last(flat)
+        return hidden
+
+
 class NetConvDense(nn.Module):
     """
     - For direct topic inference
@@ -69,12 +100,9 @@ class NetConvDense(nn.Module):
         :param dim_out_h:
         """
         super().__init__()
-        ###
-        # self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
-        # torch.nn.init.xavier_uniform_(self.conv_net[0].weight)
-        # torch.nn.init.xavier_uniform_(self.conv_net[4].weight)
-
-        self.conv_net = FeatExtractNNBuilderChainNodeGetter(args, "nname_dom", "npath_dom")
+        self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
+        torch.nn.init.xavier_uniform_(self.conv_net[0].weight)  # FIXME: this line should go inside mk_conv_bn_relu_pool
+        torch.nn.init.xavier_uniform_(self.conv_net[4].weight)
 
         ###
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)

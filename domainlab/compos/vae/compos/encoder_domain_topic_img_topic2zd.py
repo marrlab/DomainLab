@@ -33,10 +33,10 @@ class HEncoderTopicImg2Zd(nn.Module):
                             dim_out_h=self.img_h_dim))
         # topic->h_topic
         # FIXME: do we need topic to h_topic instead of simplying using topic?
-        self.add_module("h_layer_topic",
-                        DenseNet(
-                            input_flat_size=num_topics,
-                            out_hidden_size=self.topic_h_dim))
+        # self.add_module("h_layer_topic",
+        #                DenseNet(
+        #                    input_flat_size=num_topics,
+        #                    out_hidden_size=self.topic_h_dim))
         # [h_img, h_topic] -> zd
         self.add_module("img_topic_h2zd",
                         LSEncoderDense(
@@ -52,8 +52,8 @@ class HEncoderTopicImg2Zd(nn.Module):
         # image->h_img
         h_img = self.h_layer_img(x)
         # topic->h_topic
-        h_topic = self.h_layer_topic(topic)
-        #
+        # h_topic = self.h_layer_topic(topic)
+        h_topic = h_img
         h_img_topic = torch.cat((h_img, h_topic), 1)   # FIXME: order of concatnation
         q_zd, zd_q = self.img_topic_h2zd(h_img_topic)
         return q_zd, zd_q

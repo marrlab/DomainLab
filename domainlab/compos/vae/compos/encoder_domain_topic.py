@@ -1,14 +1,10 @@
 import torch
 import torch.nn as nn
-import torch.distributions as dist
 
-from domainlab.compos.net_conv import NetConvDense
-from domainlab.compos.nn import DenseNet
-
-from domainlab.compos.vae.compos.encoder import LSEncoderDense
-from domainlab.compos.vae.compos.encoder_dirichlet import EncoderH2Dirichlet
 from domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd import \
     HEncoderTopicImg2Zd
+from domainlab.compos.vae.compos.encoder_domain_topic_img2topic import \
+    EncoderImg2TopicDistri
 
 
 class EncoderImg2TopicDirZd(nn.Module):
@@ -40,18 +36,12 @@ class EncoderImg2TopicDirZd(nn.Module):
         self.img_h_dim = img_h_dim
         self.topic_h_dim = topic_h_dim
 
-        # image->h_image->[alpha,topic]
-
-        self.add_module("h_layer_img",
-                        NetConvDense(i_c, i_h, i_w,
-                                     conv_stride=conv_stride,
-                                     args=args,
-                                     dim_out_h=self.img_h_dim))
-
-        # h_image->[alpha,topic]
-        self.add_module("h2dir", EncoderH2Dirichlet(dim_h=self.img_h_dim,
-                                                    dim_topic=num_topics,
-                                                    device=self.device))
+        self.add_module("net_img2topicdistri",
+                        EncoderImg2TopicDistri(
+                            i_c, i_h, i_w, num_topics,
+                            self.img_h_dim,
+                            device,
+                            conv_stride, args))
 
         # [topic, image] -> [h(topic), h(image)] -> [zd_mean, zd_scale]
         self.add_module(
@@ -62,16 +52,13 @@ class EncoderImg2TopicDirZd(nn.Module):
                 img_h_dim=self.img_h_dim,
                 conv_stride=conv_stride))
 
-
-    def forward(self, x):
+    def forward(self, img):
         """forward.
-
-        :param x:
+        :param img:
         """
         # image->h_image
-        h_img_dir = self.h_layer_img(x)
         # h_image->alpha
-        q_topic, topic_q = self.h2dir(h_img_dir)
+        q_topic, topic_q = self.net_img2topicdistri(img)
         # [topic, image] -> [h(topic), h(image)] -> [zd_mean, zd_scale]
-        q_zd, zd_q = self.imgtopic2zd(x, topic_q)
+        q_zd, zd_q = self.imgtopic2zd(img, topic_q)
         return q_topic, topic_q, q_zd, zd_q

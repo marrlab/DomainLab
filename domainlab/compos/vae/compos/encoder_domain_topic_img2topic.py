@@ -1,0 +1,58 @@
+import torch
+import torch.nn as nn
+
+from domainlab.compos.net_conv import NetConvDense
+
+from domainlab.compos.vae.compos.encoder_dirichlet import EncoderH2Dirichlet
+
+
+class EncoderImg2TopicDistri(nn.Module):
+    """
+    image to topic distribution  (not image to topic hidden representation
+    used by another path)
+    """
+    def __init__(self, i_c, i_h, i_w, num_topics,
+                 img_h_dim,
+                 device,
+                 conv_stride,
+                 args):
+        """__init__.
+
+        :param i_c:
+        :param i_h:
+        :param i_w:
+        :param num_topics:
+        :param device:
+        :param conv_stride:
+        """
+        super().__init__()
+        self.device = device
+
+        # image->h_image->[alpha,topic]
+
+        # FIXME:
+        # FeatExtractNNBuilderChainNodeGetter
+        # .init_business()
+        self.add_module("layer_img2hidden",
+                        NetConvDense(i_c, i_h, i_w,
+                                     conv_stride=conv_stride,
+                                     args=args,
+                                     dim_out_h=self.img_h_dim))
+
+        # h_image->[alpha,topic]
+        self.add_module("layer_hidden2dirichlet",
+                        EncoderH2Dirichlet(
+                            dim_h=self.img_h_dim,
+                            dim_topic=num_topics,
+                            device=self.device))
+
+    def forward(self, x):
+        """forward.
+
+        :param x:
+        """
+        # image->h_image
+        h_img_dir = self.layer_img2hidden(x)
+        # h_image->alpha
+        q_topic, topic_q = self.layer_hidden2dirichlet(h_img_dir)
+        return q_topic, topic_q
