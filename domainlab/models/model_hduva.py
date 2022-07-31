@@ -22,13 +22,15 @@ class ModelHDUVA(VAEXYDClassif):
         self.beta_d = dict_rst["beta_d"]
         self.beta_y = dict_rst["beta_y"]
         self.beta_x = dict_rst["beta_x"]
+        self.beta_t = dict_rst["beta_t"]
 
     def hyper_init(self, functor_scheduler):
         """hyper_init.
         :param functor_scheduler:
         """
         return functor_scheduler(
-            beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
+            beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
+            beta_t=self.beta_t)
 
     @store_args
     def __init__(self, chain_node_builder,
