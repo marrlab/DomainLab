@@ -47,7 +47,8 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
                  i_c, i_h, i_w,
                  topic_h_dim,
                  img_h_dim,
-                 conv_stride):
+                 conv_stride,
+                 args):
         """
         :param zd_dim:
         :param zx_dim:
@@ -60,7 +61,8 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
         # Given input size: (64x1x1).
         # Calculated output size: (64x0x0).
         # Output size is too small
-        net_infer_zd_topic = EncoderImg2TopicDirZd(num_topics=topic_dim,
+        net_infer_zd_topic = EncoderImg2TopicDirZd(args=args,
+                                                   num_topics=topic_dim,
                                                    zd_dim=self.zd_dim,
                                                    i_c=self.i_c,
                                                    i_w=self.i_w,
@@ -113,7 +115,8 @@ class XYDTEncoderArg(XYDTEncoderElevator):
         net_infer_zy = EncoderConnectLastFeatLayer2Z(
             self.zy_dim, True, i_c, i_h, i_w, args,
             arg_name="nname", arg_path_name="npath")
-        net_infer_zd_topic = EncoderImg2TopicDirZd(num_topics=topic_dim,
+        net_infer_zd_topic = EncoderImg2TopicDirZd(args=args,
+                                                   num_topics=topic_dim,
                                                    zd_dim=self.zd_dim,
                                                    i_c=self.i_c,
                                                    i_w=self.i_w,

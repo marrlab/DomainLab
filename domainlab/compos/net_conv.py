@@ -4,7 +4,7 @@ In PyTorch, images are represented as [channels, height, width]
 import torch
 import torch.nn as nn
 from domainlab.compos.nn import DenseNet
-
+from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 
 def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
     """
@@ -64,15 +64,18 @@ class NetConvDense(nn.Module):
     till classifier. note in encoder, there is extra layer of hidden to mean
     and scale, in this component, it is replaced with another hidden layer.
     """
-    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, dense_layer=None):
+    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, args, dense_layer=None):
         """
         :param dim_out_h:
         """
         super().__init__()
         ###
-        self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
-        torch.nn.init.xavier_uniform_(self.conv_net[0].weight)
-        torch.nn.init.xavier_uniform_(self.conv_net[4].weight)
+        # self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
+        # torch.nn.init.xavier_uniform_(self.conv_net[0].weight)
+        # torch.nn.init.xavier_uniform_(self.conv_net[4].weight)
+
+        self.conv_net = FeatExtractNNBuilderChainNodeGetter(args, "nname_dom", "npath_dom")
+
         ###
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
         if dense_layer is None:

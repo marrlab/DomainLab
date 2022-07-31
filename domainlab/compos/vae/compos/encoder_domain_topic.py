@@ -68,7 +68,8 @@ class EncoderImg2TopicDirZd(nn.Module):
                  zd_dim,
                  topic_h_dim,
                  img_h_dim,
-                 conv_stride):
+                 conv_stride,
+                 args):
         """__init__.
 
         :param i_c:
@@ -93,6 +94,7 @@ class EncoderImg2TopicDirZd(nn.Module):
         self.add_module("h_layer_img",
                         NetConvDense(i_c, i_h, i_w,
                                      conv_stride=conv_stride,
+                                     args=args,
                                      dim_out_h=self.img_h_dim))
 
         # h_image->[alpha,topic]
