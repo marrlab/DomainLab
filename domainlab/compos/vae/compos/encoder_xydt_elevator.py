@@ -60,7 +60,7 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
         # Given input size: (64x1x1).
         # Calculated output size: (64x0x0).
         # Output size is too small
-        net_infer_zd_topic = EncoderImg2TopicDirZd(args=args,
+        net_infer_zd_topic = EncoderImg2TopicDirZd(args=None,
                                                    num_topics=topic_dim,
                                                    zd_dim=self.zd_dim,
                                                    i_c=self.i_c,
