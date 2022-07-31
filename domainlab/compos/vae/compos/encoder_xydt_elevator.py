@@ -47,8 +47,7 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
                  i_c, i_h, i_w,
                  topic_h_dim,
                  img_h_dim,
-                 conv_stride,
-                 args):
+                 conv_stride):
         """
         :param zd_dim:
         :param zx_dim:
