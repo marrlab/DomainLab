@@ -50,7 +50,8 @@ class EncoderImg2TopicDirZd(nn.Module):
                 num_topics,
                 topic_h_dim=self.topic_h_dim,
                 img_h_dim=self.img_h_dim,
-                conv_stride=conv_stride))
+                conv_stride=conv_stride,
+                args=args))
 
     def forward(self, img):
         """forward.

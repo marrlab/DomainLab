@@ -15,7 +15,7 @@ class HEncoderTopicImg2Zd(nn.Module):
     """
     def __init__(self, zd_dim, i_c, i_h, i_w, num_topics,
                  topic_h_dim, img_h_dim,
-                 conv_stride):
+                 conv_stride, args):
         """
         topic_h_dim, img_h_dim: (img->h_img, topic->h_topic)-> q_zd
         :param img_h_dim: (img->h_img, topic->h_topic)-> q_zd
@@ -30,7 +30,8 @@ class HEncoderTopicImg2Zd(nn.Module):
                         NetConvDense(
                             i_c, i_h, i_w,
                             conv_stride=conv_stride,
-                            dim_out_h=self.img_h_dim))
+                            dim_out_h=self.img_h_dim,
+                            args=args))
         # topic->h_topic
         # FIXME: do we need topic to h_topic instead of simplying using topic?
         # self.add_module("h_layer_topic",

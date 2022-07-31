@@ -27,6 +27,7 @@ class EncoderImg2TopicDistri(nn.Module):
         """
         super().__init__()
         self.device = device
+        self.img_h_dim = img_h_dim
 
         # image->h_image->[alpha,topic]
 
