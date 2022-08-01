@@ -125,10 +125,10 @@ class AggWriter(ExpModelPersistVisitor):
         dict_cols.update(dict_metric)
         del dict_cols["confmat"]
         dict_cols.update({epos_name: self.host.epoch_counter})  # FIXME: strong dependency on host attribute name
-        list_str = [str(dict_cols[key]) for key in self.list_cols]
-        str_line = ", ".join(list_str)
         if not self.has_first_line:
             self.first_line(dict_cols)
+        list_str = [str(dict_cols[key]) for key in self.list_cols]
+        str_line = ", ".join(list_str)
         return str_line
 
     def get_fpath(self, dirname="aggrsts"):
