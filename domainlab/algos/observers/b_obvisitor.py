@@ -7,7 +7,7 @@ import numpy as np
 
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.utils.utils_class import store_args
-from domainlab.utils.perf import PerfClassif
+from domainlab.utils.perf_metrics import PerfClassif
 from domainlab.compos.exp.exp_utils import ExpModelPersistVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
@@ -49,19 +49,20 @@ class ObVisitor(AObVisitor):
         # Note loader_tr behaves/inherit different properties than loader_te
         self.epo_te = self.exp.args.epo_te
         self.epo = None
-        self.acc_te = None
+        self.metric_te = None
         self.keep_model = self.exp.args.keep_model
+        self.perf_metric = PerfClassif(self.task.dim_y)
 
     def update(self, epoch):
         print("epoch:", epoch)
         self.epo = epoch
         if epoch % self.epo_te == 0:
-            acc_tr_pool = PerfClassif.cal_acc(self.host_trainer.model, self.loader_tr, self.device)
-            print("pooled train domain acc: ", acc_tr_pool)
+            metric_tr_pool = self.perf_metric.cal_metrics(self.host_trainer.model, self.loader_tr, self.device)
+            print("pooled train domains performance: \n", metric_tr_pool)
             # test set has no domain label, so can be more custom
-            acc_te = PerfClassif.cal_acc(self.host_trainer.model, self.loader_te, self.device)
-            self.acc_te = acc_te
-            print("out of domain test acc: ", acc_te)
+            metric_te = self.perf_metric.cal_metrics(self.host_trainer.model, self.loader_te, self.device)
+            self.metric_te = metric_te
+            print("out of domain test performance \n", metric_te)
         if self.model_sel.update():
             print("model selected")
             self.exp.visitor.save(self.host_trainer.model)
@@ -83,9 +84,9 @@ class ObVisitor(AObVisitor):
         model_ld = self.exp.visitor.load()
         model_ld = model_ld.to(self.device)
         model_ld.eval()
-        acc_te = PerfClassif.cal_acc(model_ld, self.loader_te, self.device)
-        print("persisted model acc: ", acc_te)
-        self.exp.visitor(acc_te)
+        metric_te = self.perf_metric.cal_metrics(model_ld, self.loader_te, self.device)
+        print("persisted model performance metric: \n", metric_te)
+        self.exp.visitor(metric_te)
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:

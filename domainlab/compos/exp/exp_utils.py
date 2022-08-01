@@ -105,9 +105,8 @@ class AggWriter(ExpModelPersistVisitor):
         self.to_file(self._gen_line(acc))
 
     def get_cols(self):
-        acc_name = "acc"
         epos_name = "epos"
-        dict_cols = {acc_name: None,
+        dict_cols = {
                      "algo": self.algo_name,
                      epos_name: None,
                      "seed": self.seed,
@@ -115,11 +114,12 @@ class AggWriter(ExpModelPersistVisitor):
                      # algorithm configuration for instance
                      "mname": "mname_" + self.model_name,
                      "commit": "commit_" + self.git_tag}
-        return dict_cols, acc_name, epos_name
+        return dict_cols, epos_name
 
-    def _gen_line(self, acc):
-        dict_cols, acc_name, epos_name = self.get_cols()
-        dict_cols.update({acc_name: acc})
+    def _gen_line(self, dict_metric):
+        dict_cols, epos_name = self.get_cols()
+        breakpoint()
+        dict_cols.update(dict_metric)
         dict_cols.update({epos_name: self.host.epoch_counter})  # FIXME: strong dependency on host attribute name
         list_str = [str(dict_cols[key]) for key in self.list_cols]
         str_line = ", ".join(list_str)
