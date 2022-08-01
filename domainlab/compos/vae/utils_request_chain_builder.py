@@ -1,7 +1,8 @@
 from domainlab.compos.vae.zoo_vae_builders_classif import \
     NodeVAEBuilderImgConvBnPool, NodeVAEBuilderImgAlex, NodeVAEBuilderArg
-from domainlab.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderImgTopic
-from domainlab.compos.vae.zoo_vae_builders_classif import \
+from domainlab.compos.vae.zoo_vae_builders_classif_topic import \
+    NodeVAEBuilderImgTopic
+from domainlab.compos.vae.zoo_vae_builders_classif_topic import \
     NodeVAEBuilderImgSmallTopic
 
 

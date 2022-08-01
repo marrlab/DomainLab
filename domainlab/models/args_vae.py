@@ -14,6 +14,12 @@ def add_args2parser_vae(parser):
                         help='dim latent space for topic')
     parser.add_argument('--img_h_dim', type=int, default=8,
                         help='dim latent space for topic')
+    parser.add_argument('--net_topic_distrib_img2topic',
+                        type=str, default=None,
+                        help='network from image to topic distribution')
+    parser.add_argument('--npath_topic_distrib_img2topic',
+                        type=str, default=None,
+                        help='network from image to topic distribution')
 
     # ERM, ELBO
     parser.add_argument('--gamma_y', type=float, default=None,

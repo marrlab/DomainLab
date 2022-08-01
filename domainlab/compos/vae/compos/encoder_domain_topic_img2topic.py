@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 
 from domainlab.compos.net_conv import NetConvDense
+from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 
 from domainlab.compos.vae.compos.encoder_dirichlet import EncoderH2Dirichlet
 
@@ -32,13 +33,22 @@ class EncoderImg2TopicDistri(nn.Module):
         # image->h_image->[alpha,topic]
 
         # FIXME:
-        # FeatExtractNNBuilderChainNodeGetter
-        # .init_business()
+        net_builder = FeatExtractNNBuilderChainNodeGetter(
+            args=args,
+            arg_name_of_net="net_topic_distrib_img2topic",
+            arg_path_of_net="npath_topic_distrib_img2topic")()  # FIXME
+
         self.add_module("layer_img2hidden",
-                        NetConvDense(i_c, i_h, i_w,
-                                     conv_stride=conv_stride,
-                                     args=args,
-                                     dim_out_h=self.img_h_dim))
+                        net_builder.init_business(
+                            dim_out_h=self.img_h_dim,
+                            i_c=i_c, i_h=i_h, i_w=i_w,
+                            conv_stride=conv_stride))
+
+        # self.add_module("layer_img2hidden",
+        #                NetConvDense(i_c, i_h, i_w,
+        #                             conv_stride=conv_stride,
+        #                             args=args,
+        #                             dim_out_h=self.img_h_dim))
 
         # h_image->[alpha,topic]
         self.add_module("layer_hidden2dirichlet",

@@ -2,14 +2,14 @@ from domainlab.compos.a_nn_builder import AbstractFeatExtractNNBuilderChainNode
 from domainlab.compos.net_conv import NetConvBnReluPool2
 
 
-def mkNodeFeatExtractNNBuilderNameConvBnRelu2(arg_name4net, i_c, i_h, i_w, conv_stride, dim_out_h):
+def mkNodeFeatExtractNNBuilderNameConvBnRelu2(arg_name4net):
     class NodeFeatExtractNNBuilderConvBnRelu2(
             AbstractFeatExtractNNBuilderChainNode):
         """NodeFeatExtractNNBuilderAlex.
         Uniform interface to return AlexNet and other neural network as feature
         extractor from torchvision or external python file"""
-        def init_business(self, flag_pretrain, dim_y,
-                          remove_last_layer=None, args=None):
+        # FIXME: the signature of init_business is different from others
+        def init_business(self, dim_out_h, i_c, i_h, i_w, conv_stride):
             """
             initialize **and** return the heavy weight business
             object for doing the real job
@@ -17,7 +17,6 @@ def mkNodeFeatExtractNNBuilderNameConvBnRelu2(arg_name4net, i_c, i_h, i_w, conv_
             to be string or function
             :return: the constructed service object
             """
-
             self.net_feat_extract = NetConvBnReluPool2(
                 i_c, i_h, i_w, conv_stride, dim_out_h)
             return self.net_feat_extract
