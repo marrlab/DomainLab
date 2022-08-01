@@ -50,6 +50,7 @@ class ObVisitor(AObVisitor):
         self.epo_te = self.exp.args.epo_te
         self.epo = None
         self.metric_te = None
+        self.acc_te = None
         self.keep_model = self.exp.args.keep_model
         self.perf_metric = PerfClassif(self.task.dim_y)
 
@@ -62,6 +63,7 @@ class ObVisitor(AObVisitor):
             # test set has no domain label, so can be more custom
             metric_te = self.perf_metric.cal_metrics(self.host_trainer.model, self.loader_te, self.device)
             self.metric_te = metric_te
+            self.acc_te = self.metric_te["acc"]
             print("out of domain test performance \n", metric_te)
         if self.model_sel.update():
             print("model selected")

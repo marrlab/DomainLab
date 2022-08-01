@@ -94,15 +94,19 @@ class AggWriter(ExpModelPersistVisitor):
         self.agg_tag = self.host.args.aggtag
         self.exp_tag = self.host.args.exptag
         self.debug = self.host.args.debug
-        dict_cols, *_ = self.get_cols()
+        self.has_first_line = False
+
+    def first_line(self, dict_cols):
         self.list_cols = list(dict_cols.keys())
         # FIXME: will be list be the same order each time?
         str_line = ", ".join(self.list_cols)
         if not os.path.isfile(self.get_fpath()):
             self.to_file(str_line)
+        self.has_first_line = True
 
-    def __call__(self, acc):
-        self.to_file(self._gen_line(acc))
+    def __call__(self, dict_metric):
+        line = self._gen_line(dict_metric)
+        self.to_file(line)
 
     def get_cols(self):
         epos_name = "epos"
@@ -118,11 +122,13 @@ class AggWriter(ExpModelPersistVisitor):
 
     def _gen_line(self, dict_metric):
         dict_cols, epos_name = self.get_cols()
-        breakpoint()
         dict_cols.update(dict_metric)
+        del dict_cols["confmat"]
         dict_cols.update({epos_name: self.host.epoch_counter})  # FIXME: strong dependency on host attribute name
         list_str = [str(dict_cols[key]) for key in self.list_cols]
         str_line = ", ".join(list_str)
+        if not self.has_first_line:
+            self.first_line(dict_cols)
         return str_line
 
     def get_fpath(self, dirname="aggrsts"):
