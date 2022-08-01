@@ -30,7 +30,7 @@ class FeatExtractNNBuilderChainNodeGetter(object):
         chain = mkNodeFeatExtractNNBuilderNameConvBnRelu2(
             self.arg_name_of_net)(None)
         chain = mkNodeFeatExtractNNBuilderNameAlex(
-            self.arg_name_of_net)(None)
+            self.arg_name_of_net)(chain)
         chain = mkNodeFeatExtractNNBuilderExternFromFile(
             self.arg_path_of_net)(chain)
         node = chain.handle(self.request)
