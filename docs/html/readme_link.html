@@ -286,8 +286,8 @@
 </ul>
 <p>To maximally decouple these attributing factors, DomainLab was implemented with software design patterns, where</p>
 <ul class="simple">
-<li><p>Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See <a class="reference external" href="domainlab/docs/html/doc_custom_nn.html">Specify Custom Neural Networks for an algorithm</a></p></li>
-<li><p>To evaluate a domain generalization algorithm’s performance, the user can specify a “Task” in the form of custom python file and feed into the command line argument, thus it is at the user’s discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See <a class="reference external" href="domainlab/docs/html/doc_tasks.html">Task Specification</a>.</p></li>
+<li><p>Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See <a class="reference external" href="domainlab/docs/doc_custom_nn.md">Specify Custom Neural Networks for an algorithm</a></p></li>
+<li><p>To evaluate a domain generalization algorithm’s performance, the user can specify a “Task” in the form of custom python file and feed into the command line argument, thus it is at the user’s discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See <a class="reference external" href="domainlab/docs/doc_tasks.md">Task Specification</a>.</p></li>
 <li><p>To simply test an algorithm’s performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.</p></li>
 </ul>
 </section>
@@ -314,7 +314,7 @@ DomainLab comes with some minimal toy-dataset to test its basis functionality. T
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --aname=diva --gamma_y=7e5 --gamma_d=1e5 --nname=alexnet --nname_dom=conv_bn_pool_2
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task, see Example in <a class="reference external" href="domainlab/docs/html/doc_tasks.html">Task Specification</a>. <code class="docutils literal notranslate"><span class="pre">--aname</span></code> specifies which algorithm to use, see <a class="reference external" href="domainlab/docs/html/doc_algos.html">Available Algorithms</a>, <code class="docutils literal notranslate"><span class="pre">--bs</span></code> specifies the batch size, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> restrain only running for 2 epochs and save results with prefix ‘debug’. For DIVA, the hyper-parameters include <code class="docutils literal notranslate"><span class="pre">--gamma_y=7e5</span></code> which is the relative weight of ERM loss compared to ELBO loss, and  <code class="docutils literal notranslate"><span class="pre">--gamma_d=1e5</span></code>, which is the relative weight of domain classification loss compared to ELBO loss.
+<p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task, see Example in <a class="reference external" href="domainlab/docs/doc_tasks.md">Task Specification</a>. <code class="docutils literal notranslate"><span class="pre">--aname</span></code> specifies which algorithm to use, see <a class="reference external" href="domainlab/docs/doc_algos.md">Available Algorithms</a>, <code class="docutils literal notranslate"><span class="pre">--bs</span></code> specifies the batch size, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> restrain only running for 2 epochs and save results with prefix ‘debug’. For DIVA, the hyper-parameters include <code class="docutils literal notranslate"><span class="pre">--gamma_y=7e5</span></code> which is the relative weight of ERM loss compared to ELBO loss, and  <code class="docutils literal notranslate"><span class="pre">--gamma_d=1e5</span></code>, which is the relative weight of domain classification loss compared to ELBO loss.
 <code class="docutils literal notranslate"><span class="pre">--nname</span></code> is to specify which neural network to use for feature extraction for classification, <code class="docutils literal notranslate"><span class="pre">--nname_dom</span></code> is to specify which neural network to use for feature extraction of domains.
 For usage of other arguments, check with</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --help
@@ -331,12 +331,12 @@ For usage of other arguments, check with</p>
 <section id="define-your-task">
 <h4 id="define-your-task">Define your task<a class="headerlink" href="#define-your-task" title="Permalink to this headline">¶</a></h4>
 <p>Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See
-<a class="reference external" href="domainlab/docs/html/doc_tasks.html">Task Specification</a></p>
+<a class="reference external" href="domainlab/docs/doc_tasks.md">Task Specification</a></p>
 </section>
 <section id="custom-neural-network">
 <h4 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this headline">¶</a></h4>
 <p>This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
-<a class="reference external" href="domainlab/docs/html/doc_custom_nn.html">Specify Custom Neural Networks for an algorithm</a></p>
+<a class="reference external" href="domainlab/docs/doc_custom_nn.md">Specify Custom Neural Networks for an algorithm</a></p>
 </section>
 </section>
 </section>
