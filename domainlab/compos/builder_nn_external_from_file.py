@@ -3,18 +3,20 @@ from domainlab.utils.u_import_net_module import \
     build_external_obj_net_module_feat_extract
 
 
-def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_of_net):
+def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_net_path):
     """
     for each algorithm, there might exist different feature extractors, e.g.
     for diva, there can be class feature extractor and domain feature
     extractor
     """
-    class LNodeFeatExtractNNBuilderExternFromFile(
+    class _LNodeFeatExtractNNBuilderExternFromFile(
             AbstractFeatExtractNNBuilderChainNode):
         """LNodeFeatExtractNNBuilderExternFromFile.
         Local class to return
         """
-        def init_business(self, flag_pretrain, dim_y, remove_last_layer, args):
+        def init_business(self, dim_out, args, flag_pretrain,
+                          remove_last_layer,
+                          i_c=None, i_h=None, i_w=None):
             """
             initialize **and** return the heavy weight business object for
             doing the real job
@@ -22,14 +24,14 @@ def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_of_net):
             string or function
             :return: the constructed service object
             """
-            pyfile4net = getattr(args, arg_name_of_net)
+            pyfile4net = getattr(args, arg_name_net_path)
             net = build_external_obj_net_module_feat_extract(
-                    pyfile4net, dim_y, remove_last_layer)
+                   pyfile4net, dim_out, remove_last_layer)
             return net
 
         def is_myjob(self, args):
             """is_myjob.
             """
-            pyfile4net = getattr(args, arg_name_of_net)
+            pyfile4net = getattr(args, arg_name_net_path)
             return pyfile4net is not None
-    return LNodeFeatExtractNNBuilderExternFromFile
+    return _LNodeFeatExtractNNBuilderExternFromFile

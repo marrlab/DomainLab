@@ -4,6 +4,7 @@ In PyTorch, images are represented as [channels, height, width]
 import torch
 import torch.nn as nn
 from domainlab.compos.nn import DenseNet
+from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 
 
 def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
@@ -25,6 +26,8 @@ def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
         nn.ReLU(),
         nn.MaxPool2d(2, stride=max_pool_stride),
     )
+    torch.nn.init.xavier_uniform_(conv_net[0].weight)
+    torch.nn.init.xavier_uniform_(conv_net[4].weight)
     return conv_net
 
 
@@ -34,27 +37,26 @@ def test_conv_net():
     model
 
 
-def get_flat_dim(module, i_channel, i_h, i_w, batchsize=5):
-    """flat the convolution layer output and get the flat dimension for fully connected network
-    :param module:
-    :param i_channel:
-    :param i_h:
-    :param i_w:
-    :param batchsize:
-    """
-    img = torch.randn(i_channel, i_h, i_w)
-    img3 = img.repeat(batchsize, 1, 1, 1)  # create batchsize repitition
-    conv_output = module(img3)
-    if len(conv_output.shape) == 2:
-        flat_dim = conv_output.shape[1]
-    else:
-        flat_dim = conv_output.shape[1] * conv_output.shape[2] * conv_output.shape[3]
-    return flat_dim
 
+class NetConvBnReluPool2L(nn.Module):
+    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h):
+        """
+        :param dim_out_h:
+        """
+        super().__init__()
+        self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
+        ###
+        self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
+        self.layer_last = nn.Linear(self.hdim, dim_out_h)
 
-def test_get_flat_dim():
-    model = mk_conv_bn_relu_pool(3)
-    get_flat_dim(model, 3, 28, 28)
+    def forward(self, tensor_x):
+        """
+        :param tensor_x: image
+        """
+        conv_out = self.conv_net(tensor_x)  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
+        flat = conv_out.view(-1, self.hdim)   # 1024 =   64 * (4*4)
+        hidden = self.layer_last(flat)
+        return hidden
 
 
 class NetConvDense(nn.Module):
@@ -64,15 +66,12 @@ class NetConvDense(nn.Module):
     till classifier. note in encoder, there is extra layer of hidden to mean
     and scale, in this component, it is replaced with another hidden layer.
     """
-    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, dense_layer=None):
+    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, args, dense_layer=None):
         """
         :param dim_out_h:
         """
         super().__init__()
-        ###
         self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
-        torch.nn.init.xavier_uniform_(self.conv_net[0].weight)
-        torch.nn.init.xavier_uniform_(self.conv_net[4].weight)
         ###
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
         if dense_layer is None:
