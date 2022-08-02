@@ -14,7 +14,6 @@ class EncoderImg2TopicDistri(nn.Module):
     def __init__(self, i_c, i_h, i_w, num_topics,
                  img_h_dim,
                  device,
-                 conv_stride,
                  args):
         """__init__.
 
@@ -23,7 +22,6 @@ class EncoderImg2TopicDistri(nn.Module):
         :param i_w:
         :param num_topics:
         :param device:
-        :param conv_stride:
         """
         super().__init__()
         self.device = device

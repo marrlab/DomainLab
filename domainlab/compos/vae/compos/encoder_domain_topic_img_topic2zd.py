@@ -11,8 +11,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
     sandwich encoder: (img, s)->zd
     """
     def __init__(self, zd_dim, i_c, i_h, i_w, num_topics,
-                 topic_h_dim, img_h_dim,
-                 conv_stride, args):
+                 topic_h_dim, img_h_dim, args):
         """
         topic_h_dim, img_h_dim: (img->h_img, topic->h_topic)-> q_zd
         :param img_h_dim: (img->h_img, topic->h_topic)-> q_zd

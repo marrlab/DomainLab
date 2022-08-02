@@ -15,7 +15,6 @@ class EncoderImg2TopicDirZd(nn.Module):
                  zd_dim,
                  topic_h_dim,
                  img_h_dim,
-                 conv_stride,
                  args):
         """__init__.
 
@@ -28,7 +27,6 @@ class EncoderImg2TopicDirZd(nn.Module):
         :param topic_h_dim:
         :param img_h_dim: (img->h_img, topic->h_topic)-> q_zd
         the dimension to concatenate with topic vector to infer z_d
-        :param conv_stride:
         """
         super().__init__()
         self.device = device
@@ -41,7 +39,7 @@ class EncoderImg2TopicDirZd(nn.Module):
                             i_c, i_h, i_w, num_topics,
                             self.img_h_dim,
                             device,
-                            conv_stride, args))
+                            args))
 
         # [topic, image] -> [h(topic), h(image)] -> [zd_mean, zd_scale]
         self.add_module(
@@ -50,7 +48,6 @@ class EncoderImg2TopicDirZd(nn.Module):
                 num_topics,
                 topic_h_dim=self.topic_h_dim,
                 img_h_dim=self.img_h_dim,
-                conv_stride=conv_stride,
                 args=args))
 
     def forward(self, img):
