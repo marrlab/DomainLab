@@ -4,8 +4,10 @@ import torch.nn as nn
 from domainlab.utils.utils_class import store_args
 
 from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
-from domainlab.compos.vae.compos.encoder_z import EncoderConnectLastFeatLayer2Z
-from domainlab.compos.vae.compos.encoder_domain_topic import EncoderImg2TopicDirZd
+from domainlab.compos.vae.compos.encoder_zd import \
+    EncoderConnectLastFeatLayer2Zd
+from domainlab.compos.vae.compos.encoder_domain_topic import \
+    EncoderImg2TopicDirZd
 
 
 class XYDTEncoderElevator(nn.Module):
@@ -113,7 +115,7 @@ class XYDTEncoderArg(XYDTEncoderElevator):
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
 
-        net_infer_zy = EncoderConnectLastFeatLayer2Z(
+        net_infer_zy = EncoderConnectLastFeatLayer2Zd(
             self.zy_dim, True, i_c, i_h, i_w, args,
             arg_name="nname", arg_path_name="npath")
 
