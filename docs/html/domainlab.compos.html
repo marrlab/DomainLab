@@ -232,7 +232,7 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.compos.net_classif" class="md-nav__link">domainlab.compos.net_classif module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.net_conv" class="md-nav__link">domainlab.compos.net_conv module</a>
+        <li class="md-nav__item"><a href="#domainlab-compos-net-conv-module" class="md-nav__link">domainlab.compos.net_conv module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.compos.net_gated" class="md-nav__link">domainlab.compos.net_gated module</a>
         </li>
@@ -275,7 +275,7 @@ avoid override the initializer so that node construction is always
 light weight.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_last_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/a_nn_builder.html#AbstractFeatExtractNNBuilderChainNode.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.init_business" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim_out</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_last_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/a_nn_builder.html#AbstractFeatExtractNNBuilderChainNode.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.init_business" title="Permalink to this definition">¶</a></dt>
 <dd><p>initialize <strong>and</strong> return the heavy weight business object for doing
 the real job
 :param request: subclass can override request object to be string or
@@ -300,14 +300,14 @@ network definition</p>
 <span id="domainlab-compos-builder-nn-alex-module"></span><h2 id="module-domainlab.compos.builder_nn_alex">domainlab.compos.builder_nn_alex module<a class="headerlink" href="#module-domainlab.compos.builder_nn_alex" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex">
-<span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_alex.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderNameAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name4net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_alex.html#mkNodeFeatExtractNNBuilderNameAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_alex.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderNameAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name4net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_alex.html#mkNodeFeatExtractNNBuilderNameAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_external_from_file">
 <span id="domainlab-compos-builder-nn-external-from-file-module"></span><h2 id="module-domainlab.compos.builder_nn_external_from_file">domainlab.compos.builder_nn_external_from_file module<a class="headerlink" href="#module-domainlab.compos.builder_nn_external_from_file" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile">
-<span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_external_from_file.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderExternFromFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name_of_net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_external_from_file.html#mkNodeFeatExtractNNBuilderExternFromFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_external_from_file.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderExternFromFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name_net_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_external_from_file.html#mkNodeFeatExtractNNBuilderExternFromFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>for each algorithm, there might exist different feature extractors, e.g.
 for diva, there can be class feature extractor and domain feature
 extractor</p>
@@ -445,61 +445,8 @@ registered hooks while the latter silently ignores them.</p>
 <dd></dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.net_conv">
-<span id="domainlab-compos-net-conv-module"></span><h2 id="module-domainlab.compos.net_conv">domainlab.compos.net_conv module<a class="headerlink" href="#module-domainlab.compos.net_conv" title="Permalink to this headline">¶</a></h2>
-<p>In PyTorch, images are represented as [channels, height, width]</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.NetConvDense">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.net_conv.</span></span><span class="sig-name descname"><span class="pre">NetConvDense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_out_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dense_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/net_conv.html#NetConvDense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.net_conv.NetConvDense" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<ul class="simple">
-<li><p>For direct topic inference</p></li>
-<li><p>For custom deep_all, which is extracting the path of VAE from encoder</p></li>
-</ul>
-<p>till classifier. note in encoder, there is extra layer of hidden to mean
-and scale, in this component, it is replaced with another hidden layer.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.NetConvDense.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/net_conv.html#NetConvDense.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.net_conv.NetConvDense.forward" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tensor_x</strong> – image</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.NetConvDense.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.net_conv.NetConvDense.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.get_flat_dim">
-<span class="sig-prename descclassname"><span class="pre">domainlab.compos.net_conv.</span></span><span class="sig-name descname"><span class="pre">get_flat_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/net_conv.html#get_flat_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.net_conv.get_flat_dim" title="Permalink to this definition">¶</a></dt>
-<dd><p>flat the convolution layer output and get the flat dimension for fully connected network
-:param module:
-:param i_channel:
-:param i_h:
-:param i_w:
-:param batchsize:</p>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.mk_conv_bn_relu_pool">
-<span class="sig-prename descclassname"><span class="pre">domainlab.compos.net_conv.</span></span><span class="sig-name descname"><span class="pre">mk_conv_bn_relu_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pool_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/net_conv.html#mk_conv_bn_relu_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.net_conv.mk_conv_bn_relu_pool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convolution, batch norm, maxpool_2d
-Convolution with maxpool_2d as last operation
-:param i_channel:
-:param conv_stride:
-:param max_pool_stride:</p>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.test_conv_net">
-<span class="sig-prename descclassname"><span class="pre">domainlab.compos.net_conv.</span></span><span class="sig-name descname"><span class="pre">test_conv_net</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/net_conv.html#test_conv_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.net_conv.test_conv_net" title="Permalink to this definition">¶</a></dt>
-<dd><p>test</p>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.compos.net_conv.test_get_flat_dim">
-<span class="sig-prename descclassname"><span class="pre">domainlab.compos.net_conv.</span></span><span class="sig-name descname"><span class="pre">test_get_flat_dim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/net_conv.html#test_get_flat_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.net_conv.test_get_flat_dim" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<section id="domainlab-compos-net-conv-module">
+<h2 id="domainlab-compos-net-conv-module">domainlab.compos.net_conv module<a class="headerlink" href="#domainlab-compos-net-conv-module" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-domainlab.compos.net_gated">
 <span id="domainlab-compos-net-gated-module"></span><h2 id="module-domainlab.compos.net_gated">domainlab.compos.net_gated module<a class="headerlink" href="#module-domainlab.compos.net_gated" title="Permalink to this headline">¶</a></h2>
