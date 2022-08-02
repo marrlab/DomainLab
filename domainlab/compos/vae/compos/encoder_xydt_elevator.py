@@ -5,7 +5,8 @@ from domainlab.utils.utils_class import store_args
 
 from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
 
-from domainlab.compos.vae.compos.encoder_zy import EncoderConnectLastFeatLayer2Zy
+from domainlab.compos.vae.compos.encoder_zy import \
+    EncoderConnectLastFeatLayer2Zy
 from domainlab.compos.vae.compos.encoder_domain_topic import \
     EncoderImg2TopicDirZd
 

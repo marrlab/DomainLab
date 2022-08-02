@@ -1,9 +1,9 @@
 import torch
-from domainlab.compos.vae.compos.encoder_domain_topic import HEncoderTopicImg2Zd, EncoderImg2TopicDirZd
+from domainlab.compos.vae.compos.encoder_domain_topic import EncoderSandwichTopicImg2Zd, EncoderImg2TopicDirZd
 
 
 def test_TopicImg2Zd():
-    model = HEncoderTopicImg2Zd(zd_dim=64, i_c=3, i_h=64, i_w=64,
+    model = EncoderSandwichTopicImg2Zd(zd_dim=64, i_c=3, i_h=64, i_w=64,
                                 num_topics=5, topic_h_dim=1024, img_h_dim=1024,
                                 conv_stride=1)
     x = torch.rand(20, 3, 64, 64)

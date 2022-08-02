@@ -6,7 +6,9 @@ import torch
 import torch.nn as nn
 import torch.distributions as dist
 
-from domainlab.compos.net_conv import mk_conv_bn_relu_pool, get_flat_dim
+from domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 import \
+    mk_conv_bn_relu_pool
+from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.nn import DenseNet
 
 
@@ -39,8 +41,6 @@ class LSEncoderConvBnReluPool(nn.Module):
                                       nn.Softplus())  # for scale calculation
 
         # initialization
-        torch.nn.init.xavier_uniform_(self.conv[0].weight)
-        torch.nn.init.xavier_uniform_(self.conv[4].weight)
         torch.nn.init.xavier_uniform_(self.fc_loc[0].weight)
         self.fc_loc[0].bias.data.zero_()
         torch.nn.init.xavier_uniform_(self.fc_scale[0].weight)

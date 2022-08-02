@@ -28,9 +28,13 @@ class FeatExtractNNBuilderChainNodeGetter(object):
         2. hard code seems to be the best solution
         """
         chain = mkNodeFeatExtractNNBuilderNameConvBnRelu2(
-            self.arg_name_of_net)(None)
+            self.arg_name_of_net,
+            arg_val="conv_bn_pool_2", conv_stride=1)(None)
+        chain = mkNodeFeatExtractNNBuilderNameConvBnRelu2(
+            arg_name4net="nname_dom",
+            arg_val="conv_bn_pool_2", conv_stride=1)(chain)
         chain = mkNodeFeatExtractNNBuilderNameAlex(
-            self.arg_name_of_net)(chain)
+            self.arg_name_of_net, "alexnet")(chain)
         chain = mkNodeFeatExtractNNBuilderExternFromFile(
             self.arg_path_of_net)(chain)
         node = chain.handle(self.request)
