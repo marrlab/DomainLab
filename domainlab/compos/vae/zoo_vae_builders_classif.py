@@ -8,9 +8,6 @@ from domainlab.compos.vae.compos.encoder_xyd_parallel import \
     XYDEncoderParallelExtern
 from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv \
     import DecoderConcatLatentFCReshapeConvGatedConv
-from domainlab.compos.vae.compos.encoder_xydt_elevator import XYDTEncoderArg
-from domainlab.compos.vae.compos.encoder_xydt_elevator import \
-    XYDTEncoderConvBnReluPool
 
 
 class ChainNodeVAEBuilderClassifCondPriorBase(
