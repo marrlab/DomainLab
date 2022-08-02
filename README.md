@@ -21,9 +21,9 @@ Once you came across a claim,  that a domain generalization algorithm A can gene
 
 To maximally decouple these attributing factors, DomainLab was implemented with software design patterns, where
 
-- Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See [Specify Custom Neural Networks for an algorithm](domainlab/docs/doc_custom_nn.md) 
+- Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See [Specify Custom Neural Networks for an algorithm](./docs/doc_custom_nn.md) 
 
-- To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument, thus it is at the user's discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See [Task Specification](domainlab/docs/doc_tasks.md).
+- To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument, thus it is at the user's discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See [Task Specification](./docs/doc_tasks.md).
 
 - To simply test an algorithm's performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.
 
@@ -45,7 +45,7 @@ DomainLab comes with some minimal toy-dataset to test its basis functionality. T
 ```
 python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --aname=diva --gamma_y=7e5 --gamma_d=1e5 --nname=alexnet --nname_dom=conv_bn_pool_2
 ```
-where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](domainlab/docs/doc_tasks.md). `--aname` specifies which algorithm to use, see [Available Algorithms](domainlab/docs/doc_algos.md), `--bs` specifies the batch size, `--debug` restrain only running for 2 epochs and save results with prefix 'debug'. For DIVA, the hyper-parameters include `--gamma_y=7e5` which is the relative weight of ERM loss compared to ELBO loss, and  `--gamma_d=1e5`, which is the relative weight of domain classification loss compared to ELBO loss.
+where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](./docs/doc_tasks.md). `--aname` specifies which algorithm to use, see [Available Algorithms](./docs/doc_algos.md), `--bs` specifies the batch size, `--debug` restrain only running for 2 epochs and save results with prefix 'debug'. For DIVA, the hyper-parameters include `--gamma_y=7e5` which is the relative weight of ERM loss compared to ELBO loss, and  `--gamma_d=1e5`, which is the relative weight of domain classification loss compared to ELBO loss.
 `--nname` is to specify which neural network to use for feature extraction for classification, `--nname_dom` is to specify which neural network to use for feature extraction of domains.
 For usage of other arguments, check with 
 
@@ -62,11 +62,11 @@ See also [Examples](./examples.sh).
 
 ### Define your task 
 Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See
-[Task Specification](domainlab/docs/doc_tasks.md) 
+[Task Specification](./docs/doc_tasks.md) 
 
 ### Custom Neural network 
 This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
-[Specify Custom Neural Networks for an algorithm](domainlab/docs/doc_custom_nn.md) 
+[Specify Custom Neural Networks for an algorithm](./docs/doc_custom_nn.md) 
 
-# [Software](Software) Design, Extend or Contribution, Credits
+# Software Design Pattern, Extend or Contribution, Credits
 [Extend or Contibute](./docs/doc_extend_contribute.md)
