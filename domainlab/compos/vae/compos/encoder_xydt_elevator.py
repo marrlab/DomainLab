@@ -6,7 +6,7 @@ from domainlab.utils.utils_class import store_args
 from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
 
 from domainlab.compos.vae.compos.encoder_zy import \
-    EncoderConnectLastFeatLayer2Zy
+    EncoderConnectLastFeatLayer2Z
 from domainlab.compos.vae.compos.encoder_domain_topic import \
     EncoderImg2TopicDirZd
 
@@ -116,7 +116,7 @@ class XYDTEncoderArg(XYDTEncoderElevator):
             self.zx_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
 
-        net_infer_zy = EncoderConnectLastFeatLayer2Zy(
+        net_infer_zy = EncoderConnectLastFeatLayer2Z(
             self.zy_dim, True, i_c, i_h, i_w, args,
             arg_name="nname", arg_path_name="npath")
 

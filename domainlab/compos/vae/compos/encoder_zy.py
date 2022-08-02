@@ -5,7 +5,7 @@ from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 
 
-class EncoderConnectLastFeatLayer2Zy(nn.Module):
+class EncoderConnectLastFeatLayer2Z(nn.Module):
     """
     Connect the last layer of a feature extraction
     neural network to the latent representation

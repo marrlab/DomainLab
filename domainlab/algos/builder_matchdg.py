@@ -26,7 +26,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             arg_name_of_net="nname",
             arg_path_of_net="npath")()  # request, #FIXME: constant string
         erm_net = erm_builder.init_business(
-            flag_pretrain=True, dim_y=task.dim_y,
+            flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=False, args=args)
         model = ModelDeepAll(erm_net, list_str_y=task.list_str_y)
         model = ModelWrapMatchDGLogit(model, list_str_y=task.list_str_y)
@@ -36,7 +36,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             arg_name_of_net="nname",
             arg_path_of_net="npath")()  # request, #FIXME constant string
         ctr_net = ctr_builder.init_business(
-            flag_pretrain=True, dim_y=task.dim_y,
+            flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=True, args=args)
         ctr_model = ctr_net.to(device)
 
