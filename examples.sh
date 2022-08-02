@@ -17,6 +17,11 @@ python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --aname=hduv
 # hduva is domain-unsupervised, so it works also with a single domain
 python main_out.py --tr_d 0  --te_d 3 4 --bs=2 --task=mnistcolor10 --aname=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --net_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
 python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --net_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --net_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=alexnet
+
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --net_topic_distrib_img2topic=conv_bn_pool_2 --npath_encoder_sandwich_layer_img2h4zd=examples/nets/resnet.py
+
+
 
 
 

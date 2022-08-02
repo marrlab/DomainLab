@@ -30,6 +30,8 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
         # image->h_img
         self.add_module("layer_img2h4zd", net_builder.init_business(
                             dim_out=self.img_h_dim,
+                            flag_pretrain=True,
+                            remove_last_layer=True,
                             i_c=i_c, i_h=i_h, i_w=i_w, args=args))
 
         # topic->h_topic
