@@ -11,7 +11,8 @@ from domainlab.tasks.utils_task import img_loader2dir
 def parse_domain_id(list_domain_id, list_domains):
     """
     Convert ids to a list of domain names.
-    :param list_domain_id: domain id or ids provided as an int or str, or a list of int or str.
+    :param list_domain_id: domain id or ids provided as an int or str,
+    or a list of int or str.
     :param list_domains: list of available domains
     :return: list of domain names
     """
@@ -149,10 +150,14 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         assert set(list_domain_te).issubset(set(list_domains))
 
         if tr_id is None:
-            list_domain_tr = [did for did in list_domains if did not in list_domain_te]
+            list_domain_tr = [did for did in list_domains if
+                              did not in list_domain_te]
         else:
             list_domain_tr = parse_domain_id(tr_id, list_domains)
-        assert set(list_domain_tr).issubset(set(list_domains))
+        if not set(list_domain_tr).issubset(set(list_domains)):
+            raise RuntimeError(
+                "training domain %s is not subset of available domains %s"
+                % (list_domain_tr, list_domains))
 
         if set(list_domain_tr) & set(list_domain_te):
             warnings.warn(
