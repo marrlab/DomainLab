@@ -1,46 +1,81 @@
-from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.trainers.train_basic import TrainerBasic
-from domainlab.algos.msels.c_msel import MSelTrLoss
-from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
-from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.utils.utils_cuda import get_device
-from domainlab.compos.nn_zoo.nn_alex import Alex4DeepAll
-from domainlab.models.model_deep_all import ModelDeepAll
+import torch
+import torch.nn as nn
+from torch.nn import functional as F
+
+from domainlab.models.a_model_classif import AModelClassif
+from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
+from domainlab.algos.builder_make import make_algo
 
 
-class NodeAlgoBuilderCustom(NodeAlgoBuilder):
-    """
-    When you implement your own algorithm you have to inherit
-    the NodeAlgoBuilder interface and override the init_business
-    function
-    """
+class ModelCustom(AModelClassif):    # The model you implemented must start with prefix "Model" and inherit AModelClassif
+    """ModelCustom."""
 
-    def init_business(self, exp):
+    def __init__(self, list_str_y, list_str_d=None):
+        """__init__.
+        :param net:
+        :param list_str_y:
+        :param list_str_d:
         """
-        return trainer
+        super().__init__(list_str_y, list_str_d)
+
+    def set_nets_from_dictionary(self):
+        """set_nets_from_dictionary.
+        :param dict_net:
         """
-        task = exp.task
-        args = exp.args
-        device = get_device(args.nocu)
+        for i, (key, val) in enumerate(self.dict_net):
+            self.add_module("net%d", val)
 
-        # observer is responsible for model selection (e.g. early stop)
-        # and logging epoch-wise performance
-        observer = ObVisitor(exp=exp,
-                             model_sel=MSelTrLoss(max_es=args.es),
-                             device=device)
+    @property
+    def dict_net(self):
+        return {"net": "nname"}
 
-        # One could define their own model with custom loss, but the model
-        # must conform with the parent class of ModelDeepAll
-        net = Alex4DeepAll(flag_pretrain=True, dim_y=task.dim_y)
-        model = ModelDeepAll(net, list_str_y=task.list_str_y)
+    @property
+    def net_predict(self):
+        return self.net0
 
-        # trainer is responsible for directing the data flow, which contains
-        # all the objects: model, task, observer
-        trainer = TrainerBasic(model, task, observer, device, args)
-        return trainer
+    def cal_logit_y(self, tensor_x):
+        """
+        calculate the logit for softmax classification
+        """
+        logit_y = self.net_predict(tensor_x)
+        return logit_y
+
+    def infer_y_vpicn(self, tensor):
+        """infer_y_vpicn.
+        :param tensor:
+        """
+        with torch.no_grad():
+            logit_y = self.net_predict(tensor)
+        vec_one_hot, prob, ind, confidence = logit2preds_vpic(logit_y)
+        na_class = get_label_na(ind, self.list_str_y)
+        return vec_one_hot, prob, ind, confidence, na_class
+
+    def forward(self, tensor_x, tensor_y, tensor_d):
+        """forward.
+
+        :param tensor_x:
+        :param tensor_y:
+        :param tensor_d:
+        """
+        return self.cal_loss(tensor_x, tensor_y, tensor_d)
+
+    def cal_loss(self, tensor_x, tensor_y, tensor_d):
+        """cal_loss.
+
+        :param tensor_x:
+        :param tensor_y:
+        :param tensor_d:
+        """
+        logit_y = self.net_predict(tensor_x)
+        if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape) == 1):
+            y_target = tensor_y
+        else:
+            _, y_target = tensor_y.max(dim=1)
+        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        return lc_y
 
 
 def get_node_na():
     """In your custom python file, this function has to be implemented
     to return the custom algorithm builder"""
-    return NodeAlgoBuilderCustom
+    return make_algo(ModelCustom)
