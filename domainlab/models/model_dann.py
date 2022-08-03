@@ -20,7 +20,6 @@ class ModelDAN(AModelClassif):
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError
         return self.net_classifier(self.net_encoder(tensor_x))
 
     def forward(self, tensor_x, tensor_y, tensor_d):

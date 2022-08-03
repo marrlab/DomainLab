@@ -161,9 +161,15 @@
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
             
-            <li class="md-tabs__item"><a href="../../../../../README.html" class="md-tabs__link">About</a></li>
+            <li class="md-tabs__item"><a href="../../../../readme_link.html" class="md-tabs__link">Introduction</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
           <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -211,10 +217,6 @@
                 
 <nav class="md-nav md-nav--secondary">
   <ul class="md-nav__list" data-md-scrollfix="">
-    
-
-<li id="searchbox" class="md-nav__item"></li>
-
   </ul>
 </nav>
               </div>
@@ -225,8 +227,8 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-algos-trainers-train-visitor--page-root">Source code for domainlab.algos.trainers.train_visitor</h1><div class="highlight"><pre>
-<span></span>from domainlab.algos.trainers.train_basic import TrainerBasic
-import torch.optim as optim
+<span></span>import numpy as np
+from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
 <div class="viewcode-block" id="TrainerVisitor"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor">[docs]</a>class TrainerVisitor(TrainerBasic):
@@ -262,6 +264,23 @@ import torch.optim as optim
         dict_rst = {}
         for key in self.dict_par_setpoint:
             dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
+        return dict_rst</div>
+
+
+<div class="viewcode-block" id="HyperSchedulerAneal"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal">[docs]</a>class HyperSchedulerAneal(HyperSchedulerWarmup):
+<div class="viewcode-block" id="HyperSchedulerAneal.aneal"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal.aneal">[docs]</a>    def aneal(self, epoch):
+        """warmup.
+        start from a small value of par to ramp up the steady state value using
+        # steps
+        :param epoch:
+        """
+        ratio = ((epoch+1) * 1.) / self.steps
+        return float((2. / (1. + np.exp(-10 * ratio)) - 1) * self._alpha)</div>
+
+    def __call__(self, epoch):
+        dict_rst = {}
+        for key in self.dict_par_setpoint:
+            dict_rst[key] = self.aneal(epoch)
         return dict_rst</div>
 </pre></div>
 

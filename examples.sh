@@ -42,6 +42,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=diva -
 
 ## model deepall with default neural network
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann --nname=alexnet
 ## model deepall with custom neural network
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --npath=examples/nets/resnet.py
 ## model matchdg with default neural network

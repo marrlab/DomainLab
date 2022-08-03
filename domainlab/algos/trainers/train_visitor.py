@@ -1,5 +1,5 @@
+import numpy as np
 from domainlab.algos.trainers.train_basic import TrainerBasic
-import torch.optim as optim
 
 
 class TrainerVisitor(TrainerBasic):
@@ -35,4 +35,21 @@ class HyperSchedulerWarmup():
         dict_rst = {}
         for key in self.dict_par_setpoint:
             dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
+        return dict_rst
+
+
+class HyperSchedulerAneal(HyperSchedulerWarmup):
+    def aneal(self, epoch):
+        """warmup.
+        start from a small value of par to ramp up the steady state value using
+        # steps
+        :param epoch:
+        """
+        ratio = ((epoch+1) * 1.) / self.steps
+        return float((2. / (1. + np.exp(-10 * ratio)) - 1) * self._alpha)
+
+    def __call__(self, epoch):
+        dict_rst = {}
+        for key in self.dict_par_setpoint:
+            dict_rst[key] = self.aneal(epoch)
         return dict_rst

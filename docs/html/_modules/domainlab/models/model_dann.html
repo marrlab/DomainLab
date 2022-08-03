@@ -249,7 +249,6 @@ from domainlab.models.a_model_classif import AModelClassif
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError
         return self.net_classifier(self.net_encoder(tensor_x))</div>
 
 <div class="viewcode-block" id="ModelDAN.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_dann.ModelDAN.forward">[docs]</a>    def forward(self, tensor_x, tensor_y, tensor_d):
