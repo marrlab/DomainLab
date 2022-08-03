@@ -18,13 +18,6 @@ class ModelWrapMatchDGLogit(AModelClassif):
                 " with attribute:", fun_name)
         self.net = net
 
-    def infer_y_vpicn(self, tensor):
-        with torch.no_grad():
-            logit_y = self.net.cal_logit_y(tensor)  # NOTE: dependencies
-        vec_one_hot, prob, ind, confidence = logit2preds_vpic(logit_y)
-        na_class = get_label_na(ind, self.list_str_y)
-        return vec_one_hot, prob, ind, confidence, na_class
-
     def cal_logit_y(self, tensor_x):
         return self.net.cal_logit_y(tensor_x)
 

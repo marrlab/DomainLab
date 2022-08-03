@@ -161,9 +161,15 @@
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
             
-            <li class="md-tabs__item"><a href="../../../../README.html" class="md-tabs__link">About</a></li>
+            <li class="md-tabs__item"><a href="../../../readme_link.html" class="md-tabs__link">Introduction</a></li>
             
-            <li class="md-tabs__item"><a href="../../../contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -211,10 +217,6 @@
                 
 <nav class="md-nav md-nav--secondary">
   <ul class="md-nav__list" data-md-scrollfix="">
-    
-
-<li id="searchbox" class="md-nav__item"></li>
-
   </ul>
 </nav>
               </div>
@@ -261,7 +263,9 @@ from domainlab.models.a_model_classif import AModelClassif
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError</div>
+        zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
+        logit_y = self.net_classif_y(zy_q_loc)
+        return logit_y</div>
 
 <div class="viewcode-block" id="VAEXYDClassif.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.forward">[docs]</a>    def forward(self, *karg):
         """
@@ -295,20 +299,7 @@ from domainlab.models.a_model_classif import AModelClassif
         zx_p_loc = torch.zeros(batch_size, self.zx_dim).to(device)
         zx_p_scale = torch.ones(batch_size, self.zx_dim).to(device)
         p_zx = dist.Normal(zx_p_loc, zx_p_scale)
-        return p_zx</div>
-
-<div class="viewcode-block" id="VAEXYDClassif.infer_y_vpicn"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.infer_y_vpicn">[docs]</a>    def infer_y_vpicn(self, tensor):
-        """
-        Without gradient, get one hot representation of predicted class label
-        :param xs: a batch of scaled vectors of pixels from an image
-        :return: a batch of the corresponding class labels (as one-hots)
-        """
-        with torch.no_grad():
-            zy_q_loc = self.encoder.infer_zy_loc(tensor)
-            logit_y = self.net_classif_y(zy_q_loc)
-        vec_one_hot, prob, ind, confidence = logit2preds_vpic(logit_y)
-        na_class = get_label_na(ind, self.list_str_y)
-        return vec_one_hot, prob, ind, confidence, na_class</div></div>
+        return p_zx</div></div>
 </pre></div>
 
           </article>

@@ -18,19 +18,12 @@ class ModelDeepAll(AModelClassif):
         logit_y = self.net(tensor_x)
         return logit_y
 
-    def infer_y_vpicn(self, tensor):
-        with torch.no_grad():
-            logit_y = self.net(tensor)
-        vec_one_hot, prob, ind, confidence = logit2preds_vpic(logit_y)
-        na_class = get_label_na(ind, self.list_str_y)
-        return vec_one_hot, prob, ind, confidence, na_class
-
     def forward(self, tensor_x, tensor_y, tensor_d):
         return self.cal_loss(tensor_x, tensor_y, tensor_d)
 
     def cal_loss(self, tensor_x, tensor_y, tensor_d):
         logit_y = self.net(tensor_x)
-        if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape)==1):
+        if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape) == 1):
             y_target = tensor_y
         else:
             _, y_target = tensor_y.max(dim=1)

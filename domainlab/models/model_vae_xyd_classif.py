@@ -34,7 +34,9 @@ class VAEXYDClassif(AModelClassif):
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError
+        zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
+        logit_y = self.net_classif_y(zy_q_loc)
+        return logit_y
 
     def forward(self, *karg):
         """
@@ -69,16 +71,3 @@ class VAEXYDClassif(AModelClassif):
         zx_p_scale = torch.ones(batch_size, self.zx_dim).to(device)
         p_zx = dist.Normal(zx_p_loc, zx_p_scale)
         return p_zx
-
-    def infer_y_vpicn(self, tensor):
-        """
-        Without gradient, get one hot representation of predicted class label
-        :param xs: a batch of scaled vectors of pixels from an image
-        :return: a batch of the corresponding class labels (as one-hots)
-        """
-        with torch.no_grad():
-            zy_q_loc = self.encoder.infer_zy_loc(tensor)
-            logit_y = self.net_classif_y(zy_q_loc)
-        vec_one_hot, prob, ind, confidence = logit2preds_vpic(logit_y)
-        na_class = get_label_na(ind, self.list_str_y)
-        return vec_one_hot, prob, ind, confidence, na_class
