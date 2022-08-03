@@ -2,6 +2,8 @@ DomainLab: Playground for Domain Generalization
 ================================================
 
 ![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg)
+[![codecov](https://codecov.io/gh/marrlab/DomainLab/branch/main/graph/badge.svg)](https://app.codecov.io/gh/marrlab/DomainLab)
+
 
 ## Domain Generalization and DomainLab
 
