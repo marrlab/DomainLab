@@ -1,6 +1,8 @@
 DomainLab: Playground for Domain Generalization
 ================================================
 
+![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/CI/badge.svg)
+
 ## Domain Generalization and DomainLab
 
 ### Domain Generalization
