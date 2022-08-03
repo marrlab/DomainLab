@@ -3,7 +3,7 @@ In PyTorch, images are represented as [channels, height, width]
 """
 import torch
 import torch.nn as nn
-from domainlab.compos.nn import DenseNet
+from domainlab.compos.nn_zoo.nn import DenseNet
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 
 

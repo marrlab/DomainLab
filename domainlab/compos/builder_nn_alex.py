@@ -1,5 +1,5 @@
 from domainlab.compos.a_nn_builder import AbstractFeatExtractNNBuilderChainNode
-from domainlab.compos.nn_alex import Alex4DeepAll, AlexNetNoLastLayer
+from domainlab.compos.nn_zoo.nn_alex import Alex4DeepAll, AlexNetNoLastLayer
 
 
 def mkNodeFeatExtractNNBuilderNameAlex(arg_name4net, arg_val):

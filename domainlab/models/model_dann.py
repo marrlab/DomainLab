@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from domainlab.compos.net_adversarial import AutoGradFunReverseMultiply
+from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
 from domainlab.models.a_model_classif import AModelClassif
 

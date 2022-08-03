@@ -6,7 +6,7 @@ Builder
 from domainlab.compos.vae.a_vae_builder import AbstractVAEBuilderChainNode
 from domainlab.compos.vae.compos.decoder_cond_prior import \
     LSCondPriorLinearBnReluLinearSoftPlus
-from domainlab.compos.net_classif import ClassifDropoutReluLinear
+from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 
 
 class ChainNodeVAEBuilderClassifCondPrior(AbstractVAEBuilderChainNode):

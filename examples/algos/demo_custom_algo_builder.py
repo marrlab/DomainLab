@@ -4,7 +4,7 @@ from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.utils.utils_cuda import get_device
-from domainlab.compos.nn_alex import Alex4DeepAll
+from domainlab.compos.nn_zoo.nn_alex import Alex4DeepAll
 from domainlab.models.model_deep_all import ModelDeepAll
 
 

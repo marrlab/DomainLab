@@ -9,7 +9,7 @@ import torch.distributions as dist
 from domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 import \
     mk_conv_bn_relu_pool
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
-from domainlab.compos.nn import DenseNet
+from domainlab.compos.nn_zoo.nn import DenseNet
 
 
 class LSEncoderConvBnReluPool(nn.Module):

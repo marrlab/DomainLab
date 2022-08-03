@@ -4,8 +4,8 @@ from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.utils.utils_cuda import get_device
-from domainlab.compos.nn_alex import AlexNetNoLastLayer
-from domainlab.compos.net_classif import ClassifDropoutReluLinear
+from domainlab.compos.nn_zoo.nn_alex import AlexNetNoLastLayer
+from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.models.model_dann import ModelDAN
 
 
