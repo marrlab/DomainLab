@@ -55,5 +55,5 @@ class PerfClassif():
                 if i > max_batches:
                     break
         accuracy_y = fun_acc(list_vec_preds, list_vec_labels)
-        acc_y = np.asscalar(accuracy_y.cpu().numpy())
+        acc_y = accuracy_y.cpu().numpy().item()
         return acc_y
