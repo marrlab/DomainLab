@@ -12,11 +12,14 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
+from domainlab.utils.utils_cuda import get_device
 
 
 def test_trainer_diva():
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "rgb_31_119_180", "--task", "mnistcolor10", "--aname", "diva"])
+    margs = parser.parse_args(["--te_d", "rgb_31_119_180",
+                               "--task", "mnistcolor10",
+                               "--aname", "diva", "--bs", "2"])
     margs.nname = "conv_bn_pool_2"
     y_dim = 10
     d_dim = 9
@@ -30,7 +33,7 @@ def test_trainer_diva():
                       beta_d=1.0, beta_y=1.0, beta_x=1.0)
     model_sel = MSelOracleVisitor(MSelTrLoss(max_es=margs.es))
     exp = Exp(margs)
-    device = torch.device("cpu")
+    device = get_device(flag_no_cu=False)
     observer = ObVisitorCleanUp(ObVisitor(exp, model_sel, device))
     trainer = TrainerVisitor(model, task=exp.task, observer=observer, device=device, aconf=margs)
     trainer.before_tr()
