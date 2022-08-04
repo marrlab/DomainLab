@@ -15,4 +15,4 @@ def test_trainer_diva():
                                ])
     exp = Exp(margs)
     exp.trainer.before_tr()
-    exp.trainer.tr_epoch(0)
+    # exp.trainer.tr_epoch(0)
