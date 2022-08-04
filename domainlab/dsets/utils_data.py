@@ -90,24 +90,3 @@ class DsetInMemDecorator(Dataset):
 
     def __len__(self):
         return self.dset.__len__()
-
-
-class DsetBase(Dataset):
-    """
-    base class to have a common property targets for class label distribution statistics
-    """
-    @property
-    def targets(self):
-        """
-        return a list of class labels of the whole dataset
-        """
-        raise NotImplementedError   # FIXME: implement this
-
-    def __getitem__(self, index):
-        """
-        :param index:
-        """
-        raise NotImplementedError
-
-    def __len__(self):
-        raise NotImplementedError
