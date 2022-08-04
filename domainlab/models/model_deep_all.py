@@ -4,6 +4,7 @@ from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
+from domainlab.utils.override_interface import override_interface
 
 
 class ModelDeepAll(AModelClassif):
@@ -11,6 +12,7 @@ class ModelDeepAll(AModelClassif):
         super().__init__(list_str_y, list_str_d)
         self.add_module("net", net)
 
+    @override_interface(AModelClassif)
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification

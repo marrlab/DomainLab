@@ -23,8 +23,12 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",
             arg_path_of_net="npath")()  # request, #FIXME, constant string
+
         net = builder.init_business(flag_pretrain=True, dim_out=task.dim_y,
-                                    remove_last_layer=False, args=args)
+                                    remove_last_layer=False, args=args,
+                                    i_c=task.isize.i_c,
+                                    i_h=task.isize.i_h,
+                                    i_w=task.isize.i_w)
 
         model = ModelDeepAll(net, list_str_y=task.list_str_y)
         trainer = TrainerBasic(model, task, observer, device, args)

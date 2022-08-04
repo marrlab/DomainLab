@@ -16,3 +16,7 @@ def test_TopicImg2Zd():
     x = torch.rand(20, 3, 64, 64)
     topic = torch.rand(20, 5)
     q_zd, zd_q = model(x, topic)
+    torch.cuda.empty_cache()
+    torch.cuda.reset_max_memory_allocated()
+    torch.cuda.reset_max_memory_cached()
+    torch.cuda.empty_cache()

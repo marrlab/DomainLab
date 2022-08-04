@@ -19,5 +19,6 @@ def test_LSEncoderConvStride1BnReluPool():
     q_zd.mean
     q_zd.scale
     zd_q
-
-
+    torch.cuda.empty_cache()
+    torch.cuda.reset_max_memory_allocated()
+    torch.cuda.reset_max_memory_cached()
