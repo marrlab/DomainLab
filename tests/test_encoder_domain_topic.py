@@ -19,4 +19,3 @@ def test_TopicImg2Zd():
     torch.cuda.empty_cache()
     torch.cuda.reset_max_memory_allocated()
     torch.cuda.reset_max_memory_cached()
-    torch.cuda.empty_cache()
