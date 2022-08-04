@@ -43,7 +43,7 @@ def test_trainer_diva_pathlist():
     rootdir = os.path.abspath(rootdir)
     path = os.path.join(rootdir, "examples/tasks/demo_task_path_list_small.py")
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
+    margs = parser.parse_args(["--te_d", "sketch",
                                "--tpath", "%s" % (path),
                                "--aname", "diva", "--bs", "2",
                                "--nname", "conv_bn_pool_2",
