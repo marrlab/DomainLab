@@ -9,6 +9,7 @@ from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.models.model_dann import ModelDAN
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
+from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 
 
 class NodeAlgoBuilderDANN(NodeAlgoBuilder):
@@ -21,6 +22,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         device = get_device(args.nocu)
         msel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
         observer = ObVisitor(exp, msel, device)
+        observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",

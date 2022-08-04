@@ -8,6 +8,7 @@ from domainlab.utils.utils_cuda import get_device
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import ModelDeepAll
 from domainlab.models.wrapper_matchdg import ModelWrapMatchDGLogit
+from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 
 
 class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
