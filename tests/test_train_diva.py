@@ -38,6 +38,3 @@ def test_trainer_diva():
     trainer = TrainerVisitor(model, task=exp.task, observer=observer, device=device, aconf=margs)
     trainer.before_tr()
     trainer.tr_epoch(0)
-    torch.cuda.empty_cache()
-    torch.cuda.reset_max_memory_allocated()
-    torch.cuda.reset_max_memory_cached()
