@@ -242,8 +242,8 @@ texinfo_documents = [
 
 # -- Extension configuration -------------------------------------------------
 
-# html_static_path = ["_static"]
-# html_css_files = [
-#   "custom.css",
-#]
-#html_js_files = []
+html_static_path = ["_static"]
+html_css_files = [
+   "custom.css",
+]
+html_js_files = []
