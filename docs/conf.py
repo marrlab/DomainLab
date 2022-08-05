@@ -157,6 +157,7 @@ html_theme_options = {
         {"href": "readme_link", "internal": True, "title": "Introduction"},
         {"href": "doc_tasks", "internal": True, "title": "Task Specification"},
         {"href": "doc_custom_nn", "internal": True, "title": "Custom Neural Network"},
+        {"href": "doc_examples", "internal": True, "title": "Examples"},
         {"href": "doc_output", "internal": True, "title": "Output Structure"},
         {"href": "doc_extend_contribute", "internal": True, "title": "Extend and Contribute"},
         # {
