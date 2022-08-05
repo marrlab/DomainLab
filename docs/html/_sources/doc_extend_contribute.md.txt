@@ -1,7 +1,3 @@
-# Design
-![Design Diagram](libDG.svg)
-
-
 # Extend or contribute with a custom domain generalization algorithm
 
 ## External extension by implementing your custom models
@@ -20,6 +16,9 @@ or `nname_argna2val` if the neural network is already implemented.
 - add your algorithm into domainlab/algos/zoo_algos.py by adding `chain = NodeAlgoBuilder[your-algorithm-name](chain)`
 - note that all algorithms will be converted to lower case!
 - make a pull request
+
+### Design
+![Design Diagram](libDG.svg)
 
 # Credits
 Contact: Xudong Sun (smilesun.east@gmail.com)

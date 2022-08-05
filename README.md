@@ -57,7 +57,7 @@ For usage of other arguments, check with
 python main_out.py --help
 ```
 
-See also [Examples](./examples.sh).
+See also [Examples](./docs/doc_examples.md).
 
 ### Output structure (results storage) and Performance Measure
 [Output structure and Performance Measure](./docs/doc_output.md)
