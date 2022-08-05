@@ -52,7 +52,6 @@
     <title>domainlab.algos package &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -133,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -142,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -170,7 +169,7 @@
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -191,7 +190,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +199,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -225,6 +224,8 @@
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.a_algo_builder" class="md-nav__link">domainlab.algos.a_algo_builder module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_custom" class="md-nav__link">domainlab.algos.builder_custom module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.builder_dann" class="md-nav__link">domainlab.algos.builder_dann module</a>
         </li>
@@ -270,7 +271,6 @@
 <li class="toctree-l1"><a class="reference internal" href="domainlab.algos.trainers.html">domainlab.algos.trainers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.a_trainer">domainlab.algos.trainers.a_trainer module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-test-train-diva-module">domainlab.algos.trainers.test_train_diva module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_matchdg">domainlab.algos.trainers.train_matchdg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_visitor">domainlab.algos.trainers.train_visitor module</a></li>
@@ -318,6 +318,13 @@ doing the real job
 <dd><p>get the name of the algorithm</p>
 </dd></dl>
 </dd></dl>
+</section>
+<section id="module-domainlab.algos.builder_custom">
+<span id="domainlab-algos-builder-custom-module"></span><h2 id="module-domainlab.algos.builder_custom">domainlab.algos.builder_custom module<a class="headerlink" href="#module-domainlab.algos.builder_custom" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.algos.builder_custom.make_basic_trainer">
+<span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_custom.</span></span><span class="sig-name descname"><span class="pre">make_basic_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_name_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_custom.html#make_basic_trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_custom.make_basic_trainer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_dann">
 <span id="domainlab-algos-builder-dann-module"></span><h2 id="module-domainlab.algos.builder_dann">domainlab.algos.builder_dann module<a class="headerlink" href="#module-domainlab.algos.builder_dann" title="Permalink to this headline">¶</a></h2>

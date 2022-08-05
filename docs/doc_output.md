@@ -1,4 +1,4 @@
-### Output structure
+# Output structure
 By default, this package(library) generate outputs to a folder called "zoutput" relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)
 
 ```
@@ -21,5 +21,5 @@ zoutput/
 
 "saved_models" folder contains instance wise prediction in a text file for each run, and potentially the persisted model on the hard disk (by default, these models will be deleted after run is completed)
 
-### Computing performances
+# Computing performances
 The user is responsible to generate performance measures by reading from the instance wise prediction files from "saved_models" folder as above.

@@ -52,7 +52,6 @@
     <title>Design &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -133,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -142,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -170,7 +169,7 @@
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="#" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="#" class="md-tabs__link">Extend and Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -191,7 +190,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +199,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -222,9 +221,9 @@
         </li>
         <li class="md-nav__item"><a href="#extend-or-contribute-with-a-custom-domain-generalization-algorithm" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg" class="md-nav__link">External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG</a>
+        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-models" class="md-nav__link">External extension by implementing your custom models</a>
         </li>
-        <li class="md-nav__item"><a href="#internal-extension-by-integrating-an-algorithm-into-libdg" class="md-nav__link">Internal extension by integrating an algorithm into LibDG</a>
+        <li class="md-nav__item"><a href="#internal-extension-for-more-advanced-contribution" class="md-nav__link">Internal extension for more advanced contribution</a>
         </li></ul>
             </nav>
         </li>
@@ -245,16 +244,20 @@
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">
 <h1 id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">Extend or contribute with a custom domain generalization algorithm<a class="headerlink" href="#extend-or-contribute-with-a-custom-domain-generalization-algorithm" title="Permalink to this headline">¶</a></h1>
-<section id="external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg">
-<h2 id="external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg">External extension by implementing your custom algorithm in a python file inheriting the interface of  LibDG<a class="headerlink" href="#external-extension-by-implementing-your-custom-algorithm-in-a-python-file-inheriting-the-interface-of-libdg" title="Permalink to this headline">¶</a></h2>
-<p>Look at this dummy example:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom
+<section id="external-extension-by-implementing-your-custom-models">
+<h2 id="external-extension-by-implementing-your-custom-models">External extension by implementing your custom models<a class="headerlink" href="#external-extension-by-implementing-your-custom-models" title="Permalink to this headline">¶</a></h2>
+<p>Look at this example</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cd ..
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
+
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
 </pre></div>
 </div>
-<p>where the template file corresponding to “–apath” defines a class which inherit specified interfaces.</p>
+<p>where the example python file corresponding to <code class="docutils literal notranslate"><span class="pre">--apath</span></code> defines a model which contains several modules that can be customized to different neural networks via <code class="docutils literal notranslate"><span class="pre">--npath_argna2val</span></code> if the neural network is specified in a python file
+or <code class="docutils literal notranslate"><span class="pre">nname_argna2val</span></code> if the neural network is already implemented.</p>
 </section>
-<section id="internal-extension-by-integrating-an-algorithm-into-libdg">
-<h2 id="internal-extension-by-integrating-an-algorithm-into-libdg">Internal extension by integrating an algorithm into LibDG<a class="headerlink" href="#internal-extension-by-integrating-an-algorithm-into-libdg" title="Permalink to this headline">¶</a></h2>
+<section id="internal-extension-for-more-advanced-contribution">
+<h2 id="internal-extension-for-more-advanced-contribution">Internal extension for more advanced contribution<a class="headerlink" href="#internal-extension-for-more-advanced-contribution" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>implement domainlab/algos/builder_your-algorithm-name.py</p></li>
 <li><p>add your algorithm into domainlab/algos/zoo_algos.py by adding <code class="docutils literal notranslate"><span class="pre">chain</span> <span class="pre">=</span> <span class="pre">NodeAlgoBuilder[your-algorithm-name](chain)</span></code></p></li>

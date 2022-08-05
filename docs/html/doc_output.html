@@ -52,7 +52,6 @@
     <title>Output structure &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -133,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -142,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -170,7 +169,7 @@
             
             <li class="md-tabs__item"><a href="#" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -191,7 +190,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +199,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -231,7 +230,7 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="output-structure">
+  <section class="tex2jax_ignore mathjax_ignore" id="output-structure">
 <h1 id="doc-output--page-root">Output structure<a class="headerlink" href="#doc-output--page-root" title="Permalink to this headline">¶</a></h1>
 <p>By default, this package(library) generate outputs to a folder called “zoutput” relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>zoutput/
@@ -252,7 +251,7 @@
 <p>“aggrst” folder is aggregating results from several runs corresponding to the same train test split of the identical task, that means after each run, an extra line will be appended to the file corresponding to the same train test split of the identical task, so that it is convenient to compare between different algorithms and configurations upon the same train test split of the identical task.</p>
 <p>“saved_models” folder contains instance wise prediction in a text file for each run, and potentially the persisted model on the hard disk (by default, these models will be deleted after run is completed)</p>
 </section>
-<section id="computing-performances">
+<section class="tex2jax_ignore mathjax_ignore" id="computing-performances">
 <h1 id="computing-performances">Computing performances<a class="headerlink" href="#computing-performances" title="Permalink to this headline">¶</a></h1>
 <p>The user is responsible to generate performance measures by reading from the instance wise prediction files from “saved_models” folder as above.</p>
 </section>

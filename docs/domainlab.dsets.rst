@@ -60,22 +60,6 @@ domainlab.dsets.utils\_data module
    :undoc-members:
    :show-inheritance:
 
-domainlab.dsets.utils\_dsets\_folder module
--------------------------------------------
-
-.. automodule:: domainlab.dsets.utils_dsets_folder
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.dsets.utils\_mnist\_static\_subset module
----------------------------------------------------
-
-.. automodule:: domainlab.dsets.utils_mnist_static_subset
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

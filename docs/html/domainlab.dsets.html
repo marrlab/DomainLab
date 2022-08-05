@@ -52,7 +52,6 @@
     <title>domainlab.dsets package &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -133,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -142,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -170,7 +169,7 @@
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -191,7 +190,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +199,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -235,10 +234,6 @@
         <li class="md-nav__item"><a href="#module-domainlab.dsets.utils_color_palette" class="md-nav__link">domainlab.dsets.utils_color_palette module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.dsets.utils_data" class="md-nav__link">domainlab.dsets.utils_data module</a>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.dsets.utils_dsets_folder" class="md-nav__link">domainlab.dsets.utils_dsets_folder module</a>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.dsets.utils_mnist_static_subset" class="md-nav__link">domainlab.dsets.utils_mnist_static_subset module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.dsets" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -378,17 +373,6 @@ Returns: bool: True if the filename ends with one of given extensions</p>
 <span id="domainlab-dsets-utils-data-module"></span><h2 id="module-domainlab.dsets.utils_data">domainlab.dsets.utils_data module<a class="headerlink" href="#module-domainlab.dsets.utils_data" title="Permalink to this headline">¶</a></h2>
 <p>Utilities for dataset</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="domainlab.dsets.utils_data.DsetBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">DsetBase</span></span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#DsetBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.DsetBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
-<p>base class to have a common property targets for class label distribution statistics</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="domainlab.dsets.utils_data.DsetBase.targets">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">targets</span></span><a class="headerlink" href="#domainlab.dsets.utils_data.DsetBase.targets" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a list of class labels of the whole dataset</p>
-</dd></dl>
-</dd></dl>
-<dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_data.DsetInMemDecorator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">DsetInMemDecorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#DsetInMemDecorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.DsetInMemDecorator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
@@ -426,46 +410,6 @@ index to onehot</p>
 :param fname:
 :param bs:
 :param shuffle:</p>
-</dd></dl>
-</section>
-<section id="module-domainlab.dsets.utils_dsets_folder">
-<span id="domainlab-dsets-utils-dsets-folder-module"></span><h2 id="module-domainlab.dsets.utils_dsets_folder">domainlab.dsets.utils_dsets_folder module<a class="headerlink" href="#module-domainlab.dsets.utils_dsets_folder" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="domainlab.dsets.utils_dsets_folder.DsetFolderGetter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_dsets_folder.</span></span><span class="sig-name descname"><span class="pre">DsetFolderGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions='jpg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_dict={'bird':</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'car':</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'chair':</span> <span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'dog':</span> <span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">'human':</span> <span class="pre">4}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transf_tr=ToTensor()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transf_te=ToTensor()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_path_loader=&lt;function</span> <span class="pre">fun_img_path_loader_default&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_dsets_folder.html#DsetFolderGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_dsets_folder.DsetFolderGetter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>prefix_tr=”train”,
-prefix_val=”crossval”,
-prefix_te=”test”,
-prefix_full=”full”,
-domain_dict={‘CALTECH’: 0,</p>
-<blockquote>
-<div><p>‘LABELME’: 1,
-‘PASCAL’: 2,
-‘SUN’: 3},</p>
-</div></blockquote>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.dsets.utils_dsets_folder.DsetFolderGetter.set_transform">
-<span class="sig-name descname"><span class="pre">set_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transf_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transf_te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_dsets_folder.html#DsetFolderGetter.set_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_dsets_folder.DsetFolderGetter.set_transform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.dsets.utils_dsets_folder.test_vlcs">
-<span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_dsets_folder.</span></span><span class="sig-name descname"><span class="pre">test_vlcs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_dsets_folder.html#test_vlcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_dsets_folder.test_vlcs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-</section>
-<section id="module-domainlab.dsets.utils_mnist_static_subset">
-<span id="domainlab-dsets-utils-mnist-static-subset-module"></span><h2 id="module-domainlab.dsets.utils_mnist_static_subset">domainlab.dsets.utils_mnist_static_subset module<a class="headerlink" href="#module-domainlab.dsets.utils_mnist_static_subset" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="domainlab.dsets.utils_mnist_static_subset.MnistStaticSubsetNumpy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_mnist_static_subset.</span></span><span class="sig-name descname"><span class="pre">MnistStaticSubsetNumpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_npy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_mnist_static_subset.html#MnistStaticSubsetNumpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_mnist_static_subset.MnistStaticSubsetNumpy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Original MNIST dataset has 60K images which can be too much.
-This class use pre-sampled indexes to subset the original MNIST dataset.
-source: <a class="reference external" href="https://github.com/AMLab-Amsterdam/DIVA/tree/master/paper_experiments/rotated_mnist/dataset">https://github.com/AMLab-Amsterdam/DIVA/tree/master/paper_experiments/rotated_mnist/dataset</a>
-with commit hash tag [ab590b4c95b5f667e7b5a7730a797356d124].
-The subset indexes are provided as pre-stored npy files
-In total there are 10 subset indexes corresponding to 10 random seeds</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets">

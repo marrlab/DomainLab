@@ -21,6 +21,14 @@ domainlab.algos.a\_algo\_builder module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.builder\_custom module
+--------------------------------------
+
+.. automodule:: domainlab.algos.builder_custom
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.builder\_dann module
 ------------------------------------
 

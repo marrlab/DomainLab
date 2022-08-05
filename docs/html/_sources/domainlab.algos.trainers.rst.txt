@@ -12,14 +12,6 @@ domainlab.algos.trainers.a\_trainer module
    :undoc-members:
    :show-inheritance:
 
-domainlab.algos.trainers.test\_train\_diva module
--------------------------------------------------
-
-.. automodule:: domainlab.algos.trainers.test_train_diva
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 domainlab.algos.trainers.train\_basic module
 --------------------------------------------
 
