@@ -1,7 +1,8 @@
 """
 The class TaskPathList provide the user an interface to provide a file with
 each line consistiing of a pair, where the first slot contains the path
-(either absolute or relative if the user knows from where this package is executed)
+(either absolute or relative if the user knows from where this package is
+executed)
 of an image and the second slot contains the label of numerical string.
 """
 import os
@@ -45,8 +46,8 @@ def mk_node_task_path_list(isize,
         The class TaskPathList provide the user an interface to provide a file
         with each line consisting of a pair separated by comma, where the
         first slot contains the path (either absolute or relative if the user
-        knows from where this package is executed) of an image and the second slot
-        contains the class label as a numerical string.
+        knows from where this package is executed) of an image and the second
+        slot contains the class label as a numerical string.
         e.g.: /path/2/file/art_painting/dog/pic_376.jpg 1
         """
         def _get_complete_domain(self, na_domain, list_domain_path):

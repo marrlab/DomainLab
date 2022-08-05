@@ -1,6 +1,6 @@
 import torch
 from domainlab.compos.vae.compos.encoder_xyd_parallel import XYDEncoderParallelConvBnReluPool
-
+from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
 
 def test_XYDEncoderConvBnReluPool():
     """test"""
@@ -19,5 +19,3 @@ def test_LSEncoderConvStride1BnReluPool():
     q_zd.mean
     q_zd.scale
     zd_q
-
-

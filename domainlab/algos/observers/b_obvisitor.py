@@ -112,3 +112,7 @@ class ObVisitor(AObVisitor):
                 self.exp.visitor.remove()
             except Exception as e:
                 warnings.warn("failed to remove model")
+            try:
+                self.exp.visitor.remove("ctr")  # Fof matchdg
+            except Exception as e:
+                pass

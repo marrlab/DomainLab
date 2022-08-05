@@ -8,6 +8,7 @@ from domainlab.utils.utils_cuda import get_device
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import ModelDeepAll
 from domainlab.models.wrapper_matchdg import ModelWrapMatchDGLogit
+from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 
 
 class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
@@ -27,7 +28,9 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             arg_path_of_net="npath")()  # request, #FIXME: constant string
         erm_net = erm_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
-            remove_last_layer=False, args=args)
+            remove_last_layer=False, args=args,
+            i_c=task.isize.i_c, i_h=task.isize.i_h,
+            i_w=task.isize.i_w)
         model = ModelDeepAll(erm_net, list_str_y=task.list_str_y)
         model = ModelWrapMatchDGLogit(model, list_str_y=task.list_str_y)
         model = model.to(device)
@@ -37,7 +40,9 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             arg_path_of_net="npath")()  # request, #FIXME constant string
         ctr_net = ctr_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
-            remove_last_layer=True, args=args)
+            remove_last_layer=True, args=args,
+            i_c=task.isize.i_c, i_h=task.isize.i_h,
+            i_w=task.isize.i_w)
         ctr_model = ctr_net.to(device)
 
         model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))

@@ -229,7 +229,7 @@ def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batc
 
         for b_ind in range(img.shape[0]):
             class_label_ind = class_label_ind_batch[b_ind]
-            class_label_scalar = numpy.asscalar(class_label_ind)
+            class_label_scalar = class_label_ind.item()
 
             if list_class_na is None:
                 str_class_label = "class_"+str(class_label_scalar)

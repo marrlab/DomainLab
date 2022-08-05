@@ -236,9 +236,9 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.model_vae_xyd_classif" class="md-nav__link">domainlab.models.model_vae_xyd_classif module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.test_model_diva" class="md-nav__link">domainlab.models.test_model_diva module</a>
+        <li class="md-nav__item"><a href="#domainlab-models-test-model-diva-module" class="md-nav__link">domainlab.models.test_model_diva module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.test_vae_xyd_classif" class="md-nav__link">domainlab.models.test_vae_xyd_classif module</a>
+        <li class="md-nav__item"><a href="#domainlab-models-test-vae-xyd-classif-module" class="md-nav__link">domainlab.models.test_vae_xyd_classif module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.wrapper_matchdg" class="md-nav__link">domainlab.models.wrapper_matchdg module</a>
         </li>
@@ -267,7 +267,7 @@
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.a_model_classif.</span></span><span class="sig-name descname"><span class="pre">AModelClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_d_tr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
-<p>operations that all claasification model should have</p>
+<p>operations that all classification model should have</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.cal_logit_y">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_logit_y" title="Permalink to this definition">¶</a></dt>
@@ -285,7 +285,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>tensor</strong> – input</p>
@@ -350,23 +350,6 @@ instead of this since the former takes care of running the
 registered hooks while the latter silently ignores them.</p>
 </div>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_dann.ModelDAN.infer_y_vpicn">
-<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_dann.html#ModelDAN.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_dann.ModelDAN.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tensor</strong> – input</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>vpicn
-v: vector of one-hot class label,
-p: vector of probability,
-i: class label index,
-c: confidence: maximum probability,
-n: list of name of class</p>
-</dd>
-</dl>
-</dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.models.model_dann.ModelDAN.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.models.model_dann.ModelDAN.training" title="Permalink to this definition">¶</a></dt>
@@ -401,23 +384,6 @@ this function, one should call the <code class="xref py py-class docutils litera
 instead of this since the former takes care of running the
 registered hooks while the latter silently ignores them.</p>
 </div>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_deep_all.ModelDeepAll.infer_y_vpicn">
-<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_deep_all.html#ModelDeepAll.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_deep_all.ModelDeepAll.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tensor</strong> – input</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>vpicn
-v: vector of one-hot class label,
-p: vector of probability,
-i: class label index,
-c: confidence: maximum probability,
-n: list of name of class</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.models.model_deep_all.ModelDeepAll.training">
@@ -570,13 +536,6 @@ n: list of name of class</p>
 <dd><p>not implemented</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.infer_y_vpicn">
-<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Without gradient, get one hot representation of predicted class label
-:param xs: a batch of scaled vectors of pixels from an image
-:return: a batch of the corresponding class labels (as one-hots)</p>
-</dd></dl>
-<dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.init_p_zx4batch">
 <span class="sig-name descname"><span class="pre">init_p_zx4batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.init_p_zx4batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.init_p_zx4batch" title="Permalink to this definition">¶</a></dt>
 <dd><ol class="arabic simple">
@@ -592,19 +551,11 @@ n: list of name of class</p>
 <dd></dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.test_model_diva">
-<span id="domainlab-models-test-model-diva-module"></span><h2 id="module-domainlab.models.test_model_diva">domainlab.models.test_model_diva module<a class="headerlink" href="#module-domainlab.models.test_model_diva" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.models.test_model_diva.test_model_diva">
-<span class="sig-prename descclassname"><span class="pre">domainlab.models.test_model_diva.</span></span><span class="sig-name descname"><span class="pre">test_model_diva</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/test_model_diva.html#test_model_diva"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.test_model_diva.test_model_diva" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<section id="domainlab-models-test-model-diva-module">
+<h2 id="domainlab-models-test-model-diva-module">domainlab.models.test_model_diva module<a class="headerlink" href="#domainlab-models-test-model-diva-module" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-domainlab.models.test_vae_xyd_classif">
-<span id="domainlab-models-test-vae-xyd-classif-module"></span><h2 id="module-domainlab.models.test_vae_xyd_classif">domainlab.models.test_vae_xyd_classif module<a class="headerlink" href="#module-domainlab.models.test_vae_xyd_classif" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.models.test_vae_xyd_classif.testvae">
-<span class="sig-prename descclassname"><span class="pre">domainlab.models.test_vae_xyd_classif.</span></span><span class="sig-name descname"><span class="pre">testvae</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/test_vae_xyd_classif.html#testvae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.test_vae_xyd_classif.testvae" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<section id="domainlab-models-test-vae-xyd-classif-module">
+<h2 id="domainlab-models-test-vae-xyd-classif-module">domainlab.models.test_vae_xyd_classif module<a class="headerlink" href="#domainlab-models-test-vae-xyd-classif-module" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-domainlab.models.wrapper_matchdg">
 <span id="domainlab-models-wrapper-matchdg-module"></span><h2 id="module-domainlab.models.wrapper_matchdg">domainlab.models.wrapper_matchdg module<a class="headerlink" href="#module-domainlab.models.wrapper_matchdg" title="Permalink to this headline">¶</a></h2>
@@ -627,23 +578,6 @@ n: list of name of class</p>
 <dt class="sig sig-object py" id="domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/wrapper_matchdg.html#ModelWrapMatchDGLogit.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate features to be matched</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.infer_y_vpicn">
-<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/wrapper_matchdg.html#ModelWrapMatchDGLogit.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tensor</strong> – input</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>vpicn
-v: vector of one-hot class label,
-p: vector of probability,
-i: class label index,
-c: confidence: maximum probability,
-n: list of name of class</p>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.training">

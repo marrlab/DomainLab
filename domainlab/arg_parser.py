@@ -17,6 +17,9 @@ def mk_parser_main():
     parser.add_argument('--lr', type=float, default=1e-4,
                         help='learning rate')
 
+    parser.add_argument('--gamma_reg', type=float, default=1.0,
+                        help='weight of regularization loss')
+
     parser.add_argument('--es', type=int, default=10,
                         help='early stop steps')
 

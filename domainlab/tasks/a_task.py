@@ -2,6 +2,7 @@
 Abstract class for TaskClassif
 """
 import os
+import warnings
 from abc import abstractmethod, abstractproperty
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.utils_task import img_loader2dir
@@ -10,8 +11,10 @@ from domainlab.tasks.utils_task import img_loader2dir
 def parse_domain_id(list_domain_id, list_domains):
     """
     Convert ids to a list of domain names.
-    :param list_domain_id: domain id or ids provided as an int or str, or a list of int or str.
+    :param list_domain_id: domain id or ids provided as an int or str,
+    or a list of int or str.
     :param list_domains: list of available domains
+    :return: list of domain names
     """
     if not isinstance(list_domain_id, list):
         list_domain_id = [list_domain_id]
@@ -132,7 +135,14 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
 
     def get_list_domains_tr_te(self, tr_id, te_id):
         """
-        For static DG task, get train and test domains list
+        For static DG task, get train and test domains list.
+
+        :param tr_id: training domain ids;
+            int or str, or a list of int or str, or None;
+            if None, then assumed to be the complement of te_id.
+        :param te_id: test domain ids;
+            int or str, or a list of int or str; required.
+        :return: list of training domain names, list of test domain names.
         """
         list_domains = self.get_list_domains()
 
@@ -140,13 +150,20 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         assert set(list_domain_te).issubset(set(list_domains))
 
         if tr_id is None:
-            list_domain_tr = [did for did in list_domains if did not in list_domain_te]
+            list_domain_tr = [did for did in list_domains if
+                              did not in list_domain_te]
         else:
             list_domain_tr = parse_domain_id(tr_id, list_domains)
-        assert set(list_domain_tr).issubset(set(list_domains))
+        if not set(list_domain_tr).issubset(set(list_domains)):
+            raise RuntimeError(
+                "training domain %s is not subset of available domains %s"
+                % (list_domain_tr, list_domains))
 
         if set(list_domain_tr) & set(list_domain_te):
-            raise RuntimeError("training and test domains should not overlap")
+            warnings.warn(
+                "The sets of training and test domains overlap -- beware of data leakage or training to the test!",
+                RuntimeWarning
+            )
 
         self.dim_d_tr = len(list_domain_tr)
         self._list_domain_tr = list_domain_tr

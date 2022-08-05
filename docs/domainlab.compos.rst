@@ -1,6 +1,14 @@
 domainlab.compos package
 ========================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   domainlab.compos.nn_zoo
+
 Submodules
 ----------
 
@@ -20,6 +28,14 @@ domainlab.compos.builder\_nn\_alex module
    :undoc-members:
    :show-inheritance:
 
+domainlab.compos.builder\_nn\_conv\_bn\_relu\_2 module
+------------------------------------------------------
+
+.. automodule:: domainlab.compos.builder_nn_conv_bn_relu_2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.compos.builder\_nn\_external\_from\_file module
 ---------------------------------------------------------
 
@@ -28,58 +44,10 @@ domainlab.compos.builder\_nn\_external\_from\_file module
    :undoc-members:
    :show-inheritance:
 
-domainlab.compos.net\_adversarial module
-----------------------------------------
+domainlab.compos.utils\_conv\_get\_flat\_dim module
+---------------------------------------------------
 
-.. automodule:: domainlab.compos.net_adversarial
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.compos.net\_classif module
-------------------------------------
-
-.. automodule:: domainlab.compos.net_classif
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.compos.net\_conv module
----------------------------------
-
-.. automodule:: domainlab.compos.net_conv
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.compos.net\_gated module
-----------------------------------
-
-.. automodule:: domainlab.compos.net_gated
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.compos.nn module
---------------------------
-
-.. automodule:: domainlab.compos.nn
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.compos.nn\_alex module
---------------------------------
-
-.. automodule:: domainlab.compos.nn_alex
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.compos.nn\_torchvision module
----------------------------------------
-
-.. automodule:: domainlab.compos.nn_torchvision
+.. automodule:: domainlab.compos.utils_conv_get_flat_dim
    :members:
    :undoc-members:
    :show-inheritance:

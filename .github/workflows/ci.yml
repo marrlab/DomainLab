@@ -22,10 +22,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-cov
-        sh ci.sh
+        pip install pytest pytest-cov pytest-shell
     - name: Generate coverage report
-      run: pytest --cov=. --cov-report=xml
+      run: pytest --cov=domainlab tests/ --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:

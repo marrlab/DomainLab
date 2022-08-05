@@ -33,7 +33,7 @@ class FlowGenImgs():
         """
         for _, (x_batch, y_batch, *d_batch) in enumerate(loader):
             x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-            if d_batch:
+            if d_batch and isinstance(d_batch[0], torch.Tensor):
                 d_batch = d_batch[0].to(device)
             else:
                 d_batch = None
