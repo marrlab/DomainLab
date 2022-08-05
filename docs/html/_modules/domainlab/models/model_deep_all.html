@@ -132,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -141,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -169,7 +169,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -191,7 +191,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +200,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -233,6 +233,7 @@ from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
+from domainlab.utils.override_interface import override_interface
 
 
 <div class="viewcode-block" id="ModelDeepAll"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll">[docs]</a>class ModelDeepAll(AModelClassif):
@@ -240,7 +241,8 @@ from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
         super().__init__(list_str_y, list_str_d)
         self.add_module("net", net)
 
-<div class="viewcode-block" id="ModelDeepAll.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll.cal_logit_y">[docs]</a>    def cal_logit_y(self, tensor_x):
+<div class="viewcode-block" id="ModelDeepAll.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll.cal_logit_y">[docs]</a>    @override_interface(AModelClassif)
+    def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
         """
