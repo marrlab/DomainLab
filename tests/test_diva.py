@@ -8,7 +8,7 @@ def test_diva():
     parser = mk_parser_main()
     argsstr = "--te_d=caltech --task=mini_vlcs --aname=diva --bs=2 \
                --nname=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=7e5 \
-               --nname_dom=conv_bn_pool_2 --gen"
+               --nname_dom=conv_bn_pool_2 --gen --nocu"
     margs = parser.parse_args(argsstr.split())
     exp = Exp(margs)
     exp.trainer.before_tr()

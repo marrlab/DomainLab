@@ -36,6 +36,14 @@ domainlab.utils.perf module
    :undoc-members:
    :show-inheritance:
 
+domainlab.utils.perf\_metrics module
+------------------------------------
+
+.. automodule:: domainlab.utils.perf_metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.utils.test\_img module
 --------------------------------
 

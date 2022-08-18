@@ -49,10 +49,9 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Task ‘mini_vlcs’ &#8212; domainlab  documentation</title>
+    <title>algorithm ‘deepall’ with custom neural network &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -98,7 +97,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Task ‘mini_vlcs’ </span>
+          <span class="md-header-nav__topic"> algorithm ‘deepall’ with custom neural network </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -133,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -142,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -168,9 +167,11 @@
             
             <li class="md-tabs__item"><a href="#" class="md-tabs__link">Custom Neural Network</a></li>
             
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples</a></li>
+            
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -191,7 +192,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +201,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -218,27 +219,9 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-custom-nn--page-root" class="md-nav__link">Task ‘mini_vlcs’</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#algorithm-diva-with-custom-neural-network" class="md-nav__link">algorithm ‘diva’ with custom neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#algorithm-deepall-with-custom-neural-network" class="md-nav__link">algorithm ‘deepall’ with custom neural network</a>
+        <li class="md-nav__item"><a href="#doc-custom-nn--page-root" class="md-nav__link">algorithm ‘deepall’ with custom neural network</a>
         </li>
         <li class="md-nav__item"><a href="#algorithm-matchdg-with-custom-neural-network" class="md-nav__link">algorithm ‘matchdg’ with custom neural network</a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#imagepath-task" class="md-nav__link">ImagePath Task</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#imagepath-task-with-externally-user-defined-neural-network" class="md-nav__link">ImagePath Task with externally user defined neural network</a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#foldertask" class="md-nav__link">FolderTask</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#folder-task-with-externally-user-defined-neural-network" class="md-nav__link">Folder Task with externally user defined neural network</a>
-        </li></ul>
-            </nav>
         </li>
   </ul>
 </nav>
@@ -253,46 +236,19 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def build_feat_extract_net(dim_y, remove_last_layer):
 </pre></div>
 </div>
-<p>See examples below from <code class="docutils literal notranslate"><span class="pre">--npath=examples/nets/resnet.py</span></code></p>
-<p><a class="reference external" href="../../examples/nets/resnet.py">Custom Neural Network Example</a></p>
-<section class="tex2jax_ignore mathjax_ignore" id="task-mini-vlcs">
-<h1 id="doc-custom-nn--page-root">Task ‘mini_vlcs’<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this headline">¶</a></h1>
-<section id="algorithm-diva-with-custom-neural-network">
-<h2 id="algorithm-diva-with-custom-neural-network">algorithm ‘diva’ with custom neural network<a class="headerlink" href="#algorithm-diva-with-custom-neural-network" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=diva --npath=examples/nets/resnet.py
-</pre></div>
-</div>
-</section>
-<section id="algorithm-deepall-with-custom-neural-network">
-<h2 id="algorithm-deepall-with-custom-neural-network">algorithm ‘deepall’ with custom neural network<a class="headerlink" href="#algorithm-deepall-with-custom-neural-network" title="Permalink to this headline">¶</a></h2>
+<p>See examples below from <code class="docutils literal notranslate"><span class="pre">--npath=examples/nets/resnet.py</span></code> where the examples can be found in the examples folder of the code repository.</p>
+<p><span class="xref myst">Custom Neural Network Example</span></p>
+<section class="tex2jax_ignore mathjax_ignore" id="algorithm-deepall-with-custom-neural-network">
+<h1 id="doc-custom-nn--page-root">algorithm ‘deepall’ with custom neural network<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --npath=examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
-<section id="algorithm-matchdg-with-custom-neural-network">
-<h2 id="algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network<a class="headerlink" href="#algorithm-matchdg-with-custom-neural-network" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=20 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --npath=examples/nets/resnet.py
+<section class="tex2jax_ignore mathjax_ignore" id="algorithm-matchdg-with-custom-neural-network">
+<h1 id="algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network<a class="headerlink" href="#algorithm-matchdg-with-custom-neural-network" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --npath=examples/nets/resnet.py
 </pre></div>
 </div>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="imagepath-task">
-<h1 id="imagepath-task">ImagePath Task<a class="headerlink" href="#imagepath-task" title="Permalink to this headline">¶</a></h1>
-<section id="imagepath-task-with-externally-user-defined-neural-network">
-<h2 id="imagepath-task-with-externally-user-defined-neural-network">ImagePath Task with externally user defined neural network<a class="headerlink" href="#imagepath-task-with-externally-user-defined-neural-network" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py
-</pre></div>
-</div>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="foldertask">
-<h1 id="foldertask">FolderTask<a class="headerlink" href="#foldertask" title="Permalink to this headline">¶</a></h1>
-<section id="folder-task-with-externally-user-defined-neural-network">
-<h2 id="folder-task-with-externally-user-defined-neural-network">Folder Task with externally user defined neural network<a class="headerlink" href="#folder-task-with-externally-user-defined-neural-network" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --npath=examples/nets/resnet.py
-</pre></div>
-</div>
-</section>
 </section>
 
 

@@ -52,7 +52,6 @@
     <title>domainlab.utils package &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -133,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -142,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -168,9 +167,11 @@
             
             <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
             
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples</a></li>
+            
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
       </ul>
     </div>
   </nav>
@@ -191,7 +192,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -200,7 +201,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -229,6 +230,8 @@
         <li class="md-nav__item"><a href="#module-domainlab.utils.override_interface" class="md-nav__link">domainlab.utils.override_interface module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.utils.perf" class="md-nav__link">domainlab.utils.perf module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.perf_metrics" class="md-nav__link">domainlab.utils.perf_metrics module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.utils.test_img" class="md-nav__link">domainlab.utils.test_img module</a>
         </li>
@@ -345,6 +348,32 @@ default None, which means to traverse the whole dataset</p></li>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>dim_target</strong> – class/domain label embeding dimension</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.utils.perf_metrics">
+<span id="domainlab-utils-perf-metrics-module"></span><h2 id="module-domainlab.utils.perf_metrics">domainlab.utils.perf_metrics module<a class="headerlink" href="#module-domainlab.utils.perf_metrics" title="Permalink to this headline">¶</a></h2>
+<p>Classification Performance</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfClassif">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf_metrics.</span></span><span class="sig-name descname"><span class="pre">PerfClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfClassif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classification Performance metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfClassif.cal_metrics">
+<span class="sig-name descname"><span class="pre">cal_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfClassif.cal_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfClassif.cal_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – </p></li>
+<li><p><strong>loader_te</strong> – </p></li>
+<li><p><strong>device</strong> – for final test, GPU can be used</p></li>
+<li><p><strong>max_batches</strong> – maximum number of iteration for data loader, used to
+probe performance with less computation burden.
+default None, which means to traverse the whole dataset</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

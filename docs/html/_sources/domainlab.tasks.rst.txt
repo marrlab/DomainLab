@@ -52,14 +52,6 @@ domainlab.tasks.task\_pathlist module
    :undoc-members:
    :show-inheritance:
 
-domainlab.tasks.test\_task\_path\_list module
----------------------------------------------
-
-.. automodule:: domainlab.tasks.test_task_path_list
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 domainlab.tasks.utils\_task module
 ----------------------------------
 

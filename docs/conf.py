@@ -30,7 +30,7 @@ copyright = (
     ""
 )
 
-author = "Xudong Sun, etc"
+author = "Xudong Sun, et.al."
 
 # The short X.Y version
 # version = libdg.__version__.split("+")[0]   # FIXME
@@ -65,7 +65,7 @@ extensions = [
     "IPython.sphinxext.ipython_console_highlighting",
 ]
 
-myst_all_links_external = True
+# myst_all_links_external = True
 myst_heading_anchors = 3
 myst_enable_extensions = [
         "amsmath",
@@ -97,6 +97,7 @@ templates_path = ["_templates"]
 #source_parsers = {
 #        '.md': 'recommonmark.parser.CommonMarkParser',
 #}
+
 source_suffix = ['.rst', '.md']
 source_suffix = {
         '.rst': 'restructuredtext',
@@ -117,7 +118,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
+exclude_patterns = ["setup.py", "_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "default"
@@ -137,9 +138,9 @@ html_theme = "sphinx_material"
 # material theme options (see theme.conf for more information)
 html_theme_options = {
     # "base_url": "http://bashtage.github.io/sphinx-material/",
-    "repo_url": "https://github.com/marrlab/libDG",
-    "repo_name": "domainlab",
-    # "google_analytics_account": "G-Q6ZE82CNZB",
+    "repo_url": "https://github.com/marrlab/DomainLab",
+    "repo_name": "DomainLab",
+    # "google_analytics_account": "",
     "html_minify": False,
     "html_prettify": False,
     "css_minify": False,
@@ -156,8 +157,9 @@ html_theme_options = {
         {"href": "readme_link", "internal": True, "title": "Introduction"},
         {"href": "doc_tasks", "internal": True, "title": "Task Specification"},
         {"href": "doc_custom_nn", "internal": True, "title": "Custom Neural Network"},
+        {"href": "doc_examples", "internal": True, "title": "Examples"},
         {"href": "doc_output", "internal": True, "title": "Output Structure"},
-        {"href": "doc_extend_contribute", "internal": True, "title": "Contribute"},
+        {"href": "doc_extend_contribute", "internal": True, "title": "Extend and Contribute"},
         # {
         #     "href": "https://squidfunk.github.io/mkdocs-material/",
         #     "internal": False,
@@ -241,8 +243,8 @@ texinfo_documents = [
 
 # -- Extension configuration -------------------------------------------------
 
-html_static_path = ["_static"]
-html_css_files = [
-    "custom.css",
-]
-html_js_files = []
+# html_static_path = ["_static"]
+# html_css_files = [
+#   "custom.css",
+# ]
+# html_js_files = []

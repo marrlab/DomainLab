@@ -62,6 +62,18 @@ def mk_parser_main():
                         help="path of custom neural network for feature \
                         extraction")
 
+    parser.add_argument('--npath_argna2val', action='append',
+                        help="specify new arguments and their value \
+                        e.g. '--npath_argna2val my_custom_arg_na \
+                        --npath_argna2val xx/yy/zz.py', additional \
+                        pairs can be appended")
+
+    parser.add_argument('--nname_argna2val', action='append',
+                        help="specify new arguments and their values \
+                        e.g. '--nname_argna2val my_custom_network_arg_na \
+                        --nname_argna2val alexnet', additional pairs \
+                        can be appended")
+
     parser.add_argument('--nname', type=str, default=None,
                         help="name of custom neural network for feature \
                         extraction of classification")

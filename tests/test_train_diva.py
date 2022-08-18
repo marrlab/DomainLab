@@ -17,9 +17,10 @@ from domainlab.utils.utils_cuda import get_device
 
 def test_trainer_diva():
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "rgb_31_119_180",
-                               "--task", "mnistcolor10",
-                               "--aname", "diva", "--bs", "2"])
+    argstr = "--te_d=rgb_31_119_180 --task=mnistcolor10 --aname=diva --bs=2 \
+        --nocu"
+
+    margs = parser.parse_args(argstr.split())
     margs.nname = "conv_bn_pool_2"
     y_dim = 10
     d_dim = 9

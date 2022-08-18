@@ -132,7 +132,7 @@
       
         <div class="md-flex__cell md-flex__cell--shrink">
           <div class="md-header-nav__source">
-            <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -141,7 +141,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
           </div>
@@ -161,9 +161,15 @@
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
             
-            <li class="md-tabs__item"><a href="../../../../README.html" class="md-tabs__link">About</a></li>
+            <li class="md-tabs__item"><a href="../../../readme_link.html" class="md-tabs__link">Introduction</a></li>
             
-            <li class="md-tabs__item"><a href="../../../contribute.html" class="md-tabs__link">Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -185,7 +191,7 @@
        title="domainlab documentation">DomainLab</a>
   </label>
     <div class="md-nav__source">
-      <a href="https://github.com/marrlab/libDG" title="Go to repository" class="md-source" data-md-source="github">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
 
     <div class="md-source__icon">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
@@ -194,7 +200,7 @@
     </div>
   
   <div class="md-source__repository">
-    domainlab
+    DomainLab
   </div>
 </a>
     </div>
@@ -211,10 +217,6 @@
                 
 <nav class="md-nav md-nav--secondary">
   <ul class="md-nav__list" data-md-scrollfix="">
-    
-
-<li id="searchbox" class="md-nav__item"></li>
-
   </ul>
 </nav>
               </div>
@@ -229,6 +231,7 @@
 Abstract class for TaskClassif
 """
 import os
+import warnings
 from abc import abstractmethod, abstractproperty
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.utils_task import img_loader2dir
@@ -237,8 +240,10 @@ from domainlab.tasks.utils_task import img_loader2dir
 <div class="viewcode-block" id="parse_domain_id"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.parse_domain_id">[docs]</a>def parse_domain_id(list_domain_id, list_domains):
     """
     Convert ids to a list of domain names.
-    :param list_domain_id: domain id or ids provided as an int or str, or a list of int or str.
+    :param list_domain_id: domain id or ids provided as an int or str,
+    or a list of int or str.
     :param list_domains: list of available domains
+    :return: list of domain names
     """
     if not isinstance(list_domain_id, list):
         list_domain_id = [list_domain_id]
@@ -359,7 +364,14 @@ from domainlab.tasks.utils_task import img_loader2dir
 
 <div class="viewcode-block" id="NodeTaskDGClassif.get_list_domains_tr_te"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDGClassif.get_list_domains_tr_te">[docs]</a>    def get_list_domains_tr_te(self, tr_id, te_id):
         """
-        For static DG task, get train and test domains list
+        For static DG task, get train and test domains list.
+
+        :param tr_id: training domain ids;
+            int or str, or a list of int or str, or None;
+            if None, then assumed to be the complement of te_id.
+        :param te_id: test domain ids;
+            int or str, or a list of int or str; required.
+        :return: list of training domain names, list of test domain names.
         """
         list_domains = self.get_list_domains()
 
@@ -367,13 +379,20 @@ from domainlab.tasks.utils_task import img_loader2dir
         assert set(list_domain_te).issubset(set(list_domains))
 
         if tr_id is None:
-            list_domain_tr = [did for did in list_domains if did not in list_domain_te]
+            list_domain_tr = [did for did in list_domains if
+                              did not in list_domain_te]
         else:
             list_domain_tr = parse_domain_id(tr_id, list_domains)
-        assert set(list_domain_tr).issubset(set(list_domains))
+        if not set(list_domain_tr).issubset(set(list_domains)):
+            raise RuntimeError(
+                "training domain %s is not subset of available domains %s"
+                % (list_domain_tr, list_domains))
 
         if set(list_domain_tr) &amp; set(list_domain_te):
-            raise RuntimeError("training and test domains should not overlap")
+            warnings.warn(
+                "The sets of training and test domains overlap -- beware of data leakage or training to the test!",
+                RuntimeWarning
+            )
 
         self.dim_d_tr = len(list_domain_tr)
         self._list_domain_tr = list_domain_tr

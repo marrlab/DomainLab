@@ -20,6 +20,14 @@ domainlab.models.args\_vae module
    :undoc-members:
    :show-inheritance:
 
+domainlab.models.model\_custom module
+-------------------------------------
+
+.. automodule:: domainlab.models.model_custom
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.models.model\_dann module
 -----------------------------------
 
@@ -56,22 +64,6 @@ domainlab.models.model\_vae\_xyd\_classif module
 ------------------------------------------------
 
 .. automodule:: domainlab.models.model_vae_xyd_classif
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.models.test\_model\_diva module
------------------------------------------
-
-.. automodule:: domainlab.models.test_model_diva
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.models.test\_vae\_xyd\_classif module
------------------------------------------------
-
-.. automodule:: domainlab.models.test_vae_xyd_classif
    :members:
    :undoc-members:
    :show-inheritance:
