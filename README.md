@@ -79,3 +79,6 @@ This library decouples the concept of algorithm (model) and neural network archi
 # TODOs
 
 [ ] - adding custom train, validation and test `torch.datasets`
+[ ] - add confusion matrix after the training
+[ ] - generate images from the tain and test for sanity check
+[ ] - no extensions needed for the train and test `torch.datasets`
