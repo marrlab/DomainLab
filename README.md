@@ -74,3 +74,8 @@ This library decouples the concept of algorithm (model) and neural network archi
 
 # Software Design Pattern, Extend or Contribution, Credits
 [Extend or Contibute](./docs/doc_extend_contribute.md)
+
+
+# TODOs
+
+[ ] - adding custom train, validation and test `torch.datasets`
