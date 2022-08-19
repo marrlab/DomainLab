@@ -8,47 +8,51 @@ from torch.utils.data.dataset import ConcatDataset
 from domainlab.tasks.a_task import NodeTaskDGClassif
 from domainlab.tasks.utils_task import mk_loader, mk_onehot, DsetDomainVecDecorator
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
-from domainlab.tasks.task_loader import NodeTaskDict
+from domainlab.tasks.b_task import NodeTaskDict
 
 
-def dset_decoration_args_algo(args, ddset):
-    if "match" in args.aname:  # FIXME: are there ways not to use this if statement?
-            ddset = DsetIndDecorator4XYD(ddset)
-    return ddset
-
-
-class NodeTaskLoader(NodeTaskDict):
-    """
-    Use dictionaries to create train and test domain split
-    """
-    def init_business(self, args):
+def mk_task_dset(dset_tr,
+                 dset_val,
+                 dset_te,
+                 list_str_y,
+                 isize,
+                 taskna,  # name of the task
+                 succ=None):
+    class NodeTaskLoader(NodeTaskDict):
         """
-        create a dictionary of datasets
+        Use dictionaries to create train and test domain split
         """
-        self._loader_tr = mk_loader(ddset_mix, args.bs)
-        self._loader_val = mk_loader(ddset_mix_val, args.bs)
-        self._loader_te = mk_loader(dset_te, args.bs, drop_last=False)
-        self.count_domain_class()
+        @property
+        def list_str_y(self):
+            return self._list_str_y
 
-    def count_domain_class(self):
-        """
-        iterate all domains and count the class label distribution for each
-        return a double dictionary {"domain1": {"class1":3, "class2": 4,...}, ....}
-        """
-        for key, dset in self.dict_dset.items():
-            dict_class_count = self._count_class_one_hot(dset)
-            self.dict_domain_class_count[key] = dict_class_count
-        for key, dset in self.dict_dset_te.items():
-            dict_class_count = self._count_class_one_hot(dset)
-            self.dict_domain_class_count[key] = dict_class_count
+        @list_str_y.setter
+        def list_str_y(self, list_str_y):
+            self._list_str_y = list_str_y
 
-    def _count_class_one_hot(self, dset):
-        labels_count = torch.zeros(self.dim_y, dtype=torch.long)
-        for _, target, *_ in dset:
-            labels_count += target.long()
+        @property
+        def isize(self):
+            return self._im_size
 
-        list_count = list(labels_count.cpu().numpy())
-        dict_class_count = dict()
-        for name, count in zip(self.list_str_y, list_count):
-            dict_class_count[name] = count
-        return dict_class_count
+        @isize.setter
+        def isize(self, isize):
+            self._im_size = isize
+
+        def conf(self, args):
+            self.list_str_y = list_str_y
+            self.isize = isize
+
+        def get_dset_by_domain(self, args, na_domain, split=None):
+            return dset_tr, dset_val
+
+        def init_business(self, args):
+            """
+            create a dictionary of datasets
+            """
+            self.conf(args)
+            self.set_list_domains(["0", "1", "2"])
+            self._loader_tr = mk_loader(dset_tr, args.bs)
+            self._loader_val = mk_loader(dset_val, args.bs)
+            self._loader_te = mk_loader(dset_te, args.bs, drop_last=False)
+            super().init_business(args)
+    return NodeTaskLoader(succ=succ)
