@@ -54,8 +54,3 @@ def add_args2parser_vae(parser):
                         help='number of epochs for hyper-parameter warm-up. \
                         Set to 0 to turn warmup off.')
     return parser
-
-def test_fun():
-    parser = argparse.ArgumentParser(description='diva')
-    parser = add_args2parser_vae(parser)
-    parser.parse_args()

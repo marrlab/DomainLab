@@ -36,7 +36,3 @@ class DsetMNISTColorMixNoDomainLabel(DsetMNISTColorMix):
         img, c_label, _ = super().__getitem__(idx)
         return img, c_label
 
-def test_color_mnist():
-    from datasets.utils_data import plot_ds, plot_ds_list
-    dset = DsetMNISTColorMix(n_domains=3, path="./output/")
-    plot_ds(dset, "color_mix.png")

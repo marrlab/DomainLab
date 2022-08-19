@@ -53,12 +53,3 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
                          net_p_x_mean,
                          net_p_x_log_var)
 
-def test_DecoderConcatLatentFCReshapeConvGatedConv():
-    """test"""
-    batch_size = 5
-    latent_dim = 8
-    model = DecoderConcatLatentFCReshapeConvGatedConv(latent_dim, 3, 64, 64)
-    vec_z = torch.rand(batch_size, latent_dim)
-    x = torch.rand(batch_size, 3, 64, 64)
-    re = model.cal_nll(vec_z, x)
-    re.sum().backward()

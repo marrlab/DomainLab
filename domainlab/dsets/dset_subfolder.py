@@ -110,13 +110,3 @@ class DsetSubFolder(DatasetFolder):
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx
 
-
-def test_fun():
-    from domainlab.dsets.utils_data import fun_img_path_loader_default
-    dset = DsetSubFolder(root="zdpath/vlcs_small_class_mismatch/caltech",
-                         list_class_dir=["auto", "vogel"],
-                         loader=fun_img_path_loader_default,
-                         extensions="jpg",
-                         transform=None,
-                         target_transform=None)
-    dset.class_to_idx

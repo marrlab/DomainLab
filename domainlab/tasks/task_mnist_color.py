@@ -59,12 +59,3 @@ class NodeTaskMNISTColor10(NodeTaskDict):
             val_len = len(dset) - train_len
             train_set, val_set = random_split(dset, [train_len, val_len])
         return train_set, val_set
-
-def test_fun():
-    from domainlab.utils.arg_parser import mk_parser_main
-    parser = mk_parser_main()
-    args = parser.parse_args(["--te_d", "1", "--dpath", "zout"])
-    node = NodeTaskMNISTColor10()
-    node.get_list_domains()
-    node.list_str_y
-    node.init_business(args)

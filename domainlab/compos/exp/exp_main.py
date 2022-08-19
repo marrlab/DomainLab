@@ -51,10 +51,3 @@ class Exp():
         print("Experiment finished at epoch:", self.epoch_counter,
               "with time:", t_c - t_0, "at", t_c)
         self.trainer.post_tr()
-
-def test_exp():
-    from domainlab.utils.arg_parser import mk_parser_main
-    parser = mk_parser_main()
-    args = parser.parse_args(["--te_d", "2", "--task", "mnistcolor10", "--debug"])
-    exp = Exp(args)
-    exp.execute()

@@ -42,8 +42,3 @@ class DenseNet(nn.Module):
         flat = tensor_x.view(tensor_x.shape[0], -1)
         out = self.h_layers(flat)
         return out
-
-def test_DenseNet():
-    x = torch.rand(20, 256*6*6)
-    model = DenseNet(256*6*6)
-    h = model(x)
