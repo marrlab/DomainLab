@@ -11,9 +11,17 @@ path_this_file = os.path.dirname(os.path.realpath(__file__))
 dset_tr = DsetMNISTColorSoloDefault(0, "zout")
 dset_val = DsetMNISTColorSoloDefault(0, "zout")
 dset_te = DsetMNISTColorSoloDefault(0, "zout")
+
 list_str_y = list(range(0, 10))
+
 list_str_y = [str(ele) for ele in list_str_y]
-chain = mk_task_dset(
+
+dict_domain2dset = {}
+dict_domain2dset["0"] = (dset_tr, dset_val)
+dict_domain2dset["1"] = (dset_tr, dset_val)
+dict_domain2dset["2"] = (dset_tr, dset_val)
+
+chain = mk_task_dset(dict_domain2dset=dict_domain2dset,
                       dset_tr=dset_tr,
                       dset_val=dset_val,
                       dset_te=dset_te,
