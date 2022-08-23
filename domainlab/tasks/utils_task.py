@@ -88,7 +88,7 @@ class DsetDomainVecDecorator(Dataset):
         """
         tensor, vec_class, *other_vars = self.dset.__getitem__(idx)
         if len(other_vars) > 0:
-            return tensor, vec_class, self.vec_domain, *other_vars
+            return (tensor, vec_class, self.vec_domain, *other_vars)
         return tensor, vec_class, self.vec_domain
 
     def __len__(self):
