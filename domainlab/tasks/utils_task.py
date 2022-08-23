@@ -226,6 +226,7 @@ def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batc
     for _ in range(batches):
         img, vec_y, *list_vec_domain = l_iter.next()
         class_label_ind_batch = tensor1hot2ind(vec_y)
+        list_vec_domain = None # FIXME: shall we remove this
         if list_vec_domain:  # if list is not empty
             domain_label_ind_batch = tensor1hot2ind(list_vec_domain[0])
 

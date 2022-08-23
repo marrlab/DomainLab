@@ -1,11 +1,11 @@
 """
 Color MNIST with palette
 """
-from torch.utils.data.dataset import ConcatDataset
 from torch.utils.data import random_split
 from domainlab.tasks.b_task import NodeTaskDict
-from domainlab.tasks.utils_task import DsetDomainVecDecorator, mk_onehot, mk_loader, ImSize
-from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
+from domainlab.tasks.utils_task import ImSize
+from domainlab.dsets.dset_mnist_color_solo_default import \
+    DsetMNISTColorSoloDefault
 from domainlab.dsets.utils_color_palette import default_rgb_palette   # FIXME
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 
@@ -35,7 +35,7 @@ class NodeTaskMNISTColor10(NodeTaskDict):
             list_domains.append(domain)
         return list_domains
 
-    def get_dset_by_domain(self, args, na_domain, split=True):
+    def get_dset_by_domain(self, args, na_domain, split=True):  # FIXME: different number of arguments than parent
         """get_dset_by_domain.
         :param args:
         :param na_domain:
@@ -59,12 +59,3 @@ class NodeTaskMNISTColor10(NodeTaskDict):
             val_len = len(dset) - train_len
             train_set, val_set = random_split(dset, [train_len, val_len])
         return train_set, val_set
-
-def test_fun():
-    from domainlab.utils.arg_parser import mk_parser_main
-    parser = mk_parser_main()
-    args = parser.parse_args(["--te_d", "1", "--dpath", "zout"])
-    node = NodeTaskMNISTColor10()
-    node.get_list_domains()
-    node.list_str_y
-    node.init_business(args)
