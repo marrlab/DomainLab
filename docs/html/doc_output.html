@@ -217,12 +217,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-output--page-root" class="md-nav__link">Output structure</a>
-        </li>
-        <li class="md-nav__item"><a href="#computing-performances" class="md-nav__link">Computing performances</a>
-        </li>
   </ul>
 </nav>
               </div>
@@ -234,28 +229,25 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="output-structure">
 <h1 id="doc-output--page-root">Output structure<a class="headerlink" href="#doc-output--page-root" title="Permalink to this headline">¶</a></h1>
-<p>By default, this package(library) generate outputs to a folder called “zoutput” relative to the current working directory. The structure is something similar as follows. ([] means the folder might or might not exist)</p>
+<p>By default, this package generate outputs into a folder “zoutput” relative to the current working directory, which the user can alter by specifying the corresponding command line argument.</p>
+<p>The output structure is something similar to below. ([] means the folder might or might not exist, texts inside () are comments)</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>zoutput/
 ├── aggrsts (aggregation of results)
 │   ├── task1_test_domain1_tagName.csv
 │   ├── task2_test_domain3_tagName.csv
 │   
 │  
-├── [gen] (counterfactual image generation, only exist for generative models)
+├── [gen] (counterfactual image generation, only exist for generative models with "--gen" specified)
 │   ├── [task1_test_domain1]
 │   
 └── saved_models (persisted pytorch model)
     ├── task1_algo1_git-commit-hashtag1_seed_1_instance_wise_predictions.txt (instance wise prediction of the model)
     ├── [task1_algo1_git-commit-hashtag1_seed_1.model]  (only exist if with command line argument "--keep_model")
-    ├── [task1_algo1_git-commit-hashtag1_seed_1.model_oracle]
+    ...
 </pre></div>
 </div>
 <p>“aggrst” folder is aggregating results from several runs corresponding to the same train test split of the identical task, that means after each run, an extra line will be appended to the file corresponding to the same train test split of the identical task, so that it is convenient to compare between different algorithms and configurations upon the same train test split of the identical task.</p>
-<p>“saved_models” folder contains instance wise prediction in a text file for each run, and potentially the persisted model on the hard disk (by default, these models will be deleted after run is completed)</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="computing-performances">
-<h1 id="computing-performances">Computing performances<a class="headerlink" href="#computing-performances" title="Permalink to this headline">¶</a></h1>
-<p>The user is responsible to generate performance measures by reading from the instance wise prediction files from “saved_models” folder as above.</p>
+<p>“saved_models” folder contains instance wise prediction in a text file for each run, and potentially the persisted model on the hard disk (by default, these models will be deleted after run is completed).</p>
 </section>
 
 
