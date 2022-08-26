@@ -17,6 +17,7 @@ or `nname_argna2val` if the neural network is already implemented.
 - note that all algorithms will be converted to lower case!
 - make a pull request
 
+
 ### Design
 ![Design Diagram](libDG.svg)
 

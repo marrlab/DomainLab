@@ -51,7 +51,6 @@
     <title>domainlab.dsets.dset_subfolder &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -166,6 +165,8 @@
             <li class="md-tabs__item"><a href="../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">Examples</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
@@ -339,16 +340,6 @@ from torchvision.datasets import DatasetFolder
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx</div>
 
-
-<div class="viewcode-block" id="test_fun"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.test_fun">[docs]</a>def test_fun():
-    from domainlab.dsets.utils_data import fun_img_path_loader_default
-    dset = DsetSubFolder(root="zdpath/vlcs_small_class_mismatch/caltech",
-                         list_class_dir=["auto", "vogel"],
-                         loader=fun_img_path_loader_default,
-                         extensions="jpg",
-                         transform=None,
-                         target_transform=None)
-    dset.class_to_idx</div>
 </pre></div>
 
           </article>

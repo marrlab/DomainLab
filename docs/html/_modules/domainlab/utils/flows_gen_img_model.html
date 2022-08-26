@@ -336,12 +336,6 @@ from domainlab.compos.vae.c_vae_recon import ReconVAEXYD
                         path=path,
                         domain="_".join(node.list_domain_tr))</div>
 
-
-<div class="viewcode-block" id="test_fun"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.test_fun">[docs]</a>def test_fun():
-    from models.model_diva import test_fun
-    model, x_s, y_s, d_s = test_fun()
-    device = torch.device("cpu")
-    FlowGenImgs(model, device).gen_img_xyd(x_s, y_s, d_s, device, path="zout/temp", folder_na="gen")</div>
 </pre></div>
 
           </article>
