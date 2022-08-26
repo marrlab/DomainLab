@@ -65,13 +65,3 @@ class AlexNetNoLastLayer(AlexNetBase):
     def __init__(self, flag_pretrain):
         super().__init__(flag_pretrain)
         self.net_torchvision.classifier[6] = LayerId()
-
-def test_AlexNetConvClassif():
-    import torch
-    model = AlexNetNoLastLayer(True)
-    x = torch.rand(20, 3, 224, 224)
-    x = torch.clamp(x, 0, 1)
-    x.require_grad = False
-    torch.all(x > 0)
-    res = model(x)
-    res.shape

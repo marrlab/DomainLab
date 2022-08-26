@@ -34,9 +34,3 @@ def sav_add_title(grid_img, path, title):
     fig.savefig(path)
     fig.clf()  # clear figure
 
-
-def test_fun():
-    from domainlab.utils.test_img import mk_img
-    imgs = mk_img(28, batch_size=16)
-    fun = mk_fun_sav_img()
-    fun(imgs, name="hi.png", title="hw")
