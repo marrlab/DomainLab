@@ -24,10 +24,5 @@ class ModelDeepAll(AModelClassif):
         return self.cal_loss(tensor_x, tensor_y, tensor_d)
 
     def cal_loss(self, tensor_x, tensor_y, tensor_d):
-        logit_y = self.net(tensor_x)
-        if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape) == 1):
-            y_target = tensor_y
-        else:
-            _, y_target = tensor_y.max(dim=1)
-        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        lc_y = self.cal_task_loss(tensor_x, tensor_y)
         return lc_y
