@@ -66,7 +66,6 @@ class ModelDIVA(VAEXYDClassif):
         """
         q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(x)
         logit_d = self.net_classif_d(zd_q)
-        logit_y = self.net_classif_y(zy_q)
 
         batch_size = zd_q.shape[0]
         device = zd_q.device
@@ -87,8 +86,9 @@ class ModelDIVA(VAEXYDClassif):
 
         _, d_target = d.max(dim=1)
         lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-        _, y_target = y.max(dim=1)
-        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+
+        lc_y = self.cal_task_loss(x, y)
+
         return loss_recon_x \
             - self.beta_d * zd_p_minus_zd_q \
             - self.beta_x * zx_p_minus_zx_q \

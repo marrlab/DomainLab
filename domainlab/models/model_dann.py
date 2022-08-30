@@ -30,9 +30,7 @@ class ModelDAN(AModelClassif):
         logit_d = self.net_discriminator(
             AutoGradFunReverseMultiply.apply(feat,
                                              self.alpha))
-        logit_y = self.net_classifier(feat)
         _, d_target = tensor_d.max(dim=1)
         lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-        _, y_target = tensor_y.max(dim=1)
-        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        lc_y = self.cal_task_loss(tensor_x, tensor_y)
         return lc_d + lc_y
