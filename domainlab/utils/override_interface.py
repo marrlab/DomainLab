@@ -4,11 +4,14 @@ def override_interface(interface_class):
     explicitly as otherwise interface_class is going to be the nearest
     function it decorate, and argument "method2override" of returned
     function "overrider" accept will be the current child class
-    class BaseClass()
-    class Child(BaseClass):
-        @overrides(BaseClass)
-        def fun(self):
-            pass
+
+    .. code-block:: python
+
+       class BaseClass()
+       class Child(BaseClass):
+           @overrides(BaseClass)
+           def fun(self):
+               pass
     """
     def overrider(method2override):
         """overrider.

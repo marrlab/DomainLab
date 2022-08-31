@@ -63,6 +63,7 @@ class VAEXYDClassif(AModelClassif):
         """
         1. Generate pytorch distribution object.
         2. To be called by trainer
+
         :param batch_size:
         :param device:
         """

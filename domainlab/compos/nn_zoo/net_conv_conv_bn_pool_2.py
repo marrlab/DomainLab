@@ -56,8 +56,8 @@ class NetConvDense(nn.Module):
     """
     - For direct topic inference
     - For custom deep_all, which is extracting the path of VAE from encoder
-    till classifier. note in encoder, there is extra layer of hidden to mean
-    and scale, in this component, it is replaced with another hidden layer.
+      until classifier. note in encoder, there is extra layer of hidden to mean
+      and scale, in this component, it is replaced with another hidden layer.
     """
     def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, args, dense_layer=None):
         """

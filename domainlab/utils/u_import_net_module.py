@@ -6,8 +6,7 @@ from domainlab.utils.u_import import import_path
 
 def import_net_module_from_path(path_net_feat_extract):
     """
-    :param path_net_feat_extract: path of the python file which contains the
-    definition of the custom neural network
+    :param path_net_feat_extract: path of the python file which contains the definition of the custom neural network
     """
     name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # FIXME: hard coded
     name_custom_net = "NetFeatExtract"
