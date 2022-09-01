@@ -68,20 +68,18 @@ extensions = [
 # myst_all_links_external = True
 myst_heading_anchors = 3
 myst_enable_extensions = [
-        "amsmath",
-        "colon_fence",
-        "deflist",
-        "dollarmath",
-        "fieldlist",
-        "html_admonition",
-        "html_image",
-        "linkify",
-        "replacements",
-        "smartquotes",
-        "strikethrough",
-        "substitution",
-        "tasklist",
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "substitution",
 ]
+
 # autosummary_generate = True
 # napoleon_google_docstring = False
 # napoleon_use_param = False
