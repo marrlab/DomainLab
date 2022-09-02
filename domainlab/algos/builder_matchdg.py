@@ -1,4 +1,3 @@
-import copy
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor

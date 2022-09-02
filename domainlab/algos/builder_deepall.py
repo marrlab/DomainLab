@@ -1,4 +1,3 @@
-import copy
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.msels.c_msel import MSelTrLoss
