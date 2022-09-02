@@ -6,6 +6,9 @@ from domainlab.dsets.utils_data import plot_ds, plot_ds_list
 
 
 def test_color_mnist():
+    """
+    test_color_mnist
+    """
     dset = DsetMNISTColorSoloDefault(0, "zout")
     plot_ds(dset, "zout/color_solo.png")
     ds_list = []
