@@ -1,3 +1,4 @@
+#!/bin/bash
 # sphinx-quickstart
 cd docs
 pip install -r requirements.txt
