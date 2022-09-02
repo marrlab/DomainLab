@@ -1,3 +1,4 @@
+#!/bin/bash
 repodir="../.."
 echo "source code directory is $repodir"
 echo "seed range: $1:$2"
