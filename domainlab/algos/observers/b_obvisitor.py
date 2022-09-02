@@ -1,7 +1,5 @@
 import os
-import abc
 import warnings
-import torch
 
 import numpy as np
 
@@ -110,9 +108,9 @@ class ObVisitor(AObVisitor):
                 # epoch exist to still have a model to evaluate if the training stops in between
                 self.exp.visitor.remove("final")
                 self.exp.visitor.remove()
-            except Exception as e:
+            except:
                 warnings.warn("failed to remove model")
             try:
                 self.exp.visitor.remove("ctr")  # Fof matchdg
-            except Exception as e:
+            except:
                 pass

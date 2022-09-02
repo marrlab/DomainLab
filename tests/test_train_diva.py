@@ -1,4 +1,3 @@
-import torch
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.models.model_diva import ModelDIVA
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
@@ -8,7 +7,6 @@ from domainlab.dsets.dset_poly_domains_mnist_color_default import DsetMNISTColor
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
-from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
