@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,15 +50,16 @@
   
   
     <title>Extend or contribute with a custom domain generalization algorithm &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Examples" href="doc_examples.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -208,6 +209,110 @@
   
   
 
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Contents:</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="modules.html" class="md-nav__link">domainlab</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_output.html" class="md-nav__link">Output structure</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_examples.html" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Extend or contribute with a custom domain generalization algorithm </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Extend or contribute with a custom domain generalization algorithm</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#doc-extend-contribute--page-root" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-models" class="md-nav__link">External extension by implementing your custom models</a>
+        </li>
+        <li class="md-nav__item"><a href="#internal-extension-for-more-advanced-contribution" class="md-nav__link">Internal extension for more advanced contribution</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#design" class="md-nav__link">Design</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#credits" class="md-nav__link">Credits</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#external-extension-by-implementing-your-custom-models" class="md-nav__link">External extension by implementing your custom models</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#internal-extension-for-more-advanced-contribution" class="md-nav__link">Internal extension for more advanced contribution</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#credits" class="md-nav__link">Credits</a>
+      
+    
+    </li></ul>
+    
+    </li>
+  </ul>
+  
+
 </nav>
               </div>
             </div>
@@ -228,10 +333,10 @@
         <li class="md-nav__item"><a href="#design" class="md-nav__link">Design</a>
         </li></ul>
             </nav>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#credits" class="md-nav__link">Credits</a>
+        </li></ul>
+            </nav>
         </li>
   </ul>
 </nav>
@@ -242,7 +347,7 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">
+  <section id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">
 <h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization algorithm<a class="headerlink" href="#doc-extend-contribute--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="external-extension-by-implementing-your-custom-models">
 <h2 id="external-extension-by-implementing-your-custom-models">External extension by implementing your custom models<a class="headerlink" href="#external-extension-by-implementing-your-custom-models" title="Permalink to this headline">¶</a></h2>
@@ -259,8 +364,8 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
 <section id="internal-extension-for-more-advanced-contribution">
 <h2 id="internal-extension-for-more-advanced-contribution">Internal extension for more advanced contribution<a class="headerlink" href="#internal-extension-for-more-advanced-contribution" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>implement domainlab/algos/builder_your-algorithm-name.py</p></li>
-<li><p>add your algorithm into domainlab/algos/zoo_algos.py by adding <code class="docutils literal notranslate"><span class="pre">chain</span> <span class="pre">=</span> <span class="pre">NodeAlgoBuilder[your-algorithm-name](chain)</span></code></p></li>
+<li><p>implement <code class="docutils literal notranslate"><span class="pre">domainlab/algos/builder_your-algorithm-name.py</span></code></p></li>
+<li><p>add your algorithm into <code class="docutils literal notranslate"><span class="pre">domainlab/algos/zoo_algos.py</span></code> by adding <code class="docutils literal notranslate"><span class="pre">chain</span> <span class="pre">=</span> <span class="pre">NodeAlgoBuilder[your-algorithm-name](chain)</span></code></p></li>
 <li><p>note that all algorithms will be converted to lower case!</p></li>
 <li><p>make a pull request</p></li>
 </ul>
@@ -269,9 +374,8 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
 <p><img alt="Design Diagram" src="_images/libDG.svg"/></p>
 </section>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="credits">
-<h1 id="credits">Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h1>
+<section id="credits">
+<h2 id="credits">Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <p>Contact: Xudong Sun (<a class="reference external" href="mailto:smilesun.east%40gmail.com">smilesun<span>.</span>east<span>@</span>gmail<span>.</span>com</a>)</p>
 <p>Please cite our paper if you use this code in your research:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>@inproceedings{sun2021hierarchical,
@@ -283,6 +387,7 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
 </pre></div>
 </div>
 </section>
+</section>
 
 
           </article>
@@ -293,6 +398,19 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
   <footer class="md-footer">
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="doc_examples.html" title="Examples"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> Examples </span>
+              </div>
+            </a>
           
           
         </a>
@@ -307,7 +425,7 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
