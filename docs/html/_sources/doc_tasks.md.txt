@@ -1,4 +1,5 @@
 # Task Specification
+
 The package offers various ways to specify the domain generalization task according to user's need.
 
 ## TaskPathList
@@ -10,7 +11,7 @@ The user should specify the location of the python file via command line argumen
 ## TaskFolder
 In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.
 
-#### Data organization
+### Data organization
 To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name "folder_a", "folder_b" and "folder_c" respectively as shown below. 
 
 In each folder, the images are organized in sub-folders by their class. For example, "/path/to/3rd_domain/folder_c/dog" folder contains all the images of class "dog" from the 3rd domain.
@@ -50,7 +51,7 @@ Folder structure of the 3rd domain:
         └── vehicle
 ```
 
-#### Specify the task with domainlab API
+### Specify the task with domainlab API
 The user is expected to implement something similar to the following code in a separate python file with a function with signature `get_task(na=None)`.
 ```
 import os

@@ -1,4 +1,5 @@
 # Implemented algorithms (models)
+
 Note this library decomposes the concept of model from network. That is, the model only defines the loss of the neural network, while the architecture of the neural network can be specified independently.
 
 ## algorithm "deepall"
