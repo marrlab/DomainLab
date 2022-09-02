@@ -51,7 +51,6 @@
     <title>domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
@@ -167,6 +166,8 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
             
+            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">Examples</a></li>
+            
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
@@ -258,13 +259,6 @@ from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
     torch.nn.init.xavier_uniform_(conv_net[0].weight)
     torch.nn.init.xavier_uniform_(conv_net[4].weight)
     return conv_net</div>
-
-
-<div class="viewcode-block" id="test_conv_net"><a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.test_conv_net">[docs]</a>def test_conv_net():
-    """test"""
-    model = mk_conv_bn_relu_pool(3)
-    model</div>
-
 
 
 <div class="viewcode-block" id="NetConvBnReluPool2L"><a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L">[docs]</a>class NetConvBnReluPool2L(nn.Module):

@@ -1,3 +1,4 @@
+#!/bin/bash
 declare -A dict_algo_args
 dict_algo_args['diva']='--npath_dom=examples/nets/resnet.py --gamma_y=1e5 --gamma_d=1e5'
 dict_algo_args['matchdg']='--epochs_ctr=1 --epochs_erm=1'

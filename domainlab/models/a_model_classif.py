@@ -59,3 +59,22 @@ class AModelClassif(nn.Module, metaclass=abc.ABCMeta):
         the class embedding dimension
         """
         return len(self.list_str_y)
+
+    def cal_task_loss(self, tensor_x, tensor_y):
+        """
+        Calculate the task loss. Used within the `cal_loss` methods of models
+        that are subclasses of `AModelClassif`. Cross entropy loss for
+        classification is used here by default but could be modified by subclasses
+        as necessary.
+
+        :param tensor_x: input
+        :param tensor_y: label
+        :return: task loss
+        """
+        logit_y = self.cal_logit_y(tensor_x)
+        if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape) == 1):
+            y_target = tensor_y
+        else:
+            _, y_target = tensor_y.max(dim=1)
+        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        return lc_y

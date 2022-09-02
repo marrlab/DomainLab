@@ -11,7 +11,7 @@ from domainlab.dsets.dset_subfolder import DsetSubFolder
 
 
 def test_fun():
-    dset = DsetSubFolder(root="zdpath/vlcs_small_class_mismatch/caltech",
+    dset = DsetSubFolder(root="data/vlcs_mini/caltech",
                          list_class_dir=["auto", "vogel"],
                          loader=fun_img_path_loader_default,
                          extensions="jpg",

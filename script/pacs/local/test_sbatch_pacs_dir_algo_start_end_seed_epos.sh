@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e  # exit upon first error
 batchsize="2"
 paths="--tpath=examples/tasks/demo_task_path_list_small.py --npath=examples/nets/resnet.py"

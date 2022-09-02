@@ -52,12 +52,12 @@ class AModelCustom(AModelClassif):
     def infer_y_vpicn(self, tensor):
         """
         :param tensor: input
-        :return: vpicn
-        v: vector of one-hot class label,
-        p: vector of probability,
-        i: class label index,
-        c: confidence: maximum probability,
-        n: list of name of class
+        :return:
+            - v - vector of one-hot class label
+            - p - vector of probability
+            - i - class label index
+            - c - confidence: maximum probability
+            - n - list of name of class
         """
         with torch.no_grad():
             logit_y = self.cal_logit_y(tensor)

@@ -6,8 +6,7 @@ from domainlab.utils.u_import import import_path
 
 def import_net_module_from_path(path_net_feat_extract):
     """
-    :param path_net_feat_extract: path of the python file which contains the
-    definition of the custom neural network
+    :param path_net_feat_extract: path of the python file which contains the definition of the custom neural network
     """
     name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # FIXME: hard coded
     name_custom_net = "NetFeatExtract"
@@ -46,8 +45,20 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
     :param i_h: height of image
     :param i_w: width of image
     """
+    # other possibility
+    # na_external_module = "name_external_module"   # the dummy module name
+    # spec = importlib.util.spec_from_file_location(
+    #    name=na_external_module,
+    #    location=path_net_feat_extract)
+    # module_external = importlib.util.module_from_spec(spec)
+    # sys.modules[na_external_module] = module_external
+    # register the name of the external module
+    # spec.loader.exec_module(module_external)
+
     net_module = import_path(mpath)
-    name_signature = "build_feat_extract_net(dim_y, remove_last_layer)"  # FIXME: hard coded, move to top level __init__ definition in domainlab
+    name_signature = "build_feat_extract_net(dim_y, \
+        remove_last_layer)"
+    # FIXME: hard coded, move to top level __init__ definition in domainlab
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:
