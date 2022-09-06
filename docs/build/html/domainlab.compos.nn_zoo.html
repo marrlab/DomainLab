@@ -1,0 +1,783 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#2196f3">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+  
+    <title>domainlab.compos.nn_zoo package &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="domainlab.dsets package" href="domainlab.dsets.html" />
+    <link rel="prev" title="domainlab.compos package" href="domainlab.compos.html" />
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=teal data-md-color-accent=cyan>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#domainlab.compos.nn_zoo" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="domainlab  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">DomainLab</span>
+          <span class="md-header-nav__topic"> domainlab.compos.nn_zoo package </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+            
+            <li class="md-tabs__item"><a href="readme_link.html" class="md-tabs__link">Introduction</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+          <li class="md-tabs__item"><a href="modules.html" class="md-tabs__link">domainlab</a></li>
+          <li class="md-tabs__item"><a href="domainlab.html" class="md-tabs__link">domainlab package</a></li>
+          <li class="md-tabs__item"><a href="domainlab.compos.html" class="md-tabs__link">domainlab.compos package</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="domainlab documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    <a href="index.html"
+       title="domainlab documentation">DomainLab</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Contents:</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="modules.html" class="md-nav__link">domainlab</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="domainlab.html" class="md-nav__link">domainlab package</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_output.html" class="md-nav__link">Output structure</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_examples.html" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#domainlab-compos-nn-zoo--page-root" class="md-nav__link">domainlab.compos.nn_zoo package</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.net_adversarial" class="md-nav__link">domainlab.compos.nn_zoo.net_adversarial module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.net_classif" class="md-nav__link">domainlab.compos.nn_zoo.net_classif module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2" class="md-nav__link">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.net_gated" class="md-nav__link">domainlab.compos.nn_zoo.net_gated module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.nn" class="md-nav__link">domainlab.compos.nn_zoo.nn module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.nn_alex" class="md-nav__link">domainlab.compos.nn_zoo.nn_alex module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo.nn_torchvision" class="md-nav__link">domainlab.compos.nn_zoo.nn_torchvision module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.nn_zoo" class="md-nav__link">Module contents</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section id="domainlab-compos-nn-zoo-package">
+<h1 id="domainlab-compos-nn-zoo--page-root">domainlab.compos.nn_zoo package<a class="headerlink" href="#domainlab-compos-nn-zoo--page-root" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-domainlab.compos.nn_zoo.net_adversarial">
+<span id="domainlab-compos-nn-zoo-net-adversarial-module"></span><h2 id="module-domainlab.compos.nn_zoo.net_adversarial">domainlab.compos.nn_zoo.net_adversarial module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.net_adversarial" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_adversarial.</span></span><span class="sig-name descname"><span class="pre">AutoGradFunMultiply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#AutoGradFunMultiply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.function.Function</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.backward">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#AutoGradFunMultiply.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a formula for differentiating the operation with backward mode
+automatic differentiation (alias to the vjp function).</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
+as many outputs as the <a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> returned (None will be passed in
+for non tensor outputs of the forward function),
+and it should return as many tensors, as there were inputs to
+<a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a>. Each argument is the gradient w.r.t the given output,
+and each returned value should be the gradient w.r.t. the
+corresponding input. If an input is not a Tensor or is a Tensor not
+requiring grads, you can just pass None as a gradient for that input.</p>
+<p>The context can be used to retrieve tensors saved during the forward
+pass. It also has an attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx.needs_input_grad</span></code> as a tuple
+of booleans representing whether each input needs gradient. E.g.,
+<a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.backward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> will have <code class="docutils literal notranslate"><span class="pre">ctx.needs_input_grad[0]</span> <span class="pre">=</span> <span class="pre">True</span></code> if the
+first input to <a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computated w.r.t. the
+output.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#AutoGradFunMultiply.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the operation.</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context ctx as the first argument, followed by any
+number of arguments (tensors or other types).</p>
+<p>The context can be used to store arbitrary data that can be then
+retrieved during the backward pass. Tensors should not be stored
+directly on <cite>ctx</cite> (though this is not currently enforced for
+backward compatibility). Instead, tensors should be saved either with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_backward()</span></code> if they are intended to be used in
+<code class="docutils literal notranslate"><span class="pre">backward</span></code> (equivalently, <code class="docutils literal notranslate"><span class="pre">vjp</span></code>) or <code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_forward()</span></code>
+if they are intended to be used for in <code class="docutils literal notranslate"><span class="pre">jvp</span></code>.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_adversarial.</span></span><span class="sig-name descname"><span class="pre">AutoGradFunReverseMultiply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#AutoGradFunReverseMultiply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.function.Function</span></code></p>
+<p><a class="reference external" href="https://pytorch.org/docs/stable/autograd.html">https://pytorch.org/docs/stable/autograd.html</a>
+<a class="reference external" href="https://pytorch.org/docs/stable/notes/extending.html#extending-autograd">https://pytorch.org/docs/stable/notes/extending.html#extending-autograd</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.backward">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#AutoGradFunReverseMultiply.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a formula for differentiating the operation with backward mode
+automatic differentiation (alias to the vjp function).</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
+as many outputs as the <a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> returned (None will be passed in
+for non tensor outputs of the forward function),
+and it should return as many tensors, as there were inputs to
+<a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a>. Each argument is the gradient w.r.t the given output,
+and each returned value should be the gradient w.r.t. the
+corresponding input. If an input is not a Tensor or is a Tensor not
+requiring grads, you can just pass None as a gradient for that input.</p>
+<p>The context can be used to retrieve tensors saved during the forward
+pass. It also has an attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx.needs_input_grad</span></code> as a tuple
+of booleans representing whether each input needs gradient. E.g.,
+<a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.backward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> will have <code class="docutils literal notranslate"><span class="pre">ctx.needs_input_grad[0]</span> <span class="pre">=</span> <span class="pre">True</span></code> if the
+first input to <a class="reference internal" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward" title="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computated w.r.t. the
+output.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#AutoGradFunReverseMultiply.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the operation.</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context ctx as the first argument, followed by any
+number of arguments (tensors or other types).</p>
+<p>The context can be used to store arbitrary data that can be then
+retrieved during the backward pass. Tensors should not be stored
+directly on <cite>ctx</cite> (though this is not currently enforced for
+backward compatibility). Instead, tensors should be saved either with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_backward()</span></code> if they are intended to be used in
+<code class="docutils literal notranslate"><span class="pre">backward</span></code> (equivalently, <code class="docutils literal notranslate"><span class="pre">vjp</span></code>) or <code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_forward()</span></code>
+if they are intended to be used for in <code class="docutils literal notranslate"><span class="pre">jvp</span></code>.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.Flatten">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_adversarial.</span></span><span class="sig-name descname"><span class="pre">Flatten</span></span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#Flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.Flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.Flatten.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_adversarial.html#Flatten.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.Flatten.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_adversarial.Flatten.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_adversarial.Flatten.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo.net_classif">
+<span id="domainlab-compos-nn-zoo-net-classif-module"></span><h2 id="module-domainlab.compos.nn_zoo.net_classif">domainlab.compos.nn_zoo.net_classif module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.net_classif" title="Permalink to this headline">¶</a></h2>
+<p>Classifier</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_classif.</span></span><span class="sig-name descname"><span class="pre">ClassifDropoutReluLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_classif.html#ClassifDropoutReluLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>first apply dropout, then relu, then linearly fully connected, without activation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_vec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_classif.html#ClassifDropoutReluLinear.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>z_vec</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2">
+<span id="domainlab-compos-nn-zoo-net-conv-conv-bn-pool-2-module"></span><h2 id="module-domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2" title="Permalink to this headline">¶</a></h2>
+<p>In PyTorch, images are represented as [channels, height, width]</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.</span></span><span class="sig-name descname"><span class="pre">NetConvBnReluPool2L</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_out_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_conv_conv_bn_pool_2.html#NetConvBnReluPool2L"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_conv_conv_bn_pool_2.html#NetConvBnReluPool2L.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tensor_x</strong> – image</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.</span></span><span class="sig-name descname"><span class="pre">NetConvDense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_out_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dense_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_conv_conv_bn_pool_2.html#NetConvDense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<ul class="simple">
+<li><p>For direct topic inference</p></li>
+<li><p>For custom deep_all, which is extracting the path of VAE from encoder
+until classifier. note in encoder, there is extra layer of hidden to mean
+and scale, in this component, it is replaced with another hidden layer.</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_conv_conv_bn_pool_2.html#NetConvDense.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tensor_x</strong> – image</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.mk_conv_bn_relu_pool">
+<span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.</span></span><span class="sig-name descname"><span class="pre">mk_conv_bn_relu_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pool_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_conv_conv_bn_pool_2.html#mk_conv_bn_relu_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.mk_conv_bn_relu_pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolution, batch norm, maxpool_2d
+Convolution with maxpool_2d as last operation
+:param i_channel:
+:param conv_stride:
+:param max_pool_stride:</p>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo.net_gated">
+<span id="domainlab-compos-nn-zoo-net-gated-module"></span><h2 id="module-domainlab.compos.nn_zoo.net_gated">domainlab.compos.nn_zoo.net_gated module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.net_gated" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.Conv2d">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_gated.</span></span><span class="sig-name descname"><span class="pre">Conv2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_gated.html#Conv2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.Conv2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.Conv2d.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_gated.html#Conv2d.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.Conv2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.Conv2d.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.Conv2d.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.GatedConv2d">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_gated.</span></span><span class="sig-name descname"><span class="pre">GatedConv2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_gated.html#GatedConv2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.GatedConv2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.GatedConv2d.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_gated.html#GatedConv2d.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.GatedConv2d.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.GatedConv2d.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.GatedConv2d.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.GatedDense">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.net_gated.</span></span><span class="sig-name descname"><span class="pre">GatedDense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_gated.html#GatedDense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.GatedDense" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.GatedDense.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/net_gated.html#GatedDense.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.GatedDense.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.net_gated.GatedDense.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.net_gated.GatedDense.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo.nn">
+<span id="domainlab-compos-nn-zoo-nn-module"></span><h2 id="module-domainlab.compos.nn_zoo.nn">domainlab.compos.nn_zoo.nn module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.nn" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn.DenseNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn.</span></span><span class="sig-name descname"><span class="pre">DenseNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_flat_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_hidden_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_feat_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_dropout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn.html#DenseNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn.DenseNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>(input)-dropout-linear-relu-dropout-linear-relu(output)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn.DenseNet.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn.html#DenseNet.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn.DenseNet.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn.DenseNet.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.nn.DenseNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn.LayerId">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn.</span></span><span class="sig-name descname"><span class="pre">LayerId</span></span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn.html#LayerId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn.LayerId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>used to delete layers</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn.LayerId.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn.html#LayerId.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn.LayerId.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn.LayerId.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.nn.LayerId.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo.nn_alex">
+<span id="domainlab-compos-nn-zoo-nn-alex-module"></span><h2 id="module-domainlab.compos.nn_zoo.nn_alex">domainlab.compos.nn_zoo.nn_alex module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.nn_alex" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn_alex.</span></span><span class="sig-name descname"><span class="pre">Alex4DeepAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_alex.html#Alex4DeepAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetBase" title="domainlab.compos.nn_zoo.nn_alex.AlexNetBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.nn_zoo.nn_alex.AlexNetBase</span></code></a></p>
+<p>change the last layer output of AlexNet to the dimension of the</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.AlexNetBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn_alex.</span></span><span class="sig-name descname"><span class="pre">AlexNetBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_alex.html#AlexNetBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase" title="domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">AlexNet</span><span class="p">(</span>
+<span class="p">(</span><span class="n">features</span><span class="p">):</span> <span class="n">Sequential</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">):</span> <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">):</span> <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">6</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">384</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">(</span><span class="mi">7</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">8</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">384</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">(</span><span class="mi">9</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">10</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">(</span><span class="mi">11</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">12</span><span class="p">):</span> <span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="p">(</span><span class="n">avgpool</span><span class="p">):</span> <span class="n">AdaptiveAvgPool2d</span><span class="p">(</span><span class="n">output_size</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="p">(</span><span class="n">classifier</span><span class="p">):</span> <span class="n">Sequential</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">9216</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">):</span> <span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="mi">6</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.AlexNetBase.fetch_net">
+<span class="sig-name descname"><span class="pre">fetch_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_alex.html#AlexNetBase.fetch_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetBase.fetch_net" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.AlexNetBase.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetBase.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn_alex.</span></span><span class="sig-name descname"><span class="pre">AlexNetNoLastLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_alex.html#AlexNetNoLastLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetBase" title="domainlab.compos.nn_zoo.nn_alex.AlexNetBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.nn_zoo.nn_alex.AlexNetBase</span></code></a></p>
+<p>Change the last layer of AlexNet with identity layer,
+the classifier from VAE can then have the same layer depth as deep_all
+model so it is fair for comparison</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo.nn_torchvision">
+<span id="domainlab-compos-nn-zoo-nn-torchvision-module"></span><h2 id="module-domainlab.compos.nn_zoo.nn_torchvision">domainlab.compos.nn_zoo.nn_torchvision module<a class="headerlink" href="#module-domainlab.compos.nn_zoo.nn_torchvision" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn_torchvision.</span></span><span class="sig-name descname"><span class="pre">NetTorchVisionBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_torchvision.html#NetTorchVisionBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>fetch model from torchvision</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.fetch_net">
+<span class="sig-name descname"><span class="pre">fetch_net</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_torchvision.html#NetTorchVisionBase.fetch_net"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.fetch_net" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_torchvision.html#NetTorchVisionBase.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>delegate forward operation to self.net_torchvision</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_torchvision.html#NetTorchVisionBase.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>print out which layer will be optimized</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.compos.nn_zoo">
+<span id="module-contents"></span><h2 id="module-domainlab.compos.nn_zoo">Module contents<a class="headerlink" href="#module-domainlab.compos.nn_zoo" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="domainlab.compos.html" title="domainlab.compos package"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> domainlab.compos package </span>
+              </div>
+            </a>
+          
+          
+            <a href="domainlab.dsets.html" title="domainlab.dsets package"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> domainlab.dsets package </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021-2022, Marr Lab..
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>
