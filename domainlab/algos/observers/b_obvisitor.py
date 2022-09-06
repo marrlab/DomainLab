@@ -108,9 +108,9 @@ class ObVisitor(AObVisitor):
                 # epoch exist to still have a model to evaluate if the training stops in between
                 self.exp.visitor.remove("final")
                 self.exp.visitor.remove()
-            except:
+            except Exception:
                 warnings.warn("failed to remove model")
             try:
                 self.exp.visitor.remove("ctr")  # Fof matchdg
-            except:
+            except Exception:
                 pass
