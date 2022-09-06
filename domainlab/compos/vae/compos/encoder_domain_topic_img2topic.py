@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter

@@ -2,12 +2,9 @@
 Base Class for XYD VAE
 """
 import torch
-import torch.nn as nn
 import torch.distributions as dist
-from torch.nn import functional as F
 
 from domainlab.utils.utils_class import store_args
-from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
 from domainlab.models.a_model_classif import AModelClassif
 
 

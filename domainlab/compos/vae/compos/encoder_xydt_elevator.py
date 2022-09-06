@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 
 from domainlab.utils.utils_class import store_args

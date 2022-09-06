@@ -6,7 +6,6 @@ import numpy as np
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.perf_metrics import PerfClassif
-from domainlab.compos.exp.exp_utils import ExpModelPersistVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
 

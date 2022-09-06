@@ -10,7 +10,6 @@ import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
 # "too many opened files" https://github.com/pytorch/pytorch/issues/11201
 
-from torchvision import transforms
 from domainlab.tasks.b_task import NodeTaskDict
 from domainlab.dsets.utils_data import mk_fun_label2onehot
 from domainlab.dsets.dset_img_path_list import DsetImPathList
