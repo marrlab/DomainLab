@@ -107,9 +107,9 @@ class ObVisitor(AObVisitor):
                 # epoch exist to still have a model to evaluate if the training stops in between
                 self.exp.visitor.remove("final")
                 self.exp.visitor.remove()
-            except IOError:
+            except FileNotFoundError:
                 warnings.warn("failed to remove model")
             try:
                 self.exp.visitor.remove("ctr")  # Fof matchdg
-            except IOError:
+            except FileNotFoundError:
                 pass
