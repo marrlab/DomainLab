@@ -9,8 +9,17 @@ from domainlab.tasks.utils_task import mk_loader
 
 class MatchPair():
     @store_args
-    def __init__(self, dim_y, i_c, i_h, i_w, bs_match, virtual_ref_dset_size, num_domains_tr,
-                 list_tr_domain_size):
+    def __init__(
+                self,
+                dim_y,  # TODO: dim_y is not used here
+                i_c,
+                i_h,
+                i_w,
+                bs_match,  # TODO: bs_match is not used here
+                virtual_ref_dset_size,
+                num_domains_tr,
+                list_tr_domain_size
+                ):
         """
         :param virtual_ref_dset_size:  sum of biggest class sizes
         :param num_domains_tr:
@@ -41,8 +50,12 @@ class MatchPair():
         """
         copy all data from loader, then store them in memory variable self.dict_domain_data
         """
-        list_idx_several_ds = []  # NOTE: loader contains data from several dataset
-        loader_full_data = mk_loader(loader.dataset, bsize=loader.batch_size, drop_last=False)
+        # NOTE: loader contains data from several dataset
+        list_idx_several_ds = []  
+        loader_full_data = mk_loader(
+            loader.dataset, 
+            bsize=loader.batch_size, 
+            drop_last=False)
         # FIXME: training loader will always drop the last incomplete batch
         for _, (x_e, y_e, d_e, idx_e) in enumerate(loader_full_data):
             # traverse mixed domain data from loader
@@ -50,7 +63,9 @@ class MatchPair():
             x_e = x_e
             y_e = torch.argmax(y_e, dim=1)
             d_e = torch.argmax(d_e, dim=1).numpy()
-            unique_domains = np.unique(d_e)   # get all domains in current batch
+
+            # get all domains in current batch
+            unique_domains = np.unique(d_e)   
             for domain_idx in unique_domains:
                 flag_curr_domain = (d_e == domain_idx)  # select all instances belong to one domain
                 # flag_curr_domain is subset indicator of True of False for selection of data from the mini-batch
