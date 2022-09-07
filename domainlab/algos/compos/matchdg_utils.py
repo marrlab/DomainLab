@@ -48,7 +48,7 @@ class  MatchDictVirtualRefDset2EachDomain(MatchDictInit):
         return self.vals   # total_domains
 
 
-class  MatchDictNumDomain2SizeDomain(MatchDictInit):
+class MatchDictNumDomain2SizeDomain(MatchDictInit):
     """
     tensor dimension for the kth domain: [num_domains_tr, (size_domain_k, i_c, i_h, i_w)]
     """
