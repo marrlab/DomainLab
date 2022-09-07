@@ -35,8 +35,9 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
             # stride, padding, dilation=1, activation=None)
             GatedConv2d(list_im_chw[0], 64, 3, 1, 1),
             GatedConv2d(64, 64, 3, 1, 1),
-            #GatedConv2d(64, 64, 3, 1, 1),  # comment out 2 layers to reduce decoder power
-            #GatedConv2d(64, 64, 3, 1, 1),
+            # GatedConv2d(64, 64, 3, 1, 1),
+            # comment out 2 layers to reduce decoder power
+            # GatedConv2d(64, 64, 3, 1, 1),
         )
         #
         # hidden image to mean and variance of each pixel
@@ -51,4 +52,3 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
                          net_conv,
                          net_p_x_mean,
                          net_p_x_log_var)
-

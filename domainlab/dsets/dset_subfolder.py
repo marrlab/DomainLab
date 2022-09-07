@@ -109,4 +109,3 @@ class DsetSubFolder(DatasetFolder):
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx
-

@@ -21,7 +21,8 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
     Color MNIST with single color
     1. nominal domains: color palettes/range/spectrum
     2. subdomains: color(foreground, background)
-    3. structure: each subdomain contains a combination of foreground+background color
+    3. structure: each subdomain contains a combination of
+    foreground+background color
     """
     @abc.abstractmethod
     def get_foreground_color(self, ind):
@@ -53,7 +54,8 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
             both (background and foreground)
         :param list_transforms: torch transformations
         :param raw_split: default use the training part of mnist
-        :param flag_rand_color: flag if to randomly paint each image, depreciated
+        :param flag_rand_color: flag if to randomly paint each image
+        (depreciated)
         :param label_transform:  e.g. index to one hot vector
         """
         dpath = os.path.normpath(path)
@@ -102,7 +104,9 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         """
         transforms raw image into colored version
         """
-        if self.flag_rand_color:   # randomcolor is a flag orthogonal to num-back-both
+        # randomcolor is a flag orthogonal to num-back-both
+        if self.flag_rand_color:
+
             c_f = self.get_foreground_color(np.random.randint(0, self.get_num_colors()))
             c_b = 0
             if self.color_scheme == 'both':
@@ -110,7 +114,9 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
                 while True:
                     c_b = self.get_background_color(np.random.randint(0, self.get_num_colors()))
                     if c_b != c_f and count < 10:
-                        break  # exit loop if background color is not equal to foreground
+                        # exit loop if background color
+                        # is not equal to foreground
+                        break
         else:
             if self.color_scheme == 'num':
                 # domain and class label has perfect mutual information:

@@ -6,9 +6,11 @@ import torch
 
 class NLLPixelLogistic256(object):
     """
-    Compute pixel wise negative likelihood of image, given pixel wise mean and variance.
+    Compute pixel wise negative likelihood of image,
+    given pixel wise mean and variance.
     Pixel intensity is divided into bins of 256 levels.
-    p.d.f. is calculated through  c.d.f.(x_{i,j}+bin_size/scale) - c.d.f.(x_{i,j})
+    p.d.f. is calculated through
+    c.d.f.(x_{i,j}+bin_size/scale) - c.d.f.(x_{i,j})
     # https://github.com/openai/iaf/blob/master/tf_utils/distributions.py#L29
     """
     def __init__(self, reduce_dims=(1, 2, 3), bin_size=1. / 256.):
@@ -34,8 +36,7 @@ class NLLPixelLogistic256(object):
         # negative log-likelihood for each pixel
         log_logist_256 = - torch.log(cdf_plus - cdf_minus + 1.e-7)
         nll = torch.sum(log_logist_256, dim=self.reduce_dims)
-        # NOTE: pixel NLL should always be summed across the whole image of all channels
+        # NOTE: pixel NLL should always be summed
+        # across the whole image of all channels
         # NOTE: result should be order 1 tensor of dim batch_size
         return nll
-
-

@@ -15,7 +15,8 @@ def mk_fun_sav_img(path=".", nrow=8, folder_na=""):
         f_p = os.path.join(path, folder_na, name)
         Path(os.path.dirname(f_p)).mkdir(parents=True, exist_ok=True)
         print("saving to ", f_p)
-        tensor = comparison_tensor_stack.cpu()  # works also if tensor is already in cpu
+        # works also if tensor is already in cpu
+        tensor = comparison_tensor_stack.cpu()
         if title is None:
             save_image(tensor=tensor, nrow=nrow, fp=f_p)
         else:
@@ -33,4 +34,3 @@ def sav_add_title(grid_img, path, title):
     plt.title(title)
     fig.savefig(path)
     fig.clf()  # clear figure
-
