@@ -3,7 +3,6 @@ This adaptor couples intensively with the  heavy-weight model class
 The model class can be refactored, we do want to use the trained old-version model,
 which we only need to change this adaptor class.
 """
-import torch
 
 
 class AdaptorReconVAEXYD():

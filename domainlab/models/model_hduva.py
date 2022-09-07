@@ -2,7 +2,6 @@
 Hierarchical Domain Unsupervised Variational Auto-Encoding
 """
 import torch
-from torch.nn import functional as F
 from torch.distributions import Dirichlet
 from domainlab.utils.utils_class import store_args
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif

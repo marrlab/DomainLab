@@ -1,5 +1,4 @@
 import sys
-import inspect
 import importlib.util
 from domainlab.utils.u_import import import_path
 

@@ -7,8 +7,7 @@ download from
 
 from torchvision import transforms
 from domainlab.tasks.task_pathlist import mk_node_task_path_list
-from domainlab.arg_parser import mk_parser_main
-from domainlab.tasks.utils_task import img_loader2dir, ImSize
+from domainlab.tasks.utils_task import ImSize
 
 
 def get_task(na=None):

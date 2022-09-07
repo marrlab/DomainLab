@@ -2,7 +2,6 @@
 Bridge Pattern: Separation of interface and implementation.
 This class is using one implementation to feed into parent class constructor.
 """
-import torch
 import torch.nn as nn
 import numpy as np
 
