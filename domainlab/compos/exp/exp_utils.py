@@ -14,6 +14,7 @@ class ExpModelPersistVisitor():
     """
     model_dir = "saved_models"
     model_suffix = ".model"
+
     def __init__(self, host):
         """
         1. create new attributes like model names
@@ -23,7 +24,9 @@ class ExpModelPersistVisitor():
         """
         self.host = host
         self.out = host.args.out
-        self.model_dir = os.path.join(self.out, ExpModelPersistVisitor.model_dir)
+        self.model_dir = os.path.join(
+                                        self.out,
+                                        ExpModelPersistVisitor.model_dir)
         self.git_tag = get_git_tag()
         self.task_name = self.host.task.get_na(self.host.args.tr_d, self.host.args.te_d)
         self.algo_name = self.host.args.aname
@@ -43,8 +46,14 @@ class ExpModelPersistVisitor():
         suffix_t = str(datetime.datetime.now())[:dd_cut].replace(" ", "_")
         suffix_t = suffix_t.replace("-", "md_")
         suffix_t = suffix_t.replace(":", "_")
-        list4mname = [self.task_name, self.algo_name, tag, suffix_t, "seed", str(self.seed)]
-        # the sequence of components (e.g. seed in the last place) in model name is not crutial
+        list4mname = [
+                        self.task_name,
+                        self.algo_name,
+                        tag, suffix_t,
+                        "seed",
+                        str(self.seed)]
+        # the sequence of components (e.g. seed in the last place)
+        # in model name is not crutial
         model_name = "_".join(list4mname)
         if self.host.args.debug:
             model_name = "debug_" + model_name
@@ -59,7 +68,9 @@ class ExpModelPersistVisitor():
         if suffix is not None:
             file_na = "_".join([file_na, suffix])
         torch.save(copy.deepcopy(model.state_dict()), file_na)
-        # checkpoint = {'model': Net(), 'state_dict': model.state_dict(),'optimizer' :optimizer.state_dict()}
+        # checkpoint = {'model': Net(), '
+        # state_dict': model.state_dict(),
+        # 'optimizer' :optimizer.state_dict()}
         # torch.save(checkpoint, 'Checkpoint.pth')
 
     def remove(self, suffix=None):
@@ -123,7 +134,8 @@ class AggWriter(ExpModelPersistVisitor):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
         del dict_cols["confmat"]
-        dict_cols.update({epos_name: self.host.epoch_counter})  # FIXME: strong dependency on host attribute name
+        # FIXME: strong dependency on host attribute name
+        dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
             self.first_line(dict_cols)
         list_str = [str(dict_cols[key]) for key in self.list_cols]
