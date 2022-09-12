@@ -15,7 +15,6 @@ def test_save_img():
     imgs = torch.randn(1, 3, 28, 28)
     tt_sav_img = mk_fun_sav_img()
     tt_sav_img(imgs, name='rand_img.png', title='random_img')
-    
 def test_add_title():
     """
     test sav_add_title
