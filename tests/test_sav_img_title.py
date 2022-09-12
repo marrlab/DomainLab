@@ -13,7 +13,6 @@ def test_save_img():
     test sav_img function
     """
     imgs = torch.randn(1, 3, 28, 28)
-    
     tt_sav_img = mk_fun_sav_img()
     tt_sav_img(imgs, name='rand_img.png', title='random_img')
     
