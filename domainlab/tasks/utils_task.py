@@ -5,9 +5,10 @@ import os
 from pathlib import Path
 
 import numpy
-import torchvision
 import torch
+import torchvision
 from torch.utils.data import Dataset
+
 from domainlab.utils.utils_class import store_args
 
 

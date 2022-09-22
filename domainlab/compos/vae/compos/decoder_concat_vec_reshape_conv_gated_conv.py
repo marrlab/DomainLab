@@ -2,13 +2,14 @@
 Bridge Pattern: Separation of interface and implementation.
 This class is using one implementation to feed into parent class constructor.
 """
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
 
-from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv import DecoderConcatLatentFcReshapeConv
+from domainlab.compos.nn_zoo.net_gated import Conv2d, GatedConv2d, GatedDense
+from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv import \
+    DecoderConcatLatentFcReshapeConv
 from domainlab.compos.vae.compos.decoder_losses import NLLPixelLogistic256
-from domainlab.compos.nn_zoo.net_gated import GatedDense, Conv2d, GatedConv2d
 
 
 class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv):

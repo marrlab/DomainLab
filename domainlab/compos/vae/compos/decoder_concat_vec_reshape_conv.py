@@ -1,9 +1,9 @@
 """
 decoder which takes concatenated latent representation
 """
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
 
 from domainlab.utils.utils_class import store_args
 

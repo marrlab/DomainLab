@@ -3,6 +3,7 @@ When class names and numbers does not match across different domains
 """
 from domainlab.tasks.task_folder import NodeTaskFolderClassNaMismatch
 
+
 def mk_task_folder(extensions,
                    list_str_y,
                    dict_domain_folder_name2class,

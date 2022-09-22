@@ -1,14 +1,12 @@
 """
 Color MNIST with single color
 """
+import abc
 import os
 import struct
 
-import abc
-
 import numpy as np
 from PIL import Image
-
 from torch.utils.data import Dataset
 from torchvision import datasets, transforms
 

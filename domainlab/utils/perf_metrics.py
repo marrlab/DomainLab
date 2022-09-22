@@ -1,8 +1,9 @@
 """Classification Performance"""
 import numpy as np
 import torch
-from torchmetrics.classification import Accuracy, Precision, Recall, \
-    Specificity, F1Score, AUROC, AUC, ConfusionMatrix
+from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
+                                         F1Score, Precision, Recall,
+                                         Specificity)
 
 
 class PerfClassif():
