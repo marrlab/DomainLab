@@ -1,4 +1,5 @@
 import numpy as np
+
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 

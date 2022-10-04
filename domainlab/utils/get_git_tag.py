@@ -1,6 +1,7 @@
-import warnings
 import subprocess
+import warnings
 from subprocess import CalledProcessError
+
 
 def get_git_tag(print_diff=False):
     flag_not_commited = False

@@ -1,5 +1,5 @@
 import torch.nn as nn
-from torch.distributions import LogNormal, Dirichlet
+from torch.distributions import Dirichlet, LogNormal
 
 
 class EncoderH2Dirichlet(nn.Module):

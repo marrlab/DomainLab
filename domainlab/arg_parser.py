@@ -3,9 +3,9 @@ Command line arguments
 """
 import argparse
 import warnings
+
+from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.models.args_vae import add_args2parser_vae
-from domainlab.algos.compos.matchdg_args import \
-    add_args2parser_matchdg
 
 
 def mk_parser_main():

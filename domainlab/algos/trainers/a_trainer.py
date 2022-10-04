@@ -2,7 +2,9 @@
 Base Class for trainer
 """
 import abc
+
 import torch
+
 from domainlab.utils.perf import PerfClassif
 
 

@@ -1,5 +1,6 @@
 import argparse
 
+
 def add_args2parser_vae(parser):
     parser.add_argument('--zd_dim', type=int, default=64,
                         help='size of latent space for domain')

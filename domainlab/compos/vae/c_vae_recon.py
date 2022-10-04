@@ -4,6 +4,7 @@ The model class can be refactored, we do want to use the trained old-version mod
 only need to change adaptor class.
 """
 import torch
+
 from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
 
 
