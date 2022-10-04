@@ -2,11 +2,13 @@
 Use dictionaries to create train and test domain split
 """
 from collections import Counter
+
 import torch
 from torch.utils.data.dataset import ConcatDataset
 
 from domainlab.tasks.a_task import NodeTaskDGClassif
-from domainlab.tasks.utils_task import mk_loader, mk_onehot, DsetDomainVecDecorator
+from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
+                                        mk_onehot)
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 

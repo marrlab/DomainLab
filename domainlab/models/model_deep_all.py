@@ -1,5 +1,6 @@
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
+from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 class ModelDeepAll(AModelClassif):

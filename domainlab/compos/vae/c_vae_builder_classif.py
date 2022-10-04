@@ -3,10 +3,10 @@ Builder
 1. classifier for domain **and** class
 2. p(z_y|y) **and** p(z_d|d)
 """
+from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.vae.a_vae_builder import AbstractVAEBuilderChainNode
 from domainlab.compos.vae.compos.decoder_cond_prior import \
     LSCondPriorLinearBnReluLinearSoftPlus
-from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 
 
 class ChainNodeVAEBuilderClassifCondPrior(AbstractVAEBuilderChainNode):

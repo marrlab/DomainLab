@@ -1,7 +1,6 @@
 """
 decoder which takes concatenated latent representation
 """
-import torch
 import torch.nn as nn
 
 

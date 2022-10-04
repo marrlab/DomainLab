@@ -3,8 +3,10 @@ Hierarchical Domain Unsupervised Variational Auto-Encoding
 """
 import torch
 from torch.distributions import Dirichlet
-from domainlab.utils.utils_class import store_args
+from torch.nn import functional as F
+
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
+from domainlab.utils.utils_class import store_args
 
 
 class ModelHDUVA(VAEXYDClassif):

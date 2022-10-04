@@ -4,7 +4,8 @@ https://pytorch.org/vision/stable/_modules/torchvision/datasets/folder.html#Data
 """
 import os
 import sys
-from typing import cast, Callable, Tuple, Any
+from typing import Any, Callable, Tuple, cast
+
 from torchvision.datasets import DatasetFolder
 
 

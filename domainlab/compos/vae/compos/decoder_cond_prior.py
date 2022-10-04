@@ -1,6 +1,6 @@
 import torch
-import torch.nn as nn
 import torch.distributions as dist
+import torch.nn as nn
 
 
 class LSCondPriorLinearBnReluLinearSoftPlus(nn.Module):

@@ -2,12 +2,14 @@ import os
 import warnings
 
 import numpy as np
+import torch
 
 from domainlab.algos.observers.a_observer import AObVisitor
-from domainlab.utils.utils_class import store_args
-from domainlab.utils.perf_metrics import PerfClassif
+from domainlab.compos.exp.exp_utils import ExpModelPersistVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
+from domainlab.utils.perf_metrics import PerfClassif
+from domainlab.utils.utils_class import store_args
 
 
 def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scalar=False):

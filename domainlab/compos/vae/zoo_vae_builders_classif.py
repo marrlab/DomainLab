@@ -3,11 +3,11 @@ Chain node VAE builders
 """
 from domainlab.compos.vae.c_vae_builder_classif import \
     ChainNodeVAEBuilderClassifCondPrior
-from domainlab.compos.vae.compos.encoder_xyd_parallel import \
-    XYDEncoderParallelConvBnReluPool, XYDEncoderParallelAlex, \
-    XYDEncoderParallelExtern
-from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv \
-    import DecoderConcatLatentFCReshapeConvGatedConv
+from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv import \
+    DecoderConcatLatentFCReshapeConvGatedConv
+from domainlab.compos.vae.compos.encoder_xyd_parallel import (
+    XYDEncoderParallelAlex, XYDEncoderParallelConvBnReluPool,
+    XYDEncoderParallelExtern)
 
 
 class ChainNodeVAEBuilderClassifCondPriorBase(

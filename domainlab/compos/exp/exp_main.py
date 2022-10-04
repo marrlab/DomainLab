@@ -1,8 +1,10 @@
-import os
 import datetime
-from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
-from domainlab.compos.exp.exp_utils import AggWriter
+import os
+
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
+from domainlab.compos.exp.exp_utils import AggWriter
+from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
+
 os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
 
 

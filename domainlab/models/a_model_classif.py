@@ -3,11 +3,13 @@ operations that all claasification model should have
 """
 
 import abc
+
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
+
 from domainlab.utils.utils_class import store_args
-from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
+from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 class AModelClassif(nn.Module, metaclass=abc.ABCMeta):

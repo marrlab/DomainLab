@@ -2,12 +2,11 @@
 Utilities for dataset
 """
 import datetime
-from PIL import Image
 
 import torch
 import torch.utils.data as data_utils
+from PIL import Image
 from torch.utils.data import Dataset
-
 from torchvision.utils import save_image
 
 

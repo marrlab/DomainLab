@@ -1,6 +1,7 @@
 import os
 from importlib.machinery import SourceFileLoader
 
+
 def import_path(path):
     path = os.path.expanduser(path)
     if path[0] == "/":
