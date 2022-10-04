@@ -1,9 +1,8 @@
 import torch
 import torch.nn as nn
 
-from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-
 from domainlab.compos.vae.compos.encoder_dirichlet import EncoderH2Dirichlet
+from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 
 
 class EncoderImg2TopicDistri(nn.Module):

@@ -1,5 +1,6 @@
-from domainlab.algos.trainers.a_trainer import TrainerClassif
 import torch.optim as optim
+
+from domainlab.algos.trainers.a_trainer import TrainerClassif
 
 
 class TrainerBasic(TrainerClassif):

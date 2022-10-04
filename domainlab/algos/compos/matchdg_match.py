@@ -1,10 +1,12 @@
 import warnings
+
 import numpy as np
 import torch
-from domainlab.algos.compos.matchdg_utils import MatchDictVirtualRefDset2EachDomain
-from domainlab.algos.compos.matchdg_utils import MatchDictNumDomain2SizeDomain
-from domainlab.utils.utils_class import store_args
+
+from domainlab.algos.compos.matchdg_utils import (
+    MatchDictNumDomain2SizeDomain, MatchDictVirtualRefDset2EachDomain)
 from domainlab.tasks.utils_task import mk_loader
+from domainlab.utils.utils_class import store_args
 
 
 class MatchPair():
