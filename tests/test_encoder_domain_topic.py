@@ -1,7 +1,6 @@
 import torch
 from domainlab.compos.vae.compos.encoder_domain_topic import EncoderSandwichTopicImg2Zd
 from domainlab.arg_parser import mk_parser_main
-from domainlab.utils.utils_cuda import get_device
 
 
 

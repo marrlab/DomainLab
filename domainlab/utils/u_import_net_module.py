@@ -1,3 +1,7 @@
+"""
+import external neural network implementation
+"""
+import sys
 import importlib.util
 import inspect
 import sys
@@ -13,9 +17,6 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
     :param mpath: path of external python file where the neural network
     architecture is defined
     :param dim_y: dimension of features
-    :param i_c: number of channels of image
-    :param i_h: height of image
-    :param i_w: width of image
     """
     # other possibility
     # na_external_module = "name_external_module"   # the dummy module name

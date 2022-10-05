@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 
 from domainlab.compos.vae.compos.encoder_dirichlet import EncoderH2Dirichlet

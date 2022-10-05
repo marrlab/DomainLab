@@ -1,5 +1,3 @@
-import torch
-import torch.nn as nn
 from torch.nn import functional as F
 
 from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply

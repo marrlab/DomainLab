@@ -1,5 +1,4 @@
 import torch
-from torch.nn import functional as F
 
 from domainlab.algos.compos.matchdg_base import MatchAlgoBase
 from domainlab.algos.compos.matchdg_utils import (dist_cosine_agg,

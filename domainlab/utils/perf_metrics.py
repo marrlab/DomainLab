@@ -1,5 +1,4 @@
 """Classification Performance"""
-import numpy as np
 import torch
 from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          F1Score, Precision, Recall,

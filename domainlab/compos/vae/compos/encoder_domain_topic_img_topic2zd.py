@@ -1,5 +1,4 @@
 import torch
-import torch.distributions as dist
 import torch.nn as nn
 
 from domainlab.compos.vae.compos.encoder import LSEncoderDense
