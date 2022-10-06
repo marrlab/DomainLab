@@ -4,6 +4,7 @@ Abstract class for TaskClassif
 import os
 import warnings
 from abc import abstractmethod, abstractproperty
+
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.utils_task import img_loader2dir
 

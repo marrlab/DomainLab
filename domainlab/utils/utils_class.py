@@ -1,5 +1,6 @@
-import inspect
 import functools
+import inspect
+
 
 def store_args(method):
     """Stores provided method args as instance attributes.

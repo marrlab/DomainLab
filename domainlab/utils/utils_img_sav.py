@@ -1,8 +1,8 @@
 import os
-import matplotlib.pyplot as plt
 from pathlib import Path
 
-from torchvision.utils import save_image, make_grid
+import matplotlib.pyplot as plt
+from torchvision.utils import make_grid, save_image
 
 
 def mk_fun_sav_img(path=".", nrow=8, folder_na=""):

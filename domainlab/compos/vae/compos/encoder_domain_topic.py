@@ -1,9 +1,9 @@
 import torch.nn as nn
 
-from domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd import \
-    EncoderSandwichTopicImg2Zd
 from domainlab.compos.vae.compos.encoder_domain_topic_img2topic import \
     EncoderImg2TopicDistri
+from domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd import \
+    EncoderSandwichTopicImg2Zd
 
 
 class EncoderImg2TopicDirZd(nn.Module):

@@ -2,12 +2,13 @@
 When class names and numbers does not match across different domains
 """
 from torchvision import transforms
+
+from domainlab.dsets.dset_subfolder import DsetSubFolder
+from domainlab.dsets.utils_data import (DsetInMemDecorator,
+                                        fun_img_path_loader_default,
+                                        mk_fun_label2onehot)
 from domainlab.tasks.b_task import NodeTaskDict
 from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
-from domainlab.dsets.dset_subfolder import DsetSubFolder
-from domainlab.dsets.utils_data import mk_fun_label2onehot, \
-    fun_img_path_loader_default
-from domainlab.dsets.utils_data import DsetInMemDecorator
 
 
 class NodeTaskFolder(NodeTaskDict):

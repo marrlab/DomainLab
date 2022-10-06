@@ -1,8 +1,9 @@
 import torch
 import torch.distributions as dist
 from torch import nn
-from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
+from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 
 
 class EncoderConnectLastFeatLayer2Z(nn.Module):
