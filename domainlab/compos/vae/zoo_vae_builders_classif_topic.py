@@ -1,10 +1,10 @@
 """
 Chain node VAE builders
 """
-from domainlab.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderArg
-from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv \
-    import DecoderConcatLatentFCReshapeConvGatedConv
+from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv import \
+    DecoderConcatLatentFCReshapeConvGatedConv
 from domainlab.compos.vae.compos.encoder_xydt_elevator import XYDTEncoderArg
+from domainlab.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderArg
 
 
 class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):

@@ -5,9 +5,10 @@ import os
 from pathlib import Path
 
 import numpy
-import torchvision
 import torch
+import torchvision
 from torch.utils.data import Dataset
+
 from domainlab.utils.utils_class import store_args
 
 
@@ -86,7 +87,9 @@ class DsetDomainVecDecorator(Dataset):
         """
         :param idx:
         """
-        tensor, vec_class, *_ = self.dset.__getitem__(idx)
+        tensor, vec_class, *other_vars = self.dset.__getitem__(idx)
+        if len(other_vars) > 0:
+            return (tensor, vec_class, self.vec_domain, *other_vars)
         return tensor, vec_class, self.vec_domain
 
     def __len__(self):

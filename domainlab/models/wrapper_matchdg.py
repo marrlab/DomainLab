@@ -1,7 +1,4 @@
-import torch
-
 from domainlab.models.a_model_classif import AModelClassif
-from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
 
 
 class ModelWrapMatchDGLogit(AModelClassif):

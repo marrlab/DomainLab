@@ -2,13 +2,13 @@
 Bridge Pattern: Separation of interface and implementation.
 This class is using one implementation to feed into parent class constructor.
 """
-import torch
-import torch.nn as nn
 import numpy as np
+import torch.nn as nn
 
-from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv import DecoderConcatLatentFcReshapeConv
+from domainlab.compos.nn_zoo.net_gated import Conv2d, GatedConv2d, GatedDense
+from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv import \
+    DecoderConcatLatentFcReshapeConv
 from domainlab.compos.vae.compos.decoder_losses import NLLPixelLogistic256
-from domainlab.compos.nn_zoo.net_gated import GatedDense, Conv2d, GatedConv2d
 
 
 class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv):
@@ -53,12 +53,3 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
                          net_p_x_mean,
                          net_p_x_log_var)
 
-def test_DecoderConcatLatentFCReshapeConvGatedConv():
-    """test"""
-    batch_size = 5
-    latent_dim = 8
-    model = DecoderConcatLatentFCReshapeConvGatedConv(latent_dim, 3, 64, 64)
-    vec_z = torch.rand(batch_size, latent_dim)
-    x = torch.rand(batch_size, 3, 64, 64)
-    re = model.cal_nll(vec_z, x)
-    re.sum().backward()

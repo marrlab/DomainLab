@@ -1,5 +1,6 @@
-from domainlab.algos.trainers.a_trainer import TrainerClassif
 import torch.optim as optim
+
+from domainlab.algos.trainers.a_trainer import TrainerClassif
 
 
 class TrainerBasic(TrainerClassif):
@@ -11,7 +12,7 @@ class TrainerBasic(TrainerClassif):
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
-        for _, (tensor_x, vec_y, vec_d) in enumerate(self.loader_tr):
+        for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
             tensor_x, vec_y, vec_d = \
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             self.optimizer.zero_grad()

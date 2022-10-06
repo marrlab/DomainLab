@@ -1,5 +1,3 @@
-import argparse
-
 def add_args2parser_matchdg(parser):
     #parser = argparse.ArgumentParser()
     parser.add_argument('--tau', type=int, default=0.05,
@@ -15,9 +13,3 @@ def add_args2parser_matchdg(parser):
     #args = parser.parse_args("")
     #return args
     return parser
-
-
-def test_fun():
-    parser = argparse.ArgumentParser(description='matchdg')
-    parser = add_args2parser_matchdg(parser)
-    parser.parse_args()

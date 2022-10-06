@@ -1,8 +1,10 @@
 import abc
+
 import torch
-from domainlab.models.a_model_classif import AModelClassif
+
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
+from domainlab.models.a_model_classif import AModelClassif
+from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 class AModelCustom(AModelClassif):
@@ -52,12 +54,12 @@ class AModelCustom(AModelClassif):
     def infer_y_vpicn(self, tensor):
         """
         :param tensor: input
-        :return: vpicn
-        v: vector of one-hot class label,
-        p: vector of probability,
-        i: class label index,
-        c: confidence: maximum probability,
-        n: list of name of class
+        :return:
+            - v - vector of one-hot class label
+            - p - vector of probability
+            - i - class label index
+            - c - confidence: maximum probability
+            - n - list of name of class
         """
         with torch.no_grad():
             logit_y = self.cal_logit_y(tensor)

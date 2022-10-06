@@ -1,5 +1,4 @@
 """Classification Performance"""
-import numpy as np
 import torch
 
 

@@ -3,7 +3,9 @@ merge several solo-color mnist to form a mixed dataset
 """
 import numpy as np
 from torch.utils.data import Dataset
-from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
+
+from domainlab.dsets.dset_mnist_color_solo_default import \
+    DsetMNISTColorSoloDefault
 from domainlab.dsets.utils_data import mk_fun_label2onehot
 
 
@@ -36,7 +38,3 @@ class DsetMNISTColorMixNoDomainLabel(DsetMNISTColorMix):
         img, c_label, _ = super().__getitem__(idx)
         return img, c_label
 
-def test_color_mnist():
-    from datasets.utils_data import plot_ds, plot_ds_list
-    dset = DsetMNISTColorMix(n_domains=3, path="./output/")
-    plot_ds(dset, "color_mix.png")

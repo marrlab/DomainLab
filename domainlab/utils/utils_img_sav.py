@@ -1,8 +1,8 @@
 import os
-import matplotlib.pyplot as plt
 from pathlib import Path
 
-from torchvision.utils import save_image, make_grid
+import matplotlib.pyplot as plt
+from torchvision.utils import make_grid, save_image
 
 
 def mk_fun_sav_img(path=".", nrow=8, folder_na=""):
@@ -34,9 +34,3 @@ def sav_add_title(grid_img, path, title):
     fig.savefig(path)
     fig.clf()  # clear figure
 
-
-def test_fun():
-    from domainlab.utils.test_img import mk_img
-    imgs = mk_img(28, batch_size=16)
-    fun = mk_fun_sav_img()
-    fun(imgs, name="hi.png", title="hw")

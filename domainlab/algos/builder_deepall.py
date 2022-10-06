@@ -1,12 +1,11 @@
-import copy
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.utils.utils_cuda import get_device
-from domainlab.models.model_deep_all import ModelDeepAll
+from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from domainlab.models.model_deep_all import ModelDeepAll
+from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):

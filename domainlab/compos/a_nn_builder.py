@@ -2,8 +2,6 @@
 Integrate Chain-of-Responsibility and Builder Pattern for feature extract
 """
 
-import abc
-
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.utils.utils_class import store_args
 

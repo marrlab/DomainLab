@@ -1,14 +1,13 @@
-import copy
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
+from domainlab.algos.observers.b_obvisitor import ObVisitor
+from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
-from domainlab.utils.utils_cuda import get_device
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import ModelDeepAll
 from domainlab.models.wrapper_matchdg import ModelWrapMatchDGLogit
-from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
+from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):

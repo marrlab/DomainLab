@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.distributions as dist
 
 from domainlab.compos.vae.compos.encoder import LSEncoderDense
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter

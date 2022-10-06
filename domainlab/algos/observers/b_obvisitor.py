@@ -1,16 +1,15 @@
 import os
-import abc
 import warnings
-import torch
 
 import numpy as np
+import torch
 
 from domainlab.algos.observers.a_observer import AObVisitor
-from domainlab.utils.utils_class import store_args
-from domainlab.utils.perf_metrics import PerfClassif
 from domainlab.compos.exp.exp_utils import ExpModelPersistVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
+from domainlab.utils.perf_metrics import PerfClassif
+from domainlab.utils.utils_class import store_args
 
 
 def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scalar=False):
@@ -110,9 +109,9 @@ class ObVisitor(AObVisitor):
                 # epoch exist to still have a model to evaluate if the training stops in between
                 self.exp.visitor.remove("final")
                 self.exp.visitor.remove()
-            except Exception as e:
+            except FileNotFoundError:
                 warnings.warn("failed to remove model")
             try:
                 self.exp.visitor.remove("ctr")  # Fof matchdg
-            except Exception as e:
+            except FileNotFoundError:
                 pass

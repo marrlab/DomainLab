@@ -2,10 +2,11 @@
 Hierarchical Domain Unsupervised Variational Auto-Encoding
 """
 import torch
-from torch.nn import functional as F
 from torch.distributions import Dirichlet
-from domainlab.utils.utils_class import store_args
+from torch.nn import functional as F
+
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
+from domainlab.utils.utils_class import store_args
 
 
 class ModelHDUVA(VAEXYDClassif):
@@ -121,9 +122,7 @@ class ModelHDUVA(VAEXYDClassif):
         zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
 
         # classification loss
-        logit_y = self.net_classif_y(zy_q)
-        _, y_target = y.max(dim=1)
-        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        lc_y = self.cal_task_loss(x, y)
 
         # zd KL diverence
         p_zd = self.net_p_zd(topic_q)

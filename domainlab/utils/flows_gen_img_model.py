@@ -1,7 +1,9 @@
 import os
+
 import torch
-from domainlab.utils.utils_img_sav import mk_fun_sav_img
+
 from domainlab.compos.vae.c_vae_recon import ReconVAEXYD
+from domainlab.utils.utils_img_sav import mk_fun_sav_img
 
 
 class FlowGenImgs():
@@ -106,9 +108,3 @@ def fun_gen(model, device, node, args, subfolder_na, output_folder_na="gen"):
                         path=path,
                         domain="_".join(node.list_domain_tr))
 
-
-def test_fun():
-    from models.model_diva import test_fun
-    model, x_s, y_s, d_s = test_fun()
-    device = torch.device("cpu")
-    FlowGenImgs(model, device).gen_img_xyd(x_s, y_s, d_s, device, path="zout/temp", folder_na="gen")

@@ -3,6 +3,7 @@ In PyTorch, images are represented as [channels, height, width]
 """
 import torch
 import torch.nn as nn
+
 from domainlab.compos.nn_zoo.nn import DenseNet
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 
@@ -31,13 +32,6 @@ def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
     return conv_net
 
 
-def test_conv_net():
-    """test"""
-    model = mk_conv_bn_relu_pool(3)
-    model
-
-
-
 class NetConvBnReluPool2L(nn.Module):
     def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h):
         """
@@ -63,8 +57,8 @@ class NetConvDense(nn.Module):
     """
     - For direct topic inference
     - For custom deep_all, which is extracting the path of VAE from encoder
-    till classifier. note in encoder, there is extra layer of hidden to mean
-    and scale, in this component, it is replaced with another hidden layer.
+      until classifier. note in encoder, there is extra layer of hidden to mean
+      and scale, in this component, it is replaced with another hidden layer.
     """
     def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, args, dense_layer=None):
         """
