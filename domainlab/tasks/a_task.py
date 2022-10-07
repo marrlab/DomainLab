@@ -122,7 +122,7 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         :param na_tr: training domain names
         :param na_te: test domain names
         """
-        list_tr, list_te = self.get_list_domains_tr_te(na_tr, na_te)
+        _, list_te = self.get_list_domains_tr_te(na_tr, na_te)
         str_te = "_".join(list_te)
         # train domain names are too long
         return "_".join([self.task_name, "te", str_te])
