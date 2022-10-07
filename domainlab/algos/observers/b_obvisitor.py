@@ -108,7 +108,7 @@ class ObVisitor(AObVisitor):
             try:
                 # oracle means use out-of-domain
                 # test accuracy to select the model
-                self.exp.visitor.remove("oracle")
+                self.exp.visitor.remove("oracle")  # pylint: disable=E1101
                 # the last epoch
                 self.exp.visitor.remove("epoch")
                 # epoch exist to still have a model to evaluate
