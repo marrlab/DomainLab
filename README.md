@@ -74,5 +74,5 @@ Do you have your own data that comes from different domains? Create a task for y
 This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
 [Specify Custom Neural Networks for an algorithm](./docs/doc_custom_nn.md)
 
-# Software Design Pattern, Extend or Contribution, Credits
+## Software Design Pattern, Extend or Contribution, Credits
 [Extend or Contibute](./docs/doc_extend_contribute.md)
