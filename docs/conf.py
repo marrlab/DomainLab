@@ -92,9 +92,9 @@ templates_path = ["_templates"]
 # You can specify multiple suffix as a list of string:
 
 # # conflict with MySt
-#source_parsers = {
+# source_parsers = {
 #        '.md': 'recommonmark.parser.CommonMarkParser',
-#}
+# }
 
 source_suffix = ['.rst', '.md']
 source_suffix = {
