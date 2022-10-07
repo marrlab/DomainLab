@@ -71,13 +71,13 @@ class MatchAlgoBase():
         initialize or update match tensor
         """
         obj_match = MatchPair(self.dim_y,
-            self.task.isize.i_c,
-            self.task.isize.i_h,
-            self.task.isize.i_w,
-            self.bs_match,
-            virtual_ref_dset_size=self.base_domain_size,
-            num_domains_tr=self.num_domain_tr,
-            list_tr_domain_size=self.list_tr_domain_size)
+                              self.task.isize.i_c,
+                              self.task.isize.i_h,
+                              self.task.isize.i_w,
+                              self.bs_match,
+                              virtual_ref_dset_size=self.base_domain_size,
+                              num_domains_tr=self.num_domain_tr,
+                              list_tr_domain_size=self.list_tr_domain_size)
 
         # @FIXME: what is the usefulness of (epoch > 0) as argument
         self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
