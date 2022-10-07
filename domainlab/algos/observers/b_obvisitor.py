@@ -93,7 +93,7 @@ class ObVisitor(AObVisitor):
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4model = self.exp.visitor.model_path
+            fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
             file_prefix = os.path.splitext(fname4model)[0]  # remove ".csv"
             file_name = file_prefix + "_instance_wise_predictions.txt"
             pred2file(
@@ -110,14 +110,14 @@ class ObVisitor(AObVisitor):
                 # test accuracy to select the model
                 self.exp.visitor.remove("oracle")  # pylint: disable=E1101
                 # the last epoch
-                self.exp.visitor.remove("epoch")
+                self.exp.visitor.remove("epoch")  # pylint: disable=E1101
                 # epoch exist to still have a model to evaluate
                 # if the training stops in between
-                self.exp.visitor.remove("final")
-                self.exp.visitor.remove()
+                self.exp.visitor.remove("final")  # pylint: disable=E1101
+                self.exp.visitor.remove()  # pylint: disable=E1101
             except FileNotFoundError:
                 warnings.warn("failed to remove model")
             try:
-                self.exp.visitor.remove("ctr")  # Fof matchdg
+                self.exp.visitor.remove("ctr")  # # pylint: disable=E1101 For matchdg
             except FileNotFoundError:
                 pass
