@@ -332,7 +332,7 @@ from domainlab.tasks.utils_task import mk_loader
         """
         list_idx_several_ds = []  # NOTE: loader contains data from several dataset
         loader_full_data = mk_loader(loader.dataset, bsize=loader.batch_size, drop_last=False)
-        # FIXME: training loader will always drop the last incomplete batch
+        # @FIXME: training loader will always drop the last incomplete batch
         for _, (x_e, y_e, d_e, idx_e) in enumerate(loader_full_data):
             # traverse mixed domain data from loader
             list_idx_several_ds.extend(list(idx_e.cpu().numpy()))
@@ -346,7 +346,7 @@ from domainlab.tasks.utils_task import mk_loader
                 global_indices = idx_e[flag_curr_domain] # get global index of all instances of the current domain
                 # global_indices are subset of idx_e, which contains global index of data from the loader
                 for local_ind in range(global_indices.shape[0]):
-                    # FIXME: the following is just coping all data to self.dict_domain_data (in memory with ordering), which seems redundant
+                    # @FIXME: the following is just coping all data to self.dict_domain_data (in memory with ordering), which seems redundant
                     global_ind = global_indices[local_ind].item()  # tensor.item get the scalar
                     self.dict_domain_data[domain_idx]['data'][global_ind] = x_e[flag_curr_domain][local_ind]
                     # flag_curr_domain are subset indicator for selection of domain
@@ -408,7 +408,7 @@ from domainlab.tasks.utils_task import mk_loader
                 # pick out base domain class label y_c images
                 # split data into chunks
                 tuple_batch_x_base_domain_curr_cls = torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
-                # FIXME. when x_base_domain_curr_cls is smaller than the self.bs_match, then there is only one batch
+                # @FIXME. when x_base_domain_curr_cls is smaller than the self.bs_match, then there is only one batch
                 list_base_feat = []
                 for batch_x_base_domain_curr_cls in tuple_batch_x_base_domain_curr_cls:
                     with torch.no_grad():
@@ -464,7 +464,7 @@ from domainlab.tasks.utils_task import mk_loader
 
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
-                        # FIXME: label initially were set to random continuous value, which is a technique to check if every data has been filled
+                        # @FIXME: label initially were set to random continuous value, which is a technique to check if every data has been filled
                         counter_curr_cls_base_domain += 1
                         counter_ref_dset_size += 1
 

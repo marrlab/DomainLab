@@ -297,7 +297,7 @@ from domainlab.utils.u_import import import_path
     """
     :param path_net_feat_extract: path of the python file which contains the definition of the custom neural network
     """
-    name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # FIXME: hard coded
+    name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # @FIXME: hard coded
     name_custom_net = "NetFeatExtract"
     na_external_module = "name_external_module"   # the dummy module name
     spec = importlib.util.spec_from_file_location(
@@ -347,7 +347,7 @@ from domainlab.utils.u_import import import_path
     net_module = import_path(mpath)
     name_signature = "build_feat_extract_net(dim_y, \
         remove_last_layer)"
-    # FIXME: hard coded, move to top level __init__ definition in domainlab
+    # @FIXME: hard coded, move to top level __init__ definition in domainlab
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:

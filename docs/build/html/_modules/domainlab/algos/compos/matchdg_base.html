@@ -306,7 +306,7 @@ from domainlab.algos.compos.matchdg_match import MatchPair
         self.dim_y = task.dim_y
 
         self.args = args
-        self.loader = task.loader_tr  # FIXME: training loader always drop the last batch, so inside matchdg, for the data storage tensor, loader is re-initialized by disabling drop
+        self.loader = task.loader_tr  # @FIXME: training loader always drop the last batch, so inside matchdg, for the data storage tensor, loader is re-initialized by disabling drop
         self.device = device
         self.phi = phi.to(self.device)
         #
@@ -357,14 +357,14 @@ from domainlab.algos.compos.matchdg_match import MatchPair
                               list_tr_domain_size=self.list_tr_domain_size)
 
         self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
-            obj_match(self.device, self.loader, self.phi, (epoch&gt;0))  # FIXME: what is the usefulness of (epoch &gt; 0) as argument</div></div>
+            obj_match(self.device, self.loader, self.phi, (epoch&gt;0))  # @FIXME: what is the usefulness of (epoch &gt; 0) as argument</div></div>
 
 
 <div class="viewcode-block" id="get_base_domain_size4match_dg"><a class="viewcode-back" href="../../../../domainlab.algos.compos.html#domainlab.algos.compos.matchdg_base.get_base_domain_size4match_dg">[docs]</a>def get_base_domain_size4match_dg(task):
     """
     Base domain is a dataset where each class set come from one of the nominal domains
     """
-    # FIXME: base domain should be calculated only on training domains instead of all the domains!
+    # @FIXME: base domain should be calculated only on training domains instead of all the domains!
     # domain_keys = task.get_list_domains()
     domain_keys = task.list_domain_tr
     base_domain_size = 0

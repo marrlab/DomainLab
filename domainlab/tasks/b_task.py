@@ -13,7 +13,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
 def dset_decoration_args_algo(args, ddset):
-    if "match" in args.aname:  # FIXME: are there ways not to use this if statement?
+    if "match" in args.aname:  # @FIXME: are there ways not to use this if statement?
             ddset = DsetIndDecorator4XYD(ddset)
     return ddset
 
@@ -57,7 +57,7 @@ class NodeTaskDict(NodeTaskDGClassif):
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
             dset_tr, dset_val = self.get_dset_by_domain(args, na_domain)
-            # FIXME: currently, different task has different default values for
+            # @FIXME: currently, different task has different default values for
             # split, for TaskFolder split default to False, for mnist, split
             # default to True
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)
@@ -77,7 +77,7 @@ class NodeTaskDict(NodeTaskDGClassif):
         # No need to have domain Label for test
         for na_domain in list_domain_te:
             dset_te, *_ = self.get_dset_by_domain(args, na_domain, split=False)
-            # FIXME: since get_dset_by_domain always return two datasets,
+            # @FIXME: since get_dset_by_domain always return two datasets,
             # train and validation, this is not needed in test domain
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))
@@ -107,7 +107,7 @@ class NodeTaskDict(NodeTaskDGClassif):
             dict_class_count[name] = count
         return dict_class_count
 
-    def _count_class(self, dset):   # FIXME: remove this
+    def _count_class(self, dset):   # @FIXME: remove this
         labels = dset.targets
         class_dict = dict(Counter(labels))
         return class_dict

@@ -303,7 +303,7 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer
         """
         configure trainer accoding to properties of task as well according to algorithm configs
         """
-        # FIXME: aconf and args should be separated
+        # @FIXME: aconf and args should be separated
         # phase 1: contrastive learning
         ctr = MatchCtrErm(exp=self.exp,
                           task=self.task,

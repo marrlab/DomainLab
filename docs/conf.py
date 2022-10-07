@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
-project = "domainlab"  # FIXME
+project = "domainlab"  # @FIXME
 copyright = (
     f"2021-{datetime.now().year}, Marr Lab."
     ""
@@ -31,9 +31,9 @@ copyright = (
 author = "Xudong Sun, et.al."
 
 # The short X.Y version
-# version = libdg.__version__.split("+")[0]   # FIXME
+# version = libdg.__version__.split("+")[0]   # @FIXME
 # The full version, including alpha/beta/rc tags
-# release = version  # FIXME
+# release = version  # @FIXME
 
 
 # -- General configuration ---------------------------------------------------
@@ -127,7 +127,7 @@ highlight_language = "none"
 
 # -- Options for HTML output -------------------------------------------------
 # -- HTML theme settings ------------------------------------------------
-html_short_title = "domainlab"  # FIXME
+html_short_title = "domainlab"  # @FIXME
 html_show_sourcelink = False
 html_sidebars = {"**": ["logo-text.html",
                         "globaltoc.html",
@@ -206,7 +206,7 @@ html_theme_options = {
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "domainlab"  # FIXME
+htmlhelp_basename = "domainlab"  # @FIXME
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -241,7 +241,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "domainlab", "domainlab", [author], 1)]   # FIXME
+man_pages = [(master_doc, "domainlab", "domainlab", [author], 1)]   # @FIXME
 
 
 # -- Options for Texinfo output ----------------------------------------------

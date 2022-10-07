@@ -57,7 +57,7 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
         batch_size=bsize,
         shuffle=shuffle,
         # shuffle must be true so the last incomplete batch get used in anohter epoch
-        num_workers=int(0),   # FIXME:
+        num_workers=int(0),   # @FIXME:
         drop_last=drop_last)
     return loader
 
@@ -213,7 +213,7 @@ def tensor1hot2ind(tensor_label):
     return npa_label_ind
 
 
-def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batches=5):   # FIXME: this function couples strongly with the task, should be a class method of task
+def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batches=5):   # @FIXME: this function couples strongly with the task, should be a class method of task
     """
     save images from loader to directory so speculate if loader is correct
     :param loader:
@@ -227,7 +227,7 @@ def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batc
     for _ in range(batches):
         img, vec_y, *list_vec_domain = l_iter.next()
         class_label_ind_batch = tensor1hot2ind(vec_y)
-        list_vec_domain = None # FIXME: shall we remove this
+        list_vec_domain = None # @FIXME: shall we remove this
         if list_vec_domain:  # if list is not empty
             domain_label_ind_batch = tensor1hot2ind(list_vec_domain[0])
 
@@ -238,14 +238,14 @@ def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batc
             if list_class_na is None:
                 str_class_label = "class_"+str(class_label_scalar)
             else:
-                str_class_label = list_class_na[class_label_scalar]      # FIXME: where is the correspndance between class ind_label and class str_label?
+                str_class_label = list_class_na[class_label_scalar]      # @FIXME: where is the correspndance between class ind_label and class str_label?
             str_domain_label = "unknown"
             if list_vec_domain:
                 domain_label_ind = domain_label_ind_batch[b_ind]
                 if list_domain_na is None:
                     str_domain_label = str(domain_label_ind)
                 else:
-                    str_domain_label = list_domain_na[domain_label_ind]   # FIXME: the correspondance between domain ind_label and domain str_label is missing
+                    str_domain_label = list_domain_na[domain_label_ind]   # @FIXME: the correspondance between domain ind_label and domain str_label is missing
             arr = img[b_ind]
             img_vision = torchvision.transforms.ToPILImage()(arr)
             f_n = "_".join(

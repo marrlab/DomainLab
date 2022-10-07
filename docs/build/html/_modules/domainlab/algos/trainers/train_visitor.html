@@ -294,7 +294,7 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 <div class="viewcode-block" id="TrainerVisitor"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor">[docs]</a>class TrainerVisitor(TrainerBasic):
 <div class="viewcode-block" id="TrainerVisitor.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.before_tr">[docs]</a>    def before_tr(self):
         self.hyper_scheduler = self.model.hyper_init(HyperSchedulerWarmup)
-        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)  # FIXME: is there a way to make this more general?</div>
+        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)  # @FIXME: is there a way to make this more general?</div>
 
 <div class="viewcode-block" id="TrainerVisitor.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
         self.model.hyper_update(epoch, self.hyper_scheduler)

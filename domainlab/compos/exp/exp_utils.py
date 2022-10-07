@@ -108,7 +108,7 @@ class AggWriter(ExpModelPersistVisitor):
 
     def first_line(self, dict_cols):
         self.list_cols = list(dict_cols.keys())
-        # FIXME: will be list be the same order each time?
+        # @FIXME: will be list be the same order each time?
         str_line = ", ".join(self.list_cols)
         if not os.path.isfile(self.get_fpath()):
             self.to_file(str_line)
@@ -134,7 +134,7 @@ class AggWriter(ExpModelPersistVisitor):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
         del dict_cols["confmat"]
-        # FIXME: strong dependency on host attribute name
+        # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
             self.first_line(dict_cols)

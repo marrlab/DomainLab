@@ -30,7 +30,7 @@ class DsetMNISTColorMix(Dataset):
         return sum(self.list_len)
 
     def __getitem__(self, idx):
-        rand_domain = np.random.random_integers(self.n_domains-1)  # FIXME
+        rand_domain = np.random.random_integers(self.n_domains-1)  # @FIXME
         idx_local = idx % self.size_single
         img, c_label = self.list_dset[rand_domain][idx_local]
         return img, c_label, self.fun_dlabel2onehot(rand_domain)

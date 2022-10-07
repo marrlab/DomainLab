@@ -79,6 +79,6 @@ class TaskChainNodeGetter(object):
                       self.args.task, " to  ",
                       node.task_name)
                 print("")
-                self.request = node.task_name  # FIXME
+                self.request = node.task_name  # @FIXME
         node = chain.handle(self.request)
         return node

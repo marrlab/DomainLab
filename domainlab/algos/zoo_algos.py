@@ -20,7 +20,7 @@ class AlgoBuilderChainNodeGetter(object):
         if self.args.apath is None:
             return chain
         node_module = import_path(self.args.apath)
-        node_fun = node_module.get_node_na()  # FIXME: build_node API need
+        node_fun = node_module.get_node_na()  # @FIXME: build_node API need
         newchain = node_fun(chain)
         return newchain
 
