@@ -36,14 +36,6 @@ domainlab.algos.trainers.train\_visitor module
    :undoc-members:
    :show-inheritance:
 
-domainlab.algos.trainers.train\_wrap\_ctr module
-------------------------------------------------
-
-.. automodule:: domainlab.algos.trainers.train_wrap_ctr
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

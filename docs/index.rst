@@ -11,13 +11,8 @@ Welcome to domainlab's documentation!
    :caption: Contents:
 
    modules
-   doc_output
    doc_algos
    docHDUVA
-   doc_custom_nn
-   doc_tasks
-   doc_examples
-   doc_extend_contribute
 
 Indices and tables
 ==================
