@@ -53,10 +53,10 @@ class MatchPair():
         copy all data from loader, then store them in memory variable self.dict_domain_data
         """
         # NOTE: loader contains data from several dataset
-        list_idx_several_ds = []  
+        list_idx_several_ds = []
         loader_full_data = mk_loader(
-            loader.dataset, 
-            bsize=loader.batch_size, 
+            loader.dataset,
+            bsize=loader.batch_size,
             drop_last=False)
         # @FIXME: training loader will always drop the last incomplete batch
         for _, (x_e, y_e, d_e, idx_e) in enumerate(loader_full_data):
@@ -67,7 +67,7 @@ class MatchPair():
             d_e = torch.argmax(d_e, dim=1).numpy()
 
             # get all domains in current batch
-            unique_domains = np.unique(d_e)   
+            unique_domains = np.unique(d_e)
             for domain_idx in unique_domains:
                 flag_curr_domain = (d_e == domain_idx)  # select all instances belong to one domain
                 # flag_curr_domain is subset indicator of True of False for selection of data from the mini-batch
