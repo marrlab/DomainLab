@@ -37,6 +37,9 @@ class DsetMNISTColorMix(Dataset):
 
 
 class DsetMNISTColorMixNoDomainLabel(DsetMNISTColorMix):
+    """
+    DsetMNISTColorMixNoDomainLabel
+    """
     def __getitem__(self, idx):
         img, c_label, _ = super().__getitem__(idx)
         return img, c_label
