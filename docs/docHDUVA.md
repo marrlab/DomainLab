@@ -5,7 +5,12 @@ HDUVA builds on a generative approach within the framework of variational autoen
 ## Model Overview
 More specifically, HDUVA is based on three latent variables that are used to model distinct sources of variation and are denoted as $z_y$, $z_d$ and $z_x$. $z_y$ represents class specific information, $z_d$ represents domain specific information and $z_x$ models residual variance of the input. We introduce an additional hierarchical level and use a continuous latent representation s to model (potentially unobserved) domain structure. This means that we can encourage disentanglement of the latent variables through conditional priors without the need of conditioning on a one-hot-encoded, observed domain label. The model along with its parameters and hyperparameters is shown in Figure 1: 
 
-<img src="figs/tikz_hduva.svg" alt="PGM for HDUVA" style="height: 300px; width:500px;"/>
+<div style="align: center; text-align:center;">
+ <img src="figs/tikz_hduva.svg" alt="PGM for HDUVA" style="height: 300px; width:500px;"/> 
+ <div class="caption">Figure 1: Probabilistic graphical model for HDUVA:Hierarchical Domain Unsupervised Variational Autoencoding. </div>
+</div>
+
+
 
 Note that as part of the model a latent representation of $X$ is concatentated with $s$ and $z_d$ (dashed arrows), requiring respecive encoder networks.
 
