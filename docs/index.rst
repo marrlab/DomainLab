@@ -13,7 +13,7 @@ Welcome to domainlab's documentation!
    modules
    doc_output
    doc_algos
-   doc_HDUVA
+   docHDUVA
    doc_custom_nn
    doc_tasks
    doc_examples
