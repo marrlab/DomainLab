@@ -13,11 +13,11 @@ class MatchPair():
     @store_args
     def __init__(
                 self,
-                dim_y,  # TODO: dim_y is not used here
+                dim_y,  # @TODO: dim_y is not used here
                 i_c,
                 i_h,
                 i_w,
-                bs_match,  # TODO: bs_match is not used here
+                bs_match,  # @TODO: bs_match is not used here
                 virtual_ref_dset_size,
                 num_domains_tr,
                 list_tr_domain_size

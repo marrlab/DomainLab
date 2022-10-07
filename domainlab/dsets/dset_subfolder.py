@@ -55,8 +55,12 @@ class DsetSubFolder(DatasetFolder):
             return True   # @FIXME
         if is_valid_file is None:
             is_valid_file = cast(Callable[[str], bool], fun_is_valid_file)
-            super().__init__(root, loader, extensions=None, transform=transform,   # @FIXME:extension
-                         target_transform=target_transform, is_valid_file=is_valid_file)
+            super().__init__(root,
+                             loader,
+                             extensions=None,
+                             transform=transform,   # @FIXME:extension
+                             target_transform=target_transform,
+                             is_valid_file=is_valid_file)
         classes, class_to_idx = self._find_classes(self.root)
         samples = fetch_img_paths(self.root, class_to_idx, None, is_valid_file)
         self.classes = classes
