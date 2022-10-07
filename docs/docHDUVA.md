@@ -2,6 +2,33 @@
 
 HDUVA builds on a generative approach within the framework of variational autoencoders to facilitate generalization to new domains without supervision. HDUVA learns representations that disentangle domain-specific information from class-label specific information even in complex settings where domain structure is not observed during training. 
 
+## Model Overview
+More specifically, our model is based on three latent variables are used to model distinct sources of variation that are denoted as $z_y$, $z_d$ and $z_x$. $z_y$ represents class specific information, zd represents domain specific information and zx models residual variance of the input. We introduce an additional hierarchical level and use a continuous latent representation s to model (potentially unobserved) domain structure. This means that we can encourage disentanglement of the latent variables through conditional priors without the need of conditioning on a one-hot-encoded, observed domain label. The model along with its parameters and hyperparameters is shown in Figure 1: 
+
+![HDUVA](./figs/tikz_hduva.pdf)
+<img src="figs/tikz_hduva.pdf" alt="PGM for HDUVA" style="height: 100px; width:100px;"/>
 
 
-![alt text](./figs/tikz_hduva.pdf)
+## Evidence lower bound and overall loss
+The ELBO of the model can be decomposed into 4 different terms: 
+
+Likelihood: $E_{q(z_d, s|x), q(z_x|x), q(z_y|x)}\log p_{\theta}(x|s, z_d, z_x, z_y)$ 
+
+KL divergence weighted as in the Beta-VAE: $\beta_x KL(q_{\phi_x}(z_x|x)||p_{\theta_x}(z_x)) - \beta_y KL(q_{\phi_y}(z_y|x)||p_{\theta_y}(z_y|y))$ 
+
+Hierarchical KL loss (domain term): $- \beta_d E_{q_{\phi_s}(s|x), q_{\phi_d}(z_d|x, s)} \log \frac{q_{\phi_d}(z_d|x, s)}{p_{\theta_d}(z_d|s)}$
+
+Hierarchical KL loss  (topic term): $-\beta_t E_{q_{\phi_s}(s|x)}KL(q_{\phi_s}(s|x)||p_{\theta_s}(s|\alpha))$
+
+In addition, we add an auxiliary classsifier by adding an additional term to the ELBO loss, weighted with $\gamma_y$:
+
+
+## Hyperparameters loss function
+For fitting the model, we need to specify the 4 $\beta$-weights related to the the different terms of the ELBO ($beta_x$, $beta_y$,$beta_d$,$beta_t$)  as well as $\gamma_y$. 
+
+## Model parameters
+In addition to these hyperparameters, the following model parameters can be specified: 
+
+ - Size of latent space for domain: zd_dim 
+ - size of latent space for unobserved: zx_dim
+
