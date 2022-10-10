@@ -1,9 +1,16 @@
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
-from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 def mk_deepall(parent_class=AModelClassif):
+    """Instantiate a Deepall model
+
+    Args:
+        parent_class (AModel, optional): Class object determining the task type. Defaults to AModelClassif.
+
+    Returns:
+        ModelDeepAlll: model inheriting from parent class
+    """
     class ModelDeepAll(parent_class):
         def __init__(self, net, list_str_y, list_str_d=None):
             super().__init__(list_str_y, list_str_d)
