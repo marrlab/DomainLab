@@ -181,7 +181,7 @@ class MatchPair():
 
                     for idx in range(feat_base_domain_curr_cls.shape[0]):  #  feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
                         # counter_curr_cls_base_domain =0 at initialization
-                        global_pos_base_domain_curr_cls = global_inds_base_domain_curr_cls[counter_curr_cls_base_domain].item()   # # global_inds_base_domain_curr_cls pick out base domain class label y_c images
+                        global_pos_base_domain_curr_cls = global_inds_base_domain_curr_cls[counter_curr_cls_base_domain].item()   ### global_inds_base_domain_curr_cls pick out base domain class label y_c images
                         if curr_domain_ind == base_domain_idx:
                             ind_match_global_curr_domain_curr_cls = global_pos_base_domain_curr_cls
                         else:

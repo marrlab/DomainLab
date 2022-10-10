@@ -13,6 +13,9 @@ from domainlab.utils.utils_class import store_args
 
 
 def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scalar=False):
+    """
+    pred2file
+    """
     model.eval()
     model_local = model.to(device)
     for _, (x_s, y_s, *_, path) in enumerate(loader_te):

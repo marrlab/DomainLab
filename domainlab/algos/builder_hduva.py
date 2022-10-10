@@ -12,6 +12,9 @@ from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
+    """
+    NodeAlgoBuilderHDUVA
+    """
     def init_business(self, exp):
         """
         return trainer, model, observer
