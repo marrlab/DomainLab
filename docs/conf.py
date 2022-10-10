@@ -89,7 +89,7 @@ templates_path = ["_templates"]
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 
-# # conflict with MySt
+### conflict with MySt
 # source_parsers = {
 #        '.md': 'recommonmark.parser.CommonMarkParser',
 # }
