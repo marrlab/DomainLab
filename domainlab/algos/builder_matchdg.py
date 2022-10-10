@@ -32,7 +32,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             i_c=task.isize.i_c, i_h=task.isize.i_h,
             i_w=task.isize.i_w)
 
-        model = mk_deepall(erm_net, list_str_y=task.list_str_y)
+        model = mk_deepall()(erm_net, list_str_y=task.list_str_y)
         model = ModelWrapMatchDGLogit(model, list_str_y=task.list_str_y)
 
         model = model.to(device)
