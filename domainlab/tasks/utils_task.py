@@ -56,7 +56,8 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
         dataset=dset,
         batch_size=bsize,
         shuffle=shuffle,
-        # shuffle must be true so the last incomplete batch get used in anohter epoch
+        # shuffle must be true so the last incomplete
+        # batch get used in anohter epoch
         num_workers=int(0),   # @FIXME:
         drop_last=drop_last)
     return loader
@@ -118,10 +119,12 @@ class DsetClassVecDecorator(Dataset):
     def __init__(self, dset, dict_folder_name2class_global, list_str_y):
         """
         :param dset: x, y, *d
-        :param dict_folder2class: dictionary that maps class folder of domain to glbal class
+        :param dict_folder2class: dictionary that maps
+                class folder of domain to glbal class
         """
         self.dset = dset
-        self.class2idx = {k:v for (k,v) in self.dset.class_to_idx.items() if k in self.dset.list_class_dir}
+        self.class2idx = {k:v for (k,v) in self.dset.class_to_idx.items() \
+                          if k in self.dset.list_class_dir}
         assert self.class2idx
         self.dict_folder_name2class_global = dict_folder_name2class_global
         self.list_str_y = list_str_y
@@ -140,7 +143,8 @@ class DsetClassVecDecorator(Dataset):
 
     def fun_class_local_na2vec_new(self, k):
         """
-        local class name within one domain, to one-hot vector of new representation
+        local class name within one domain, to one-hot
+        vector of new representation
         """
         ind = self.list_str_y.index(self.dict_folder_name2class_global[k])
         return mk_onehot(len(self.list_str_y), ind)
@@ -212,8 +216,13 @@ def tensor1hot2ind(tensor_label):
     npa_label_ind = label_ind.numpy()
     return npa_label_ind
 
-
-def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batches=5):   # @FIXME: this function couples strongly with the task, should be a class method of task
+# @FIXME: this function couples strongly with the task,
+# should be a class method of task
+def img_loader2dir(loader,
+                   folder,
+                   list_domain_na=None,
+                   list_class_na=None,
+                   batches=5):
     """
     save images from loader to directory so speculate if loader is correct
     :param loader:
@@ -238,18 +247,27 @@ def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batc
             if list_class_na is None:
                 str_class_label = "class_"+str(class_label_scalar)
             else:
-                str_class_label = list_class_na[class_label_scalar]      # @FIXME: where is the correspndance between class ind_label and class str_label?
+                # @FIXME: where is the correspndance between
+                # class ind_label and class str_label?
+                str_class_label = list_class_na[class_label_scalar]
             str_domain_label = "unknown"
             if list_vec_domain:
                 domain_label_ind = domain_label_ind_batch[b_ind]
                 if list_domain_na is None:
                     str_domain_label = str(domain_label_ind)
                 else:
-                    str_domain_label = list_domain_na[domain_label_ind]   # @FIXME: the correspondance between domain ind_label and domain str_label is missing
+                    # @FIXME: the correspondance between
+                    # domain ind_label and domain str_label is missing
+                    str_domain_label = list_domain_na[domain_label_ind]
             arr = img[b_ind]
             img_vision = torchvision.transforms.ToPILImage()(arr)
             f_n = "_".join(
-                ["class", str_class_label, "domain", str_domain_label, "n", str(counter)])
+                ["class",
+                 str_class_label,
+                 "domain",
+                 str_domain_label,
+                 "n",
+                 str(counter)])
             counter += 1
             path = os.path.join(folder, f_n + ".png")
             img_vision.save(path)
