@@ -71,42 +71,47 @@ class MatchPair():
             unique_domains = np.unique(d_e)
             for domain_idx in unique_domains:
                 # select all instances belong to one domain
-                flag_curr_domain = (d_e == domain_idx)  
+                flag_curr_domain = (d_e == domain_idx)
 
-                # flag_curr_domain is subset indicator of 
+                # flag_curr_domain is subset indicator of
                 # True of False for selection of data from the mini-batch
 
                 # get global index of all instances of the current domain
-                global_indices = idx_e[flag_curr_domain] 
+                global_indices = idx_e[flag_curr_domain]
 
-                # global_indices are subset of idx_e, which contains 
+                # global_indices are subset of idx_e, which contains
                 # global index of data from the loader
                 for local_ind in range(global_indices.shape[0]):
-                    # @FIXME: the following is just coping all data to 
-                    # self.dict_domain_data (in memory with ordering), 
+                    # @FIXME: the following is just coping all data to
+                    # self.dict_domain_data (in memory with ordering),
                     # which seems redundant
 
                     # tensor.item get the scalar
-                    global_ind = global_indices[local_ind].item()  
-                    self.dict_domain_data[domain_idx]['data'][global_ind] = x_e[flag_curr_domain][local_ind]
-                    # flag_curr_domain are subset indicator for selection of domain
-                    self.dict_domain_data[domain_idx]['label'][global_ind] = y_e[flag_curr_domain][local_ind]
+                    global_ind = global_indices[local_ind].item()
+                    self.dict_domain_data[domain_idx]['data'][global_ind] = \
+                        x_e[flag_curr_domain][local_ind]
+                    # flag_curr_domain are subset indicator
+                    # for selection of domain
+                    self.dict_domain_data[domain_idx]['label'][global_ind] = \
+                        y_e[flag_curr_domain][local_ind]
                     # copy trainining batch to dict_domain_data
-                    self.dict_domain_data[domain_idx]['idx'][global_ind] = idx_e[flag_curr_domain][local_ind]
+                    self.dict_domain_data[domain_idx]['idx'][global_ind] = \
+                        idx_e[flag_curr_domain][local_ind]
                     self.domain_count[domain_idx] += 1
 
         # if all data has been re-organized(filled) into the current tensor
-        assert len(list_idx_several_ds) == len(loader.dataset)    
-        # NOTE: check if self.dict_domain_data[domain_idx]['label'] has 
-        # some instances that are initial continuous 
+        assert len(list_idx_several_ds) == len(loader.dataset)
+        # NOTE: check if self.dict_domain_data[domain_idx]['label'] has
+        # some instances that are initial continuous
         # value instead of class label
         for domain in range(self.num_domains_tr):
             if self.domain_count[domain] != self.list_tr_domain_size[domain]:
-                warnings.warn("domain_count show matching dictionary missing data!")
+                warnings.warn("domain_count show matching \
+                    dictionary missing data!")
 
     def _cal_base_domain(self):
         """
-        # Determine the base_domain_idx as the domain 
+        # Determine the base_domain_idx as the domain
         # with the max samples of the current class
         # Create dictionary: class label -> list of ordered flag_curr_domain
         """
@@ -133,23 +138,29 @@ class MatchPair():
         for curr_domain_ind in range(self.num_domains_tr):
             counter_ref_dset_size = 0
             for y_c in range(self.dim_y):
-                base_domain_idx = self.dict_cls_ind_base_domain_ind[y_c]  # which domain to use as the base domain for the current class
-                flags_base_domain_curr_cls = (self.dict_domain_data[base_domain_idx]['label'] == y_c)     # subset indicator
+                # which domain to use as the base domain for the current class
+                base_domain_idx = self.dict_cls_ind_base_domain_ind[y_c]
+
+                # subset indicator
+                flags_base_domain_curr_cls = \
+                    (self.dict_domain_data[base_domain_idx]['label'] == y_c)
                 flags_base_domain_curr_cls = flags_base_domain_curr_cls[:, 0]
                 global_inds_base_domain_curr_cls = self.dict_domain_data[base_domain_idx]['idx'][flags_base_domain_curr_cls]
                 # pick out base domain class label y_c images
-                # the difference of this block is "curr_domain_ind" 
-                # in iteration is 
+                # the difference of this block is "curr_domain_ind"
+                # in iteration is
                 # used instead of base_domain_idx for current class
 
                 # pick out current domain y_c class images
-                flag_curr_domain_curr_cls = (self.dict_domain_data[curr_domain_ind]['label'] == y_c)     
+                flag_curr_domain_curr_cls = (self.dict_domain_data[curr_domain_ind]['label'] == y_c)
                 # NO label matches y_c
                 flag_curr_domain_curr_cls = flag_curr_domain_curr_cls[:, 0]
                 global_inds_curr_domain_curr_cls = self.dict_domain_data[curr_domain_ind]['idx'][flag_curr_domain_curr_cls]
                 size_curr_domain_curr_cls = global_inds_curr_domain_curr_cls.shape[0]
                 if size_curr_domain_curr_cls == 0:  # there is no class y_c in current domain
-                    print("current domain", curr_domain_ind, " does not contain class ", y_c)
+                    print("current domain",
+                          curr_domain_ind,
+                          " does not contain class ", y_c)
                     raise RuntimeError("current domain does not contain all classes")
 
                 # compute base domain features for class label y_c
@@ -157,7 +168,8 @@ class MatchPair():
                 # pick out base domain class label y_c images
                 # split data into chunks
                 tuple_batch_x_base_domain_curr_cls = torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
-                # @FIXME. when x_base_domain_curr_cls is smaller than the self.bs_match, then there is only one batch
+                # @FIXME. when x_base_domain_curr_cls is smaller
+                # than the self.bs_match, then there is only one batch
                 list_base_feat = []
                 for batch_x_base_domain_curr_cls in tuple_batch_x_base_domain_curr_cls:
                     with torch.no_grad():
@@ -183,10 +195,13 @@ class MatchPair():
                 tuple_feat_base_domain_curr_cls = torch.split(tensor_feat_base_domain_curr_cls, self.bs_match, dim=0)
 
                 counter_curr_cls_base_domain = 0
-                for feat_base_domain_curr_cls in tuple_feat_base_domain_curr_cls:  # tuple_feat_base_domain_curr_cls is a tuple of splitted part
+
+                # tuple_feat_base_domain_curr_cls is a tuple of splitted part
+                for feat_base_domain_curr_cls in tuple_feat_base_domain_curr_cls:
 
                     if flag_match_min_dist:   # if epoch > 0:flag_match_min_dist=True
-                        # Need to compute over batches of feature due to device Memory out errors
+                        # Need to compute over batches of
+                        # feature due to device Memory out errors
                         # Else no need for loop over tuple_feat_base_domain_curr_cls;
                         # could have simply computed tensor_feat_curr_domain_curr_cls - tensor_feat_base_domain_curr_cls
                         dist_same_class_base_domain_curr_domain = torch.sum((tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls)**2, dim=2)
@@ -196,11 +211,14 @@ class MatchPair():
                         # dist_same_class_base_domain_curr_domain.shape: torch.Size([64, 184]) is the per element distance of the cartesian product of feat_base_domain_curr_cls vs tensor_feat_curr_domain_curr_cls
                         match_ind_base_domain_curr_domain = torch.argmin(dist_same_class_base_domain_curr_domain, dim=1)  # the batch index of the neareast neighbors
                         # len(match_ind_base_domain_curr_domain)=64
-                        # theoretically match_ind_base_domain_curr_domain can be a permutation of 0 to 183 though of size 64
-                        # sort_val, sort_idx = torch.sort(dist_same_class_base_domain_curr_domain, dim=1)
+                        # theoretically match_ind_base_domain_curr_domain can
+                        # be a permutation of 0 to 183 though of size 64
+                        # sort_val, sort_idx = \
+                        # torch.sort(dist_same_class_base_domain_curr_domain, dim=1)
                         del dist_same_class_base_domain_curr_domain
 
-                    for idx in range(feat_base_domain_curr_cls.shape[0]):  #  feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
+                    #  feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
+                    for idx in range(feat_base_domain_curr_cls.shape[0]):
                         # counter_curr_cls_base_domain =0 at initialization
 
                         ### global_inds_base_domain_curr_cls pick out base domain class label y_c images
@@ -228,7 +246,9 @@ class MatchPair():
 
         for key in self.dict_virtual_dset2each_domain.keys():
             if self.dict_virtual_dset2each_domain[key]['label'].shape[0] != self.num_domains_tr:
-                raise RuntimeError("self.dict_virtual_dset2each_domain, one key correspond to value tensor not equal to number of training domains")
+                raise RuntimeError("self.dict_virtual_dset2each_domain, \
+                                   one key correspond to value tensor not \
+                                   equal to number of training domains")
 
         # Sanity Check: Ensure paired points have the same class label
         wrong_case = 0
@@ -241,7 +261,8 @@ class MatchPair():
                             wrong_case += 1
         print('Total Label MisMatch across pairs: ', wrong_case)
         if wrong_case != 0:
-            raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
+            raise RuntimeError("the reference domain \
+                               has 'rows' with inconsistent class labels")
 
         list_ref_domain_each_domain = []
         list_ref_domain_each_domain_label = []
