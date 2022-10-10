@@ -50,7 +50,8 @@ class MatchPair():
 
     def _fill_data(self, loader):
         """
-        copy all data from loader, then store them in memory variable self.dict_domain_data
+        copy all data from loader, then store them in memory
+        variable self.dict_domain_data
         """
         # NOTE: loader contains data from several dataset
         list_idx_several_ds = []
@@ -69,28 +70,44 @@ class MatchPair():
             # get all domains in current batch
             unique_domains = np.unique(d_e)
             for domain_idx in unique_domains:
-                flag_curr_domain = (d_e == domain_idx)  # select all instances belong to one domain
-                # flag_curr_domain is subset indicator of True of False for selection of data from the mini-batch
-                global_indices = idx_e[flag_curr_domain] # get global index of all instances of the current domain
-                # global_indices are subset of idx_e, which contains global index of data from the loader
+                # select all instances belong to one domain
+                flag_curr_domain = (d_e == domain_idx)  
+
+                # flag_curr_domain is subset indicator of 
+                # True of False for selection of data from the mini-batch
+
+                # get global index of all instances of the current domain
+                global_indices = idx_e[flag_curr_domain] 
+
+                # global_indices are subset of idx_e, which contains 
+                # global index of data from the loader
                 for local_ind in range(global_indices.shape[0]):
-                    # @FIXME: the following is just coping all data to self.dict_domain_data (in memory with ordering), which seems redundant
-                    global_ind = global_indices[local_ind].item()  # tensor.item get the scalar
+                    # @FIXME: the following is just coping all data to 
+                    # self.dict_domain_data (in memory with ordering), 
+                    # which seems redundant
+
+                    # tensor.item get the scalar
+                    global_ind = global_indices[local_ind].item()  
                     self.dict_domain_data[domain_idx]['data'][global_ind] = x_e[flag_curr_domain][local_ind]
                     # flag_curr_domain are subset indicator for selection of domain
                     self.dict_domain_data[domain_idx]['label'][global_ind] = y_e[flag_curr_domain][local_ind]
                     # copy trainining batch to dict_domain_data
                     self.dict_domain_data[domain_idx]['idx'][global_ind] = idx_e[flag_curr_domain][local_ind]
                     self.domain_count[domain_idx] += 1
-        assert len(list_idx_several_ds) == len(loader.dataset)    # if all data has been re-organized(filled) into the current tensor
-        # NOTE: check if self.dict_domain_data[domain_idx]['label'] has some instances that are initial continuous value instead of class label
+
+        # if all data has been re-organized(filled) into the current tensor
+        assert len(list_idx_several_ds) == len(loader.dataset)    
+        # NOTE: check if self.dict_domain_data[domain_idx]['label'] has 
+        # some instances that are initial continuous 
+        # value instead of class label
         for domain in range(self.num_domains_tr):
             if self.domain_count[domain] != self.list_tr_domain_size[domain]:
                 warnings.warn("domain_count show matching dictionary missing data!")
 
     def _cal_base_domain(self):
         """
-        # Determine the base_domain_idx as the domain with the max samples of the current class
+        # Determine the base_domain_idx as the domain 
+        # with the max samples of the current class
         # Create dictionary: class label -> list of ordered flag_curr_domain
         """
         for y_c in range(self.dim_y):
@@ -121,8 +138,12 @@ class MatchPair():
                 flags_base_domain_curr_cls = flags_base_domain_curr_cls[:, 0]
                 global_inds_base_domain_curr_cls = self.dict_domain_data[base_domain_idx]['idx'][flags_base_domain_curr_cls]
                 # pick out base domain class label y_c images
-                # the difference of this block is "curr_domain_ind" in iteration is used instead of base_domain_idx for current class
-                flag_curr_domain_curr_cls = (self.dict_domain_data[curr_domain_ind]['label'] == y_c)     # pick out current domain y_c class images
+                # the difference of this block is "curr_domain_ind" 
+                # in iteration is 
+                # used instead of base_domain_idx for current class
+
+                # pick out current domain y_c class images
+                flag_curr_domain_curr_cls = (self.dict_domain_data[curr_domain_ind]['label'] == y_c)     
                 # NO label matches y_c
                 flag_curr_domain_curr_cls = flag_curr_domain_curr_cls[:, 0]
                 global_inds_curr_domain_curr_cls = self.dict_domain_data[curr_domain_ind]['idx'][flag_curr_domain_curr_cls]
