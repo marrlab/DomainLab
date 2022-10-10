@@ -59,8 +59,6 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Extend or contribute with a custom domain generalization algorithm" href="doc_extend_contribute.html" />
-    <link rel="prev" title="Task Specification" href="doc_tasks.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -227,13 +225,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -241,145 +232,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Examples </label>
-    
-      <a href="#" class="md-nav__link md-nav__link--active">Examples</a>
-      
-        
-<nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
-  <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-examples--page-root" class="md-nav__link">Examples</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#colored-version-of-mnist" class="md-nav__link">Colored version of MNIST</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#leave-one-domain-out" class="md-nav__link">leave one domain out</a>
-        </li>
-        <li class="md-nav__item"><a href="#choose-train-and-test" class="md-nav__link">choose train and test</a>
-        </li>
-        <li class="md-nav__item"><a href="#generation-of-images" class="md-nav__link">generation of images</a>
-        </li>
-        <li class="md-nav__item"><a href="#use-hduva-on-color-mnist-train-on-2-domains" class="md-nav__link">use hduva on color mnist, train on 2 domains</a>
-        </li>
-        <li class="md-nav__item"><a href="#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain" class="md-nav__link">hduva is domain-unsupervised, so it works also with a single domain</a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#larger-images" class="md-nav__link">Larger images:</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#model-diva-with-implemented-neural-network" class="md-nav__link">model diva with implemented neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#model-diva-with-custom-neural-network" class="md-nav__link">model diva with custom neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#model-deepall-with-implemented-neural-network" class="md-nav__link">model deepall with implemented neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#model-dann-with-implemented-neural-network" class="md-nav__link">model dann with implemented neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#model-matchdg-with-implemented-neural-network" class="md-nav__link">model matchdg with implemented neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#hduva-with-implemented-neural-network" class="md-nav__link">hduva with implemented neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#hduva-use-alex-net" class="md-nav__link">hduva use alex net</a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#custom-neural-network" class="md-nav__link">Custom Neural Network</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#model-deepall-with-custom-neural-network" class="md-nav__link">model deepall with custom neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#model-matchdg-with-custom-neural-network" class="md-nav__link">model matchdg with custom neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-sandwich-encoder" class="md-nav__link">hduva use custom net for sandwich encoder</a>
-        </li>
-        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-topic-encoder" class="md-nav__link">hduva use custom net for topic encoder</a>
-        </li>
-        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-classification-encoder" class="md-nav__link">hduva use custom net for classification encoder</a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#user-defined-tasks" class="md-nav__link">User defined tasks</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#folder-task" class="md-nav__link">Folder Task</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#folder-task-with-implemented-neural-network" class="md-nav__link">Folder Task with implemented neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#folder-task-with-externally-user-defined-neural-network" class="md-nav__link">Folder Task with externally user defined neural network</a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#imagepath-task" class="md-nav__link">ImagePath Task</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#imagepath-task-with-implemented-algorithm" class="md-nav__link">ImagePath Task with implemented algorithm</a>
-        </li>
-        <li class="md-nav__item"><a href="#imagepath-task-with-externally-user-defined-neural-network" class="md-nav__link">ImagePath Task with externally user defined neural network</a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#custom-algorithm-defined-in-external-python-file" class="md-nav__link">Custom algorithm defined in external python file</a>
-        </li></ul>
-            </nav>
-        </li>
-  </ul>
-</nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#colored-version-of-mnist" class="md-nav__link">Colored version of MNIST</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#larger-images" class="md-nav__link">Larger images:</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#custom-neural-network" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#user-defined-tasks" class="md-nav__link">User defined tasks</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#custom-algorithm-defined-in-external-python-file" class="md-nav__link">Custom algorithm defined in external python file</a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -645,30 +498,6 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="doc_tasks.html" title="Task Specification"
-               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
-               rel="prev">
-              <div class="md-flex__cell md-flex__cell--shrink">
-                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-              </div>
-              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-                <span class="md-flex__ellipsis">
-                  <span
-                      class="md-footer-nav__direction"> Previous </span> Task Specification </span>
-              </div>
-            </a>
-          
-          
-            <a href="doc_extend_contribute.html" title="Extend or contribute with a custom domain generalization algorithm"
-               class="md-flex md-footer-nav__link md-footer-nav__link--next"
-               rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
-                class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Extend or contribute with a custom domain generalization algorithm </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink"><i
-                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           
         </a>
         

@@ -225,13 +225,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +232,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -288,10 +260,10 @@
             
   <h1 id="modules-domainlab-utils-utils-img-sav--page-root">Source code for domainlab.utils.utils_img_sav</h1><div class="highlight"><pre>
 <span></span>import os
-import matplotlib.pyplot as plt
 from pathlib import Path
 
-from torchvision.utils import save_image, make_grid
+import matplotlib.pyplot as plt
+from torchvision.utils import make_grid, save_image
 
 
 <div class="viewcode-block" id="mk_fun_sav_img"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.utils_img_sav.mk_fun_sav_img">[docs]</a>def mk_fun_sav_img(path=".", nrow=8, folder_na=""):

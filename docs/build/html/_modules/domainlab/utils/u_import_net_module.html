@@ -225,13 +225,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +232,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -287,39 +259,15 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-utils-u-import-net-module--page-root">Source code for domainlab.utils.u_import_net_module</h1><div class="highlight"><pre>
-<span></span>import sys
-import inspect
+<span></span>"""
+import external neural network implementation
+"""
+import sys
 import importlib.util
+import inspect
+import sys
+
 from domainlab.utils.u_import import import_path
-
-
-<div class="viewcode-block" id="import_net_module_from_path"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.u_import_net_module.import_net_module_from_path">[docs]</a>def import_net_module_from_path(path_net_feat_extract):
-    """
-    :param path_net_feat_extract: path of the python file which contains the definition of the custom neural network
-    """
-    name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # @FIXME: hard coded
-    name_custom_net = "NetFeatExtract"
-    na_external_module = "name_external_module"   # the dummy module name
-    spec = importlib.util.spec_from_file_location(
-        name=na_external_module,
-        location=path_net_feat_extract)
-    module_external = importlib.util.module_from_spec(spec)
-    sys.modules[na_external_module] = module_external
-    # register the name of the external module
-    spec.loader.exec_module(module_external)
-    if not hasattr(module_external, name_custom_net):
-        raise RuntimeError("the specified python file should contain the \
-                           definition a neural network (as pytorch module) \
-                           that can extract features from an image. The name \
-                           of this pytorch module must be %s and the module \
-                           must contain signature %s"
-                           % (name_custom_net, name_signature))
-    net = getattr(module_external, name_custom_net)
-    return net</div>
-    # assert "dim_y" in str(inspect.signature(net.__init__))
-    # assert "i_c" in str(inspect.signature(net.__init__))
-    # assert "i_h" in str(inspect.signature(net.__init__))
-    # assert "i_w" in str(inspect.signature(net.__init__))
 
 
 <div class="viewcode-block" id="build_external_obj_net_module_feat_extract"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.u_import_net_module.build_external_obj_net_module_feat_extract">[docs]</a>def build_external_obj_net_module_feat_extract(mpath, dim_y,
@@ -330,9 +278,6 @@ from domainlab.utils.u_import import import_path
     :param mpath: path of external python file where the neural network
     architecture is defined
     :param dim_y: dimension of features
-    :param i_c: number of channels of image
-    :param i_h: height of image
-    :param i_w: width of image
     """
     # other possibility
     # na_external_module = "name_external_module"   # the dummy module name
