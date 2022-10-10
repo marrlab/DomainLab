@@ -24,16 +24,17 @@ class ExpModelPersistVisitor():
         """
         self.host = host
         self.out = host.args.out
-        self.model_dir = os.path.join(
-                                        self.out,
-                                        ExpModelPersistVisitor.model_dir)
+        self.model_dir = os.path.join(self.out,
+                                      ExpModelPersistVisitor.model_dir)
         self.git_tag = get_git_tag()
-        self.task_name = self.host.task.get_na(self.host.args.tr_d, self.host.args.te_d)
+        self.task_name = self.host.task.get_na(self.host.args.tr_d,
+                                               self.host.args.te_d)
         self.algo_name = self.host.args.aname
         self.seed = self.host.args.seed
         self.model_name = self.mk_model_na(self.git_tag)
         self.model_path = os.path.join(self.model_dir,
-                                       self.model_name + ExpModelPersistVisitor.model_suffix)
+                                       self.model_name + \
+                                       ExpModelPersistVisitor.model_suffix)
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
 
@@ -46,12 +47,11 @@ class ExpModelPersistVisitor():
         suffix_t = str(datetime.datetime.now())[:dd_cut].replace(" ", "_")
         suffix_t = suffix_t.replace("-", "md_")
         suffix_t = suffix_t.replace(":", "_")
-        list4mname = [
-                        self.task_name,
-                        self.algo_name,
-                        tag, suffix_t,
-                        "seed",
-                        str(self.seed)]
+        list4mname = [self.task_name,
+                      self.algo_name,
+                      tag, suffix_t,
+                      "seed",
+                      str(self.seed)]
         # the sequence of components (e.g. seed in the last place)
         # in model name is not crutial
         model_name = "_".join(list4mname)

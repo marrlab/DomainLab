@@ -19,9 +19,8 @@ class DsetMNISTColorMix(Dataset):
         self.fun_dlabel2onehot = mk_fun_label2onehot(n_domains)
         for domain_ind in range(n_domains):
             self.list_dset[domain_ind] = \
-                DsetMNISTColorSoloDefault(
-                                            domain_ind, path,
-                                            color_scheme=color_scheme)
+                DsetMNISTColorSoloDefault(domain_ind, path,
+                                          color_scheme=color_scheme)
         self.list_len = [len(ds) for ds in self.list_dset]
         self.size_single = min(self.list_len)
 

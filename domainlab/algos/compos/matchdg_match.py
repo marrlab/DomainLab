@@ -11,17 +11,15 @@ from domainlab.utils.utils_class import store_args
 
 class MatchPair():
     @store_args
-    def __init__(
-                self,
-                dim_y,  # @TODO: dim_y is not used here
-                i_c,
-                i_h,
-                i_w,
-                bs_match,  # @TODO: bs_match is not used here
-                virtual_ref_dset_size,
-                num_domains_tr,
-                list_tr_domain_size
-                ):
+    def __init__(self,
+                 dim_y,  # @TODO: dim_y is not used here
+                 i_c,
+                 i_h,
+                 i_w,
+                 bs_match,  # @TODO: bs_match is not used here
+                 virtual_ref_dset_size,
+                 num_domains_tr,
+                 list_tr_domain_size):
         """
         :param virtual_ref_dset_size:  sum of biggest class sizes
         :param num_domains_tr:
@@ -202,13 +200,19 @@ class MatchPair():
                     if flag_match_min_dist:   # if epoch > 0:flag_match_min_dist=True
                         # Need to compute over batches of
                         # feature due to device Memory out errors
-                        # Else no need for loop over tuple_feat_base_domain_curr_cls;
-                        # could have simply computed tensor_feat_curr_domain_curr_cls - tensor_feat_base_domain_curr_cls
+                        # Else no need for loop over
+                        # tuple_feat_base_domain_curr_cls;
+                        # could have simply computed
+                        # tensor_feat_curr_domain_curr_cls -
+                        # tensor_feat_base_domain_curr_cls
                         dist_same_class_base_domain_curr_domain = torch.sum((tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls)**2, dim=2)
                         # tensor_feat_curr_domain_curr_cls.shape torch.Size([184, 512])
                         # feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
                         # (tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls).shape: torch.Size([64, 184, 512])
-                        # dist_same_class_base_domain_curr_domain.shape: torch.Size([64, 184]) is the per element distance of the cartesian product of feat_base_domain_curr_cls vs tensor_feat_curr_domain_curr_cls
+                        # dist_same_class_base_domain_curr_domain.shape:
+                        # torch.Size([64, 184]) is the per element distance of
+                        # the cartesian product of feat_base_domain_curr_cls vs
+                        # tensor_feat_curr_domain_curr_cls
                         match_ind_base_domain_curr_domain = torch.argmin(dist_same_class_base_domain_curr_domain, dim=1)  # the batch index of the neareast neighbors
                         # len(match_ind_base_domain_curr_domain)=64
                         # theoretically match_ind_base_domain_curr_domain can
@@ -233,7 +237,9 @@ class MatchPair():
 
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
                         self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
-                        # @FIXME: label initially were set to random continuous value, which is a technique to check if every data has been filled
+                        # @FIXME: label initially were set to random continuous
+                        # value, which is a technique to check if
+                        # every data has been filled
                         counter_curr_cls_base_domain += 1
                         counter_ref_dset_size += 1
 

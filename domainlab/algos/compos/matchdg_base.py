@@ -25,8 +25,7 @@ class MatchAlgoBase():
         self.phi = phi.to(self.device)
         #
         self.opt = self.get_opt_sgd()
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.opt,
-            step_size=25)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.opt, step_size=25)
         self.ctr_mpath = self.exp.visitor.model_path + "_ctr"
         #
         self.tensor_ref_domain2each_domain_x = None
@@ -51,8 +50,8 @@ class MatchAlgoBase():
 
     def get_opt_sgd(self):
         opt = optim.SGD([{'params': filter(
-                                            lambda p: p.requires_grad,
-                                            self.phi.parameters())}, ],
+                         lambda p: p.requires_grad,
+                         self.phi.parameters())}, ],
                         lr=self.args.lr, weight_decay=5e-4,
                         momentum=0.9, nesterov=True)
         return opt
@@ -102,8 +101,7 @@ def get_base_domain_size4match_dg(task):
             if task.dict_domain_class_count[domain_key][mclass] > num:
                 ref_domain = domain_key
                 num = task.dict_domain_class_count[domain_key][mclass]
-        print(
-                "for class ", mclass, " bigest sample size is ",
-                num, "ref domain is", ref_domain)
+        print("for class ", mclass, " bigest sample size is ",
+              num, "ref domain is", ref_domain)
         base_domain_size += num
     return base_domain_size

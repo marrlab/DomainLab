@@ -9,7 +9,8 @@ class TrainerVisitor(TrainerBasic):
     """
     def before_tr(self):
         self.hyper_scheduler = self.model.hyper_init(HyperSchedulerWarmup)
-        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)  # @FIXME: is there a way to make this more general?
+        # @FIXME: is there a way to make this more general?
+        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)
 
     def tr_epoch(self, epoch):
         self.model.hyper_update(epoch, self.hyper_scheduler)

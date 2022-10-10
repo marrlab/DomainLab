@@ -121,6 +121,6 @@ class ObVisitor(AObVisitor):
             except FileNotFoundError:
                 warnings.warn("failed to remove model")
             try:
-                self.exp.visitor.remove("ctr")  # # pylint: disable=E1101 For matchdg
+                self.exp.visitor.remove("ctr")  # pylint: disable=E1101 For matchdg
             except FileNotFoundError:
                 pass

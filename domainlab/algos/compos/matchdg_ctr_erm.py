@@ -82,7 +82,8 @@ class MatchCtrErm(MatchAlgoBase):
             num_batches = len(tuple_tensor_refdomain2each)
 
             if batch_idx >= num_batches:
-                print("ref/base domain vs each domain match traversed one sweep, starting new epoch")
+                print("ref/base domain vs each domain match \
+                      traversed one sweep, starting new epoch")
                 break
 
             curr_batch_size = tuple_tensor_refdomain2each[batch_idx].shape[0]
@@ -122,14 +123,18 @@ class MatchCtrErm(MatchAlgoBase):
 
             if self.flag_erm:
                 # loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
-                # @FIXME: check if batch_ref_domain2each_y is continuous number which means it is at its initial value, not yet filled
-                # FIMXE: shall we leave batch_ref_domain2each_y scalar so it takes less memory?
+                # @FIXME: check if batch_ref_domain2each_y is
+                # continuous number which means it is at its initial value,
+                # not yet filled
+                # FIMXE: shall we leave batch_ref_domain2each_y scalar so it
+                # takes less memory?
                 loss_erm_match_tensor = self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
             # Creating tensor of shape (domain size, total domains, feat size )
             # The match tensor's first two dimension
             # [(Ref domain size) * (# train domains)]
-            # has been clamped together to get features extracted through self.phi
+            # has been clamped together to get features extracted
+            # through self.phi
 
             # it has to be reshaped into the match tensor shape, the same
             # for the extracted feature here, it has to reshaped into
@@ -141,7 +146,9 @@ class MatchCtrErm(MatchAlgoBase):
 
             batch_ref_domain2each_y = batch_ref_domain2each_y.view(curr_batch_size, self.num_domain_tr)
 
-            # The match tensor's first two dimension [(Ref domain size) * (# train domains)] has been clamped together to get features extracted through self.phi
+            # The match tensor's first two dimension
+            # [(Ref domain size) * (# train domains)] has been clamped
+            # together to get features extracted through self.phi
             batch_tensor_ref_domain2each = \
                 batch_tensor_ref_domain2each.view(curr_batch_size,
                                                   self.num_domain_tr,

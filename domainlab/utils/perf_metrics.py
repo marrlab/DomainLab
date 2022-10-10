@@ -61,15 +61,13 @@ class PerfClassif():
         f1_score_y = self.f1_score.compute()
         auroc_y = self.auroc.compute()
         confmat_y = self.confmat.compute()
-        dict_metric = {
-                        "acc": acc_y,
-                        "precision": precision_y,
-                        "recall": recall_y,
-                        "specificity": specificity_y,
-                        "f1": f1_score_y,
-                        "auroc": auroc_y,
-                        "confmat": confmat_y
-                        }
+        dict_metric = {"acc": acc_y,
+                       "precision": precision_y,
+                       "recall": recall_y,
+                       "specificity": specificity_y,
+                       "f1": f1_score_y,
+                       "auroc": auroc_y,
+                       "confmat": confmat_y}
         for key in dict_metric.keys():
             dict_metric[key] = dict_metric[key].cpu().numpy().sum()
         return dict_metric
