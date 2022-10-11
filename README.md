@@ -15,7 +15,7 @@ Domain generalization algorithm try to learn domain invariant features by adding
 
 Once you came across a claim, that a domain generalization algorithm A can generate a "better" model h upon some datasets D with "better" performance compared to other algorithms, have you ever wondered:
 
--     Is this mostly attributed to a more "powerful" neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?
+-   Is this mostly attributed to a more "powerful" neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?
 -   Is this mostly attributed the protocol of estimating the generalization performance? e.g. dataset split, Will this algorithm "work" for my datasets?
 -   Is this mostly attributed to the "clever" regularization algorithm or a special loss function A has used for the neural network?
 
