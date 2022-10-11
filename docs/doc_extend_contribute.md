@@ -15,7 +15,6 @@ where the example python file corresponding to `--apath` defines a model which c
 or `nname_argna2val` if the neural network is already implemented.
 
 ## Internal extension for more advanced contribution
-
 - implement `domainlab/algos/builder_your-algorithm-name.py`
 - add your algorithm into `domainlab/algos/zoo_algos.py` by adding `chain = NodeAlgoBuilder[your-algorithm-name](chain)`
 - note that all algorithms will be converted to lower case!
@@ -26,8 +25,6 @@ or `nname_argna2val` if the neural network is already implemented.
 ![Design Diagram](libDG.svg)
 
 ## Credits
-Contact: Xudong Sun (smilesun.east@gmail.com)
-
 Please cite our paper if you use this code in your research:
 ```
 @inproceedings{sun2021hierarchical,
