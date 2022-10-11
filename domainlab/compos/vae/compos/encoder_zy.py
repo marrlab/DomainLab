@@ -23,7 +23,7 @@ class EncoderConnectLastFeatLayer2Z(nn.Module):
             args, arg_name, arg_path_name)()  # request
 
         self.net_feat_extract = net_builder.init_business(
-            flag_pretrain=flag_pretrain, dim_out=z_dim,  # FIXME
+            flag_pretrain=flag_pretrain, dim_out=z_dim,  # @FIXME
             remove_last_layer=True, args=args, i_c=i_c, i_h=i_h, i_w=i_w)
 
         size_last_layer_before_z = get_flat_dim(

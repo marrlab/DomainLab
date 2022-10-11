@@ -19,7 +19,7 @@ class MSelTrLoss(AMSel):
         """
         if the best model should be updated
         """
-        loss = self.trainer.epo_loss_tr   # FIXME
+        loss = self.trainer.epo_loss_tr   # @FIXME
         assert loss is not None
         flag = True
         if loss < self.best_loss:

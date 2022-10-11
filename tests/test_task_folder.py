@@ -46,7 +46,7 @@ def test_fun():
 
 
 
-    chain = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
+    _ = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
                           list_str_y=["chair", "car"],
                           dict_domain_folder_name2class={
                               "caltech": {"auto": "car", "stuhl": "chair"},

@@ -287,7 +287,7 @@ from domainlab.utils.utils_cuda import get_device
 
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME, constant string
+            arg_path_of_net="npath")()  # request, # @FIXME, constant string
 
         net_encoder = builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,

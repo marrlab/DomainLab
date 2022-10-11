@@ -77,7 +77,7 @@ class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
         :param request:
         """
         flag = (request.args.nname == "conv_bn_pool_2" or
-                request.args.nname_dom == "conv_bn_pool_2")   # FIXME
+                request.args.nname_dom == "conv_bn_pool_2")   # @FIXME
         self.config_img(flag, request)
         return flag
 
@@ -100,7 +100,7 @@ class NodeVAEBuilderImgAlex(NodeVAEBuilderImgConvBnPool):
         :param request:
         """
         self.args = request.args
-        flag = (self.args.nname == "alexnet")  # FIXME
+        flag = (self.args.nname == "alexnet")  # @FIXME
         self.config_img(flag, request)
         return flag
 

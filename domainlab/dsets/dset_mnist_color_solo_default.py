@@ -23,4 +23,3 @@ class DsetMNISTColorSoloDefault(ADsetMNISTColorRGBSolo):
         if self.color_scheme == "num":
             return self.palette[-(ind + 1)]
         return self.palette[ind]
-

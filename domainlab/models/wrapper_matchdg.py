@@ -25,5 +25,5 @@ class ModelWrapMatchDGLogit(AModelClassif):
         """
         calculate features to be matched
         """
-        logit_y = self.net.cal_logit_y(tensor_x)  # FIXME: match other features instead of logit
+        logit_y = self.net.cal_logit_y(tensor_x)  # @FIXME: match other features instead of logit
         return logit_y

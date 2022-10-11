@@ -13,7 +13,7 @@ class AbstractTrainer(metaclass=abc.ABCMeta):
         """
         model, task, observer, device, aconf
         """
-        # FIXME: aconf and args should be separated
+        # @FIXME: aconf and args should be separated
         self.model = model
         self.task = task
         self.observer = observer

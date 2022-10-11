@@ -75,13 +75,12 @@ class ModelHDUVA(VAEXYDClassif):
         """
         calculate the logit for softmax classification
         """
-        q_topic, topic_q, \
-            qzd, zd_q, \
-            qzx, zx_q, \
-            qzy, zy_q = self.encoder(tensor_x)
+        _, _, \
+            _, _, \
+            _, _, \
+            _, zy_q = self.encoder(tensor_x)
         logit_y = self.net_classif_y(zy_q)
         return logit_y
-
 
     def init_p_topic_batch(self, batch_size, device):
         """
@@ -114,7 +113,7 @@ class ModelHDUVA(VAEXYDClassif):
             p_zx = self.init_p_zx4batch(batch_size, device)
             zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
-        # FIXME: does monte-carlo KL makes the performance unstable?
+        # @FIXME: does monte-carlo KL makes the performance unstable?
         # from torch.distributions import kl_divergence
 
         # zy KL divergence
@@ -129,7 +128,7 @@ class ModelHDUVA(VAEXYDClassif):
         zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
 
         # topic KL divergence
-        # FIXME: why topic is still there?
+        # @FIXME: why topic is still there?
         topic_p_minus_q = p_topic.log_prob(topic_q) - q_topic.log_prob(topic_q)
 
         # reconstruction

@@ -48,6 +48,7 @@ def test_trainer_diva_folder():
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
 
+
 def test_trainer_diva_pathlist():
     testdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.join(testdir, "..")

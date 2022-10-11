@@ -24,7 +24,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         erm_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME: constant string
+            arg_path_of_net="npath")()  # request, # @FIXME: constant string
         erm_net = erm_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=False, args=args,
@@ -36,7 +36,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         ctr_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME constant string
+            arg_path_of_net="npath")()  # request, # @FIXME constant string
         ctr_net = ctr_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=True, args=args,

@@ -315,7 +315,7 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
                              extensions=self.extensions,
                              transform=trans,
                              target_transform=mk_fun_label2onehot(len(self.list_str_y)))
-        return dset, dset  # FIXME: validation by default set to be training set</div></div>
+        return dset, dset  # @FIXME: validation by default set to be training set</div></div>
 
 
 <div class="viewcode-block" id="NodeTaskFolderClassNaMismatch"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch">[docs]</a>class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
@@ -352,7 +352,7 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
         # since it does not have other needed attributes in bewteen
         if args.dmem:
             dset = DsetInMemDecorator(dset, na_domain)
-        return dset, dset # FIXME: validation by default set to be training set</div></div>
+        return dset, dset # @FIXME: validation by default set to be training set</div></div>
 </pre></div>
 
           </article>

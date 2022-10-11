@@ -82,7 +82,7 @@ def mk_node_task_path_list(isize,
                 dset = self._get_complete_domain(
                     na_domain,
                     self._dict_domain2filepath_list_im_te)
-                return dset, dset  # FIXME: avoid returning two identical
+                return dset, dset  # @FIXME: avoid returning two identical
 
             dset = self._get_complete_domain(
                 na_domain,
