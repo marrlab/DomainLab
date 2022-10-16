@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -303,7 +305,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
         with torch.no_grad():
             for i, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
-                pred_label, prob, ind, *_ = model_local.infer_y_vpicn(x_s)
+                pred_label, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
                 self.acc.update(pred_label, y_s.int())
                 self.precision.update(pred_label, y_s.int())
@@ -322,8 +324,11 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
         f1_score_y = self.f1_score.compute()
         auroc_y = self.auroc.compute()
         confmat_y = self.confmat.compute()
-        dict_metric = {"acc": acc_y, "precision": precision_y, "recall": recall_y,
-                       "specificity": specificity_y, "f1": f1_score_y,
+        dict_metric = {"acc": acc_y,
+                       "precision": precision_y,
+                       "recall": recall_y,
+                       "specificity": specificity_y,
+                       "f1": f1_score_y,
                        "auroc": auroc_y,
                        "confmat": confmat_y}
         for key in dict_metric.keys():
@@ -353,7 +358,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -8,6 +8,8 @@ Subpackages
    :maxdepth: 4
 
    domainlab.algos.compos
+   domainlab.algos.msels
+   domainlab.algos.observers
    domainlab.algos.trainers
 
 Submodules

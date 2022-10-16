@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -265,9 +267,13 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
 <div class="viewcode-block" id="TrainerVisitor"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor">[docs]</a>class TrainerVisitor(TrainerBasic):
+    """
+    TrainerVisitor
+    """
 <div class="viewcode-block" id="TrainerVisitor.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.before_tr">[docs]</a>    def before_tr(self):
         self.hyper_scheduler = self.model.hyper_init(HyperSchedulerWarmup)
-        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)  # @FIXME: is there a way to make this more general?</div>
+        # @FIXME: is there a way to make this more general?
+        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)</div>
 
 <div class="viewcode-block" id="TrainerVisitor.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
         self.model.hyper_update(epoch, self.hyper_scheduler)
@@ -275,6 +281,9 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
 <div class="viewcode-block" id="HyperSchedulerWarmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerWarmup">[docs]</a>class HyperSchedulerWarmup():
+    """
+    HyperSchedulerWarmup
+    """
     def __init__(self, **kwargs):
         self.dict_par_setpoint = kwargs
         self.steps = None
@@ -301,6 +310,9 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
 <div class="viewcode-block" id="HyperSchedulerAneal"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal">[docs]</a>class HyperSchedulerAneal(HyperSchedulerWarmup):
+    """
+    HyperSchedulerAneal
+    """
 <div class="viewcode-block" id="HyperSchedulerAneal.aneal"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal.aneal">[docs]</a>    def aneal(self, epoch):
         """warmup.
         start from a small value of par to ramp up the steady state value using
@@ -339,7 +351,7 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
