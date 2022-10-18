@@ -2,11 +2,13 @@ import torch
 from domainlab.compos.vae.compos.encoder_xyd_parallel import XYDEncoderParallelConvBnReluPool
 from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
 
+
 def test_XYDEncoderConvBnReluPool():
     """test"""
     model = XYDEncoderParallelConvBnReluPool(8, 8, 8, 3, 64, 64)
     img = torch.rand(2, 3, 64, 64)
-    q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = model(img)
+    _, _, _, _, _, _ = model(img)
+
 
 def test_LSEncoderConvStride1BnReluPool():
     """test"""

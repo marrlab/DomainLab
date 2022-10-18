@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -254,22 +256,16 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab-playground-for-domain-generalization" class="md-nav__link">DomainLab: Playground for Domain Generalization</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domain-generalization-and-domainlab" class="md-nav__link">Domain Generalization and DomainLab</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domain-generalization" class="md-nav__link">Domain Generalization</a>
+        <li class="md-nav__item"><a href="#domain-generalization-and-domainlab" class="md-nav__link">Domain Generalization and DomainLab</a>
         </li>
         <li class="md-nav__item"><a href="#why-a-dedicated-package" class="md-nav__link">Why a dedicated package</a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#getting-started" class="md-nav__link">Getting started</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#installation" class="md-nav__link">Installation</a>
         </li>
-        <li class="md-nav__item"><a href="#basic-usage" class="md-nav__link">Basic usage</a><nav class="md-nav">
-              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#basic-usage" class="md-nav__link">Basic usage</a>
+        </li>
         <li class="md-nav__item"><a href="#output-structure-results-storage-and-performance-measure" class="md-nav__link">Output structure (results storage) and Performance Measure</a>
         </li></ul>
             </nav>
@@ -281,10 +277,10 @@
         <li class="md-nav__item"><a href="#custom-neural-network" class="md-nav__link">Custom Neural network</a>
         </li></ul>
             </nav>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#software-design-pattern-extend-or-contribution-credits" class="md-nav__link">Software Design Pattern, Extend or Contribution, Credits</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -298,27 +294,22 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="introduction">
-<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this heading">¶</a></h1>
 <section class="tex2jax_ignore mathjax_ignore" id="domainlab-playground-for-domain-generalization">
-<h2 id="domainlab-playground-for-domain-generalization">DomainLab: Playground for Domain Generalization<a class="headerlink" href="#domainlab-playground-for-domain-generalization" title="Permalink to this headline">¶</a></h2>
+<h2 id="domainlab-playground-for-domain-generalization">DomainLab: Playground for Domain Generalization<a class="headerlink" href="#domainlab-playground-for-domain-generalization" title="Permalink to this heading">¶</a></h2>
 <p><img alt="GH Actions CI " src="https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg"/>
 <a class="reference external" href="https://app.codecov.io/gh/marrlab/DomainLab"><img alt="codecov" src="https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg"/></a>
 <a class="reference external" href="https://www.codacy.com/gh/marrlab/DomainLab/dashboard"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86"/></a></p>
 <section id="domain-generalization-and-domainlab">
-<h3 id="domain-generalization-and-domainlab">Domain Generalization and DomainLab<a class="headerlink" href="#domain-generalization-and-domainlab" title="Permalink to this headline">¶</a></h3>
-<section id="domain-generalization">
-<h4 id="domain-generalization">Domain Generalization<a class="headerlink" href="#domain-generalization" title="Permalink to this headline">¶</a></h4>
+<h3 id="domain-generalization-and-domainlab">Domain Generalization and DomainLab<a class="headerlink" href="#domain-generalization-and-domainlab" title="Permalink to this heading">¶</a></h3>
 <p>Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains so the learned feature can generalize to new unseen domains.</p>
 </section>
 <section id="why-a-dedicated-package">
-<h4 id="why-a-dedicated-package">Why a dedicated package<a class="headerlink" href="#why-a-dedicated-package" title="Permalink to this headline">¶</a></h4>
+<h3 id="why-a-dedicated-package">Why a dedicated package<a class="headerlink" href="#why-a-dedicated-package" title="Permalink to this heading">¶</a></h3>
 <p>Domain generalization algorithm try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss. A typical setting of evaluating domain generalization algorithm is the so called leave-one-domain-out scheme, where one dataset is collected from each distribution. Each time, one dataset/domain is left as test-set to estimate the generalization performance of a model trained upon the rest of domains/datasets.</p>
 <p>Once you came across a claim, that a domain generalization algorithm A can generate a “better” model h upon some datasets D with “better” performance compared to other algorithms, have you ever wondered:</p>
-<ul>
-<li><div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Is this mostly attributed to a more "powerful" neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?
-</pre></div>
-</div>
-</li>
+<ul class="simple">
+<li><p>Is this mostly attributed to a more “powerful” neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?</p></li>
 <li><p>Is this mostly attributed the protocol of estimating the generalization performance? e.g. dataset split, Will this algorithm “work” for my datasets?</p></li>
 <li><p>Is this mostly attributed to the “clever” regularization algorithm or a special loss function A has used for the neural network?</p></li>
 </ul>
@@ -329,12 +320,10 @@
 <li><p>To simply test an algorithm’s performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.</p></li>
 </ul>
 </section>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="getting-started">
-<h2 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<section id="getting-started">
+<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h3>
 <section id="installation">
-<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h4>
 <ul class="simple">
 <li><p>Install via python-poetry:
 Read the python-poetry documentation <a class="reference external" href="https://python-poetry.org/">https://python-poetry.org/</a> and use the configuration file in this repository.</p></li>
@@ -346,7 +335,7 @@ Suppose you have cloned the repository and have changed directory to the cloned 
 </div>
 </section>
 <section id="basic-usage">
-<h3 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
+<h4 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h4>
 <p>Suppose you have cloned the repository and the dependencies ready, change directory to the repository:
 DomainLab comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d<span class="o">=</span>caltech --tpath<span class="o">=</span>examples/tasks/task_vlcs.py --debug --bs<span class="o">=</span><span class="m">2</span> --aname<span class="o">=</span>diva --gamma_y<span class="o">=</span>7e5 --gamma_d<span class="o">=</span>1e5 --nname<span class="o">=</span>alexnet --nname_dom<span class="o">=</span>conv_bn_pool_2
@@ -359,28 +348,29 @@ For usage of other arguments, check with</p>
 </pre></div>
 </div>
 <p>See also <span class="xref myst">Examples</span>.</p>
+</section>
 <section id="output-structure-results-storage-and-performance-measure">
-<h4 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this headline">¶</a></h4>
+<h4 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this heading">¶</a></h4>
 <p><span class="xref myst">Output structure and Performance Measure</span></p>
 </section>
 </section>
 <section id="custom-usage">
-<h3 id="custom-usage">Custom Usage<a class="headerlink" href="#custom-usage" title="Permalink to this headline">¶</a></h3>
+<h3 id="custom-usage">Custom Usage<a class="headerlink" href="#custom-usage" title="Permalink to this heading">¶</a></h3>
 <section id="define-your-task">
-<h4 id="define-your-task">Define your task<a class="headerlink" href="#define-your-task" title="Permalink to this headline">¶</a></h4>
+<h4 id="define-your-task">Define your task<a class="headerlink" href="#define-your-task" title="Permalink to this heading">¶</a></h4>
 <p>Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See
 <span class="xref myst">Task Specification</span></p>
 </section>
 <section id="custom-neural-network">
-<h4 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this headline">¶</a></h4>
+<h4 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this heading">¶</a></h4>
 <p>This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
 <span class="xref myst">Specify Custom Neural Networks for an algorithm</span></p>
 </section>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="software-design-pattern-extend-or-contribution-credits">
-<h2 id="software-design-pattern-extend-or-contribution-credits">Software Design Pattern, Extend or Contribution, Credits<a class="headerlink" href="#software-design-pattern-extend-or-contribution-credits" title="Permalink to this headline">¶</a></h2>
+<section id="software-design-pattern-extend-or-contribution-credits">
+<h3 id="software-design-pattern-extend-or-contribution-credits">Software Design Pattern, Extend or Contribution, Credits<a class="headerlink" href="#software-design-pattern-extend-or-contribution-credits" title="Permalink to this heading">¶</a></h3>
 <p><span class="xref myst">Extend or Contibute</span></p>
+</section>
 </section>
 </section>
 
@@ -407,7 +397,7 @@ For usage of other arguments, check with</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

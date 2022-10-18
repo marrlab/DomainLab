@@ -7,6 +7,6 @@ sh gen_doc.sh
 endtime=`date +%s`
 runtime=$((endtime-starttime))
 echo "total time used:"
-echo $runtime
+echo "$runtime"
 
 

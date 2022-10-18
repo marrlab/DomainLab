@@ -2,7 +2,6 @@ from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import mk_deepall
@@ -24,8 +23,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         erm_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME: constant string
-
+            arg_path_of_net="npath")()  # request, # @FIXME: constant string
         erm_net = erm_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=False, args=args,
@@ -39,8 +37,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         ctr_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME constant string
-
+            arg_path_of_net="npath")()  # request, # @FIXME constant string
         ctr_net = ctr_builder.init_business(
             flag_pretrain=True,
             dim_out=task.dim_y,

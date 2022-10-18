@@ -1,6 +1,5 @@
 import abc
 
-
 class AMSel(metaclass=abc.ABCMeta):
     def __init__(self):
         self.trainer = None

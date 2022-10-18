@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -263,7 +265,6 @@
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import ModelDeepAll
@@ -285,7 +286,7 @@ from domainlab.utils.utils_cuda import get_device
         erm_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME: constant string
+            arg_path_of_net="npath")()  # request, # @FIXME: constant string
         erm_net = erm_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=False, args=args,
@@ -297,7 +298,7 @@ from domainlab.utils.utils_cuda import get_device
         ctr_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME constant string
+            arg_path_of_net="npath")()  # request, # @FIXME constant string
         ctr_net = ctr_builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=True, args=args,
@@ -336,7 +337,7 @@ from domainlab.utils.utils_cuda import get_device
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

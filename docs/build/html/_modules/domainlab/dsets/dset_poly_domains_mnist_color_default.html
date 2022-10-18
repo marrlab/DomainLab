@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -280,7 +282,8 @@ from domainlab.dsets.utils_data import mk_fun_label2onehot
         self.fun_dlabel2onehot = mk_fun_label2onehot(n_domains)
         for domain_ind in range(n_domains):
             self.list_dset[domain_ind] = \
-                DsetMNISTColorSoloDefault(domain_ind, path, color_scheme=color_scheme)
+                DsetMNISTColorSoloDefault(domain_ind, path,
+                                          color_scheme=color_scheme)
         self.list_len = [len(ds) for ds in self.list_dset]
         self.size_single = min(self.list_len)
 
@@ -289,16 +292,19 @@ from domainlab.dsets.utils_data import mk_fun_label2onehot
         return sum(self.list_len)
 
     def __getitem__(self, idx):
-        rand_domain = np.random.random_integers(self.n_domains-1)  # FIXME
+        rand_domain = np.random.random_integers(self.n_domains-1)  # @FIXME
         idx_local = idx % self.size_single
         img, c_label = self.list_dset[rand_domain][idx_local]
         return img, c_label, self.fun_dlabel2onehot(rand_domain)</div>
 
+
 <div class="viewcode-block" id="DsetMNISTColorMixNoDomainLabel"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMixNoDomainLabel">[docs]</a>class DsetMNISTColorMixNoDomainLabel(DsetMNISTColorMix):
+    """
+    DsetMNISTColorMixNoDomainLabel
+    """
     def __getitem__(self, idx):
         img, c_label, _ = super().__getitem__(idx)
         return img, c_label</div>
-
 </pre></div>
 
           </article>
@@ -323,7 +329,7 @@ from domainlab.dsets.utils_data import mk_fun_label2onehot
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

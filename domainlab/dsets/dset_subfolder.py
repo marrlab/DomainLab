@@ -38,7 +38,7 @@ def fetch_img_paths(dir, class_to_idx, extensions=None, is_valid_file=None):
                 path = os.path.join(root, fname)
                 if is_valid_file(path):
                     item = (path, class_to_idx[target])
-                    list_tuple_path_cls_ind.append(item)   # FIXME
+                    list_tuple_path_cls_ind.append(item)   # @FIXME
 
     return list_tuple_path_cls_ind
 
@@ -52,11 +52,15 @@ class DsetSubFolder(DatasetFolder):
                  target_transform=None, is_valid_file=None):
         self.list_class_dir = list_class_dir
         def fun_is_valid_file(input):
-            return True   # FIXME
+            return True   # @FIXME
         if is_valid_file is None:
             is_valid_file = cast(Callable[[str], bool], fun_is_valid_file)
-            super().__init__(root, loader, extensions=None, transform=transform,   # FIXME:extension
-                         target_transform=target_transform, is_valid_file=is_valid_file)
+            super().__init__(root,
+                             loader,
+                             extensions=None,
+                             transform=transform,   # @FIXME:extension
+                             target_transform=target_transform,
+                             is_valid_file=is_valid_file)
         classes, class_to_idx = self._find_classes(self.root)
         samples = fetch_img_paths(self.root, class_to_idx, None, is_valid_file)
         self.classes = classes
@@ -110,4 +114,3 @@ class DsetSubFolder(DatasetFolder):
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx
-

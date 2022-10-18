@@ -27,11 +27,11 @@ class EncoderImg2TopicDistri(nn.Module):
 
         # image->h_image->[alpha,topic]
 
-        # FIXME:
+        # @FIXME:
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
             arg_name_of_net="nname_topic_distrib_img2topic",
-            arg_path_of_net="npath_topic_distrib_img2topic")()  # FIXME
+            arg_path_of_net="npath_topic_distrib_img2topic")()  # @FIXME
 
         self.add_module("layer_img2hidden",
                         net_builder.init_business(
