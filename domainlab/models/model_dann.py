@@ -2,9 +2,16 @@ from torch.nn import functional as F
 
 from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.models.a_model_classif import AModelClassif
-from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 def mk_dann(parent_class=AModelClassif):
+    """Instantiate a Deep Adversarial Net (DAN) model
+
+    Args:
+        parent_class (AModel, optional): Class object determining the task type. Defaults to AModelClassif.
+
+    Returns:
+        ModelDAN: model inheriting from parent class
+    """
     class ModelDAN(parent_class):
         def __init__(self, list_str_y, list_str_d,
                     alpha,
