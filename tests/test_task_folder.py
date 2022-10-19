@@ -1,12 +1,14 @@
+import pytest
 import os
+from domainlab.arg_parser import mk_parser_main
 from domainlab.tasks.task_folder_mk import mk_task_folder
+from domainlab.tasks.task_folder import NodeTaskFolder
+from domainlab.tasks.utils_task import ImSize
+from torchvision import transforms
 path_this_file = os.path.dirname(os.path.realpath(__file__))
 
 
 def test_fun():
-    from domainlab.arg_parser import mk_parser_main
-    from domainlab.tasks.utils_task import ImSize
-    from torchvision import transforms
     # from domainlab.tasks.utils_task import img_loader2dir
     # import os
     node = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
@@ -91,3 +93,42 @@ def test_fun():
     #               list_class_na=node.list_str_y,
     #               folder=folder_na,
     #               batches=10)
+
+
+@pytest.fixture
+def pacs_node():
+    # FIXME: make me work with mk_task_folder
+    node = NodeTaskFolder()
+    node.set_list_domains(["cartoon", "photo"])
+    node.extensions = {"cartoon": "jpg", "photo": "jpg"}
+    node.list_str_y = ["dog", "elephant"] 
+    node.dict_domain2imgroot = {
+        "cartoon": "data/pacs_mini_10/cartoon/",
+        "photo": "data/pacs_mini_10/photo/"
+    }
+    return node
+
+@pytest.fixture
+def folder_args():
+    parser = mk_parser_main()
+    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
+    return args
+
+def test_nodetaskfolder(pacs_node, folder_args):
+    pacs_node.init_business(folder_args)
+
+def test_nodetaskfolder_transforms(pacs_node, folder_args):
+    pacs_node._dict_domain_img_trans = {
+        "cartoon": transforms.Compose([transforms.Resize((224, 224)), ]),
+        "photo": transforms.Compose([transforms.Resize((224, 224)), ])
+    }
+    pacs_node.img_trans_te = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor()
+    ])
+    pacs_node.init_business(folder_args)
+
+def test_nodetaskfolder_split_error(pacs_node, folder_args):
+    folder_args.split = True
+    with pytest.raises(RuntimeError):
+        pacs_node.init_business(folder_args)
