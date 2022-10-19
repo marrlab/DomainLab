@@ -1,5 +1,5 @@
-import pytest
 import os
+import pytest
 from domainlab.arg_parser import mk_parser_main
 from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.task_folder import NodeTaskFolder
@@ -97,6 +97,8 @@ def test_fun():
 
 @pytest.fixture
 def pacs_node():
+    """Task folder for PACS Mini 10
+    """
     # FIXME: make me work with mk_task_folder
     node = NodeTaskFolder()
     node.set_list_domains(["cartoon", "photo"])
@@ -110,14 +112,20 @@ def pacs_node():
 
 @pytest.fixture
 def folder_args():
+    """Test args; batchsize bs=2 ensures it works on small dataset
+    """
     parser = mk_parser_main()
     args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
     return args
 
 def test_nodetaskfolder(pacs_node, folder_args):
+    """Test NodeTaskFolder can be initiated without transforms
+    """
     pacs_node.init_business(folder_args)
 
 def test_nodetaskfolder_transforms(pacs_node, folder_args):
+    """Test NodeTaskFolder can be initiated with transforms
+    """
     pacs_node._dict_domain_img_trans = {
         "cartoon": transforms.Compose([transforms.Resize((224, 224)), ]),
         "photo": transforms.Compose([transforms.Resize((224, 224)), ])
@@ -129,6 +137,8 @@ def test_nodetaskfolder_transforms(pacs_node, folder_args):
     pacs_node.init_business(folder_args)
 
 def test_nodetaskfolder_split_error(pacs_node, folder_args):
+    """Test NodeTaskFolder throws an error when split == True
+    """
     folder_args.split = True
     with pytest.raises(RuntimeError):
         pacs_node.init_business(folder_args)

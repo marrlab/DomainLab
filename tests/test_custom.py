@@ -37,14 +37,15 @@ def test_custom2():
     exp.trainer.post_tr()
 
 def test_amodelcustom():
+    """Test that AModelCustom raises correct NotImplementedErrors
+    """
     class Custom(AModelCustom):
-        def __init__(self, list_str_y, list_str_d=None):
-            super().__init__(list_str_y, list_str_d)
+        """Dummy class to create an instance of the abstract AModelCustom
+        """
         def dict_net_module_na2arg_na(self):
-            super().dict_net_module_na2arg_na()
+            pass
+
     mod = Custom(None)
-    with pytest.raises(NotImplementedError):
-        mod.dict_net_module_na2arg_na()
     with pytest.raises(NotImplementedError):
         mod.cal_logit_y(None)
     with pytest.raises(NotImplementedError):
