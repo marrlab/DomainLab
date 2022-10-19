@@ -42,5 +42,4 @@ def test_dann():
                                "--gamma_reg", "1.0"
                                ])
     exp = Exp(margs)
-    exp.trainer.before_tr()
-    exp.trainer.tr_epoch(0)
+    exp.execute()
