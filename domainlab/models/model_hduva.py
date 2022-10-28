@@ -79,10 +79,10 @@ def mk_hduva(parent_class=VAEXYDClassif):
             """
             calculate the logit for softmax classification
             """
-            q_topic, topic_q, \
-                qzd, zd_q, \
-                qzx, zx_q, \
-                qzy, zy_q = self.encoder(tensor_x)
+            _, _, \
+                _, _, \
+                _, _, \
+                _, zy_q = self.encoder(tensor_x)
             logit_y = self.net_classif_y(zy_q)
             return logit_y
 
