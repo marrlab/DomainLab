@@ -6,12 +6,16 @@ def mk_deepall(parent_class=AModelClassif):
     """Instantiate a Deepall model
 
     Args:
-        parent_class (AModel, optional): Class object determining the task type. Defaults to AModelClassif.
+        parent_class (AModel, optional):
+            Class object determining the task type. Defaults to AModelClassif.
 
     Returns:
         ModelDeepAlll: model inheriting from parent class
     """
     class ModelDeepAll(parent_class):
+        """
+        anonymous
+        """
         def __init__(self, net, list_str_y, list_str_d=None):
             super().__init__(list_str_y, list_str_d)
             self.add_module("net", net)

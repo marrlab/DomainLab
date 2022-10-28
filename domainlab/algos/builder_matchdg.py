@@ -41,7 +41,8 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         ctr_net = ctr_builder.init_business(
             flag_pretrain=True,
             dim_out=task.dim_y,
-            # FIXME: ctr_model should not rely on task.dim_y so it could support more tasks? maybe use task.feat_num?
+            # @FIXME: ctr_model should not rely on task.dim_y so it could
+            # support more tasks? maybe use task.feat_num?
             remove_last_layer=True,
             args=args,
             i_c=task.isize.i_c,
