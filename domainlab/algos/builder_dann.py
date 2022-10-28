@@ -47,11 +47,11 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
             dim_feat, len(task.list_domain_tr))
 
         model = mk_dann()(list_str_y=task.list_str_y,
-                         list_str_d=task.list_domain_tr,
-                         alpha=args.gamma_reg,
-                         net_encoder=net_encoder,
-                         net_classifier=net_classifier,
-                         net_discriminator=net_discriminator)
+                          list_str_d=task.list_domain_tr,
+                          alpha=args.gamma_reg,
+                          net_encoder=net_encoder,
+                          net_classifier=net_classifier,
+                          net_discriminator=net_discriminator)
 
         trainer = TrainerBasic(model, task, observer, device, args)
         return trainer
