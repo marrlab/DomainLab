@@ -9,6 +9,9 @@ from domainlab.utils.utils_class import store_args
 
 
 def mk_diva(parent_class=VAEXYDClassif):
+    """
+    DIVA with arbitrary task loss
+    """
     class ModelDIVA(parent_class):
         """
         DIVA
