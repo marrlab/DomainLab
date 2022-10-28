@@ -18,10 +18,10 @@ def mk_diva(parent_class=VAEXYDClassif):
         """
         @store_args
         def __init__(self, chain_node_builder,
-                    zd_dim, zy_dim, zx_dim,
-                    list_str_y, list_d_tr,
-                    gamma_d, gamma_y,
-                    beta_d, beta_x, beta_y):
+                     zd_dim, zy_dim, zx_dim,
+                     list_str_y, list_d_tr,
+                     gamma_d, gamma_y,
+                     beta_d, beta_x, beta_y):
             """
             gamma: classification loss coefficient
             """
@@ -115,4 +115,5 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             loss, *_ = self.forward(tensor_x, tensor_y, tensor_d)
             return loss
+        
     return ModelDIVA
