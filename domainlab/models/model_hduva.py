@@ -10,6 +10,9 @@ from domainlab.utils.utils_class import store_args
 
 
 def mk_hduva(parent_class=VAEXYDClassif):
+    """
+    Hierarchical Domain Unsupervised VAE with arbitrary task loss
+    """
     class ModelHDUVA(parent_class):
         """
         Hierarchical Domain Unsupervised Variational Auto-Encoding
@@ -36,14 +39,14 @@ def mk_hduva(parent_class=VAEXYDClassif):
 
         @store_args
         def __init__(self, chain_node_builder,
-                    zy_dim, zd_dim,
-                    list_str_y, list_d_tr,
-                    gamma_d, gamma_y,
-                    beta_d, beta_x, beta_y,
-                    beta_t,
-                    device,
-                    zx_dim=0,
-                    topic_dim=3):
+                     zy_dim, zd_dim,
+                     list_str_y, list_d_tr,
+                     gamma_d, gamma_y,
+                     beta_d, beta_x, beta_y,
+                     beta_t,
+                     device,
+                     zx_dim=0,
+                     topic_dim=3):
             """
             """
             super().__init__(chain_node_builder,
