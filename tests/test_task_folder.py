@@ -103,7 +103,7 @@ def pacs_node():
     node = NodeTaskFolder()
     node.set_list_domains(["cartoon", "photo"])
     node.extensions = {"cartoon": "jpg", "photo": "jpg"}
-    node.list_str_y = ["dog", "elephant"] 
+    node.list_str_y = ["dog", "elephant"]
     node.dict_domain2imgroot = {
         "cartoon": "data/pacs_mini_10/cartoon/",
         "photo": "data/pacs_mini_10/photo/"
@@ -118,15 +118,15 @@ def folder_args():
     args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
     return args
 
-def test_nodetaskfolder(pacs_node, folder_args):
+def test_nodetaskfolder(obj_pacs_node, folder_args):
     """Test NodeTaskFolder can be initiated without transforms
     """
-    pacs_node.init_business(folder_args)
+    obj_pacs_node.init_business(folder_args)
 
-def test_nodetaskfolder_transforms(pacs_node, folder_args):
+def test_nodetaskfolder_transforms(obj_pacs_node, folder_args):
     """Test NodeTaskFolder can be initiated with transforms
     """
-    pacs_node._dict_domain_img_trans = {
+    obj_pacs_node._dict_domain_img_trans = {
         "cartoon": transforms.Compose([transforms.Resize((224, 224)), ]),
         "photo": transforms.Compose([transforms.Resize((224, 224)), ])
     }
@@ -136,9 +136,9 @@ def test_nodetaskfolder_transforms(pacs_node, folder_args):
     ])
     pacs_node.init_business(folder_args)
 
-def test_nodetaskfolder_split_error(pacs_node, folder_args):
+def test_nodetaskfolder_split_error(obj_pacs_node, folder_args):
     """Test NodeTaskFolder throws an error when split == True
     """
     folder_args.split = True
     with pytest.raises(RuntimeError):
-        pacs_node.init_business(folder_args)
+        obj_pacs_node.init_business(folder_args)
