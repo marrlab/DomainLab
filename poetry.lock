@@ -390,7 +390,7 @@ test = ["pytest (>=3.0.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "16b2ad2d6a578fa5712b83efab53df195fd38b3774bfa3353080f16f145b68f8"
+content-hash = "d448ab2da44ce12a2d2df86931017f60a9b07647d792ee0550fe1cac0d44337f"
 
 [metadata.files]
 atomicwrites = [
