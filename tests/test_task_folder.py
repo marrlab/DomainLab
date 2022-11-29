@@ -12,7 +12,7 @@ def test_fun():
     # from domainlab.tasks.utils_task import img_loader2dir
     # import os
     node = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
-                            list_str_y=["chair", "car"],
+                          list_str_y=["chair", "car"],
                             dict_domain_folder_name2class={
                                 "caltech": {"auto": "car",
                                             "stuhl": "chair"},
@@ -110,6 +110,7 @@ def pacs_node():
     }
     return node
 
+
 @pytest.fixture
 def folder_args():
     """Test args; batchsize bs=2 ensures it works on small dataset
@@ -118,15 +119,16 @@ def folder_args():
     args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
     return args
 
-def test_nodetaskfolder(obj_pacs_node, folder_args):
+def test_nodetaskfolder(pacs_node, folder_args):
     """Test NodeTaskFolder can be initiated without transforms
     """
-    obj_pacs_node.init_business(folder_args)
+    pacs_node.init_business(folder_args)
 
-def test_nodetaskfolder_transforms(obj_pacs_node, folder_args):
+
+def test_nodetaskfolder_transforms(pacs_node, folder_args):
     """Test NodeTaskFolder can be initiated with transforms
     """
-    obj_pacs_node._dict_domain_img_trans = {
+    pacs_node._dict_domain_img_trans = {
         "cartoon": transforms.Compose([transforms.Resize((224, 224)), ]),
         "photo": transforms.Compose([transforms.Resize((224, 224)), ])
     }
@@ -136,9 +138,10 @@ def test_nodetaskfolder_transforms(obj_pacs_node, folder_args):
     ])
     pacs_node.init_business(folder_args)
 
-def test_nodetaskfolder_split_error(obj_pacs_node, folder_args):
+
+def test_nodetaskfolder_split_error(pacs_node, folder_args):
     """Test NodeTaskFolder throws an error when split == True
     """
     folder_args.split = True
     with pytest.raises(RuntimeError):
-        obj_pacs_node.init_business(folder_args)
+        pacs_node.init_business(folder_args)
