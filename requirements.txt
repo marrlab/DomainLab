@@ -1,5 +1,16 @@
-torch
-torchvision
-torchmetrics
-matplotlib
-Pillow
+cycler==0.11.0 ; python_version >= "3.7" and python_version < "4.0"
+fonttools==4.28.3 ; python_version >= "3.7" and python_version < "4.0"
+kiwisolver==1.3.2 ; python_version >= "3.7" and python_version < "4.0"
+matplotlib==3.5.0 ; python_version >= "3.7" and python_version < "4.0"
+numpy==1.21.1 ; python_version >= "3.7" and python_version < "4.0"
+packaging==21.3 ; python_version >= "3.7" and python_version < "4.0"
+pillow==8.4.0 ; python_version >= "3.7" and python_version < "4.0"
+pyparsing==3.0.6 ; python_version >= "3.7" and python_version < "4.0"
+python-dateutil==2.8.2 ; python_version >= "3.7" and python_version < "4.0"
+setuptools-scm==6.3.2 ; python_version >= "3.7" and python_version < "4.0"
+six==1.16.0 ; python_version >= "3.7" and python_version < "4.0"
+tomli==1.2.2 ; python_version >= "3.7" and python_version < "4.0"
+torch==1.8.1 ; python_version >= "3.7" and python_version < "4.0"
+torchmetrics==0.9.3 ; python_version >= "3.7" and python_version < "4.0"
+torchvision==0.9.1 ; python_version >= "3.7" and python_version < "4.0"
+typing-extensions==4.0.1 ; python_version >= "3.7" and python_version < "4.0"
