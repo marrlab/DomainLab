@@ -26,8 +26,8 @@ def mk_diva(parent_class=VAEXYDClassif):
             gamma: classification loss coefficient
             """
             super().__init__(chain_node_builder,
-                            zd_dim, zy_dim, zx_dim,
-                            list_str_y, list_d_tr)
+                             zd_dim, zy_dim, zx_dim,
+                             list_str_y, list_d_tr)
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:
                 self.add_module(
@@ -115,5 +115,4 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             loss, *_ = self.forward(tensor_x, tensor_y, tensor_d)
             return loss
-        
     return ModelDIVA

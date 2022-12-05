@@ -19,7 +19,7 @@ def test_model_diva():
     request = RequestVAEBuilderCHW(3, 28, 28, args=margs)
 
     node = VAEChainNodeGetter(request)()
-    model = mk_diva()(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d, 
+    model = mk_diva()(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d,
                       list_str_y=list_str_y, gamma_d=1.0, gamma_y=1.0,
                       beta_d=1.0, beta_y=1.0, beta_x=1.0)
     imgs, y_s, d_s = mk_rand_xyd(28, y_dim, 2, 2)
