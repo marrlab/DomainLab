@@ -8,11 +8,12 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
+from domainlab.models.a_model import AModel
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
-class AModelClassif(nn.Module, metaclass=abc.ABCMeta):
+class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have
     """
@@ -66,7 +67,8 @@ class AModelClassif(nn.Module, metaclass=abc.ABCMeta):
         """
         Calculate the task loss. Used within the `cal_loss` methods of models
         that are subclasses of `AModelClassif`. Cross entropy loss for
-        classification is used here by default but could be modified by subclasses
+        classification is used here by default but could be modified by
+        subclasses
         as necessary.
 
         :param tensor_x: input

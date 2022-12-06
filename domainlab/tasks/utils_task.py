@@ -234,7 +234,7 @@ def img_loader2dir(loader,
     counter = 0
     batches = min(batches, len(l_iter))
     for _ in range(batches):
-        img, vec_y, *list_vec_domain = l_iter.next()
+        img, vec_y, *list_vec_domain = next(l_iter)
         class_label_ind_batch = tensor1hot2ind(vec_y)
         list_vec_domain = None # @FIXME: shall we remove this
         if list_vec_domain:  # if list is not empty
