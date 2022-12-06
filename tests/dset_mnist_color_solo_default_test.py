@@ -13,3 +13,15 @@ def test_color_mnist():
     for i in range(10):
         ds_list.append(DsetMNISTColorSoloDefault(i, "zout"))
     plot_ds_list(ds_list, "zout/color_0_9.png")
+
+
+def test_color_mnist2():
+    """
+    test_color_mnist
+    """
+    dset = DsetMNISTColorSoloDefault(0, "zout", flag_rand_color=True)
+    plot_ds(dset, "zout/color_solo.png")
+    ds_list = []
+    for i in range(10):
+        ds_list.append(DsetMNISTColorSoloDefault(i, "zout"))
+    plot_ds_list(ds_list, "zout/color_0_9.png")
