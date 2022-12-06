@@ -9,7 +9,7 @@ from torch import nn
 
 class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
-    operations that all models (classification, segmentation, seq2seq should have)
+    operations that all models (classification, segmentation, seq2seq)
     """
 
     @abc.abstractmethod
