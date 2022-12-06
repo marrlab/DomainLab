@@ -1,6 +1,7 @@
 # DomainLab: Playground for Domain Generalization
 
 ![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/01c63d7ebe034c7991f355483f1a5769)](https://app.codacy.com/gh/marrlab/DomainLab?utm_source=github.com&utm_medium=referral&utm_content=marrlab/DomainLab&utm_campaign=Badge_Grade_Settings)
 [![codecov](https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg)](https://app.codecov.io/gh/marrlab/DomainLab)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86)](https://www.codacy.com/gh/marrlab/DomainLab/dashboard)
 
