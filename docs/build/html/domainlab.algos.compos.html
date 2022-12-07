@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,11 +55,13 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="domainlab.algos.trainers package" href="domainlab.algos.trainers.html" />
+    <link rel="next" title="domainlab.algos.msels package" href="domainlab.algos.msels.html" />
     <link rel="prev" title="domainlab.algos package" href="domainlab.algos.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
@@ -237,13 +239,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -251,28 +246,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -294,15 +268,77 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_args" class="md-nav__link">domainlab.algos.compos.matchdg_args module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_args" class="md-nav__link">domainlab.algos.compos.matchdg_args module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_args.add_args2parser_matchdg" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">add_args2parser_matchdg()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_base" class="md-nav__link">domainlab.algos.compos.matchdg_base module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_base" class="md-nav__link">domainlab.algos.compos.matchdg_base module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchAlgoBase</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase.get_opt_sgd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchAlgoBase.get_opt_sgd()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_ctr_erm" class="md-nav__link">domainlab.algos.compos.matchdg_ctr_erm module</a>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase.init_erm_phase" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchAlgoBase.init_erm_phase()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_match" class="md-nav__link">domainlab.algos.compos.matchdg_match module</a>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase.mk_match_tensor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchAlgoBase.mk_match_tensor()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_utils" class="md-nav__link">domainlab.algos.compos.matchdg_utils module</a>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase.save_model_ctr_phase" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchAlgoBase.save_model_ctr_phase()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase.save_model_erm_phase" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchAlgoBase.save_model_erm_phase()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_base.get_base_domain_size4match_dg" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_base_domain_size4match_dg()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_ctr_erm" class="md-nav__link">domainlab.algos.compos.matchdg_ctr_erm module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_ctr_erm.MatchCtrErm" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchCtrErm</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_ctr_erm.MatchCtrErm.tr_epoch" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchCtrErm.tr_epoch()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_ctr_erm.MatchCtrErm.train" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchCtrErm.train()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_match" class="md-nav__link">domainlab.algos.compos.matchdg_match module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_match.MatchPair" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchPair</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.compos.matchdg_utils" class="md-nav__link">domainlab.algos.compos.matchdg_utils module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.MatchDictInit" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchDictInit</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.MatchDictInit.get_num_rows" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchDictInit.get_num_rows()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.MatchDictNumDomain2SizeDomain" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchDictNumDomain2SizeDomain</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.MatchDictNumDomain2SizeDomain.get_num_rows" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchDictNumDomain2SizeDomain.get_num_rows()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.MatchDictVirtualRefDset2EachDomain" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchDictVirtualRefDset2EachDomain</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.MatchDictVirtualRefDset2EachDomain.get_num_rows" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">MatchDictVirtualRefDset2EachDomain.get_num_rows()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.dist_cosine_agg" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">dist_cosine_agg()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.dist_pairwise_cosine" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">dist_pairwise_cosine()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.compos.matchdg_utils.fun_tensor_normalize" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">fun_tensor_normalize()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.compos" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -318,19 +354,19 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-algos-compos-package">
-<h1 id="domainlab-algos-compos--page-root">domainlab.algos.compos package<a class="headerlink" href="#domainlab-algos-compos--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-algos-compos--page-root">domainlab.algos.compos package<a class="headerlink" href="#domainlab-algos-compos--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.algos.compos.matchdg_args">
-<span id="domainlab-algos-compos-matchdg-args-module"></span><h2 id="module-domainlab.algos.compos.matchdg_args">domainlab.algos.compos.matchdg_args module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_args" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-compos-matchdg-args-module"></span><h2 id="module-domainlab.algos.compos.matchdg_args">domainlab.algos.compos.matchdg_args module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_args" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_args.add_args2parser_matchdg">
 <span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_args.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_matchdg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_args.html#add_args2parser_matchdg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_args.add_args2parser_matchdg" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.algos.compos.matchdg_base">
-<span id="domainlab-algos-compos-matchdg-base-module"></span><h2 id="module-domainlab.algos.compos.matchdg_base">domainlab.algos.compos.matchdg_base module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_base" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-compos-matchdg-base-module"></span><h2 id="module-domainlab.algos.compos.matchdg_base">domainlab.algos.compos.matchdg_base module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_base" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_base.MatchAlgoBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_base.</span></span><span class="sig-name descname"><span class="pre">MatchAlgoBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_base.html#MatchAlgoBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase" title="Permalink to this definition">¶</a></dt>
@@ -342,7 +378,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_base.MatchAlgoBase.init_erm_phase">
 <span class="sig-name descname"><span class="pre">init_erm_phase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_base.html#MatchAlgoBase.init_erm_phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase.init_erm_phase" title="Permalink to this definition">¶</a></dt>
-<dd><p>loade model from disk after training the ctr(contrastive learning) phase</p>
+<dd><p>loade model from disk after training
+the ctr(contrastive learning) phase</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_base.MatchAlgoBase.mk_match_tensor">
@@ -361,15 +398,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_base.get_base_domain_size4match_dg">
 <span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_base.</span></span><span class="sig-name descname"><span class="pre">get_base_domain_size4match_dg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_base.html#get_base_domain_size4match_dg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_base.get_base_domain_size4match_dg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base domain is a dataset where each class set come from one of the nominal domains</p>
+<dd><p>Base domain is a dataset where each class
+set come from one of the nominal domains</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.compos.matchdg_ctr_erm">
-<span id="domainlab-algos-compos-matchdg-ctr-erm-module"></span><h2 id="module-domainlab.algos.compos.matchdg_ctr_erm">domainlab.algos.compos.matchdg_ctr_erm module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_ctr_erm" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-compos-matchdg-ctr-erm-module"></span><h2 id="module-domainlab.algos.compos.matchdg_ctr_erm">domainlab.algos.compos.matchdg_ctr_erm module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_ctr_erm" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_ctr_erm.MatchCtrErm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_ctr_erm.</span></span><span class="sig-name descname"><span class="pre">MatchCtrErm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_erm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_ctr_erm.html#MatchCtrErm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_ctr_erm.MatchCtrErm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase" title="domainlab.algos.compos.matchdg_base.MatchAlgoBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.compos.matchdg_base.MatchAlgoBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.compos.matchdg_base.MatchAlgoBase" title="domainlab.algos.compos.matchdg_base.MatchAlgoBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatchAlgoBase</span></code></a></p>
 <p>Contrastive Learning</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_ctr_erm.MatchCtrErm.tr_epoch">
@@ -384,7 +422,7 @@
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.compos.matchdg_match">
-<span id="domainlab-algos-compos-matchdg-match-module"></span><h2 id="module-domainlab.algos.compos.matchdg_match">domainlab.algos.compos.matchdg_match module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_match" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-compos-matchdg-match-module"></span><h2 id="module-domainlab.algos.compos.matchdg_match">domainlab.algos.compos.matchdg_match module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_match" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_match.MatchPair">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_match.</span></span><span class="sig-name descname"><span class="pre">MatchPair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs_match</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">virtual_ref_dset_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_domains_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_tr_domain_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_match.html#MatchPair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_match.MatchPair" title="Permalink to this definition">¶</a></dt>
@@ -392,7 +430,7 @@
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.compos.matchdg_utils">
-<span id="domainlab-algos-compos-matchdg-utils-module"></span><h2 id="module-domainlab.algos.compos.matchdg_utils">domainlab.algos.compos.matchdg_utils module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_utils" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-compos-matchdg-utils-module"></span><h2 id="module-domainlab.algos.compos.matchdg_utils">domainlab.algos.compos.matchdg_utils module<a class="headerlink" href="#module-domainlab.algos.compos.matchdg_utils" title="Permalink to this heading">¶</a></h2>
 <p>create dictionary for matching</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_utils.MatchDictInit">
@@ -407,7 +445,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_utils.MatchDictNumDomain2SizeDomain">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_utils.</span></span><span class="sig-name descname"><span class="pre">MatchDictNumDomain2SizeDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_domains_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_tr_domain_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_utils.html#MatchDictNumDomain2SizeDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_utils.MatchDictNumDomain2SizeDomain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.compos.matchdg_utils.MatchDictInit" title="domainlab.algos.compos.matchdg_utils.MatchDictInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.compos.matchdg_utils.MatchDictInit</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.compos.matchdg_utils.MatchDictInit" title="domainlab.algos.compos.matchdg_utils.MatchDictInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatchDictInit</span></code></a></p>
 <p>tensor dimension for the kth domain: [num_domains_tr, (size_domain_k, i_c, i_h, i_w)]</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_utils.MatchDictNumDomain2SizeDomain.get_num_rows">
@@ -417,7 +455,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_utils.MatchDictVirtualRefDset2EachDomain">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.compos.matchdg_utils.</span></span><span class="sig-name descname"><span class="pre">MatchDictVirtualRefDset2EachDomain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">virtual_ref_dset_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_domains_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/compos/matchdg_utils.html#MatchDictVirtualRefDset2EachDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.compos.matchdg_utils.MatchDictVirtualRefDset2EachDomain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.compos.matchdg_utils.MatchDictInit" title="domainlab.algos.compos.matchdg_utils.MatchDictInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.compos.matchdg_utils.MatchDictInit</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.compos.matchdg_utils.MatchDictInit" title="domainlab.algos.compos.matchdg_utils.MatchDictInit"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatchDictInit</span></code></a></p>
 <p>dict[0:virtual_ref_dset_size] has tensor dimension: (num_domains_tr, i_c, i_h, i_w)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.compos.matchdg_utils.MatchDictVirtualRefDset2EachDomain.get_num_rows">
@@ -441,7 +479,7 @@
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.algos.compos">
-<span id="module-contents"></span><h2 id="module-domainlab.algos.compos">Module contents<a class="headerlink" href="#module-domainlab.algos.compos" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.algos.compos">Module contents<a class="headerlink" href="#module-domainlab.algos.compos" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -469,12 +507,12 @@
             </a>
           
           
-            <a href="domainlab.algos.trainers.html" title="domainlab.algos.trainers package"
+            <a href="domainlab.algos.msels.html" title="domainlab.algos.msels package"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> domainlab.algos.trainers package </span>
+                class="md-footer-nav__direction"> Next </span> domainlab.algos.msels package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -492,7 +530,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

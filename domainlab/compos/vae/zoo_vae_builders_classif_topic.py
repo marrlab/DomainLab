@@ -15,7 +15,7 @@ class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
         :param request:
         """
         self.args = request.args
-        flag = True  # FIXME
+        flag = True  # @FIXME
         self.config_img(flag, request)
         return flag
 

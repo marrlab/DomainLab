@@ -107,4 +107,3 @@ def fun_gen(model, device, node, args, subfolder_na, output_folder_na="gen"):
     flow.gen_img_loader(node.loader_tr, device,
                         path=path,
                         domain="_".join(node.list_domain_tr))
-

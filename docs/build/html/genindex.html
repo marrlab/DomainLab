@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -224,13 +226,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -238,28 +233,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -306,6 +280,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
@@ -317,18 +292,40 @@
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer">AbstractTrainer (class in domainlab.algos.trainers.a_trainer)</a>
 </li>
+      <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.accept">accept() (domainlab.algos.msels.a_model_sel.AMSel method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.accept">(domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.accept">(domainlab.algos.observers.a_observer.AObVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.accept">(domainlab.algos.observers.b_obvisitor.ObVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept">(domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp method)</a>
+</li>
+      </ul></li>
       <li><a href="domainlab.algos.compos.html#domainlab.algos.compos.matchdg_args.add_args2parser_matchdg">add_args2parser_matchdg() (in module domainlab.algos.compos.matchdg_args)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.args_vae.add_args2parser_vae">add_args2parser_vae() (in module domainlab.models.args_vae)</a>
 </li>
       <li><a href="domainlab.dsets.html#domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo">ADsetMNISTColorRGBSolo (class in domainlab.dsets.a_dset_mnist_color_rgb_solo)</a>
 </li>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.after_all">after_all() (domainlab.algos.observers.a_observer.AObVisitor method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.after_all">(domainlab.algos.observers.b_obvisitor.ObVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.after_all">(domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all">(domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll">Alex4DeepAll (class in domainlab.compos.nn_zoo.nn_alex)</a>
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetBase">AlexNetBase (class in domainlab.compos.nn_zoo.nn_alex)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer">AlexNetNoLastLayer (class in domainlab.compos.nn_zoo.nn_alex)</a>
 </li>
       <li><a href="domainlab.algos.html#domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter">AlgoBuilderChainNodeGetter (class in domainlab.algos.zoo_algos)</a>
@@ -337,7 +334,11 @@
 </li>
       <li><a href="domainlab.models.html#domainlab.models.model_custom.AModelCustom">AModelCustom (class in domainlab.models.model_custom)</a>
 </li>
+      <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel">AMSel (class in domainlab.algos.msels.a_model_sel)</a>
+</li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal.aneal">aneal() (domainlab.algos.trainers.train_visitor.HyperSchedulerAneal method)</a>
+</li>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor">AObVisitor (class in domainlab.algos.observers.a_observer)</a>
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply">AutoGradFunMultiply (class in domainlab.compos.nn_zoo.net_adversarial)</a>
 </li>
@@ -419,6 +420,14 @@
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear">ClassifDropoutReluLinear (class in domainlab.compos.nn_zoo.net_classif)</a>
 </li>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.clean_up">clean_up() (domainlab.algos.observers.a_observer.AObVisitor method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up">(domainlab.algos.observers.b_obvisitor.ObVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.clean_up">(domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp method)</a>
+</li>
+      </ul></li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.Conv2d">Conv2d (class in domainlab.compos.nn_zoo.net_gated)</a>
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.count_domain_class">count_domain_class() (domainlab.tasks.b_task.NodeTaskDict method)</a>
@@ -551,6 +560,69 @@
 </li>
       </ul></li>
       <li>
+    domainlab.algos.msels
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.msels.a_model_sel
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels.a_model_sel">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.msels.c_msel
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.msels.c_msel_oracle
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel_oracle">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.observers
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.observers.a_observer
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.a_observer">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.observers.b_obvisitor
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.b_obvisitor">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.observers.c_obvisitor_cleanup
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.c_obvisitor_cleanup">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.observers.c_obvisitor_gen
+
+      <ul>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.c_obvisitor_gen">module</a>
+</li>
+      </ul></li>
+      <li>
     domainlab.algos.trainers
 
       <ul>
@@ -583,13 +655,6 @@
 
       <ul>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_visitor">module</a>
-</li>
-      </ul></li>
-      <li>
-    domainlab.algos.trainers.train_wrap_ctr
-
-      <ul>
-        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_wrap_ctr">module</a>
 </li>
       </ul></li>
       <li>
@@ -704,6 +769,8 @@
         <li><a href="domainlab.compos.html#module-domainlab.compos.utils_conv_get_flat_dim">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     domainlab.compos.zoo_nn
 
@@ -732,8 +799,6 @@
         <li><a href="domainlab.dsets.html#module-domainlab.dsets.dset_img_path_list">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     domainlab.dsets.dset_mnist_color_solo_default
 
@@ -1184,8 +1249,6 @@
       </ul></li>
       <li><a href="domainlab.algos.compos.html#domainlab.algos.compos.matchdg_base.MatchAlgoBase.get_opt_sgd">get_opt_sgd() (domainlab.algos.compos.matchdg_base.MatchAlgoBase method)</a>
 </li>
-      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_wrap_ctr.get_wrap_ctr_trainer">get_wrap_ctr_trainer() (in module domainlab.algos.trainers.train_wrap_ctr)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -1220,9 +1283,15 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="domainlab.tasks.html#domainlab.tasks.utils_task.img_loader2dir">img_loader2dir() (in module domainlab.tasks.utils_task)</a>
+      <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.if_stop">if_stop() (domainlab.algos.msels.a_model_sel.AMSel method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel.MSelTrLoss.if_stop">(domainlab.algos.msels.c_msel.MSelTrLoss method)</a>
 </li>
-      <li><a href="domainlab.utils.html#domainlab.utils.u_import_net_module.import_net_module_from_path">import_net_module_from_path() (in module domainlab.utils.u_import_net_module)</a>
+        <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.if_stop">(domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor method)</a>
+</li>
+      </ul></li>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.utils_task.img_loader2dir">img_loader2dir() (in module domainlab.tasks.utils_task)</a>
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.u_import.import_path">import_path() (in module domainlab.utils.u_import)</a>
 </li>
@@ -1406,6 +1475,24 @@
 </li>
         <li><a href="domainlab.algos.compos.html#module-domainlab.algos.compos.matchdg_utils">domainlab.algos.compos.matchdg_utils</a>
 </li>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels">domainlab.algos.msels</a>
+</li>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels.a_model_sel">domainlab.algos.msels.a_model_sel</a>
+</li>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel">domainlab.algos.msels.c_msel</a>
+</li>
+        <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel_oracle">domainlab.algos.msels.c_msel_oracle</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers">domainlab.algos.observers</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.a_observer">domainlab.algos.observers.a_observer</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.b_obvisitor">domainlab.algos.observers.b_obvisitor</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.c_obvisitor_cleanup">domainlab.algos.observers.c_obvisitor_cleanup</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#module-domainlab.algos.observers.c_obvisitor_gen">domainlab.algos.observers.c_obvisitor_gen</a>
+</li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers">domainlab.algos.trainers</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.a_trainer">domainlab.algos.trainers.a_trainer</a>
@@ -1415,8 +1502,6 @@
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_matchdg">domainlab.algos.trainers.train_matchdg</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_visitor">domainlab.algos.trainers.train_visitor</a>
-</li>
-        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_wrap_ctr">domainlab.algos.trainers.train_wrap_ctr</a>
 </li>
         <li><a href="domainlab.algos.html#module-domainlab.algos.zoo_algos">domainlab.algos.zoo_algos</a>
 </li>
@@ -1536,6 +1621,12 @@
 </li>
       </ul></li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor">MSelOracleVisitor (class in domainlab.algos.msels.c_msel_oracle)</a>
+</li>
+      <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel.MSelTrLoss">MSelTrLoss (class in domainlab.algos.msels.c_msel)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="N">N</h2>
@@ -1583,6 +1674,14 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor">ObVisitor (class in domainlab.algos.observers.b_obvisitor)</a>
+</li>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp">ObVisitorCleanUp (class in domainlab.algos.observers.c_obvisitor_cleanup)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen">ObVisitorGen (class in domainlab.algos.observers.c_obvisitor_gen)</a>
+</li>
       <li><a href="domainlab.utils.html#domainlab.utils.override_interface.override_interface">override_interface() (in module domainlab.utils.override_interface)</a>
 </li>
   </ul></td>
@@ -1610,6 +1709,8 @@
       <li><a href="domainlab.dsets.html#domainlab.dsets.utils_data.plot_ds_list">plot_ds_list() (in module domainlab.dsets.utils_data)</a>
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.post_tr">post_tr() (domainlab.algos.trainers.a_trainer.AbstractTrainer method)</a>
+</li>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.pred2file">pred2file() (in module domainlab.algos.observers.b_obvisitor)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1732,6 +1833,26 @@
   </ul></td>
 </tr></table>
 
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.update">update() (domainlab.algos.msels.a_model_sel.AMSel method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel.MSelTrLoss.update">(domainlab.algos.msels.c_msel.MSelTrLoss method)</a>
+</li>
+        <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.update">(domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.update">(domainlab.algos.observers.a_observer.AObVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.update">(domainlab.algos.observers.b_obvisitor.ObVisitor method)</a>
+</li>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.update">(domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1776,7 +1897,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

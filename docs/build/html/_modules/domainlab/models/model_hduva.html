@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -225,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -291,10 +265,11 @@
 Hierarchical Domain Unsupervised Variational Auto-Encoding
 """
 import torch
-from torch.nn import functional as F
 from torch.distributions import Dirichlet
-from domainlab.utils.utils_class import store_args
+from torch.nn import functional as F
+
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
+from domainlab.utils.utils_class import store_args
 
 
 <div class="viewcode-block" id="ModelHDUVA"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA">[docs]</a>class ModelHDUVA(VAEXYDClassif):
@@ -363,13 +338,12 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
         """
         calculate the logit for softmax classification
         """
-        q_topic, topic_q, \
-            qzd, zd_q, \
-            qzx, zx_q, \
-            qzy, zy_q = self.encoder(tensor_x)
+        _, _, \
+            _, _, \
+            _, _, \
+            _, zy_q = self.encoder(tensor_x)
         logit_y = self.net_classif_y(zy_q)
         return logit_y</div>
-
 
 <div class="viewcode-block" id="ModelHDUVA.init_p_topic_batch"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.init_p_topic_batch">[docs]</a>    def init_p_topic_batch(self, batch_size, device):
         """
@@ -402,7 +376,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
             p_zx = self.init_p_zx4batch(batch_size, device)
             zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
-        # FIXME: does monte-carlo KL makes the performance unstable?
+        # @FIXME: does monte-carlo KL makes the performance unstable?
         # from torch.distributions import kl_divergence
 
         # zy KL divergence
@@ -417,7 +391,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
         zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
 
         # topic KL divergence
-        # FIXME: why topic is still there?
+        # @FIXME: why topic is still there?
         topic_p_minus_q = p_topic.log_prob(topic_q) - q_topic.log_prob(topic_q)
 
         # reconstruction
@@ -454,7 +428,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -3,15 +3,17 @@ from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.observers.c_obvisitor_gen import ObVisitorGen
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
-from domainlab.models.model_hduva import ModelHDUVA
+from domainlab.models.model_hduva import mk_hduva
 from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
+    """
+    NodeAlgoBuilderHDUVA
+    """
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -22,7 +24,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
             task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args.nocu)
         node = VAEChainNodeGetter(request, args.topic_dim)()
-        model = ModelHDUVA(node,
+        model = mk_hduva()(node,
                            zd_dim=args.zd_dim,
                            zy_dim=args.zy_dim,
                            zx_dim=args.zx_dim,

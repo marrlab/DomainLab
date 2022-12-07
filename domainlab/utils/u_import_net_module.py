@@ -1,10 +1,6 @@
 """
 import external neural network implementation
 """
-import sys
-import importlib.util
-import inspect
-import sys
 
 from domainlab.utils.u_import import import_path
 
@@ -31,7 +27,7 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
     net_module = import_path(mpath)
     name_signature = "build_feat_extract_net(dim_y, \
         remove_last_layer)"
-    # FIXME: hard coded, move to top level __init__ definition in domainlab
+    # @FIXME: hard coded, move to top level __init__ definition in domainlab
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:

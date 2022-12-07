@@ -1,5 +1,5 @@
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.models.model_diva import ModelDIVA
+from domainlab.models.model_diva import mk_diva
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
@@ -26,7 +26,7 @@ def test_trainer_diva():
     request = RequestVAEBuilderCHW(3, 28, 28, args=margs)
 
     node = VAEChainNodeGetter(request)()
-    model = ModelDIVA(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d,
+    model = mk_diva()(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d,
                       list_str_y=list_str_y, gamma_d=1.0, gamma_y=1.0,
                       beta_d=1.0, beta_y=1.0, beta_x=1.0)
     model_sel = MSelOracleVisitor(MSelTrLoss(max_es=margs.es))

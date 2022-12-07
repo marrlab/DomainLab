@@ -13,13 +13,13 @@ class GatedDense(nn.Module):
     def forward(self, x):
         h = self.h(x)
         if self.activation is not None:
-            h = self.activation( self.h( x ) )
+            h = self.activation(self.h(x))
 
-        g = self.sigmoid( self.g( x ) )
+        g = self.sigmoid(self.g(x))
 
         return h * g
 
-#=======================================================================================================================
+#==========================================================================
 class GatedConv2d(nn.Module):
     def __init__(self, input_channels, output_channels, kernel_size, stride, padding, dilation=1, activation=None):
         super(GatedConv2d, self).__init__()
@@ -40,7 +40,7 @@ class GatedConv2d(nn.Module):
 
         return h * g
 
-#=======================================================================================================================
+#==============================================================================
 class Conv2d(nn.Module):
     def __init__(self, input_channels, output_channels, kernel_size, stride, padding, dilation=1, activation=None, bias=True):
         super(Conv2d, self).__init__()

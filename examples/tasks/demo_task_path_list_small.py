@@ -25,21 +25,21 @@ def get_task(na=None):
 
         # folder data is with respect to the current working directory
 
-        # # 1. specify the list of images used for training set
+        ### 1. specify the list of images used for training set
         dict_d2filepath_list_img={
             "art_painting": "data/pacs_split/art_painting_10.txt",
             "cartoon": "data/pacs_split/cartoon_10.txt",
             "photo": "data/pacs_split/photo_10.txt",
             "sketch": "data/pacs_split/sketch_10.txt"},
 
-        # # 2. specify the list of images used for test set
+        ### 2. specify the list of images used for test set
         dict_d2filepath_list_img_te={
             "art_painting": "data/pacs_split/art_painting_10.txt",
             "cartoon": "data/pacs_split/cartoon_10.txt",
             "photo": "data/pacs_split/photo_10.txt",
             "sketch": "data/pacs_split/sketch_10.txt"},
 
-        # # 3. specify the list of images used for validation set
+        ### 3. specify the list of images used for validation set
         dict_d2filepath_list_img_val={
             "art_painting": "data/pacs_split/art_painting_10.txt",
             "cartoon": "data/pacs_split/cartoon_10.txt",

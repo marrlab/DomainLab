@@ -4,9 +4,13 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
 class TrainerVisitor(TrainerBasic):
+    """
+    TrainerVisitor
+    """
     def before_tr(self):
         self.hyper_scheduler = self.model.hyper_init(HyperSchedulerWarmup)
-        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)  # FIXME: is there a way to make this more general?
+        # @FIXME: is there a way to make this more general?
+        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)
 
     def tr_epoch(self, epoch):
         self.model.hyper_update(epoch, self.hyper_scheduler)
@@ -14,6 +18,9 @@ class TrainerVisitor(TrainerBasic):
 
 
 class HyperSchedulerWarmup():
+    """
+    HyperSchedulerWarmup
+    """
     def __init__(self, **kwargs):
         self.dict_par_setpoint = kwargs
         self.steps = None
@@ -40,6 +47,9 @@ class HyperSchedulerWarmup():
 
 
 class HyperSchedulerAneal(HyperSchedulerWarmup):
+    """
+    HyperSchedulerAneal
+    """
     def aneal(self, epoch):
         """warmup.
         start from a small value of par to ramp up the steady state value using

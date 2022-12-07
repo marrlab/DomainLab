@@ -54,7 +54,7 @@ class NodeTaskFolder(NodeTaskDict):
                              extensions=self.extensions,
                              transform=trans,
                              target_transform=mk_fun_label2onehot(len(self.list_str_y)))
-        return dset, dset  # FIXME: validation by default set to be training set
+        return dset, dset  # @FIXME: validation by default set to be training set
 
 
 class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
@@ -91,4 +91,4 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
         # since it does not have other needed attributes in bewteen
         if args.dmem:
             dset = DsetInMemDecorator(dset, na_domain)
-        return dset, dset # FIXME: validation by default set to be training set
+        return dset, dset # @FIXME: validation by default set to be training set

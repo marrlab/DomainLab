@@ -109,7 +109,6 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         """loader of mixed test domains"""
         return self._loader_te
 
-
     @property
     def task_name(self):
         """
@@ -123,10 +122,10 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         :param na_tr: training domain names
         :param na_te: test domain names
         """
-        list_tr, list_te = self.get_list_domains_tr_te(na_tr, na_te)
-        str_tr = "_".join(list_tr)
+        _, list_te = self.get_list_domains_tr_te(na_tr, na_te)
         str_te = "_".join(list_te)
-        return "_".join([self.task_name, "te", str_te])  # train domain names are too long
+        # train domain names are too long
+        return "_".join([self.task_name, "te", str_te])
 
     def is_myjob(self, request):
         """

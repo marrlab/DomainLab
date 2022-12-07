@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -225,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -291,16 +265,18 @@
 Use dictionaries to create train and test domain split
 """
 from collections import Counter
+
 import torch
 from torch.utils.data.dataset import ConcatDataset
 
 from domainlab.tasks.a_task import NodeTaskDGClassif
-from domainlab.tasks.utils_task import mk_loader, mk_onehot, DsetDomainVecDecorator
+from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
+                                        mk_onehot)
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
 <div class="viewcode-block" id="dset_decoration_args_algo"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.dset_decoration_args_algo">[docs]</a>def dset_decoration_args_algo(args, ddset):
-    if "match" in args.aname:  # FIXME: are there ways not to use this if statement?
+    if "match" in args.aname:  # @FIXME: are there ways not to use this if statement?
             ddset = DsetIndDecorator4XYD(ddset)
     return ddset</div>
 
@@ -344,7 +320,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
             dset_tr, dset_val = self.get_dset_by_domain(args, na_domain)
-            # FIXME: currently, different task has different default values for
+            # @FIXME: currently, different task has different default values for
             # split, for TaskFolder split default to False, for mnist, split
             # default to True
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)
@@ -364,7 +340,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
         # No need to have domain Label for test
         for na_domain in list_domain_te:
             dset_te, *_ = self.get_dset_by_domain(args, na_domain, split=False)
-            # FIXME: since get_dset_by_domain always return two datasets,
+            # @FIXME: since get_dset_by_domain always return two datasets,
             # train and validation, this is not needed in test domain
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))
@@ -394,7 +370,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
             dict_class_count[name] = count
         return dict_class_count
 
-    def _count_class(self, dset):   # FIXME: remove this
+    def _count_class(self, dset):   # @FIXME: remove this
         labels = dset.targets
         class_dict = dict(Counter(labels))
         return class_dict</div>
@@ -422,7 +398,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

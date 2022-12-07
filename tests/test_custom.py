@@ -1,5 +1,7 @@
 import os
+import pytest
 from domainlab.compos.exp.exp_main import Exp
+from domainlab.models.model_custom import AModelCustom
 from domainlab.arg_parser import mk_parser_main
 
 
@@ -33,3 +35,20 @@ def test_custom2():
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     exp.trainer.post_tr()
+
+def test_amodelcustom():
+    """Test that AModelCustom raises correct NotImplementedErrors
+    """
+    class Custom(AModelCustom):
+        """Dummy class to create an instance of the abstract AModelCustom
+        """
+        def dict_net_module_na2arg_na(self):
+            pass
+
+    mod = Custom(None)
+    with pytest.raises(NotImplementedError):
+        mod.cal_logit_y(None)
+    with pytest.raises(NotImplementedError):
+        mod.forward(None, None, None)
+    with pytest.raises(NotImplementedError):
+        mod.cal_loss(None, None, None)
