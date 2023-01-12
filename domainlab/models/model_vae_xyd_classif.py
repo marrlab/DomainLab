@@ -8,7 +8,6 @@ from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.utils_class import store_args
-from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 class VAEXYDClassif(AModelClassif):

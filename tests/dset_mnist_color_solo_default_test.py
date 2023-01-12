@@ -1,4 +1,3 @@
-from domainlab.dsets.utils_color_palette import default_rgb_palette
 from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
 from domainlab.dsets.utils_data import plot_ds, plot_ds_list
 

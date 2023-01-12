@@ -5,7 +5,6 @@ import numpy as np
 import torch
 
 from domainlab.algos.observers.a_observer import AObVisitor
-from domainlab.compos.exp.exp_utils import ExpModelPersistVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
 from domainlab.utils.perf_metrics import PerfClassif

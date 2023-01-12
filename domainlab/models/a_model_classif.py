@@ -5,7 +5,6 @@ operations that all claasification model should have
 import abc
 
 import torch
-import torch.nn as nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
