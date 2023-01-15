@@ -17,7 +17,7 @@ def test_fun():
 
 
 def test_mixed_codec():
-    dset = DsetSubFolder(root="data/mixed_codec",
+    dset = DsetSubFolder(root="data/mixed_codec/caltech",
                          list_class_dir=["auto", "vogel"],
                          loader=fun_img_path_loader_default,
                          extensions="jpg",
@@ -25,7 +25,7 @@ def test_mixed_codec():
                          target_transform=None)
     assert len(dset.samples) == 6
 
-    dset = DsetSubFolder(root="data/mixed_codec",
+    dset = DsetSubFolder(root="data/mixed_codec/caltech",
                          list_class_dir=["auto", "vogel"],
                          loader=fun_img_path_loader_default,
                          extensions="jpg",
