@@ -23,9 +23,11 @@ def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bo
 def fetch_img_paths(dir, class_to_idx, extensions=None, is_valid_file=None):
     list_tuple_path_cls_ind = []
     dir = os.path.expanduser(dir)
-    if not ((extensions is None) ^ (is_valid_file is None)):
-        raise ValueError(
-            "Both extensions and is_valid_file cannot be None or not None at the same time")
+    # since this function is only called by the class below, which now ensures that
+    # extensions xor is_valid_file is not None, this check cannot be triggered
+    # if not ((extensions is None) ^ (is_valid_file is None)):
+    #     raise ValueError(
+    #         "Both extensions and is_valid_file cannot be None or not None at the same time")
     if extensions is not None:
         def is_valid_file(x):
             return has_file_allowed_extension(x, extensions)
@@ -51,18 +53,23 @@ class DsetSubFolder(DatasetFolder):
     def __init__(self, root, loader, list_class_dir, extensions=None, transform=None,
                  target_transform=None, is_valid_file=None):
         self.list_class_dir = list_class_dir
-        def fun_is_valid_file(input):
-            return True   # @FIXME
-        if is_valid_file is None:
-            is_valid_file = cast(Callable[[str], bool], fun_is_valid_file)
-            super().__init__(root,
-                             loader,
-                             extensions=None,
-                             transform=transform,   # @FIXME:extension
-                             target_transform=target_transform,
-                             is_valid_file=is_valid_file)
+
+        if is_valid_file is not None and extensions is not None:
+            raise ValueError(
+                "Both extensions and is_valid_file cannot be not None at the same time")
+
+        if is_valid_file is None and extensions is None:
+            # setting default extensions
+            extensions = ('jpg', 'jpeg', 'png')
+
+        super().__init__(root,
+                         loader,
+                         extensions=extensions,
+                         transform=transform,
+                         target_transform=target_transform,
+                         is_valid_file=is_valid_file)
         classes, class_to_idx = self._find_classes(self.root)
-        samples = fetch_img_paths(self.root, class_to_idx, None, is_valid_file)
+        samples = fetch_img_paths(self.root, class_to_idx, extensions, is_valid_file)
         self.classes = classes
         self.class_to_idx = class_to_idx
         self.samples = samples

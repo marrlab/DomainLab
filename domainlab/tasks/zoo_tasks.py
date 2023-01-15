@@ -31,14 +31,14 @@ class TaskChainNodeGetter(object):
         """
         chain = NodeTaskMNISTColor10(None)
 
-        chain = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
+        chain = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "sun": "jpg"},
                                list_str_y=["chair", "car"],
                                dict_domain_folder_name2class={
                                    "caltech": {"auto": "car",
                                                "stuhl": "chair"},
                                    "sun": {"vehicle": "car",
                                            "sofa": "chair"},
-                                   "labelme": {"drive": "car",
+                                   "sun": {"drive": "car",
                                                "sit": "chair"}
                                },
                                dict_domain_img_trans={
@@ -48,7 +48,7 @@ class TaskChainNodeGetter(object):
                                    "sun": transforms.Compose(
                                        [transforms.Resize((224, 224)),
                                         transforms.ToTensor()]),
-                                   "labelme": transforms.Compose(
+                                   "sun": transforms.Compose(
                                        [transforms.Resize((224, 224)),
                                         transforms.ToTensor()]),
                                },
@@ -63,7 +63,7 @@ class TaskChainNodeGetter(object):
                                    "sun": os.path.join(
                                        path_this_file,
                                        "../../data/vlcs_mini/sun/"),
-                                   "labelme": os.path.join(
+                                   "sun": os.path.join(
                                        path_this_file,
                                        "../../data/vlcs_mini/labelme/")},
                                taskna="mini_vlcs",

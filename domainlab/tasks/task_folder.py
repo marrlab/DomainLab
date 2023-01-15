@@ -75,10 +75,12 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
                 trans = self.img_trans_te
         else:
             trans = transforms.ToTensor()
+
+        ext = None if self.extensions is None else self.extensions[na_domain]
         dset = DsetSubFolder(root=self.dict_domain2imgroot[na_domain],
                              list_class_dir=list(domain_class_dirs),
                              loader=fun_img_path_loader_default,
-                             extensions=self.extensions[na_domain],
+                             extensions=ext,
                              transform=trans,
                              target_transform=mk_fun_label2onehot(
                                  len(self.list_str_y)))
