@@ -14,3 +14,21 @@ def test_fun():
                          transform=None,
                          target_transform=None)
     dset.class_to_idx
+
+
+def test_mixed_codec():
+    dset = DsetSubFolder(root="data/mixed_codec",
+                         list_class_dir=["auto", "vogel"],
+                         loader=fun_img_path_loader_default,
+                         extensions="jpg",
+                         transform=None,
+                         target_transform=None)
+    assert len(dset.samples) == 6
+
+    dset = DsetSubFolder(root="data/mixed_codec",
+                         list_class_dir=["auto", "vogel"],
+                         loader=fun_img_path_loader_default,
+                         extensions="jpg",
+                         transform=None,
+                         target_transform=None)
+    assert len(dset.samples) == 4, f"data/mixed_codec contains 4 jpg files, but {len(dset.samples)} were loaded."
