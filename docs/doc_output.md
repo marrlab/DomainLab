@@ -2,7 +2,7 @@
 
 By default, this package generates outputs into a folder `zoutput` relative to the current working directory, which the user can alter by specifying the corresponding command line argument.
 
-The output structure is something similar to below. ( [ ] means the folder might or might not exist, texts inside ( ) are comments)
+The output structure is something similar to below. ([] means the folder might or might not exist, texts inside () are comments)
 
 ```
 zoutput/
