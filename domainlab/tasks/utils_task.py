@@ -153,12 +153,12 @@ class DsetClassVecDecorator(Dataset):
         """
         :param idx:
         """
-        tensor, vec_class = self.dset.__getitem__(idx)
+        tensor, vec_class, *other_vars = self.dset.__getitem__(idx)
         vec_class = vec_class.numpy()
         ind_old = numpy.argmax(vec_class)
         class_local = self.dict_old_idx2old_class[ind_old]
         vec_class_new = self.dict_class_na_local2vec_new[class_local]
-        return tensor, vec_class_new
+        return tensor, vec_class_new, *other_vars
 
     def __len__(self):
         """__len__."""
@@ -171,12 +171,8 @@ class DsetClassVecDecoratorImgPath(DsetClassVecDecorator):
         :param idx:
         This function is mainly
         """
-        tensor, vec_class, path = self.dset.__getitem__(idx)
-        vec_class = vec_class.numpy()
-        ind_old = numpy.argmax(vec_class)
-        class_local = self.dict_old_idx2old_class[ind_old]
-        vec_class_new = self.dict_class_na_local2vec_new[class_local]
-        return tensor, vec_class_new, path
+        tensor, vec_class_new, path = super().__getitem__(idx)
+        return tensor, vec_class_new, path[0]
 
 
 class LoaderDomainLabel():
