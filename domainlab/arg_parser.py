@@ -129,6 +129,12 @@ def mk_parser_main():
                                 domains that are not assigned to \
                                 the test set will be used as training domains')
 
+    arg_group_task.add_argument('--san_check', action='store_true', default=False,
+                                help='save images from the dataset as a sanitary check')
+
+    arg_group_task.add_argument('--san_num', type=int, default=8,
+                                help='determine how many images to be created for the sanitary check')
+
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group('vae')
     arg_group_vae = add_args2parser_vae(arg_group_vae)

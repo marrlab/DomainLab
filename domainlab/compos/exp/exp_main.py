@@ -1,9 +1,12 @@
 import datetime
 import os
+from torch.utils.data import Subset
+import numpy as np
 
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
 from domainlab.compos.exp.exp_utils import AggWriter
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
+from domainlab.dsets.utils_data import plot_ds
 
 os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
 
@@ -20,6 +23,8 @@ class Exp():
         self.task = task
         if task is None:
             self.task = TaskChainNodeGetter(args)()
+            if args.san_check:
+                self.dataset_sanity_check(args, args.san_num)
         self.task.init_business(args)
         self.args = args
         self.visitor = AggWriter(self)
@@ -53,3 +58,32 @@ class Exp():
         print("Experiment finished at epoch:", self.epoch_counter,
               "with time:", t_c - t_0, "at", t_c)
         self.trainer.post_tr()
+
+    def dataset_sanity_check(self, args, sample_num):
+        self.task.init_business(args)
+
+        dset_name = self.task.task_name
+        if not os.path.exists('zoutput/Dset_extraction/'):
+            os.mkdir('zoutput/Dset_extraction/')
+        f_name = 'zoutput/Dset_extraction/' + dset_name
+        if not os.path.exists(f_name):
+            os.mkdir(f_name)
+
+        # for each domain do...
+        for domain in self.task.get_list_domains():
+            # generate a dataset for each domain
+            d_dataset = self.task.get_dset_by_domain(args, domain)[0]
+
+            if not os.path.exists(f_name + '/' + str(domain)):
+                os.mkdir(f_name + '/' + str(domain))
+
+            # for each class do...
+            for class_num in range(len(d_dataset.dset.classes)):
+                # find indices corresponding to one class
+                domain_targets = np.where(np.array(d_dataset.targets) == class_num)
+                # create a dataset subset containing only images of one class
+                class_dataset = Subset(d_dataset, domain_targets[0])
+                # plot the images of this class and save it with its specific file name
+                full_f_name = f_name + '/' + str(domain) + '/' + str(
+                    d_dataset.dict_folder_name2class_global[d_dataset.dset.classes[class_num]]) + '.jpg'
+                plot_ds(class_dataset, full_f_name, bs=sample_num)

@@ -53,7 +53,7 @@ def test_dset_sample_extraction():
  parser = mk_parser_main()
  args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
  task.init_business(args)
- task.get_list_domains()
+ #task.get_list_domains()
 
  dset_name = 'vlcs_mini'
  if not os.path.exists('zout/Dset_extraction/'):
