@@ -84,7 +84,7 @@ class DsetSubFolder(DatasetFolder):
         if self.target_transform is not None:
             target = self.target_transform(target)
 
-        return sample, target, path
+        return sample, target, (path,)
 
     def _find_classes(self, mdir):
         """
