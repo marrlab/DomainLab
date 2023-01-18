@@ -57,8 +57,11 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         :param label_transform:  e.g. index to one hot vector
         """
         dpath = os.path.normpath(path)
+        flag_train = True
+        if raw_split!="train":
+            flag_train = False
         dataset = datasets.MNIST(root=dpath,
-                                 train=True,
+                                 train=flag_train,
                                  download=True,
                                  transform=transforms.ToTensor())
 
