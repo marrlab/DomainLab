@@ -216,25 +216,35 @@ def tensor1hot2ind(tensor_label):
 # should be a class method of task
 def img_loader2dir(loader,
                    folder,
+                   test=False,
                    list_domain_na=None,
                    list_class_na=None,
                    batches=5):
     """
     save images from loader to directory so speculate if loader is correct
-    :param loader:
-    :param folder:
-    :param batches: default 1
+    :param loader: pytorch data loader
+    :param folder: folder to save images
+    :param test: if true, the loader is assumend to be a test loader; if false (default) it is assumed to be a train loader
+    :param list_domain_na: optional list of domain names
+    :param list_class_na: optional list of class names
+    :param batches: number of batches to save
     """
     Path(os.path.normpath(folder)).mkdir(parents=True, exist_ok=True)
     l_iter = iter(loader)
     counter = 0
     batches = min(batches, len(l_iter))
     for _ in range(batches):
-        img, vec_y, *list_vec_domain = next(l_iter)
+        img, vec_y, *other_vars = next(l_iter)
         class_label_ind_batch = tensor1hot2ind(vec_y)
-        list_vec_domain = None # @FIXME: shall we remove this
-        if list_vec_domain:  # if list is not empty
-            domain_label_ind_batch = tensor1hot2ind(list_vec_domain[0])
+
+        # get domain label
+        # Note 1: test loaders don't return domain labels (see NodeTaskDict.init_business)
+        # Note 2: for train loaders domain label will be the 0th element of other_vars (see DsetDomainVecDecorator class above)
+        has_domain_label_ind = False
+        if not test:
+            if other_vars:
+                domain_label_ind_batch = tensor1hot2ind(other_vars[0])
+                has_domain_label_ind = True
 
         for b_ind in range(img.shape[0]):
             class_label_ind = class_label_ind_batch[b_ind]
@@ -247,7 +257,7 @@ def img_loader2dir(loader,
                 # class ind_label and class str_label?
                 str_class_label = list_class_na[class_label_scalar]
             str_domain_label = "unknown"
-            if list_vec_domain:
+            if has_domain_label_ind:
                 domain_label_ind = domain_label_ind_batch[b_ind]
                 if list_domain_na is None:
                     str_domain_label = str(domain_label_ind)
