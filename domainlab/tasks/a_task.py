@@ -179,7 +179,8 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
                        list_domain_na=self.get_list_domains(),
                        list_class_na=self.list_str_y,
                        folder=folder_na,
-                       batches=batches)
+                       batches=batches,
+                       test=True)
 
         img_loader2dir(self.loader_tr,
                        list_domain_na=self.get_list_domains(),
