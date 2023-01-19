@@ -74,6 +74,20 @@ def test_dset_sample_extraction(mode='MNIST', show_plot=True):
 
  task.init_business(args)
 
+ if show_plot:
+     img, l1, l2 = next(iter(task.loader_tr))
+
+     fig, ax = plt.subplots(2)
+     ax[0].imshow(np.moveaxis(np.array(img[0]), 0, -1))
+     ax[0].set_title('label: ' + str(l1[0]) + ' -> ' + str(task.list_str_y[np.argmax(np.array(l1[0]))]) + '\ndomain: ' +
+                     str(l2[0]) + ' -> ' + str(task.list_domain_tr[np.argmax(np.array(l2[0]))]))
+     ax[1].imshow(np.moveaxis(np.array(img[1]), 0, -1))
+     ax[1].set_title('label: ' + str(l1[1]) + ' -> ' + str(task.list_str_y[np.argmax(np.array(l1[1]))]) + '\ndomain: ' +
+                     str(l2[1]) + ' -> ' + str(task.list_domain_tr[np.argmax(np.array(l2[1]))]))
+     plt.suptitle('dataloader task.loader_tr')
+     plt.tight_layout()
+     plt.show()
+
  if not os.path.exists('zout/Dset_extraction/'):
     os.mkdir('zout/Dset_extraction/')
  f_name = 'zout/Dset_extraction/' + dset_name
@@ -116,6 +130,7 @@ def test_dset_sample_extraction(mode='MNIST', show_plot=True):
             for i in range(sample_num):
                 ax[i].imshow(np.array(image_list[i]))
                 ax[i].set_title(str(np.array(label_list[i])) + ', label: ' + str(task.list_str_y[np.argmax(np.array(label_list[i]))]))
+            plt.suptitle('dataloader task.get_dset_by_domain(args, domain)')
             plt.tight_layout()
             plt.show()
 
