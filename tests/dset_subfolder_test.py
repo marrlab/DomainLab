@@ -19,6 +19,7 @@ def test_fun():
 
 
 def test_mixed_codec():
+    """Check if only images with given extension are loaded."""
     dset = DsetSubFolder(root="data/mixed_codec/caltech",
                          list_class_dir=["auto", "vogel"],
                          loader=fun_img_path_loader_default,
@@ -47,6 +48,7 @@ def test_mixed_codec():
 
 
 def test_wrong_class_names():
+    """Check for error if list_class_dir does not match the subfolders."""
     with pytest.raises(RuntimeError):
         DsetSubFolder(root="data/mixed_codec/caltech",
                       list_class_dir=["auto", "haus"],

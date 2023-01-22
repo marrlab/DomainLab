@@ -93,6 +93,7 @@ def test_mk_task_folder():
                        taskna="mini_vlcs")
 
 def test_none_extensions():
+    """Check if all different datatypes for the extensions arg work."""
     node = mk_task_folder(extensions={'caltech': None, 'labelme': None, 'sun': None},
                           list_str_y=["chair", "car"],
                           dict_domain_folder_name2class={
@@ -135,8 +136,6 @@ def test_none_extensions():
     assert node.dict_domain_class_count['caltech']['chair'] == 6
     assert node.dict_domain_class_count['caltech']['car'] == 20
 
-
-def test_extension_filtering():
     # explicit given extension
     node = mk_task_folder(extensions={'caltech': 'jpg', 'sun': 'jpg'},
                           list_str_y=["bird", "car"],
