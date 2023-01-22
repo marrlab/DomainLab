@@ -129,10 +129,10 @@ def mk_parser_main():
                                 the test set will be used as training domains')
 
     arg_group_task.add_argument('--san_check', action='store_true', default=False,
-                                help='save images from the dataset as a sanitary check')
+                                help='save images from the dataset as a sanity check')
 
     arg_group_task.add_argument('--san_num', type=int, default=8,
-                                help='number of images to be dumped for the sanitary check')
+                                help='number of images to be dumped for the sanity check')
 
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group('vae')
