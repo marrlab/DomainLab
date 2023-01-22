@@ -61,6 +61,11 @@ class Exp():
         self.trainer.post_tr()
 
     def dataset_sanity_check(self, args, sample_num):
+        """
+        when we load data from folder or a file listing the path of observations,
+        we want to check if the file we loaded are in accordance with our expectations
+        This function dump a subsample of the dataset into hierarchical folder structure.
+        """
         self.task.init_business(args)
 
         dset_name = self.task.task_name

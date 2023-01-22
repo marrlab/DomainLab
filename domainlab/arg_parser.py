@@ -132,7 +132,7 @@ def mk_parser_main():
                                 help='save images from the dataset as a sanitary check')
 
     arg_group_task.add_argument('--san_num', type=int, default=8,
-                                help='determine how many images to be created for the sanitary check')
+                                help='number of images to be dumped for the sanitary check')
 
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group('vae')
