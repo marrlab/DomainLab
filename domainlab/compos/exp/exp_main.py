@@ -67,41 +67,29 @@ class Exp():
         This function dump a subsample of the dataset into hierarchical folder structure.
         """
         self.task.init_business(args)
-
-        dset_name = self.task.task_name
-        if not os.path.exists('zoutput/Dset_extraction/'):
-            os.mkdir('zoutput/Dset_extraction/')
-        f_name = 'zoutput/Dset_extraction/' + dset_name
-        if not os.path.exists(f_name):
-            os.mkdir(f_name)
+        f_name = 'zoutput/Dset_extraction/' + self.task.task_name
 
         # for each domain do...
         for domain in self.task.get_list_domains():
             # generate a dataset for each domain
             d_dataset = self.task.get_dset_by_domain(args, domain)[0]
 
-            if not os.path.exists(f_name + '/' + str(domain)):
-                os.mkdir(f_name + '/' + str(domain))
-
             # for each class do...
             for class_num in range(len(self.task.list_str_y)):
                 num_of_samples = 0
                 loader_domain = data_utils.DataLoader(d_dataset, batch_size=1, shuffle=False)
                 domain_targets = []
-                image_list = []
-                label_list = []
                 for num, (img, lab, *_) in enumerate(loader_domain):
                     if int(np.argmax(lab[0])) == class_num:
                         domain_targets.append(num)
                         num_of_samples += 1
-                        img_ = np.moveaxis(np.array(img[0]), 0, -1)
-                        image_list.append(img_)
-                        label_list.append(lab)
                     if sample_num == num_of_samples:
                         break
 
                 class_dataset = Subset(d_dataset, domain_targets)
-                full_f_name = f_name + '/' + str(domain) + '/' + \
-                    str(self.task.list_str_y[class_num]) + '.jpg'
-                plot_ds(class_dataset, full_f_name, bs=sample_num)
-
+                os.makedirs(f_name + '/' + str(domain), exist_ok=True)
+                plot_ds(class_dataset,
+                        f_name + '/' + str(domain) + '/' +
+                        str(self.task.list_str_y[class_num]) + '.jpg',
+                        bs=sample_num
+                        )
