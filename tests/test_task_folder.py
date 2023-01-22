@@ -171,8 +171,10 @@ def test_extension_filtering():
     # batchsize bs=2 ensures it works on small dataset
     args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
     node.init_business(args)
-    assert node.dict_domain_class_count['caltech']['bird'] == 2, f"mixed_codec/caltech holds 2 jpg birds"
-    assert node.dict_domain_class_count['caltech']['car'] == 2, f"mixed_codec/caltech holds 2 jpg cars"
+    assert node.dict_domain_class_count['caltech']['bird'] == 2,\
+        "mixed_codec/caltech holds 2 jpg birds"
+    assert node.dict_domain_class_count['caltech']['car'] == 2,\
+        "mixed_codec/caltech holds 2 jpg cars"
 
     # No extensions given
     node = mk_task_folder(extensions=None,

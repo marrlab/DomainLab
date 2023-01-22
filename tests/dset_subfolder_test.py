@@ -33,7 +33,8 @@ def test_mixed_codec():
                          extensions="jpg",
                          transform=None,
                          target_transform=None)
-    assert len(dset.samples) == 4, f"data/mixed_codec contains 4 jpg files, but {len(dset.samples)} were loaded."
+    assert len(dset.samples) == 4,\
+        f"data/mixed_codec contains 4 jpg files, but {len(dset.samples)} were loaded."
 
     with pytest.raises(ValueError):
         DsetSubFolder(root="data/mixed_codec/caltech",
