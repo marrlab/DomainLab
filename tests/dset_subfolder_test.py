@@ -37,9 +37,19 @@ def test_mixed_codec():
 
     with pytest.raises(ValueError):
         DsetSubFolder(root="data/mixed_codec/caltech",
-                             list_class_dir=["auto", "vogel"],
-                             loader=fun_img_path_loader_default,
-                             extensions="jpg",
-                             transform=None,
-                             target_transform=None,
-                             is_valid_file=True)
+                      list_class_dir=["auto", "vogel"],
+                      loader=fun_img_path_loader_default,
+                      extensions="jpg",
+                      transform=None,
+                      target_transform=None,
+                      is_valid_file=True)
+
+
+def test_wrong_class_names():
+    with pytest.raises(RuntimeError):
+        DsetSubFolder(root="data/mixed_codec/caltech",
+                      list_class_dir=["auto", "haus"],
+                      loader=fun_img_path_loader_default,
+                      extensions=None,
+                      transform=None,
+                      target_transform=None)
