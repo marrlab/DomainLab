@@ -101,5 +101,7 @@ class Exp():
                         break
 
                 class_dataset = Subset(d_dataset, domain_targets)
-                full_f_name = f_name + '/' + str(domain) + '/' + str(self.task.list_str_y[class_num]) + '.jpg'
+                full_f_name = f_name + '/' + str(domain) + '/' + \
+                    str(self.task.list_str_y[class_num]) + '.jpg'
                 plot_ds(class_dataset, full_f_name, bs=sample_num)
+
