@@ -1,6 +1,7 @@
 import datetime
 import os
 from torch.utils.data import Subset
+import torch.utils.data as data_utils
 import numpy as np
 
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
@@ -78,12 +79,22 @@ class Exp():
                 os.mkdir(f_name + '/' + str(domain))
 
             # for each class do...
-            for class_num in range(len(d_dataset.dset.classes)):
-                # find indices corresponding to one class
-                domain_targets = np.where(np.array(d_dataset.targets) == class_num)
-                # create a dataset subset containing only images of one class
-                class_dataset = Subset(d_dataset, domain_targets[0])
-                # plot the images of this class and save it with its specific file name
-                full_f_name = f_name + '/' + str(domain) + '/' + str(
-                    d_dataset.dict_folder_name2class_global[d_dataset.dset.classes[class_num]]) + '.jpg'
+            for class_num in range(len(self.task.list_str_y)):
+                num_of_samples = 0
+                loader_domain = data_utils.DataLoader(d_dataset, batch_size=1, shuffle=False)
+                domain_targets = []
+                image_list = []
+                label_list = []
+                for num, (img, lab, *_) in enumerate(loader_domain):
+                    if int(np.argmax(lab[0])) == class_num:
+                        domain_targets.append(num)
+                        num_of_samples += 1
+                        img_ = np.moveaxis(np.array(img[0]), 0, -1)
+                        image_list.append(img_)
+                        label_list.append(lab)
+                    if sample_num == num_of_samples:
+                        break
+
+                class_dataset = Subset(d_dataset, domain_targets)
+                full_f_name = f_name + '/' + str(domain) + '/' + str(self.task.list_str_y[class_num]) + '.jpg'
                 plot_ds(class_dataset, full_f_name, bs=sample_num)
