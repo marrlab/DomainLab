@@ -4,7 +4,8 @@ https://pytorch.org/vision/stable/_modules/torchvision/datasets/folder.html#Data
 """
 import os
 import sys
-from typing import Any, Callable, Tuple, cast
+import warnings
+from typing import Any, Tuple
 
 from torchvision.datasets import DatasetFolder
 
@@ -20,28 +21,36 @@ def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bo
     return filename.lower().endswith(extensions)
 
 
-def fetch_img_paths(dir, class_to_idx, extensions=None, is_valid_file=None):
+def fetch_img_paths(path_dir, class_to_idx, extensions=None, is_valid_file=None):
+    """
+    :param path_dir: path to fetch images in string format
+    :param class_to_idx: given list of strings as class names
+    {classes[i]: i for i in range(len(classes))}
+    :param extensions: file extensions in fstring format
+    :param is_valid_file: user provided function to check if the file is valid or not
+    :return : list_tuple_path_cls_ind: list of tuple, (path of file, class index)
+    """
     list_tuple_path_cls_ind = []
-    dir = os.path.expanduser(dir)
+    path_dir = os.path.expanduser(path_dir)
     # since this function is only called by the class below, which now ensures that
     # extensions xor is_valid_file is not None, this check cannot be triggered
     # if not ((extensions is None) ^ (is_valid_file is None)):
     #     raise ValueError(
     #         "Both extensions and is_valid_file cannot be None or not None at the same time")
     if extensions is not None:
-        def is_valid_file(x):
-            return has_file_allowed_extension(x, extensions)
+        def functor_is_valid_file(filena):
+            return has_file_allowed_extension(filena, extensions)
+        is_valid_file = functor_is_valid_file
     for target in sorted(class_to_idx.keys()):
-        d = os.path.join(dir, target)
-        if not os.path.isdir(d):
+        apath = os.path.join(path_dir, target)
+        if not os.path.isdir(apath):
             continue
-        for root, _, fnames in sorted(os.walk(d, followlinks=True)):
+        for root, _, fnames in sorted(os.walk(apath, followlinks=True)):
             for fname in sorted(fnames):
-                path = os.path.join(root, fname)
-                if is_valid_file(path):
-                    item = (path, class_to_idx[target])
+                path_file = os.path.join(root, fname)
+                if is_valid_file(path_file):
+                    item = (path_file, class_to_idx[target])
                     list_tuple_path_cls_ind.append(item)   # @FIXME
-
     return list_tuple_path_cls_ind
 
 
@@ -61,6 +70,7 @@ class DsetSubFolder(DatasetFolder):
         if is_valid_file is None and extensions is None:
             # setting default extensions
             extensions = ('jpg', 'jpeg', 'png')
+            warnings.warn("no user provided extensions, set to be jpg, jpeg, png")
 
         super().__init__(root,
                          loader,
