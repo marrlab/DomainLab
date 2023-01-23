@@ -69,8 +69,9 @@ class DsetSubFolder(DatasetFolder):
 
         if is_valid_file is None and extensions is None:
             # setting default extensions
-            extensions = ('jpg', 'jpeg', 'png')
-            warnings.warn("no user provided extensions, set to be jpg, jpeg, png")
+            is_valid_file = lambda *_: True
+            warnings.warn("no user provided extensions nor functor to check file type, \
+                          going to accept any file type")
 
         super().__init__(root,
                          loader,
