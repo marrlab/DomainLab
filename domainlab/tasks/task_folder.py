@@ -13,6 +13,8 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
 
 class NodeTaskFolder(NodeTaskDict):
     """
+    create dataset by loading files from an organized folder
+    then each domain correspond to one dataset
     """
     @property
     def dict_domain2imgroot(self):
@@ -32,6 +34,9 @@ class NodeTaskFolder(NodeTaskDict):
 
     @property
     def extensions(self):
+        """
+        return allowed extensions
+        """
         return self.dict_att["img_extensions"]
 
     @extensions.setter
