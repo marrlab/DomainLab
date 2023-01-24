@@ -12,7 +12,7 @@ def mk_parser_main():
     """
     Args for command line definition
     """
-    parser = argparse.ArgumentParser(description='LibDG')
+    parser = argparse.ArgumentParser(description='DomainLab')
 
     parser.add_argument('--lr', type=float, default=1e-4,
                         help='learning rate')
@@ -83,8 +83,7 @@ def mk_parser_main():
                         extraction of domain")
 
     parser.add_argument('--apath', type=str, default=None,
-                        help="path for custom AlgorithmBuilder that inherit \
-                        the interface of LibDG")
+                        help="path for custom AlgorithmBuilder")
 
     parser.add_argument('--exptag', type=str, default="exptag",
                         help='tag as prefix of result aggregation file name \
