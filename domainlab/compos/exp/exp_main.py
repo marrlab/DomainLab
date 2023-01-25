@@ -67,7 +67,7 @@ class Exp():
         This function dump a subsample of the dataset into hierarchical folder structure.
         """
         self.task.init_business(args)
-        f_name = 'zoutput/Dset_extraction/' + self.task.task_name
+        f_name = os.path.join(args.out, 'Dset_extraction', self.task.task_name)
 
         # for each domain do...
         for domain in self.task.get_list_domains():
