@@ -37,7 +37,6 @@ class AbstractTrainer(metaclass=abc.ABCMeta):
         """
         raise NotImplementedError
 
-    @abc.abstractmethod
     def after_batch(self, epoch, ind_batch):
         """
         :param epoch:
