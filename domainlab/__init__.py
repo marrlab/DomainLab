@@ -1,5 +1,4 @@
 __docformat__ = "restructuredtext"
-from . import tasks
 
 algos = {
     "deepall": "Pool all domains together and train an ERM (empirical risk minimization) model",

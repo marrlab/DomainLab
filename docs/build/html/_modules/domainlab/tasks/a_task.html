@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -225,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -293,6 +267,7 @@ Abstract class for TaskClassif
 import os
 import warnings
 from abc import abstractmethod, abstractproperty
+
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.utils_task import img_loader2dir
 
@@ -397,7 +372,6 @@ from domainlab.tasks.utils_task import img_loader2dir
         """loader of mixed test domains"""
         return self._loader_te
 
-
     @property
     def task_name(self):
         """
@@ -411,10 +385,10 @@ from domainlab.tasks.utils_task import img_loader2dir
         :param na_tr: training domain names
         :param na_te: test domain names
         """
-        list_tr, list_te = self.get_list_domains_tr_te(na_tr, na_te)
-        str_tr = "_".join(list_tr)
+        _, list_te = self.get_list_domains_tr_te(na_tr, na_te)
         str_te = "_".join(list_te)
-        return "_".join([self.task_name, "te", str_te])  # train domain names are too long</div>
+        # train domain names are too long
+        return "_".join([self.task_name, "te", str_te])</div>
 
 <div class="viewcode-block" id="NodeTaskDGClassif.is_myjob"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDGClassif.is_myjob">[docs]</a>    def is_myjob(self, request):
         """
@@ -499,7 +473,7 @@ from domainlab.tasks.utils_task import img_loader2dir
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -24,7 +24,7 @@ class MatchDictInit():
             dict_data[key] = {}
             num_rows = self.get_num_rows(key)
             dict_data[key]['data'] = torch.rand((num_rows, self.i_c, self.i_w, self.i_h))
-            # FIXME: some labels won't be filled at all, when using training loader since the incomplete batch is dropped
+            # @FIXME: some labels won't be filled at all, when using training loader since the incomplete batch is dropped
             dict_data[key]['label'] = torch.rand((num_rows, 1))  # scalar label
             dict_data[key]['idx'] = torch.randint(low=0, high=1, size=(num_rows, 1))
         return dict_data
@@ -48,7 +48,7 @@ class  MatchDictVirtualRefDset2EachDomain(MatchDictInit):
         return self.vals   # total_domains
 
 
-class  MatchDictNumDomain2SizeDomain(MatchDictInit):
+class MatchDictNumDomain2SizeDomain(MatchDictInit):
     """
     tensor dimension for the kth domain: [num_domains_tr, (size_domain_k, i_c, i_h, i_w)]
     """

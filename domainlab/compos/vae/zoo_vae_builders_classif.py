@@ -3,11 +3,11 @@ Chain node VAE builders
 """
 from domainlab.compos.vae.c_vae_builder_classif import \
     ChainNodeVAEBuilderClassifCondPrior
-from domainlab.compos.vae.compos.encoder_xyd_parallel import \
-    XYDEncoderParallelConvBnReluPool, XYDEncoderParallelAlex, \
-    XYDEncoderParallelExtern
-from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv \
-    import DecoderConcatLatentFCReshapeConvGatedConv
+from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv import \
+    DecoderConcatLatentFCReshapeConvGatedConv
+from domainlab.compos.vae.compos.encoder_xyd_parallel import (
+    XYDEncoderParallelAlex, XYDEncoderParallelConvBnReluPool,
+    XYDEncoderParallelExtern)
 
 
 class ChainNodeVAEBuilderClassifCondPriorBase(
@@ -77,7 +77,7 @@ class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
         :param request:
         """
         flag = (request.args.nname == "conv_bn_pool_2" or
-                request.args.nname_dom == "conv_bn_pool_2")   # FIXME
+                request.args.nname_dom == "conv_bn_pool_2")   # @FIXME
         self.config_img(flag, request)
         return flag
 
@@ -100,7 +100,7 @@ class NodeVAEBuilderImgAlex(NodeVAEBuilderImgConvBnPool):
         :param request:
         """
         self.args = request.args
-        flag = (self.args.nname == "alexnet")  # FIXME
+        flag = (self.args.nname == "alexnet")  # @FIXME
         self.config_img(flag, request)
         return flag
 

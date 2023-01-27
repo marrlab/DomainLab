@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -225,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -287,39 +261,11 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-utils-u-import-net-module--page-root">Source code for domainlab.utils.u_import_net_module</h1><div class="highlight"><pre>
-<span></span>import sys
-import inspect
-import importlib.util
+<span></span>"""
+import external neural network implementation
+"""
+
 from domainlab.utils.u_import import import_path
-
-
-<div class="viewcode-block" id="import_net_module_from_path"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.u_import_net_module.import_net_module_from_path">[docs]</a>def import_net_module_from_path(path_net_feat_extract):
-    """
-    :param path_net_feat_extract: path of the python file which contains the definition of the custom neural network
-    """
-    name_signature = "__init__(self, dim_y, i_c, i_h, i_w)"  # FIXME: hard coded
-    name_custom_net = "NetFeatExtract"
-    na_external_module = "name_external_module"   # the dummy module name
-    spec = importlib.util.spec_from_file_location(
-        name=na_external_module,
-        location=path_net_feat_extract)
-    module_external = importlib.util.module_from_spec(spec)
-    sys.modules[na_external_module] = module_external
-    # register the name of the external module
-    spec.loader.exec_module(module_external)
-    if not hasattr(module_external, name_custom_net):
-        raise RuntimeError("the specified python file should contain the \
-                           definition a neural network (as pytorch module) \
-                           that can extract features from an image. The name \
-                           of this pytorch module must be %s and the module \
-                           must contain signature %s"
-                           % (name_custom_net, name_signature))
-    net = getattr(module_external, name_custom_net)
-    return net</div>
-    # assert "dim_y" in str(inspect.signature(net.__init__))
-    # assert "i_c" in str(inspect.signature(net.__init__))
-    # assert "i_h" in str(inspect.signature(net.__init__))
-    # assert "i_w" in str(inspect.signature(net.__init__))
 
 
 <div class="viewcode-block" id="build_external_obj_net_module_feat_extract"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.u_import_net_module.build_external_obj_net_module_feat_extract">[docs]</a>def build_external_obj_net_module_feat_extract(mpath, dim_y,
@@ -330,9 +276,6 @@ from domainlab.utils.u_import import import_path
     :param mpath: path of external python file where the neural network
     architecture is defined
     :param dim_y: dimension of features
-    :param i_c: number of channels of image
-    :param i_h: height of image
-    :param i_w: width of image
     """
     # other possibility
     # na_external_module = "name_external_module"   # the dummy module name
@@ -347,7 +290,7 @@ from domainlab.utils.u_import import import_path
     net_module = import_path(mpath)
     name_signature = "build_feat_extract_net(dim_y, \
         remove_last_layer)"
-    # FIXME: hard coded, move to top level __init__ definition in domainlab
+    # @FIXME: hard coded, move to top level __init__ definition in domainlab
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:
@@ -388,7 +331,7 @@ from domainlab.utils.u_import import import_path
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

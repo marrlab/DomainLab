@@ -1,5 +1,6 @@
-import inspect
 import functools
+import inspect
+
 
 def store_args(method):
     """Stores provided method args as instance attributes.
@@ -26,5 +27,3 @@ def store_args(method):
         return method(*positional_args, **keyword_args)
 
     return wrapper
-
-

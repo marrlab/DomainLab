@@ -1,22 +1,23 @@
 import os
-import abc
 import warnings
-import torch
 
 import numpy as np
+import torch
 
 from domainlab.algos.observers.a_observer import AObVisitor
-from domainlab.utils.utils_class import store_args
-from domainlab.utils.perf_metrics import PerfClassif
-from domainlab.compos.exp.exp_utils import ExpModelPersistVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
+from domainlab.utils.perf_metrics import PerfClassif
+from domainlab.utils.utils_class import store_args
 
 
 def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scalar=False):
+    """
+    pred2file
+    """
     model.eval()
     model_local = model.to(device)
-    for i, (x_s, y_s, *_, path) in enumerate(loader_te):
+    for _, (x_s, y_s, *_, path) in enumerate(loader_te):
         x_s, y_s = x_s.to(device), y_s.to(device)
         _, prob, *_ = model_local.infer_y_vpicn(x_s)
         # print(path)
@@ -25,10 +26,12 @@ def pred2file(loader_te, model, device, fa='path_prediction.txt', flag_pred_scal
         if flag_pred_scalar:
             list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
             list_label_list = [np.asarray(label).argmax() for label in list_label_list]
-        list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))  # label belongs to data
+        # label belongs to data
+        list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
         with open(fa, 'a') as f:
             for pair in list_pair_path_pred:
-                print(str(pair)[1:-1], file=f)  # 1:-1 removes brackets of tuple
+                # 1:-1 removes brackets of tuple
+                print(str(pair)[1:-1], file=f)
     print("prediction saved in file ", fa)
 
 
@@ -92,7 +95,7 @@ class ObVisitor(AObVisitor):
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4model = self.exp.visitor.model_path
+            fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
             file_prefix = os.path.splitext(fname4model)[0]  # remove ".csv"
             file_name = file_prefix + "_instance_wise_predictions.txt"
             pred2file(
@@ -105,14 +108,18 @@ class ObVisitor(AObVisitor):
         """
         if not self.keep_model:
             try:
-                self.exp.visitor.remove("oracle")   # oracle means use out-of-domain test accuracy to select the model
-                self.exp.visitor.remove("epoch")    # the last epoch
-                # epoch exist to still have a model to evaluate if the training stops in between
-                self.exp.visitor.remove("final")
-                self.exp.visitor.remove()
-            except Exception as e:
+                # oracle means use out-of-domain
+                # test accuracy to select the model
+                self.exp.visitor.remove("oracle")  # pylint: disable=E1101
+                # the last epoch
+                self.exp.visitor.remove("epoch")  # pylint: disable=E1101
+                # epoch exist to still have a model to evaluate
+                # if the training stops in between
+                self.exp.visitor.remove("final")  # pylint: disable=E1101
+                self.exp.visitor.remove()  # pylint: disable=E1101
+            except FileNotFoundError:
                 warnings.warn("failed to remove model")
             try:
-                self.exp.visitor.remove("ctr")  # Fof matchdg
-            except Exception as e:
+                self.exp.visitor.remove("ctr")  # pylint: disable=E1101 For matchdg
+            except FileNotFoundError:
                 pass

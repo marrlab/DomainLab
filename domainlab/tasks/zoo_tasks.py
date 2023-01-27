@@ -1,10 +1,12 @@
 import os
+
 from torchvision import transforms
-from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
+
+from domainlab.compos.pcr.request import RequestTask
 from domainlab.tasks.task_folder_mk import mk_task_folder
+from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
 from domainlab.tasks.utils_task import ImSize
 from domainlab.utils.u_import import import_path
-from domainlab.compos.pcr.request import RequestTask
 
 path_this_file = os.path.dirname(os.path.realpath(__file__))
 
@@ -77,6 +79,6 @@ class TaskChainNodeGetter(object):
                       self.args.task, " to  ",
                       node.task_name)
                 print("")
-                self.request = node.task_name  # FIXME
+                self.request = node.task_name  # @FIXME
         node = chain.handle(self.request)
         return node

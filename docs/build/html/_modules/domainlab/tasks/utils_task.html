@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -225,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -294,9 +268,10 @@ import os
 from pathlib import Path
 
 import numpy
-import torchvision
 import torch
+import torchvision
 from torch.utils.data import Dataset
+
 from domainlab.utils.utils_class import store_args
 
 
@@ -344,8 +319,9 @@ from domainlab.utils.utils_class import store_args
         dataset=dset,
         batch_size=bsize,
         shuffle=shuffle,
-        # shuffle must be true so the last incomplete batch get used in anohter epoch
-        num_workers=int(0),   # FIXME:
+        # shuffle must be true so the last incomplete
+        # batch get used in anohter epoch
+        num_workers=int(0),   # @FIXME:
         drop_last=drop_last)
     return loader</div>
 
@@ -376,7 +352,7 @@ from domainlab.utils.utils_class import store_args
         :param idx:
         """
         tensor, vec_class, *other_vars = self.dset.__getitem__(idx)
-        if len(other_vars) &gt; 0:
+        if other_vars:
             return (tensor, vec_class, self.vec_domain, *other_vars)
         return tensor, vec_class, self.vec_domain
 
@@ -406,10 +382,12 @@ from domainlab.utils.utils_class import store_args
     def __init__(self, dset, dict_folder_name2class_global, list_str_y):
         """
         :param dset: x, y, *d
-        :param dict_folder2class: dictionary that maps class folder of domain to glbal class
+        :param dict_folder2class: dictionary that maps
+                class folder of domain to glbal class
         """
         self.dset = dset
-        self.class2idx = {k:v for (k,v) in self.dset.class_to_idx.items() if k in self.dset.list_class_dir}
+        self.class2idx = {k:v for (k,v) in self.dset.class_to_idx.items() \
+                          if k in self.dset.list_class_dir}
         assert self.class2idx
         self.dict_folder_name2class_global = dict_folder_name2class_global
         self.list_str_y = list_str_y
@@ -428,7 +406,8 @@ from domainlab.utils.utils_class import store_args
 
 <div class="viewcode-block" id="DsetClassVecDecorator.fun_class_local_na2vec_new"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.utils_task.DsetClassVecDecorator.fun_class_local_na2vec_new">[docs]</a>    def fun_class_local_na2vec_new(self, k):
         """
-        local class name within one domain, to one-hot vector of new representation
+        local class name within one domain, to one-hot
+        vector of new representation
         """
         ind = self.list_str_y.index(self.dict_folder_name2class_global[k])
         return mk_onehot(len(self.list_str_y), ind)</div>
@@ -500,8 +479,13 @@ from domainlab.utils.utils_class import store_args
     npa_label_ind = label_ind.numpy()
     return npa_label_ind</div>
 
-
-<div class="viewcode-block" id="img_loader2dir"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.utils_task.img_loader2dir">[docs]</a>def img_loader2dir(loader, folder, list_domain_na=None, list_class_na=None, batches=5):   # FIXME: this function couples strongly with the task, should be a class method of task
+# @FIXME: this function couples strongly with the task,
+# should be a class method of task
+<div class="viewcode-block" id="img_loader2dir"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.utils_task.img_loader2dir">[docs]</a>def img_loader2dir(loader,
+                   folder,
+                   list_domain_na=None,
+                   list_class_na=None,
+                   batches=5):
     """
     save images from loader to directory so speculate if loader is correct
     :param loader:
@@ -515,7 +499,7 @@ from domainlab.utils.utils_class import store_args
     for _ in range(batches):
         img, vec_y, *list_vec_domain = l_iter.next()
         class_label_ind_batch = tensor1hot2ind(vec_y)
-        list_vec_domain = None # FIXME: shall we remove this
+        list_vec_domain = None # @FIXME: shall we remove this
         if list_vec_domain:  # if list is not empty
             domain_label_ind_batch = tensor1hot2ind(list_vec_domain[0])
 
@@ -526,18 +510,27 @@ from domainlab.utils.utils_class import store_args
             if list_class_na is None:
                 str_class_label = "class_"+str(class_label_scalar)
             else:
-                str_class_label = list_class_na[class_label_scalar]      # FIXME: where is the correspndance between class ind_label and class str_label?
+                # @FIXME: where is the correspndance between
+                # class ind_label and class str_label?
+                str_class_label = list_class_na[class_label_scalar]
             str_domain_label = "unknown"
             if list_vec_domain:
                 domain_label_ind = domain_label_ind_batch[b_ind]
                 if list_domain_na is None:
                     str_domain_label = str(domain_label_ind)
                 else:
-                    str_domain_label = list_domain_na[domain_label_ind]   # FIXME: the correspondance between domain ind_label and domain str_label is missing
+                    # @FIXME: the correspondance between
+                    # domain ind_label and domain str_label is missing
+                    str_domain_label = list_domain_na[domain_label_ind]
             arr = img[b_ind]
             img_vision = torchvision.transforms.ToPILImage()(arr)
             f_n = "_".join(
-                ["class", str_class_label, "domain", str_domain_label, "n", str(counter)])
+                ["class",
+                 str_class_label,
+                 "domain",
+                 str_domain_label,
+                 "n",
+                 str(counter)])
             counter += 1
             path = os.path.join(folder, f_n + ".png")
             img_vision.save(path)</div>
@@ -565,7 +558,7 @@ from domainlab.utils.utils_class import store_args
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

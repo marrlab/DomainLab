@@ -1,7 +1,4 @@
-import torch
-
 from domainlab.models.a_model_classif import AModelClassif
-from domainlab.utils.utils_classif import logit2preds_vpic, get_label_na
 
 
 class ModelWrapMatchDGLogit(AModelClassif):
@@ -28,5 +25,5 @@ class ModelWrapMatchDGLogit(AModelClassif):
         """
         calculate features to be matched
         """
-        logit_y = self.net.cal_logit_y(tensor_x)  # FIXME: match other features instead of logit
+        logit_y = self.net.cal_logit_y(tensor_x)  # @FIXME: match other features instead of logit
         return logit_y

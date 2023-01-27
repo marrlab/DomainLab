@@ -1,6 +1,7 @@
 from torch import nn
 from torch.autograd import Function
 
+
 class Flatten(nn.Module):
     def forward(self, x):
         x = x.view(x.size()[0], -1)

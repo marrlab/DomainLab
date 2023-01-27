@@ -1,5 +1,4 @@
 import os
-import torch
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
@@ -48,6 +47,7 @@ def test_trainer_diva_folder():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+
 
 def test_trainer_diva_pathlist():
     testdir = os.path.dirname(os.path.realpath(__file__))

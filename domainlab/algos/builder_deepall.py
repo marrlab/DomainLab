@@ -1,12 +1,11 @@
-import copy
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.utils.utils_cuda import get_device
-from domainlab.models.model_deep_all import ModelDeepAll
+from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from domainlab.models.model_deep_all import mk_deepall
+from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
@@ -22,7 +21,7 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
 
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, #FIXME, constant string
+            arg_path_of_net="npath")()  # request, # @FIXME, constant string
 
         net = builder.init_business(flag_pretrain=True, dim_out=task.dim_y,
                                     remove_last_layer=False, args=args,
@@ -30,6 +29,6 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                                     i_h=task.isize.i_h,
                                     i_w=task.isize.i_w)
 
-        model = ModelDeepAll(net, list_str_y=task.list_str_y)
+        model = mk_deepall()(net, list_str_y=task.list_str_y)
         trainer = TrainerBasic(model, task, observer, device, args)
         return trainer

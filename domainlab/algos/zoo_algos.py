@@ -1,9 +1,9 @@
-from domainlab.compos.pcr.request import RequestArgs2ExpCmd
-from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
-from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
+from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
+from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
+from domainlab.compos.pcr.request import RequestArgs2ExpCmd
 from domainlab.utils.u_import import import_path
 
 
@@ -20,7 +20,7 @@ class AlgoBuilderChainNodeGetter(object):
         if self.args.apath is None:
             return chain
         node_module = import_path(self.args.apath)
-        node_fun = node_module.get_node_na()  # FIXME: build_node API need
+        node_fun = node_module.get_node_na()  # @FIXME: build_node API need
         newchain = node_fun(chain)
         return newchain
 

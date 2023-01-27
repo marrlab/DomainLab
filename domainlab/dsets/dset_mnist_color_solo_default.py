@@ -1,4 +1,3 @@
-import numpy as np
 from domainlab.dsets.a_dset_mnist_color_rgb_solo import ADsetMNISTColorRGBSolo
 from domainlab.dsets.utils_color_palette import default_rgb_palette
 
@@ -24,4 +23,3 @@ class DsetMNISTColorSoloDefault(ADsetMNISTColorRGBSolo):
         if self.color_scheme == "num":
             return self.palette[-(ind + 1)]
         return self.palette[ind]
-

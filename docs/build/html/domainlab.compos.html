@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -236,13 +238,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -250,28 +245,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -295,17 +269,47 @@
         </li>
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.a_nn_builder" class="md-nav__link">domainlab.compos.a_nn_builder module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.a_nn_builder" class="md-nav__link">domainlab.compos.a_nn_builder module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractFeatExtractNNBuilderChainNode</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractFeatExtractNNBuilderChainNode.init_business()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.builder_nn_alex" class="md-nav__link">domainlab.compos.builder_nn_alex module</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.is_myjob" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractFeatExtractNNBuilderChainNode.is_myjob()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.builder_nn_conv_bn_relu_2" class="md-nav__link">domainlab.compos.builder_nn_conv_bn_relu_2 module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.builder_nn_alex" class="md-nav__link">domainlab.compos.builder_nn_alex module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mkNodeFeatExtractNNBuilderNameAlex()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.builder_nn_external_from_file" class="md-nav__link">domainlab.compos.builder_nn_external_from_file module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.builder_nn_conv_bn_relu_2" class="md-nav__link">domainlab.compos.builder_nn_conv_bn_relu_2 module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.builder_nn_conv_bn_relu_2.mkNodeFeatExtractNNBuilderNameConvBnRelu2" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mkNodeFeatExtractNNBuilderNameConvBnRelu2()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.utils_conv_get_flat_dim" class="md-nav__link">domainlab.compos.utils_conv_get_flat_dim module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.builder_nn_external_from_file" class="md-nav__link">domainlab.compos.builder_nn_external_from_file module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mkNodeFeatExtractNNBuilderExternFromFile()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.zoo_nn" class="md-nav__link">domainlab.compos.zoo_nn module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.utils_conv_get_flat_dim" class="md-nav__link">domainlab.compos.utils_conv_get_flat_dim module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.utils_conv_get_flat_dim.get_flat_dim" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_flat_dim()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.zoo_nn" class="md-nav__link">domainlab.compos.zoo_nn module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.zoo_nn.FeatExtractNNBuilderChainNodeGetter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FeatExtractNNBuilderChainNodeGetter</span></code></a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.compos" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -321,20 +325,110 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-compos-package">
-<h1 id="domainlab-compos--page-root">domainlab.compos package<a class="headerlink" href="#domainlab-compos--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-compos--page-root">domainlab.compos package<a class="headerlink" href="#domainlab-compos--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="subpackages">
-<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.compos.nn_zoo.html">domainlab.compos.nn_zoo package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_adversarial">domainlab.compos.nn_zoo.net_adversarial module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_classif">domainlab.compos.nn_zoo.net_classif module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_gated">domainlab.compos.nn_zoo.net_gated module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.nn">domainlab.compos.nn_zoo.nn module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.nn_alex">domainlab.compos.nn_zoo.nn_alex module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.nn_torchvision">domainlab.compos.nn_zoo.nn_torchvision module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_adversarial">domainlab.compos.nn_zoo.net_adversarial module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply"><code class="docutils literal notranslate"><span class="pre">AutoGradFunMultiply</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.backward"><code class="docutils literal notranslate"><span class="pre">AutoGradFunMultiply.backward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunMultiply.forward"><code class="docutils literal notranslate"><span class="pre">AutoGradFunMultiply.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply"><code class="docutils literal notranslate"><span class="pre">AutoGradFunReverseMultiply</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.backward"><code class="docutils literal notranslate"><span class="pre">AutoGradFunReverseMultiply.backward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.AutoGradFunReverseMultiply.forward"><code class="docutils literal notranslate"><span class="pre">AutoGradFunReverseMultiply.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.Flatten"><code class="docutils literal notranslate"><span class="pre">Flatten</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.Flatten.forward"><code class="docutils literal notranslate"><span class="pre">Flatten.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.Flatten.training"><code class="docutils literal notranslate"><span class="pre">Flatten.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_classif">domainlab.compos.nn_zoo.net_classif module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear"><code class="docutils literal notranslate"><span class="pre">ClassifDropoutReluLinear</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear.forward"><code class="docutils literal notranslate"><span class="pre">ClassifDropoutReluLinear.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear.training"><code class="docutils literal notranslate"><span class="pre">ClassifDropoutReluLinear.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2">domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L"><code class="docutils literal notranslate"><span class="pre">NetConvBnReluPool2L</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L.forward"><code class="docutils literal notranslate"><span class="pre">NetConvBnReluPool2L.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L.training"><code class="docutils literal notranslate"><span class="pre">NetConvBnReluPool2L.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense"><code class="docutils literal notranslate"><span class="pre">NetConvDense</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense.forward"><code class="docutils literal notranslate"><span class="pre">NetConvDense.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense.training"><code class="docutils literal notranslate"><span class="pre">NetConvDense.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.mk_conv_bn_relu_pool"><code class="docutils literal notranslate"><span class="pre">mk_conv_bn_relu_pool()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_gated">domainlab.compos.nn_zoo.net_gated module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.Conv2d"><code class="docutils literal notranslate"><span class="pre">Conv2d</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.Conv2d.forward"><code class="docutils literal notranslate"><span class="pre">Conv2d.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.Conv2d.training"><code class="docutils literal notranslate"><span class="pre">Conv2d.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedConv2d"><code class="docutils literal notranslate"><span class="pre">GatedConv2d</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedConv2d.forward"><code class="docutils literal notranslate"><span class="pre">GatedConv2d.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedConv2d.training"><code class="docutils literal notranslate"><span class="pre">GatedConv2d.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedDense"><code class="docutils literal notranslate"><span class="pre">GatedDense</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedDense.forward"><code class="docutils literal notranslate"><span class="pre">GatedDense.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedDense.training"><code class="docutils literal notranslate"><span class="pre">GatedDense.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.nn">domainlab.compos.nn_zoo.nn module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet"><code class="docutils literal notranslate"><span class="pre">DenseNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet.forward"><code class="docutils literal notranslate"><span class="pre">DenseNet.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet.training"><code class="docutils literal notranslate"><span class="pre">DenseNet.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId"><code class="docutils literal notranslate"><span class="pre">LayerId</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId.forward"><code class="docutils literal notranslate"><span class="pre">LayerId.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId.training"><code class="docutils literal notranslate"><span class="pre">LayerId.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.nn_alex">domainlab.compos.nn_zoo.nn_alex module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll"><code class="docutils literal notranslate"><span class="pre">Alex4DeepAll</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.Alex4DeepAll.training"><code class="docutils literal notranslate"><span class="pre">Alex4DeepAll.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetBase"><code class="docutils literal notranslate"><span class="pre">AlexNetBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetBase.fetch_net"><code class="docutils literal notranslate"><span class="pre">AlexNetBase.fetch_net()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetBase.training"><code class="docutils literal notranslate"><span class="pre">AlexNetBase.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer"><code class="docutils literal notranslate"><span class="pre">AlexNetNoLastLayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer.training"><code class="docutils literal notranslate"><span class="pre">AlexNetNoLastLayer.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.nn_torchvision">domainlab.compos.nn_zoo.nn_torchvision module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase"><code class="docutils literal notranslate"><span class="pre">NetTorchVisionBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.fetch_net"><code class="docutils literal notranslate"><span class="pre">NetTorchVisionBase.fetch_net()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.forward"><code class="docutils literal notranslate"><span class="pre">NetTorchVisionBase.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.show"><code class="docutils literal notranslate"><span class="pre">NetTorchVisionBase.show()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn_torchvision.NetTorchVisionBase.training"><code class="docutils literal notranslate"><span class="pre">NetTorchVisionBase.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo">Module contents</a></li>
 </ul>
 </li>
@@ -342,15 +436,15 @@
 </div>
 </section>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.compos.a_nn_builder">
-<span id="domainlab-compos-a-nn-builder-module"></span><h2 id="module-domainlab.compos.a_nn_builder">domainlab.compos.a_nn_builder module<a class="headerlink" href="#module-domainlab.compos.a_nn_builder" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-a-nn-builder-module"></span><h2 id="module-domainlab.compos.a_nn_builder">domainlab.compos.a_nn_builder module<a class="headerlink" href="#module-domainlab.compos.a_nn_builder" title="Permalink to this heading">¶</a></h2>
 <p>Integrate Chain-of-Responsibility and Builder Pattern for feature extract</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.a_nn_builder.</span></span><span class="sig-name descname"><span class="pre">AbstractFeatExtractNNBuilderChainNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/a_nn_builder.html#AbstractFeatExtractNNBuilderChainNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></p>
 <p>to ensure chain of responsibility node AbstractChainNodeHandler always
 work even some node can not start their heavy weight business object,
 avoid override the initializer so that node construction is always
@@ -368,7 +462,7 @@ function
 <dt class="sig sig-object py" id="domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.is_myjob">
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/a_nn_builder.html#AbstractFeatExtractNNBuilderChainNode.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>args_nname</strong> – command line arguments:
 “–nname”: name of the torchvision model
 “–npath”: path to the user specified python file with neural
@@ -379,14 +473,14 @@ network definition</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_alex">
-<span id="domainlab-compos-builder-nn-alex-module"></span><h2 id="module-domainlab.compos.builder_nn_alex">domainlab.compos.builder_nn_alex module<a class="headerlink" href="#module-domainlab.compos.builder_nn_alex" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-builder-nn-alex-module"></span><h2 id="module-domainlab.compos.builder_nn_alex">domainlab.compos.builder_nn_alex module<a class="headerlink" href="#module-domainlab.compos.builder_nn_alex" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_alex.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderNameAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name4net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_alex.html#mkNodeFeatExtractNNBuilderNameAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_conv_bn_relu_2">
-<span id="domainlab-compos-builder-nn-conv-bn-relu-2-module"></span><h2 id="module-domainlab.compos.builder_nn_conv_bn_relu_2">domainlab.compos.builder_nn_conv_bn_relu_2 module<a class="headerlink" href="#module-domainlab.compos.builder_nn_conv_bn_relu_2" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-builder-nn-conv-bn-relu-2-module"></span><h2 id="module-domainlab.compos.builder_nn_conv_bn_relu_2">domainlab.compos.builder_nn_conv_bn_relu_2 module<a class="headerlink" href="#module-domainlab.compos.builder_nn_conv_bn_relu_2" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_conv_bn_relu_2.mkNodeFeatExtractNNBuilderNameConvBnRelu2">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_conv_bn_relu_2.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderNameConvBnRelu2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name4net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_conv_bn_relu_2.html#mkNodeFeatExtractNNBuilderNameConvBnRelu2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_conv_bn_relu_2.mkNodeFeatExtractNNBuilderNameConvBnRelu2" title="Permalink to this definition">¶</a></dt>
@@ -402,7 +496,7 @@ more possibilities of neural network of the same family.
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_external_from_file">
-<span id="domainlab-compos-builder-nn-external-from-file-module"></span><h2 id="module-domainlab.compos.builder_nn_external_from_file">domainlab.compos.builder_nn_external_from_file module<a class="headerlink" href="#module-domainlab.compos.builder_nn_external_from_file" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-builder-nn-external-from-file-module"></span><h2 id="module-domainlab.compos.builder_nn_external_from_file">domainlab.compos.builder_nn_external_from_file module<a class="headerlink" href="#module-domainlab.compos.builder_nn_external_from_file" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_external_from_file.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderExternFromFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name_net_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_external_from_file.html#mkNodeFeatExtractNNBuilderExternFromFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile" title="Permalink to this definition">¶</a></dt>
@@ -412,7 +506,7 @@ extractor</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.utils_conv_get_flat_dim">
-<span id="domainlab-compos-utils-conv-get-flat-dim-module"></span><h2 id="module-domainlab.compos.utils_conv_get_flat_dim">domainlab.compos.utils_conv_get_flat_dim module<a class="headerlink" href="#module-domainlab.compos.utils_conv_get_flat_dim" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-utils-conv-get-flat-dim-module"></span><h2 id="module-domainlab.compos.utils_conv_get_flat_dim">domainlab.compos.utils_conv_get_flat_dim module<a class="headerlink" href="#module-domainlab.compos.utils_conv_get_flat_dim" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.utils_conv_get_flat_dim.get_flat_dim">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.utils_conv_get_flat_dim.</span></span><span class="sig-name descname"><span class="pre">get_flat_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/utils_conv_get_flat_dim.html#get_flat_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.utils_conv_get_flat_dim.get_flat_dim" title="Permalink to this definition">¶</a></dt>
@@ -426,7 +520,7 @@ connected network
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.zoo_nn">
-<span id="domainlab-compos-zoo-nn-module"></span><h2 id="module-domainlab.compos.zoo_nn">domainlab.compos.zoo_nn module<a class="headerlink" href="#module-domainlab.compos.zoo_nn" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-zoo-nn-module"></span><h2 id="module-domainlab.compos.zoo_nn">domainlab.compos.zoo_nn module<a class="headerlink" href="#module-domainlab.compos.zoo_nn" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.zoo_nn.FeatExtractNNBuilderChainNodeGetter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.zoo_nn.</span></span><span class="sig-name descname"><span class="pre">FeatExtractNNBuilderChainNodeGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_name_of_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_path_of_net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/zoo_nn.html#FeatExtractNNBuilderChainNodeGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.zoo_nn.FeatExtractNNBuilderChainNodeGetter" title="Permalink to this definition">¶</a></dt>
@@ -436,7 +530,7 @@ connected network
 </dd></dl>
 </section>
 <section id="module-domainlab.compos">
-<span id="module-contents"></span><h2 id="module-domainlab.compos">Module contents<a class="headerlink" href="#module-domainlab.compos" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.compos">Module contents<a class="headerlink" href="#module-domainlab.compos" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -487,7 +581,7 @@ connected network
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

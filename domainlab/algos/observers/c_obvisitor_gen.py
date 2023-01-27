@@ -13,7 +13,7 @@ class ObVisitorGen(ObVisitor):
                 args=self.exp.args, node=self.exp.task, model=self.host_trainer.model, device=self.device)
 
         print("generating images for oracle model")
-        model_or = self.exp.visitor.load("oracle")  # FIXME: name "oracle is a strong dependency
+        model_or = self.exp.visitor.load("oracle")  # @FIXME: name "oracle is a strong dependency
         model_or = model_or.to(self.device)
         model_or.eval()
         fun_gen(subfolder_na=self.exp.visitor.model_name+"oracle",

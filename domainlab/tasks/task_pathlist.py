@@ -6,14 +6,17 @@ executed)
 of an image and the second slot contains the label of numerical string.
 """
 import os
+
 import torch.multiprocessing
+
 torch.multiprocessing.set_sharing_strategy('file_system')
 # "too many opened files" https://github.com/pytorch/pytorch/issues/11201
 
 from torchvision import transforms
-from domainlab.tasks.b_task import NodeTaskDict
-from domainlab.dsets.utils_data import mk_fun_label2onehot
+
 from domainlab.dsets.dset_img_path_list import DsetImPathList
+from domainlab.dsets.utils_data import mk_fun_label2onehot
+from domainlab.tasks.b_task import NodeTaskDict
 
 
 class NodeTaskPathListDummy(NodeTaskDict):
@@ -79,7 +82,7 @@ def mk_node_task_path_list(isize,
                 dset = self._get_complete_domain(
                     na_domain,
                     self._dict_domain2filepath_list_im_te)
-                return dset, dset  # FIXME: avoid returning two identical
+                return dset, dset  # @FIXME: avoid returning two identical
 
             dset = self._get_complete_domain(
                 na_domain,

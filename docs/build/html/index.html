@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,9 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -233,13 +235,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -247,28 +242,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -300,7 +274,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="welcome-to-domainlab-s-documentation">
-<h1 id="index--page-root">Welcome to domainlab’s documentation!<a class="headerlink" href="#index--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="index--page-root">Welcome to domainlab’s documentation!<a class="headerlink" href="#index--page-root" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -314,7 +288,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc_output.html">Output structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc_algos.html">Implemented algorithms (models)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc_algos.html#algorithm-deepall">algorithm “deepall”</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc_algos.html#algorithm-matchdg">algorithm “matchdg”</a></li>
@@ -323,72 +296,19 @@
 <li class="toctree-l2"><a class="reference internal" href="doc_algos.html#others">Others</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc_custom_nn.html">Custom Neural Network</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc_custom_nn.html#custom-neural-network-examples">Custom Neural Network Examples</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_custom_nn.html#algorithm-deepall-with-custom-neural-network">algorithm ‘deepall’ with custom neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_custom_nn.html#algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc_tasks.html">Task Specification</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc_tasks.html#taskpathlist">TaskPathList</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc_tasks.html#taskfolder">TaskFolder</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_tasks.html#data-organization">Data organization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_tasks.html#specify-the-task-with-domainlab-api">Specify the task with domainlab API</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc_examples.html">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc_examples.html#colored-version-of-mnist">Colored version of MNIST</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#leave-one-domain-out">leave one domain out</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#choose-train-and-test">choose train and test</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#generation-of-images">generation of images</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#use-hduva-on-color-mnist-train-on-2-domains">use hduva on color mnist, train on 2 domains</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain">hduva is domain-unsupervised, so it works also with a single domain</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="doc_examples.html#larger-images">Larger images:</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-diva-with-implemented-neural-network">model diva with implemented neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-diva-with-custom-neural-network">model diva with custom neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-deepall-with-implemented-neural-network">model deepall with implemented neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-dann-with-implemented-neural-network">model dann with implemented neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-matchdg-with-implemented-neural-network">model matchdg with implemented neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#hduva-with-implemented-neural-network">hduva with implemented neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#hduva-use-alex-net">hduva use alex net</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="doc_examples.html#custom-neural-network">Custom Neural Network</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-deepall-with-custom-neural-network">model deepall with custom neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#model-matchdg-with-custom-neural-network">model matchdg with custom neural network</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#hduva-use-custom-net-for-sandwich-encoder">hduva use custom net for sandwich encoder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#hduva-use-custom-net-for-topic-encoder">hduva use custom net for topic encoder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#hduva-use-custom-net-for-classification-encoder">hduva use custom net for classification encoder</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="doc_examples.html#user-defined-tasks">User defined tasks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#folder-task">Folder Task</a></li>
-<li class="toctree-l3"><a class="reference internal" href="doc_examples.html#imagepath-task">ImagePath Task</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="doc_examples.html#custom-algorithm-defined-in-external-python-file">Custom algorithm defined in external python file</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc_extend_contribute.html">Extend or contribute with a custom domain generalization algorithm</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc_extend_contribute.html#external-extension-by-implementing-your-custom-models">External extension by implementing your custom models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc_extend_contribute.html#internal-extension-for-more-advanced-contribution">Internal extension for more advanced contribution</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="doc_extend_contribute.html#design">Design</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="doc_extend_contribute.html#credits">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docHDUVA.html">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docHDUVA.html#model-overview">Model Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docHDUVA.html#evidence-lower-bound-and-overall-loss">Evidence lower bound and overall loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docHDUVA.html#hyperparameters-loss-function">Hyperparameters loss function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docHDUVA.html#model-parameters">Model parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docHDUVA.html#hyperparameter-warmup">Hyperparameter warmup</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </section>
 <section id="indices-and-tables">
-<h1 id="indices-and-tables">Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h1 id="indices-and-tables">Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
@@ -430,7 +350,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

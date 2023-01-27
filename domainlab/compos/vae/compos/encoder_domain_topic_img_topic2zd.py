@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.distributions as dist
 
 from domainlab.compos.vae.compos.encoder import LSEncoderDense
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
@@ -25,7 +24,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
             arg_name_of_net="nname_encoder_sandwich_layer_img2h4zd",
-            arg_path_of_net="npath_encoder_sandwich_layer_img2h4zd")()  # FIXME
+            arg_path_of_net="npath_encoder_sandwich_layer_img2h4zd")()  # @FIXME
 
         # image->h_img
         self.add_module("layer_img2h4zd", net_builder.init_business(
@@ -35,7 +34,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
                             i_c=i_c, i_h=i_h, i_w=i_w, args=args))
 
         # topic->h_topic
-        # FIXME: do we need topic to h_topic instead of simplying using topic?
+        # @FIXME: do we need topic to h_topic instead of simplying using topic?
         # REMOVED: self.add_module("h_layer_topic",
         # REMOVED:  DenseNet(
         # REMOVED:  input_flat_size=num_topics,
@@ -58,7 +57,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
         # topic->h_topic
         # REMOVE: h_topic = self.h_layer_topic(topic)
         h_topic = vec_topic
-        # FIXME: order of concatnation
+        # @FIXME: order of concatnation
         h_img_topic = torch.cat((h_img, h_topic), 1)
         q_zd, zd_q = self.encoder_cat_topic_img_h2zd(h_img_topic)
         return q_zd, zd_q

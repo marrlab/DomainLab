@@ -1,8 +1,8 @@
 """Classification Performance"""
-import numpy as np
 import torch
-from torchmetrics.classification import Accuracy, Precision, Recall, \
-    Specificity, F1Score, AUROC, AUC, ConfusionMatrix
+from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
+                                         F1Score, Precision, Recall,
+                                         Specificity)
 
 
 class PerfClassif():
@@ -42,7 +42,7 @@ class PerfClassif():
         with torch.no_grad():
             for i, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
-                pred_label, prob, ind, *_ = model_local.infer_y_vpicn(x_s)
+                pred_label, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
                 self.acc.update(pred_label, y_s.int())
                 self.precision.update(pred_label, y_s.int())
@@ -61,8 +61,11 @@ class PerfClassif():
         f1_score_y = self.f1_score.compute()
         auroc_y = self.auroc.compute()
         confmat_y = self.confmat.compute()
-        dict_metric = {"acc": acc_y, "precision": precision_y, "recall": recall_y,
-                       "specificity": specificity_y, "f1": f1_score_y,
+        dict_metric = {"acc": acc_y,
+                       "precision": precision_y,
+                       "recall": recall_y,
+                       "specificity": specificity_y,
+                       "f1": f1_score_y,
                        "auroc": auroc_y,
                        "confmat": confmat_y}
         for key in dict_metric.keys():

@@ -3,8 +3,9 @@ Random seed should be set from command line to ensure reproducibility:
 https://pytorch.org/docs/stable/notes/randomness.html
 https://discuss.pytorch.org/t/difference-between-torch-manual-seed-and-torch-cuda-manual-seed/13848/6
 """
-import torch
 import numpy as np
+import torch
+
 
 def set_seed(seed):
     torch.manual_seed(int(seed))

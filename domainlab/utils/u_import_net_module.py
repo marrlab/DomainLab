@@ -1,6 +1,7 @@
-import sys
-import inspect
-import importlib.util
+"""
+import external neural network implementation
+"""
+
 from domainlab.utils.u_import import import_path
 
 
@@ -12,9 +13,6 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
     :param mpath: path of external python file where the neural network
     architecture is defined
     :param dim_y: dimension of features
-    :param i_c: number of channels of image
-    :param i_h: height of image
-    :param i_w: width of image
     """
     # other possibility
     # na_external_module = "name_external_module"   # the dummy module name
@@ -29,7 +27,7 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
     net_module = import_path(mpath)
     name_signature = "build_feat_extract_net(dim_y, \
         remove_last_layer)"
-    # FIXME: hard coded, move to top level __init__ definition in domainlab
+    # @FIXME: hard coded, move to top level __init__ definition in domainlab
     name_fun = name_signature[:name_signature.index("(")]
     if hasattr(net_module, name_fun):
         try:

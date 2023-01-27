@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,12 +55,12 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Task Specification" href="doc_tasks.html" />
-    <link rel="prev" title="Implemented algorithms (models)" href="doc_algos.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -227,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -241,57 +234,7 @@
     <li class="md-nav__item">
     
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Custom Neural Network </label>
-    
-      <a href="#" class="md-nav__link md-nav__link--active">Custom Neural Network</a>
-      
-        
-<nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
-  <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-custom-nn--page-root" class="md-nav__link">Custom Neural Network</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#custom-neural-network-examples" class="md-nav__link">Custom Neural Network Examples</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#algorithm-deepall-with-custom-neural-network" class="md-nav__link">algorithm ‘deepall’ with custom neural network</a>
-        </li>
-        <li class="md-nav__item"><a href="#algorithm-matchdg-with-custom-neural-network" class="md-nav__link">algorithm ‘matchdg’ with custom neural network</a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-  </ul>
-</nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#custom-neural-network-examples" class="md-nav__link">Custom Neural Network Examples</a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -331,23 +274,23 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="custom-neural-network">
-<h1 id="doc-custom-nn--page-root">Custom Neural Network<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-custom-nn--page-root">Custom Neural Network<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this heading">¶</a></h1>
 <p>To use a custom neural network, the user has to implement the following signature in a python file and feed into this library via <code class="docutils literal notranslate"><span class="pre">--npath</span></code>.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>def build_feat_extract_net(dim_y, remove_last_layer):
 </pre></div>
 </div>
 <p>See examples below from <code class="docutils literal notranslate"><span class="pre">--npath=examples/nets/resnet.py</span></code> where the examples can be found in the examples folder of the code repository.</p>
 <section id="custom-neural-network-examples">
-<h2 id="custom-neural-network-examples">Custom Neural Network Examples<a class="headerlink" href="#custom-neural-network-examples" title="Permalink to this headline">¶</a></h2>
+<h2 id="custom-neural-network-examples">Custom Neural Network Examples<a class="headerlink" href="#custom-neural-network-examples" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py">https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py</a></p>
 <section id="algorithm-deepall-with-custom-neural-network">
-<h3 id="algorithm-deepall-with-custom-neural-network">algorithm ‘deepall’ with custom neural network<a class="headerlink" href="#algorithm-deepall-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="algorithm-deepall-with-custom-neural-network">algorithm ‘deepall’ with custom neural network<a class="headerlink" href="#algorithm-deepall-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --npath=examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="algorithm-matchdg-with-custom-neural-network">
-<h3 id="algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network<a class="headerlink" href="#algorithm-matchdg-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network<a class="headerlink" href="#algorithm-matchdg-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --npath=examples/nets/resnet.py
 </pre></div>
 </div>
@@ -365,30 +308,6 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="doc_algos.html" title="Implemented algorithms (models)"
-               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
-               rel="prev">
-              <div class="md-flex__cell md-flex__cell--shrink">
-                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-              </div>
-              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-                <span class="md-flex__ellipsis">
-                  <span
-                      class="md-footer-nav__direction"> Previous </span> Implemented algorithms (models) </span>
-              </div>
-            </a>
-          
-          
-            <a href="doc_tasks.html" title="Task Specification"
-               class="md-flex md-footer-nav__link md-footer-nav__link--next"
-               rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
-                class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Task Specification </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink"><i
-                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           
         </a>
         
@@ -402,7 +321,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

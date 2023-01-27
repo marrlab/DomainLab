@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,12 +55,12 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Examples" href="doc_examples.html" />
-    <link rel="prev" title="Custom Neural Network" href="doc_custom_nn.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -227,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -241,66 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Task Specification </label>
-    
-      <a href="#" class="md-nav__link md-nav__link--active">Task Specification</a>
-      
-        
-<nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
-  <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-tasks--page-root" class="md-nav__link">Task Specification</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#taskpathlist" class="md-nav__link">TaskPathList</a>
-        </li>
-        <li class="md-nav__item"><a href="#taskfolder" class="md-nav__link">TaskFolder</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#data-organization" class="md-nav__link">Data organization</a>
-        </li>
-        <li class="md-nav__item"><a href="#specify-the-task-with-domainlab-api" class="md-nav__link">Specify the task with domainlab API</a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-  </ul>
-</nav>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#taskpathlist" class="md-nav__link">TaskPathList</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="#taskfolder" class="md-nav__link">TaskFolder</a>
-      
-    
-    </li></ul>
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -342,19 +276,19 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="task-specification">
-<h1 id="doc-tasks--page-root">Task Specification<a class="headerlink" href="#doc-tasks--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-tasks--page-root">Task Specification<a class="headerlink" href="#doc-tasks--page-root" title="Permalink to this heading">¶</a></h1>
 <p>The package offers various ways to specify the domain generalization task according to user’s need.</p>
 <section id="taskpathlist">
-<h2 id="taskpathlist">TaskPathList<a class="headerlink" href="#taskpathlist" title="Permalink to this headline">¶</a></h2>
+<h2 id="taskpathlist">TaskPathList<a class="headerlink" href="#taskpathlist" title="Permalink to this heading">¶</a></h2>
 <p>The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.</p>
 <p>An example python file can be found in the <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/tasks/demo_task_path_list_small.py">examples directory of the repository</a> with the corresponding data be found at <a class="reference external" href="https://github.com/marrlab/DomainLab/tree/master/data">the data directory of the repository</a>, where the text file indicating which file correspond to which class label (starting from 1) can be found at <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/data/pacs_split/art_painting_10.txt">example text file</a>.
 The user should specify the location of the python file via command line arguments <code class="docutils literal notranslate"><span class="pre">--tpath</span></code></p>
 </section>
 <section id="taskfolder">
-<h2 id="taskfolder">TaskFolder<a class="headerlink" href="#taskfolder" title="Permalink to this headline">¶</a></h2>
+<h2 id="taskfolder">TaskFolder<a class="headerlink" href="#taskfolder" title="Permalink to this heading">¶</a></h2>
 <p>In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.</p>
 <section id="data-organization">
-<h3 id="data-organization">Data organization<a class="headerlink" href="#data-organization" title="Permalink to this headline">¶</a></h3>
+<h3 id="data-organization">Data organization<a class="headerlink" href="#data-organization" title="Permalink to this heading">¶</a></h3>
 <p>To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name “folder_a”, “folder_b” and “folder_c” respectively as shown below.</p>
 <p>In each folder, the images are organized in sub-folders by their class. For example, “/path/to/3rd_domain/folder_c/dog” folder contains all the images of class “dog” from the 3rd domain.</p>
 <p>It might be the case that across the different data sources the same class is named differently. For example, in the 1st data source, the class dog is stored in sub-folder named
@@ -389,7 +323,7 @@ The user should specify the location of the python file via command line argumen
 </div>
 </section>
 <section id="specify-the-task-with-domainlab-api">
-<h3 id="specify-the-task-with-domainlab-api">Specify the task with domainlab API<a class="headerlink" href="#specify-the-task-with-domainlab-api" title="Permalink to this headline">¶</a></h3>
+<h3 id="specify-the-task-with-domainlab-api">Specify the task with domainlab API<a class="headerlink" href="#specify-the-task-with-domainlab-api" title="Permalink to this heading">¶</a></h3>
 <p>The user is expected to implement something similar to the following code in a separate python file with a function with signature <code class="docutils literal notranslate"><span class="pre">get_task(na=None)</span></code>.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import os
 from torchvision import transforms
@@ -486,30 +420,6 @@ taskna: user defined task name
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="doc_custom_nn.html" title="Custom Neural Network"
-               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
-               rel="prev">
-              <div class="md-flex__cell md-flex__cell--shrink">
-                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-              </div>
-              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-                <span class="md-flex__ellipsis">
-                  <span
-                      class="md-footer-nav__direction"> Previous </span> Custom Neural Network </span>
-              </div>
-            </a>
-          
-          
-            <a href="doc_examples.html" title="Examples"
-               class="md-flex md-footer-nav__link md-footer-nav__link--next"
-               rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
-                class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Examples </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink"><i
-                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
           
         </a>
         
@@ -523,7 +433,7 @@ taskna: user defined task name
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

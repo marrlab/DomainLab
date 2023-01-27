@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,9 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -225,13 +227,6 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_output.html" class="md-nav__link">Output structure</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
       
     
@@ -239,28 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_custom_nn.html" class="md-nav__link">Custom Neural Network</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_tasks.html" class="md-nav__link">Task Specification</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_examples.html" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="../../../doc_extend_contribute.html" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a>
+      <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
     </li>
@@ -288,10 +262,10 @@
             
   <h1 id="modules-domainlab-utils-utils-img-sav--page-root">Source code for domainlab.utils.utils_img_sav</h1><div class="highlight"><pre>
 <span></span>import os
-import matplotlib.pyplot as plt
 from pathlib import Path
 
-from torchvision.utils import save_image, make_grid
+import matplotlib.pyplot as plt
+from torchvision.utils import make_grid, save_image
 
 
 <div class="viewcode-block" id="mk_fun_sav_img"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.utils_img_sav.mk_fun_sav_img">[docs]</a>def mk_fun_sav_img(path=".", nrow=8, folder_na=""):
@@ -304,7 +278,8 @@ from torchvision.utils import save_image, make_grid
         f_p = os.path.join(path, folder_na, name)
         Path(os.path.dirname(f_p)).mkdir(parents=True, exist_ok=True)
         print("saving to ", f_p)
-        tensor = comparison_tensor_stack.cpu()  # works also if tensor is already in cpu
+        # works also if tensor is already in cpu
+        tensor = comparison_tensor_stack.cpu()
         if title is None:
             save_image(tensor=tensor, nrow=nrow, fp=f_p)
         else:
@@ -322,7 +297,6 @@ from torchvision.utils import save_image, make_grid
     plt.title(title)
     fig.savefig(path)
     fig.clf()  # clear figure</div>
-
 </pre></div>
 
           </article>
@@ -347,7 +321,7 @@ from torchvision.utils import save_image, make_grid
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

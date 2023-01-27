@@ -107,8 +107,6 @@ python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --
 python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --npath=examples/nets/resnet.py --aname=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
 ```
 
-
-
 ### ImagePath Task
 #### ImagePath Task with implemented algorithm
 ```
@@ -119,8 +117,6 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 ```
 python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --aname=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
 ```
-
-
 
 ## Custom algorithm defined in external python file
 ```
