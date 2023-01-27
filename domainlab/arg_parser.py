@@ -17,7 +17,7 @@ def mk_parser_main():
     parser.add_argument('--lr', type=float, default=1e-4,
                         help='learning rate')
 
-    parser.add_argument('--gamma_reg', type=float, default=1.0,
+    parser.add_argument('--gamma_reg', type=float, default=0.1,
                         help='weight of regularization loss')
 
     parser.add_argument('--es', type=int, default=10,
@@ -127,6 +127,12 @@ def mk_parser_main():
                                 strings; if not provided then all available \
                                 domains that are not assigned to \
                                 the test set will be used as training domains')
+
+    arg_group_task.add_argument('--san_check', action='store_true', default=False,
+                                help='save images from the dataset as a sanity check')
+
+    arg_group_task.add_argument('--san_num', type=int, default=8,
+                                help='number of images to be dumped for the sanity check')
 
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group('vae')
