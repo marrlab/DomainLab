@@ -10,6 +10,7 @@ from torch.nn import functional as F
 from domainlab.models.a_model import AModel
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
+from domainlab.utils.perf import PerfClassif
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -17,6 +18,13 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     operations that all classification model should have
     """
     match_feat_fun_na = "cal_logit_y"
+
+    def evaluate(self, loader_te, device):
+        """
+        for classification task, use the current model to cal acc
+        """
+        acc = PerfClassif.cal_acc(self, loader_te, device)
+        print("before training, model accuracy:", acc)
 
     @abc.abstractmethod
     def cal_loss(self, *tensors):
