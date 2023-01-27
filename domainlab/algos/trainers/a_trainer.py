@@ -2,7 +2,6 @@
 Base Class for trainer
 """
 import abc
-from domainlab.utils.perf import PerfClassif
 
 
 class AbstractTrainer(metaclass=abc.ABCMeta):
@@ -24,6 +23,12 @@ class AbstractTrainer(metaclass=abc.ABCMeta):
         self.loader_te = task.loader_te
         self.observer.accept(self)
         self.model = self.model.to(device)
+        #
+        self.num_batches = len(self.loader_tr)
+        self.flag_update_hyper_per_epoch = False
+        self.flag_update_hyper_per_batch = False
+        self.epo_loss_tr = None
+        self.hyper_scheduler = None
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
@@ -31,6 +36,14 @@ class AbstractTrainer(metaclass=abc.ABCMeta):
         :param epoch:
         """
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def after_batch(self, epoch, ind_batch):
+        """
+        :param epoch:
+        :param ind_batch:
+        """
+        return
 
     @abc.abstractmethod
     def before_tr(self):
@@ -44,21 +57,3 @@ class AbstractTrainer(metaclass=abc.ABCMeta):
         after training
         """
         self.observer.after_all()
-
-
-class TrainerClassif(AbstractTrainer):
-    """
-    Base class for trainer of classification task
-    """
-    def tr_epoch(self, epoch):
-        """
-        :param epoch:
-        """
-        raise NotImplementedError
-
-    def before_tr(self):
-        """
-        check the performance of randomly initialized weight
-        """
-        acc = PerfClassif.cal_acc(self.model, self.loader_te, self.device)
-        print("before training, model accuracy:", acc)

@@ -8,21 +8,40 @@ class TrainerVisitor(TrainerBasic):
     """
     TrainerVisitor
     """
-    def set_scheduler(self, scheduler):
+    def set_scheduler(self, scheduler, total_steps,
+                      flag_update_epoch=False,
+                      flag_update_batch=False):
         """
         set the warmup or anealing strategy
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
+        self.flag_update_hyper_per_epoch = flag_update_epoch
+        self.flag_update_hyper_per_batch = flag_update_batch
+        self.hyper_scheduler.set_steps(total_steps=total_steps)
+
+    def after_batch(self, epoch, ind_batch):
+        if self.flag_update_hyper_per_batch:
+            self.model.hyper_update(epoch, self.hyper_scheduler)
+        return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
         if self.hyper_scheduler is None:
-            warnings.warn("hyper-parameter scheduler not set, going to use default WarmpUP")
-            self.hyper_scheduler = self.model.hyper_init(HyperSchedulerWarmup)
-        # @FIXME: is there a way to make this more general?
-        self.hyper_scheduler.set_steps(total_steps=self.aconf.warmup)
+            warnings.warn("hyper-parameter scheduler not set, \
+                          going to use default Warmpup and epoch update")
+            self.set_scheduler(HyperSchedulerWarmup,
+                               total_steps=self.aconf.warmup,
+                               flag_update_epoch=True)
 
     def tr_epoch(self, epoch):
-        self.model.hyper_update(epoch, self.hyper_scheduler)
+        if self.flag_update_hyper_per_epoch:
+            self.model.hyper_update(epoch, self.hyper_scheduler)
+        return super().tr_epoch(epoch)
+
+    def tr_batch(self, epoch, ind_batch):
+        """
+        anneal parameter for each batch
+        """
+        self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().tr_epoch(epoch)
 
 

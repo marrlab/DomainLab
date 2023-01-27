@@ -55,5 +55,8 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                           net_discriminator=net_discriminator)
 
         trainer = TrainerVisitor(model, task, observer, device, args)
-        trainer.set_scheduler(HyperSchedulerAneal)
+        trainer.set_scheduler(HyperSchedulerAneal,
+                              total_steps=trainer.num_batches*args.epos,
+                              flag_update_epoch=False,
+                              flag_update_batch=True)
         return trainer
