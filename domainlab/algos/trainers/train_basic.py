@@ -8,6 +8,7 @@ class TrainerBasic(TrainerClassif):
         super().__init__(model, task, observer, device, aconf)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
         self.epo_loss_tr = None
+        self.hyper_scheduler = None
 
     def tr_epoch(self, epoch):
         self.model.train()

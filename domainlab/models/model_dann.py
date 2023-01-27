@@ -25,6 +25,20 @@ def mk_dann(parent_class=AModelClassif):
             self.net_classifier = net_classifier
             self.net_discriminator = net_discriminator
 
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
+            :param epoch:
+            :param fun_scheduler:
+            """
+            dict_rst = fun_scheduler(epoch)
+            self.alpha = dict_rst["alpha"]
+
+        def hyper_init(self, functor_scheduler):
+            """hyper_init.
+            :param functor_scheduler:
+            """
+            return functor_scheduler(alpha=self.alpha)
+
         def cal_logit_y(self, tensor_x):
             """
             calculate the logit for softmax classification
