@@ -3,7 +3,7 @@ operations that all claasification model should have
 """
 
 import abc
-
+import numpy as np
 import torch
 from torch.nn import functional as F
 
@@ -89,3 +89,27 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             _, y_target = tensor_y.max(dim=1)
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         return lc_y
+
+    def pred2file(self, loader_te, device,
+                  filename='path_prediction.txt', flag_pred_scalar=False):
+        """
+        pred2file
+        """
+        self.eval()
+        model_local = self.to(device)
+        for _, (x_s, y_s, *_, path) in enumerate(loader_te):
+            x_s, y_s = x_s.to(device), y_s.to(device)
+            _, prob, *_ = model_local.infer_y_vpicn(x_s)
+            # print(path)
+            list_pred_list = prob.tolist()
+            list_label_list = y_s.tolist()
+            if flag_pred_scalar:
+                list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
+                list_label_list = [np.asarray(label).argmax() for label in list_label_list]
+            # label belongs to data
+            list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
+            with open(filename, 'a') as handle_file:
+                for pair in list_pair_path_pred:
+                    # 1:-1 removes brackets of tuple
+                    print(str(pair)[1:-1], file=handle_file)
+        print("prediction saved in file ", filename)
