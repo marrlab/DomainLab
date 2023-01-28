@@ -13,6 +13,8 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
 
 class NodeTaskFolder(NodeTaskDict):
     """
+    create dataset by loading files from an organized folder
+    then each domain correspond to one dataset
     """
     @property
     def dict_domain2imgroot(self):
@@ -32,6 +34,9 @@ class NodeTaskFolder(NodeTaskDict):
 
     @property
     def extensions(self):
+        """
+        return allowed extensions
+        """
         return self.dict_att["img_extensions"]
 
     @extensions.setter
@@ -75,10 +80,12 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
                 trans = self.img_trans_te
         else:
             trans = transforms.ToTensor()
+
+        ext = None if self.extensions is None else self.extensions[na_domain]
         dset = DsetSubFolder(root=self.dict_domain2imgroot[na_domain],
                              list_class_dir=list(domain_class_dirs),
                              loader=fun_img_path_loader_default,
-                             extensions=self.extensions[na_domain],
+                             extensions=ext,
                              transform=trans,
                              target_transform=mk_fun_label2onehot(
                                  len(self.list_str_y)))

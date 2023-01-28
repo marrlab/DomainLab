@@ -14,7 +14,7 @@ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nn
 
 ### make a sanity check for the dataset using 8 instances from each domain and from each class
 ```
-python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mini_vlcs --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5 --san_check --san_num=8
+python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --aname=diva --nname=alexnet --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5 --san_check --san_num=4
 ```
 
 ### generation of images

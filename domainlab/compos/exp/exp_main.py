@@ -67,7 +67,7 @@ class Exp():
         This function dump a subsample of the dataset into hierarchical folder structure.
         """
         self.task.init_business(args)
-        f_name = 'zoutput/Dset_extraction/' + self.task.task_name
+        f_name = os.path.join(args.out, 'Dset_extraction', self.task.task_name)
 
         # for each domain do...
         for domain in self.task.get_list_domains():
@@ -79,7 +79,7 @@ class Exp():
                 num_of_samples = 0
                 loader_domain = data_utils.DataLoader(d_dataset, batch_size=1, shuffle=False)
                 domain_targets = []
-                for num, (img, lab, *_) in enumerate(loader_domain):
+                for num, (_, lab, *_) in enumerate(loader_domain):
                     if int(np.argmax(lab[0])) == class_num:
                         domain_targets.append(num)
                         num_of_samples += 1
@@ -88,8 +88,9 @@ class Exp():
 
                 class_dataset = Subset(d_dataset, domain_targets)
                 os.makedirs(f_name + '/' + str(domain), exist_ok=True)
-                plot_ds(class_dataset,
-                        f_name + '/' + str(domain) + '/' +
-                        str(self.task.list_str_y[class_num]) + '.jpg',
-                        bs=sample_num
-                        )
+                plot_ds(
+                    class_dataset,
+                    f_name + '/' + str(domain) + '/' +
+                    str(self.task.list_str_y[class_num]) + '.jpg',
+                    bs=sample_num
+                )

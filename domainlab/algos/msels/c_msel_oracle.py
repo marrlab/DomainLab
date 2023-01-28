@@ -22,8 +22,8 @@ class MSelOracleVisitor(AMSel):
         if the best model should be updated
         """
         self.tr_obs.exp.visitor.save(self.trainer.model, "epoch")
-        if self.tr_obs.acc_te > self.best_oracle_acc:
-            self.best_oracle_acc = self.tr_obs.acc_te
+        if self.tr_obs.metric_te["acc"] > self.best_oracle_acc:
+            self.best_oracle_acc = self.tr_obs.metric_te["acc"]  # FIXME: only works for classification
             self.tr_obs.exp.visitor.save(self.trainer.model, "oracle")
             print("oracle model saved")
         return self.msel.update()
