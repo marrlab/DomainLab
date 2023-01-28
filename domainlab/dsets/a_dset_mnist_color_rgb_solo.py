@@ -71,8 +71,9 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         self._collect_imgs_labels(raw_path, raw_split)
         inds_subset = list(range(0, len(dataset), subset_step))
         self.images = self.images[inds_subset, ::]
+        self.labels = self.labels[inds_subset]
         self._color_imgs_onehot_labels()
-
+    
     def _collect_imgs_labels(self, path, raw_split):
         """
         :param path:
@@ -96,7 +97,6 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
             struct.unpack(">II", f_h.read(8))
             self.labels = np.fromfile(f_h, dtype=np.int8)
         self.images = np.tile(self.images[:, :, :, np.newaxis], 3)
-        self.images = self.images
 
     def __len__(self):
         return len(self.images)
