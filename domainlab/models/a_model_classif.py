@@ -11,6 +11,7 @@ from domainlab.models.a_model import AModel
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
+from domainlab.utils.perf_metrics import PerfMetricClassif
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -18,6 +19,13 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     operations that all classification model should have
     """
     match_feat_fun_na = "cal_logit_y"
+
+    def create_perf_obj(self, task):
+        """
+        for classification, dimension of target can be quieried from task
+        """
+        perf_metric = PerfMetricClassif(task.dim_y)
+        return perf_metric
 
     def evaluate(self, loader_te, device):
         """

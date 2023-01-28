@@ -7,7 +7,6 @@ import torch
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
-from domainlab.utils.perf_metrics import PerfClassif
 from domainlab.utils.utils_class import store_args
 
 
@@ -29,9 +28,8 @@ class ObVisitor(AObVisitor):
         self.epo_te = self.exp.args.epo_te
         self.epo = None
         self.metric_te = None
-        self.acc_te = None
         self.keep_model = self.exp.args.keep_model
-        self.perf_metric = PerfClassif(self.task.dim_y)
+        self.perf_metric = None
 
     def update(self, epoch):
         print("epoch:", epoch)
@@ -42,7 +40,6 @@ class ObVisitor(AObVisitor):
             # test set has no domain label, so can be more custom
             metric_te = self.perf_metric.cal_metrics(self.host_trainer.model, self.loader_te, self.device)
             self.metric_te = metric_te
-            self.acc_te = self.metric_te["acc"]
             print("out of domain test performance \n", metric_te)
         if self.model_sel.update():
             print("model selected")
@@ -55,6 +52,7 @@ class ObVisitor(AObVisitor):
         accept invitation as a visitor
         """
         self.host_trainer = trainer
+        self.perf_metric =  self.host_trainer.model.create_perf_obj(self.task)
         self.model_sel.accept(trainer, self)
 
     def after_all(self):
