@@ -17,7 +17,7 @@ from torch.utils.data import Subset
 from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
 
 
-def test_dset_sample_extraction(mode='MNIST', show_plot=True):
+def test_dset_sample_extraction(mode='MNIST', show_plot=False):
  # for mode == 'MNIST' is uses the MINISTcolor10 dataset, othervise the vlcs_mini dataset is used
  # show_plot == True makes plot appear for the dataset for each domain and each class (one at a time)
  # results are saved in 'zout/Dset_extraction/...'
@@ -69,7 +69,7 @@ def test_dset_sample_extraction(mode='MNIST', show_plot=True):
      task = NodeTaskMNISTColor10(None)
 
      # MNISTColor10 args
-     args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva", '--task', 'mnistcolor10', '--nname', 'conv_bn_pool_2'])
+     args = parser.parse_args(["--te_d", "1", "--bs", "4", "--aname", "diva", '--task', 'mnistcolor10', '--nname', 'conv_bn_pool_2'])
      dset_name = 'MNISTColor10'
 
  task.init_business(args)
@@ -77,20 +77,26 @@ def test_dset_sample_extraction(mode='MNIST', show_plot=True):
  if show_plot:
      img, l1, l2 = next(iter(task.loader_tr))
 
-     fig, ax = plt.subplots(2)
+     fig, ax = plt.subplots(4)
      ax[0].imshow(np.moveaxis(np.array(img[0]), 0, -1))
      ax[0].set_title('label: ' + str(l1[0]) + ' -> ' + str(task.list_str_y[np.argmax(np.array(l1[0]))]) + '\ndomain: ' +
                      str(l2[0]) + ' -> ' + str(task.list_domain_tr[np.argmax(np.array(l2[0]))]))
      ax[1].imshow(np.moveaxis(np.array(img[1]), 0, -1))
      ax[1].set_title('label: ' + str(l1[1]) + ' -> ' + str(task.list_str_y[np.argmax(np.array(l1[1]))]) + '\ndomain: ' +
                      str(l2[1]) + ' -> ' + str(task.list_domain_tr[np.argmax(np.array(l2[1]))]))
+     ax[2].imshow(np.moveaxis(np.array(img[2]), 0, -1))
+     ax[2].set_title('label: ' + str(l1[2]) + ' -> ' + str(task.list_str_y[np.argmax(np.array(l1[2]))]) + '\ndomain: ' +
+                     str(l2[2]) + ' -> ' + str(task.list_domain_tr[np.argmax(np.array(l2[2]))]))
+     ax[3].imshow(np.moveaxis(np.array(img[3]), 0, -1))
+     ax[3].set_title('label: ' + str(l1[3]) + ' -> ' + str(task.list_str_y[np.argmax(np.array(l1[3]))]) + '\ndomain: ' +
+                     str(l2[3]) + ' -> ' + str(task.list_domain_tr[np.argmax(np.array(l2[3]))]))
      plt.suptitle('dataloader task.loader_tr')
      plt.tight_layout()
      plt.show()
 
- if not os.path.exists('zout/Dset_extraction/'):
-    os.mkdir('zout/Dset_extraction/')
- f_name = 'zout/Dset_extraction/' + dset_name
+ if not os.path.exists('zoutput/Dset_extraction/'):
+    os.mkdir('zoutput/Dset_extraction/')
+ f_name = 'zoutput/Dset_extraction/' + dset_name
  sample_num = 4
  if not os.path.exists(f_name):
     os.mkdir(f_name)
