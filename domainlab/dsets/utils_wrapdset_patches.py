@@ -32,17 +32,24 @@ class WrapDsetPatches(data.Dataset):
                 return torchvision.utils.make_grid(x, nrow=self.grid_size, padding=0)
             self.returnFunc = make_grid
 
-    def get_tile(self, img, n):
-        img_size = img.shape[-1]   #  FIXME: use a better way to decide the image size
-        w = float(img_size) / self.grid_size
-        w = float(int(w)) + 1   # FIXME: extra line to ensure w=75 instead of sometimes 74 so torch.stack can fail
-        # in original data, w = float(img.size[0]) / self.grid_size = 225/3 = 75.0 is an integer, but this can not be true for other cases
-        y = int(n / self.grid_size)
-        x = n % self.grid_size
-        tr = transforms.ToPILImage()
-        img_pil = tr(img)
+    def get_tile(self, img, ind_tile):
+        """
+        assume a square image?
+        """
+        img_height = img.shape[-1]   #  FIXME: use a better way to decide the image size
+        num_tiles = float(img_height) / self.grid_size
+        num_tiles = float(int(num_tiles)) + 1   # FIXME: extra line to ensure num_tiles=75 instead of sometimes 74 so torch.stack can fail
+        # in original data, num_tiles = float(img.size[0]) / self.grid_size = 225/3 = 75.0 is an integer, but this can not be true for other cases
+        ind_vertical = int(ind_tile / self.grid_size)
+        ind_horizontal = ind_tile % self.grid_size
+        functor_tr = transforms.ToPILImage()
+        img_pil = functor_tr(img)
         # PIL.crop((left, top, right, bottom))
-        tile = img_pil.crop([x * w, y * w, (x + 1) * w, (y + 1) * w])
+        # get rectangular region from box  of [left, upper, right, lower]
+        tile = img_pil.crop([ind_horizontal * num_tiles,
+                             ind_vertical * num_tiles,
+                             (ind_horizontal + 1) * num_tiles,
+                             (ind_vertical + 1) * num_tiles])
         tile = self._augment_tile(tile)
         return tile
 
@@ -50,8 +57,8 @@ class WrapDsetPatches(data.Dataset):
         img, label = self.dataset.__getitem__(index)
         n_grids = self.grid_size ** 2    # divide image into grid_size^2 tiles
         tiles = [None] * n_grids     # list of length n_grids of image tiles
-        for n in range(n_grids):
-            tiles[n] = self.get_tile(img, n)    # populate tile list
+        for ind_tile in range(n_grids):
+            tiles[ind_tile] = self.get_tile(img, ind_tile)    # populate tile list
 
         order = np.random.randint(len(self.permutations) + 1)  # added 1 for class 0: unsorted
         # len(self.permutations) by default is 100, so order is a random number between 0 and 101
