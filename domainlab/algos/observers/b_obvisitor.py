@@ -1,25 +1,24 @@
 import os
 import warnings
 
-import numpy as np
-import torch
 
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
-from domainlab.utils.utils_class import store_args
 
 
 class ObVisitor(AObVisitor):
     """
     Observer + Visitor pattern for model selection
     """
-    @store_args
     def __init__(self, exp, model_sel, device):
         """
         observer trainer
         """
         self.host_trainer = None
+        self.exp = exp
+        self.model_sel = model_sel
+        self.device = device
         self.task = self.exp.task
         self.loader_te = self.exp.task.loader_te
         self.loader_tr = self.exp.task.loader_tr
@@ -35,12 +34,9 @@ class ObVisitor(AObVisitor):
         print("epoch:", epoch)
         self.epo = epoch
         if epoch % self.epo_te == 0:
-            metric_tr_pool = self.perf_metric.cal_metrics(self.host_trainer.model, self.loader_tr, self.device)
-            print("pooled train domains performance: \n", metric_tr_pool)
-            # test set has no domain label, so can be more custom
-            metric_te = self.perf_metric.cal_metrics(self.host_trainer.model, self.loader_te, self.device)
+            metric_te = self.host_trainer.model.cal_perf_metric(
+                self.loader_tr, self.device, self.loader_te)
             self.metric_te = metric_te
-            print("out of domain test performance \n", metric_te)
         if self.model_sel.update():
             print("model selected")
             self.exp.visitor.save(self.host_trainer.model)
@@ -52,7 +48,7 @@ class ObVisitor(AObVisitor):
         accept invitation as a visitor
         """
         self.host_trainer = trainer
-        self.perf_metric =  self.host_trainer.model.create_perf_obj(self.task)
+        self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)
         self.model_sel.accept(trainer, self)
 
     def after_all(self):
@@ -63,8 +59,8 @@ class ObVisitor(AObVisitor):
         model_ld = self.exp.visitor.load()
         model_ld = model_ld.to(self.device)
         model_ld.eval()
-        metric_te = self.perf_metric.cal_metrics(model_ld, self.loader_te, self.device)
-        print("persisted model performance metric: \n", metric_te)
+        print("persisted model performance metric: \n")
+        metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
         self.exp.visitor(metric_te)
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
