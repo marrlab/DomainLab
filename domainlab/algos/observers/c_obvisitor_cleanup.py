@@ -2,6 +2,9 @@ from domainlab.algos.observers.a_observer import AObVisitor
 
 
 class ObVisitorCleanUp(AObVisitor):
+    """
+    decorator of observer
+    """
     def __init__(self, observer):
         self.observer = observer
 

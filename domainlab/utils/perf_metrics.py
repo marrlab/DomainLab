@@ -5,7 +5,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          Specificity)
 
 
-class PerfClassif():
+class PerfMetricClassif():
     """Classification Performance metrics"""
     def __init__(self, num_classes, average='macro'):
         super().__init__()
