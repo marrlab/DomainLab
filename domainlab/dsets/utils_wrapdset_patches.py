@@ -3,34 +3,42 @@ import torch
 import torchvision
 import torchvision.transforms as transforms
 
-from torch.utils.data import data as data
-from PIL import Image
-
-#list_tr = []
-#list_tr.append()
-tr_tile = transforms.Compose([
-    transforms.RandomGrayscale(0.1),   # FIXME: this is cheating for jiGen but seems to have a big impact on performance
-    transforms.ToTensor(), transforms.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+from torch.utils.data import data as torchdata
 
 
-class WrapDsetPatches(data.Dataset):
+global_transform4tile = transforms.Compose([
+    transforms.RandomGrayscale(0.1),
+    # FIXME: this is cheating for jiGen
+    # but seems to have a big impact on performance
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
+
+
+class WrapDsetPatches(torchdata.Dataset):
+    """
+    given dataset of images, return permuations of tiles of images re-weaved
+    """
     def __init__(self, dataset,
                  num_perms2classify=31,
-                 tile_transformer=tr_tile,
-                 patches=False,
-                 prob_no_perm=0.7, grid_num=3):    #FIXME: it seems prob_no_perm has an impact on performance
-
+                 transform4tile=global_transform4tile,
+                 flag_do_not_weave_tiles=False,
+                 prob_no_perm=0.7,
+                 grid_len=3):
         self.dataset = dataset
-        self.arr_perm_rows = self.__retrieve_permutations(num_perms2classify)    # for 3*3 tiles, there are 9*8*7*6*5*...*1 >> 100, we load from disk instead only 100 permutations
-        self.grid_size = grid_num   # break the image into 3*3 tiles
+        self.arr_perm_rows = self.__retrieve_permutations(
+            num_perms2classify)
+        # for 3*3 tiles, there are 9*8*7*6*5*...*1 >> 100,
+        # we load from disk instead only 100 permutations
+        self.grid_len = grid_len
+        # break the image into 3*3 tiles
         self.prob_no_perm = prob_no_perm
-        self._augment_tile = tile_transformer
-        if patches:    # default False, do not return patches(tiles) directly but sew them together
+        self._transform4tile = transform4tile
+        if flag_do_not_weave_tiles:
             self.fun_weave_imgs = lambda x: x
         else:
             def make_grid(img):   # sew tiles together to be images
                 return torchvision.utils.make_grid(
-                    img, nrow=self.grid_size, padding=0)
+                    img, nrow=self.grid_len, padding=0)
             self.fun_weave_imgs = make_grid
 
     def get_tile(self, img, ind_tile):
@@ -38,11 +46,13 @@ class WrapDsetPatches(data.Dataset):
         assume a square image?
         """
         img_height = img.shape[-1]   #  FIXME: use a better way to decide the image size
-        num_tiles = float(img_height) / self.grid_size
+        num_tiles = float(img_height) / self.grid_len
         num_tiles = float(int(num_tiles)) + 1   # FIXME: extra line to ensure num_tiles=75 instead of sometimes 74 so torch.stack can fail
-        # in original data, num_tiles = float(img.size[0]) / self.grid_size = 225/3 = 75.0 is an integer, but this can not be true for other cases
-        ind_vertical = int(ind_tile / self.grid_size)
-        ind_horizontal = ind_tile % self.grid_size
+        # in original data,
+        # num_tiles = float(img.size[0]) / self.grid_len = 225/3 = 75.0
+        # is an integer, but this can not be true for other cases
+        ind_vertical = int(ind_tile / self.grid_len)
+        ind_horizontal = ind_tile % self.grid_len
         functor_tr = transforms.ToPILImage()
         img_pil = functor_tr(img)
         # PIL.crop((left, top, right, bottom))
@@ -51,12 +61,12 @@ class WrapDsetPatches(data.Dataset):
                              ind_vertical * num_tiles,
                              (ind_horizontal + 1) * num_tiles,
                              (ind_vertical + 1) * num_tiles])
-        tile = self._augment_tile(tile)
+        tile = self._transform4tile(tile)
         return tile
 
     def __getitem__(self, index):
         img, label = self.dataset.__getitem__(index)
-        num_grids = self.grid_size ** 2    # divide image into grid_size^2 tiles
+        num_grids = self.grid_len ** 2    # divide image into grid_len^2 tiles
         list_tiles = [None] * num_grids     # list of length num_grids of image tiles
         for ind_tile in range(num_grids):
             list_tiles[ind_tile] = self.get_tile(img, ind_tile)    # populate tile list
