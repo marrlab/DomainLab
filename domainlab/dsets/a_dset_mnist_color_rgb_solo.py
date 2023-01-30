@@ -73,7 +73,7 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         self.images = self.images[inds_subset, ::]
         self.labels = self.labels[inds_subset]
         self._color_imgs_onehot_labels()
-    
+
     def _collect_imgs_labels(self, path, raw_split):
         """
         :param path:
