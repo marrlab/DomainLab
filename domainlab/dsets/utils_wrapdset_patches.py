@@ -14,23 +14,24 @@ tr_tile = transforms.Compose([
 
 
 class WrapDsetPatches(data.Dataset):
-    def __init__(self, dataset, jig_classes=31,   #FIXME: 31 has to be set both at algoirhtm side and scenario side now
-                 tile_transformer=tr_tile, patches=False,
-                 bias_whole_image=0.7, grid_num=3):    #FIXME: it seems bias_whole_image has an impact on performance
+    def __init__(self, dataset,
+                 num_perms2classify=31,
+                 tile_transformer=tr_tile,
+                 patches=False,
+                 prob_no_perm=0.7, grid_num=3):    #FIXME: it seems prob_no_perm has an impact on performance
 
         self.dataset = dataset
-        self.permutations = self.__retrieve_permutations(jig_classes)    # for 3*3 tiles, there are 9*8*7*6*5*...*1 >> 100, we load from disk instead only 100 permutations
+        self.arr_perm_rows = self.__retrieve_permutations(num_perms2classify)    # for 3*3 tiles, there are 9*8*7*6*5*...*1 >> 100, we load from disk instead only 100 permutations
         self.grid_size = grid_num   # break the image into 3*3 tiles
-        self.bias_whole_image = bias_whole_image
-        if patches:   # default false
-            self.patch_size = 64    # not sure what this serves for???
+        self.prob_no_perm = prob_no_perm
         self._augment_tile = tile_transformer
         if patches:    # default False, do not return patches(tiles) directly but sew them together
-            self.returnFunc = lambda x: x
+            self.fun_weave_imgs = lambda x: x
         else:
-            def make_grid(x):   # sew tiles together to be images
-                return torchvision.utils.make_grid(x, nrow=self.grid_size, padding=0)
-            self.returnFunc = make_grid
+            def make_grid(img):   # sew tiles together to be images
+                return torchvision.utils.make_grid(
+                    img, nrow=self.grid_size, padding=0)
+            self.fun_weave_imgs = make_grid
 
     def get_tile(self, img, ind_tile):
         """
@@ -55,32 +56,50 @@ class WrapDsetPatches(data.Dataset):
 
     def __getitem__(self, index):
         img, label = self.dataset.__getitem__(index)
-        n_grids = self.grid_size ** 2    # divide image into grid_size^2 tiles
-        tiles = [None] * n_grids     # list of length n_grids of image tiles
-        for ind_tile in range(n_grids):
-            tiles[ind_tile] = self.get_tile(img, ind_tile)    # populate tile list
-
-        order = np.random.randint(len(self.permutations) + 1)  # added 1 for class 0: unsorted
-        # len(self.permutations) by default is 100, so order is a random number between 0 and 101
-        # order is basically the row index to choose from self.permutations which is a matrix of 100*9 usually, where 9=3*3 is the number of tiles the image is broken into
-        if self.bias_whole_image:    # default is None
-            if self.bias_whole_image > random():
-                order = 0
-        if order == 0:
-            data = tiles
+        num_grids = self.grid_size ** 2    # divide image into grid_size^2 tiles
+        list_tiles = [None] * num_grids     # list of length num_grids of image tiles
+        for ind_tile in range(num_grids):
+            list_tiles[ind_tile] = self.get_tile(img, ind_tile)    # populate tile list
+        ind_which_perm = np.random.randint(
+            self.arr_perm_rows.shape[0] + 1)  # added 1 for class 0: unsorted
+        # len(self.arr_perm_rows) by default is 100,
+        # so ind_which_perm is a random number between 0 and 101
+        # ind_which_perm is basically the row index to choose
+        # from self.arr_perm_rows which is a matrix of 100*9 usually,
+        # where 9=3*3 is
+        # the number of tiles the image is broken into
+        if self.prob_no_perm:    # default is None
+            if self.prob_no_perm > np.random.rand():
+                ind_which_perm = 0
+        list_reordered_tiles = None
+        if ind_which_perm == 0:
+            list_reordered_tiles = list_tiles  # no permutation
         else:   # default
-            data = [tiles[self.permutations[order - 1][t]] for t in range(n_grids)]
+            perm_chosen = self.arr_perm_rows[ind_which_perm - 1]
+            list_reordered_tiles = [list_tiles[perm_chosen[ind_tile]]
+                                    for ind_tile in range(num_grids)]
 
-        data = torch.stack(data, 0)   # the 0th dim is the batch dimension
-        # NOTE: label must be the second place so that functions like performance.get_accuracy could work!
-        return self.returnFunc(data), label, int(order)     # order is the ground truth for the permutation index
+        stacked_tiles = torch.stack(list_reordered_tiles, 0)
+        # the 0th dim is the batch dimension
+        # NOTE: label must be the second place so that functions like
+        # performance.get_accuracy could work!
+        return self.fun_weave_imgs(stacked_tiles), label, int(ind_which_perm)
+        # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):
         return self.dataset.__len__()
 
-    def __retrieve_permutations(self, classes):
-        all_perm = np.load('data/patches_permutation4jigsaw/permutations_%d.npy' % (classes))
+    def __retrieve_permutations(self, num_perms_as_classes):
+        """
+        for 9 tiles which partition the image, we have num_perms_as_classes
+        number of different permutations of the tiles, the classifier will
+        classify the re-tile-ordered image permutation it come from.
+        """
+        # FIXME: path
+        arr_permutation_rows = np.load(
+            'data/patches_permutation4jigsaw/permutations_%d.npy' \
+            % (num_perms_as_classes))
         # from range [1,9] to [0,8]
-        if all_perm.min() == 1:
-            all_perm = all_perm - 1
-        return all_perm
+        if arr_permutation_rows.min() == 1:
+            arr_permutation_rows = arr_permutation_rows - 1
+        return arr_permutation_rows
