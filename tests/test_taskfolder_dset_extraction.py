@@ -15,8 +15,7 @@ from torch.utils.data import Subset
 
 def test_dset_sample_extraction(mode="MNIST", show_plot=False):
     # for mode == 'MNIST' is uses the MINISTcolor10 dataset, othervise the vlcs_mini dataset is used
-    # show_plot == True makes plot appear for the dataset for each domain and each class (one at a time)
-    # results are saved in 'zout/Dset_extraction/...'
+    # show_plot == True makes plot appear for the dataset for each domain and each class (one at a time) results are saved in 'zoutput/Dset_extraction/...'
 
     parser = mk_parser_main()
 
