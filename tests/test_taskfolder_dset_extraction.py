@@ -19,7 +19,7 @@ def test_dset_sample_extraction(mode="MNIST", show_plot=False):
 
     parser = mk_parser_main()
 
-    if not mode == "MNIST":
+    if mode != "MNIST":
         # vlcs_mini task
         task = mk_task_folder(
             extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
