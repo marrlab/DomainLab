@@ -3,6 +3,7 @@ Command line arguments
 """
 import argparse
 import warnings
+import yaml
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.models.args_vae import add_args2parser_vae
@@ -13,6 +14,10 @@ def mk_parser_main():
     Args for command line definition
     """
     parser = argparse.ArgumentParser(description='DomainLab')
+
+    parser.add_argument('-c', "--config", default=None, 
+                        help="load YAML configuration", dest="config_file", 
+                        type=argparse.FileType(mode='r'))
 
     parser.add_argument('--lr', type=float, default=1e-4,
                         help='learning rate')
@@ -148,8 +153,24 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
+
+    if args.config_file:
+        data = yaml.load(args.config_file)
+        delattr(args, 'config_file')
+        arg_dict = args.__dict__
+        for key, value in data.items():
+            if isinstance(value, list):
+                arg_dict[key].extend(value)
+            else:
+                arg_dict[key] = value
+
+        print("ARGPARSE DICT: ", arg_dict)
+    
+    print("ARGS: ", args)
+    
     if args.acon is None:
         print("\n\n")
         warnings.warn("no algorithm conf specified, going to use default")
         print("\n\n")
+
     return args
