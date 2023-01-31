@@ -153,21 +153,19 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
-
+    
     if args.config_file:
+
         data = yaml.load(args.config_file)
         delattr(args, 'config_file')
         arg_dict = args.__dict__
+
         for key, value in data.items():
             if isinstance(value, list):
                 arg_dict[key].extend(value)
             else:
                 arg_dict[key] = value
 
-        print("ARGPARSE DICT: ", arg_dict)
-    
-    print("ARGS: ", args)
-    
     if args.acon is None:
         print("\n\n")
         warnings.warn("no algorithm conf specified, going to use default")
