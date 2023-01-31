@@ -15,8 +15,8 @@ def mk_parser_main():
     """
     parser = argparse.ArgumentParser(description='DomainLab')
 
-    parser.add_argument('-c', "--config", default=None, 
-                        help="load YAML configuration", dest="config_file", 
+    parser.add_argument('-c', "--config", default=None,
+                        help="load YAML configuration", dest="config_file",
                         type=argparse.FileType(mode='r'))
 
     parser.add_argument('--lr', type=float, default=1e-4,
@@ -153,10 +153,9 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
-    
     if args.config_file:
 
-        data = yaml.load(args.config_file)
+        data = yaml.safe_load(args.config_file)
         delattr(args, 'config_file')
         arg_dict = args.__dict__
 

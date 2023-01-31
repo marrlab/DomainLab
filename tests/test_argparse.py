@@ -32,6 +32,3 @@ def test_parse_yml_args():
     assert args.bs == 2
     assert args.aname == "diva"
     assert args.gamma_y == 700000.0
-
-
-    
