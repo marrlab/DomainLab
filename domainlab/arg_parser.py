@@ -159,6 +159,10 @@ def parse_cmd_args():
         delattr(args, 'config_file')
         arg_dict = args.__dict__
 
+        for key in data:
+            if key not in arg_dict:
+                raise ValueError("The key is not supported: ", key)
+
         for key, value in data.items():
             if isinstance(value, list):
                 arg_dict[key].extend(value)

@@ -32,3 +32,15 @@ def test_parse_yml_args():
     assert args.bs == 2
     assert args.aname == "diva"
     assert args.gamma_y == 700000.0
+
+def test_parse_invalid_yml_args():
+    """Test argparser with yaml file
+    """
+    testdir = os.path.dirname(os.path.realpath(__file__))
+    rootdir = os.path.join(testdir, "..")
+    rootdir = os.path.abspath(rootdir)
+    file_path = os.path.join(rootdir, "examples/yaml/demo_invalid_parameter.yaml")
+    sys.argv = ['main.py', '--config=' + file_path]
+    
+    with pytest.raises(ValueError):
+        parse_cmd_args()
