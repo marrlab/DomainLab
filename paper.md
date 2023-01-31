@@ -1,5 +1,33 @@
 # DomainLab: A PyTorch library for causal domain generalization
 
+title: 'Gala: A Python package for galactic dynamics'
+tags:
+  - Python
+  - astronomy
+  - dynamics
+  - galactic dynamics
+  - milky way
+authors:
+  - name: Adrian M. Price-Whelan
+    orcid: 0000-0000-0000-0000
+    equal-contrib: true
+    affiliation: "1, 2" # (Multiple affiliations must be quoted)
+  - name: Author Without ORCID
+    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
+    affiliation: 2
+  - name: Author with no affiliation
+    corresponding: true # (This is how to denote the corresponding author)
+    affiliation: 3
+affiliations:
+ - name: Lyman Spitzer, Jr. Fellow, Princeton University, USA
+   index: 1
+ - name: Institution Name, Country
+   index: 2
+ - name: Independent Researcher, Country
+   index: 3
+date: 13 August 2017
+bibliography: paper.bib
+
 ## Summary
 Deep learning (DL) models have solved real-world challenges in various areas, such as computer vision, natural language processing, and medical image classification or computational pathology. While generalizing to unseen test domains comes naturally to humans, it’s still a major obstacle for machines. By design, most DL models assume that training and testing distributions are the same, causing them to fail when this is violated. Instead, domain generalization aims at training domain invariant models that are robust to distribution shifts. 
 
