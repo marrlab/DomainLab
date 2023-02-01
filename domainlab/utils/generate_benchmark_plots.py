@@ -3,45 +3,68 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def scatterplot_matrix(dataframe):
+def scatterplot_matrix(dataframe, file=None, reg=True, distinguish_param_setups=True):
+    '''
+    dataframe: dataframe containing the data with columns
+        ['algo', 'epos', 'seed', 'mname', 'dictionary for the hyperparameters', obj1, ..., obj2]
+    file: filename to save the plots (if None, the plot will not be saved)
+    reg: if True a regression line will be plotted over the data
+    distinguish_param_setups: if True the plot will not only distinguish between models,
+        but also between the parameter setups
+    '''
     index = list(range(5, dataframe.shape[1]))
-    objectives_num = len(index)
-    index.append(0)
-    #index.append(4)
-    dataframe_ = dataframe.iloc[:, index]
-    dataframe_.insert(0, 'label', dataframe[['algo', 'dictionary for the hyperparameters']].values.tolist())
-    dataframe_['label'] = dataframe_['label'].astype(str).str.replace('\[|\]|\'', '').astype('string')
-    g = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
-    for i in range(objectives_num):
-        for j in range(objectives_num):
+    if distinguish_param_setups:
+        dataframe_ = dataframe.iloc[:, index]
+        dataframe_.insert(0, 'label',
+                          dataframe['algo'].astype(str) + ', ' +
+                          dataframe['dictionary for the hyperparameters'].astype(str))
+    else:
+        index_ = list(range(5, dataframe.shape[1]))
+        index_.insert(0, 0)
+        dataframe_ = dataframe.iloc[:, index_]
+
+    if reg:
+        if not distinguish_param_setups:
+            g = sns.pairplot(data=dataframe_, hue='algo', corner=True, kind='reg')
+        else:
+            g = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
+    else:
+        if not distinguish_param_setups:
+            g = sns.pairplot(data=dataframe_, hue='algo', corner=True)
+        else:
+            g = sns.pairplot(data=dataframe_, hue='label', corner=True)
+
+    for i in range(len(index)):
+        for j in range(len(index)):
             if i >= j:
                 label = dataframe_.columns[j + 1]
-                mini = min(dataframe_[label])
-                maxi = max(dataframe_[label])
-                dist = 0.1 * (maxi - mini)
-                g.axes[i, j].set_xlim((mini - dist, maxi + dist))
+                dist = 0.1 * (max(dataframe_[label]) - min(dataframe_[label]))
+                g.axes[i, j].set_xlim((min(dataframe_[label]) - dist,
+                                       max(dataframe_[label]) + dist))
                 for k in range(j):
-                    g.axes[j, k].set_ylim((mini - dist, maxi + dist))
+                    g.axes[j, k].set_ylim((min(dataframe_[label]) - dist,
+                                           max(dataframe_[label]) + dist))
     plt.tight_layout()
 
+    if file is not None:
+        plt.savefig(file, dpi=300)
 
-def radar_plot(dataframe):
-    dataframe.insert(0, 'label', dataframe[['algo', 'dictionary for the hyperparameters']].values.tolist())
-    dataframe['label'] = dataframe['label'].astype(str).str.replace('\[|\]|\'', '').astype('string')
+
+def radar_plot(dataframe, file=None):
+    dataframe.insert(0, 'label',
+                     dataframe['algo'].astype(str) + ', ' +
+                     dataframe['dictionary for the hyperparameters'].astype(str))
     index = list(range(6, dataframe.shape[1]))
-    objectives = dataframe.columns[index]
-    default_colors = list(plt.rcParams["axes.prop_cycle"])
-    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    _, ax = plt.subplots(figsize=(9, 9), subplot_kw=dict(polar=True))
     num = 0
 
     # Split the circle into even parts and save the angles
     # so we know where to put each axis.
-    angles = list(np.linspace(0, 2 * np.pi, len(objectives), endpoint=False))
+    angles = list(np.linspace(0, 2 * np.pi, len(dataframe.columns[index]), endpoint=False))
     for algo_name in dataframe['label'].unique():
-        values = list(dataframe.loc[dataframe['label'] == algo_name].iloc[:, index].to_numpy())
         algo_lab = False
 
-        for line in values:
+        for line in list(dataframe.loc[dataframe['label'] == algo_name].iloc[:, index].to_numpy()):
             angles_ = angles
             line = list(line)
             # The plot is a circle, so we need to "complete the loop"
@@ -49,26 +72,35 @@ def radar_plot(dataframe):
             line = line + line[:1]
             angles_ = angles_ + angles_[:1]
 
-            # Draw the outline of our data.
+            # Draw the outline of the data.
             if algo_lab:
-                ax.plot(angles_, line, color=default_colors[num]['color'], linewidth=1)
+                ax.plot(angles_, line,
+                        color=list(plt.rcParams["axes.prop_cycle"])[num]['color'],
+                        linewidth=1)
             else:
-                ax.plot(angles_, line, color=default_colors[num]['color'], linewidth=1, label=algo_name)
+                ax.plot(angles_, line,
+                        color=list(plt.rcParams["axes.prop_cycle"])[num]['color'],
+                        linewidth=1, label=algo_name)
                 algo_lab = True
             # Fill it in.
-            ax.fill(angles_, line, color=default_colors[num]['color'], alpha=0.05)
+            ax.fill(angles_, line,
+                    color=list(plt.rcParams["axes.prop_cycle"])[num]['color'],
+                    alpha=0.05)
         num += 1
-        num = num % len(default_colors)
+        num = num % len(list(plt.rcParams["axes.prop_cycle"]))
 
     # Fix axis to go in the right order and start at 12 o'clock.
     ax.set_theta_offset(np.pi / 2)
     ax.set_theta_direction(-1)
 
     # Draw axis lines for each angle and label.
-    ax.set_thetagrids(np.degrees(angles), objectives)
+    ax.set_thetagrids(np.degrees(angles), dataframe.columns[index])
 
     plt.legend()
     plt.tight_layout()
+
+    if file is not None:
+        plt.savefig(file, dpi=300)
 
 
 if __name__ == '__main__':
@@ -109,8 +141,11 @@ if __name__ == '__main__':
 
     #print(dummy_dataframe)
 
-    scatterplot_matrix(dummy_dataframe)
-    radar_plot(dummy_dataframe)
+    scatterplot_matrix(dummy_dataframe, file='smatrix_reg.png', reg=True, distinguish_param_setups=False)
+    scatterplot_matrix(dummy_dataframe, file='smatrix.png', reg=False, distinguish_param_setups=False)
+    scatterplot_matrix(dummy_dataframe, file='smatrix_reg_dist.png', reg=True, distinguish_param_setups=True)
+    scatterplot_matrix(dummy_dataframe, file='smatrix_dist.png', reg=False, distinguish_param_setups=True)
+    radar_plot(dummy_dataframe, file='radar.png')
 
 
 
