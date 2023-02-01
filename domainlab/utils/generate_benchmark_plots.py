@@ -103,6 +103,66 @@ def radar_plot(dataframe, file=None):
         plt.savefig(file, dpi=300)
 
 
+def radar_plot_per_algo(dataframe, file=None):
+    dataframe.insert(0, 'label',
+                     dataframe['algo'].astype(str) + ', ' +
+                     dataframe['dictionary for the hyperparameters'].astype(str))
+    index = list(range(6, dataframe.shape[1]))
+    _, ax = plt.subplots(1, len(list(dataframe['algo'].unique())),
+                         figsize=(6 * len(list(dataframe['algo'].unique())), 6),
+                         subplot_kw=dict(polar=True))
+
+    # Split the circle into even parts and save the angles
+    # so we know where to put each axis.
+    angles = list(np.linspace(0, 2 * np.pi, len(dataframe.columns[index]), endpoint=False))
+    for idx, algo_name in enumerate(list(dataframe['algo'].unique())):
+        algo_dataframe = dataframe.loc[dataframe['algo'] == algo_name]
+        num = 0
+
+        for label in algo_dataframe['label'].unique():
+            algo_lab = False
+
+            for line in list(algo_dataframe.loc[algo_dataframe['label'] == label].iloc[:, index].to_numpy()):
+                angles_ = angles
+                line = list(line)
+                # The plot is a circle, so we need to "complete the loop"
+                # and append the start value to the end.
+                line = line + line[:1]
+                angles_ = angles_ + angles_[:1]
+
+                # Draw the outline of the data.
+                if algo_lab:
+                    ax[idx].plot(angles_, line,
+                            color=list(plt.rcParams["axes.prop_cycle"])[num]['color'],
+                            linewidth=1)
+                else:
+                    ax[idx].plot(angles_, line,
+                            color=list(plt.rcParams["axes.prop_cycle"])[num]['color'],
+                            linewidth=1, label=label)
+                    algo_lab = True
+                # Fill it in.
+                ax[idx].fill(angles_, line,
+                        color=list(plt.rcParams["axes.prop_cycle"])[num]['color'],
+                        alpha=0.05)
+            num += 1
+            num = num % len(list(plt.rcParams["axes.prop_cycle"]))
+
+            # Fix axis to go in the right order and start at 12 o'clock.
+            ax[idx].set_theta_offset(np.pi / 2)
+            ax[idx].set_theta_direction(-1)
+
+            # Draw axis lines for each angle and label.
+            ax[idx].set_thetagrids(np.degrees(angles), dataframe.columns[index])
+
+            ax[idx].legend()
+    plt.tight_layout()
+
+    if file is not None:
+        plt.savefig(file, dpi=300)
+
+
+
+
 if __name__ == '__main__':
     diva01 = ['diva', 5, 0, 'mname_debug_e_mini_vlcs_te_caltech_diva_b05f8956_not_commited_2023md_01md_18_09_26_44_seed_0',
               {'a': 1, 'b':1}, 0.77397263, 0.82765615, 0.59528303, 0.59528303, 0.5953641, 0.74150944]
@@ -141,13 +201,13 @@ if __name__ == '__main__':
 
     #print(dummy_dataframe)
 
-    scatterplot_matrix(dummy_dataframe, file='smatrix_reg.png', reg=True, distinguish_param_setups=False)
-    scatterplot_matrix(dummy_dataframe, file='smatrix.png', reg=False, distinguish_param_setups=False)
-    scatterplot_matrix(dummy_dataframe, file='smatrix_reg_dist.png', reg=True, distinguish_param_setups=True)
-    scatterplot_matrix(dummy_dataframe, file='smatrix_dist.png', reg=False, distinguish_param_setups=True)
-    radar_plot(dummy_dataframe, file='radar.png')
+    #scatterplot_matrix(dummy_dataframe, file='smatrix_reg.png', reg=True, distinguish_param_setups=False)
+    #scatterplot_matrix(dummy_dataframe, file='smatrix.png', reg=False, distinguish_param_setups=False)
+    #scatterplot_matrix(dummy_dataframe, file='smatrix_reg_dist.png', reg=True, distinguish_param_setups=True)
+    #scatterplot_matrix(dummy_dataframe, file='smatrix_dist.png', reg=False, distinguish_param_setups=True)
+    #radar_plot(dummy_dataframe, file='radar.png')
 
-
+    radar_plot_per_algo(dummy_dataframe)
 
     plt.show()
 
