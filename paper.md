@@ -11,16 +11,20 @@ authors:
     orcid: 0000-0001-9234-4932
     equal-contrib: False
     affiliation: "1" # (Multiple affiliations must be quoted)
+  - name: Alexej Gossmann
+    orcid: 0000-0001-9068-3877
+    equal-contrib: False
+    affiliation: 2
   - name: Author Without ORCID
     equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
-    affiliation: 2
+    affiliation: 3
   - name: Author with no affiliation
     corresponding: true # (This is how to denote the corresponding author)
     affiliation: 3
 affiliations:
  - name: AI for Health, Helmholtz Munich, Munich, Germany
    index: 1
- - name: Institution Name, Country
+ - name: Division of Imaging, Diagnostics, and Software Reliability, CDRH, U.S Food and Drug Administration, Silver Spring, MD 20993, USA
    index: 2
  - name: Independent Researcher, Country
    index: 3
