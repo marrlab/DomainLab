@@ -43,3 +43,18 @@ def test_dann():
                                ])
     exp = Exp(margs)
     exp.execute()
+
+
+def test_sanity_check():
+    """Sanity check of the dataset"""
+    parser = mk_parser_main()
+    margs = parser.parse_args(["--te_d", "caltech",
+                               "--task", "mini_vlcs",
+                               "--aname", "dann", "--bs", "2",
+                               "--nname", "conv_bn_pool_2",
+                               "--gamma_reg", "1.0",
+                               "--san_check",
+                               "--san_num", "4"
+                               ])
+    exp = Exp(margs)
+    exp.execute()
