@@ -1,5 +1,4 @@
-# DomainLab: A PyTorch library for causal domain generalization
-
+---
 title: 'DomainLab: A PyTorch library for causal domain generalization'
 tags:
   - Python
@@ -7,7 +6,6 @@ tags:
   - distribution shift
   - domain generalization
   - causality
-
 authors:
   - name: Xudong Sun
     orcid: 0000-0001-9234-4932
@@ -26,27 +24,28 @@ affiliations:
    index: 2
  - name: Independent Researcher, Country
    index: 3
-
 date: 13 August 2017
+bibliography: paper.bib
+---
 
-Please provide your orcid!
+(
+**Please provide your orcid!**
 Ali 0000-0003-3391-9294
 Carsten 0000-0003-2154-4552
 Patrick 0000-0002-6499-7933
 Rao Umer 0000-0001-6179-5829
 Florian 0000-0001-5587-6761
+Alexej 0000-0001-9068-3877
+)
 
-
-bibliography: paper.bib
-
-## Summary
+# Summary
 Deep learning (DL) models have solved real-world challenges in various areas, such as computer vision, natural language processing, and medical image classification or computational pathology. While generalizing to unseen test domains comes naturally to humans, it’s still a major obstacle for machines. By design, most DL models assume that training and testing distributions are the same, causing them to fail when this is violated. Instead, domain generalization aims at training domain invariant models that are robust to distribution shifts. 
 
 We introduce DomainLab, a PyTorch based Python package for domain generalization. DomainLab focuses on causal domain generalization and probabilistic methods, while offering easy extensibility to a wide range of other methods including adversarial methods, self-supervised learning and other training paradigms. Compared to existing solutions, DomainLab uncouples the factors that contribute to the performance of a domain generalization method. How the data are split, which neural network architectures and loss functions are used, how the weights are updated, and which evaluation protocol is applied are defined independently. In that way, the user can take any combination and evaluate its impact on generalization performance. 
 
 DomainLab’s documentation is hosted on https://marrlab.github.io/DomainLab and its source code can be found at https://github.com/marrlab/DomainLab. 
 
-## Statement of need 
+# Statement of need 
 
 Over the past years, various methods have been proposed addressing different aspects of domain generalization. However, their implementations are often limited to proof-of-concept code, interspersed with custom code for data access, pre-processing, evaluation, etc. This limits the applicability of these methods, affects reproducibility, and restricts the ability to perform comparisons with other state-of-the-art methods. 
 
@@ -59,8 +58,8 @@ Can the results be ascribed to a more appropriate neural network architecture?
 Is the performance impacted by the  protocol used to estimate the generalization performance, e.g. the dataset split? 
 Does the model benefit from a special loss function, e.g. because it offers a better regularization to the training of the neural network?
 
-## Description
-### General Design 
+# Description
+## General Design 
 To address software design issues of existing code bases like DomainBed (Gulrajani and Lopez-Paz 2020) and Dassl (Zhou et al. 2021), and to maximally decouple factors that might affect the performance of domain generalization algorithms, we designed DomainLab with the following features:
 First, the package offers the user a standalone application to specify the data, data split protocol , pre-processing, neural network backbone, and model loss function, which will not modify the code base of DomainLab. That is, it connects a user’s data to algorithms.
 Domain generalization algorithms were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an  architecture implemented in a python file or by specifying a string of some existing neural network like AlexNet, via command line arguments.
@@ -68,7 +67,8 @@ Selection of algorithms, neural network components, as well as other components 
 Instead of modifying code across several python files, the package is closed to modification and open to extension. To simply test an algorithm’s performance on `a user’s data, there is no need to change any code inside this repository, the user only needs to extend this repository to fit their requirement by providing custom python files. 
 It offers a framework for generating combinations by simply letting the user select elements through command line arguments. (combine tasks, neural network architectures)
 With the above design, DomainLab offers users the flexibility to construct custom tasks with their own data, writing custom neural network architectures, and even trying their own algorithms by specifying a python file with custom loss functions. There is no need to change the original code of DomainLab when the user needs to use the domain generalization method to their own application, extend the method with custom neural network and try to discriminate the most significant factor that affects performance. 
-### Components  
+
+## Components  
 To achieve the above design goals of decoupling, we used the following components:
 Models refer to a PyTorch module with a specified loss function containing regularization effect of several domains plus the task-specific loss, which is classification loss for classification task, but stay transparent with respect to the exact neural network architecture, which can be configured by the user via command line arguments. There are two types of models
 implemented models from publications in the field of domain generalization using causality and probabilistic model based methods
@@ -86,7 +86,7 @@ constructing a trainer which guides the data flow.
 constructing a concrete neural network architecture and feeding into the model.
 constructing the evaluator as a callback of what to do after each epoch.
 
-## Availability
+# Availability
 Domainlab is free and open source. It is published under the MIT License. You can download the source code at https://github.com/marrlab/DomainLab. Extensive documentation can be found here at https://marrlab.github.io/DomainLab. DomainLab can be installed using python-poetry or pip.
 
 
