@@ -201,13 +201,13 @@ if __name__ == '__main__':
 
     #print(dummy_dataframe)
 
-    #scatterplot_matrix(dummy_dataframe, file='smatrix_reg.png', reg=True, distinguish_param_setups=False)
-    #scatterplot_matrix(dummy_dataframe, file='smatrix.png', reg=False, distinguish_param_setups=False)
-    #scatterplot_matrix(dummy_dataframe, file='smatrix_reg_dist.png', reg=True, distinguish_param_setups=True)
-    #scatterplot_matrix(dummy_dataframe, file='smatrix_dist.png', reg=False, distinguish_param_setups=True)
-    #radar_plot(dummy_dataframe, file='radar.png')
+    scatterplot_matrix(dummy_dataframe, file='smatrix_reg.png', reg=True, distinguish_param_setups=False)
+    scatterplot_matrix(dummy_dataframe, file='smatrix.png', reg=False, distinguish_param_setups=False)
+    scatterplot_matrix(dummy_dataframe, file='smatrix_reg_dist.png', reg=True, distinguish_param_setups=True)
+    scatterplot_matrix(dummy_dataframe, file='smatrix_dist.png', reg=False, distinguish_param_setups=True)
 
-    radar_plot_per_algo(dummy_dataframe)
+    radar_plot(dummy_dataframe, file='radar.png')
+    radar_plot_per_algo(dummy_dataframe, file='radar_per_algo')
 
     plt.show()
 
