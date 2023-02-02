@@ -1,4 +1,5 @@
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
+from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
@@ -32,6 +33,7 @@ class AlgoBuilderChainNodeGetter(object):
         chain = NodeAlgoBuilderDIVA(None)
         chain = NodeAlgoBuilderDeepAll(chain)
         chain = NodeAlgoBuilderDANN(chain)
+        chain = NodeAlgoBuilderJiGen(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
         chain = NodeAlgoBuilderMatchDG(chain)
         chain = self.register_external_node(chain)
