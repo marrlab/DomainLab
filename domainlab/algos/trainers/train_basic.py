@@ -21,7 +21,7 @@ class TrainerBasic(AbstractTrainer):
             tensor_x, vec_y, vec_d = \
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             self.optimizer.zero_grad()
-            if "JiGen" not in str(type(self.model)):
+            if "JiGen" in str(type(self.model)):
                 loss = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
             else:
                 loss = self.model.cal_loss(tensor_x, vec_y, vec_d, others)

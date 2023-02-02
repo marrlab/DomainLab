@@ -3,7 +3,7 @@ import torch
 import torchvision
 import torchvision.transforms as transforms
 
-from torch.utils.data import data as torchdata
+from torch.utils import data as torchdata
 
 
 global_transform4tile = transforms.Compose([
@@ -65,7 +65,7 @@ class WrapDsetPatches(torchdata.Dataset):
         return tile
 
     def __getitem__(self, index):
-        img, label = self.dataset.__getitem__(index)
+        img, label, *_ = self.dataset.__getitem__(index)
         num_grids = self.grid_len ** 2    # divide image into grid_len^2 tiles
         list_tiles = [None] * num_grids     # list of length num_grids of image tiles
         for ind_tile in range(num_grids):

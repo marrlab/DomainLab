@@ -40,7 +40,8 @@ def mk_jigen(parent_class=AModelClassif):
             vec_perm_ind = tensor_d
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_classifier_permutation(feat)
-            _, target_perm_ind_scalar = vec_perm_ind.max(dim=1)
+            # _, target_perm_ind_scalar = vec_perm_ind.max(dim=1)
+            target_perm_ind_scalar = vec_perm_ind
             loss_perm = F.cross_entropy(logit_d, target_perm_ind_scalar, reduction="none")
             loss_task = self.cal_task_loss(tensor_x, tensor_y)
             return loss_task + loss_perm
