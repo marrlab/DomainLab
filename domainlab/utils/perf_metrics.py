@@ -1,5 +1,6 @@
 """Classification Performance"""
 import torch
+import pandas as pd
 from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          F1Score, Precision, Recall,
                                          Specificity)
@@ -68,6 +69,9 @@ class PerfMetricClassif():
                        "f1": f1_score_y,
                        "auroc": auroc_y,
                        "confmat": confmat_y}
-        for key in dict_metric.keys():
+        keys = list(dict_metric)
+        keys.remove("confmat")
+        for key in keys:
             dict_metric[key] = dict_metric[key].cpu().numpy().sum()
+        dict_metric["confmat"] = pd.DataFrame(dict_metric["confmat"].cpu().numpy())
         return dict_metric

@@ -133,7 +133,6 @@ class AggWriter(ExpModelPersistVisitor):
     def _gen_line(self, dict_metric):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
-        del dict_cols["confmat"]
         # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
