@@ -58,7 +58,7 @@ DomainBed for the first time provided a common codebase for benchmarking domain 
 
 With DomainLab, we introduce a fully modular Python package for domain generalization with Pytorch backend that follows best practices in software design and includes extensive documentation to enable the community to understand and contribute to the code. It contains extensive unit tests as well as end-to-end tests to verify the implemented functionality. 
 
-An ideal package for domain generalization should decouple the factors that affectmodelperformance. This way, the components that contributed most to a promising result can be isolated, allowing for better comparability between methods. For example
+An ideal package for domain generalization should decouple the factors that affect model performance. This way, the components that contributed most to a promising result can be isolated, allowing for better comparability between methods. For example
 Can the results be ascribed to a more appropriate neural network architecture? 
 Is the performance impacted by the  protocol used to estimate the generalization performance, e.g. the dataset split? 
 Does the model benefit from a special loss function, e.g. because it offers a better regularization to the training of the neural network?
