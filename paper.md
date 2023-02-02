@@ -15,7 +15,7 @@ DomainBed for the first time provided a common codebase for benchmarking domain 
 
 With DomainLab, we introduce a fully modular Python package for domain generalization with Pytorch backend that follows best practices in software design and includes extensive documentation to enable the community to understand and contribute to the code. It contains extensive unit tests as well as end-to-end tests to verify the implemented functionality. 
 
-An ideal package for domain generalization should decouple the factors that affectmodelperformance. This way, the components that contributed most to a promising result can be isolated, allowing for better comparability between methods. For example
+An ideal package for domain generalization should decouple the factors that affect model performance. This way, the components that contributed most to a promising result can be isolated, allowing for better comparability between methods. For example
 Can the results be ascribed to a more appropriate neural network architecture? 
 Is the performance impacted by the  protocol used to estimate the generalization performance, e.g. the dataset split? 
 Does the model benefit from a special loss function, e.g. because it offers a better regularization to the training of the neural network?
@@ -23,7 +23,7 @@ Does the model benefit from a special loss function, e.g. because it offers a be
 ## Description
 ### General Design 
 To address software design issues of existing code bases like DomainBed (Gulrajani and Lopez-Paz 2020) and Dassl (Zhou et al. 2021), and to maximally decouple factors that might affect the performance of domain generalization algorithms, we designed DomainLab with the following features:
-First, the package offers the user a standalone application to specify the data, data split protocol , pre-processing, neural network backbone, and model loss function, which will not modify the code base of DomainLab. That is, it connects a user’s data to algorithms.
+First, the package offers the user a standalone application to specify the data, data split protocol, pre-processing, neural network backbone, and model loss function, which will not modify the code base of DomainLab. That is, it connects a user’s data to algorithms.
 Domain generalization algorithms were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an  architecture implemented in a python file or by specifying a string of some existing neural network like AlexNet, via command line arguments.
 Selection of algorithms, neural network components, as well as other components like training procedure are done via the chain-of-responsibility method. Other design patterns like observer pattern, visitor pattern, etc. are also used to improve the decoupling of different factors contributing to the performance of an algorithm (see also Section Components below).  (Gamma book see below)
 Instead of modifying code across several python files, the package is closed to modification and open to extension. To simply test an algorithm’s performance on `a user’s data, there is no need to change any code inside this repository, the user only needs to extend this repository to fit their requirement by providing custom python files. 
