@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from typing import Union, List, Optional, Tuple
 
 def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setups=True):
     '''
@@ -244,6 +245,35 @@ def radar_plot_per_algo(dataframe_, file=None):
         plt.savefig(file, dpi=300)
 
 
+def box_plot(
+    data: pd.DataFrame,
+    metrics: Union[str, List],
+    figsize: Optional[Tuple[float, float]] = None,
+    hyperparamter_filter: Optional[Union[str, List[str], List[dict]]] = None,
+    plot_pooled: Optional[bool] = True,
+    groupby_hyperparamter: Optional[bool] = True
+):
+    if hyperparamter_filter:
+        pass
+    data['hyperparameters'] = data['hyperparameters'].astype(str)
+    if isinstance(metrics, str):
+        metrics = [metrics]
+    num_plots = len(metrics) * (int(plot_pooled == True) + int(groupby_hyperparamter == True))
+    print(num_plots)
+    data = data[['algo', 'epos', 'seed', 'hyperparameters'] + metrics]
+    if figsize is None:
+        #figsize =
+        pass
+    for i, item in enumerate(metrics, start=1):
+        fig = plt.figure(figsize=[6, 10])
+        if plot_pooled:
+            plt.subplot(num_plots, 1, 2*i-1)
+            sns.boxplot(data=data, x="algo", y=item)
+        if groupby_hyperparamter:
+            plt.subplot(num_plots, 1, 2*i)
+            sns.boxplot(data=data, x="algo", y=item, hue='hyperparameters')
+        fig.tight_layout()
+        plt.show()
 
 
 if __name__ == '__main__':
