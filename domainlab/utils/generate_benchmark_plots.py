@@ -2,11 +2,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from typing import Union, List, Optional, Tuple
 
 def scatterplot_matrix(dataframe, file=None, reg=True, distinguish_param_setups=True):
     '''
     dataframe: dataframe containing the data with columns
-        ['algo', 'epos', 'seed', 'mname', 'dictionary for the hyperparameters', obj1, ..., obj2]
+        ['algo', 'epos', 'seed', 'mname', 'hyperparameters', obj1, ..., obj2]
     file: filename to save the plots (if None, the plot will not be saved)
     reg: if True a regression line will be plotted over the data
     distinguish_param_setups: if True the plot will not only distinguish between models,
@@ -17,7 +18,7 @@ def scatterplot_matrix(dataframe, file=None, reg=True, distinguish_param_setups=
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(0, 'label',
                           dataframe['algo'].astype(str) + ', ' +
-                          dataframe['dictionary for the hyperparameters'].astype(str))
+                          dataframe['hyperparameters'].astype(str))
     else:
         index_ = list(range(5, dataframe.shape[1]))
         index_.insert(0, 0)
@@ -53,7 +54,7 @@ def scatterplot_matrix(dataframe, file=None, reg=True, distinguish_param_setups=
 def radar_plot(dataframe, file=None):
     dataframe.insert(0, 'label',
                      dataframe['algo'].astype(str) + ', ' +
-                     dataframe['dictionary for the hyperparameters'].astype(str))
+                     dataframe['hyperparameters'].astype(str))
     index = list(range(6, dataframe.shape[1]))
     _, ax = plt.subplots(figsize=(9, 9), subplot_kw=dict(polar=True))
     num = 0
@@ -106,7 +107,7 @@ def radar_plot(dataframe, file=None):
 def radar_plot_per_algo(dataframe, file=None):
     dataframe.insert(0, 'label',
                      dataframe['algo'].astype(str) + ', ' +
-                     dataframe['dictionary for the hyperparameters'].astype(str))
+                     dataframe['hyperparameters'].astype(str))
     index = list(range(6, dataframe.shape[1]))
     _, ax = plt.subplots(1, len(list(dataframe['algo'].unique())),
                          figsize=(6 * len(list(dataframe['algo'].unique())), 6),
@@ -161,6 +162,35 @@ def radar_plot_per_algo(dataframe, file=None):
         plt.savefig(file, dpi=300)
 
 
+def box_plot(
+    data: pd.DataFrame,
+    metrics: Union[str, List],
+    figsize: Optional[Tuple[float, float]] = None,
+    hyperparamter_filter: Optional[Union[str, List[str], List[dict]]] = None,
+    plot_pooled: Optional[bool] = True,
+    groupby_hyperparamter: Optional[bool] = True
+):
+    if hyperparamter_filter:
+        pass
+    data['hyperparameters'] = data['hyperparameters'].astype(str)
+    if isinstance(metrics, str):
+        metrics = [metrics]
+    num_plots = len(metrics) * (int(plot_pooled == True) + int(groupby_hyperparamter == True))
+    print(num_plots)
+    data = data[['algo', 'epos', 'seed', 'hyperparameters'] + metrics]
+    if figsize is None:
+        #figsize = 
+        pass
+    for i, item in enumerate(metrics, start=1):
+        fig = plt.figure(figsize=[6, 10])
+        if plot_pooled:
+            plt.subplot(num_plots, 1, 2*i-1)
+            sns.boxplot(data=data, x="algo", y=item)
+        if groupby_hyperparamter:
+            plt.subplot(num_plots, 1, 2*i)
+            sns.boxplot(data=data, x="algo", y=item, hue='hyperparameters')
+        fig.tight_layout()
+        plt.show()
 
 
 if __name__ == '__main__':
@@ -195,7 +225,7 @@ if __name__ == '__main__':
     # for each hyperparameter initialisation three runs with different random seeds are included
     dummy_dataframe = pd.DataFrame([diva01, diva02, diva03, diva11, diva12, diva13,
                                     hduva01, hduva02, hduva03, hduva11, hduva12, hduva13],
-        columns=['algo', 'epos', 'seed', 'mname', 'dictionary for the hyperparameters',
+        columns=['algo', 'epos', 'seed', 'mname', 'hyperparameters',
                  'acc', 'precision', 'recall', 'specificity', 'f1', 'auroc'])
 
 
