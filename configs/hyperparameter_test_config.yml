@@ -4,38 +4,47 @@ num_param_samples: 30
 # currently, everything which contains the aname property is considered as a task.
 Task1:  # name
   aname: Algo1
+  # any key of a task, except 'aname' and 'constraints' is considered a parameter.
+  # Each parameter must contain:
+  # - distribution
+  # - min and max if distribution is uniform or loguniform
+  # - mean and std if distribution is normal or lognormal
   p1:
-    authorschoice: 1.5
     distribution: uniform    # uniform | loguniform | normal | lognormal
-    min: 1
-    max: 2
-    step: 0    # anything > 0 for discrete variables, 0 for continuous ones.
+    min: 1  # in case of uniform
+    max: 3  # in case of uniform
+    step: 0    # anything > 0 for discrete variables, 0 for continuous ones. Optional
 
   p2:
-    authorschoice: 3
     distribution: normal
-    min: 0
-    max: 5
+    mean: 1 # in case of normal
+    std: 2  # in case of normal
     step: 1 # integer valued
 
   p3:
-    authorschoice: 1e-3
     min: 1e-6
     max: 1
     distribution: loguniform
     step: 0
 
-
+  # Optional
   constraints:
-    - "p1 < p2"    # any valid Python code evaluating to bool, variables are having the name from above.
+    # In this list, any valid Python code evaluating to bool can be used.
+    # The parameters can be accessed by their name from above.
+    - "p1 < p2"
     - "p3 < p2"
 
 Task2:  # name
   aname: Algo2
 
   p1:
-    authorschoice: 5
-    min: 1
-    max: 1e6
+    mean: 1
+    std: 3
+    step: 2   # only odd numbers
+    distribution: lognormal
+
+  p2:
+    min: -2
+    max: 2
     step: 1
-    distribution: loguniform
+    distribution: uniform
