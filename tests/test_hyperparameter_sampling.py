@@ -7,7 +7,7 @@ from domainlab.utils.hyperparameter_sampling import\
 def test_hyperparameter_sampling():
     """Test sampling from yaml, including constraints"""
     samples = sample_hyperparameters(
-        "configs/hyperparameter_test_config.yml", 'zoutput/test_params.csv'
+        "examples/yaml/hyperparameter_test_config.yml", 'zoutput/test_params.csv'
     )
     a1samples = samples[samples['algo'] == 'Algo1']
     for par in a1samples['params']:

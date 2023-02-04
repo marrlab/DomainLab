@@ -5,12 +5,13 @@ import yaml
 
 class Hyperparameter:
     """
-    Represents a hyperparameter
+    Represents a hyperparameter.
+    The datatype of .val is int if step and p1 is integer valued,
+    else float.
 
     p1: min or mean
     p2: max or scale
     """
-    # def __init__(self, name: str, p1: float, p2: float, distribution: str, step: float):
     def __init__(self, name: str, config: dict):
         self.name = name
         self.step = config.get('step', 0)
@@ -30,6 +31,7 @@ class Hyperparameter:
         self.p_1 = float(self.p_1)
         self.p_2 = float(self.p_2)
         self.val = 0
+        self.datatype = int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
 
     def _ensure_step(self):
         """Make sure that the hyperparameter sticks to the discrete grid"""
@@ -42,6 +44,9 @@ class Hyperparameter:
             self.val -= off
         else:
             self.val += self.step - off
+        # ensure correct datatype
+        if self.datatype == int:
+            self.val = self.datatype(np.round(self.val))
 
     def sample(self):
         """Sample this parameter, respecting properties"""
