@@ -103,16 +103,17 @@ def sample_parameters(params: list[Hyperparameter], constraints: Union[list[str]
 def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, config: dict):
     """Sample one task and add it to the dataframe"""
     algo = config['aname']
-    params = []
-    for key, val in config.items():
-        if key == 'aname' or key == 'constraints':
-            continue
-        params += [Hyperparameter(key, val)]
+    if 'hyperparameters' in config.keys():
+        params = []
+        for key, val in config['hyperparameters'].items():
+            if key == 'constraints':
+                continue
+            params += [Hyperparameter(key, val)]
 
-    constraints = config.get('constraints', None)
-    for i in range(num_samples):
-        sample = sample_parameters(params, constraints)
-        sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
+        constraints = config['hyperparameters'].get('constraints', None)
+        for i in range(num_samples):
+            sample = sample_parameters(params, constraints)
+            sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
 
 
 def sample_hyperparameters(src: str, dest: str) -> pd.DataFrame:
