@@ -62,7 +62,7 @@ class Hyperparameter:
         return self.val
 
 
-def check_constraints(params: list[Hyperparameter], constraints) -> bool:
+def check_constraints(params: list, constraints) -> bool:
     """Check if the constraints are fulfilled."""
     if constraints is None:
         return True     # shortcut
@@ -71,18 +71,18 @@ def check_constraints(params: list[Hyperparameter], constraints) -> bool:
     for par in params:
         exec(f'{par.name} = {par.val}')
     # check all constraints
-    for c in constraints:
+    for constr in constraints:
         try:
-            constr = eval(c)
+            const_res = eval(constr)
         except SyntaxError:
-            raise SyntaxError(f"Invalid syntax in yaml config: {c}")
-        if not constr:
+            raise SyntaxError(f"Invalid syntax in yaml config: {constr}")
+        if not const_res:
             return False
 
     return True
 
 
-def sample_parameters(params: list[Hyperparameter], constraints) -> dict:
+def sample_parameters(params: list, constraints) -> dict:
     """
     Tries to sample from the hyperparameter list.
 
@@ -90,12 +90,12 @@ def sample_parameters(params: list[Hyperparameter], constraints) -> dict:
     constraints is found.
     """
     for _ in range(10_000):
-        for p in params:
-            p.sample()
+        for par in params:
+            par.sample()
         if check_constraints(params, constraints):
             samples = {}
-            for p in params:
-                samples[p.name] = p.val
+            for par in params:
+                samples[par.name] = par.val
             return samples
 
     raise RuntimeError("Could not find an acceptable sample in 10,000 runs."
