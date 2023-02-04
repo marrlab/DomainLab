@@ -161,3 +161,27 @@ class AggWriter(ExpModelPersistVisitor):
         print("results aggregation path:", file_path)
         with open(file_path, 'a') as f_h:
             print(str_line, file=f_h)
+
+
+class ExpProtocolAggWriter(AggWriter):
+    """
+    AggWriter tailored to experimental protocol
+    Output contains additionally index, exp task, te_d and params.
+    """
+    def get_cols(self):
+        """columns"""
+        epos_name = "epos"
+        dict_cols = {
+                     "param_index": self.host.args.param_index,
+                     "task": self.host.args.benchmark_task_name,
+                     "algo": self.algo_name,
+                     epos_name: None,
+                     "te_d": self.host.args.te_d,
+                     "seed": self.seed,
+                     "params": f"\"{self.host.args.params}\"",
+        }
+        return dict_cols, epos_name
+
+    def get_fpath(self, dirname="aggrsts"):
+        """filepath"""
+        return self.host.args.result_file
