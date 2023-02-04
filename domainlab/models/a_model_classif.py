@@ -36,7 +36,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         rprint(metric_tr_pool)
         print("confusion matrix:")
         rprint(confmat)
-        
         # test set has no domain label, so can be more custom
         if loader_te is not None:
             metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
