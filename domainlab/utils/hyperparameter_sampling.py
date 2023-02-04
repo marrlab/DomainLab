@@ -1,6 +1,7 @@
+import os
+
 import numpy as np
 import pandas as pd
-import yaml
 
 
 class Hyperparameter:
@@ -123,16 +124,19 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
             sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
 
 
-def sample_hyperparameters(src: str, dest: str) -> pd.DataFrame:
+def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
     """
     Samples the hyperparameters according to the given
-    yaml src file. The samples are saved to dest as csv
+    config, which should be the dictionary of the full
+    benchmark config yaml.
+    Result is saved to 'output_dir/hyperparameters.csv' of the
+    config if not specified explicitly.
 
     Note: Parts of the yaml content are executed. Thus use this
     only with trusted config files.
     """
-    with open(src, "r") as stream:
-        config = yaml.safe_load(stream)
+    if dest is None:
+        dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
@@ -140,5 +144,6 @@ def sample_hyperparameters(src: str, dest: str) -> pd.DataFrame:
         if isinstance(val, dict) and 'aname' in val.keys():
             sample_task(num_samples, samples, key, val)
 
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
     samples.to_csv(dest)
     return samples

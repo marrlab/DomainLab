@@ -1,4 +1,5 @@
 import pytest
+import yaml
 
 from domainlab.utils.hyperparameter_sampling import\
     sample_hyperparameters, Hyperparameter, sample_parameters
@@ -6,9 +7,11 @@ from domainlab.utils.hyperparameter_sampling import\
 
 def test_hyperparameter_sampling():
     """Test sampling from yaml, including constraints"""
-    samples = sample_hyperparameters(
-        "examples/yaml/hyperparameter_test_config.yml", 'zoutput/test_params.csv'
-    )
+    with open("examples/yaml/hyperparameter_test_config.yml", "r") as stream:
+        config = yaml.safe_load(stream)
+
+    samples = sample_hyperparameters(config)
+
     a1samples = samples[samples['algo'] == 'Algo1']
     for par in a1samples['params']:
         assert par['p1'] < par['p2']

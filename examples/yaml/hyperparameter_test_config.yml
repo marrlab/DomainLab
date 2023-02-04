@@ -1,4 +1,5 @@
 # only entries related to parameter sampling
+output_dir: "zoutput/benchmarks/hyperparameter_test"
 num_param_samples: 30
 
 # currently, everything which contains the aname property is considered as a task.
