@@ -1,6 +1,5 @@
 """Classification Performance"""
 import torch
-import pandas as pd
 from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          F1Score, Precision, Recall,
                                          Specificity)

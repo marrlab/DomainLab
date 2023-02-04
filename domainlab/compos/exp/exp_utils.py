@@ -165,11 +165,11 @@ class AggWriter(ExpModelPersistVisitor):
             print(str_line, file=f_h)
 
     def confmat_to_file(self, confmat, confmat_filename):
-        """Save confusion matrix as a figure 
+        """Save confusion matrix as a figure
 
         Args:
             confmat: confusion matrix.
-        """        
+        """
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
