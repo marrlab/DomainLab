@@ -73,5 +73,5 @@ class PerfMetricClassif():
         keys.remove("confmat")
         for key in keys:
             dict_metric[key] = dict_metric[key].cpu().numpy().sum()
-        dict_metric["confmat"] = pd.DataFrame(dict_metric["confmat"].cpu().numpy())
+        dict_metric["confmat"] = dict_metric["confmat"].cpu().numpy()
         return dict_metric
