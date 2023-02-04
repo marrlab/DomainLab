@@ -15,6 +15,7 @@ pillow = "^6.1.0"
 rich = "^13.3.1"
 pandas = "^1.5.1"
 scikit-learn = "^1.2.1"
+pyyaml = "^6.0"
 
 
 [tool.poetry.dev-dependencies]
