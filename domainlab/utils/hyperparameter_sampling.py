@@ -1,5 +1,3 @@
-from typing import Union
-
 import numpy as np
 import pandas as pd
 import yaml
@@ -19,18 +17,18 @@ class Hyperparameter:
         try:
             self.distribution = config['distribution']
             if self.distribution == 'uniform' or self.distribution == 'loguniform':
-                self.p1 = config['min']
-                self.p2 = config['max']
+                self.p_1 = config['min']
+                self.p_2 = config['max']
             elif self.distribution == 'normal' or self.distribution == 'lognormal':
-                self.p1 = config['mean']
-                self.p2 = config['std']
+                self.p_1 = config['mean']
+                self.p_2 = config['std']
             else:
                 raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
         except KeyError:
             raise RuntimeError(f"Missing required key for parameter {name}.")
 
-        self.p1 = float(self.p1)
-        self.p2 = float(self.p2)
+        self.p_1 = float(self.p_1)
+        self.p_2 = float(self.p_2)
         self.val = 0
 
     def _ensure_step(self):
@@ -39,7 +37,7 @@ class Hyperparameter:
             return   # continous parameter
 
         # round to next discrete value.
-        off = (self.val - self.p1) % self.step
+        off = (self.val - self.p_1) % self.step
         if off < self.step / 2:
             self.val -= off
         else:
@@ -48,46 +46,50 @@ class Hyperparameter:
     def sample(self):
         """Sample this parameter, respecting properties"""
         if self.distribution == 'uniform':
-            self.val = np.random.uniform(self.p1, self.p2)
+            self.val = np.random.uniform(self.p_1, self.p_2)
         elif self.distribution == 'loguniform':
-            self.val = 10 ** np.random.uniform(np.log10(self.p1), np.log10(self.p2))
+            self.val = 10 ** np.random.uniform(np.log10(self.p_1), np.log10(self.p_2))
         elif self.distribution == 'normal':
-            self.val = np.random.normal(self.p1, self.p2)
+            self.val = np.random.normal(self.p_1, self.p_2)
         elif self.distribution == 'lognormal':
-            self.val = 10 ** np.random.normal(self.p1, self.p2)
+            self.val = 10 ** np.random.normal(self.p_1, self.p_2)
         else:
             raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
         self._ensure_step()
 
+    def get_val(self):
+        """Returns the current value of the hyperparameter"""
+        return self.val
 
-def check_constraints(params: list[Hyperparameter], constraints: Union[list[str], None]) -> bool:
+
+def check_constraints(params: list[Hyperparameter], constraints) -> bool:
     """Check if the constraints are fulfilled."""
     if constraints is None:
         return True     # shortcut
 
     # set each param as a local variable
-    for p in params:
-        exec(f'{p.name} = {p.val}')
+    for par in params:
+        exec(f'{par.name} = {par.val}')
     # check all constraints
     for c in constraints:
         try:
-            b = eval(c)
+            constr = eval(c)
         except SyntaxError:
             raise SyntaxError(f"Invalid syntax in yaml config: {c}")
-        if not b:
+        if not constr:
             return False
 
     return True
 
 
-def sample_parameters(params: list[Hyperparameter], constraints: Union[list[str],None]) -> dict:
+def sample_parameters(params: list[Hyperparameter], constraints) -> dict:
     """
     Tries to sample from the hyperparameter list.
 
     Errors if in 10_0000 attempts no sample complying with the
     constraints is found.
     """
-    for i in range(10_000):
+    for _ in range(10_000):
         for p in params:
             p.sample()
         if check_constraints(params, constraints):
@@ -111,7 +113,7 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
             params += [Hyperparameter(key, val)]
 
         constraints = config['hyperparameters'].get('constraints', None)
-        for i in range(num_samples):
+        for _ in range(num_samples):
             sample = sample_parameters(params, constraints)
             sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
 
