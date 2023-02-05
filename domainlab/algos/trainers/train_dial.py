@@ -3,6 +3,8 @@ use random start to generate adversarial images
 """
 import torch
 import torch.nn.functional as F
+from torch.autograd import Variable
+
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
@@ -48,7 +50,8 @@ class TrainerDIAL(TrainerBasic):
             self.optimizer.zero_grad()
             loss = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
             tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
-            loss_dial = self.model.cal_loss(tensor_x_adv, vec_y, vec_d)  # @FIXME
+            tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
+            loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
             loss = loss.sum() + loss_dial.sum()
             loss.backward()
             self.optimizer.step()
