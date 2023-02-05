@@ -61,7 +61,7 @@ rule parameter_sampling:
 #   at the results.csv.
 rule run_experiment:
     input:
-        param_file=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
+        param_file=rules.parameter_sampling.output
     output:
         out_file=temporary(expand(
             "{output_dir}/rule_results/{index}.csv",
@@ -76,7 +76,6 @@ rule run_experiment:
 
 rule agg_results:
     input:
-        param_file=expand("{output_dir}/hyperparameters.csv",output_dir=config["output_dir"]),
         exp_results=experiment_result_files
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
