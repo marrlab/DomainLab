@@ -55,6 +55,9 @@ def run_experiment(
     :param misc: optional dictionary of additional parameters, if any.
     """
     task, hyperparameters = load_parameters(param_file, param_index)
+    # print("\n*******************************************************************")
+    # print(f"{task}, param_index={param_index}, params={hyperparameters}")
+    # print("*******************************************************************\n")
     misc['result_file'] = out_file
     misc['params'] = hyperparameters
     misc['benchmark_task_name'] = task

@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -124,6 +125,11 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
             sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
 
 
+def is_task(val) -> bool:
+    """Determines if the value of this key is a task."""
+    return isinstance(val, dict) and 'aname' in val.keys()
+
+
 def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
     """
     Samples the hyperparameters according to the given
@@ -141,7 +147,7 @@ def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     for key, val in config.items():
-        if isinstance(val, dict) and 'aname' in val.keys():
+        if is_task(val):
             sample_task(num_samples, samples, key, val)
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
