@@ -28,6 +28,9 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return self.perf_metric
 
     def cal_perf_metric(self, loader_tr, device, loader_te=None):
+        """
+        classification performance matric
+        """
         metric_te = None
         metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
         print("pooled train domains performance: \n", metric_tr_pool)
@@ -63,6 +66,9 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
+        self.list_str_y = list_str_y
+        self.list_d_tr = list_d_tr
+        self.perf_metric = None
         super().__init__()
 
     def infer_y_vpicn(self, tensor):
@@ -111,7 +117,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def pred2file(self, loader_te, device,
                   filename='path_prediction.txt', flag_pred_scalar=False):
         """
-        pred2file
+        pred2file dump predicted label to file as sanity check
         """
         self.eval()
         model_local = self.to(device)
@@ -126,7 +132,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 list_label_list = [np.asarray(label).argmax() for label in list_label_list]
             # label belongs to data
             list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
-            with open(filename, 'a') as handle_file:
+            with open(filename, 'a', encoding="utf8") as handle_file:
                 for pair in list_pair_path_pred:
                     # 1:-1 removes brackets of tuple
                     print(str(pair)[1:-1], file=handle_file)
