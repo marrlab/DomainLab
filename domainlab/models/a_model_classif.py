@@ -140,7 +140,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     print(str(pair)[1:-1], file=handle_file)
         print("prediction saved in file ", filename)
 
-    def cal_loss_gen_adv(self, x_natural, x_adv):
+    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
         """
         calculate loss function for generation of adversarial images
         """
@@ -150,5 +150,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             logits_natural = self.cal_logit_y(x_natural)
             prob_adv = F.log_softmax(logits_adv, dim=1)
             prob_natural = F.softmax(logits_natural, dim=1)
-            loss_kl = self.loss4gen_adv(prob_adv, prob_natural)
-        return loss_kl
+            loss_adv_gen_task = self.cal_task_loss(x_adv, vec_y)
+            loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
+        return loss_adv_gen + loss_adv_gen_task.sum()
