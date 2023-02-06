@@ -174,6 +174,8 @@ class AggWriter(ExpModelPersistVisitor):
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
         file_path = file_path.removesuffix(".csv")
+        # if prefix does not exist, string remain unchanged.
+        # @FIXME: still we want to have mname_ as a variable defined in some configuration file in the future. 
         confmat_filename = confmat_filename.removeprefix("mname_")
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
         print("confusion matrix saved in file: ", file_path)
