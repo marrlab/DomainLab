@@ -12,6 +12,8 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
+from rich import print as rprint
+import pandas as pd
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -33,11 +35,21 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         metric_te = None
         metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-        print("pooled train domains performance: \n", metric_tr_pool)
+        confmat = metric_tr_pool.pop("confmat")
+        print("pooled train domains performance:")
+        rprint(metric_tr_pool)
+        print("confusion matrix:")
+        print(pd.DataFrame(confmat))
+        metric_tr_pool["confmat"] = confmat
         # test set has no domain label, so can be more custom
         if loader_te is not None:
             metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-            print("out of domain test performance \n", metric_te)
+            confmat = metric_te.pop("confmat")
+            print("out of domain test performance:")
+            rprint(metric_te)
+            print("confusion matrix:")
+            print(pd.DataFrame(confmat))
+            metric_te["confmat"] = confmat
         return metric_te
 
     def evaluate(self, loader_te, device):
