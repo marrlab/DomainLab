@@ -173,6 +173,7 @@ class AggWriter(ExpModelPersistVisitor):
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
+        # @FIXME: although removesuffix is safe when suffix does not exist, we would like to have ".csv" live in some configuraiton file in the future. 
         file_path = file_path.removesuffix(".csv")
         # if prefix does not exist, string remain unchanged.
         # @FIXME: still we want to have mname_ as a variable defined in some configuration file in the future. 
