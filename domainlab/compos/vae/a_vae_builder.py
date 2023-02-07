@@ -12,7 +12,7 @@ from domainlab.utils.utils_class import store_args
 class AbstractVAEBuilderChainNode(AbstractChainNodeHandler):
     """
     to ensure chain of responsibility node AbstractChainNodeHandler always
-    work even some node can not start their heavy weight business object,
+    works even some node can not start their heavy weight business object,
     avoid override the
     initializer so that node construction is always light weight.
     """
