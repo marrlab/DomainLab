@@ -97,20 +97,4 @@ Domainlab is free and open source. It is published under the MIT License. You ca
 
 
 [References]
-DIVA: Domain Invariant Variational Autoencoders, https://arxiv.org/pdf/1905.10427.pdf
-
-Hierarchical Variational Auto-Encoding for Unsupervised Domain Generalization:https://arxiv.org/pdf/2101.09436.pdf'
-
-Domain Generalization using Causal Matching, https://arxiv.org/abs/2006.07500',
-
-Domain adversarial invariant feature learning
-
-Domain Generalization by Solving Jigsaw Puzzles, https://arxiv.org/abs/1903.06864
-
-Gulrajani, Ishaan, and David Lopez-Paz. 2020. “In Search of Lost Domain Generalization.” arXiv [cs.LG]. arXiv. http://arxiv.org/abs/2007.01434.
-
-Wang, Jindong, Cuiling Lan, Chang Liu, Yidong Ouyang, Tao Qin, Wang Lu, Yiqiang Chen, Wenjun Zeng, and Philip S. Yu. 2021. “Generalizing to Unseen Domains: A Survey on Domain Generalization.” arXiv [cs.LG]. arXiv. http://arxiv.org/abs/2103.03097.
-
-Zhou, Kaiyang, Ziwei Liu, Yu Qiao, Tao Xiang, and Chen Change Loy. 2022. “Domain Generalization: A Survey.” IEEE Transactions on Pattern Analysis and Machine Intelligence PP (August). https://doi.org/10.1109/TPAMI.2022.3195549.
-
-Gamma, Erich, et al. Design patterns: elements of reusable object-oriented software. Pearson Deutschland GmbH, 1995.
+see paper.bib
