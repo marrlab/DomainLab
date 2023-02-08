@@ -66,26 +66,33 @@ Does the model benefit from a special loss function, e.g. because it offers a be
 # Description
 ## General Design 
 To address software design issues of existing code bases like DomainBed (Gulrajani and Lopez-Paz 2020) and Dassl (Zhou et al. 2021), and to maximally decouple factors that might affect the performance of domain generalization algorithms, we designed DomainLab with the following features:
+
 First, the package offers the user a standalone application to specify the data, data split protocol , pre-processing, neural network backbone, and model loss function, which will not modify the code base of DomainLab. That is, it connects a user’s data to algorithms.
 Domain generalization algorithms were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an  architecture implemented in a python file or by specifying a string of some existing neural network like AlexNet, via command line arguments.
-Selection of algorithms, neural network components, as well as other components like training procedure are done via the chain-of-responsibility method. Other design patterns like observer pattern, visitor pattern, etc. are also used to improve the decoupling of different factors contributing to the performance of an algorithm (see also Section Components below).  (Gamma book see below)
+
+Selection of algorithms, neural network components, as well as other components like training procedure are done via the chain-of-responsibility method. Other design patterns like observer pattern, visitor pattern, etc. are also used to improve the decoupling of different factors contributing to the performance of an algorithm (see also Section Components below). 
+
 Instead of modifying code across several python files, the package is closed to modification and open to extension. To simply test an algorithm’s performance on `a user’s data, there is no need to change any code inside this repository, the user only needs to extend this repository to fit their requirement by providing custom python files. 
 It offers a framework for generating combinations by simply letting the user select elements through command line arguments. (combine tasks, neural network architectures)
+
 With the above design, DomainLab offers users the flexibility to construct custom tasks with their own data, writing custom neural network architectures, and even trying their own algorithms by specifying a python file with custom loss functions. There is no need to change the original code of DomainLab when the user needs to use the domain generalization method to their own application, extend the method with custom neural network and try to discriminate the most significant factor that affects performance. 
 
 ## Components  
 To achieve the above design goals of decoupling, we used the following components:
-Models refer to a PyTorch module with a specified loss function containing regularization effect of several domains plus the task-specific loss, which is classification loss for classification task, but stay transparent with respect to the exact neural network architecture, which can be configured by the user via command line arguments. There are two types of models
-implemented models from publications in the field of domain generalization using causality and probabilistic model based methods
-custom models, where the user only needs to specify a python file defining the custom loss function, while remain transparent of the exact neural network used for each submodule. 
-	The common classification loss calculation is done via a parent model class, thus the individual models representing different domain regularization can be reused for other tasks like segmentation by simply inheriting another task loss. 
+
+Models refer to a PyTorch module with a specified loss function containing regularization effect of several domains plus the task-specific loss, which is classification loss for classification task, but stay transparent with respect to the exact neural network architecture, which can be configured by the user via command line arguments. There are two types of models implemented models from publications in the field of domain generalization using causality and probabilistic model based methods custom models, where the user only needs to specify a python file defining the custom loss function, while remain transparent of the exact neural network used for each submodule. 
+
+The common classification loss calculation is done via a parent model class, thus the individual models representing different domain regularization can be reused for other tasks like segmentation by simply inheriting another task loss. 
+
 Tasks refer to a component, where the user specifies different datasets from different domains and preprocessing specified upon them. There are several types of tasks in DomainLab:
 Built-in tasks like Color-Mnist, subsampled version of PACS, VLCS, as test utility of algorithms.
 TaskFolder: If the data is already organized in a root folder, with different subfolders containing data from different domains and a further level of sub-sub-folders containing data from different classes.   
 TaskPathFile: This allows the user to specify each domain a text file indicating the path and label for each observation. Thus, the user can choose which portion of the sample to use as training, validation and test. 
 
 Trainer is the component that directs data flow to the model to calculate loss and back-propagation to update the parameters; several models can share a common trainer. A specific trainer can also be a visitor to models to update coefficients in models during training to implement techniques like warm-up which follows the visitor design pattern from software engineering. 
+
 Following the observer pattern, we use separate classes to conduct operations needed to be done after each epoch (e.g. deciding whether to execute early stopping) and after training finishes. 
+
 Following the Builder Pattern, we construct each component needed to conduct a domain generalization experiment, including 
 constructing a trainer which guides the data flow.
 constructing a concrete neural network architecture and feeding into the model.
