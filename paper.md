@@ -1,5 +1,5 @@
 ---
-title: 'DomainLab: A PyTorch library for causal domain generalization'
+title: 'DomainLab: A PyTorch library for domain generalization in deep learning'
 tags:
   - Python
   - deep learning
@@ -15,12 +15,26 @@ authors:
     orcid: 0000-0001-9068-3877
     equal-contrib: False
     affiliation: 2
+    
   - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
+    equal-contrib: False 
     affiliation: 3
+  - name: Author Without ORCID
+    equal-contrib: False 
+    affiliation: 3
+  - name: Author Without ORCID
+    equal-contrib: False 
+    affiliation: 3
+  - name: Author Without ORCID
+    equal-contrib: False 
+    affiliation: 3
+  - name: Author Without ORCID
+    equal-contrib: False 
+    affiliation: 3  
   - name: Author with no affiliation
     corresponding: true # (This is how to denote the corresponding author)
     affiliation: 3
+    
 affiliations:
  - name: AI for Health, Helmholtz Munich, Munich, Germany
    index: 1
@@ -28,7 +42,7 @@ affiliations:
    index: 2
  - name: Independent Researcher, Country
    index: 3
-date: 13 Feb 2023
+date: 17 Feb 2023
 bibliography: paper.bib
 ---
 
