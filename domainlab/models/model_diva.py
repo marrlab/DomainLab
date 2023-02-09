@@ -106,16 +106,6 @@ def mk_diva(parent_class=VAEXYDClassif):
                 lc_y, \
                 lc_d
 
-        def cal_loss(self, tensor_x, tensor_y, tensor_d):
-            """cal_loss.
-
-            :param tensor_x:
-            :param tensor_y:
-            :param tensor_d:
-            """
-            loss, *_ = self.forward(tensor_x, tensor_y, tensor_d)
-            return loss
-
         def cal_reg_loss(self, x, y, d):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(x)
             logit_d = self.net_classif_d(zd_q)
@@ -139,8 +129,6 @@ def mk_diva(parent_class=VAEXYDClassif):
 
             _, d_target = d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-
-            lc_y = self.cal_task_loss(x, y)
 
             return loss_recon_x \
                 - self.beta_d * zd_p_minus_zd_q \

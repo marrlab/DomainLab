@@ -48,15 +48,6 @@ def mk_dann(parent_class=AModelClassif):
         def forward(self, tensor_x, tensor_y, tensor_d):
             return self.cal_loss(tensor_x, tensor_y, tensor_d)
 
-        def cal_loss(self, tensor_x, tensor_y, tensor_d):
-            feat = self.net_encoder(tensor_x)
-            logit_d = self.net_discriminator(
-                AutoGradFunReverseMultiply.apply(feat, self.alpha))
-            _, d_target = tensor_d.max(dim=1)
-            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-            lc_y = self.cal_task_loss(tensor_x, tensor_y)
-            return lc_d + lc_y
-
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_discriminator(
