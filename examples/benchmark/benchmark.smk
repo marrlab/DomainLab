@@ -37,13 +37,6 @@ def experiment_result_files(_):
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 
-rule all:
-    input:
-        # this changes of course to the plots
-        expand("{output_dir}/results.csv", output_dir=config["output_dir"])
-    default_target: True
-
-
 rule parameter_sampling:
     input:
         # path to config file as input, thus a full
@@ -98,8 +91,45 @@ rule agg_results:
                     out_stream.writelines(in_stream.readlines())
 
 
-# TODO
-#   rule agg_partial_results:
+rule agg_partial_results:
+    input:
+        dir=expand("{output_dir}/rule_results", output_dir=config["output_dir"])
+    params:
+        out_file=rules.agg_results.output.out_file
+    run:
+        import os
+        out_file = str(params.out_file)
+        os.makedirs(os.path.dirname(out_file), exist_ok=True)
+        has_header = False
+        # print(f"exp_results={input.exp_results}")
+        with open(out_file, 'w') as out_stream:
+            for res in os.listdir(input.dir):
+                if not res.endswith('.csv'):
+                    # skip non-csv file entries
+                    continue
+                with open(res, 'r') as in_stream:
+                    if has_header:
+                        # skip header line
+                        in_stream.readline()
+                    else:
+                        out_stream.writelines(in_stream.readline())
+                        has_header = True
+                    # write results to common file.
+                    out_stream.writelines(in_stream.readlines())
+
 
 # TODO
-#   rule gen_plots:
+rule gen_plots:
+    input:
+        res_file=rules.agg_results.output.out_file
+    output:
+        out_dir=directory(expand("{output_dir}/graphics", output_dir=config["output_dir"]))
+    run:
+        print("TODO run plots")
+
+
+rule all:
+    input:
+        rules.agg_results.output
+        # rules.gen_plots.output
+    default_target: True
