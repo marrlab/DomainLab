@@ -8,7 +8,7 @@ from domainlab.compos.exp.exp_main import Exp
 from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
 
 
-def load_parameters(file: str, index: int) -> tuple[str, dict]:
+def load_parameters(file: str, index: int) -> tuple:
     """Loads a single parameter sample"""
     df = pd.read_csv(file, index_col=0)
     row = df.loc[index]
