@@ -23,7 +23,7 @@ output_dir: zoutput/benchmarks/demo_benchmark
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 2
 
-epos: 2
+epos: 3
 batchsize: 2
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
@@ -65,12 +65,22 @@ Task1:  # name
       step: 1
       distribution: uniform
 
-#Task2:  # name
-#  aname: hduva
-#
-#  hyperparameters:
-#    gamma_y:
-#      min: 7e4
-#      max: 7e6
-#      step: 1
-#      distribution: uniform
+Task2:  # name
+  aname: hduva
+
+  nname: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 7e4
+      max: 7e6
+      step: 1
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 128
+      step: 4
+      distribution: loguniform
