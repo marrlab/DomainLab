@@ -64,7 +64,7 @@ rule run_experiment:
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
         index = int(expand(wildcards.index)[0])
-        run_experiment(config, str(input.param_file), index, str(output.out_file), config['domains'])
+        run_experiment(config, str(input.param_file), index, str(output.out_file), config['test_domains'])
 
 
 rule agg_results:

@@ -10,8 +10,7 @@ tpath: examples/tasks/task_vlcs.py  # dataset
 # one domain from this list is chosen as test domain
 # while training is performed on all other domains
 # of the specified dataset.
-# TODO domains is a misleading name here.
-domains:
+test_domains:
   - caltech
   # - sun
   # - labelme
