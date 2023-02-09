@@ -28,7 +28,7 @@ affiliations:
    index: 2
  - name: Independent Researcher, Country
    index: 3
-date: 13 August 2017
+date: 13 Feb 2023
 bibliography: paper.bib
 ---
 
@@ -54,7 +54,7 @@ DomainLab’s documentation is hosted on https://marrlab.github.io/DomainLab and
 
 Over the past years, various methods have been proposed addressing different aspects of domain generalization. However, their implementations are often limited to proof-of-concept code, interspersed with custom code for data access, pre-processing, evaluation, etc. This limits the applicability of these methods, affects reproducibility, and restricts the ability to perform comparisons with other state-of-the-art methods. 
 
-DomainBed for the first time provided a common codebase for benchmarking domain generalization methods (Gulrajani and Lopez-Paz 2020), however applying its algorithms to new use-cases requires extensive adaptation of its source code and the neural network backbones are hardcoded. The components of an algorithm have to be all initilalized in the construction function which is not suitable for complicated algorithms which require flexibility and plugin functionality of its components. More recently, we found a concurrent work Dassl, which provides a Python package to benchmark different algorithms such as semi-supervised learning, domain adaptation and domain generalization (Zhou et al. 2021). Its design is more modular than DomainBed. However the documentation does not contain enough details about algorithm implementation and the code base is not well tested. In addition, the authors have not clarified a plan for maintaining the module, while we aim at a long term maintenance of our package. 
+DomainBed for the first time provided a common codebase for benchmarking domain generalization methods [@gulrajani2020search], however applying its algorithms to new use-cases requires extensive adaptation of its source code and the neural network backbones are hardcoded. The components of an algorithm have to be all initilalized in the construction function which is not suitable for complicated algorithms which require flexibility and plugin functionality of its components. More recently, we found a concurrent work Dassl, which provides a Python package to benchmark different algorithms such as semi-supervised learning, domain adaptation and domain generalization (Zhou et al. 2021). Its design is more modular than DomainBed. However the documentation does not contain enough details about algorithm implementation and the code base is not well tested. In addition, the authors have not clarified a plan for maintaining the module, while we aim at a long term maintenance of our package. 
 
 With DomainLab, we introduce a fully modular Python package for domain generalization with Pytorch backend that follows best practices in software design and includes extensive documentation to enable the community to understand and contribute to the code. It contains extensive unit tests as well as end-to-end tests to verify the implemented functionality. 
 
@@ -104,4 +104,3 @@ Domainlab is free and open source. It is published under the MIT License. You ca
 
 
 [References]
-see paper.bib
