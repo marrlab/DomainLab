@@ -36,7 +36,7 @@ def run_experiment(
         param_file: str,
         param_index: int,
         out_file: str,
-        test_domains: list[str],
+        test_domains: list,
         misc: dict = {},
 ):
     """
