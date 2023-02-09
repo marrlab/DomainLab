@@ -1,0 +1,12 @@
+---  # yaml demo document with invalid parameter
+
+te_d: caltech
+tpath: examples/tasks/task_vlcs.py
+bs: 2
+aname: diva
+debug: True
+gamma_y: 700000.0 #7e5
+gamma_d: 100000.0 #1e5
+nname: alexnet
+nname_dom: conv_bn_pool_2
+invalid_parameter: test

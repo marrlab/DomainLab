@@ -17,8 +17,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         calculate the loss
         """
-        raise NotImplementedError
 
+    @abc.abstractmethod
     def cal_task_loss(self, tensor_x, tensor_y):
         """
         Calculate the task loss
@@ -27,4 +27,3 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param tensor_y: label
         :return: task loss
         """
-        raise NotImplementedError
