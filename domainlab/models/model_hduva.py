@@ -146,4 +146,49 @@ def mk_hduva(parent_class=VAEXYDClassif):
                         - self.beta_t * topic_p_minus_q \
                         + self.gamma_y * lc_y
             return batch_loss
+
+        def cal_reg_loss(self, x, y, d):
+            q_topic, topic_q, \
+                qzd, zd_q, \
+                qzx, zx_q, \
+                qzy, zy_q = self.encoder(x)
+
+            batch_size = zd_q.shape[0]
+            device = zd_q.device
+
+            p_topic = self.init_p_topic_batch(batch_size, device)
+
+            # zx KL divergence
+            zx_p_minus_q = 0
+            if self.zx_dim > 0:
+                p_zx = self.init_p_zx4batch(batch_size, device)
+                zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
+
+            # FIXME: does monte-carlo KL makes the performance unstable?
+            # from torch.distributions import kl_divergence
+
+            # zy KL divergence
+            p_zy = self.net_p_zy(y)
+            zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
+
+            # classification loss
+            lc_y = self.cal_task_loss(x, y)
+
+            # zd KL diverence
+            p_zd = self.net_p_zd(topic_q)
+            zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
+
+            # topic KL divergence
+            # FIXME: why topic is still there?
+            topic_p_minus_q = p_topic.log_prob(topic_q) - q_topic.log_prob(topic_q)
+
+            # reconstruction
+            z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
+            loss_recon_x, _, _ = self.decoder(z_concat, x)
+            batch_loss = loss_recon_x \
+                        - self.beta_x * zx_p_minus_q \
+                        - self.beta_y * zy_p_minus_zy_q \
+                        - self.beta_d * zd_p_minus_q \
+                        - self.beta_t * topic_p_minus_q
+            return batch_loss
     return ModelHDUVA

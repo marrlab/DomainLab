@@ -115,4 +115,36 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             loss, *_ = self.forward(tensor_x, tensor_y, tensor_d)
             return loss
+
+        def cal_reg_loss(self, x, y, d):
+            q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(x)
+            logit_d = self.net_classif_d(zd_q)
+
+            batch_size = zd_q.shape[0]
+            device = zd_q.device
+
+            p_zx = self.init_p_zx4batch(batch_size, device)
+            p_zy = self.net_p_zy(y)
+            p_zd = self.net_p_zd(d)
+
+            z_concat = self.decoder.concat_ydx(zy_q, zd_q, zx_q)
+            loss_recon_x, _, _ = self.decoder(z_concat, x)
+
+            zd_p_minus_zd_q = torch.sum(
+                p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
+            zx_p_minus_zx_q = torch.sum(
+                p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
+            zy_p_minus_zy_q = torch.sum(
+                p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
+
+            _, d_target = d.max(dim=1)
+            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
+
+            lc_y = self.cal_task_loss(x, y)
+
+            return loss_recon_x \
+                - self.beta_d * zd_p_minus_zd_q \
+                - self.beta_x * zx_p_minus_zx_q \
+                - self.beta_y * zy_p_minus_zy_q \
+                + self.gamma_d * lc_d
     return ModelDIVA

@@ -27,3 +27,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param tensor_y: label
         :return: task loss
         """
+    @abc.abstractmethod
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+        """
+        task independent regularization loss for domain generalization
+        """
