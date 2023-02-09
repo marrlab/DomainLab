@@ -125,7 +125,8 @@ rule gen_plots:
     output:
         out_dir=directory(expand("{output_dir}/graphics", output_dir=config["output_dir"]))
     run:
-        print("TODO run plots")
+        from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
+        gen_benchmark_plots(str(input.res_file), str(output.out_dir))
 
 
 rule all:
