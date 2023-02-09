@@ -34,6 +34,10 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     '''
     os.makedirs(output_dir, exist_ok=True)
 
+    # stochastic and systematic variation
+    # TODO Add plot 1 and 2 here
+
+
     #scatterplot matrices
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png', reg=True, distinguish_param_setups=False)
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png', reg=False, distinguish_param_setups=False)
@@ -63,6 +67,11 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     for algorithm in dataframe['algo'].unique():
         os.makedirs(output_dir + '/' + str(algorithm), exist_ok=True)
         dataframe_algo = dataframe[dataframe['algo'] == algorithm]
+
+        # stochastic and systematic variation
+        # TODO IDEA: is it usefull to do the stochastic and systematic for the filtered dataframe?
+
+
         # scatterplot matrices
         scatterplot_matrix(dataframe_algo,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_reg.png',
