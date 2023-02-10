@@ -135,7 +135,7 @@ class AggWriter(ExpModelPersistVisitor):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
         confmat = dict_cols.pop("confmat")
-        confmat_filename = dict_cols["mname"]
+        confmat_filename = dict_cols.get("mname", None)
         # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
@@ -170,6 +170,8 @@ class AggWriter(ExpModelPersistVisitor):
         Args:
             confmat: confusion matrix.
         """
+        if confmat_filename is None:
+            return
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
