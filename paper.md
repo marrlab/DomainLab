@@ -123,6 +123,6 @@ constructing the evaluator as a callback of what to do after each epoch.
 Domainlab is open source and freely available. It is published under the MIT License. You can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
 
 # Funding
-SSB has received funding by F. Hoffmann-la Roche LTD (No grant number is applicable) and supported by the Helmholtz Association under the joint research school ‘Munich School for Data Science - MUDS’. 
+SSB has received funding by F. Hoffmann-la Roche LTD (No grant number is applicable) and supported by the Helmholtz Association under the joint research school ‘Munich School for Data Science - MUDS’. PR was supported through an Alexander von Humboldt Foundation postdoctoral fellowship (Grant Nr. 1221006). 
 
 # References
