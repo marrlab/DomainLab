@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -37,10 +38,10 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
 
 
     #scatterplot matrices
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png', reg=True, distinguish_param_setups=False)
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png', reg=False, distinguish_param_setups=False)
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist_reg.png', reg=True, distinguish_param_setups=True)
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist.png', reg=False, distinguish_param_setups=True)
+    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png', reg=True, distinguish_param_setups=False)
+    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png', reg=False, distinguish_param_setups=False)
+    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist_reg.png', reg=True, distinguish_param_setups=True)
+    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist.png', reg=False, distinguish_param_setups=True)
 
     # radar plots
     radar_plot(dataframe, file=output_dir + '/radar_dist.png', distinguish_hyperparam=True)
@@ -210,7 +211,8 @@ def radar_plot(dataframe_, file=None, distinguish_hyperparam=True):
     else:
         dataframe.insert(0, 'label', dataframe['algo'])
     index = list(range(6, dataframe.shape[1]))
-    _, ax = plt.subplots(figsize=(9, 9), subplot_kw=dict(polar=True))
+    num_lines = len(dataframe['label'].unique())
+    _, ax = plt.subplots(figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True))
     num = 0
 
     # Split the circle into even parts and save the angles
@@ -248,8 +250,9 @@ def radar_plot(dataframe_, file=None, distinguish_hyperparam=True):
 
     ax.set_ylim((0, 1))
 
-    plt.legend(loc='upper left', bbox_to_anchor=(1., 1.), ncol=1)
-    plt.tight_layout()
+    plt.legend(loc='lower right', bbox_to_anchor=(1., 1.035),
+               ncol=1, fontsize=10)
+    #plt.tight_layout()
 
     if file is not None:
         plt.savefig(file, dpi=300)
@@ -323,4 +326,5 @@ if __name__ == '__main__':
 
 
 
+    #gen_benchmark_plots('results.csv', 'res_outp')
     gen_benchmark_plots('aggret_res_test2', 'outp2')
