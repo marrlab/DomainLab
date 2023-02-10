@@ -15,26 +15,22 @@ authors:
     orcid: 0000-0001-9068-3877
     equal-contrib: False
     affiliation: 2
-    
   - name: Sayedali Shetab Boushehri
     orcid: 0000-0003-3391-9294
     equal-contrib: False 
     affiliation: "1,3,4"
-  - name: Author Without ORCID
+  - name: Umer Muhammad Rao
+    orcid: 0000-0001-6179-5829
     equal-contrib: False 
-    affiliation: 3
-  - name: Author Without ORCID
+    affiliation: "1"
+  - name: Armin Gruber
+    orcid: 0000-0002-5015-6543
     equal-contrib: False 
-    affiliation: 3
-  - name: Author Without ORCID
-    equal-contrib: False 
-    affiliation: 3
-  - name: Author Without ORCID
-    equal-contrib: False 
-    affiliation: 3  
-  - name: Author with no affiliation
-    corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
+    affiliation: "1,5"
+  - name: Carsten Marr
+    orcid: 0000-0003-2154-4552
+    corresponding: true #  
+    affiliation: "1"
     
 affiliations:
  - name: AI for Health, Helmholtz Munich, Munich, Germany
@@ -45,19 +41,17 @@ affiliations:
    index: 3
  - name: Technical University of Munich, Munich, Germany 
    index: 4
+ - name: Ludwig Maximilian University of Munich
+   index: 5
 date: 17 Feb 2023
 bibliography: paper.bib
 ---
 
 (
 **Please provide your orcid!**
-Ali 0000-0003-3391-9294
-Carsten 0000-0003-2154-4552
 Patrick 0000-0002-6499-7933
-Rao Umer 0000-0001-6179-5829
 Florian 0000-0001-5587-6761
-Alexej 0000-0001-9068-3877
-Armin 0000-0002-5015-6543
+
 )
 
 # Summary
