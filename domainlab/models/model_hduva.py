@@ -3,7 +3,6 @@ Hierarchical Domain Unsupervised Variational Auto-Encoding
 """
 import torch
 from torch.distributions import Dirichlet
-from torch.nn import functional as F
 
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
@@ -86,7 +85,6 @@ def mk_hduva(parent_class=VAEXYDClassif):
             logit_y = self.net_classif_y(zy_q)
             return logit_y
 
-
         def init_p_topic_batch(self, batch_size, device):
             """
             flat prior
@@ -94,14 +92,11 @@ def mk_hduva(parent_class=VAEXYDClassif):
             prior = Dirichlet(torch.ones(batch_size, self.topic_dim).to(device))
             return prior
 
-        def forward(self, x, y, d=None):
-            return self.cal_loss(x, y, d)
-
-        def cal_reg_loss(self, x, y, d):
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
             q_topic, topic_q, \
                 qzd, zd_q, \
                 qzx, zx_q, \
-                qzy, zy_q = self.encoder(x)
+                qzy, zy_q = self.encoder(tensor_x)
 
             batch_size = zd_q.shape[0]
             device = zd_q.device
@@ -114,31 +109,28 @@ def mk_hduva(parent_class=VAEXYDClassif):
                 p_zx = self.init_p_zx4batch(batch_size, device)
                 zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
-            # FIXME: does monte-carlo KL makes the performance unstable?
+            # @FIXME: does monte-carlo KL makes the performance unstable?
             # from torch.distributions import kl_divergence
 
             # zy KL divergence
-            p_zy = self.net_p_zy(y)
+            p_zy = self.net_p_zy(tensor_y)
             zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
-
-            # classification loss
-            lc_y = self.cal_task_loss(x, y)
 
             # zd KL diverence
             p_zd = self.net_p_zd(topic_q)
             zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
 
             # topic KL divergence
-            # FIXME: why topic is still there?
+            # @FIXME: why topic is still there?
             topic_p_minus_q = p_topic.log_prob(topic_q) - q_topic.log_prob(topic_q)
 
             # reconstruction
             z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
-            loss_recon_x, _, _ = self.decoder(z_concat, x)
+            loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
             batch_loss = loss_recon_x \
-                        - self.beta_x * zx_p_minus_q \
-                        - self.beta_y * zy_p_minus_zy_q \
-                        - self.beta_d * zd_p_minus_q \
-                        - self.beta_t * topic_p_minus_q
+                - self.beta_x * zx_p_minus_q \
+                - self.beta_y * zy_p_minus_zy_q \
+                - self.beta_d * zd_p_minus_q \
+                - self.beta_t * topic_p_minus_q
             return batch_loss
     return ModelHDUVA

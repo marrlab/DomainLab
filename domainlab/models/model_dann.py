@@ -45,9 +45,6 @@ def mk_dann(parent_class=AModelClassif):
             """
             return self.net_classifier(self.net_encoder(tensor_x))
 
-        def forward(self, tensor_x, tensor_y, tensor_d):
-            return self.cal_loss(tensor_x, tensor_y, tensor_d)
-
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_discriminator(
