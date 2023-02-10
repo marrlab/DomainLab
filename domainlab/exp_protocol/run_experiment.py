@@ -62,6 +62,7 @@ def run_experiment(
     misc['params'] = hyperparameters
     misc['benchmark_task_name'] = task
     misc['param_index'] = param_index
+    misc['keep_model'] = False
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
