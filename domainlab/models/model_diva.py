@@ -61,28 +61,19 @@ def mk_diva(parent_class=VAEXYDClassif):
             """get_list_str_y."""
             return self._list_str_y
 
-        def forward(self, x, y, d):
-            """forward.
-
-            :param x:
-            :param y:
-            :param d:
-            """
-            return self.cal_loss(x, y, d) 
-
-        def cal_reg_loss(self, x, y, d):
-            q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(x)
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+            q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
 
             batch_size = zd_q.shape[0]
             device = zd_q.device
 
             p_zx = self.init_p_zx4batch(batch_size, device)
-            p_zy = self.net_p_zy(y)
-            p_zd = self.net_p_zd(d)
+            p_zy = self.net_p_zy(tensor_y)
+            p_zd = self.net_p_zd(tensor_d)
 
             z_concat = self.decoder.concat_ydx(zy_q, zd_q, zx_q)
-            loss_recon_x, _, _ = self.decoder(z_concat, x)
+            loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
 
             zd_p_minus_zd_q = torch.sum(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
@@ -91,7 +82,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             zy_p_minus_zy_q = torch.sum(
                 p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
-            _, d_target = d.max(dim=1)
+            _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
 
             return loss_recon_x \

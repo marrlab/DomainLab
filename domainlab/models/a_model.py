@@ -33,3 +33,12 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         task independent regularization loss for domain generalization
         """
+
+    def forward(self, tensor_x, tensor_y, tensor_d):
+        """forward.
+
+        :param x:
+        :param y:
+        :param d:
+        """
+        return self.cal_loss(tensor_x, tensor_y, tensor_d)
