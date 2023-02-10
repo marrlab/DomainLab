@@ -1,5 +1,4 @@
 import os
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -56,7 +55,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
            try:
                scatterplot(dataframe, obj[i], obj[j],
                            file=output_dir + '/scatterpl/' + obj[i] + '_' + obj[j] + '.png')
-           except LinAlgError:
+           except IndexError:
                print(f'WARNING: disabling kde because cov matrix is singular for objectives '
                      f'{obj[i]} & {obj[j]}')
                scatterplot(dataframe, obj[i], obj[j],
@@ -104,7 +103,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                                 file=output_dir + '/' + str(algorithm) +
                                      '/scatterpl/' + obj[i] + '_' + obj[j] + '.png',
                                 distinguish_hyperparam=True)
-                except LinAlgError:
+                except IndexError:
                     print(f'WARNING: disabling kde because cov matrix is singular for objectives '
                           f'{obj[i]} & {obj[j]}')
                     scatterplot(dataframe_algo, obj[i], obj[j],
@@ -173,7 +172,7 @@ def scatterplot(dataframe_in, obj1, obj2, file=None, kde=True, distinguish_hyper
         if kde:
             g = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='params',
                               xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
-                              zorder=0, levels=8, alpha=0.35)
+                              zorder=0, levels=8, alpha=0.35, warn_singular=False)
             gg = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='params',
                                  ax=g.ax_joint)
         else:
@@ -184,7 +183,7 @@ def scatterplot(dataframe_in, obj1, obj2, file=None, kde=True, distinguish_hyper
         if kde:
             g = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='algo',
                               xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
-                              zorder=0, levels=8, alpha=0.35)
+                              zorder=0, levels=8, alpha=0.35, warn_singular=False)
             gg = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='algo', style='params',
                                  ax=g.ax_joint)
         else:
@@ -212,7 +211,8 @@ def radar_plot(dataframe_, file=None, distinguish_hyperparam=True):
     else:
         dataframe.insert(0, 'label', dataframe['algo'])
     index = list(range(6, dataframe.shape[1]))
-    _, ax = plt.subplots(figsize=(9, 9), subplot_kw=dict(polar=True))
+    num_lines = len(dataframe['label'].unique())
+    _, ax = plt.subplots(figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True))
     num = 0
 
     # Split the circle into even parts and save the angles
@@ -250,8 +250,9 @@ def radar_plot(dataframe_, file=None, distinguish_hyperparam=True):
 
     ax.set_ylim((0, 1))
 
-    plt.legend(loc='upper left', bbox_to_anchor=(1., 1.), ncol=1)
-    plt.tight_layout()
+    plt.legend(loc='lower right', bbox_to_anchor=(1., 1.035),
+               ncol=1, fontsize=10)
+    #plt.tight_layout()
 
     if file is not None:
         plt.savefig(file, dpi=300)
@@ -325,4 +326,6 @@ if __name__ == '__main__':
 
 
 
-    gen_benchmark_plots('aggret_res_test2', 'outp2')
+
+    gen_benchmark_plots('results.csv', 'res_outp')
+    #gen_benchmark_plots('aggret_res_test2', 'outp2')
