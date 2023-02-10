@@ -55,7 +55,6 @@ bibliography: paper.bib
 
 (
 **Please provide your orcid!**
-Patrick 0000-0002-6499-7933
 Florian 0000-0001-5587-6761
 
 )
