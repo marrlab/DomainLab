@@ -23,6 +23,10 @@ authors:
     orcid: 0000-0001-6179-5829
     equal-contrib: False 
     affiliation: "1"
+  - name: Patrick Rockenschaub
+    orcid: 0000-0002-6499-7933
+    equal-contrib: False
+    affiliation: 6
   - name: Armin Gruber
     orcid: 0000-0002-5015-6543
     equal-contrib: False 
@@ -43,6 +47,8 @@ affiliations:
    index: 4
  - name: Ludwig Maximilian University of Munich
    index: 5
+ - name: Charité Lab for AI in Medicine, Charité Universitätsmedizin Berlin, Berlin, Germany
+   index: 6
 date: 17 Feb 2023
 bibliography: paper.bib
 ---
