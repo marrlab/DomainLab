@@ -16,9 +16,10 @@ authors:
     equal-contrib: False
     affiliation: 2
     
-  - name: Author Without ORCID
+  - name: Sayedali Shetab Boushehri
+    orcid: 0000-0003-3391-9294
     equal-contrib: False 
-    affiliation: 3
+    affiliation: "1,3,4"
   - name: Author Without ORCID
     equal-contrib: False 
     affiliation: 3
@@ -40,8 +41,10 @@ affiliations:
    index: 1
  - name: Division of Imaging, Diagnostics, and Software Reliability, CDRH, U.S Food and Drug Administration, Silver Spring, MD 20993, USA
    index: 2
- - name: Independent Researcher, Country
+ - name: Data Science, Pharmaceutical Research and Early Development Informatics (pREDi), Roche Innovation Center Munich, Germany
    index: 3
+ - name: Technical University of Munich, Munich, Germany 
+   index: 4
 date: 17 Feb 2023
 bibliography: paper.bib
 ---
@@ -119,5 +122,7 @@ constructing the evaluator as a callback of what to do after each epoch.
 # Availability
 Domainlab is open source and freely available. It is published under the MIT License. You can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
 
+# Funding
+SSB has received funding by F. Hoffmann-la Roche LTD (No grant number is applicable) and supported by the Helmholtz Association under the joint research school ‘Munich School for Data Science - MUDS’. 
 
 # References
