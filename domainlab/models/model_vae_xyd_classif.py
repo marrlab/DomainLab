@@ -3,8 +3,6 @@ Base Class for XYD VAE
 """
 import torch
 import torch.distributions as dist
-import torch.nn as nn
-from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.utils_class import store_args
@@ -36,12 +34,6 @@ class VAEXYDClassif(AModelClassif):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
         logit_y = self.net_classif_y(zy_q_loc)
         return logit_y
-
-    def forward(self, *karg):
-        """
-        not implemented
-        """
-        raise NotImplementedError
 
     def _init_components(self):
         """

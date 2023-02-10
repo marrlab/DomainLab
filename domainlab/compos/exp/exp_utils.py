@@ -6,7 +6,7 @@ from pathlib import Path
 import torch
 
 from domainlab.utils.get_git_tag import get_git_tag
-
+from sklearn.metrics import ConfusionMatrixDisplay
 
 class ExpModelPersistVisitor():
     """
@@ -115,8 +115,9 @@ class AggWriter(ExpModelPersistVisitor):
         self.has_first_line = True
 
     def __call__(self, dict_metric):
-        line = self._gen_line(dict_metric)
+        line, confmat, confmat_filename = self._gen_line(dict_metric)
         self.to_file(line)
+        self.confmat_to_file(confmat, confmat_filename)
 
     def get_cols(self):
         epos_name = "epos"
@@ -133,14 +134,15 @@ class AggWriter(ExpModelPersistVisitor):
     def _gen_line(self, dict_metric):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
-        del dict_cols["confmat"]
+        confmat = dict_cols.pop("confmat")
+        confmat_filename = dict_cols["mname"]
         # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
             self.first_line(dict_cols)
         list_str = [str(dict_cols[key]) for key in self.list_cols]
         str_line = ", ".join(list_str)
-        return str_line
+        return str_line, confmat, confmat_filename
 
     def get_fpath(self, dirname="aggrsts"):
         list4fname = [self.task_name,
@@ -161,3 +163,21 @@ class AggWriter(ExpModelPersistVisitor):
         print("results aggregation path:", file_path)
         with open(file_path, 'a') as f_h:
             print(str_line, file=f_h)
+
+    def confmat_to_file(self, confmat, confmat_filename):
+        """Save confusion matrix as a figure
+
+        Args:
+            confmat: confusion matrix.
+        """
+        disp = ConfusionMatrixDisplay(confmat)
+        disp = disp.plot(cmap="gray")
+        file_path = self.get_fpath()
+        # @FIXME: although removesuffix is safe when suffix does not exist, we would like to have ".csv" live in some configuraiton file in the future. 
+        file_path = file_path.removesuffix(".csv")
+        # if prefix does not exist, string remain unchanged.
+        # @FIXME: still we want to have mname_ as a variable defined in some configuration file in the future. 
+        confmat_filename = confmat_filename.removeprefix("mname_")
+        file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
+        print("confusion matrix saved in file: ", file_path)
+        disp.figure_.savefig(file_path)
