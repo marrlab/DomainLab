@@ -131,6 +131,6 @@ rule gen_plots:
 
 rule all:
     input:
-        rules.agg_results.output
-        # rules.gen_plots.output
+        # rules.agg_results.output
+        rules.gen_plots.output
     default_target: True
