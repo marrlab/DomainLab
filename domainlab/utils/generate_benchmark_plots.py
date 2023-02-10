@@ -38,10 +38,10 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
 
 
     #scatterplot matrices
-    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png', reg=True, distinguish_param_setups=False)
-    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png', reg=False, distinguish_param_setups=False)
-    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist_reg.png', reg=True, distinguish_param_setups=True)
-    #scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist.png', reg=False, distinguish_param_setups=True)
+    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png', reg=True, distinguish_param_setups=False)
+    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png', reg=False, distinguish_param_setups=False)
+    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist_reg.png', reg=True, distinguish_param_setups=True)
+    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist.png', reg=False, distinguish_param_setups=True)
 
     # radar plots
     radar_plot(dataframe, file=output_dir + '/radar_dist.png', distinguish_hyperparam=True)
@@ -55,7 +55,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
            try:
                scatterplot(dataframe, obj[i], obj[j],
                            file=output_dir + '/scatterpl/' + obj[i] + '_' + obj[j] + '.png')
-           except LinAlgError:
+           except IndexError:
                print(f'WARNING: disabling kde because cov matrix is singular for objectives '
                      f'{obj[i]} & {obj[j]}')
                scatterplot(dataframe, obj[i], obj[j],
@@ -103,7 +103,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                                 file=output_dir + '/' + str(algorithm) +
                                      '/scatterpl/' + obj[i] + '_' + obj[j] + '.png',
                                 distinguish_hyperparam=True)
-                except LinAlgError:
+                except IndexError:
                     print(f'WARNING: disabling kde because cov matrix is singular for objectives '
                           f'{obj[i]} & {obj[j]}')
                     scatterplot(dataframe_algo, obj[i], obj[j],
@@ -172,7 +172,7 @@ def scatterplot(dataframe_in, obj1, obj2, file=None, kde=True, distinguish_hyper
         if kde:
             g = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='params',
                               xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
-                              zorder=0, levels=8, alpha=0.35)
+                              zorder=0, levels=8, alpha=0.35, warn_singular=False)
             gg = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='params',
                                  ax=g.ax_joint)
         else:
@@ -183,7 +183,7 @@ def scatterplot(dataframe_in, obj1, obj2, file=None, kde=True, distinguish_hyper
         if kde:
             g = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='algo',
                               xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
-                              zorder=0, levels=8, alpha=0.35)
+                              zorder=0, levels=8, alpha=0.35, warn_singular=False)
             gg = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='algo', style='params',
                                  ax=g.ax_joint)
         else:
@@ -326,5 +326,6 @@ if __name__ == '__main__':
 
 
 
-    #gen_benchmark_plots('results.csv', 'res_outp')
-    gen_benchmark_plots('aggret_res_test2', 'outp2')
+
+    gen_benchmark_plots('results.csv', 'res_outp')
+    #gen_benchmark_plots('aggret_res_test2', 'outp2')
