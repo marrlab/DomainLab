@@ -193,7 +193,7 @@ def scatterplot(dataframe_in, obj1, obj2, file=None, kde=True, distinguish_hyper
                                  ax=g.ax_joint)
 
     gg.set_aspect('equal')
-    g.ax_joint.legend(fontsize=6)
+    gg.legend(fontsize=6, loc='best')
 
     if file is not None:
         plt.savefig(file, dpi=300)
@@ -327,5 +327,5 @@ if __name__ == '__main__':
 
 
 
-    gen_benchmark_plots('results.csv', 'res_outp')
-    #gen_benchmark_plots('aggret_res_test2', 'outp2')
+    #gen_benchmark_plots('results.csv', 'res_outp')
+    gen_benchmark_plots('aggret_res_test2', 'outp2')
