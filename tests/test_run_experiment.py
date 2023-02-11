@@ -1,6 +1,7 @@
 import yaml
 
-from domainlab.exp_protocol.run_experiment import run_experiment
+from domainlab.arg_parser import mk_parser_main
+from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_args
 
 
 def test_run_experiment():
@@ -19,3 +20,11 @@ def test_run_experiment():
     run_experiment(config, param_file, param_index, out_file, {'testing': True})
     config['test_domains'] = []
     run_experiment(config, param_file, param_index, out_file)
+
+
+def test_apply_dict_to_args():
+    """Testing apply_dict_to_args"""
+    parser = mk_parser_main()
+    args = parser.parse_args(args=[])
+    data = {'a': 1, 'b': [1, 2]}
+    apply_dict_to_args(args, data, extend=True)
