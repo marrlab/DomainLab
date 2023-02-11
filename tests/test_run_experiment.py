@@ -7,6 +7,9 @@ def test_run_experiment():
     with open("examples/yaml/demo_benchmark.yaml", "r") as stream:
         config = yaml.safe_load(stream)
 
+    config['epos'] = 1
+    config['startseed'] = 1
+    config['endseed'] = 1
     param_file = "data/ztest_files/test_parameter_samples.csv"
     param_index = 0
     out_file = "zoutput/benchmarks/demo_benchmark/rule_results/0.csv"

@@ -1,13 +1,6 @@
 import sys
 from pathlib import Path
 
-args = sys.argv
-# get path to config file
-# config_path = args[args.index("--configfile") + 1]
-# if "-d" in args:
-#     config_path = os.path.join(args[args.index("-d") + 1], config_path)
-# elif "--directory" in args:
-#     config_path = os.path.join(args[args.index("--directory") + 1],config_path)
 try:
     config_path = workflow.configfiles[0]
 except IndexError:
@@ -15,13 +8,9 @@ except IndexError:
 
 
 
-# TODO this seems a bit hacky and might break down.
-#   is there a better option to make domainlab importable?
-#   an easy-to-implement option would be to let the user specify the
-#   domainlab path in the yaml file.
+# NOTE: this approach to obtain the path depends on the relative path of
+# this file to the domainlab directory
 sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
-# print(f"sys.path={sys.path}") # for debugging
-# print(f"config_path={config_path}")
 
 
 def experiment_result_files(_):
@@ -49,9 +38,6 @@ rule parameter_sampling:
         sample_hyperparameters(config, str(output.dest))
 
 
-# TODO continue after breakdown works, but jobs with incomplete seed
-#   iteration are not restarted, but only the partial results are included
-#   at the results.csv.
 rule run_experiment:
     input:
         param_file=rules.parameter_sampling.output
@@ -118,7 +104,6 @@ rule agg_partial_results:
                     out_stream.writelines(in_stream.readlines())
 
 
-# TODO
 rule gen_plots:
     input:
         res_file=rules.agg_results.output.out_file
@@ -131,6 +116,5 @@ rule gen_plots:
 
 rule all:
     input:
-        # rules.agg_results.output
         rules.gen_plots.output
     default_target: True
