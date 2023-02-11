@@ -21,6 +21,9 @@ class ModelWrapMatchDGLogit(AModelClassif):
     def cal_loss(self, x, y, d=None):
         return self.net.cal_loss(x, y, d)
 
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None):
+        return self.net.cal_loss(tensor_x, tensor_y, tensor_d)  # @FIXME: this is wrong
+
     def forward(self, tensor_x):
         """
         calculate features to be matched

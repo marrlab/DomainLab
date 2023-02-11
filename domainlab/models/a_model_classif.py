@@ -60,18 +60,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         print("before training, model accuracy:", acc)
 
     @abc.abstractmethod
-    def cal_loss(self, *tensors):
-        """
-        calculate the loss
-        """
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError
 
     @store_args
     def __init__(self, list_str_y, list_d_tr=None):
@@ -149,3 +141,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     # 1:-1 removes brackets of tuple
                     print(str(pair)[1:-1], file=handle_file)
         print("prediction saved in file ", filename)
+
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+        return 0
