@@ -1,3 +1,4 @@
+#!/bin/sh
 # -n: dry-run
 # -p: print shell commands
 # -d: specify working directory. This should be the DomainLab dir
