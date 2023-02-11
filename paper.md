@@ -122,9 +122,9 @@ constructing the evaluator as a callback of what to do after each epoch.
 Domainlab is open source and freely available. It is published under the MIT License. You can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
 
 # Contributions
-Xudong Sun has designed the package with software design patterns and implemented the framework, algorithms and other components of the package. He initiated and made major contributions to other aspects of the package development. Carsten Marr initiated the project with Xudong Sun, contributed to the code style enhancement and paper description of Domainlab and supervised the project. 
+XS has designed the package with software design patterns and implemented the framework, algorithms and other components of the package. He initiated and made major contributions to other aspects of the package development. CM initiated the project with Xudong Sun, contributed to the code style enhancement and paper description of Domainlab and supervised the project. 
 
 # Funding
-SSB has received funding by F. Hoffmann-la Roche LTD (No grant number is applicable) and supported by the Helmholtz Association under the joint research school ‘Munich School for Data Science - MUDS’. PR was supported through an Alexander von Humboldt Foundation postdoctoral fellowship (Grant Nr. 1221006). C.M. has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant agreement No. 866411).
+SSB has received funding by F. Hoffmann-la Roche LTD (No grant number is applicable) and supported by the Helmholtz Association under the joint research school ‘Munich School for Data Science - MUDS’. PR was supported through an Alexander von Humboldt Foundation postdoctoral fellowship (Grant Nr. 1221006). CM has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant agreement No. 866411).
 
 # References
