@@ -75,7 +75,7 @@ def check_constraints(params: list, constraints) -> bool:
 
     # set each param as a local variable
     for par in params:
-        exec(f'{par.name} = {par.val}')
+        locals().update({par.name: par.val})
     # check all constraints
     for constr in constraints:
         try:
