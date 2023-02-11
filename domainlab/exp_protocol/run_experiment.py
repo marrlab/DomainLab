@@ -10,8 +10,8 @@ from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
 
 def load_parameters(file: str, index: int) -> tuple:
     """Loads a single parameter sample"""
-    df = pd.read_csv(file, index_col=0)
-    row = df.loc[index]
+    param_df = pd.read_csv(file, index_col=0)
+    row = param_df.loc[index]
     params = ast.literal_eval(row.params)
     return row.task, params
 
@@ -36,8 +36,7 @@ def run_experiment(
         param_file: str,
         param_index: int,
         out_file: str,
-        test_domains: list,
-        misc: dict = {},
+        misc=None,
 ):
     """
     Runs the experiment several times:
@@ -54,6 +53,8 @@ def run_experiment(
     a leave-one-out manner
     :param misc: optional dictionary of additional parameters, if any.
     """
+    if misc is None:
+        misc = {}
     task, hyperparameters = load_parameters(param_file, param_index)
     # print("\n*******************************************************************")
     # print(f"{task}, param_index={param_index}, params={hyperparameters}")
@@ -71,7 +72,7 @@ def run_experiment(
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
 
-    for te_d in test_domains:
+    for te_d in config['test_domains']:
         args.te_d = te_d
         for seed in range(config['startseed'], config['endseed'] + 1):
             set_seed(seed)

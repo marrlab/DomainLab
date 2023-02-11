@@ -194,13 +194,13 @@ class ExpProtocolAggWriter(AggWriter):
         """columns"""
         epos_name = "epos"
         dict_cols = {
-                     "param_index": self.host.args.param_index,
-                     "task": self.host.args.benchmark_task_name,
-                     "algo": self.algo_name,
-                     epos_name: None,
-                     "te_d": self.host.args.te_d,
-                     "seed": self.seed,
-                     "params": f"\"{self.host.args.params}\"",
+            "param_index": self.host.args.param_index,
+             "task": self.host.args.benchmark_task_name,
+             "algo": self.algo_name,
+             epos_name: None,
+             "te_d": self.host.args.te_d,
+             "seed": self.seed,
+             "params": f"\"{self.host.args.params}\"",
         }
         return dict_cols, epos_name
 
