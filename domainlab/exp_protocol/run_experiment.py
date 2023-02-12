@@ -51,8 +51,6 @@ def run_experiment(
     :param param_file: path to the csv with the parameter samples
     :param param_index: parameter index that should be covered by this task
     :param out_file: path to the output csv
-    :param test_domains: all domains that are used as test domains in
-    a leave-one-out manner
     :param misc: optional dictionary of additional parameters, if any.
     """
     if misc is None:
