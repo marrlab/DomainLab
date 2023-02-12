@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -273,11 +272,15 @@ from domainlab.tasks.a_task import NodeTaskDGClassif
 from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
                                         mk_onehot)
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
 <div class="viewcode-block" id="dset_decoration_args_algo"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.dset_decoration_args_algo">[docs]</a>def dset_decoration_args_algo(args, ddset):
     if "match" in args.aname:  # @FIXME: are there ways not to use this if statement?
-            ddset = DsetIndDecorator4XYD(ddset)
+        ddset = DsetIndDecorator4XYD(ddset)
+    if "jigen" in args.aname:
+        # FIXME: do this during before_tr
+        ddset = WrapDsetPatches(ddset)
     return ddset</div>
 
 
@@ -394,11 +397,11 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

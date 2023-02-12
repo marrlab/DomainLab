@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -278,8 +277,10 @@ from domainlab.tasks.task_folder import NodeTaskFolderClassNaMismatch
                    succ=None):
     """
     Make task by specifying each domain with folder structures
-    :param extensions: a python dictionary with key as the domain name
-    and value as the file extensions of the image.
+    :param extensions: Different Options: 1. a python dictionary with key as the domain name
+    and value (str or tuple[str]) as the file extensions of the image. 2. a str or tuple[str]
+    with file extensions for all domains. 3. None: in each domain all files with an extension
+    in ('jpg', 'jpeg', 'png') are loaded.
     :param list_str_y: a python list with user defined class name where
     the order of the list matters.
     :param dict_domain_folder_name2class: a python dictionary, with key
@@ -339,11 +340,11 @@ from domainlab.tasks.task_folder import NodeTaskFolderClassNaMismatch
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

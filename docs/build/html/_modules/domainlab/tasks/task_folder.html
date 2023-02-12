@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -276,6 +275,8 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
 
 <div class="viewcode-block" id="NodeTaskFolder"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolder">[docs]</a>class NodeTaskFolder(NodeTaskDict):
     """
+    create dataset by loading files from an organized folder
+    then each domain correspond to one dataset
     """
     @property
     def dict_domain2imgroot(self):
@@ -295,6 +296,9 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
 
     @property
     def extensions(self):
+        """
+        return allowed extensions
+        """
         return self.dict_att["img_extensions"]
 
     @extensions.setter
@@ -338,10 +342,12 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
                 trans = self.img_trans_te
         else:
             trans = transforms.ToTensor()
+
+        ext = None if self.extensions is None else self.extensions[na_domain]
         dset = DsetSubFolder(root=self.dict_domain2imgroot[na_domain],
                              list_class_dir=list(domain_class_dirs),
                              loader=fun_img_path_loader_default,
-                             extensions=self.extensions[na_domain],
+                             extensions=ext,
                              transform=trans,
                              target_transform=mk_fun_label2onehot(
                                  len(self.list_str_y)))
@@ -375,11 +381,11 @@ from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
