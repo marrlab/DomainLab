@@ -4,11 +4,11 @@ generate the benchmark plots by calling the gen_bencmark_plots(...) function
 import os
 from ast import literal_eval
 from typing import Union, List, Optional
+import textwrap
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import textwrap
 
 
 def gen_benchmark_plots(agg_results: str, output_dir: str):
@@ -543,11 +543,11 @@ def box_plot(
         plt.savefig(file, dpi=300)
 
 
-def wrap_labels(ax, width, break_long_words=False):
+def wrap_labels(axis, width, break_long_words=False):
     labels = []
-    for label in ax.get_xticklabels():
+    for label in axis.get_xticklabels():
         text = label.get_text()
         labels.append(
             textwrap.fill(text, width=width, break_long_words=break_long_words)
         )
-    ax.set_xticklabels(labels, rotation=0)
+    axis.set_xticklabels(labels, rotation=0)
