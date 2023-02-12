@@ -24,9 +24,10 @@ def mk_jigen(parent_class=AModelClassif):
         Jigen Model Similar to DANN model
         """
         def __init__(self, list_str_y, list_str_d,
-                    net_encoder,
-                    net_classifier_class,
-                    net_classifier_permutation, coeff_reg):
+                     net_encoder,
+                     net_classifier_class,
+                     net_classifier_permutation,
+                     coeff_reg):
             super().__init__(list_str_y, list_str_d,
                              alpha=coeff_reg,
                              net_encoder=net_encoder,
@@ -36,13 +37,16 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
 
-        def cal_loss(self, tensor_x, tensor_y, tensor_d):
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+            """
+            JiGen don't need domain label but a pre-defined permutation index
+            to calculate regularization loss
+            """
             vec_perm_ind = tensor_d
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_classifier_permutation(feat)
             # _, target_perm_ind_scalar = vec_perm_ind.max(dim=1)
             target_perm_ind_scalar = vec_perm_ind
             loss_perm = F.cross_entropy(logit_d, target_perm_ind_scalar, reduction="none")
-            loss_task = self.cal_task_loss(tensor_x, tensor_y)
-            return loss_task + loss_perm
+            return loss_perm
     return ModelJiGen
