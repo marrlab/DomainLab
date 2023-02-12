@@ -1,7 +1,6 @@
 from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
 
 
-
 def test_benchm_plots():
     '''
     test benchmark plots
