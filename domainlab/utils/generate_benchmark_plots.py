@@ -3,7 +3,7 @@ generate the benchmark plots by calling the gen_bencmark_plots(...) function
 """
 import os
 from ast import literal_eval
-from typing import Union, List, Optional, Literal
+from typing import Union, List, Optional
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
