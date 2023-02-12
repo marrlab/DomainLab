@@ -1,14 +1,17 @@
+"""
+upon a task, if jigen is chosen as the algorithm, then task's dataset has to be augmented to
+include tile permutation
+"""
 import numpy as np
 import torch
 import torchvision
-import torchvision.transforms as transforms
-
+from torchvision import transforms
 from torch.utils import data as torchdata
 
 
-global_transform4tile = transforms.Compose([
+GTRANS4TILE = transforms.Compose([
     transforms.RandomGrayscale(0.1),
-    # FIXME: this is cheating for jiGen
+    # @FIXME: this is cheating for jiGen
     # but seems to have a big impact on performance
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
@@ -20,7 +23,7 @@ class WrapDsetPatches(torchdata.Dataset):
     """
     def __init__(self, dataset,
                  num_perms2classify=31,
-                 transform4tile=global_transform4tile,
+                 transform4tile=GTRANS4TILE,
                  flag_do_not_weave_tiles=False,
                  prob_no_perm=0.7,
                  grid_len=3):
@@ -45,10 +48,11 @@ class WrapDsetPatches(torchdata.Dataset):
         """
         assume a square image?
         """
-        img_height = img.shape[-1]   #  FIXME: use a better way to decide the image size
+        img_height = img.shape[-1]   # @FIXME: use a better way to decide the image size
         num_tiles = float(img_height) / self.grid_len
-        num_tiles = float(int(num_tiles)) + 1   # FIXME: extra line to ensure num_tiles=75 instead of sometimes 74 so torch.stack can fail
-        # in original data,
+        num_tiles = float(int(num_tiles)) + 1
+        # @FIXME: extra line to ensure num_tiles=75 instead of sometimes 74
+        # so torch.stack can fail in original data,
         # num_tiles = float(img.size[0]) / self.grid_len = 225/3 = 75.0
         # is an integer, but this can not be true for other cases
         ind_vertical = int(ind_tile / self.grid_len)
@@ -105,10 +109,9 @@ class WrapDsetPatches(torchdata.Dataset):
         number of different permutations of the tiles, the classifier will
         classify the re-tile-ordered image permutation it come from.
         """
-        # FIXME: path
+        # @FIXME: path
         arr_permutation_rows = np.load(
-            'data/patches_permutation4jigsaw/permutations_%d.npy' \
-            % (num_perms_as_classes))
+            f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy')
         # from range [1,9] to [0,8]
         if arr_permutation_rows.min() == 1:
             arr_permutation_rows = arr_permutation_rows - 1
