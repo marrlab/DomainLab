@@ -1,3 +1,6 @@
+"""
+Tests run_experiment.py
+"""
 import yaml
 
 from domainlab.arg_parser import mk_parser_main

@@ -1,3 +1,7 @@
+"""
+Runs one task for a single hyperparameter sample for each leave-out-domain
+and each random seed.
+"""
 import ast
 
 import pandas as pd

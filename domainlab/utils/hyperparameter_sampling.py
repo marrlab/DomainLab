@@ -1,3 +1,6 @@
+"""
+Samples the hyperparameters according to a benchmark configuration file.
+"""
 import os
 
 import numpy as np
