@@ -39,7 +39,10 @@ class WrapDsetPatches(torchdata.Dataset):
         if flag_do_not_weave_tiles:
             self.fun_weave_imgs = lambda x: x
         else:
-            def make_grid(img):   # sew tiles together to be images
+            def make_grid(img):
+                """
+                sew tiles together to be an image
+                """
                 return torchvision.utils.make_grid(
                     img, nrow=self.grid_len, padding=0)
             self.fun_weave_imgs = make_grid
@@ -48,7 +51,8 @@ class WrapDsetPatches(torchdata.Dataset):
         """
         assume a square image?
         """
-        img_height = img.shape[-1]   # @FIXME: use a better way to decide the image size
+        img_height = img.shape[-1]
+        # @FIXME: use a better way to decide the image size
         num_tiles = float(img_height) / self.grid_len
         num_tiles = float(int(num_tiles)) + 1
         # @FIXME: extra line to ensure num_tiles=75 instead of sometimes 74
@@ -109,9 +113,9 @@ class WrapDsetPatches(torchdata.Dataset):
         number of different permutations of the tiles, the classifier will
         classify the re-tile-ordered image permutation it come from.
         """
-        # @FIXME: path
-        arr_permutation_rows = np.load(
-            f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy')
+        # @FIXME: this assumes always a relative path
+        mpath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8]
         if arr_permutation_rows.min() == 1:
             arr_permutation_rows = arr_permutation_rows - 1

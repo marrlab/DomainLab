@@ -55,7 +55,7 @@ and
 Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument warmup
 
 Please cite our paper if you find it useful!
-```
+```text
 @inproceedings{sun2021hierarchical,
   title={Hierarchical Variational Auto-Encoding for Unsupervised Domain Generalization},
   author={Sun, Xudong and Buettner, Florian},
