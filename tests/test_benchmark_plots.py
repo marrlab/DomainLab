@@ -1,3 +1,6 @@
+'''
+Test the benchmark plots using some dummy results saved in .csv files
+'''
 from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
 
 
