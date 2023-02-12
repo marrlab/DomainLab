@@ -14,8 +14,7 @@ def test_trainer_jigen():
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
                                "--aname", "jigen", "--bs", "2",
-                               "--nname", "alexnet"
-                               ])
+                               "--nname", "alexnet"])
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
