@@ -35,12 +35,6 @@ class VAEXYDClassif(AModelClassif):
         logit_y = self.net_classif_y(zy_q_loc)
         return logit_y
 
-    def forward(self, *karg):
-        """
-        not implemented
-        """
-        raise NotImplementedError
-
     def _init_components(self):
         """
         q(z|x)

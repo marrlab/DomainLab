@@ -55,6 +55,11 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepal
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann --nname=alexnet
 ```
 
+### model jigen with implemented neural network
+```
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet
+```
+
 ### model matchdg with implemented neural network
 ```
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --nname=alexnet
