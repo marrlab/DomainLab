@@ -7,7 +7,7 @@ from domainlab.utils.hyperparameter_sampling import\
 
 def test_hyperparameter_sampling():
     """Test sampling from yaml, including constraints"""
-    with open("examples/yaml/hyperparameter_test_config.yml", "r") as stream:
+    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r") as stream:
         config = yaml.safe_load(stream)
 
     samples = sample_hyperparameters(config)
