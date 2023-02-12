@@ -32,24 +32,6 @@ class AModelCustom(AModelClassif):
         """
         raise NotImplementedError
 
-    def forward(self, tensor_x, tensor_y, tensor_d):
-        """forward.
-
-        :param tensor_x:
-        :param tensor_y:
-        :param tensor_d:
-        """
-        raise NotImplementedError
-
-    def cal_loss(self, tensor_x, tensor_y, tensor_d):
-        """cal_loss.
-
-        :param tensor_x:
-        :param tensor_y:
-        :param tensor_d:
-        """
-        raise NotImplementedError
-
     def infer_y_vpicn(self, tensor):
         """
         :param tensor: input
