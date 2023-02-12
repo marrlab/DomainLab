@@ -2,7 +2,6 @@
 use random start to generate adversarial images
 """
 import torch
-import torch.nn.functional as F
 from torch.autograd import Variable
 
 from domainlab.algos.trainers.train_basic import TrainerBasic

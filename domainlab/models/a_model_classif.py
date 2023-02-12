@@ -160,3 +160,4 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0
+

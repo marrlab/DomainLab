@@ -1,3 +1,6 @@
+"""
+builder for domain invariant adversarial learning
+"""
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
@@ -9,6 +12,9 @@ from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderDeepAll_DIAL(NodeAlgoBuilder):
+    """
+    builder for domain invariant adversarial learning
+    """
     def init_business(self, exp):
         """
         return trainer, model, observer
