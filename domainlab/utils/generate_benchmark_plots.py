@@ -468,7 +468,7 @@ def box_plot(
     data: pd.DataFrame,
     metric: str,
     file: str,
-    mode: Literal["stochastic", "systematic", "all"] = None,
+    mode=None,
     plot_scatter: Optional[bool] = True,
     hyperparamter_filter: Optional[Union[str, List[str], List[dict]]] = None,
     palette=None,
@@ -499,6 +499,8 @@ def box_plot(
 
         n_algo = len(data["algo"].unique())
         _, axs = plt.subplots(1, n_algo, sharey=True)
+        if n_algo < 2:
+            axs = [axs]
         for i, algo in enumerate(data["algo"].unique()):
             sns.boxplot(
                 data=data[data["algo"] == algo],
@@ -518,6 +520,7 @@ def box_plot(
                     legend=False,
                     ax=axs[i],
                 )
+
     elif mode == "systematic":
         sns.boxplot(data=data, x="algo", y=metric, palette="Set2")
         if plot_scatter:
