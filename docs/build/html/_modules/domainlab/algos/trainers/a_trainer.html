@@ -56,7 +56,6 @@
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -265,7 +264,6 @@
 Base Class for trainer
 """
 import abc
-from domainlab.utils.perf import PerfClassif
 
 
 <div class="viewcode-block" id="AbstractTrainer"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer">[docs]</a>class AbstractTrainer(metaclass=abc.ABCMeta):
@@ -287,6 +285,12 @@ from domainlab.utils.perf import PerfClassif
         self.loader_te = task.loader_te
         self.observer.accept(self)
         self.model = self.model.to(device)
+        #
+        self.num_batches = len(self.loader_tr)
+        self.flag_update_hyper_per_epoch = False
+        self.flag_update_hyper_per_batch = False
+        self.epo_loss_tr = None
+        self.hyper_scheduler = None
 
 <div class="viewcode-block" id="AbstractTrainer.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.tr_epoch">[docs]</a>    @abc.abstractmethod
     def tr_epoch(self, epoch):
@@ -294,6 +298,13 @@ from domainlab.utils.perf import PerfClassif
         :param epoch:
         """
         raise NotImplementedError</div>
+
+<div class="viewcode-block" id="AbstractTrainer.after_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.after_batch">[docs]</a>    def after_batch(self, epoch, ind_batch):
+        """
+        :param epoch:
+        :param ind_batch:
+        """
+        return</div>
 
 <div class="viewcode-block" id="AbstractTrainer.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_tr">[docs]</a>    @abc.abstractmethod
     def before_tr(self):
@@ -307,24 +318,6 @@ from domainlab.utils.perf import PerfClassif
         after training
         """
         self.observer.after_all()</div></div>
-
-
-<div class="viewcode-block" id="TrainerClassif"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.TrainerClassif">[docs]</a>class TrainerClassif(AbstractTrainer):
-    """
-    Base class for trainer of classification task
-    """
-<div class="viewcode-block" id="TrainerClassif.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.TrainerClassif.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
-        """
-        :param epoch:
-        """
-        raise NotImplementedError</div>
-
-<div class="viewcode-block" id="TrainerClassif.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.TrainerClassif.before_tr">[docs]</a>    def before_tr(self):
-        """
-        check the performance of randomly initialized weight
-        """
-        acc = PerfClassif.cal_acc(self.model, self.loader_te, self.device)
-        print("before training, model accuracy:", acc)</div></div>
 </pre></div>
 
           </article>
@@ -345,11 +338,11 @@ from domainlab.utils.perf import PerfClassif
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
