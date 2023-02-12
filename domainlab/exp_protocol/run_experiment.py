@@ -80,5 +80,5 @@ def run_experiment(
             set_seed(seed)
             args.seed = seed
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
-            if not misc['testing']:
+            if not misc.get('testing', False):
                 exp.execute()
