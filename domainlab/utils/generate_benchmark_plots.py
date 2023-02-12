@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import textwrap
 
 
 def gen_benchmark_plots(agg_results: str, output_dir: str):
@@ -495,20 +496,34 @@ def box_plot(
         palette = "Set2"
 
     if mode == "stochastic":
-        sns.boxplot(data=data, x="algo", y=metric, hue="params", palette=palette)
+
+        n_algo = len(data["algo"].unique())
+        _, axs = plt.subplots(1, n_algo, sharey=True)
+        for i, algo in enumerate(data["algo"].unique()):
+            sns.boxplot(
+                data=data[data["algo"] == algo],
+                x="params",
+                y=metric,
+                palette="Set2",
+                ax=axs[i],
+            )
+            wrap_labels(axs[i], 10)
+            axs[i].set_title(algo)
+            if plot_scatter:
+                sns.stripplot(
+                    data=data[data["algo"] == algo],
+                    x="params",
+                    y=metric,
+                    dodge=False,
+                    legend=False,
+                    ax=axs[i],
+                )
+    elif mode == "systematic":
+        sns.boxplot(data=data, x="algo", y=metric, palette="Set2")
         if plot_scatter:
             sns.stripplot(
-                data=data,
-                x="algo",
-                y=metric,
-                hue="params",
-                dodge=True,
-                legend=False,
+                data=data, x="algo", y=metric, dodge=False, legend=False, palette="Set1"
             )
-    elif mode == "systematic":
-        sns.boxplot(data=data, x="algo", y=metric, palette=palette)
-        if plot_scatter:
-            sns.stripplot(data=data, x="algo", y=metric, dodge=False, legend=False)
     elif mode == "all":
         ax = sns.boxplot(data=data, x="algo", y=metric, palette="Set1")
         for patch in ax.patches:
@@ -523,3 +538,13 @@ def box_plot(
         plt.ylim((ylim_min, ylim_max))
     if file:
         plt.savefig(file, dpi=300)
+
+
+def wrap_labels(ax, width, break_long_words=False):
+    labels = []
+    for label in ax.get_xticklabels():
+        text = label.get_text()
+        labels.append(
+            textwrap.fill(text, width=width, break_long_words=break_long_words)
+        )
+    ax.set_xticklabels(labels, rotation=0)
