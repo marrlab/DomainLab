@@ -60,6 +60,14 @@ domainlab.dsets.utils\_data module
    :undoc-members:
    :show-inheritance:
 
+domainlab.dsets.utils\_wrapdset\_patches module
+-----------------------------------------------
+
+.. automodule:: domainlab.dsets.utils_wrapdset_patches
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

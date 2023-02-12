@@ -56,7 +56,6 @@
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -263,27 +262,33 @@
   <h1 id="modules-domainlab-algos-trainers-train-basic--page-root">Source code for domainlab.algos.trainers.train_basic</h1><div class="highlight"><pre>
 <span></span>import torch.optim as optim
 
-from domainlab.algos.trainers.a_trainer import TrainerClassif
+from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
 
-<div class="viewcode-block" id="TrainerBasic"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic">[docs]</a>class TrainerBasic(TrainerClassif):
+<div class="viewcode-block" id="TrainerBasic"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic">[docs]</a>class TrainerBasic(AbstractTrainer):
     def __init__(self, model, task, observer, device, aconf):
         super().__init__(model, task, observer, device, aconf)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
-        self.epo_loss_tr = None
+
+<div class="viewcode-block" id="TrainerBasic.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_tr">[docs]</a>    def before_tr(self):
+        """
+        check the performance of randomly initialized weight
+        """
+        self.model.evaluate(self.loader_te, self.device)</div>
 
 <div class="viewcode-block" id="TrainerBasic.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
-        for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
+        for ind_batch, (tensor_x, vec_y, vec_d, *others) in enumerate(self.loader_tr):
             tensor_x, vec_y, vec_d = \
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             self.optimizer.zero_grad()
-            loss = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
+            loss = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
             loss = loss.sum()
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
+            self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop</div></div>
 </pre></div>
@@ -306,11 +311,11 @@ from domainlab.algos.trainers.a_trainer import TrainerClassif
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

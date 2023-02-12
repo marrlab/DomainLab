@@ -142,5 +142,5 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     print(str(pair)[1:-1], file=handle_file)
         print("prediction saved in file ", filename)
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0

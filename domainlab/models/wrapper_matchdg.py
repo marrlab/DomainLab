@@ -1,3 +1,6 @@
+"""
+Wrapper for MatchDG to conform of model class in DomainLab
+"""
 from domainlab.models.a_model_classif import AModelClassif
 
 
@@ -18,10 +21,10 @@ class ModelWrapMatchDGLogit(AModelClassif):
     def cal_logit_y(self, tensor_x):
         return self.net.cal_logit_y(tensor_x)
 
-    def cal_loss(self, x, y, d=None):
-        return self.net.cal_loss(x, y, d)
+    def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
+        return self.net.cal_loss(tensor_x, tensor_y, tensor_d)
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None):
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         return self.net.cal_loss(tensor_x, tensor_y, tensor_d)  # @FIXME: this is wrong
 
     def forward(self, tensor_x):
