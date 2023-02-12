@@ -58,10 +58,10 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
         for j in range(i+1, len(obj)):
             try:
                 scatterplot(dataframe, [obj_i, obj[j]],
-                           file=output_dir + '/scatterpl/' + obj_i + '_' + obj[j] + '.png')
+                            file=output_dir + '/scatterpl/' + obj_i + '_' + obj[j] + '.png')
             except IndexError:
                 print(f'WARNING: disabling kde because cov matrix is singular for objectives '
-                     f'{obj_i} & {obj[j]}')
+                      f'{obj_i} & {obj[j]}')
                 scatterplot(dataframe, [obj_i, obj[j]],
                             file=output_dir + '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
                             kde=False)
@@ -92,28 +92,27 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
         # radar plots
         radar_plot(dataframe_algo, file=output_dir + '/' + str(algorithm) + '/radar_dist.png',
                    distinguish_hyperparam=True)
-        radar_plot(dataframe_algo, file=output_dir + '/' + str(algorithm) + '/radar.png', distinguish_hyperparam=False)
+        radar_plot(dataframe_algo, file=output_dir + '/' + str(algorithm) + '/radar.png',
+                   distinguish_hyperparam=False)
 
         # scatter plots for parirs of objectives
         os.makedirs(output_dir + '/' + str(algorithm) + '/scatterpl', exist_ok=True)
         obj = dataframe_algo.columns[5:]
-        for i in range(len(obj)):
+        for i, obj_i in enumerate(obj):
             for j in range(i + 1, len(obj)):
                 try:
-                    scatterplot(dataframe_algo, [obj[i], obj[j]],
+                    scatterplot(dataframe_algo, [obj_i, obj[j]],
                                 file=output_dir + '/' + str(algorithm) +
-                                     '/scatterpl/' + obj[i] + '_' + obj[j] + '.png',
+                                '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
                                 distinguish_hyperparam=True)
                 except IndexError:
                     print(f'WARNING: disabling kde because cov matrix is singular for objectives '
-                          f'{obj[i]} & {obj[j]}')
-                    scatterplot(dataframe_algo, [obj[i], obj[j]],
+                          f'{obj_i} & {obj[j]}')
+                    scatterplot(dataframe_algo, [obj_i, obj[j]],
                                 file=output_dir + '/' + str(algorithm) +
-                                     '/scatterpl/' + obj[i] + '_' + obj[j] + '.png',
+                                '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
                                 kde=False,
                                 distinguish_hyperparam=True)
-
-
 
 
 
@@ -211,6 +210,7 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
         plt.savefig(file, dpi=300)
 
 
+
 def max_0_x(x_arg):
     '''
     max(0, x_arg)
@@ -219,12 +219,12 @@ def max_0_x(x_arg):
 
 def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     '''
-        dataframe_in: dataframe containing the data with columns
-            [algo, epos, te_d, seed, params, obj1, ..., obj2]
-        file: filename to save the plots (if None, the plot will not be saved)
-        distinguish_param_setups: if True the plot will not only distinguish between models,
-            but also between the parameter setups
-        '''
+    dataframe_in: dataframe containing the data with columns
+        [algo, epos, te_d, seed, params, obj1, ..., obj2]
+    file: filename to save the plots (if None, the plot will not be saved)
+    distinguish_param_setups: if True the plot will not only distinguish between models,
+        but also between the parameter setups
+    '''
     dataframe = dataframe_in.copy()
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
@@ -275,10 +275,10 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
 
     plt.legend(loc='lower right', bbox_to_anchor=(1., 1.035),
                ncol=1, fontsize=10)
-    #plt.tight_layout()
 
     if file is not None:
         plt.savefig(file, dpi=300)
+
 
 
 def box_plot(
