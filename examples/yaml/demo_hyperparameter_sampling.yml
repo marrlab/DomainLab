@@ -9,6 +9,8 @@ Task1:  # name
   # - distribution
   # - min and max if distribution is uniform or loguniform
   # - mean and std if distribution is normal or lognormal
+  # OR
+  # reference, use this for equality constraints.
   hyperparameters:
     p1:
       distribution: uniform    # uniform | loguniform | normal | lognormal
@@ -28,10 +30,19 @@ Task1:  # name
       distribution: loguniform
       step: 0
 
+    p4:
+      # Value of p4 will always equal p3.
+      # Note that references to references are not supported
+      # and result in undefined behaviour.
+      reference: p3
+
     # Optional
     constraints:
       # In this list, any valid Python code evaluating to bool can be used.
       # The parameters can be accessed by their name from above.
+      # Note that equality constraints should not be posed here,
+      # but enforced through references.
+      # Otherwise, the sampling will abort with error in most cases.
       - "p1 < p2"
       - "p3 < p2"
 
@@ -50,3 +61,7 @@ Task2:  # name
       max: 2
       step: 1
       distribution: uniform
+
+Task3:
+  aname: Algo3
+  zd_dim: 5

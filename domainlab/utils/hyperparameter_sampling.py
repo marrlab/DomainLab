@@ -2,6 +2,7 @@
 Samples the hyperparameters according to a benchmark configuration file.
 """
 import os
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -15,27 +16,31 @@ class Hyperparameter:
 
     p1: min or mean
     p2: max or scale
+    reference: None or name of referenced hyperparameter
     """
     def __init__(self, name: str, config: dict):
         self.name = name
         self.step = config.get('step', 0)
-        try:
-            self.distribution = config['distribution']
-            if self.distribution == 'uniform' or self.distribution == 'loguniform':
-                self.p_1 = config['min']
-                self.p_2 = config['max']
-            elif self.distribution == 'normal' or self.distribution == 'lognormal':
-                self.p_1 = config['mean']
-                self.p_2 = config['std']
-            else:
-                raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
-        except KeyError:
-            raise RuntimeError(f"Missing required key for parameter {name}.")
+        self.reference = config.get('reference', None)
+        if self.reference is None:
+            try:
+                self.distribution = config['distribution']
+                if self.distribution == 'uniform' or self.distribution == 'loguniform':
+                    self.p_1 = config['min']
+                    self.p_2 = config['max']
+                elif self.distribution == 'normal' or self.distribution == 'lognormal':
+                    self.p_1 = config['mean']
+                    self.p_2 = config['std']
+                else:
+                    raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
+            except KeyError:
+                raise RuntimeError(f"Missing required key for parameter {name}.")
 
-        self.p_1 = float(self.p_1)
-        self.p_2 = float(self.p_2)
+            self.p_1 = float(self.p_1)
+            self.p_2 = float(self.p_2)
+            self.datatype = int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
+
         self.val = 0
-        self.datatype = int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
 
     def _ensure_step(self):
         """Make sure that the hyperparameter sticks to the discrete grid"""
@@ -54,6 +59,10 @@ class Hyperparameter:
 
     def sample(self):
         """Sample this parameter, respecting properties"""
+        if self.is_reference():
+            # nothing to sample if reference is set
+            return
+
         if self.distribution == 'uniform':
             self.val = np.random.uniform(self.p_1, self.p_2)
         elif self.distribution == 'loguniform':
@@ -70,8 +79,11 @@ class Hyperparameter:
         """Returns the current value of the hyperparameter"""
         return self.val
 
+    def is_reference(self) -> bool:
+        return self.reference is not None
 
-def check_constraints(params: list, constraints) -> bool:
+
+def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     """Check if the constraints are fulfilled."""
     if constraints is None:
         return True     # shortcut
@@ -79,6 +91,13 @@ def check_constraints(params: list, constraints) -> bool:
     # set each param as a local variable
     for par in params:
         locals().update({par.name: par.val})
+
+    # set references
+    for par in params:
+        if par.is_reference():
+            setattr(par, 'val', locals()[par.reference])
+            locals().update({par.name: par.val})
+
     # check all constraints
     for constr in constraints:
         try:
@@ -91,7 +110,7 @@ def check_constraints(params: list, constraints) -> bool:
     return True
 
 
-def sample_parameters(params: list, constraints) -> dict:
+def sample_parameters(params: List[Hyperparameter], constraints) -> dict:
     """
     Tries to sample from the hyperparameter list.
 
@@ -125,6 +144,9 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
         for _ in range(num_samples):
             sample = sample_parameters(params, constraints)
             sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
+    else:
+        # add single line if no varying hyperparameters are specified.
+        sample_df.loc[len(sample_df.index)] = [task_name, algo, {}]
 
 
 def is_task(val) -> bool:
