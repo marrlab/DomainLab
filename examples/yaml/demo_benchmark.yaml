@@ -92,3 +92,5 @@ Task3:
   aname: diva
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
+  gamma_y: 5e5
+  gamma_d: 1e5
