@@ -7,6 +7,7 @@ import yaml
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.models.args_vae import add_args2parser_vae
+from domainlab.models.args_jigen import add_args2parser_jigen
 
 
 def mk_parser_main():
@@ -146,6 +147,8 @@ def mk_parser_main():
     arg_group_vae = add_args2parser_vae(arg_group_vae)
     arg_group_matchdg = parser.add_argument_group('matchdg')
     arg_group_matchdg = add_args2parser_matchdg(arg_group_matchdg)
+    arg_group_jigen = parser.add_argument_group('jigen')
+    arg_group_jigen = add_args2parser_jigen(arg_group_jigen)
     return parser
 
 

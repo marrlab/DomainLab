@@ -20,7 +20,7 @@ def dset_decoration_args_algo(args, ddset):
         # FIXME: do this during before_tr
         ddset = WrapDsetPatches(ddset,
                                 num_perms2classify=args.nperm,
-                                prob_no_perm=args.pperm,
+                                prob_no_perm=1-args.pperm,
                                 grid_len=args.grid_len)
     return ddset
 
