@@ -22,11 +22,11 @@ class WrapDsetPatches(torchdata.Dataset):
     given dataset of images, return permuations of tiles of images re-weaved
     """
     def __init__(self, dataset,
-                 num_perms2classify=31,
+                 num_perms2classify,
+                 prob_no_perm,
+                 grid_len,
                  transform4tile=GTRANS4TILE,
-                 flag_do_not_weave_tiles=False,
-                 prob_no_perm=0.7,
-                 grid_len=3):
+                 flag_do_not_weave_tiles=False):
         """
         :param prob_no_perm: probability of no permutation
         """
