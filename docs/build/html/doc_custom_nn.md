@@ -2,6 +2,7 @@
 
 To use a custom neural network, the user has to implement the following signature in a python file and feed into this library via `--npath`. 
 
+
 ```
 def build_feat_extract_net(dim_y, remove_last_layer):
 ```

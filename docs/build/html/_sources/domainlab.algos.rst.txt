@@ -63,6 +63,14 @@ domainlab.algos.builder\_hduva module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.builder\_jigen1 module
+--------------------------------------
+
+.. automodule:: domainlab.algos.builder_jigen1
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.builder\_matchdg module
 ---------------------------------------
 

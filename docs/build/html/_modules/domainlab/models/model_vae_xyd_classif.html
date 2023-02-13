@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -266,12 +265,9 @@ Base Class for XYD VAE
 """
 import torch
 import torch.distributions as dist
-import torch.nn as nn
-from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.utils_class import store_args
-from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 <div class="viewcode-block" id="VAEXYDClassif"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif">[docs]</a>class VAEXYDClassif(AModelClassif):
@@ -300,12 +296,6 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
         logit_y = self.net_classif_y(zy_q_loc)
         return logit_y</div>
-
-<div class="viewcode-block" id="VAEXYDClassif.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.forward">[docs]</a>    def forward(self, *karg):
-        """
-        not implemented
-        """
-        raise NotImplementedError</div>
 
     def _init_components(self):
         """
@@ -355,11 +345,11 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

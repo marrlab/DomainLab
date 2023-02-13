@@ -12,6 +12,11 @@ python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=diva --nnam
 python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5
 ```
 
+### make a sanity check for the dataset using 8 instances from each domain and from each class
+```
+python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --aname=diva --nname=alexnet --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5 --san_check --san_num=4
+```
+
 ### generation of images
 ```
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=10e5 --gamma_d=1e5 --gen
@@ -50,6 +55,11 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepal
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann --nname=alexnet
 ```
 
+### model jigen with implemented neural network
+```
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet
+```
+
 ### model matchdg with implemented neural network
 ```
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --nname=alexnet
@@ -64,6 +74,7 @@ python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=
 ```
 python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=alexnet
 ```
+
 
 ## Custom Neural Network
 
