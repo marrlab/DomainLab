@@ -32,6 +32,10 @@ In this example we can see:
 - every node containing `aname` is considered as a task
 - hyperparameters can be sampled from different distributions and
 - constraints between the hyperparameters can be specified.
+- Equality constraints are not supported in the constraints section. To
+enforce equality of two hyperparameters use the `reference` key, see `p4` of `Task1`.
+References are supported only to sampled hyperparameters, referencing a reference
+results in undefined behaviour.
 
 Note that for sampling, there is always first a sample drawn ignoring the constraints, which
 is then possibly rejected by the constraints. If 10,000 samples are rejected in a row, the sampling

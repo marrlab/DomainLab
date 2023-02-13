@@ -21,11 +21,15 @@ def test_hyperparameter_sampling():
         assert par['p1'] < par['p2']
         assert par['p3'] < par['p2']
         assert par['p2'] % 1 == pytest.approx(0)
+        assert par['p4'] == par['p3']
 
     a2samples = samples[samples['algo'] == 'Algo2']
     for par in a2samples['params']:
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
+
+    a3samples = samples[samples['algo'] == 'Algo3']
+    assert len(a3samples) > 0
 
 
 def test_hyperparameter_errors():
