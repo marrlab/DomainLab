@@ -117,7 +117,8 @@ class AggWriter(ExpModelPersistVisitor):
     def __call__(self, dict_metric):
         line, confmat, confmat_filename = self._gen_line(dict_metric)
         self.to_file(line)
-        self.confmat_to_file(confmat, confmat_filename)
+        if not self.host.args.no_dump:
+            self.confmat_to_file(confmat, confmat_filename)
 
     def get_cols(self):
         epos_name = "epos"

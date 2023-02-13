@@ -1,8 +1,14 @@
+"""
+end to end test
+"""
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
 
-def test_trainer_diva():
+def test_trainer_hduva():
+    """
+    end to end test
+    """
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",

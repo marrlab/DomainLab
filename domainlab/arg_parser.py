@@ -48,6 +48,8 @@ def mk_parser_main():
 
     parser.add_argument('--debug', action='store_true', default=False)
     parser.add_argument('--dmem', action='store_true', default=False)
+    parser.add_argument('--no_dump', action='store_true', default=False,
+                        help='suppress saving the confusion matrix')
 
     parser.add_argument('--out', type=str, default="zoutput",
                         help='absolute directory to store outputs')

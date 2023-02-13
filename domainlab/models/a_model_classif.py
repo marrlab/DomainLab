@@ -5,6 +5,7 @@ operations that all claasification model should have
 import abc
 import numpy as np
 import torch
+from torch import nn as nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
@@ -70,10 +71,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
+        super().__init__()
         self.list_str_y = list_str_y
         self.list_d_tr = list_d_tr
         self.perf_metric = None
-        super().__init__()
+        self.loss4gen_adv = nn.KLDivLoss(size_average=False)
 
     def infer_y_vpicn(self, tensor):
         """
@@ -142,5 +144,20 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     print(str(pair)[1:-1], file=handle_file)
         print("prediction saved in file ", filename)
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
+        """
+        calculate loss function for generation of adversarial images
+        """
+        x_adv.requires_grad_()
+        with torch.enable_grad():
+            logits_adv = self.cal_logit_y(x_adv)
+            logits_natural = self.cal_logit_y(x_natural)
+            prob_adv = F.log_softmax(logits_adv, dim=1)
+            prob_natural = F.softmax(logits_natural, dim=1)
+            loss_adv_gen_task = self.cal_task_loss(x_adv, vec_y)
+            loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
+        return loss_adv_gen + loss_adv_gen_task.sum()
+
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0
+
