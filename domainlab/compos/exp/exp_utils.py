@@ -171,8 +171,6 @@ class AggWriter(ExpModelPersistVisitor):
         Args:
             confmat: confusion matrix.
         """
-        if confmat_filename is None:
-            return
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
