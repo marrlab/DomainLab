@@ -1,6 +1,7 @@
 """
 tests hyperparameter_sampling.py
 """
+import pandas as pd
 import pytest
 import yaml
 
@@ -57,3 +58,15 @@ def test_sample_parameters_abort():
     constraints = ['p2 < p1']   # impossible due to the bounds
     with pytest.raises(RuntimeError, match='constraints reasonable'):
         sample_parameters([p_1, p_2], constraints)
+
+
+def test_sampling_seed():
+    """Tests if the same hyperparameters are sampled if sampling_seed is set"""
+    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r") as stream:
+        config = yaml.safe_load(stream)
+
+    config['sampling_seed'] = 1
+
+    samples1 = sample_hyperparameters(config)
+    samples2 = sample_hyperparameters(config)
+    pd.testing.assert_frame_equal(samples1, samples2)

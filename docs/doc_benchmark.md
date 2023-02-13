@@ -20,6 +20,8 @@ Here also the number of different random seeds and hyperparameter samples is set
 typically the algorithm name and related arguments and (2) varying hyperparameters, for which
 the sensitivity shall be investigated.
 
+Set `sampling_seed` for a fully reproducible benchmark.
+
 ## Configure hyperparameter sampling
 An example files of the possibilities for hyperparameter sampling is
 [demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_hyperparameter_sampling.yml).

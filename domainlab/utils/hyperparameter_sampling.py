@@ -146,6 +146,9 @@ def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
+    if 'sampling_seed' in config.keys():
+        np.random.seed(config['sampling_seed'])
+
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     for key, val in config.items():
