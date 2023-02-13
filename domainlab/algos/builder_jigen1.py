@@ -50,7 +50,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
 
         # FIXME: this seems to be the only difference w.r.t. builder_dann
         net_classifier_perm = ClassifDropoutReluLinear(
-            dim_feat, 31)   # FIXME: 31
+            dim_feat, 31+1)   # @FIXME: 31
         model = mk_jigen()(list_str_y=task.list_str_y,
                            list_str_d=task.list_domain_tr,
                            coeff_reg=args.gamma_reg,
