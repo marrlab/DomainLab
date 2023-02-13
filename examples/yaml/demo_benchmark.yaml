@@ -87,3 +87,8 @@ Task2:  # name
       max: 128
       step: 4
       distribution: loguniform
+
+Task3:
+  aname: diva
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
