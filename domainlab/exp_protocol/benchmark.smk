@@ -17,12 +17,16 @@ def experiment_result_files(_):
     """Lists all expected i.csv"""
     from domainlab.utils.hyperparameter_sampling import is_task
     # count tasks
-    num_tasks = 0
+    num_sample_tasks = 0
+    num_nonsample_tasks = 0
     for key, val in config.items():
         if is_task(val):
-            num_tasks += 1
+            if 'hyperparameters' in val.keys():
+                num_sample_tasks += 1
+            else:
+                num_nonsample_tasks += 1
     # total number of hyperparameter samples
-    total_num_params = config['num_param_samples'] * num_tasks
+    total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 
