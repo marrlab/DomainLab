@@ -3,7 +3,7 @@
 # Arguments set here are passed to each task.
 # Specifications inside the tasks taking precedence.
 
-tpath: examples/tasks/task_vlcs.py  # dataset
+tpath: TODO  # dataset
 
 # list of all domains that are used as test domain
 # in a leave-one-out setup, i.e. for each run,
@@ -11,11 +11,11 @@ tpath: examples/tasks/task_vlcs.py  # dataset
 # while training is performed on all other domains
 # of the specified dataset.
 test_domains:
-  - caltech
-  - sun
-  - labelme
+  - Acevedo
+  - Matek
+  - MLL
 
-output_dir: zoutput/benchmarks/demo_benchmark
+output_dir: zoutput/benchmarks/bloodcell_benchmark
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
@@ -29,7 +29,7 @@ batchsize: 16
 # different seeds are used to estimate the stochastic
 # variance.
 startseed: 1
-endseed: 2  # currently included
+endseed: 5  # currently included
 
 # set all parameters to default first
 lr: 1e-4
@@ -64,18 +64,34 @@ Task1:  # name
     # the hyperparameter is ensured to be integer valued too.
     # Otherwise, it is a float and rounding errors can occur.
     gamma_y:
-      min: 10e4
-      max: 10e6
-      step: 1
-      distribution: uniform
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
 
     gamma_d:
       min: 1e4
       max: 1e6
-      step: 1
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 64
+      step: 32
       distribution: uniform
 
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
 Task2:  # name
+  # TODO
   aname: hduva
 
   nname: conv_bn_pool_2
