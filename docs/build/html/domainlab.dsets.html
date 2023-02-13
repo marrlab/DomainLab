@@ -280,7 +280,7 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.dsets.utils_data" class="md-nav__link">domainlab.dsets.utils_data module</a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab-dsets-utils-wrapdset-patches-module" class="md-nav__link">domainlab.dsets.utils_wrapdset_patches module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.dsets.utils_wrapdset_patches" class="md-nav__link">domainlab.dsets.utils_wrapdset_patches module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.dsets" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -460,8 +460,21 @@ index to onehot</p>
 :param shuffle:</p>
 </dd></dl>
 </section>
-<section id="domainlab-dsets-utils-wrapdset-patches-module">
-<h2 id="domainlab-dsets-utils-wrapdset-patches-module">domainlab.dsets.utils_wrapdset_patches module<a class="headerlink" href="#domainlab-dsets-utils-wrapdset-patches-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-domainlab.dsets.utils_wrapdset_patches">
+<span id="domainlab-dsets-utils-wrapdset-patches-module"></span><h2 id="module-domainlab.dsets.utils_wrapdset_patches">domainlab.dsets.utils_wrapdset_patches module<a class="headerlink" href="#module-domainlab.dsets.utils_wrapdset_patches" title="Permalink to this heading">¶</a></h2>
+<p>upon a task, if jigen is chosen as the algorithm, then task’s dataset has to be augmented to
+include tile permutation</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_wrapdset_patches.</span></span><span class="sig-name descname"><span class="pre">WrapDsetPatches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset,</span> <span class="pre">num_perms2classify=31,</span> <span class="pre">transform4tile=Compose(</span>     <span class="pre">RandomGrayscale(p=0.1)</span>     <span class="pre">ToTensor()</span>     <span class="pre">Normalize(mean=[0.485,</span> <span class="pre">0.456,</span> <span class="pre">0.406],</span> <span class="pre">std=[0.229,</span> <span class="pre">0.224,</span> <span class="pre">0.225])</span> <span class="pre">),</span> <span class="pre">flag_do_not_weave_tiles=False,</span> <span class="pre">prob_no_perm=0.7,</span> <span class="pre">grid_len=3</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_wrapdset_patches.html#WrapDsetPatches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+<p>given dataset of images, return permuations of tiles of images re-weaved</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches.get_tile">
+<span class="sig-name descname"><span class="pre">get_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind_tile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_wrapdset_patches.html#WrapDsetPatches.get_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches.get_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>assume a square image?</p>
+</dd></dl>
+</dd></dl>
 </section>
 <section id="module-domainlab.dsets">
 <span id="module-contents"></span><h2 id="module-domainlab.dsets">Module contents<a class="headerlink" href="#module-domainlab.dsets" title="Permalink to this heading">¶</a></h2>

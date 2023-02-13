@@ -20,6 +20,14 @@ domainlab.algos.trainers.train\_basic module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.train\_dial module
+-------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_dial
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_matchdg module
 ----------------------------------------------
 

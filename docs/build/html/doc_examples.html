@@ -324,6 +324,8 @@
             </nav>
         </li>
         <li class="md-nav__item"><a href="#custom-algorithm-defined-in-external-python-file" class="md-nav__link">Custom algorithm defined in external python file</a>
+        </li>
+        <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a>
         </li></ul>
             </nav>
         </li>
@@ -500,6 +502,12 @@
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_model.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
+</pre></div>
+</div>
+</section>
+<section id="adversarial-images-training">
+<h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
 </pre></div>
 </div>
 </section>
