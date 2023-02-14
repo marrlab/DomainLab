@@ -28,6 +28,13 @@ class PerfMetricClassif():
                 probe performance with less computation burden.
                 default None, which means to traverse the whole dataset
         """
+        self.acc.reset()
+        self.precision.reset()
+        self.recall.reset()
+        self.f1_score.reset()
+        self.auroc.reset()
+        self.specificity.reset()
+        self.confmat.reset()
         self.acc = self.acc.to(device)
         self.precision = self.precision.to(device)
         self.recall = self.recall.to(device)
@@ -44,13 +51,14 @@ class PerfMetricClassif():
                 x_s, y_s = x_s.to(device), y_s.to(device)
                 pred_label, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
-                self.acc.update(pred_label, y_s.int())
-                self.precision.update(pred_label, y_s.int())
-                self.recall.update(pred_label, y_s.int())
-                self.specificity.update(pred_label, y_s.int())
-                self.f1_score.update(pred_label, y_s.int())
+                # self.acc.update(pred_label, target_label)  # bug found by xinyuejohn
+                self.acc.update(pred_label, target_label)
+                self.precision.update(pred_label, target_label)
+                self.recall.update(pred_label, target_label)
+                self.specificity.update(pred_label, target_label)
+                self.f1_score.update(pred_label, target_label)
                 self.auroc.update(prob, target_label)
-                self.confmat.update(pred_label, y_s.int())
+                self.confmat.update(pred_label, target_label)
                 if i > max_batches:
                     break
 
