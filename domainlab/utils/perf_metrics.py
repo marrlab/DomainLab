@@ -49,18 +49,21 @@ class PerfMetricClassif():
         with torch.no_grad():
             for i, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
-                _, prob, _, *_ = model_local.infer_y_vpicn(x_s)
+                _, prob, pred_scalar_label, *_ = model_local.infer_y_vpicn(x_s)
+                # pred_scalar_label is done via taking maximum logits, no threhold is needed
+                pred_scalar_label = pred_scalar_label.squeeze()
+                assert len(pred_scalar_label.shape) == 1
                 _, target_label = torch.max(y_s, 1)
                 # self.acc.update(pred_label, target_label)  # bug found by xinyuejohn
                 # pred_label is (N,C) which we need to convert to (N)
                 # prob is (N,C) which is fine for torchmetrics
-                self.acc.update(prob, target_label)
-                self.precision.update(prob, target_label)
-                self.recall.update(prob, target_label)
-                self.specificity.update(prob, target_label)
-                self.f1_score.update(prob, target_label)
+                self.acc.update(pred_scalar_label, target_label)
+                self.precision.update(pred_scalar_label, target_label)
+                self.recall.update(pred_scalar_label, target_label)
+                self.specificity.update(pred_scalar_label, target_label)
+                self.f1_score.update(pred_scalar_label, target_label)
                 self.auroc.update(prob, target_label)
-                self.confmat.update(prob, target_label)
+                self.confmat.update(pred_scalar_label, target_label)
                 if i > max_batches:
                     break
 
