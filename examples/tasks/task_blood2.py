@@ -24,18 +24,12 @@ trans_te = transforms.Compose([
 
 
 task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff"},
-                      list_str_y=["monocyte", "eosinophil", "basophil"],
+                      list_str_y=["monocyte", "eosinophil"],
                       dict_domain_folder_name2class={
                           "acevedo": {"monocyte": "monocyte",
-                                  # "lymphocyte": "lym",
-                                  "basophil": "basophil",
                                   "eosinophil": "eosinophil"},
-                                # "neutrophil": "neutrophil"},
                           "matek": {"eosinophil": "eosinophil",
-                                       "monocyte": "monocyte",
-                                       # "LYT": "lym",
-                                       # "NGB": "neutrophil"
-                                       "basophil": "basophil"}},
+                                       "monocyte": "monocyte"}},
                       dict_domain_img_trans={
                           "acevedo": trans,
                           #"mll": trans,
