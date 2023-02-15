@@ -77,7 +77,7 @@ Task1:  # name
 
     zx_dim:
       min: 0
-      max: 64
+      max: 96
       step: 32
       distribution: uniform
 
@@ -91,25 +91,41 @@ Task1:  # name
       reference: zy_dim
 
 Task2:  # name
-  # TODO
   aname: hduva
 
-  nname: conv_bn_pool_2
+  nname: alexnet
+  # TODO select nets.
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
 
   hyperparameters:
+    # Same config as diva.
     gamma_y:
-      min: 7e4
-      max: 7e6
-      step: 1
+      min: 1e4
+      max: 2e5
+      step: 100
       distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
 
     zy_dim:
       min: 32
-      max: 128
-      step: 4
-      distribution: loguniform
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
 
 Task3:  # name
   aname: matchdg
