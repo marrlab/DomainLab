@@ -18,7 +18,10 @@ def dset_decoration_args_algo(args, ddset):
         ddset = DsetIndDecorator4XYD(ddset)
     if "jigen" in args.aname:
         # FIXME: do this during before_tr
-        ddset = WrapDsetPatches(ddset)
+        ddset = WrapDsetPatches(ddset,
+                                num_perms2classify=args.nperm,
+                                prob_no_perm=1-args.pperm,
+                                grid_len=args.grid_len)
     return ddset
 
 
