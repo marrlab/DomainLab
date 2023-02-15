@@ -34,7 +34,11 @@ Task1:  # name
       # Value of p4 will always equal p3.
       # Note that references to references are not supported
       # and result in undefined behaviour.
+      # Is with the constraints, Python code is allowed in the reference.
       reference: p3
+
+    p5:
+      reference: 2 * p3 / p1
 
     # Optional
     constraints:
