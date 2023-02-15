@@ -166,8 +166,42 @@ Task3:  # name
       max: 20
       step: 1
       distribution: uniform
-      
+
 Task4:  # name
+  aname: jigen
+
+  nname: alexnet
+
+  hyperparameters:
+    # number of permutations
+    # TODO is this the same as the maximal allowed Hamming distance mentioned in the paper?
+    nperm:
+      min: 0
+      max: 25
+      step: 1
+      distribution: uniform
+
+    # probability of permutating the tiles of an image
+    # TODO ist this the same as beta in the paper?
+    # beta balances the number of training samples for the jigsaw puzzle and the classification task,
+    # beta=1 -> pure classification
+    pperm:
+      min: 0.5
+      max: 0.9
+      distribution: uniform
+
+    # length of image in tile unit
+    grid_len:
+      min: 2
+      max: 5
+      step: 1
+      distribution: uniform
+
+    constraints:
+      # constraint as nperm should be less or equal to the maximal possible hamming distance
+      - nperm <= grid_len ** 2
+
+Task5:  # name
   aname: dann
 
   nname: alexnet
@@ -175,7 +209,7 @@ Task4:  # name
   # TODO: I couldn't find hyperparameters for this algorithm besides "learning rate" and "weight of regularization loss"
   hyperparameters:
   
-Task5:  # name
+Task6:  # name
   aname: deepall
 
   nname: alexnet
