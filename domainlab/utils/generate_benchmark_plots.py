@@ -36,10 +36,6 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     '''
     os.makedirs(output_dir, exist_ok=True)
 
-    # stochastic and systematic variation
-    # TODO Add plot 1 and 2 here
-
-
     #scatterplot matrices
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png',
                        reg=True, distinguish_param_setups=False)
@@ -73,10 +69,6 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     for algorithm in dataframe['algo'].unique():
         os.makedirs(output_dir + '/' + str(algorithm), exist_ok=True)
         dataframe_algo = dataframe[dataframe['algo'] == algorithm]
-
-        # stochastic and systematic variation
-        # TODO IDEA: is it usefull to do the stochastic and systematic for the filtered dataframe?
-
 
         # scatterplot matrices
         scatterplot_matrix(dataframe_algo,
@@ -116,7 +108,6 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                                 '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
                                 kde=False,
                                 distinguish_hyperparam=True)
-
 
 
 def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setups=True):
@@ -281,35 +272,3 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
 
     if file is not None:
         plt.savefig(file, dpi=300)
-
-
-
-def box_plot(
-    data: pd.DataFrame,
-    metrics: Union[str, List],
-    figsize: Optional[Tuple[float, float]] = None,
-    hyperparamter_filter: Optional[Union[str, List[str], List[dict]]] = None,
-    plot_pooled: Optional[bool] = True,
-    groupby_hyperparamter: Optional[bool] = True
-):
-    if hyperparamter_filter:
-        pass
-    data['params'] = data['params'].astype(str)
-    if isinstance(metrics, str):
-        metrics = [metrics]
-    num_plots = len(metrics) * (int(plot_pooled == True) + int(groupby_hyperparamter == True))
-    print(num_plots)
-    data = data[['algo', 'epos', 'seed', 'params'] + metrics]
-    if figsize is None:
-        #figsize =
-        pass
-    for i, item in enumerate(metrics, start=1):
-        fig = plt.figure(figsize=[6, 10])
-        if plot_pooled:
-            plt.subplot(num_plots, 1, 2*i-1)
-            sns.boxplot(data=data, x="algo", y=item)
-        if groupby_hyperparamter:
-            plt.subplot(num_plots, 1, 2*i)
-            sns.boxplot(data=data, x="algo", y=item, hue='params')
-        fig.tight_layout()
-        plt.show()
