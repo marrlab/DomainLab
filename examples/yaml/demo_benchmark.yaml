@@ -3,7 +3,7 @@
 # Arguments set here are passed to each task.
 # Specifications inside the tasks taking precedence.
 
-tpath: examples/tasks/task_blood2.py  # dataset
+tpath: examples/tasks/task_vlcs.py  # dataset
 
 # list of all domains that are used as test domain
 # in a leave-one-out setup, i.e. for each run,
@@ -11,8 +11,9 @@ tpath: examples/tasks/task_blood2.py  # dataset
 # while training is performed on all other domains
 # of the specified dataset.
 test_domains:
-  - acevedo
-  - matek
+  - caltech
+  # - sun
+  # - labelme
 
 output_dir: zoutput/benchmarks/demo_benchmark
 
@@ -67,3 +68,29 @@ Task1:  # name
       step: 1
       distribution: uniform
 
+Task2:  # name
+  aname: hduva
+
+  nname: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 7e4
+      max: 7e6
+      step: 1
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 128
+      step: 4
+      distribution: loguniform
+
+Task3:
+  aname: diva
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  gamma_y: 75000
+  gamma_d: 100000
