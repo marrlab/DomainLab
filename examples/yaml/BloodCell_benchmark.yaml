@@ -11,8 +11,8 @@ tpath: examples/tasks/task_blood2.py  # dataset
 # while training is performed on all other domains
 # of the specified dataset.
 test_domains:
-  - Matek
-  - MLL
+  - matek
+  - acevedo
 
 output_dir: zoutput/benchmarks/bloodcell_benchmark
 
