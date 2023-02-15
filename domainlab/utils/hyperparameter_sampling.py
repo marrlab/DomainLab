@@ -95,7 +95,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # set references
     for par in params:
         if par.is_reference():
-            setattr(par, 'val', locals()[par.reference])
+            setattr(par, 'val', eval(par.reference))
             locals().update({par.name: par.val})
 
     # check all constraints
