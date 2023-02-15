@@ -9,7 +9,6 @@ except IndexError:
 args = sys.argv
 if "--debug" in args:
     config['test_domains'] = [config["test_domains"][0]]
-    config['output_dir'] = config['output_dir'] + '_debug'
     config['num_param_samples'] = 1
     config['epos'] = 2
     config['endseed'] = config['startseed']
@@ -129,4 +128,4 @@ rule gen_plots:
 rule all:
     input:
         rules.gen_plots.output
-    default_target: True
+    # default_target: True
