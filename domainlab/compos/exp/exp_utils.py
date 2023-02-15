@@ -136,7 +136,7 @@ class AggWriter(ExpModelPersistVisitor):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
         confmat = dict_cols.pop("confmat")
-        confmat_filename = dict_cols["mname"]
+        confmat_filename = dict_cols.get("mname", None)
         # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
@@ -174,11 +174,35 @@ class AggWriter(ExpModelPersistVisitor):
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
-        # @FIXME: although removesuffix is safe when suffix does not exist, we would like to have ".csv" live in some configuraiton file in the future. 
+        # @FIXME: although removesuffix is safe when suffix does not exist, we would like to have ".csv" live in some configuraiton file in the future.
         file_path = file_path.removesuffix(".csv")
         # if prefix does not exist, string remain unchanged.
-        # @FIXME: still we want to have mname_ as a variable defined in some configuration file in the future. 
+        # @FIXME: still we want to have mname_ as a variable defined in some configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
         print("confusion matrix saved in file: ", file_path)
         disp.figure_.savefig(file_path)
+
+
+class ExpProtocolAggWriter(AggWriter):
+    """
+    AggWriter tailored to experimental protocol
+    Output contains additionally index, exp task, te_d and params.
+    """
+    def get_cols(self):
+        """columns"""
+        epos_name = "epos"
+        dict_cols = {
+            "param_index": self.host.args.param_index,
+            "task": self.host.args.benchmark_task_name,
+            "algo": self.algo_name,
+            epos_name: None,
+            "te_d": self.host.args.te_d,
+            "seed": self.seed,
+            "params": f"\"{self.host.args.params}\"",
+        }
+        return dict_cols, epos_name
+
+    def get_fpath(self, dirname="aggrsts"):
+        """filepath"""
+        return self.host.args.result_file

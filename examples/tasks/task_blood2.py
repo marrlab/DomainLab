@@ -23,35 +23,30 @@ trans_te = transforms.Compose([
 ])
 
 
-task = mk_task_folder(extensions={"dib": "jpg", "mllmar": "TIF", "amlmatek": "tiff"},
+task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff"},
                       list_str_y=["monocyte", "eosinophil", "basophil"],
                       dict_domain_folder_name2class={
-                          "dib": {"monocyte": "monocyte",
+                          "acevedo": {"monocyte": "monocyte",
                                   # "lymphocyte": "lym",
                                   "basophil": "basophil",
                                   "eosinophil": "eosinophil"},
-                          # "neutrophil": "neutrophil"},
-                          "mllmar": {"05-MONO": "monocyte",
-                                     "10-EOS": "eosinophil",
-                                     # "04-LGL": "lym",
-                                     # "11-STAB": "neutrophil"
-                                     "09-BASO":"basophil"},
-                          "amlmatek": {"EOS": "eosinophil",
-                                       "MON": "monocyte",
+                                # "neutrophil": "neutrophil"},
+                          "matek": {"eosinophil": "eosinophil",
+                                       "monocyte": "monocyte",
                                        # "LYT": "lym",
                                        # "NGB": "neutrophil"
-                                       "BAS": "basophil"}},
+                                       "basophil": "basophil"}},
                       dict_domain_img_trans={
-                          "dib": trans,
-                          "mllmar": trans,
-                          "amlmatek": trans,
+                          "acevedo": trans,
+                          #"mll": trans,
+                          "matek": trans,
                       },
                       img_trans_te=trans_te,
                       isize=ImSize(3, 224, 224),
                       dict_domain2imgroot={
-                          "amlmatek": "/storage/groups/qscd01/datasets/191024_AML_Matek/AML-Cytomorphology_LMU",
-                          "mllmar": "/storage/groups/qscd01/datasets/190527_MLL_marr/Data",
-                          "dib": "/storage/groups/qscd01/datasets/armingruber/PBC_dataset_normal_DIB/"},
+                          "matek": "/home/ubuntu/_Domains/Matek_cropped/",
+                          #"mll": "/home/ubuntu/_Domains/MLL/",
+                          "acevedo": "/home/ubuntu/_Domains/Acevedo_cropped/"},
                       taskna="blood_mon_eos_bas")
 
 
