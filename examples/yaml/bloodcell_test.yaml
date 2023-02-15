@@ -1,0 +1,36 @@
+
+tpath: examples/tasks/task_blood2.py  # dataset
+
+
+test_domains:
+  - acevedo
+  - matek
+
+output_dir: zoutput/benchmarks/demo_benchmark
+
+num_param_samples: 2
+sampling_seed: 1  # Optional
+
+epos: 3
+batchsize: 2
+startseed: 1
+endseed: 2  # currently included
+
+# Each node containing the aname property is considered as a task.
+Task1:  # name
+  aname: diva
+  nname: alexnet
+  nname_dom: alexnet
+
+  hyperparameters:
+    gamma_y:
+      min: 10e4
+      max: 10e6
+      step: 1
+      distribution: uniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 1
+      distribution: uniform
