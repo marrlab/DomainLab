@@ -146,7 +146,7 @@ Task3:  # name
       step: 1
       distribution: uniform
     
-    # could only find "ERM: Standard empirical risk minimization" in the paper which refers to a lossfunction (eq. 3)
+    # TODO could only find "ERM: Standard empirical risk minimization" in the paper which refers to a lossfunction (eq. 3)
     # I guess it means the number of epochs used to minimize this loss???
     epochs_erm:
       min: 2
