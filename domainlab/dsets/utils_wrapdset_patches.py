@@ -22,16 +22,21 @@ class WrapDsetPatches(torchdata.Dataset):
     given dataset of images, return permuations of tiles of images re-weaved
     """
     def __init__(self, dataset,
-                 num_perms2classify=31,
+                 num_perms2classify,
+                 prob_no_perm,
+                 grid_len,
                  transform4tile=GTRANS4TILE,
-                 flag_do_not_weave_tiles=False,
-                 prob_no_perm=0.7,
-                 grid_len=3):
+                 flag_do_not_weave_tiles=False):
+        """
+        :param prob_no_perm: probability of no permutation
+        """
         self.dataset = dataset
-        self.arr_perm_rows = self.__retrieve_permutations(
+        self.arr1perm_per_row = self.__retrieve_permutations(
             num_perms2classify)
         # for 3*3 tiles, there are 9*8*7*6*5*...*1 >> 100,
         # we load from disk instead only 100 permutations
+        # each row of the loaded array is a permutation of the 3*3 tile
+        # of the original image
         self.grid_len = grid_len
         # break the image into 3*3 tiles
         self.prob_no_perm = prob_no_perm
@@ -74,33 +79,38 @@ class WrapDsetPatches(torchdata.Dataset):
 
     def __getitem__(self, index):
         img, label, *_ = self.dataset.__getitem__(index)
-        num_grids = self.grid_len ** 2    # divide image into grid_len^2 tiles
-        list_tiles = [None] * num_grids     # list of length num_grids of image tiles
+        num_grids = self.grid_len ** 2
+        # divide image into grid_len^2 tiles
+        list_tiles = [None] * num_grids
+        # list of length num_grids of image tiles
         for ind_tile in range(num_grids):
             list_tiles[ind_tile] = self.get_tile(img, ind_tile)    # populate tile list
         ind_which_perm = np.random.randint(
-            self.arr_perm_rows.shape[0] + 1)  # added 1 for class 0: unsorted
-        # len(self.arr_perm_rows) by default is 100,
-        # so ind_which_perm is a random number between 0 and 101
+            self.arr1perm_per_row.shape[0] + 1)
+        # +1 in line above is for when image is not permutated, which
+        # also need to be classified corrected by the permutation classifier
+        # let len(self.arr1perm_per_row)=31
+        # so ind_which_perm is a random number in [0, 31] in total 31+1 classes
         # ind_which_perm is basically the row index to choose
-        # from self.arr_perm_rows which is a matrix of 100*9 usually,
-        # where 9=3*3 is
-        # the number of tiles the image is broken into
-        if self.prob_no_perm:    # default is None
+        # from self.arr1perm_per_row which is a matrix of 31*9
+        # where 9=3*3 is the number of tiles the image is broken into
+        if self.prob_no_perm:  # probability of no permutation of tiles
             if self.prob_no_perm > np.random.rand():
                 ind_which_perm = 0
+        # ind_which_perm = 0 means no permutation, the classifier need to
+        # judge if the image has not been permutated as well
         list_reordered_tiles = None
         if ind_which_perm == 0:
             list_reordered_tiles = list_tiles  # no permutation
         else:   # default
-            perm_chosen = self.arr_perm_rows[ind_which_perm - 1]
+            perm_chosen = self.arr1perm_per_row[ind_which_perm - 1]
             list_reordered_tiles = [list_tiles[perm_chosen[ind_tile]]
                                     for ind_tile in range(num_grids)]
 
         stacked_tiles = torch.stack(list_reordered_tiles, 0)
         # the 0th dim is the batch dimension
-        # NOTE: label must be the second place so that functions like
-        # performance.get_accuracy could work!
+        # ind_which_perm = 0 means no permutation, the classifier need to
+        # judge if the image has not been permutated as well
         return self.fun_weave_imgs(stacked_tiles), label, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
@@ -116,7 +126,7 @@ class WrapDsetPatches(torchdata.Dataset):
         # @FIXME: this assumes always a relative path
         mpath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
         arr_permutation_rows = np.load(mpath)
-        # from range [1,9] to [0,8]
+        # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:
             arr_permutation_rows = arr_permutation_rows - 1
         return arr_permutation_rows

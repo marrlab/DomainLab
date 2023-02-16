@@ -57,7 +57,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann -
 
 ### model jigen with implemented neural network
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3
 ```
 
 ### model matchdg with implemented neural network

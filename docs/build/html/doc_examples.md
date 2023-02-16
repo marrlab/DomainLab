@@ -57,7 +57,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann -
 
 ### model jigen with implemented neural network
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3
 ```
 
 ### model matchdg with implemented neural network
@@ -135,4 +135,9 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=exampl
 
 ```
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_model.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
+```
+
+## Adversarial images training
+```
+python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
 ```

@@ -38,7 +38,6 @@ class Hyperparameter:
 
             self.p_1 = float(self.p_1)
             self.p_2 = float(self.p_2)
-            self.datatype = int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
 
         self.val = 0
 
@@ -54,8 +53,8 @@ class Hyperparameter:
         else:
             self.val += self.step - off
         # ensure correct datatype
-        if self.datatype == int:
-            self.val = self.datatype(np.round(self.val))
+        if self.datatype() == int:
+            self.val = self.datatype()(np.round(self.val))
 
     def sample(self):
         """Sample this parameter, respecting properties"""
@@ -80,7 +79,15 @@ class Hyperparameter:
         return self.val
 
     def is_reference(self) -> bool:
+        """True if this parameter is a reference and not sampled."""
         return self.reference is not None
+
+    def datatype(self):
+        """
+        Returns the datatype of this parameter.
+        This does not apply for references.
+        """
+        return int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
 
 
 def check_constraints(params: List[Hyperparameter], constraints) -> bool:
@@ -95,7 +102,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # set references
     for par in params:
         if par.is_reference():
-            setattr(par, 'val', locals()[par.reference])
+            setattr(par, 'val', eval(par.reference))
             locals().update({par.name: par.val})
 
     # check all constraints

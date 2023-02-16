@@ -470,7 +470,7 @@ def box_plot(
         ylim_max: Defaults to None.
         ylim_min: Defaults to None.
     """
-    fig = plt.figure()
+    _ = plt.figure()
     if hyperparamter_filter:
         pass
     data["params"] = data["params"].astype(str)
