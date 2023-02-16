@@ -90,6 +90,17 @@ Task1:  # name
     zd_dim:
       reference: zy_dim
 
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
 Task2:  # name
   aname: hduva
 
@@ -127,6 +138,17 @@ Task2:  # name
     zd_dim:
       reference: zy_dim
 
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
 Task3:  # name
   aname: matchdg
 
@@ -146,13 +168,10 @@ Task3:  # name
       step: 1
       distribution: uniform
     
-    # TODO could only find "ERM: Standard empirical risk minimization" in the paper which refers to a lossfunction (eq. 3)
-    # I guess it means the number of epochs used to minimize this loss???
+    # this shall be set to be epos - epochs_ctr
+    # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      min: 2
-      max: 10
-      step: 1
-      distribution: uniform
+      reference: 200 - epochs_ctr
       
     # factor to magnify cosine similarity
     tau:
@@ -167,6 +186,17 @@ Task3:  # name
       step: 1
       distribution: uniform
 
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
 Task4:  # name
   aname: jigen
 
@@ -174,20 +204,16 @@ Task4:  # name
 
   hyperparameters:
     # number of permutations
-    # TODO is this the same as the maximal allowed Hamming distance mentioned in the paper?
     nperm:
-      min: 0
-      max: 25
+      min: 1e2
+      max: 1e4
       step: 1
-      distribution: uniform
+      distribution: loguniform
 
-    # probability of permutating the tiles of an image
-    # TODO ist this the same as beta in the paper?
-    # beta balances the number of training samples for the jigsaw puzzle and the classification task,
-    # beta=1 -> pure classification
+    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
     pperm:
-      min: 0.5
-      max: 0.9
+      min: 0.1
+      max: 0.5
       distribution: uniform
 
     # length of image in tile unit
@@ -197,45 +223,51 @@ Task4:  # name
       step: 1
       distribution: uniform
 
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
     constraints:
-      # constraint as nperm should be less or equal to the maximal possible hamming distance
-      - nperm <= grid_len ** 2
+      # constraint as nperm should be less or equal to the maximal possible number of permutations
+      - import numpy as np; nperm <= np.math.factorial(grid_len ** 2)
 
 Task5:  # name
   aname: dann
 
   nname: alexnet
 
-  # TODO: I couldn't find hyperparameters for this algorithm besides "learning rate" and "weight of regularization loss"
   hyperparameters:
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
   
 Task6:  # name
   aname: deepall
 
   nname: alexnet
 
-  # TODO: I couldn't find hyperparameters for this algorithm besides "learning rate" and "weight of regularization loss"
   hyperparameters:
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
