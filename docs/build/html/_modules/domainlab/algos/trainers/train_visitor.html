@@ -297,13 +297,16 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
                                flag_update_epoch=True)</div>
 
 <div class="viewcode-block" id="TrainerVisitor.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
+        """
+        update hyper-parameters only per epoch
+        """
         if self.flag_update_hyper_per_epoch:
             self.model.hyper_update(epoch, self.hyper_scheduler)
         return super().tr_epoch(epoch)</div>
 
 <div class="viewcode-block" id="TrainerVisitor.tr_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_batch">[docs]</a>    def tr_batch(self, epoch, ind_batch):
         """
-        anneal parameter for each batch
+        anneal hyper-parameter for each batch
         """
         self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().tr_epoch(epoch)</div></div>
@@ -336,7 +339,7 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
     def __call__(self, epoch):
         dict_rst = {}
-        for key in self.dict_par_setpoint:
+        for key, _ in self.dict_par_setpoint.items():
             dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
         return dict_rst</div>
 
