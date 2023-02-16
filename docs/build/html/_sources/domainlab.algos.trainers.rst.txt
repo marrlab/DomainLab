@@ -12,6 +12,14 @@ domainlab.algos.trainers.a\_trainer module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.args\_dial module
+------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.args_dial
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_basic module
 --------------------------------------------
 
