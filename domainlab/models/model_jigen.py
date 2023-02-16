@@ -48,5 +48,5 @@ def mk_jigen(parent_class=AModelClassif):
             # _, batch_target_scalar = vec_perm_ind.max(dim=1)
             batch_target_scalar = vec_perm_ind
             loss_perm = F.cross_entropy(logit_d, batch_target_scalar, reduction="none")
-            return loss_perm
+            return self.alpha*loss_perm
     return ModelJiGen
