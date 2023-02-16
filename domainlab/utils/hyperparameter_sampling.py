@@ -185,6 +185,5 @@ def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
             sample_task(num_samples, samples, key, val)
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
-    print(f"saving hyperparameters to {dest}")
     samples.to_csv(dest)
     return samples
