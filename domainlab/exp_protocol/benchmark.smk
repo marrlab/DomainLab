@@ -6,14 +6,6 @@ try:
 except IndexError:
     raise RuntimeError("Please provide a config file using --configfile")
 
-args = sys.argv
-if "--debug" in args:
-    config['test_domains'] = [config["test_domains"][0]]
-    config['output_dir'] = config['output_dir'] + '_debug'
-    config['num_param_samples'] = 1
-    config['epos'] = 2
-    config['endseed'] = config['startseed']
-
 
 
 # NOTE: this approach to obtain the path depends on the relative path of
