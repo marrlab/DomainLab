@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -57,7 +57,6 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -260,6 +259,8 @@
         </li>
         <li class="md-nav__item"><a href="#choose-train-and-test" class="md-nav__link">choose train and test</a>
         </li>
+        <li class="md-nav__item"><a href="#make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class" class="md-nav__link">make a sanity check for the dataset using 8 instances from each domain and from each class</a>
+        </li>
         <li class="md-nav__item"><a href="#generation-of-images" class="md-nav__link">generation of images</a>
         </li>
         <li class="md-nav__item"><a href="#use-hduva-on-color-mnist-train-on-2-domains" class="md-nav__link">use hduva on color mnist, train on 2 domains</a>
@@ -277,6 +278,8 @@
         <li class="md-nav__item"><a href="#model-deepall-with-implemented-neural-network" class="md-nav__link">model deepall with implemented neural network</a>
         </li>
         <li class="md-nav__item"><a href="#model-dann-with-implemented-neural-network" class="md-nav__link">model dann with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#model-jigen-with-implemented-neural-network" class="md-nav__link">model jigen with implemented neural network</a>
         </li>
         <li class="md-nav__item"><a href="#model-matchdg-with-implemented-neural-network" class="md-nav__link">model matchdg with implemented neural network</a>
         </li>
@@ -321,6 +324,8 @@
             </nav>
         </li>
         <li class="md-nav__item"><a href="#custom-algorithm-defined-in-external-python-file" class="md-nav__link">Custom algorithm defined in external python file</a>
+        </li>
+        <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a>
         </li></ul>
             </nav>
         </li>
@@ -346,6 +351,12 @@
 <section id="choose-train-and-test">
 <h3 id="choose-train-and-test">choose train and test<a class="headerlink" href="#choose-train-and-test" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5
+</pre></div>
+</div>
+</section>
+<section id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">
+<h3 id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">make a sanity check for the dataset using 8 instances from each domain and from each class<a class="headerlink" href="#make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --aname=diva --nname=alexnet --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5 --san_check --san_num=4
 </pre></div>
 </div>
 </section>
@@ -391,6 +402,12 @@
 <section id="model-dann-with-implemented-neural-network">
 <h3 id="model-dann-with-implemented-neural-network">model dann with implemented neural network<a class="headerlink" href="#model-dann-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann --nname=alexnet
+</pre></div>
+</div>
+</section>
+<section id="model-jigen-with-implemented-neural-network">
+<h3 id="model-jigen-with-implemented-neural-network">model jigen with implemented neural network<a class="headerlink" href="#model-jigen-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3
 </pre></div>
 </div>
 </section>
@@ -488,6 +505,12 @@
 </pre></div>
 </div>
 </section>
+<section id="adversarial-images-training">
+<h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -509,11 +532,11 @@
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
