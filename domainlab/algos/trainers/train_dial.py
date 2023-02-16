@@ -11,8 +11,7 @@ class TrainerDIAL(TrainerBasic):
     """
     Trainer Domain Invariant Adversarial Learning
     """
-    def gen_adversarial(self, device, img_natural, vec_y, steps_perturb=3,
-                        scale=0.001, step_size=0.003, epsilon=0.031):
+    def gen_adversarial(self, device, img_natural, vec_y):
         """
         use naive trimming to find optimize img in the direction of adversarial gradient,
         this is not necessarily constraint optimal due to nonlinearity,
@@ -20,6 +19,10 @@ class TrainerDIAL(TrainerBasic):
         """
         # @FIXME: is there better way to initialize adversarial image?
         # ensure adversarial image not in computational graph
+        steps_perturb = self.aconf.dial_steps_perturb
+        scale = self.aconf.dial_noise_scale
+        step_size = self.aconf.dial_lr
+        epsilon = self.aconf.dial_epsilon
         img_adv_ini = img_natural.detach()
         img_adv_ini = img_adv_ini + scale * torch.randn(img_natural.shape).to(device).detach()
         img_adv = img_adv_ini
@@ -51,7 +54,7 @@ class TrainerDIAL(TrainerBasic):
             tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
             tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
             loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
-            loss = loss.sum() + loss_dial.sum()
+            loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()

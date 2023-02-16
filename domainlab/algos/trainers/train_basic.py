@@ -1,9 +1,15 @@
-import torch.optim as optim
+"""
+basic trainer
+"""
+from torch import optim
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
 
 class TrainerBasic(AbstractTrainer):
+    """
+    basic trainer
+    """
     def __init__(self, model, task, observer, device, aconf):
         super().__init__(model, task, observer, device, aconf)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)

@@ -269,6 +269,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.trainers.a_trainer" class="md-nav__link">domainlab.algos.trainers.a_trainer module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.trainers.args_dial" class="md-nav__link">domainlab.algos.trainers.args_dial module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.trainers.train_basic" class="md-nav__link">domainlab.algos.trainers.train_basic module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.trainers.train_dial" class="md-nav__link">domainlab.algos.trainers.train_dial module</a>
@@ -336,12 +338,23 @@
 </dd></dl>
 </dd></dl>
 </section>
+<section id="module-domainlab.algos.trainers.args_dial">
+<span id="domainlab-algos-trainers-args-dial-module"></span><h2 id="module-domainlab.algos.trainers.args_dial">domainlab.algos.trainers.args_dial module<a class="headerlink" href="#module-domainlab.algos.trainers.args_dial" title="Permalink to this heading">¶</a></h2>
+<p>domain invariant adversarial trainer hyper-parmaeters</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.algos.trainers.args_dial.add_args2parser_dial">
+<span class="sig-prename descclassname"><span class="pre">domainlab.algos.trainers.args_dial.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_dial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/args_dial.html#add_args2parser_dial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.args_dial.add_args2parser_dial" title="Permalink to this definition">¶</a></dt>
+<dd><p>append hyper-parameters to the main argparser</p>
+</dd></dl>
+</section>
 <section id="module-domainlab.algos.trainers.train_basic">
 <span id="domainlab-algos-trainers-train-basic-module"></span><h2 id="module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module<a class="headerlink" href="#module-domainlab.algos.trainers.train_basic" title="Permalink to this heading">¶</a></h2>
+<p>basic trainer</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.trainers.train_basic.TrainerBasic">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.trainers.train_basic.</span></span><span class="sig-name descname"><span class="pre">TrainerBasic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aconf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_basic.html#TrainerBasic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_basic.TrainerBasic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.trainers.a_trainer.AbstractTrainer" title="domainlab.algos.trainers.a_trainer.AbstractTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTrainer</span></code></a></p>
+<p>basic trainer</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.trainers.train_basic.TrainerBasic.before_tr">
 <span class="sig-name descname"><span class="pre">before_tr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_basic.html#TrainerBasic.before_tr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_basic.TrainerBasic.before_tr" title="Permalink to this definition">¶</a></dt>
@@ -368,7 +381,7 @@
 <p>Trainer Domain Invariant Adversarial Learning</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial">
-<span class="sig-name descname"><span class="pre">gen_adversarial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_natural</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps_perturb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.003</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.031</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_dial.html#TrainerDIAL.gen_adversarial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">gen_adversarial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_natural</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_dial.html#TrainerDIAL.gen_adversarial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial" title="Permalink to this definition">¶</a></dt>
 <dd><p>use naive trimming to find optimize img in the direction of adversarial gradient,
 this is not necessarily constraint optimal due to nonlinearity,
 as the constraint epsilon is only considered ad-hoc</p>
@@ -473,16 +486,12 @@ start from a small value of par to ramp up the steady state value using
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_batch">
 <span class="sig-name descname"><span class="pre">tr_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ind_batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_visitor.html#TrainerVisitor.tr_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_batch" title="Permalink to this definition">¶</a></dt>
-<dd><p>anneal parameter for each batch</p>
+<dd><p>anneal hyper-parameter for each batch</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_epoch">
 <span class="sig-name descname"><span class="pre">tr_epoch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_visitor.html#TrainerVisitor.tr_epoch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_epoch" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>epoch</strong> – </p>
-</dd>
-</dl>
+<dd><p>update hyper-parameters only per epoch</p>
 </dd></dl>
 </dd></dl>
 </section>
