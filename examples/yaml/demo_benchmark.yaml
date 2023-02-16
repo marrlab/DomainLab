@@ -60,13 +60,13 @@ Task1:  # name
       min: 10e4
       max: 10e6
       step: 1
-      distribution: uniform
+      distribution: loguniform
 
     gamma_d:
       min: 1e4
       max: 1e6
       step: 1
-      distribution: uniform
+      distribution: loguniform
 
 Task2:  # name
   aname: hduva
