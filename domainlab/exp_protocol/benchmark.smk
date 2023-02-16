@@ -34,6 +34,8 @@ def experiment_result_files(_):
                 num_nonsample_tasks += 1
     # total number of hyperparameter samples
     total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
+    print(f"total_num_params={total_num_params}")
+    print(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 
