@@ -98,9 +98,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     )
 
     # radar plots
-    radar_plot(
-        dataframe, file=output_dir + "/radar_dist.png", distinguish_hyperparam=True
-    )
+    radar_plot(dataframe, file=output_dir + "/radar_dist.png", distinguish_hyperparam=True)
     radar_plot(dataframe, file=output_dir + "/radar.png", distinguish_hyperparam=False)
 
     # scatter plots for parirs of objectives
@@ -130,6 +128,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     for algorithm in dataframe["algo"].unique():
         os.makedirs(f"{output_dir}/{str(algorithm)}", exist_ok=True)
         dataframe_algo = dataframe[dataframe["algo"] == algorithm]
+        algorithm = str(algorithm)
 
         # stochastic and systematic variation for each algorithm
         # results are grouped by each metric
@@ -204,14 +203,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                     scatterplot(
                         dataframe_algo,
                         [obj_i, obj[j]],
-                        file=output_dir
-                        + "/"
-                        + str(algorithm)
-                        + "/scatterpl/"
-                        + obj_i
-                        + "_"
-                        + obj[j]
-                        + ".png",
+                        file=f"{output_dir}/{str(algorithm)}/scatterpl/{obj_i}_{obj[j]}.png",
                         distinguish_hyperparam=True,
                     )
                 except IndexError:
@@ -222,22 +214,13 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                     scatterplot(
                         dataframe_algo,
                         [obj_i, obj[j]],
-                        file=output_dir
-                        + "/"
-                        + str(algorithm)
-                        + "/scatterpl/"
-                        + obj_i
-                        + "_"
-                        + obj[j]
-                        + ".png",
+                        file=f"{output_dir}/{str(algorithm)}/scatterpl/{obj_i}_{obj[j]}.png",
                         kde=False,
                         distinguish_hyperparam=True,
                     )
 
 
-def scatterplot_matrix(
-    dataframe_in, file=None, reg=True, distinguish_param_setups=True
-):
+def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setups=True):
     """
     dataframe: dataframe containing the data with columns
         [algo, epos, te_d, seed, params, obj1, ..., obj2]
