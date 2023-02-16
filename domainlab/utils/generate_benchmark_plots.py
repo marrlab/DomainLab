@@ -22,7 +22,8 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
     output_dir: path to a folder which shall contain the results
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
-                         converters={'params': literal_eval}, skipinitialspace=True)
+                         #converters={'params': literal_eval},
+                         skipinitialspace=True)
     # crop param_index and task from the dataframe
     dataframe = raw_df.iloc[:, 2:]
     gen_plots(dataframe, output_dir)
