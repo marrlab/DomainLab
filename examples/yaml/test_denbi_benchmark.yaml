@@ -165,15 +165,16 @@ Task2:  # name
 
 Task4:  # name
   aname: jigen
-  nperm: 30
 
   hyperparameters:
     # number of permutations
-#    nperm:
-#      min: 1e2
-#      max: 1e4
-#      step: 1
-#      distribution: loguniform
+    nperm:
+      distribution: categorical
+      values:
+        - 30
+        - 31
+        - 100
+      datatype: int
 
     # probability of permutating the tiles of an image, pperm = 0 -> pure classification
     pperm:
@@ -189,10 +190,12 @@ Task4:  # name
       distribution: uniform
 
     early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
 
     gamma_reg:
       min: 0.01
