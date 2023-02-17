@@ -2,6 +2,7 @@
 upon a task, if jigen is chosen as the algorithm, then task's dataset has to be augmented to
 include tile permutation
 """
+import os
 import numpy as np
 import torch
 import torchvision
@@ -124,7 +125,9 @@ class WrapDsetPatches(torchdata.Dataset):
         classify the re-tile-ordered image permutation it come from.
         """
         # @FIXME: this assumes always a relative path
+        mdir = os.path.dirname(os.path.realpath(__file__))
         mpath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        mpath = os.path.join(mdir, "..", "..", mpath)
         arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:
