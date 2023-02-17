@@ -117,62 +117,63 @@ Task2:  # name
       max: 10
       distribution: loguniform
 
-Task3:  # name
-  aname: matchdg
-
-  hyperparameters:
-    # penalty weight for matching loss (Lambda in paper)
-    penalty_ws:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-      
-    # Total number of epochs for contrastive loss
-    epochs_ctr:
-      min: 1
-      max: 2
-      step: 1
-      distribution: uniform
-    
-    # this shall be set to be epos - epochs_ctr
-    # as epos cannot be referenced here one needs to hardcode this right number of epos here
-    epochs_erm:
-      reference: 3 - epochs_ctr
-      
-    # factor to magnify cosine similarity
-    tau:
-      min: 0.01
-      max: 1
-      distribution: loguniform
-      
-    # Number of epochs before updating the match tensor
-    epos_per_match_update:
-      min: 1
-      max: 20
-      step: 1
-      distribution: uniform
-
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
+#Task3:  # name
+#  aname: matchdg
+#
+#  hyperparameters:
+#    # penalty weight for matching loss (Lambda in paper)
+#    penalty_ws:
+#      min: 0.01
+#      max: 10
+#      distribution: loguniform
+#
+#    # Total number of epochs for contrastive loss
+#    epochs_ctr:
+#      min: 1
+#      max: 2
+#      step: 1
+#      distribution: uniform
+#
+#    # this shall be set to be epos - epochs_ctr
+#    # as epos cannot be referenced here one needs to hardcode this right number of epos here
+#    epochs_erm:
+#      reference: 3 - epochs_ctr
+#
+#    # factor to magnify cosine similarity
+#    tau:
+#      min: 0.01
+#      max: 1
+#      distribution: loguniform
+#
+#    # Number of epochs before updating the match tensor
+#    epos_per_match_update:
+#      min: 1
+#      max: 20
+#      step: 1
+#      distribution: uniform
+#
+#    early_stop:
+#      min: 1
+#      max: 11
+#      step: 5
+#      distribution: uniform
+#
+#    gamma_reg:
+#      min: 0.01
+#      max: 10
+#      distribution: loguniform
 
 Task4:  # name
   aname: jigen
+  nperm: 30
 
   hyperparameters:
     # number of permutations
-    nperm:
-      min: 1e2
-      max: 1e4
-      step: 1
-      distribution: loguniform
+#    nperm:
+#      min: 1e2
+#      max: 1e4
+#      step: 1
+#      distribution: loguniform
 
     # probability of permutating the tiles of an image, pperm = 0 -> pure classification
     pperm:
@@ -198,9 +199,9 @@ Task4:  # name
       max: 10
       distribution: loguniform
 
-    constraints:
-      # constraint as nperm should be less or equal to the maximal possible number of permutations
-      - "nperm <= 1_000 * (grid_len ** 2)"
+#    constraints:
+#      # constraint as nperm should be less or equal to the maximal possible number of permutations
+#      - "nperm <= 1_000 * (grid_len ** 2)"
 
 Task5:  # name
   aname: dann
