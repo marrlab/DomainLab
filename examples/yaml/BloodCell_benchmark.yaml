@@ -1,0 +1,289 @@
+# Example benchmark config script.
+
+# Arguments set here are passed to each task.
+# Specifications inside the tasks taking precedence.
+
+tpath: TODO  # dataset
+
+# list of all domains that are used as test domain
+# in a leave-one-out setup, i.e. for each run,
+# one domain from this list is chosen as test domain
+# while training is performed on all other domains
+# of the specified dataset.
+test_domains:
+  - Acevedo
+  - Matek
+  - MLL
+
+output_dir: zoutput/benchmarks/bloodcell_benchmark
+
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 5
+
+epos: 100
+batchsize: 16
+# the seed is increased by +1 until it reaches endseed.
+# endseed is included, so in total startseed - endseed + 1
+# different seeds are used to estimate the stochastic
+# variance.
+startseed: 1
+endseed: 5  # currently included
+
+# set all parameters to default first
+nname: alexnet
+lr: 1e-4
+gamma_reg: 0.1
+es: 10
+gen: False
+split: 0
+san_check: False
+zd_dim: 64
+zx_dim: 0
+zy_dim: 64
+
+# Each node containing the aname property is considered as a task.
+Task1:  # name
+  # Parameters that are fixed for all runs of this task.
+  aname: diva
+  # TODO set nname_dom = nname when changing nname
+  # nname_dom: alexnet
+
+  # specification of parameters that shall vary
+  # between runs to analyze the sensitivity
+  # of this task w.r.t. these parameters.
+  hyperparameters:
+    # Each parameter must contain:
+    # - distribution (uniform | loguniform | normal | lognormal)
+    # - min and max if distribution is uniform or loguniform
+    # - mean and std if distribution is normal or lognormal
+
+    # step is optional and defines discrete parameters
+    # with the given step size.
+    # If min/mean and step are integer valued,
+    # the hyperparameter is ensured to be integer valued too.
+    # Otherwise, it is a float and rounding errors can occur.
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task2:  # name
+  aname: hduva
+
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    # Same config as diva.
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task3:  # name
+  aname: matchdg
+
+  hyperparameters:
+    # penalty weight for matching loss (Lambda in paper)
+    penalty_ws:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+      
+    # Total number of epochs for contrastive loss
+    epochs_ctr:
+      min: 2
+      max: 10
+      step: 1
+      distribution: uniform
+    
+    # this shall be set to be epos - epochs_ctr
+    # as epos cannot be referenced here one needs to hardcode this right number of epos here
+    epochs_erm:
+      reference: 200 - epochs_ctr
+      
+    # factor to magnify cosine similarity
+    tau:
+      min: 0.01
+      max: 1
+      distribution: loguniform
+      
+    # Number of epochs before updating the match tensor
+    epos_per_match_update:
+      min: 1
+      max: 20
+      step: 1
+      distribution: uniform
+
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task4:  # name
+  aname: jigen
+
+  hyperparameters:
+    # number of permutations
+    nperm:
+      min: 1e2
+      max: 1e4
+      step: 1
+      distribution: loguniform
+
+    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
+    pperm:
+      min: 0.1
+      max: 0.5
+      distribution: uniform
+
+    # length of image in tile unit
+    grid_len:
+      min: 2
+      max: 5
+      step: 1
+      distribution: uniform
+
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+    constraints:
+      # constraint as nperm should be less or equal to the maximal possible number of permutations
+      - import numpy as np; nperm <= np.math.factorial(grid_len ** 2)
+
+Task5:  # name
+  aname: dann
+
+  hyperparameters:
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+  
+Task6:  # name
+  aname: deepall
+
+  hyperparameters:
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task7: # name
+  aname: deepall_dial
+
+  hyperparameters:
+    dial_steps_perturb:
+      min: 1
+      max: 10
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.0.001
+      max: 0.01
+      distribution: loguniform
+
+    early_stop:
+      min: 1
+      max: 11
+      step: 5
+      distribution: uniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
