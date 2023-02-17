@@ -11,25 +11,25 @@ tpath: examples/tasks/task_blood2_small.py  # dataset
 # while training is performed on all other domains
 # of the specified dataset.
 test_domains:
-  - acevedo
+#  - acevedo
   - matek
-  - mll
+#  - mll
 
 output_dir: zoutput/benchmarks/test_bloodcell_benchmark
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 5
+num_param_samples: 1
 
-epos: 100
-batchsize: 16
+epos: 2
+batchsize: 32
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
 # different seeds are used to estimate the stochastic
 # variance.
 startseed: 1
-endseed: 5  # currently included
+endseed: 1  # currently included
 
 # set all parameters to default first
 nname: conv_bn_pool_2
