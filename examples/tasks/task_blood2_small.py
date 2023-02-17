@@ -44,7 +44,6 @@ task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif
                               "basophil": "basophil",
                               "erythroblast": "erythroblast",
                               "metamyelocyte": "metamyelocyte",
-                              "myeloblast": "myeloblast",
                               "neutrophil_band": "neutrophil_band",
                               "promyelocyte": "promyelocyte",
                               "eosinophil": "eosinophil",
