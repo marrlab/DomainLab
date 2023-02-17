@@ -16,4 +16,4 @@
 
 
 # DENBI
-snakemake --keep-going --cores 8 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml"
+snakemake --keep-going --cores 6 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml"
