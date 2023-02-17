@@ -3,9 +3,9 @@
 tpath: examples/tasks/task_blood2_small.py  # dataset
 
 test_domains:
-#  - acevedo
+  - acevedo
   - matek
-#  - mll
+  - mll
 
 output_dir: zoutput/benchmarks/test_bloodcell_benchmark
 dmem: True
