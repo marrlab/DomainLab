@@ -225,7 +225,7 @@ Task4:  # name
 
     constraints:
       # constraint as nperm should be less or equal to the maximal possible number of permutations
-      - "import numpy as np; nperm <= np.math.factorial(grid_len ** 2)"
+      - "nperm <= 1_000 * (grid_len ** 2)"
 
 Task5:  # name
   aname: dann
