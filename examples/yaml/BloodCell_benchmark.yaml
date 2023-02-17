@@ -32,6 +32,7 @@ startseed: 1
 endseed: 5  # currently included
 
 # set all parameters to default first
+nname: alexnet
 lr: 1e-4
 gamma_reg: 0.1
 es: 10
@@ -46,8 +47,8 @@ zy_dim: 64
 Task1:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
-  nname: alexnet
-  nname_dom: alexnet
+  # TODO set nname_dom = nname when changing nname
+  # nname_dom: alexnet
 
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
@@ -104,8 +105,6 @@ Task1:  # name
 Task2:  # name
   aname: hduva
 
-  nname: alexnet
-  # TODO select nets.
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
 
@@ -145,8 +144,6 @@ Task2:  # name
 
 Task3:  # name
   aname: matchdg
-
-  nname: alexnet
 
   hyperparameters:
     # penalty weight for matching loss (Lambda in paper)
@@ -194,8 +191,6 @@ Task3:  # name
 Task4:  # name
   aname: jigen
 
-  nname: alexnet
-
   hyperparameters:
     # number of permutations
     nperm:
@@ -235,8 +230,6 @@ Task4:  # name
 Task5:  # name
   aname: dann
 
-  nname: alexnet
-
   hyperparameters:
     early_stop:
       min: 1
@@ -252,8 +245,6 @@ Task5:  # name
 Task6:  # name
   aname: deepall
 
-  nname: alexnet
-
   hyperparameters:
     early_stop:
       min: 1
@@ -268,8 +259,6 @@ Task6:  # name
 
 Task7: # name
   aname: deepall_dial
-
-  nname: alexnet
 
   hyperparameters:
     dial_steps_perturb:
