@@ -23,7 +23,7 @@ output_dir: zoutput/benchmarks/test_bloodcell_benchmark
 num_param_samples: 1
 
 epos: 2
-batchsize: 32
+bs: 32
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
 # different seeds are used to estimate the stochastic
