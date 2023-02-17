@@ -43,7 +43,7 @@ authors:
     orcid: 0000-0002-5015-6543
     equal-contrib: False 
     affiliation: "1,5"
-   - name: Florian Buettner
+  - name: Florian Buettner
     orcid: 0000-0001-5587-6761
     equal-contrib: False 
     affiliation: "7,8,9,10"   
