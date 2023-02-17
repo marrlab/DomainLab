@@ -15,7 +15,7 @@ output_dir: zoutput/benchmarks/test_bloodcell_benchmark
 num_param_samples: 1
 
 epos: 2
-bs: 32
+bs: 64
 startseed: 1
 endseed: 1  # currently included
 
