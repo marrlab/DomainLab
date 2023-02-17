@@ -5,8 +5,8 @@ import pandas as pd
 import pytest
 import yaml
 
-from domainlab.utils.hyperparameter_sampling import\
-    sample_hyperparameters, Hyperparameter, sample_parameters
+from domainlab.utils.hyperparameter_sampling import \
+    sample_hyperparameters, sample_parameters, get_hyperparameter
 
 
 def test_hyperparameter_sampling():
@@ -28,6 +28,9 @@ def test_hyperparameter_sampling():
     for par in a2samples['params']:
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
+        assert par['p3'] == 2 * par['p2']
+        p4 = par['p4']
+        assert p4 == 30 or p4 == 31 or p4 == 100
 
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
@@ -35,13 +38,17 @@ def test_hyperparameter_sampling():
 
 def test_hyperparameter_errors():
     """Test for errors on unknown distribution or missing keys"""
+    with pytest.raises(RuntimeError, match="Datatype unknown"):
+        p = get_hyperparameter('name', {'reference': 'a'})
+        p.datatype()
+
     with pytest.raises(RuntimeError, match='Unsupported distribution'):
-        Hyperparameter('name', {'distribution': 'unknown'})
+        get_hyperparameter('name', {'distribution': 'unknown'})
 
     with pytest.raises(RuntimeError, match='Missing required key'):
-        Hyperparameter('name', {'distribution': 'uniform'})
+        get_hyperparameter('name', {'distribution': 'uniform'})
 
-    par = Hyperparameter('name', {'distribution': 'uniform', 'min': 0, 'max': 1})
+    par = get_hyperparameter('name', {'distribution': 'uniform', 'min': 0, 'max': 1})
     par.distribution = 'unknown'
     with pytest.raises(RuntimeError, match='Unsupported distribution'):
         par.sample()
@@ -50,7 +57,7 @@ def test_hyperparameter_errors():
 
 def test_constraint_error():
     """Check error on invalid syntax in constraints"""
-    par = Hyperparameter('name', {'distribution': 'uniform', 'min': 0, 'max': 1})
+    par = get_hyperparameter('name', {'distribution': 'uniform', 'min': 0, 'max': 1})
     constraints = ["hello world"]
     with pytest.raises(SyntaxError, match='Invalid syntax in yaml config'):
         sample_parameters([par], constraints)
@@ -58,8 +65,8 @@ def test_constraint_error():
 
 def test_sample_parameters_abort():
     """Test for error on infeasible constraints"""
-    p_1 = Hyperparameter('p1', {'distribution': 'uniform', 'min': 0, 'max': 1})
-    p_2 = Hyperparameter('p2', {'distribution': 'uniform', 'min': 2, 'max': 3})
+    p_1 = get_hyperparameter('p1', {'distribution': 'uniform', 'min': 0, 'max': 1})
+    p_2 = get_hyperparameter('p2', {'distribution': 'uniform', 'min': 2, 'max': 3})
     constraints = ['p2 < p1']   # impossible due to the bounds
     with pytest.raises(RuntimeError, match='constraints reasonable'):
         sample_parameters([p_1, p_2], constraints)

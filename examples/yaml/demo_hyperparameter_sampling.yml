@@ -9,11 +9,12 @@ Task1:  # name
   # - distribution
   # - min and max if distribution is uniform or loguniform
   # - mean and std if distribution is normal or lognormal
+  # - values and datatype if categorical
   # OR
   # reference, use this for equality constraints.
   hyperparameters:
     p1:
-      distribution: uniform    # uniform | loguniform | normal | lognormal
+      distribution: uniform    # uniform | loguniform | normal | lognormal | categorical
       min: 1  # in case of uniform
       max: 3  # in case of uniform
       step: 0    # anything > 0 for discrete variables, 0 for continuous ones. Optional
@@ -65,6 +66,17 @@ Task2:  # name
       max: 2
       step: 1
       distribution: uniform
+
+    p3:
+      reference: 2*p2
+
+    p4:
+      distribution: categorical
+      values:
+        - 30
+        - 31
+        - 100
+      datatype: int
 
 Task3:
   aname: Algo3

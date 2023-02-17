@@ -29,9 +29,10 @@ This file is of course an extract of [demo_benchmark.yaml](https://github.com/ma
 the sampling for benchmarks is specified directly in this single configuration file.
 
 In this example we can see:
-- every node containing `aname` is considered as a task
-- hyperparameters can be sampled from different distributions and
-- constraints between the hyperparameters can be specified.
+- Every node containing `aname` is considered as a task
+- Hyperparameters can be sampled from different distributions and
+- Constraints between the hyperparameters of the same task can be specified.
+- By using the `categorical` distribution type, a list of valid values for a hyperparameter can be specified.
 - Equality constraints are not supported in the constraints section. To
 enforce equality of two hyperparameters use the `reference` key, see `p4` of `Task1`.
 References are supported only to sampled hyperparameters, referencing a reference

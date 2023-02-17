@@ -2,6 +2,7 @@
 Samples the hyperparameters according to a benchmark configuration file.
 """
 import os
+from pydoc import locate
 from typing import List
 
 import numpy as np
@@ -20,26 +21,47 @@ class Hyperparameter:
     """
     def __init__(self, name: str, config: dict):
         self.name = name
-        self.step = config.get('step', 0)
-        self.reference = config.get('reference', None)
-        if self.reference is None:
-            try:
-                self.distribution = config['distribution']
-                if self.distribution == 'uniform' or self.distribution == 'loguniform':
-                    self.p_1 = config['min']
-                    self.p_2 = config['max']
-                elif self.distribution == 'normal' or self.distribution == 'lognormal':
-                    self.p_1 = config['mean']
-                    self.p_2 = config['std']
-                else:
-                    raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
-            except KeyError:
-                raise RuntimeError(f"Missing required key for parameter {name}.")
-
-            self.p_1 = float(self.p_1)
-            self.p_2 = float(self.p_2)
-
         self.val = 0
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        raise NotImplementedError
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        raise NotImplementedError
+
+    def get_val(self):
+        """Returns the current value of the hyperparameter"""
+        return self.val
+
+    def datatype(self):
+        """
+        Returns the datatype of this parameter.
+        This does not apply for references.
+        """
+        raise NotImplementedError
+
+
+class SampledHyperparameter(Hyperparameter):
+    def __init__(self, name: str, config: dict):
+        super().__init__(name, config)
+        self.step = config.get('step', 0)
+        try:
+            self.distribution = config['distribution']
+            if self.distribution == 'uniform' or self.distribution == 'loguniform':
+                self.p_1 = config['min']
+                self.p_2 = config['max']
+            elif self.distribution == 'normal' or self.distribution == 'lognormal':
+                self.p_1 = config['mean']
+                self.p_2 = config['std']
+            else:
+                raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
+        except KeyError:
+            raise RuntimeError(f"Missing required key for parameter {name}.")
+
+        self.p_1 = float(self.p_1)
+        self.p_2 = float(self.p_2)
 
     def _ensure_step(self):
         """Make sure that the hyperparameter sticks to the discrete grid"""
@@ -58,10 +80,6 @@ class Hyperparameter:
 
     def sample(self):
         """Sample this parameter, respecting properties"""
-        if self.is_reference():
-            # nothing to sample if reference is set
-            return
-
         if self.distribution == 'uniform':
             self.val = np.random.uniform(self.p_1, self.p_2)
         elif self.distribution == 'loguniform':
@@ -74,20 +92,63 @@ class Hyperparameter:
             raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
         self._ensure_step()
 
-    def get_val(self):
-        """Returns the current value of the hyperparameter"""
-        return self.val
-
-    def is_reference(self) -> bool:
-        """True if this parameter is a reference and not sampled."""
-        return self.reference is not None
-
     def datatype(self):
         """
         Returns the datatype of this parameter.
         This does not apply for references.
         """
         return int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
+
+
+class ReferenceHyperparameter(Hyperparameter):
+    def __init__(self, name: str, config: dict):
+        super().__init__(name, config)
+        self.reference = config.get('reference', None)
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        # nothing to do for references
+        return
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        # nothing to do for references
+        return
+
+    def datatype(self):
+        raise RuntimeError("Datatype unknown for ReferenceHyperparameter")
+
+
+class CategoricalHyperparameter(Hyperparameter):
+    def __init__(self, name: str, config: dict):
+        super().__init__(name, config)
+        self.allowed_values = config['values']
+        self.type = locate(config['datatype'])
+        self.allowed_values = [self.type(v) for v in self.allowed_values]
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        # nothing to do for categorical ones
+        return
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        # nothing to do for references
+        idx = np.random.randint(0, len(self.allowed_values))
+        self.val = self.allowed_values[idx]
+
+    def datatype(self):
+        return self.type
+
+
+def get_hyperparameter(name: str, config: dict) -> Hyperparameter:
+    if 'reference' in config.keys():
+        return ReferenceHyperparameter(name, config)
+    dist = config.get('distribution', None)
+    if dist == 'categorical':
+        return CategoricalHyperparameter(name, config)
+    else:
+        return SampledHyperparameter(name, config)
 
 
 def check_constraints(params: List[Hyperparameter], constraints) -> bool:
@@ -98,7 +159,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
 
     # set references
     for par in params:
-        if par.is_reference():
+        if isinstance(par, ReferenceHyperparameter):
             setattr(par, 'val', eval(par.reference))
             locals().update({par.name: par.val})
 
@@ -145,7 +206,7 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
         for key, val in config['hyperparameters'].items():
             if key == 'constraints':
                 continue
-            params += [Hyperparameter(key, val)]
+            params += [get_hyperparameter(key, val)]
 
         constraints = config['hyperparameters'].get('constraints', None)
         for _ in range(num_samples):
