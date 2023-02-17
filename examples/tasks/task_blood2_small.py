@@ -3,7 +3,7 @@ from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.utils_task import ImSize
 
 
-img_size = 36
+img_size = 2*36
 # img_size = 28
 
 trans = transforms.Compose([
