@@ -66,24 +66,24 @@ Task_diva:  # name
       step: 1
       distribution: loguniform
 
--TaskHduva:  # name
--  aname: hduva
--  npath: examples/nets/resnet.py
--  nname_topic_distrib_img2topic: conv_bn_pool_2
--  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
--
--  hyperparameters:
--    gamma_y:
--      min: 7e4
--      max: 7e6
--      step: 1
--      distribution: loguniform
--
--    zy_dim:
--      min: 32
--      max: 128
--      step: 4
--      distribution: loguniform
+TaskHduva:  # name
+  aname: hduva
+  npath: examples/nets/resnet.py
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 7e4
+      max: 7e6
+      step: 1
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 128
+      step: 4
+      distribution: loguniform
 
 
 Task_deep_all:
