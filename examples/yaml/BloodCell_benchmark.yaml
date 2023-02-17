@@ -117,12 +117,6 @@ Task2:  # name
       step: 100
       distribution: loguniform
 
-    gamma_d:
-      min: 1e4
-      max: 1e6
-      step: 10_000
-      distribution: loguniform
-
     zx_dim:
       min: 0
       max: 96
