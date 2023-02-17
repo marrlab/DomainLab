@@ -43,6 +43,10 @@ authors:
     orcid: 0000-0002-5015-6543
     equal-contrib: False 
     affiliation: "1,5"
+   - name: Florian Buettner
+    orcid: 0000-0001-5587-6761
+    equal-contrib: False 
+    affiliation: "7,8,9,10"   
   - name: Carsten Marr
     orcid: 0000-0003-2154-4552
     corresponding: true #  
@@ -61,15 +65,18 @@ affiliations:
    index: 5
  - name: Charité Lab for AI in Medicine, Charité Universitätsmedizin Berlin, Berlin, Germany
    index: 6
+ - name: German Cancer Research Center (DKFZ), Heidelberg, Germany
+   index: 7 
+ - name: Frankfurt Cancer Institute, Frankfurt, Germany
+   index: 8
+ - name: German Cancer Consortium (DKTK), Germany
+   index: 9 
+ - name: Goethe University Frankfurt, Germany
+   index: 10    
 date: 17 Feb 2023
 bibliography: paper.bib
 ---
 
-(
-**Please provide your orcid!**
-Florian 0000-0001-5587-6761
-
-)
 
 # Summary
 
@@ -134,7 +141,7 @@ constructing the evaluator as a callback of what to do after each epoch.
 Domainlab is open source and freely available. It is published under the MIT License. You can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
 
 # Contributions
-XS has designed the package with software design patterns and implemented the framework, algorithms and other components of the package. He initiated and made major contributions to other aspects of the package development. CM initiated the project with Xudong Sun, contributed to the code style enhancement and paper description of Domainlab and supervised the project. PR contributed to the package design, code quality, and paper description. SSB has helped in improvement of the framework, finding new usecases, and enhanced the readability of the code. GS added the possibility to benchmark different algorithms using a snakemake pipeline and contributed minor enhancements. CF added sanity checks for the datasets and implemented the chart generation for graphical evaluation of the benchmark results. AG tested and evaluated the library with real life medical datasets and pointed out important issues and their solutions. RS added a feature to specify command line arguments with YAML files.
+XS has designed the package with software design patterns and implemented the framework, algorithms and other components of the package. He initiated and made major contributions to other aspects of the package development. CM initiated the project with Xudong Sun, contributed to the code style enhancement and paper description of Domainlab and supervised the project. PR contributed to the package design, code quality, and paper description. SSB has helped in improvement of the framework, finding new usecases, and enhanced the readability of the code. FB contributed to the paper description and code documentation. GS added the possibility to benchmark different algorithms using a snakemake pipeline and contributed minor enhancements. CF added sanity checks for the datasets and implemented the chart generation for graphical evaluation of the benchmark results. AG tested and evaluated the library with real life medical datasets and pointed out important issues and their solutions. RS added a feature to specify command line arguments with YAML files.
 
 # Funding
 SSB has received funding by F. Hoffmann-la Roche LTD (No grant number is applicable) and supported by the Helmholtz Association under the joint research school ‘Munich School for Data Science - MUDS’. PR was supported through an Alexander von Humboldt Foundation postdoctoral fellowship (Grant Nr. 1221006). CM has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (Grant agreement No. 866411).
