@@ -18,7 +18,7 @@ num_param_samples: 1
 epos: 2
 bs: 128
 startseed: 1
-endseed: 1  # currently included
+endseed: 7  # currently included
 
 # set all parameters to default first
 nname: conv_bn_pool_2
@@ -163,48 +163,48 @@ Task2:  # name
 #      max: 10
 #      distribution: loguniform
 
-Task4:  # name
-  aname: jigen
-
-  hyperparameters:
-    # number of permutations
-    nperm:
-      distribution: categorical
-      values:
-        - 30
-        - 31
-        - 100
-      datatype: int
-
-    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
-    pperm:
-      min: 0.1
-      max: 0.5
-      distribution: uniform
-
-    # length of image in tile unit
-    grid_len:
-      min: 2
-      max: 5
-      step: 1
-      distribution: uniform
-
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
-#    constraints:
-#      # constraint as nperm should be less or equal to the maximal possible number of permutations
-#      - "nperm <= 1_000 * (grid_len ** 2)"
+#Task4:  # name
+#  aname: jigen
+#
+#  hyperparameters:
+#    # number of permutations
+#    nperm:
+#      distribution: categorical
+#      values:
+#        - 30
+#        - 31
+#        - 100
+#      datatype: int
+#
+#    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
+#    pperm:
+#      min: 0.1
+#      max: 0.5
+#      distribution: uniform
+#
+#    # length of image in tile unit
+#    grid_len:
+#      min: 2
+#      max: 5
+#      step: 1
+#      distribution: uniform
+#
+#    early_stop:
+#      distribution: categorical
+#      datatype: int
+#      values:
+#        - 1
+#        - 5
+#        - 10
+#
+#    gamma_reg:
+#      min: 0.01
+#      max: 10
+#      distribution: loguniform
+#
+##    constraints:
+##      # constraint as nperm should be less or equal to the maximal possible number of permutations
+##      - "nperm <= 1_000 * (grid_len ** 2)"
 
 Task5:  # name
   aname: dann
