@@ -19,7 +19,7 @@ class Hyperparameter:
     p2: max or scale
     reference: None or name of referenced hyperparameter
     """
-    def __init__(self, name: str, config: dict):
+    def __init__(self, name: str):
         self.name = name
         self.val = 0
 
@@ -44,8 +44,11 @@ class Hyperparameter:
 
 
 class SampledHyperparameter(Hyperparameter):
+    """
+    A numeric hyperparameter that shall be sampled
+    """
     def __init__(self, name: str, config: dict):
-        super().__init__(name, config)
+        super().__init__(name)
         self.step = config.get('step', 0)
         try:
             self.distribution = config['distribution']
@@ -93,16 +96,16 @@ class SampledHyperparameter(Hyperparameter):
         self._ensure_step()
 
     def datatype(self):
-        """
-        Returns the datatype of this parameter.
-        This does not apply for references.
-        """
         return int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
 
 
 class ReferenceHyperparameter(Hyperparameter):
+    """
+    Hyperparameter that references only a different one.
+    Thus, this parameter is not sampled but set after sampling.
+    """
     def __init__(self, name: str, config: dict):
-        super().__init__(name, config)
+        super().__init__(name)
         self.reference = config.get('reference', None)
 
     def _ensure_step(self):
@@ -120,8 +123,12 @@ class ReferenceHyperparameter(Hyperparameter):
 
 
 class CategoricalHyperparameter(Hyperparameter):
+    """
+    A sampled hyperparameter, which is constraint to fixed,
+    user given values and datatype
+    """
     def __init__(self, name: str, config: dict):
-        super().__init__(name, config)
+        super().__init__(name)
         self.allowed_values = config['values']
         self.type = locate(config['datatype'])
         self.allowed_values = [self.type(v) for v in self.allowed_values]
@@ -142,13 +149,14 @@ class CategoricalHyperparameter(Hyperparameter):
 
 
 def get_hyperparameter(name: str, config: dict) -> Hyperparameter:
+    """Factory function. Instantiates the correct Hyperparameter"""
     if 'reference' in config.keys():
         return ReferenceHyperparameter(name, config)
     dist = config.get('distribution', None)
     if dist == 'categorical':
         return CategoricalHyperparameter(name, config)
-    else:
-        return SampledHyperparameter(name, config)
+
+    return SampledHyperparameter(name, config)
 
 
 def check_constraints(params: List[Hyperparameter], constraints) -> bool:
