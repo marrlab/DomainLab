@@ -1,0 +1,64 @@
+[Fri Feb 17 11:51:04 2023]
+Error in rule run_experiment:
+    jobid: 0
+    input: zoutput/benchmarks/test_bloodcell_benchmark/hyperparameters.csv
+    output: zoutput/benchmarks/test_bloodcell_benchmark/rule_results/0.csv
+
+RuleException:
+AttributeError in file /home/ubuntu/georg/DomainLab/domainlab/exp_protocol/benchmark.smk, line 59:
+'ModelDIVA' object has no attribute 'net_classif_d'
+  File "/home/ubuntu/georg/DomainLab/domainlab/exp_protocol/benchmark.smk", line 59, in __rule_run_experiment
+  File "/home/ubuntu/georg/DomainLab/domainlab/exp_protocol/run_experiment.py", line 87, in run_experiment
+  File "/home/ubuntu/georg/DomainLab/domainlab/compos/exp/exp_main.py", line 48, in execute
+  File "/home/ubuntu/georg/DomainLab/domainlab/algos/trainers/train_visitor.py", line 43, in tr_epoch
+  File "/home/ubuntu/georg/DomainLab/domainlab/algos/trainers/train_basic.py", line 30, in tr_epoch
+  File "/home/ubuntu/georg/DomainLab/domainlab/models/a_model.py", line 19, in cal_loss
+  File "/home/ubuntu/georg/DomainLab/domainlab/models/model_diva.py", line 66, in cal_reg_loss
+  File "/home/ubuntu/mambaforge/envs/gdl/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1207, in __getat
+tr__                                                                                                                     File "/home/ubuntu/mambaforge/envs/gdl/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+
+###############################################################################
+[Fri Feb 17 11:51:01 2023]                                                                                             Error in rule run_experiment:
+    jobid: 0
+    input: zoutput/benchmarks/test_bloodcell_benchmark/hyperparameters.csv
+    output: zoutput/benchmarks/test_bloodcell_benchmark/rule_results/1.csv
+
+RuleException:
+ZeroDivisionError in file /home/ubuntu/georg/DomainLab/domainlab/exp_protocol/benchmark.smk, line 59:
+float division by zero
+  File "/home/ubuntu/georg/DomainLab/domainlab/exp_protocol/benchmark.smk", line 59, in __rule_run_experiment
+  File "/home/ubuntu/georg/DomainLab/domainlab/exp_protocol/run_experiment.py", line 85, in run_experiment
+  File "/home/ubuntu/georg/DomainLab/domainlab/compos/exp/exp_main.py", line 33, in __init__
+  File "/home/ubuntu/georg/DomainLab/domainlab/algos/builder_hduva.py", line 27, in init_business
+  File "/home/ubuntu/georg/DomainLab/domainlab/utils/utils_class.py", line 27, in wrapper
+  File "/home/ubuntu/georg/DomainLab/domainlab/models/model_hduva.py", line 57, in __init__
+  File "/home/ubuntu/georg/DomainLab/domainlab/compos/vae/c_vae_builder_classif.py", line 30, in construct_cond_prior
+  File "/home/ubuntu/georg/DomainLab/domainlab/compos/vae/compos/decoder_cond_prior.py", line 24, in __init__
+  File "/home/ubuntu/mambaforge/envs/gdl/lib/python3.8/site-packages/torch/nn/init.py", line 324, in xavier_uniform_
+  File "/home/ubuntu/mambaforge/envs/gdl/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+
+
+[Fri Feb 17 11:50:33 2023]
+Error in rule run_experiment:
+    jobid: 0
+    input: zoutput/benchmarks/test_bloodcell_benchmark/hyperparameters.csv
+    output: zoutput/benchmarks/test_bloodcell_benchmark/rule_results/3.csv
+
+RuleException:
+FileNotFoundError in file /home/ubuntu/georg/DomainLab/domainlab/exp_protocol/benchmark.smk, line 59:                  [Errno 2] No such file or directory: 'data/patches_permutation4jigsaw/permutations_7420.npy'
+  File "/home/ubuntu/georg/DomainLab/domainlab/exp_protocol/benchmark.smk", line 59, in __rule_run_experiment
+  File "/home/ubuntu/georg/DomainLab/domainlab/exp_protocol/run_experiment.py", line 85, in run_experiment
+  File "/home/ubuntu/georg/DomainLab/domainlab/compos/exp/exp_main.py", line 29, in __init__
+  File "/home/ubuntu/georg/DomainLab/domainlab/tasks/task_folder_mk.py", line 59, in init_business
+  File "/home/ubuntu/georg/DomainLab/domainlab/tasks/b_task.py", line 73, in init_business
+  File "/home/ubuntu/georg/DomainLab/domainlab/tasks/b_task.py", line 21, in dset_decoration_args_algo
+  File "/home/ubuntu/georg/DomainLab/domainlab/dsets/utils_wrapdset_patches.py", line 34, in __init__
+  File "/home/ubuntu/georg/DomainLab/domainlab/dsets/utils_wrapdset_patches.py", line 128, in __retrieve_permutations
+  File "/home/ubuntu/mambaforge/envs/gdl/lib/python3.8/site-packages/numpy/lib/npyio.py", line 405, in load
+  File "/home/ubuntu/mambaforge/envs/gdl/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
