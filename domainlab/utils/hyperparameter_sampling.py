@@ -92,9 +92,6 @@ class Hyperparameter:
 
 def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     """Check if the constraints are fulfilled."""
-    if constraints is None:
-        return True     # shortcut
-
     # set each param as a local variable
     for par in params:
         locals().update({par.name: par.val})
@@ -104,6 +101,9 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
         if par.is_reference():
             setattr(par, 'val', eval(par.reference))
             locals().update({par.name: par.val})
+
+    if constraints is None:
+        return True     # shortcut
 
     # check all constraints
     for constr in constraints:
