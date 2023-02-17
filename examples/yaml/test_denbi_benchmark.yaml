@@ -273,7 +273,7 @@ Task7: # name
       distribution: loguniform
 
     dial_epsilon:
-      min: 0.0.001
+      min: 0.001
       max: 0.01
       distribution: loguniform
 
