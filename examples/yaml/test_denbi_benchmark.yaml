@@ -33,6 +33,7 @@ endseed: 1  # currently included
 
 # set all parameters to default first
 nname: conv_bn_pool_2
+# TODO is lr parsed as str?
 #lr: 1e-4
 #gamma_reg: 0.1
 #es: 10
@@ -154,15 +155,15 @@ Task3:  # name
       
     # Total number of epochs for contrastive loss
     epochs_ctr:
-      min: 2
-      max: 10
+      min: 1
+      max: 2
       step: 1
       distribution: uniform
     
     # this shall be set to be epos - epochs_ctr
     # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      reference: 200 - epochs_ctr
+      reference: 3 - epochs_ctr
       
     # factor to magnify cosine similarity
     tau:
