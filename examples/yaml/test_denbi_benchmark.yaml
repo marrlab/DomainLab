@@ -67,10 +67,12 @@ Task1:  # name
       reference: zy_dim
 
     early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
 
     gamma_reg:
       min: 0.01
@@ -107,10 +109,12 @@ Task2:  # name
       reference: zy_dim
 
     early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
 
     gamma_reg:
       min: 0.01
@@ -153,10 +157,12 @@ Task2:  # name
 #      distribution: uniform
 #
 #    early_stop:
-#      min: 1
-#      max: 11
-#      step: 5
-#      distribution: uniform
+#      distribution: categorical
+#      datatype: int
+#      values:
+#        - 1
+#        - 5
+#        - 10
 #
 #    gamma_reg:
 #      min: 0.01
@@ -211,10 +217,12 @@ Task5:  # name
 
   hyperparameters:
     early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
 
     gamma_reg:
       min: 0.01
@@ -226,10 +234,12 @@ Task6:  # name
 
   hyperparameters:
     early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
 
     gamma_reg:
       min: 0.01
@@ -257,10 +267,12 @@ Task7: # name
       distribution: loguniform
 
     early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
 
     gamma_reg:
       min: 0.01
