@@ -20,6 +20,6 @@ echo "verbose log: $logfile"
 
 
 # DENBI
-snakemake --keep-going --keep-incomplete --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml" 2>&1 | tee $logfile
+snakemake --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml" 2>&1 | tee $logfile
 # TODO create a snakemake call (alike above) to run on the helmholz vm
 # TODO set a reasonable number of cores (cores = 5 was very usefull, as we start 5 algorithms -> each algo gets one core)
