@@ -14,6 +14,7 @@ dmem: True
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: # TODO set num of param samples
+sampling_seed: 100
 
 epos: 100
 bs: 64
