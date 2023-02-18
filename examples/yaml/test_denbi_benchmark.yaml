@@ -3,9 +3,9 @@
 tpath: examples/tasks/task_blood2_small.py  # dataset
 
 test_domains:
-  - acevedo
+#  - acevedo
   - matek
-  - mll
+#  - mll
 
 output_dir: zoutput/benchmarks/test_bloodcell_benchmark
 dmem: True
@@ -16,9 +16,9 @@ dmem: True
 num_param_samples: 1
 
 epos: 2
-bs: 128
+bs: 64
 startseed: 1
-endseed: 7  # currently included
+endseed: 1  # currently included
 
 # set all parameters to default first
 nname: conv_bn_pool_2

@@ -1,4 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+
+timestamp() {
+#  date +"%T" # current time
+  date +"%Y-%m-%d_%H-%M-%S"
+}
+
+
+logdir="zoutput/logs"
+mkdir -p $logdir
+logfile="$logdir/$(timestamp).out"
+echo "verbose log: $logfile"
+
 # -n: dry-run
 # -p: print shell commands
 # -d: specify working directory. This should be the DomainLab dir
@@ -6,7 +18,7 @@
 # -- configfile: configuration yaml file of the benchmark
 
 #snakemake -np -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
-#snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
+#snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" 2>&1 | tee $logfile
 #snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 
 
@@ -16,4 +28,4 @@
 
 
 # DENBI
-snakemake --keep-going --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml"
+snakemake --keep-going --keep-incomplete --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml" 2>&1 | tee $logfile
