@@ -17,15 +17,9 @@ echo "verbose log: $logfile"
 # -s: snakefile
 # -- configfile: configuration yaml file of the benchmark
 
-#snakemake -np -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
-#snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" 2>&1 | tee $logfile
-#snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
-
-
-# print execution graph to pdf
-#snakemake --dag --forceall -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" | dot -Tpdf > dag.pdf
-#snakemake --rulegraph --forceall -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" | dot -Tpdf > rulegraph.pdf
 
 
 # DENBI
 snakemake --keep-going --keep-incomplete --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml" 2>&1 | tee $logfile
+# TODO create a snakemake call (alike above) to run on the helmholz vm
+# TODO set a reasonable number of cores (cores = 5 was very usefull, as we start 5 algorithms -> each algo gets one core)
