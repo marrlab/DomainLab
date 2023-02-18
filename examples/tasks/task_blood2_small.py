@@ -8,10 +8,10 @@ img_size = 48
 
 trans = transforms.Compose([
     transforms.Resize((img_size, img_size)),
-    transforms.RandomResizedCrop(img_size, scale=(0.7, 1.0)),
+    # transforms.RandomResizedCrop(img_size, scale=(0.7, 1.0)),
     transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
-    transforms.RandomGrayscale(),
+    transforms.ColorJitter(0.03, 0.03, 0.03, 0.03),
+    # transforms.RandomGrayscale(),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406],
                          [0.229, 0.224, 0.225])
