@@ -13,11 +13,11 @@ dmem: True
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 4
+num_param_samples: 8
 sampling_seed: 1
 
-epos: 100
-bs: 64
+epos: 50
+bs: 128
 startseed: 1
 endseed: 1  # currently included
 
