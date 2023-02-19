@@ -112,7 +112,7 @@ Does the model benefit from a specific loss function, e.g., because it offers a 
 
 ## General Design
 
-To address software design issues of existing code bases, such as DomainBed [@gulrajani2020search] and Dassl [@zhou2021domain], and to maximally decouple factors that might affect the performance of domain generalization algorithms, we designed DomainLab with the following features.
+To address software design issues of existing code bases, such as DomainBed [@domainbed2022github], [@gulrajani2020search] and Dassl [@dassl2022github], [@zhou2021domain], and to maximally decouple factors that might affect the performance of domain generalization algorithms, we designed DomainLab with the following features.
 
 First, the package offers the user a standalone application to specify the data, data split protocol, pre-processing, neural network backbone, and model loss function, which will not modify the code base of DomainLab. That is, it connects a user's data to algorithms.
 Domain generalization algorithms, such as DIVA [@ilse2020diva], HDUVA [@sun2021hierarchical], and MatchDG [@mahajan2021domain] among others, were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an architecture implemented in a Python file or by specifying some of the already implemented architectures, such as AlexNet [@krizhevskyImageNetClassificationDeep2012], via command line arguments. The collection of domain generalization algorithms and neural network architectures implemented in DomainLab is steadily increasing over time.
