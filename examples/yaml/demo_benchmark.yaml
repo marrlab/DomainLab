@@ -16,32 +16,31 @@ test_domains:
   # - labelme
 
 output_dir: zoutput/benchmarks/demo_benchmark
-log_dir: zoutput/benchmarks/demo_benchmark_log
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(test_domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 1
+num_param_samples: 2
 # sets the seed for hyperparameter sampling.
 # With this option and the experiment seeds from
 # startseed and endseed, this benchmark is fully reproducible.
 sampling_seed: 1  # Optional
 
-epos: 1
+epos: 3
 batchsize: 2
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
 # different seeds are used to estimate the stochastic
 # variance.
 startseed: 1
-endseed: 1  # currently included
+endseed: 2  # currently included
 
 # Each node containing the aname property is considered as a task.
 Task1:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
-#  nname: alexnet
-#  nname_dom: alexnet
+  nname: alexnet
+  nname_dom: alexnet
 
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
@@ -69,29 +68,29 @@ Task1:  # name
       step: 1
       distribution: loguniform
 
-#Task2:  # name
-#  aname: hduva
-#
-#  nname: conv_bn_pool_2
-#  nname_topic_distrib_img2topic: conv_bn_pool_2
-#  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
-#
-#  hyperparameters:
-#    gamma_y:
-#      min: 7e4
-#      max: 7e6
-#      step: 1
-#      distribution: loguniform
-#
-#    zy_dim:
-#      min: 32
-#      max: 128
-#      step: 4
-#      distribution: loguniform
-#
-#Task3:
-#  aname: diva
-#  nname: conv_bn_pool_2
-#  nname_dom: conv_bn_pool_2
-#  gamma_y: 75000
-#  gamma_d: 100000
+Task2:  # name
+  aname: hduva
+
+  nname: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 7e4
+      max: 7e6
+      step: 1
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 128
+      step: 4
+      distribution: loguniform
+
+Task3:
+  aname: diva
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  gamma_y: 75000
+  gamma_d: 100000
