@@ -89,9 +89,10 @@ Deep learning (DL) models have showed success in tackling real-world challenges 
 
 We introduce DomainLab, a Python package for domain generalization. Compared to existing solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method: How the domain invariant regularization loss is computed, which neural network architectures are used for each component, how the neural network weights are updated, how the data are fed into neural network and which evaluation protocol is applied are defined independently. The user can mix and match different combinations of the individual components and evaluate the impact on generalization performance.
 
-DomainLab currently supports Pytorch backend.
-
 Additionally, thanks to the modularized design patterns of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical] which does not exist in other existing solutions (possibly due to software design limitations), have been implemented, which can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
+
+
+DomainLab currently supports Pytorch backend.
 
 DomainLab's documentation is hosted at <https://marrlab.github.io/DomainLab> and its source code can be found at <https://github.com/marrlab/DomainLab>.
 
