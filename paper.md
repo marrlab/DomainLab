@@ -90,7 +90,7 @@ We introduce DomainLab, a Python package for domain generalization. Compared to 
 
 DomainLab currently supports Pytorch backend.
 
-Additionally, thanks to the modularized design patterns of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva, @mahajan2021domain, @sun2021hierarchical] which does not exist in other existing solutions (possibly due to software design limitations), have been implemented, which can be easily integrated with adversarial methods [@levi2021domain, ganin2016domain, @akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
+Additionally, thanks to the modularized design patterns of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical] which does not exist in other existing solutions (possibly due to software design limitations), have been implemented, which can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
 
 DomainLab's documentation is hosted at <https://marrlab.github.io/DomainLab> and its source code can be found at <https://github.com/marrlab/DomainLab>.
 
