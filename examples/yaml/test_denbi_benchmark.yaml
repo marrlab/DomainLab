@@ -17,7 +17,7 @@ num_param_samples: 1
 sampling_seed: 1
 
 epos: 2
-bs: 64
+bs: 128
 startseed: 1
 endseed: 1  # currently included
 
