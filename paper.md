@@ -1,5 +1,5 @@
 ---
-title: 'DomainLab: A PyTorch library for domain generalization in deep learning'
+title: 'DomainLab: A Python package for domain generalization in deep learning'
 tags:
   - Python
   - deep learning
@@ -77,6 +77,7 @@ affiliations:
    index: 9 
  - name: Goethe University Frankfurt, Germany
    index: 10    
+  
 date: 17 Feb 2023
 bibliography: paper.bib
 ---
