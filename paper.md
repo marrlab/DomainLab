@@ -88,9 +88,11 @@ bibliography: paper.bib
 Deep learning (DL) models have shown success in tackling real-world challenges in various areas, such as computer vision and medical imaging or computational pathology. However, while generalizing to unseen data domains comes naturally to humans, it is still a significant obstacle for machines. By design, most DL models assume that training and testing distributions are well aligned, causing them to fail when this is violated. Instead, domain generalization aims at training domain invariant models that are robust to distribution shifts [@wang2022generalizing].
 
 We introduce DomainLab, a Python package for domain generalization. Compared to existing solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method:
-How the domain invariant regularization loss is computed.
-Which neural network architectures are used for each component, and how the neural network weights are updated.
-How the data are fed into the neural network and which evaluation protocol is applied are defined independently.
+
+- How the domain invariant regularization loss is computed
+- Which neural network architectures are used for each component, and how the neural network weights are updated
+- How the data are fed into the neural network and which evaluation protocol is applied are defined independently
+
 The user can mix and match different combinations of the individual components and evaluate the impact on generalization performance.
 
 Additionally, thanks to the modularized design patterns of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing solutions (possibly due to software design limitations), have been implemented, which can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
