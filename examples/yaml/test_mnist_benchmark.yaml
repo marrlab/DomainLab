@@ -4,19 +4,20 @@
 task: mnistcolor10
 
 test_domains:
-  - 0
+  #rgb_23_190_207
+  - 3
 
-output_dir: zoutput/benchmarks/test_mnist_benchmark
+output_dir: zoutput/benchmarks/mnist_benchmark1
 dmem: False
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 1
-sampling_seed: 1
+sampling_seed: 51
 
-epos: 2
-bs: 128
+epos: 300
+bs: 64
 startseed: 1
 endseed: 1  # currently included
 
@@ -133,15 +134,15 @@ Task3:  # name
 
     # Total number of epochs for contrastive loss
     epochs_ctr:
-      min: 1
-      max: 2
+      min: 2
+      max: 10
       step: 1
       distribution: uniform
 
     # this shall be set to be epos - epochs_ctr
     # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      reference: 3 - epochs_ctr
+      reference: 300 - epochs_ctr
 
     # factor to magnify cosine similarity
     tau:
