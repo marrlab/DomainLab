@@ -46,8 +46,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         if loader_te is not None:
             metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
             confmat = metric_te.pop("confmat")
-            # print("out of domain test performance:")
-            # rprint(metric_te)
+            print("out of domain test performance:")
+            rprint(metric_te)
             # print("confusion matrix:")
             # print(pd.DataFrame(confmat))
             metric_te["confmat"] = confmat

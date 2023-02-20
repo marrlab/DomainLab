@@ -29,4 +29,10 @@ echo "verbose log: $logfile"
 
 # DENBI
 #snakemake --keep-going --keep-incomplete --notemp --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_denbi_benchmark.yaml" 2>&1 | tee $logfile
-snakemake --keep-going --keep-incomplete --notemp --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/denbi_blood_benchmark.yaml" 2>&1 | tee $logfile
+#snakemake --keep-going --keep-incomplete --notemp --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/denbi_blood_benchmark.yaml" 2>&1 | tee $logfile
+
+
+
+
+# MNISTcolor10
+snakemake --keep-going --keep-incomplete --notemp --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_mnist_benchmark.yaml" 2>&1 | tee $logfile
