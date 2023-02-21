@@ -100,6 +100,8 @@ Thanks to the modularized design of DomainLab, complicated methods like causal d
 
 DomainLab offers user functionality to specify custom datasets with minimal configuration file without changing the codebase of DomainLab.
 
+DomainLab follows software design pattern and is well documented and tested.
+
 DomainLab currently supports the PyTorch backend.
 
 DomainLab's documentation is hosted at <https://marrlab.github.io/DomainLab>, and its source code can be found at <https://github.com/marrlab/DomainLab>.
