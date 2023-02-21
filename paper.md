@@ -96,7 +96,7 @@ How the domain invariant regularization loss is computed remain transparent to o
 
 The user can mix and match different combinations of the individual factors and evaluate the impact on generalization performance.
 
-Thanks to the modularized design of DomainLab, complicated methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing and concurrent solutions possibly due to software design limitations, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
+Thanks to the modularized design of DomainLab, complicated methods like some of the causal domain generalization method and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], self-supervised learning based domain generalization method like [@carlucci2019domain], which do not exist in other existing and concurrent solutions, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial] and other training paradigms [@rame2022fishr]. Due to code architecture design limitations of the current code version, we found it difficult to implement those aforementioned non-existing methods into the codebase of existing and concurrent solutions. 
 
 DomainLab offers user functionality to specify custom datasets with minimal configuration file without changing the codebase of DomainLab.
 
