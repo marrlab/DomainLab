@@ -95,7 +95,7 @@ We introduce DomainLab, a Python package for domain generalization. Compared to 
     - how the neural network weights are update. 
 
 The user can mix and match different combinations of the individual factors and evaluate the impact on generalization performance.
-- Thanks to the modularized design of DomainLab, complicated methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing solutions possibly due to software design limitations, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
+- Thanks to the modularized design of DomainLab, complicated methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing and concurrent solutions possibly due to software design limitations, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
 - DomainLab offers user functionality to specify custom datasets with minimal configuration file without changing the codebase of DomainLab.
 
 DomainLab currently supports the PyTorch backend.
