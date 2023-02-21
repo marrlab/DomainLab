@@ -88,11 +88,11 @@ bibliography: paper.bib
 Deep learning (DL) models have been used in tackling real-world challenges in various areas, such as computer vision and medical imaging or computational pathology. However, while generalizing to unseen data domains comes naturally to humans, it is still a significant obstacle for machines. By design, most DL models assume that training and testing distributions are well aligned, causing them to fail when this is violated. Instead, domain generalization aims at training domain invariant models that are robust to distribution shifts [@wang2022generalizing].
 
 We introduce DomainLab, a Python package for domain generalization. Compared to existing and concurrent solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method: 
-How the domain invariant regularization loss is computed remain transparent to other factor like
 
+How the domain invariant regularization loss is computed remain transparent to other factor like
 - what neural network architectures are used for each component
 - what transformations are used for observations
-- how the neural network weights are updated.
+- how the neural network weights are updated
 
 The user can mix and match different combinations of the individual factors and evaluate the impact on generalization performance.
 
@@ -122,15 +122,16 @@ With DomainLab, we introduce a fully modular Python package for domain generaliz
 
 To address software design issues of existing and concurrent code bases, such as DomainBed [@domainbed2022github], [@gulrajani2020search] and Dassl [@dassl2022github], [@zhou2021domain], and to maximally decouple factors that might affect the performance of domain generalization algorithms, we designed DomainLab with the following features.
 
-The package offers the user a standalone application to specify the data, data split protocol, preprocessing, neural network backbone, and model loss function, which will not modify the code base of DomainLab. That is, it connects a user's data to algorithms.
-Domain generalization algorithms, such as DIVA [@ilse2020diva], HDUVA [@sun2021hierarchical], and MatchDG [@mahajan2021domain], among others, were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an architecture implemented in a Python file or by specifying some of the already implemented architectures, such as AlexNet [@krizhevskyImageNetClassificationDeep2012], via command line arguments.
+The package is closed to modification and open to extension. 
 
-Selection of algorithms, neural network components, as well as other components, such as the training procedure, are done via the chain-of-responsibility method [@gamma1995design]. Other design patterns, including the observer pattern, visitor pattern, etc., are also used to improve the decoupling of different factors contributing to the performance of an algorithm (see also Section "Components" below).
+The package offers the user a standalone application to specify the data with data split protocol and preprocessing. To test an algorithm's performance on a user's custom data, there is no need to change any code across different files of the codebase. The user only needs to specify custom Python configuration file to incorporate their data. 
 
-Instead of modifying code across several Python files, the package is closed to modification and open to extension. To test an algorithm's performance on a user's data, there is no need to change any code inside this repository. The user only needs to extend this repository to fit their requirements by providing custom Python files.
-DomainLab offers a framework for generating combinations (tasks, neural network architectures, etc.) by letting users select elements through command-line arguments.
+Domain generalization algorithms were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an architecture implemented in a Python file or by specifying some of the already implemented architectures, such as AlexNet [@krizhevskyImageNetClassificationDeep2012], via command line arguments.
 
-With the above design, DomainLab offers users the flexibility to construct custom tasks with their data, write custom neural network architectures for use with the already implemented domain generalization algorithms, and even construct their domain generalization algorithms on top of the existing components by specifying a Python file with custom models and loss functions. Therefore, there is no need to change the original code of DomainLab when the user wants to apply a domain generalization method to their data, extend the method with custom neural networks, or try discriminating the most significant factors that affect performance.
+Selection of algorithms and neural network components are done via the chain-of-responsibility method [@gamma1995design]. 
+Other design patterns, including the observer pattern, visitor pattern, etc., are also used to improve the decoupling of different factors contributing to the performance of an algorithm (see also Section "Components" below).
+
+With the above design, DomainLab offers users the flexibility to construct custom tasks with their data, write custom neural network architectures for use with the already implemented domain generalization algorithms, and even construct their domain generalization algorithms on top of the existing components by specifying a Python file with custom models and loss functions.
 
 ## Components
 
