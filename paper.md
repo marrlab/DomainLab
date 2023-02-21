@@ -87,19 +87,15 @@ bibliography: paper.bib
 
 Deep learning (DL) models have shown success in tackling real-world challenges in various areas, such as computer vision and medical imaging or computational pathology. However, while generalizing to unseen data domains comes naturally to humans, it is still a significant obstacle for machines. By design, most DL models assume that training and testing distributions are well aligned, causing them to fail when this is violated. Instead, domain generalization aims at training domain invariant models that are robust to distribution shifts [@wang2022generalizing].
 
-We introduce DomainLab, a Python package for domain generalization. Compared to existing solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method:
+We introduce DomainLab, a Python package for domain generalization. Compared to existing and concurrent solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method:
 
-- How the domain invariant regularization loss is computed
-- Which neural network architectures are used for each component
-- How the neural network weights are updated
-- How the data are fed into the neural network and which evaluation protocol is applied.
-
-The user can mix and match different combinations of the individual components and evaluate the impact on generalization performance.
-
-Additionally, thanks to the modularized design of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing solutions (possibly due to software design Can the results be ascribed to a more appropriate neural network architecture?
-Is the performance impacted by the protocol used to estimate the generalization performance, e.g., the dataset split?
-Does the model benefit from a specific loss function, e.g., because it offers a better regularization to the training of the neural network?limitations), have been implemented, can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
-
+- How the domain invariant regularization loss is computed remain transparent to 
+    - what neural network architectures are used for each component
+    - what transformations are used for observations
+    - how the neural network weights are update. 
+The user can mix and match different combinations of the individual factors and evaluate the impact on generalization performance.
+- Thanks to the modularized design of DomainLab, complicated methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing solutions possibly due to software design limitations, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
+- DomainLab offers user functionality to specify custom datasets with minimal configuration file without changing the codebase of DomainLab.
 
 DomainLab currently supports the PyTorch backend.
 
