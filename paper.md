@@ -95,7 +95,9 @@ We introduce DomainLab, a Python package for domain generalization. Compared to 
 
 The user can mix and match different combinations of the individual components and evaluate the impact on generalization performance.
 
-Additionally, thanks to the modularized design of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing solutions (possibly due to software design limitations), have been implemented, can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
+Additionally, thanks to the modularized design of DomainLab, domain generalization methods like causal domain generalization and probabilistic methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], which do not exist in other existing solutions (possibly due to software design Can the results be ascribed to a more appropriate neural network architecture?
+Is the performance impacted by the protocol used to estimate the generalization performance, e.g., the dataset split?
+Does the model benefit from a specific loss function, e.g., because it offers a better regularization to the training of the neural network?limitations), have been implemented, can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial], self-supervised learning [@carlucci2019domain] and other training paradigms [@rame2022fishr]. 
 
 
 DomainLab currently supports the PyTorch backend.
@@ -109,12 +111,8 @@ Over the past years, various methods have been proposed to address different asp
 *DomainBed* [@domainbed2022github], for the first time, provided a common codebase for benchmarking domain generalization methods [@gulrajani2020search], however applying its algorithms to new use-cases requires extensive adaptation of its source code, including, for instance, that the neural network backbones are hard coded in the codebase itself. 
 All components of an algorithm have to be initialized in the construction function, which is not suitable for complex algorithms that require flexibility and extensibility of its components like [@mahajan2021domain], [@sun2021hierarchical]. A more recent concurrent work, *Dassl* [@dassl2022github], provides a codebase for domain adaptation and domain generalization with semi-supervised learning [@zhou2021domain]. Its design is more modular than DomainBed. However, the documentation does not contain enough details about algorithm implementation, and the code base does not appear to be well-tested for long-term maintenance. Our package provide improvements to the aforementioned issues of previous solutions.
 
-With DomainLab, we introduce a fully modular Python package for domain generalization with a PyTorch backend that follows best practices in software design and includes extensive documentation, which enables the research community to understand and contribute to the code. The DomainLab codebase contains extensive unit and end-to-end tests to verify the implemented functionality.
+With DomainLab, we introduce a fully modular Python package for domain generalization with a PyTorch backend that follows best practices in software design and includes extensive documentation, which enables the research community to understand and contribute to the code. The DomainLab codebase contains extensive unit and end-to-end tests to verify the implemented functionality. The decoupling design of DomainLab allows factors that contributed most to a promising result to be isolated, for better comparability between methods. 
 
-An ideal package for domain generalization should decouple the factors that affect model performance. This way, the components that contributed most to a promising result can be isolated, allowing for better comparability between methods. Such decoupling would allow us to answer many important research questions, for example, the following:
-Can the results be ascribed to a more appropriate neural network architecture?
-Is the performance impacted by the protocol used to estimate the generalization performance, e.g., the dataset split?
-Does the model benefit from a specific loss function, e.g., because it offers a better regularization to the training of the neural network?
 
 # Description
 
