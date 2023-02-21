@@ -88,11 +88,11 @@ bibliography: paper.bib
 Deep learning (DL) models have been used in tackling real-world challenges in various areas, such as computer vision and medical imaging or computational pathology. However, while generalizing to unseen data domains comes naturally to humans, it is still a significant obstacle for machines. By design, most DL models assume that training and testing distributions are well aligned, causing them to fail when this is violated. Instead, domain generalization aims at training domain invariant models that are robust to distribution shifts [@wang2022generalizing].
 
 We introduce DomainLab, a Python package for domain generalization. Compared to existing and concurrent solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method: 
-How the domain invariant regularization loss is computed remain transparent to 
+How the domain invariant regularization loss is computed remain transparent to other factor like
 
-    - what neural network architectures are used for each component
-    - what transformations are used for observations
-    - how the neural network weights are updated.
+- what neural network architectures are used for each component
+- what transformations are used for observations
+- how the neural network weights are updated.
 
 The user can mix and match different combinations of the individual factors and evaluate the impact on generalization performance.
 
