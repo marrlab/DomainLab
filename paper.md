@@ -90,8 +90,9 @@ Deep learning (DL) models have shown success in tackling real-world challenges i
 We introduce DomainLab, a Python package for domain generalization. Compared to existing solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method:
 
 - How the domain invariant regularization loss is computed
-- Which neural network architectures are used for each component, and how the neural network weights are updated
-- How the data are fed into the neural network and which evaluation protocol is applied are defined independently
+- Which neural network architectures are used for each component
+- How the neural network weights are updated
+- How the data are fed into the neural network and which evaluation protocol is applied.
 
 The user can mix and match different combinations of the individual components and evaluate the impact on generalization performance.
 
