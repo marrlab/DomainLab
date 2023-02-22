@@ -89,7 +89,7 @@ Deep learning (DL) models have been used in tackling real-world challenges in va
 
 We introduce DomainLab, a Python package for domain generalization. Compared to existing and concurrent solutions, DomainLab excels at the extent of modularization by decoupling the various factors that contribute to the performance of a domain generalization method: How the domain invariant regularization loss is computed remain decoupled and transparent to other factors like what neural network architectures are used for each component, what transformations are used for observations and how the neural network weights are updated. The user can mix and match different combinations of the individual factors and evaluate the impact on generalization performance.
 
-Thanks to the modularized design of DomainLab, complicated methods like some of the causal domain generalization methods and generative model based methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], self-supervised learning based domain generalization method like [@carlucci2019domain], which do not exist in other existing and concurrent solutions, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial] and other training paradigms [@rame2022fishr]. We found it difficult to implement those aforementioned missing methods into the codebase of existing and concurrent solutions due to limitations in their code architecture designs. 
+Thanks to the modularized design of DomainLab, methods with complex structure and components like some of the causal domain generalization methods and generative model based methods [@ilse2020diva], [@mahajan2021domain], [@sun2021hierarchical], self-supervised learning based domain generalization method like [@carlucci2019domain], which do not exist in other existing and concurrent solutions, have been implemented, and can be easily integrated with adversarial methods [@levi2021domain], [@ganin2016domain], [@akuzawa2020adversarial] and other training paradigms [@rame2022fishr]. We found it difficult to implement those aforementioned missing methods into the codebase of existing and concurrent solutions due to limitations in their code architecture designs. 
 
 DomainLab offers user functionality to specify custom datasets with minimal configuration file without changing the codebase of DomainLab.
 
@@ -103,7 +103,7 @@ DomainLab's documentation is hosted at <https://marrlab.github.io/DomainLab>, an
 
 Over the past years, various methods have been proposed to address different aspects of domain generalization. However, their implementations are often limited to proof-of-concept code, interspersed with custom code for data access, preprocessing, evaluation, etc. These custom codes limit these methods' applicability, affect their reproducibility, and restrict the ability to compare with other state-of-the-art methods.
 
-*DomainBed* [@domainbed2022github] as an early published solution provided a common codebase for benchmarking domain generalization methods [@gulrajani2020search], however applying its algorithms to new use-cases requires extensive adaptation of its source code, including, for instance, that the neural network backbones are hard coded in the codebase itself and all components of an algorithm have to be initialized in the construction function, which is not suitable for complex algorithms that require flexibility and extensibility of its components like [@mahajan2021domain], [@sun2021hierarchical]. A more recent concurrent work, *Dassl* [@dassl2022github], provides a codebase for domain adaptation and domain generalization with semi-supervised learning [@zhou2021domain]. Its design is more modular than DomainBed. However, the code base does not appear to be well-tested for long-term maintenance and there is only limited documentation.
+*DomainBed* [@domainbed2022github] as an early published solution provided a common codebase for benchmarking domain generalization methods [@gulrajani2020search], however applying its algorithms to new use-cases requires extensive adaptation of its source code, including, for instance, that the neural network backbones are hard coded in the codebase itself and all components of an algorithm have to be initialized in the construction function, which is not suitable for complex algorithms that require flexibility and extensibility of its components like [@mahajan2021domain], [@sun2021hierarchical]. A more recent concurrent work, *Dassl* [@dassl2022github], provides a codebase for some domain adaptation and domain generalization methods with semi-supervised learning [@zhou2021domain]. Its design is more modular than DomainBed. However, the code base does not appear to be well-tested for long-term maintenance and the documentation is very limited.
 
 With DomainLab, we introduce a fully modular Python package for domain generalization with a PyTorch backend that follows best practices in software design and includes extensive documentation, which enables the research community to understand and contribute to the code. The DomainLab codebase contains extensive unit and end-to-end tests to verify the implemented functionality. The decoupling design of DomainLab allows factors that contributed most to a promising result to be isolated, for better comparability between methods. 
 
@@ -116,14 +116,14 @@ To address software design issues of existing and concurrent code bases, such as
 
 The package is closed to modification and open to extension. 
 
-The package offers the user a standalone application to specify the data with data split protocol and preprocessing. To test an algorithm's performance on a user's custom data, there is no need to change any code across different files of the codebase. The user only needs to specify custom Python configuration file to incorporate their data. 
+The package offers the user a standalone application to specify the data with data split protocol and preprocessing. To test an algorithm's performance on a user's custom data, there is no need to change any code across different files of the codebase anymore. The user only needs to specify custom Python configuration file to incorporate their data. 
 
 Domain generalization algorithms were implemented with a transparent underlying neural network architecture. The concrete neural network architecture can thus be replaced by plugging in an architecture implemented in a Python file or by specifying some of the already implemented architectures, such as AlexNet [@krizhevskyImageNetClassificationDeep2012], via command line arguments.
 
 Selection of algorithms and neural network components are done via the chain-of-responsibility method [@gamma1995design]. 
 Other design patterns, including the observer pattern, visitor pattern, etc., are also used to improve the decoupling of different factors contributing to the performance of an algorithm (see also Section "Components" below).
 
-With the above design, DomainLab offers users the flexibility to construct custom tasks with their data, write custom neural network architectures for use with the already implemented domain generalization algorithms, and even construct their domain generalization algorithms on top of the existing components by specifying a Python file with custom models and loss functions.
+With the above design, DomainLab offers users the flexibility to construct custom tasks with their data, write custom neural network architectures for use with the already implemented domain generalization algorithms, and construct their domain generalization algorithms on top of the existing components by specifying a Python file with custom models and loss functions.
 
 ## Components
 
@@ -136,14 +136,15 @@ We used the following components to achieve the above design goals of decoupling
 (2) "TaskFolder," which can be used if the data is already organized in a root folder with different subfolders containing data from different domains and a further level of sub-subfolders containing data from different classes.
 (3) "TaskPathFile," which allows the user to specify each domain in a text file indicating the path and label for each observation so that the user can choose which portion of the sample to use for training, validation, and testing.
 
-*Trainer* is the component that directs data flow to the model to calculate the losses and update the model parameters. Several models can share a common trainer. A specific trainer can also be a *Visitor* to models to update models' coefficients during training and implement techniques such as warm-up, which follows the visitor design pattern from software engineering.
+*Trainer* is the component that directs data flow to the model to calculate the losses and update the model parameters. Several models can share a common trainer. A specific trainer can also be a *Visitor* to models to update models' hyper-parameters like the weight to regularization loss during training and implement techniques such as warm-up, which follows the visitor design pattern from software engineering.
 
 Following the *Observer* pattern, we use separate classes to conduct operations needed after each epoch (e.g., deciding whether to execute early stopping) and any operations performed after training finishes.
 
-Following the *Builder* pattern, we construct each component needed to conduct a domain generalization experiment, including constructing a model with domain invariant regularization loss, 
+Following the *Builder* pattern, we construct each component needed to conduct a domain generalization experiment, including 
+constructing a model with domain invariant regularization loss, 
 constructing a trainer who guides the data flow and update neural network weights,
 constructing a concrete neural network architecture and feeding it into the model, 
-constructing the evaluator as a callback of what to do after each epoch.
+and constructing the evaluator as a callback of what to do after each epoch.
 
 # Availability
 Domainlab is open source and freely available. It is published under the MIT License. Users can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
