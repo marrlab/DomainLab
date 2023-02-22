@@ -146,6 +146,8 @@ constructing a trainer who guides the data flow and update neural network weight
 constructing a concrete neural network architecture and feeding it into the model, 
 and constructing the evaluator as a callback of what to do after each epoch.
 
+![design architecture](./docs/libDG.svg "Design of DomainLab")
+
 # Availability
 Domainlab is open source and freely available. It is published under the MIT License. Users can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
 
