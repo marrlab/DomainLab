@@ -47,12 +47,13 @@ class Exp():
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            print("now: ", str(t_c), "epoch time: ", t_c - t_before_epoch, "used: ", t_c - t_0)
+            print("now: ", str(t_c), "epoch time: ", t_c - t_before_epoch, "used: ", t_c - t_0,
+                  "model: ", self.visitor.model_name)
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
                 break
-            elif epoch == self.epochs:
+            if epoch == self.epochs:
                 self.epoch_counter = self.epochs
             else:
                 self.epoch_counter += 1
@@ -92,5 +93,5 @@ class Exp():
                     class_dataset,
                     f_name + '/' + str(domain) + '/' +
                     str(self.task.list_str_y[class_num]) + '.jpg',
-                    bs=sample_num
+                    batchsize=sample_num
                 )
