@@ -7,30 +7,7 @@ from abc import abstractmethod, abstractproperty
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.utils_task import img_loader2dir
-
-
-def parse_domain_id(list_domain_id, list_domains):
-    """
-    Convert ids to a list of domain names.
-    :param list_domain_id: domain id or ids provided as an int or str,
-    or a list of int or str.
-    :param list_domains: list of available domains
-    :return: list of domain names
-    """
-    if not isinstance(list_domain_id, list):
-        list_domain_id = [list_domain_id]
-    list_domains_subset = []
-    for ele in list_domain_id:
-        if isinstance(ele, int):
-            list_domains_subset.append(list_domains[ele])
-        elif isinstance(ele, str):
-            if ele.isdigit():
-                list_domains_subset.append(list_domains[int(ele)])
-            else:
-                list_domains_subset.append(ele)
-        else:
-            raise RuntimeError("domain ids should be either int or str")
-    return list_domains_subset
+from domainlab.tasks.task_utils import parse_domain_id
 
 
 class NodeTaskDGClassif(AbstractChainNodeHandler):
@@ -66,7 +43,6 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         :param bs: batch size
         :param domain_na_tes: test domain names
         """
-        raise NotImplementedError
 
     @abstractmethod
     def get_list_domains(self):
@@ -93,6 +69,9 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
 
     @property
     def list_domain_tr(self):
+        """
+        property getter of list of domains for this task
+        """
         if self._list_domain_tr is None:
             raise RuntimeError("task not intialized!")
         return self._list_domain_tr
@@ -117,6 +96,7 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         """
         The basic name of the task, without configurations
         """
+        # @FIXME: hardcoded position
         return type(self).__name__[8:].lower()
 
     def get_na(self, na_tr, na_te):
@@ -159,12 +139,13 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
             list_domain_tr = parse_domain_id(tr_id, list_domains)
         if not set(list_domain_tr).issubset(set(list_domains)):
             raise RuntimeError(
-                "training domain %s is not subset of available domains %s"
-                % (list_domain_tr, list_domains))
+                f"training domain {list_domain_tr} is not \
+                subset of available domains {list_domains}")
 
         if set(list_domain_tr) & set(list_domain_te):
             warnings.warn(
-                "The sets of training and test domains overlap -- beware of data leakage or training to the test!",
+                "The sets of training and test domains overlap -- \
+                be aware of data leakage or training to the test!",
                 RuntimeWarning
             )
 

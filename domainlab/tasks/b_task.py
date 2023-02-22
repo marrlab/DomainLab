@@ -6,7 +6,7 @@ from collections import Counter
 import torch
 from torch.utils.data.dataset import ConcatDataset
 
-from domainlab.tasks.a_task import NodeTaskDGClassif
+from domainlab.tasks.a_task_classif import NodeTaskDGClassif
 from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
                                         mk_onehot)
 
