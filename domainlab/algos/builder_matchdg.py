@@ -7,11 +7,17 @@ from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import mk_deepall
 from domainlab.models.wrapper_matchdg import ModelWrapMatchDGLogit
 from domainlab.utils.utils_cuda import get_device
+from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
 class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
     """
+    algorithm builder for matchDG
     """
+    def dset_decoration_args_algo(self, args, ddset):
+        ddset = DsetIndDecorator4XYD(ddset)
+        return ddset
+
     def init_business(self, exp):
         """
         return trainer, model, observer

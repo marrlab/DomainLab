@@ -6,7 +6,9 @@ import warnings
 import yaml
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.models.args_vae import add_args2parser_vae
+from domainlab.models.args_jigen import add_args2parser_jigen
 
 
 def mk_parser_main():
@@ -50,6 +52,9 @@ def mk_parser_main():
     parser.add_argument('--dmem', action='store_true', default=False)
     parser.add_argument('--no_dump', action='store_true', default=False,
                         help='suppress saving the confusion matrix')
+
+    parser.add_argument('--trainer', type=str, default=None,
+                        help='specify which trainer to use')
 
     parser.add_argument('--out', type=str, default="zoutput",
                         help='absolute directory to store outputs')
@@ -146,6 +151,10 @@ def mk_parser_main():
     arg_group_vae = add_args2parser_vae(arg_group_vae)
     arg_group_matchdg = parser.add_argument_group('matchdg')
     arg_group_matchdg = add_args2parser_matchdg(arg_group_matchdg)
+    arg_group_jigen = parser.add_argument_group('jigen')
+    arg_group_jigen = add_args2parser_jigen(arg_group_jigen)
+    args_group_dial = parser.add_argument_group('dial')
+    args_group_dial = add_args2parser_dial(args_group_dial)
     return parser
 
 

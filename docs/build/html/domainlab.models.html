@@ -270,6 +270,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.a_model_classif" class="md-nav__link">domainlab.models.a_model_classif module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.models.args_jigen" class="md-nav__link">domainlab.models.args_jigen module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.args_vae" class="md-nav__link">domainlab.models.args_vae module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.model_custom" class="md-nav__link">domainlab.models.model_custom module</a>
@@ -374,6 +376,11 @@
 <dd><p>calculate the logit for softmax classification</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.cal_loss_gen_adv">
+<span class="sig-name descname"><span class="pre">cal_loss_gen_adv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_natural</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_adv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_loss_gen_adv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_loss_gen_adv" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate loss function for generation of adversarial images</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.cal_perf_metric">
 <span class="sig-name descname"><span class="pre">cal_perf_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_perf_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_perf_metric" title="Permalink to this definition">¶</a></dt>
 <dd><p>classification performance matric</p>
@@ -448,6 +455,15 @@ n: list of name of class</p>
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.training" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.models.args_jigen">
+<span id="domainlab-models-args-jigen-module"></span><h2 id="module-domainlab.models.args_jigen">domainlab.models.args_jigen module<a class="headerlink" href="#module-domainlab.models.args_jigen" title="Permalink to this heading">¶</a></h2>
+<p>hyper-parameters for JiGen</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.models.args_jigen.add_args2parser_jigen">
+<span class="sig-prename descclassname"><span class="pre">domainlab.models.args_jigen.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_jigen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/args_jigen.html#add_args2parser_jigen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.args_jigen.add_args2parser_jigen" title="Permalink to this definition">¶</a></dt>
+<dd><p>hyper-parameters for JiGen</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.args_vae">

@@ -20,6 +20,14 @@ domainlab.models.a\_model\_classif module
    :undoc-members:
    :show-inheritance:
 
+domainlab.models.args\_jigen module
+-----------------------------------
+
+.. automodule:: domainlab.models.args_jigen
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.models.args\_vae module
 ---------------------------------
 

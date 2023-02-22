@@ -13,12 +13,24 @@ from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_jigen import mk_jigen
 from domainlab.utils.utils_cuda import get_device
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
 class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
     """
     NodeAlgoBuilderJiGen
     """
+    def dset_decoration_args_algo(self, args, ddset):
+        """
+        JiGen need to shuffle the tiles of the original image
+        """
+        ddset = WrapDsetPatches(ddset,
+                                num_perms2classify=args.nperm,
+                                prob_no_perm=1-args.pperm,
+                                grid_len=args.grid_len,
+                                ppath=args.jigen_ppath)
+        return ddset
+
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -48,9 +60,9 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
 
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
 
-        # FIXME: this seems to be the only difference w.r.t. builder_dann
+        # @FIXME: this seems to be the only difference w.r.t. builder_dann
         net_classifier_perm = ClassifDropoutReluLinear(
-            dim_feat, 31)   # FIXME: 31
+            dim_feat, args.nperm+1)
         model = mk_jigen()(list_str_y=task.list_str_y,
                            list_str_d=task.list_domain_tr,
                            coeff_reg=args.gamma_reg,

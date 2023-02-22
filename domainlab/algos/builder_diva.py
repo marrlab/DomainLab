@@ -1,3 +1,6 @@
+"""
+Builder pattern to build different component for experiment with DIVA
+"""
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
@@ -5,6 +8,8 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.observers.c_obvisitor_gen import ObVisitorGen
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
+from domainlab.algos.trainers.train_dial import TrainerDIAL
+
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.models.model_diva import mk_diva
@@ -12,6 +17,9 @@ from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
+    """
+    Builder pattern to build different component for experiment with DIVA
+    """
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -44,5 +52,10 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
                 ObVisitorGen(exp,
                              model_sel,
                              device))
-        trainer = TrainerVisitor(model, task, observer, device, args)
+        if args.trainer == "dial":
+            trainer = TrainerDIAL(model, task, observer, device, args)
+        elif args.trainer is None:
+            trainer = TrainerVisitor(model, task, observer, device, args)
+        else:
+            raise NotImplementedError("diva does not support trainers other than default and dial")
         return trainer

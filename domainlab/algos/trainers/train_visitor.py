@@ -35,13 +35,16 @@ class TrainerVisitor(TrainerBasic):
                                flag_update_epoch=True)
 
     def tr_epoch(self, epoch):
+        """
+        update hyper-parameters only per epoch
+        """
         if self.flag_update_hyper_per_epoch:
             self.model.hyper_update(epoch, self.hyper_scheduler)
         return super().tr_epoch(epoch)
 
     def tr_batch(self, epoch, ind_batch):
         """
-        anneal parameter for each batch
+        anneal hyper-parameter for each batch
         """
         self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().tr_epoch(epoch)
@@ -74,7 +77,7 @@ class HyperSchedulerWarmup():
 
     def __call__(self, epoch):
         dict_rst = {}
-        for key in self.dict_par_setpoint:
+        for key, _ in self.dict_par_setpoint.items():
             dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
         return dict_rst
 
