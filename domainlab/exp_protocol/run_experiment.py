@@ -2,9 +2,11 @@
 Runs one task for a single hyperparameter sample for each leave-out-domain
 and each random seed.
 """
+import gc
 import ast
 
 import pandas as pd
+import torch
 
 from domainlab.arg_parser import mk_parser_main
 from domainlab.compos.exp.exp_cuda_seed import set_seed
@@ -82,6 +84,11 @@ def run_experiment(
         for seed in range(config['startseed'], config['endseed'] + 1):
             set_seed(seed)
             args.seed = seed
+            print(torch.cuda.memory_summary())
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()
+            del exp
+            torch.cuda.empty_cache()
+            gc.collect()
+            print(torch.cuda.memory_summary())
