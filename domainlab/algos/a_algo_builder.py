@@ -7,6 +7,13 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
     """
     na_prefix = "NodeAlgoBuilder"
 
+    def dset_decoration_args_algo(self, args, ddset):
+        """
+        most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
+        """
+        print(args.aname)
+        return ddset
+
     @property
     def name(self):
         """

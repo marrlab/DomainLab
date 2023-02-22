@@ -41,10 +41,12 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         super().__init__(succ)
         self._loader_tr = None
         self._loader_te = None
+        self._loader_val = None
         self._list_domains = None
         self._list_domain_tr = None
-        self.dict_dset = dict()
-        self.dict_dset_te = dict()
+        self.dict_dset = {}
+        self.dict_dset_te = {}
+        self.dict_dset_val = {}
         self.dict_domain_class_count = {}
         self.dim_d_tr = None  # public
         self._list_str_y = None
