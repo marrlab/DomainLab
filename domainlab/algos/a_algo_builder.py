@@ -11,7 +11,7 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         """
         most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
         """
-        print(args.aname)
+        print("processing dataset for ", args.aname)
         return ddset
 
     @property
