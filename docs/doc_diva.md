@@ -32,8 +32,8 @@ the following model parameters can be specified:
 - Size of latent space for domain-specific information: zd_dim 
 - Size of latent space for residual variance: zx_dim
 - Size of latent space for class-specific information: zy_dim
-- Multiplier for y classifier ($\alpha_y$ of eq. (2)): gamma_y
-- Multiplier for d classifier ($\alpha_d$ of eq. (2)): gamma_d
+- Multiplier for y classifier ($\alpha_y$ of eq. (2) in paper below): gamma_y
+- Multiplier for d classifier ($\alpha_d$ of eq. (2) in paper below): gamma_d
 
 _Reference:_
 DIVA: Domain Invariant Variational Autoencoders, https://arxiv.org/pdf/1905.10427.pdf, Medical Imaging with Deep Learning. PMLR, 2020.
