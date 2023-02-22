@@ -127,7 +127,7 @@ With the above design, DomainLab offers users the flexibility to construct custo
 
 ## Components
 
-We used the following components to achieve the above design goals of decoupling as depicted in Figure \autoref{fig:cdiagram}.
+We used the following components to achieve the above design goals of decoupling as depicted in \autoref{fig:cdiagram}.
 
 *Models* refer to a PyTorch module with a specified loss function containing regularization effects of several domains and task-specific losses (e.g., cross-entropy loss for classification tasks). The user can configure the exact neural network architecture via command line arguments. To extend DomainLab with new models, the user only needs to specify a Python file defining the custom loss function while remaining flexible with respect to the exact neural network used for each submodule. The common classification loss calculation is done via a parent model class. Thus, the individual models (e.g., representing different domain regularization) can be reused for other tasks (e.g., segmentation) by simply inheriting another task loss.
 
@@ -140,7 +140,7 @@ We used the following components to achieve the above design goals of decoupling
 
 Following the *Observer* pattern, we use separate classes to conduct operations needed after each epoch (e.g., deciding whether to execute early stopping) and any operations performed after training finishes.
 
-Following the *Builder* pattern, we construct each component needed to conduct a domain generalization experiment, including 
+Algorithms combine models with its trainer, observer and model selection method, following the *Builder* pattern, we construct each component needed to conduct a domain generalization experiment, including 
 constructing a model with domain invariant regularization loss, 
 constructing a trainer who guides the data flow and update neural network weights,
 constructing a concrete neural network architecture and feeding it into the model, 
