@@ -127,7 +127,7 @@ With the above design, DomainLab offers users the flexibility to construct custo
 
 ## Components
 
-We used the following components to achieve the above design goals of decoupling.
+We used the following components to achieve the above design goals of decoupling as depicted in Figure \autoref{fig:cdiagram}.
 
 *Models* refer to a PyTorch module with a specified loss function containing regularization effects of several domains and task-specific losses (e.g., cross-entropy loss for classification tasks). The user can configure the exact neural network architecture via command line arguments. To extend DomainLab with new models, the user only needs to specify a Python file defining the custom loss function while remaining flexible with respect to the exact neural network used for each submodule. The common classification loss calculation is done via a parent model class. Thus, the individual models (e.g., representing different domain regularization) can be reused for other tasks (e.g., segmentation) by simply inheriting another task loss.
 
@@ -146,11 +146,7 @@ constructing a trainer who guides the data flow and update neural network weight
 constructing a concrete neural network architecture and feeding it into the model, 
 and constructing the evaluator as a callback of what to do after each epoch.
 
-![design architecture](./docs/libDG.svg "Design of DomainLab")
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](./docs/.libDG.svg)
-and referenced from text using \autoref{fig:example}.
+![DomainLab design architecture \label{fig:cdiagram}](./docs/libDG.svg "Design of DomainLab")
 
 # Availability
 Domainlab is open source and freely available. It is published under the MIT License. Users can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
