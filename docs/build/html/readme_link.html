@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -57,7 +57,6 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -330,7 +329,7 @@ Read the python-poetry documentation <a class="reference external" href="https:/
 <li><p><strong>Or</strong> only install dependencies via pip
 Suppose you have cloned the repository and have changed directory to the cloned repository.</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
 </section>
@@ -338,13 +337,13 @@ Suppose you have cloned the repository and have changed directory to the cloned 
 <h4 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h4>
 <p>Suppose you have cloned the repository and the dependencies ready, change directory to the repository:
 DomainLab comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d<span class="o">=</span>caltech --tpath<span class="o">=</span>examples/tasks/task_vlcs.py --debug --bs<span class="o">=</span><span class="m">2</span> --aname<span class="o">=</span>diva --gamma_y<span class="o">=</span>7e5 --gamma_d<span class="o">=</span>1e5 --nname<span class="o">=</span>alexnet --nname_dom<span class="o">=</span>conv_bn_pool_2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task, see Example in <span class="xref myst">Task Specification</span>. <code class="docutils literal notranslate"><span class="pre">--aname</span></code> specifies which algorithm to use, see <span class="xref myst">Available Algorithms</span>, <code class="docutils literal notranslate"><span class="pre">--bs</span></code> specifies the batch size, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> restrain only running for 2 epochs and save results with prefix ‘debug’. For DIVA, the hyper-parameters include <code class="docutils literal notranslate"><span class="pre">--gamma_y=7e5</span></code> which is the relative weight of ERM loss compared to ELBO loss, and <code class="docutils literal notranslate"><span class="pre">--gamma_d=1e5</span></code>, which is the relative weight of domain classification loss compared to ELBO loss.
 <code class="docutils literal notranslate"><span class="pre">--nname</span></code> is to specify which neural network to use for feature extraction for classification, <code class="docutils literal notranslate"><span class="pre">--nname_dom</span></code> is to specify which neural network to use for feature extraction of domains.
 For usage of other arguments, check with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python main_out.py --help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
 </pre></div>
 </div>
 <p>See also <span class="xref myst">Examples</span>.</p>
@@ -393,11 +392,11 @@ For usage of other arguments, check with</p>
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

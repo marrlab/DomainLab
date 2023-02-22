@@ -25,22 +25,31 @@ def mk_dann(parent_class=AModelClassif):
             self.net_classifier = net_classifier
             self.net_discriminator = net_discriminator
 
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
+            :param epoch:
+            :param fun_scheduler:
+            """
+            dict_rst = fun_scheduler(epoch)
+            self.alpha = dict_rst["alpha"]
+
+        def hyper_init(self, functor_scheduler):
+            """hyper_init.
+            :param functor_scheduler:
+            """
+            return functor_scheduler(alpha=self.alpha)
+
         def cal_logit_y(self, tensor_x):
             """
             calculate the logit for softmax classification
             """
             return self.net_classifier(self.net_encoder(tensor_x))
 
-        def forward(self, tensor_x, tensor_y, tensor_d):
-            return self.cal_loss(tensor_x, tensor_y, tensor_d)
-
-        def cal_loss(self, tensor_x, tensor_y, tensor_d):
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-            lc_y = self.cal_task_loss(tensor_x, tensor_y)
-            return lc_d + lc_y
-
+            return self.alpha*lc_d
     return ModelDAN

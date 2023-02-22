@@ -1,5 +1,7 @@
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
+from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
+from domainlab.algos.builder_dial import NodeAlgoBuilderDeepAll_DIAL
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
@@ -31,7 +33,9 @@ class AlgoBuilderChainNodeGetter(object):
         """
         chain = NodeAlgoBuilderDIVA(None)
         chain = NodeAlgoBuilderDeepAll(chain)
+        chain = NodeAlgoBuilderDeepAll_DIAL(chain)
         chain = NodeAlgoBuilderDANN(chain)
+        chain = NodeAlgoBuilderJiGen(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
         chain = NodeAlgoBuilderMatchDG(chain)
         chain = self.register_external_node(chain)

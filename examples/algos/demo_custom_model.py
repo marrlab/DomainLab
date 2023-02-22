@@ -1,3 +1,7 @@
+"""
+Template class to inherit from if user need custom neural network
+"""
+
 from torch.nn import functional as F
 
 from domainlab.models.model_custom import AModelCustom
@@ -5,7 +9,9 @@ from domainlab.algos.builder_custom import make_basic_trainer
 
 
 class ModelCustom(AModelCustom):
-    """ModelCustom."""
+    """
+    Template class to inherit from if user need custom neural network
+    """
     @property
     def dict_net_module_na2arg_na(self):
         return {"net_predict": "my_custom_arg_name"}
@@ -17,16 +23,7 @@ class ModelCustom(AModelCustom):
         logit_y = self.net_predict(tensor_x)
         return logit_y
 
-    def forward(self, tensor_x, tensor_y, tensor_d):
-        """forward.
-
-        :param tensor_x:
-        :param tensor_y:
-        :param tensor_d:
-        """
-        return self.cal_loss(tensor_x, tensor_y, tensor_d)
-
-    def cal_loss(self, tensor_x, tensor_y, tensor_d):
+    def cal_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """cal_loss.
 
         :param tensor_x:

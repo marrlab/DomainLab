@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -263,28 +262,42 @@
   <h1 id="modules-domainlab-models-model-deep-all--page-root">Source code for domainlab.models.model_deep_all</h1><div class="highlight"><pre>
 <span></span>from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
-from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
-<div class="viewcode-block" id="ModelDeepAll"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll">[docs]</a>class ModelDeepAll(AModelClassif):
-    def __init__(self, net, list_str_y, list_str_d=None):
-        super().__init__(list_str_y, list_str_d)
-        self.add_module("net", net)
+<div class="viewcode-block" id="mk_deepall"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.mk_deepall">[docs]</a>def mk_deepall(parent_class=AModelClassif):
+    """Instantiate a Deepall model
 
-<div class="viewcode-block" id="ModelDeepAll.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll.cal_logit_y">[docs]</a>    @override_interface(AModelClassif)
-    def cal_logit_y(self, tensor_x):
+    Args:
+        parent_class (AModel, optional):
+            Class object determining the task type. Defaults to AModelClassif.
+
+    Returns:
+        ModelDeepAlll: model inheriting from parent class
+    """
+    class ModelDeepAll(parent_class):
         """
-        calculate the logit for softmax classification
+        anonymous
         """
-        logit_y = self.net(tensor_x)
-        return logit_y</div>
+        def __init__(self, net, list_str_y, list_str_d=None):
+            super().__init__(list_str_y, list_str_d)
+            self.add_module("net", net)
 
-<div class="viewcode-block" id="ModelDeepAll.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll.forward">[docs]</a>    def forward(self, tensor_x, tensor_y, tensor_d):
-        return self.cal_loss(tensor_x, tensor_y, tensor_d)</div>
+        @override_interface(AModelClassif)
+        def cal_logit_y(self, tensor_x):
+            """
+            calculate the logit for softmax classification
+            """
+            logit_y = self.net(tensor_x)
+            return logit_y
 
-<div class="viewcode-block" id="ModelDeepAll.cal_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.ModelDeepAll.cal_loss">[docs]</a>    def cal_loss(self, tensor_x, tensor_y, tensor_d):
-        lc_y = self.cal_task_loss(tensor_x, tensor_y)
-        return lc_y</div></div>
+        def forward(self, tensor_x, tensor_y, tensor_d, others=None):
+            return self.cal_loss(tensor_x, tensor_y, tensor_d)
+
+        def cal_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+            lc_y = self.cal_task_loss(tensor_x, tensor_y)
+            return lc_y
+
+    return ModelDeepAll</div>
 </pre></div>
 
           </article>
@@ -305,11 +318,11 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

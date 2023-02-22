@@ -54,6 +54,7 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         self._dict_domain_img_trans = {}
         self._dict_domain2filepath_list_im = {}  # {"photo": "xxx/yyy/file_of_path2imgs"}
         self.dict_att = {}
+        self.img_trans_te = None
 
     @abstractmethod
     def init_business(self, args):
@@ -179,7 +180,8 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
                        list_domain_na=self.get_list_domains(),
                        list_class_na=self.list_str_y,
                        folder=folder_na,
-                       batches=batches)
+                       batches=batches,
+                       test=True)
 
         img_loader2dir(self.loader_tr,
                        list_domain_na=self.get_list_domains(),
