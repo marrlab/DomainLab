@@ -3,9 +3,12 @@ Command line arguments
 """
 import argparse
 import warnings
+import yaml
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.models.args_vae import add_args2parser_vae
+from domainlab.models.args_jigen import add_args2parser_jigen
 
 
 def mk_parser_main():
@@ -13,6 +16,10 @@ def mk_parser_main():
     Args for command line definition
     """
     parser = argparse.ArgumentParser(description='DomainLab')
+
+    parser.add_argument('-c', "--config", default=None,
+                        help="load YAML configuration", dest="config_file",
+                        type=argparse.FileType(mode='r'))
 
     parser.add_argument('--lr', type=float, default=1e-4,
                         help='learning rate')
@@ -43,6 +50,11 @@ def mk_parser_main():
 
     parser.add_argument('--debug', action='store_true', default=False)
     parser.add_argument('--dmem', action='store_true', default=False)
+    parser.add_argument('--no_dump', action='store_true', default=False,
+                        help='suppress saving the confusion matrix')
+
+    parser.add_argument('--trainer', type=str, default=None,
+                        help='specify which trainer to use')
 
     parser.add_argument('--out', type=str, default="zoutput",
                         help='absolute directory to store outputs')
@@ -139,6 +151,10 @@ def mk_parser_main():
     arg_group_vae = add_args2parser_vae(arg_group_vae)
     arg_group_matchdg = parser.add_argument_group('matchdg')
     arg_group_matchdg = add_args2parser_matchdg(arg_group_matchdg)
+    arg_group_jigen = parser.add_argument_group('jigen')
+    arg_group_jigen = add_args2parser_jigen(arg_group_jigen)
+    args_group_dial = parser.add_argument_group('dial')
+    args_group_dial = add_args2parser_dial(args_group_dial)
     return parser
 
 
@@ -148,8 +164,25 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
+    if args.config_file:
+
+        data = yaml.safe_load(args.config_file)
+        delattr(args, 'config_file')
+        arg_dict = args.__dict__
+
+        for key in data:
+            if key not in arg_dict:
+                raise ValueError("The key is not supported: ", key)
+
+        for key, value in data.items():
+            if isinstance(value, list):
+                arg_dict[key].extend(value)
+            else:
+                arg_dict[key] = value
+
     if args.acon is None:
         print("\n\n")
         warnings.warn("no algorithm conf specified, going to use default")
         print("\n\n")
+
     return args
