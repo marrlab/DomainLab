@@ -21,7 +21,8 @@ def dset_decoration_args_algo(args, ddset):
         ddset = WrapDsetPatches(ddset,
                                 num_perms2classify=args.nperm,
                                 prob_no_perm=1-args.pperm,
-                                grid_len=args.grid_len)
+                                grid_len=args.grid_len,
+                                ppath=args.jigen_ppath)
     return ddset
 
 
