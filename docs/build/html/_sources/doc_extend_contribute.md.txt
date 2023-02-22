@@ -23,14 +23,3 @@ or `nname_argna2val` if the neural network is already implemented.
 
 ### Design
 ![Design Diagram](libDG.svg)
-
-## Credits
-Please cite our paper if you use this code in your research:
-```
-@inproceedings{sun2021hierarchical,
-  title={Hierarchical Variational Auto-Encoding for Unsupervised Domain Generalization},
-  author={Sun, Xudong and Buettner, Florian},
-  booktitle={ICLR 2021 RobustML workshop, https://arxiv.org/pdf/2101.09436.pdf},
-  year={2021}
-}
-```

@@ -10,11 +10,19 @@ from domainlab.tasks.a_task import NodeTaskDGClassif
 from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
                                         mk_onehot)
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
 def dset_decoration_args_algo(args, ddset):
     if "match" in args.aname:  # @FIXME: are there ways not to use this if statement?
-            ddset = DsetIndDecorator4XYD(ddset)
+        ddset = DsetIndDecorator4XYD(ddset)
+    if "jigen" in args.aname:
+        # FIXME: do this during before_tr
+        ddset = WrapDsetPatches(ddset,
+                                num_perms2classify=args.nperm,
+                                prob_no_perm=1-args.pperm,
+                                grid_len=args.grid_len,
+                                ppath=args.jigen_ppath)
     return ddset
 
 

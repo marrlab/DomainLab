@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -268,7 +267,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          Specificity)
 
 
-<div class="viewcode-block" id="PerfClassif"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfClassif">[docs]</a>class PerfClassif():
+<div class="viewcode-block" id="PerfMetricClassif"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfMetricClassif">[docs]</a>class PerfMetricClassif():
     """Classification Performance metrics"""
     def __init__(self, num_classes, average='macro'):
         super().__init__()
@@ -281,7 +280,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                        average=average)
         self.confmat = ConfusionMatrix(num_classes=num_classes)
 
-<div class="viewcode-block" id="PerfClassif.cal_metrics"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfClassif.cal_metrics">[docs]</a>    def cal_metrics(self, model, loader_te, device, max_batches=None):
+<div class="viewcode-block" id="PerfMetricClassif.cal_metrics"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics">[docs]</a>    def cal_metrics(self, model, loader_te, device, max_batches=None):
         """
         :param model:
         :param loader_te:
@@ -291,6 +290,13 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                 probe performance with less computation burden.
                 default None, which means to traverse the whole dataset
         """
+        self.acc.reset()
+        self.precision.reset()
+        self.recall.reset()
+        self.f1_score.reset()
+        self.auroc.reset()
+        self.specificity.reset()
+        self.confmat.reset()
         self.acc = self.acc.to(device)
         self.precision = self.precision.to(device)
         self.recall = self.recall.to(device)
@@ -305,15 +311,18 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
         with torch.no_grad():
             for i, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
-                pred_label, prob, _, *_ = model_local.infer_y_vpicn(x_s)
+                _, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
-                self.acc.update(pred_label, y_s.int())
-                self.precision.update(pred_label, y_s.int())
-                self.recall.update(pred_label, y_s.int())
-                self.specificity.update(pred_label, y_s.int())
-                self.f1_score.update(pred_label, y_s.int())
+                # self.acc.update(pred_label, target_label)  # bug found by xinyuejohn
+                # pred_label is (N,C) which we need to convert to (N)
+                # prob is (N,C) which is fine for torchmetrics
+                self.acc.update(prob, target_label)
+                self.precision.update(prob, target_label)
+                self.recall.update(prob, target_label)
+                self.specificity.update(prob, target_label)
+                self.f1_score.update(prob, target_label)
                 self.auroc.update(prob, target_label)
-                self.confmat.update(pred_label, y_s.int())
+                self.confmat.update(prob, target_label)
                 if i &gt; max_batches:
                     break
 
@@ -331,8 +340,11 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                        "f1": f1_score_y,
                        "auroc": auroc_y,
                        "confmat": confmat_y}
-        for key in dict_metric.keys():
+        keys = list(dict_metric)
+        keys.remove("confmat")
+        for key in keys:
             dict_metric[key] = dict_metric[key].cpu().numpy().sum()
+        dict_metric["confmat"] = dict_metric["confmat"].cpu().numpy()
         return dict_metric</div></div>
 </pre></div>
 
@@ -354,11 +366,11 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

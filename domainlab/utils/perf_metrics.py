@@ -5,7 +5,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          Specificity)
 
 
-class PerfClassif():
+class PerfMetricClassif():
     """Classification Performance metrics"""
     def __init__(self, num_classes, average='macro'):
         super().__init__()
@@ -28,6 +28,13 @@ class PerfClassif():
                 probe performance with less computation burden.
                 default None, which means to traverse the whole dataset
         """
+        self.acc.reset()
+        self.precision.reset()
+        self.recall.reset()
+        self.f1_score.reset()
+        self.auroc.reset()
+        self.specificity.reset()
+        self.confmat.reset()
         self.acc = self.acc.to(device)
         self.precision = self.precision.to(device)
         self.recall = self.recall.to(device)
@@ -42,15 +49,18 @@ class PerfClassif():
         with torch.no_grad():
             for i, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
-                pred_label, prob, _, *_ = model_local.infer_y_vpicn(x_s)
+                _, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
-                self.acc.update(pred_label, y_s.int())
-                self.precision.update(pred_label, y_s.int())
-                self.recall.update(pred_label, y_s.int())
-                self.specificity.update(pred_label, y_s.int())
-                self.f1_score.update(pred_label, y_s.int())
+                # self.acc.update(pred_label, target_label)  # bug found by xinyuejohn
+                # pred_label is (N,C) which we need to convert to (N)
+                # prob is (N,C) which is fine for torchmetrics
+                self.acc.update(prob, target_label)
+                self.precision.update(prob, target_label)
+                self.recall.update(prob, target_label)
+                self.specificity.update(prob, target_label)
+                self.f1_score.update(prob, target_label)
                 self.auroc.update(prob, target_label)
-                self.confmat.update(pred_label, y_s.int())
+                self.confmat.update(prob, target_label)
                 if i > max_batches:
                     break
 
@@ -68,6 +78,9 @@ class PerfClassif():
                        "f1": f1_score_y,
                        "auroc": auroc_y,
                        "confmat": confmat_y}
-        for key in dict_metric.keys():
+        keys = list(dict_metric)
+        keys.remove("confmat")
+        for key in keys:
             dict_metric[key] = dict_metric[key].cpu().numpy().sum()
+        dict_metric["confmat"] = dict_metric["confmat"].cpu().numpy()
         return dict_metric
