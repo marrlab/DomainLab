@@ -146,7 +146,7 @@ constructing a trainer who guides the data flow and update neural network weight
 constructing a concrete neural network architecture and feeding it into the model, 
 and constructing the evaluator as a callback of what to do after each epoch.
 
-Experiment connect Task with Algorithm.
+Experiment connect Task with Algorithm, which reside in module component, along with implementation of design patterns used for DomainLab and some neural network architectures as components of individual models.
 
 ![DomainLab design architecture \label{fig:cdiagram}](./docs/libDG.svg "Design of DomainLab")
 
