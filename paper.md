@@ -148,6 +148,10 @@ and constructing the evaluator as a callback of what to do after each epoch.
 
 ![design architecture](./docs/libDG.svg "Design of DomainLab")
 
+Figures can be included like this:
+![Caption for example figure.\label{fig:example}](./docs/.libDG.svg)
+and referenced from text using \autoref{fig:example}.
+
 # Availability
 Domainlab is open source and freely available. It is published under the MIT License. Users can download the source code at <https://github.com/marrlab/DomainLab>. Extensive documentation can be found here at <https://marrlab.github.io/DomainLab>. DomainLab can be installed using the [python-poetry](https://python-poetry.org/) or [pip](https://pypi.org/project/pip/) utilities.
 
