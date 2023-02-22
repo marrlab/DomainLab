@@ -54,6 +54,7 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         self._dict_domain_img_trans = {}
         self._dict_domain2filepath_list_im = {}  # {"photo": "xxx/yyy/file_of_path2imgs"}
         self.dict_att = {}
+        self.img_trans_te = None
 
     @abstractmethod
     def init_business(self, args):

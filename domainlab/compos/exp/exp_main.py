@@ -92,5 +92,5 @@ class Exp():
                     class_dataset,
                     f_name + '/' + str(domain) + '/' +
                     str(self.task.list_str_y[class_num]) + '.jpg',
-                    bs=sample_num
+                    batchsize=sample_num
                 )
