@@ -40,7 +40,7 @@ class NodeTaskDict(NodeTaskDGClassif):
         """
         self._list_domains = list_domains
 
-    def get_dset_by_domain(self, args, na_domain):
+    def get_dset_by_domain(self, args, na_domain, split=False):
         """
         each domain correspond to one dataset
         """
@@ -67,6 +67,7 @@ class NodeTaskDict(NodeTaskDGClassif):
         self.dict_dset_val = {}
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
+            # FIXME: specify either split = True or False
             dset_tr, dset_val = self.get_dset_by_domain(args, na_domain)
             # @FIXME: currently, different task has different default values for
             # split, for TaskFolder split default to False, for mnist, split
