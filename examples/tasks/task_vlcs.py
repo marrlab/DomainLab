@@ -16,18 +16,33 @@ chain = mk_task_folder(extensions={"caltech": "jpg", "sun":
                        },
                        dict_domain_img_trans={
                            "caltech": transforms.Compose(
-                               [transforms.Resize((224, 224)),
-                                transforms.ToTensor()]),
+                               [transforms.Resize((256, 256)),
+                                transforms.CenterCrop(224),
+                                transforms.ToTensor(),
+                                transforms.Normalize(
+                                    [0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+                                ]),
                            "sun": transforms.Compose(
-                               [transforms.Resize((224, 224)),
-                                transforms.ToTensor()]),
+                               [transforms.Resize((256, 256)),
+                                transforms.CenterCrop(224),
+                                transforms.ToTensor(),
+                                transforms.Normalize(
+                                    [0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+                                ]),
                            "labelme": transforms.Compose(
-                               [transforms.Resize((224, 224)),
-                                transforms.ToTensor()]),
+                               [transforms.Resize((256, 256)),
+                                transforms.CenterCrop(224),
+                                transforms.ToTensor(),
+                                transforms.Normalize(
+                                    [0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+                                ]),
                        },
                        img_trans_te=transforms.Compose(
-                           [transforms.Resize((224, 224)),
-                            transforms.ToTensor()]),
+                           [transforms.Resize((256, 256)),
+                            transforms.CenterCrop(224),
+                            transforms.ToTensor(),
+                            transforms.Normalize(
+                                [0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])]),
                        isize=ImSize(3, 224, 224),
                        dict_domain2imgroot={
                            "caltech": os.path.join(

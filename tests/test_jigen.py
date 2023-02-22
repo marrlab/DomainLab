@@ -19,3 +19,35 @@ def test_trainer_jigen():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+
+
+def test_trainer_jigen30():
+    """
+    end to end test
+    """
+    parser = mk_parser_main()
+    margs = parser.parse_args(["--te_d", "caltech",
+                               "--task", "mini_vlcs",
+                               "--aname", "jigen", "--bs", "2",
+                               "--epos", "20",
+                               "--nperm", "30",
+                               "--nname", "alexnet"])
+    exp = Exp(margs)
+    exp.trainer.before_tr()
+    exp.trainer.tr_epoch(0)
+
+
+def test_trainer_jigen100():
+    """
+    end to end test
+    """
+    parser = mk_parser_main()
+    margs = parser.parse_args(["--te_d", "caltech",
+                               "--task", "mini_vlcs",
+                               "--aname", "jigen", "--bs", "2",
+                               "--epos", "20",
+                               "--nperm", "100",
+                               "--nname", "alexnet"])
+    exp = Exp(margs)
+    exp.trainer.before_tr()
+    exp.trainer.tr_epoch(0)
