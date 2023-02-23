@@ -2,6 +2,7 @@
 generate the benchmark plots by calling the gen_bencmark_plots(...) function
 '''
 import os
+from ast import literal_eval
 import matplotlib
 matplotlib.use('tkagg')
 import matplotlib.pyplot as plt
@@ -22,11 +23,29 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
     output_dir: path to a folder which shall contain the results
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
-                         #converters={'params': literal_eval},
+                         converters={'params': literal_eval},
                          skipinitialspace=True)
+    raw_df['params'] = round_vals_in_dict(raw_df['params'])
     # crop param_index and task from the dataframe
     dataframe = raw_df.iloc[:, 2:]
     gen_plots(dataframe, output_dir)
+
+
+def round_vals_in_dict(df_column_in):
+    '''
+    replaces the dictionary by a string containing only the significant digits of the hyperparams
+    df_column_in: columns of the dataframe containing the dictionary of hyperparams
+    '''
+    df_column = df_column_in.copy()
+    df_column_out = df_column_in.copy()
+    for i in range(df_column.shape[0]):
+        string = ''
+        for num, val in enumerate(list(df_column[i].values())):
+            key = list(df_column[i].keys())[num]
+            val = np.format_float_scientific(val, precision=1, unique=False, trim='0')
+            string += str(key) + ': ' + str(val) + ', '
+        df_column_out[i] = string[:-2]
+    return df_column_out
 
 
 
