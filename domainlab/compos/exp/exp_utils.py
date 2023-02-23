@@ -1,3 +1,6 @@
+"""
+This module contains 3 classes inheriting: ExpProtocolAggWriter(AggWriter(ExpModelPersistVisitor))
+"""
 import copy
 import datetime
 import os
@@ -6,7 +9,9 @@ from pathlib import Path
 import torch
 
 from domainlab.utils.get_git_tag import get_git_tag
+
 from sklearn.metrics import ConfusionMatrixDisplay
+
 
 class ExpModelPersistVisitor():
     """
@@ -33,7 +38,7 @@ class ExpModelPersistVisitor():
         self.seed = self.host.args.seed
         self.model_name = self.mk_model_na(self.git_tag)
         self.model_path = os.path.join(self.model_dir,
-                                       self.model_name + \
+                                       self.model_name +
                                        ExpModelPersistVisitor.model_suffix)
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
@@ -105,8 +110,12 @@ class AggWriter(ExpModelPersistVisitor):
         self.exp_tag = self.host.args.exptag
         self.debug = self.host.args.debug
         self.has_first_line = False
+        self.list_cols = None
 
     def first_line(self, dict_cols):
+        """
+        generate header of the results aggregation file
+        """
         self.list_cols = list(dict_cols.keys())
         # @FIXME: will be list be the same order each time?
         str_line = ", ".join(self.list_cols)
@@ -121,6 +130,9 @@ class AggWriter(ExpModelPersistVisitor):
             self.confmat_to_file(confmat, confmat_filename)
 
     def get_cols(self):
+        """
+        call the same function to always get the same columns configuration
+        """
         epos_name = "epos"
         dict_cols = {
                      "algo": self.algo_name,
@@ -136,7 +148,7 @@ class AggWriter(ExpModelPersistVisitor):
         dict_cols, epos_name = self.get_cols()
         dict_cols.update(dict_metric)
         confmat = dict_cols.pop("confmat")
-        confmat_filename = dict_cols.get("mname", None)
+        confmat_filename = dict_cols.get("mname", None)  # return None if not found
         # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
         if not self.has_first_line:
@@ -146,6 +158,10 @@ class AggWriter(ExpModelPersistVisitor):
         return str_line, confmat, confmat_filename
 
     def get_fpath(self, dirname="aggrsts"):
+        """
+        for writing and reading, the same function is called to ensure name
+        change in the future will not break the software
+        """
         list4fname = [self.task_name,
                       self.exp_tag,
                       ]
@@ -162,7 +178,7 @@ class AggWriter(ExpModelPersistVisitor):
         file_path = self.get_fpath()
         Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
         print("results aggregation path:", file_path)
-        with open(file_path, 'a') as f_h:
+        with open(file_path, 'a', encoding="utf8") as f_h:
             print(str_line, file=f_h)
 
     def confmat_to_file(self, confmat, confmat_filename):
@@ -174,10 +190,12 @@ class AggWriter(ExpModelPersistVisitor):
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
         file_path = self.get_fpath()
-        # @FIXME: although removesuffix is safe when suffix does not exist, we would like to have ".csv" live in some configuraiton file in the future.
+        # @FIXME: although removesuffix is safe when suffix does not exist,
+        # we would like to have ".csv" live in some configuraiton file in the future.
         file_path = file_path.removesuffix(".csv")
         # if prefix does not exist, string remain unchanged.
-        # @FIXME: still we want to have mname_ as a variable defined in some configuration file in the future.
+        # @FIXME: still we want to have mname_ as a variable defined in some
+        # configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
         print("confusion matrix saved in file: ", file_path)
