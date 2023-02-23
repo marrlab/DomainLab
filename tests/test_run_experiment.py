@@ -1,6 +1,7 @@
 """
 Tests run_experiment.py
 """
+import torch
 import yaml
 
 from domainlab.arg_parser import mk_parser_main
@@ -9,9 +10,10 @@ from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_
 
 def test_run_experiment():
     """Checks the run_experiment function on a minimal basis"""
-    with open("examples/yaml/demo_benchmark.yaml", "r") as stream:
+    with open("examples/yaml/demo_benchmark.yaml", "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
-
+    if torch.cuda.is_available():
+        torch.cuda.init()
     config['epos'] = 1
     config['startseed'] = 1
     config['endseed'] = 1
@@ -29,5 +31,7 @@ def test_apply_dict_to_args():
     """Testing apply_dict_to_args"""
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    data = {'a': 1, 'b': [1, 2]}
+    data = {'a': 1, 'b': [1, 2], 'aname': 'diva'}
     apply_dict_to_args(args, data, extend=True)
+    assert args.a == 1
+    assert args.aname == 'diva'
