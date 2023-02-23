@@ -7,7 +7,7 @@ test_domains:
   #rgb_23_190_207
   - 3
 
-output_dir: zoutput/benchmarks/test_mnist_benchmark
+output_dir: zoutput/benchmarks/mnist_benchmark
 dmem: False
 
 # number of hyperparameter samples per task.
