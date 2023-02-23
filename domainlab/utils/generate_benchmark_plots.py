@@ -4,7 +4,7 @@ generate the benchmark plots by calling the gen_bencmark_plots(...) function
 import os
 from ast import literal_eval
 import matplotlib
-matplotlib.use('tkagg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
