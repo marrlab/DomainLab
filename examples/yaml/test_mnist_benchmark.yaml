@@ -7,14 +7,19 @@ test_domains:
   #rgb_23_190_207
   - 3
 
-output_dir: zoutput/benchmarks/mnist_benchmark1
+tr_d:
+  - 0
+  - 1
+  - 2
+
+output_dir: zoutput/benchmarks/mnist_benchmark53
 dmem: False
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 1
-sampling_seed: 51
+sampling_seed: 53
 
 epos: 300
 bs: 64
@@ -24,7 +29,7 @@ endseed: 1  # currently included
 # set all parameters to default first
 nname: conv_bn_pool_2
 # TODO is lr parsed as str?
-#lr: 1e-4
+lr: 0.0000001
 #gamma_reg: 0.1
 #es: 10
 #gen: False
@@ -142,7 +147,7 @@ Task3:  # name
     # this shall be set to be epos - epochs_ctr
     # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      reference: 300 - epochs_ctr
+      reference: max(1, 300 - epochs_ctr)
 
     # factor to magnify cosine similarity
     tau:
@@ -170,48 +175,42 @@ Task3:  # name
       max: 10
       distribution: loguniform
 
-#Task4:  # name
-#  aname: jigen
-#
-#  hyperparameters:
-#    # number of permutations
-#    nperm:
-#      distribution: categorical
-#      values:
-#        - 30
-#        - 31
-#        - 100
-#      datatype: int
-#
-#    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
-#    pperm:
-#      min: 0.1
-#      max: 0.5
-#      distribution: uniform
-#
-#    # length of image in tile unit
-#    grid_len:
-#      min: 2
-#      max: 5
-#      step: 1
-#      distribution: uniform
-#
-#    early_stop:
-#      distribution: categorical
-#      datatype: int
-#      values:
-#        - 1
-#        - 5
-#        - 10
-#
-#    gamma_reg:
-#      min: 0.01
-#      max: 10
-#      distribution: loguniform
-#
-##    constraints:
-##      # constraint as nperm should be less or equal to the maximal possible number of permutations
-##      - "nperm <= 1_000 * (grid_len ** 2)"
+Task4:  # name
+  aname: jigen
+  grid_len: 3
+
+  hyperparameters:
+    # number of permutations
+    nperm:
+      distribution: categorical
+      values:
+        - 30
+        - 31
+        - 100
+      datatype: int
+
+    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
+    pperm:
+      min: 0.1
+      max: 0.5
+      distribution: uniform
+
+    early_stop:
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+#    constraints:
+#      # constraint as nperm should be less or equal to the maximal possible number of permutations
+#      - "nperm <= 1_000 * (grid_len ** 2)"
 
 Task5:  # name
   aname: dann

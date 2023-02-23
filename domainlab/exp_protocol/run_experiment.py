@@ -31,8 +31,9 @@ def apply_dict_to_args(args, data: dict, extend=False):
         if key in arg_dict or extend:
             if isinstance(value, list):
                 if key not in arg_dict.keys():
-                    arg_dict[key] = []
-                arg_dict[key].extend(value)
+                    arg_dict[key] = None
+                val_list = arg_dict[key] if arg_dict[key] is not None else []
+                val_list.extend(value)
             else:
                 arg_dict[key] = value
 

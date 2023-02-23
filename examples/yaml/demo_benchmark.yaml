@@ -12,7 +12,7 @@ tpath: examples/tasks/task_vlcs.py  # dataset
 # of the specified dataset.
 test_domains:
   - caltech
-  # - sun
+  - sun
   # - labelme
 
 output_dir: zoutput/benchmarks/demo_benchmark
