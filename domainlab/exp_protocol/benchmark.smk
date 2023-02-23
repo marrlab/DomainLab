@@ -10,6 +10,7 @@ except IndexError:
 
 # NOTE: this approach to obtain the path depends on the relative path of
 # this file to the domainlab directory
+
 sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 
 
@@ -48,6 +49,8 @@ rule run_experiment:
     input:
         param_file=rules.parameter_sampling.output
     output:
+        # snakemake keyword temporary for temporary directory
+        # like f-string in python {index} is generated in the run block
         out_file=temporary(expand(
             "{output_dir}/rule_results/{index}.csv",
             output_dir=config["output_dir"],
