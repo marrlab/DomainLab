@@ -169,7 +169,12 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # set references
     for par in params:
         if isinstance(par, ReferenceHyperparameter):
-            setattr(par, 'val', literal_eval(par.reference))
+            try:
+                setattr(par, 'val', eval(par.reference))
+                # NOTE: literal_eval will cause ValueError: malformed node or string
+            except Exception as ex:
+                print(f"error in evaluating expression: {par.reference}")
+                raise ex
             locals().update({par.name: par.val})
 
     if constraints is None:
@@ -178,7 +183,8 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # check all constraints
     for constr in constraints:
         try:
-            const_res = literal_eval(constr)
+            const_res = eval(constr)
+            # NOTE: literal_eval will cause ValueError: malformed node or string
         except SyntaxError as ex:
             raise SyntaxError(f"Invalid syntax in yaml config: {constr}") from ex
         if not const_res:
