@@ -29,7 +29,7 @@ endseed: 1  # currently included
 # set all parameters to default first
 nname: conv_bn_pool_2
 # TODO is lr parsed as str?
-lr: 0.0000001
+lr: 0.000001
 #gamma_reg: 0.1
 #es: 10
 #gen: False
