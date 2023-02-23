@@ -87,9 +87,9 @@ task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif
                       img_trans_te=trans_te,
                       isize=ImSize(3, img_size, img_size),
                       dict_domain2imgroot={
-                          "matek": "/home/ubuntu/_Domains/Matek/",
-                          "mll": "/home/ubuntu/_Domains/MLL/",
-                          "acevedo": "/home/ubuntu/_Domains/Acevedo/"},
+                          "matek": "/home/icb/xinyue.zhang/_Domains/Matek/",
+                          "mll": "/home/icb/xinyue.zhang/_Domains/MLL/",
+                          "acevedo": "/home/icb/xinyue.zhang/_Domains/Acevedo/"},
                       taskna="blood_mon_eos_bas")
 
 
