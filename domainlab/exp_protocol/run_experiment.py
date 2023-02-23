@@ -99,6 +99,9 @@ def run_experiment(
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
 
+    if torch.cuda.is_available():
+        torch.cuda.init()
+
     for te_d in config['test_domains']:
         args.te_d = te_d
         for seed in range(config['startseed'], config['endseed'] + 1):
