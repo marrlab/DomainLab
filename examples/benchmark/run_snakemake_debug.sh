@@ -25,4 +25,4 @@ echo "verbose log: $logfile"
 # TODO set a reasonable number of cores (cores = 5 was very usefull, as we start 5 algorithms -> each algo gets one core)
 
 # Helmholtz
-snakemake --profile "/home/icb/xinyue.zhang/DomainLab/examples/yaml/slurm" --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_helm_benchmark.yaml" 2>&1 | tee $logfile 
+snakemake --profile "/home/icb/xinyue.zhang/DomainLab/examples/yaml/slurm" --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_helm_benchmark_debug.yaml" 2>&1 | tee $logfile 

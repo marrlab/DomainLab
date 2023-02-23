@@ -1,11 +1,11 @@
 # test benchmark config.
 
-tpath: examples/tasks/task_blood2.py  # dataset
+tpath: examples/tasks/task_blood2_debug.py  # dataset
 
 test_domains:
   - acevedo
-  - matek
-  - mll
+  #- matek
+  #- mll
 
 output_dir: zoutput/benchmarks/test_bloodcell_benchmark
 dmem: True
@@ -13,11 +13,11 @@ dmem: True
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 2
+num_param_samples: 1
 # TODO set num of param samples
 sampling_seed: 100
 
-epos: 200
+epos: 1
 bs: 128
 startseed: 1000
 endseed: 1000  # currently included

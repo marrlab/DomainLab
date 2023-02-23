@@ -3,8 +3,7 @@ from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.utils_task import ImSize
 
 
-img_size = 48
-# img_size = 28
+img_size = 224
 
 trans = transforms.Compose([
     transforms.Resize((img_size, img_size)),
@@ -25,7 +24,7 @@ trans_te = transforms.Compose([
 ])
 
 
-task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif"},
+task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff"},
                       list_str_y=[
                           "basophil",
                           "erythroblast",
@@ -65,31 +64,16 @@ task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif
                               "myelocyte": "myelocyte",
                               "neutrophil_segmented": "neutrophil_segmented",
                           },
-                          "mll": {
-                              "basophil": "basophil",
-                              "erythroblast": "erythroblast",
-                              "metamyelocyte": "metamyelocyte",
-                              "myeloblast": "myeloblast",
-                              "neutrophil_band": "neutrophil_band",
-                              "promyelocyte": "promyelocyte",
-                              "eosinophil": "eosinophil",
-                              "lymphocyte_typical": "lymphocyte_typical",
-                              "monocyte": "monocyte",
-                              "myelocyte": "myelocyte",
-                              "neutrophil_segmented": "neutrophil_segmented",
-                          },
                       },
                       dict_domain_img_trans={
                           "acevedo": trans,
-                          "mll": trans,
                           "matek": trans,
                       },
                       img_trans_te=trans_te,
                       isize=ImSize(3, img_size, img_size),
                       dict_domain2imgroot={
-                          "matek": "/home/icb/xinyue.zhang/_Domains/Matek/",
-                          "mll": "/home/icb/xinyue.zhang/_Domains/MLL/",
-                          "acevedo": "/home/icb/xinyue.zhang/_Domains/Acevedo/"},
+                          "matek": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Matek_cropped",
+                          "acevedo": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Acevedo_cropped"},
                       taskna="blood_mon_eos_bas")
 
 
