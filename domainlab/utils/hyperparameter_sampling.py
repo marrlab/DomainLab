@@ -4,6 +4,7 @@ Samples the hyperparameters according to a benchmark configuration file.
 import os
 from pydoc import locate
 from typing import List
+from ast import literal_eval   # literal_eval can safe evaluate python expression
 
 import numpy as np
 import pandas as pd
@@ -168,7 +169,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # set references
     for par in params:
         if isinstance(par, ReferenceHyperparameter):
-            setattr(par, 'val', eval(par.reference))
+            setattr(par, 'val', literal_eval(par.reference))
             locals().update({par.name: par.val})
 
     if constraints is None:
@@ -177,9 +178,9 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # check all constraints
     for constr in constraints:
         try:
-            const_res = eval(constr)
-        except SyntaxError:
-            raise SyntaxError(f"Invalid syntax in yaml config: {constr}")
+            const_res = literal_eval(constr)
+        except SyntaxError as ex:
+            raise SyntaxError(f"Invalid syntax in yaml config: {constr}") from ex
         if not const_res:
             return False
 
