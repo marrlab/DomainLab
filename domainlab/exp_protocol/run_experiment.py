@@ -4,6 +4,7 @@ and each random seed.
 """
 import gc
 import ast
+import warnings
 
 import pandas as pd
 import torch
@@ -36,14 +37,21 @@ def apply_dict_to_args(args, data: dict, extend=False):
     """
     arg_dict = args.__dict__
     for key, value in data.items():
-        if key in arg_dict or extend:
+        if (key in arg_dict) or extend:
             if isinstance(value, list):
                 cur_val = arg_dict.get(key, None)
                 if not isinstance(cur_val, list):
+                    if cur_val is not None:
+                        # @FIXME: should we warn or raise Error?
+                        warnings.warn(f"input dictionary value is list, \
+                                    however, in DomainLab args, we have {cur_val}, \
+                                    going to overrite to list")
                     arg_dict[key] = []
                 arg_dict[key].extend(value)
             else:
                 arg_dict[key] = value
+        else:
+            warnings.warn(f"{key} does not exist in DomainLab, ignoring!")
 
 
 def run_experiment(
