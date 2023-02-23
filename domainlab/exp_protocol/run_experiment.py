@@ -101,4 +101,8 @@ def run_experiment(
             del exp
             torch.cuda.empty_cache()
             gc.collect()
-            print(torch.cuda.memory_summary())
+            try:
+                if torch.cuda.is_available():
+                    print(torch.cuda.memory_summary())
+            except KeyError as ex:
+                print(ex)

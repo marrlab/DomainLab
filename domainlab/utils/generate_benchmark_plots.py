@@ -11,6 +11,9 @@ import numpy as np
 
 matplotlib.use('Agg')
 
+COLNAME_ALGO = "algo"
+COLNAME_PARAM = "params"
+
 
 def gen_benchmark_plots(agg_results: str, output_dir: str):
     '''
