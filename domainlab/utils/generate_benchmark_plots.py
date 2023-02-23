@@ -1,13 +1,13 @@
 '''
 generate the benchmark plots by calling the gen_bencmark_plots(...) function
 '''
+import os
 import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib
 import pandas as pd
 import seaborn as sns
-import matplotlib
-import os
 from ast import literal_eval
+import numpy as np
 matplotlib.use('Agg')
 
 
