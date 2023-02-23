@@ -60,6 +60,12 @@ rule run_experiment:
         from domainlab.exp_protocol.run_experiment import run_experiment
         # {index} defines wildcards named index
         index = int(expand(wildcards.index)[0])
+        # :param config: dictionary from the benchmark yaml
+        # :param param_file: path to the csv with the parameter samples
+        # :param param_index: parameter index that should be covered by this task
+        # currently this correspond to the line number in the csv file, or row number
+        # in the resulting pandas dataframe
+        # :param out_file: path to the output csv
         run_experiment(config,str(input.param_file),index,str(output.out_file))
 
 

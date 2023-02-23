@@ -15,7 +15,11 @@ from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
 
 
 def load_parameters(file: str, index: int) -> tuple:
-    """Loads a single parameter sample"""
+    """
+    Loads a single parameter sample
+    @param file: csv file
+    @param index: index of hyper-parameter
+    """
     param_df = pd.read_csv(file, index_col=0)
     row = param_df.loc[index]
     params = ast.literal_eval(row.params)
@@ -24,9 +28,11 @@ def load_parameters(file: str, index: int) -> tuple:
 
 def apply_dict_to_args(args, data: dict, extend=False):
     """
-    Tries to apply the data to the args dict.
+    Tries to apply the data to the args dict of DomainLab.
     Unknown keys are silently ignored as long as
     extend is not set.
+    # FIXME: do we have a test to ensure args dict from
+    # domainlab really got what is passed from "data" dict?
     """
     arg_dict = args.__dict__
     for key, value in data.items():
@@ -55,7 +61,9 @@ def run_experiment(
 
     :param config: dictionary from the benchmark yaml
     :param param_file: path to the csv with the parameter samples
-    :param param_index: parameter index that should be covered by this task
+    :param param_index: parameter index that should be covered by this task,
+    currently this correspond to the line number in the csv file, or row number
+    in the resulting pandas dataframe
     :param out_file: path to the output csv
     :param misc: optional dictionary of additional parameters, if any.
     """
