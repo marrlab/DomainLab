@@ -7,16 +7,22 @@ test_domains:
   #rgb_23_190_207
   - 3
 
-output_dir: zoutput/benchmarks/mnist_benchmark
+output_dir: zoutput/benchmarks/test_mnist_benchmark
 dmem: False
+te_d:
+  - 0
+  - 1
+  - 2
+
+lr: 0.00001
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 3
-sampling_seed: 11
+num_param_samples: 1
+sampling_seed: 501
 
-epos: 300
+epos: 2
 bs: 64
 startseed: 1
 endseed: 1  # currently included
@@ -141,7 +147,7 @@ Task3:  # name
     # this shall be set to be epos - epochs_ctr
     # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      reference: max(1, 300 - epochs_ctr)
+      reference: max(1, 3 - epochs_ctr)
 
     # factor to magnify cosine similarity
     tau:
