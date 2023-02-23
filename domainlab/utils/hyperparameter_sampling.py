@@ -53,16 +53,16 @@ class SampledHyperparameter(Hyperparameter):
         self.step = config.get('step', 0)
         try:
             self.distribution = config['distribution']
-            if self.distribution == 'uniform' or self.distribution == 'loguniform':
+            if self.distribution in {'uniform', 'loguniform'}:
                 self.p_1 = config['min']
                 self.p_2 = config['max']
-            elif self.distribution == 'normal' or self.distribution == 'lognormal':
+            elif self.distribution in {'normal', 'lognormal'}:
                 self.p_1 = config['mean']
                 self.p_2 = config['std']
             else:
                 raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
-        except KeyError:
-            raise RuntimeError(f"Missing required key for parameter {name}.")
+        except KeyError as ex:
+            raise RuntimeError(f"Missing required key for parameter {name}.") from ex
 
         self.p_1 = float(self.p_1)
         self.p_2 = float(self.p_2)
