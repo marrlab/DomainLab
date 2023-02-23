@@ -27,10 +27,10 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
     output_dir: path to a folder which shall contain the results
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
-                         converters={'params': literal_eval},
+                         converters={COLNAME_PARAM: literal_eval},
                          # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
-    raw_df['params'] = round_vals_in_dict(raw_df['params'])
+    raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[COLNAME_PARAM])
     # crop param_index and task from the dataframe
     dataframe = raw_df.iloc[:, 2:]  # @FIXME: hard coded
     # generating plot
@@ -149,7 +149,7 @@ def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setu
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(0, 'label',
                           dataframe['algo'].astype(str) + ', ' +
-                          dataframe['params'].astype(str))
+                          dataframe[COLNAME_PARAM].astype(str))
     else:
         index_ = list(range(5, dataframe.shape[1]))
         index_.insert(0, 0)
@@ -194,17 +194,17 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
     obj1, obj2 = obj
 
     dataframe = dataframe_in.copy()
-    dataframe['params'] = dataframe['params'].astype(str)
+    dataframe[COLNAME_PARAM] = dataframe[COLNAME_PARAM].astype(str)
 
     if distinguish_hyperparam:
         if kde:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='params',
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_PARAM,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
                                 zorder=0, levels=8, alpha=0.35, warn_singular=False)
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='params',
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
         else:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='params',
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_PARAM,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1))
             gg_p = g_p.ax_joint
     else:
@@ -212,12 +212,12 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
             g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='algo',
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
                                 zorder=0, levels=8, alpha=0.35, warn_singular=False)
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='algo', style='params',
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='algo', style=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
         else:
             g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='algo',
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1))
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, style='params',
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, style=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
 
     gg_p.set_aspect('equal')
@@ -246,7 +246,7 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
                          dataframe['algo'].astype(str) + ', ' +
-                         dataframe['params'].astype(str))
+                         dataframe[COLNAME_PARAM].astype(str))
     else:
         dataframe.insert(0, 'label', dataframe['algo'])
     index = list(range(6, dataframe.shape[1]))
