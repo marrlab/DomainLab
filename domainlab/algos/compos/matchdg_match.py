@@ -124,9 +124,9 @@ class MatchPair():
                     base_domain_idx = domain_idx
             self.dict_cls_ind_base_domain_ind[y_c] = base_domain_idx
             # for each class label, there is a base domain
-            print("for class", y_c)
-            print("domain index as base domain:", base_domain_idx)
-            print("Base Domain size", base_domain_size)
+            # print("for class", y_c)
+            # print("domain index as base domain:", base_domain_idx)
+            # print("Base Domain size", base_domain_size)
 
 
 
@@ -280,7 +280,7 @@ class MatchPair():
         tensor_ref_domain_each_domain_x = torch.stack(list_ref_domain_each_domain)
         tensor_ref_domain_each_domain_label = torch.stack(list_ref_domain_each_domain_label)
 
-        print(tensor_ref_domain_each_domain_x.shape, tensor_ref_domain_each_domain_label.shape)
+        # print(tensor_ref_domain_each_domain_x.shape, tensor_ref_domain_each_domain_label.shape)
 
         del self.dict_domain_data
         del self.dict_virtual_dset2each_domain
