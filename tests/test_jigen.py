@@ -2,6 +2,8 @@
 end to end test, each file only test only 1 algorithm
 so it is easier to identify which algorithm has a problem
 """
+import gc
+import torch
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
@@ -19,6 +21,10 @@ def test_trainer_jigen():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
 
 
 def test_trainer_jigen30():
@@ -35,6 +41,11 @@ def test_trainer_jigen30():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
+
 
 
 def test_trainer_jigen100():
@@ -51,3 +62,6 @@ def test_trainer_jigen100():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
