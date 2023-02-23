@@ -23,7 +23,9 @@ echo "verbose log: $logfile"
 
 
 # print execution graph to pdf
+
 #snakemake --dag --forceall -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" | dot -Tpdf > dag.pdf
+
 #snakemake --rulegraph --forceall -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" | dot -Tpdf > rulegraph.pdf
 
 
@@ -32,7 +34,6 @@ echo "verbose log: $logfile"
 #snakemake --keep-going --keep-incomplete --notemp --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/denbi_blood_benchmark.yaml" 2>&1 | tee $logfile
 
 
+# DENBI MNIST
+snakemake --keep-going --keep-incomplete --notemp --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/denbi_mnist.yaml" 2>&1 | tee $logfile
 
-
-# MNISTcolor10
-snakemake --keep-going --keep-incomplete --notemp --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_mnist_benchmark.yaml" 2>&1 | tee $logfile
