@@ -66,6 +66,8 @@ def run_experiment(
     in the resulting pandas dataframe
     :param out_file: path to the output csv
     :param misc: optional dictionary of additional parameters, if any.
+
+    # FIXME: we might want to run the experiment using commandline arguments
     """
     if misc is None:
         misc = {}
