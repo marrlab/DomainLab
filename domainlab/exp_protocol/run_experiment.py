@@ -27,7 +27,7 @@ def load_parameters(file: str, index: int) -> tuple:
     return row.task, params
 
 
-def apply_dict_to_args(args, data: dict, extend=False):
+def apply_dict_to_args(args, data: dict, extend=False, flag_warn=False):
     """
     Tries to apply the data to the args dict of DomainLab.
     Unknown keys are silently ignored as long as
@@ -51,7 +51,8 @@ def apply_dict_to_args(args, data: dict, extend=False):
             else:
                 arg_dict[key] = value
         else:
-            warnings.warn(f"{key} does not exist in DomainLab, ignoring!")
+            if flag_warn:
+                warnings.warn(f"{key} does not exist in DomainLab, ignoring!")
 
 
 def run_experiment(
