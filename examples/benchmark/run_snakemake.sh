@@ -35,5 +35,5 @@ echo "verbose log: $logfile"
 
 
 # DENBI MNIST
-snakemake --keep-going --keep-incomplete --notemp --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/denbi_mnist.yaml" 2>&1 | tee $logfile
+snakemake --keep-going --keep-incomplete --notemp --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/denbi_mnist.yaml" 2>&1 | tee $logfile
 
