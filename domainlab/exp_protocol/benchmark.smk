@@ -50,7 +50,7 @@ rule run_experiment:
         param_file=rules.parameter_sampling.output
     output:
         # snakemake keyword temporary for temporary directory
-        # like f-string in python {index} is generated in the run block
+        # like f-string in python {index} is generated in the run block as wildcards
         out_file=temporary(expand(
             "{output_dir}/rule_results/{index}.csv",
             output_dir=config["output_dir"],
@@ -58,11 +58,13 @@ rule run_experiment:
         ))
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
+        # {index} defines wildcards named index
         index = int(expand(wildcards.index)[0])
         run_experiment(config,str(input.param_file),index,str(output.out_file))
 
 
 rule agg_results:
+    # put different csv file in a big csv file
     input:
         exp_results=experiment_result_files
     output:
@@ -124,6 +126,7 @@ rule gen_plots:
 
 
 rule all:
+    # output of plotting generation as input, i.e. all previous stages have to be carried out
     input:
         rules.gen_plots.output
     default_target: True
