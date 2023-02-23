@@ -2,12 +2,13 @@
 generate the benchmark plots by calling the gen_bencmark_plots(...) function
 '''
 import os
+from ast import literal_eval   # literal_eval can safe evaluate python expression
 import matplotlib.pyplot as plt
 import matplotlib
 import pandas as pd
 import seaborn as sns
-from ast import literal_eval
 import numpy as np
+
 matplotlib.use('Agg')
 
 
@@ -24,10 +25,12 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
                          converters={'params': literal_eval},
+                         # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
     raw_df['params'] = round_vals_in_dict(raw_df['params'])
     # crop param_index and task from the dataframe
-    dataframe = raw_df.iloc[:, 2:]
+    dataframe = raw_df.iloc[:, 2:]  # @FIXME: hard coded
+    # generating plot
     gen_plots(dataframe, output_dir)
 
 
@@ -48,15 +51,13 @@ def round_vals_in_dict(df_column_in):
     return df_column_out
 
 
-
 def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     '''
     dataframe: dataframe with columns
     [' algo', ' epos', ' te_d', ' seed', ' params', ' acc', ' precision', ... ]
     '''
     os.makedirs(output_dir, exist_ok=True)
-
-    #scatterplot matrices
+    # scatterplot matrices
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png',
                        reg=True, distinguish_param_setups=False)
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png',
@@ -177,7 +178,6 @@ def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setu
         plt.savefig(file, dpi=300)
 
 
-
 def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=False):
     '''
     dataframe: dataframe containing the data with columns
@@ -224,12 +224,12 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
         plt.savefig(file, dpi=300)
 
 
-
 def max_0_x(x_arg):
     '''
     max(0, x_arg)
     '''
     return max(0, x_arg)
+
 
 def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     '''
