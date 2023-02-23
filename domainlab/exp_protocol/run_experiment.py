@@ -2,9 +2,11 @@
 Runs one task for a single hyperparameter sample for each leave-out-domain
 and each random seed.
 """
+import gc
 import ast
 
 import pandas as pd
+import torch
 
 from domainlab.arg_parser import mk_parser_main
 from domainlab.compos.exp.exp_cuda_seed import set_seed
@@ -13,7 +15,11 @@ from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
 
 
 def load_parameters(file: str, index: int) -> tuple:
-    """Loads a single parameter sample"""
+    """
+    Loads a single parameter sample
+    @param file: csv file
+    @param index: index of hyper-parameter
+    """
     param_df = pd.read_csv(file, index_col=0)
     row = param_df.loc[index]
     params = ast.literal_eval(row.params)
@@ -22,18 +28,20 @@ def load_parameters(file: str, index: int) -> tuple:
 
 def apply_dict_to_args(args, data: dict, extend=False):
     """
-    Tries to apply the data to the args dict.
+    Tries to apply the data to the args dict of DomainLab.
     Unknown keys are silently ignored as long as
     extend is not set.
+    # FIXME: do we have a test to ensure args dict from
+    # domainlab really got what is passed from "data" dict?
     """
     arg_dict = args.__dict__
     for key, value in data.items():
         if key in arg_dict or extend:
             if isinstance(value, list):
-                if key not in arg_dict.keys():
-                    arg_dict[key] = None
-                val_list = arg_dict[key] if arg_dict[key] is not None else []
-                val_list.extend(value)
+                cur_val = arg_dict.get(key, None)
+                if not isinstance(cur_val, list):
+                    arg_dict[key] = []
+                arg_dict[key].extend(value)
             else:
                 arg_dict[key] = value
 
@@ -54,9 +62,13 @@ def run_experiment(
 
     :param config: dictionary from the benchmark yaml
     :param param_file: path to the csv with the parameter samples
-    :param param_index: parameter index that should be covered by this task
+    :param param_index: parameter index that should be covered by this task,
+    currently this correspond to the line number in the csv file, or row number
+    in the resulting pandas dataframe
     :param out_file: path to the output csv
     :param misc: optional dictionary of additional parameters, if any.
+
+    # FIXME: we might want to run the experiment using commandline arguments
     """
     if misc is None:
         misc = {}
@@ -83,6 +95,15 @@ def run_experiment(
         for seed in range(config['startseed'], config['endseed'] + 1):
             set_seed(seed)
             args.seed = seed
+            print(torch.cuda.memory_summary())
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()
+            del exp
+            torch.cuda.empty_cache()
+            gc.collect()
+            try:
+                if torch.cuda.is_available():
+                    print(torch.cuda.memory_summary())
+            except KeyError as ex:
+                print(ex)
