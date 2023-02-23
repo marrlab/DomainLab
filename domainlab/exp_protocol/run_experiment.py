@@ -101,13 +101,16 @@ def run_experiment(
 
     if torch.cuda.is_available():
         torch.cuda.init()
+        print("before experiment loop: ")
+        print(torch.cuda.memory_summary())
 
     for te_d in config['test_domains']:
         args.te_d = te_d
         for seed in range(config['startseed'], config['endseed'] + 1):
             set_seed(seed)
             args.seed = seed
-            print(torch.cuda.memory_summary())
+            if torch.cuda.is_available():
+                print(torch.cuda.memory_summary())
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()
