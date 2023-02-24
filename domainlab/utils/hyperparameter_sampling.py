@@ -4,6 +4,7 @@ Samples the hyperparameters according to a benchmark configuration file.
 import os
 from pydoc import locate
 from typing import List
+from ast import literal_eval   # literal_eval can safe evaluate python expression
 
 import numpy as np
 import pandas as pd
@@ -19,7 +20,7 @@ class Hyperparameter:
     p2: max or scale
     reference: None or name of referenced hyperparameter
     """
-    def __init__(self, name: str, config: dict):
+    def __init__(self, name: str):
         self.name = name
         self.val = 0
 
@@ -44,21 +45,24 @@ class Hyperparameter:
 
 
 class SampledHyperparameter(Hyperparameter):
+    """
+    A numeric hyperparameter that shall be sampled
+    """
     def __init__(self, name: str, config: dict):
-        super().__init__(name, config)
+        super().__init__(name)
         self.step = config.get('step', 0)
         try:
             self.distribution = config['distribution']
-            if self.distribution == 'uniform' or self.distribution == 'loguniform':
+            if self.distribution in {'uniform', 'loguniform'}:
                 self.p_1 = config['min']
                 self.p_2 = config['max']
-            elif self.distribution == 'normal' or self.distribution == 'lognormal':
+            elif self.distribution in {'normal', 'lognormal'}:
                 self.p_1 = config['mean']
                 self.p_2 = config['std']
             else:
                 raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
-        except KeyError:
-            raise RuntimeError(f"Missing required key for parameter {name}.")
+        except KeyError as ex:
+            raise RuntimeError(f"Missing required key for parameter {name}.") from ex
 
         self.p_1 = float(self.p_1)
         self.p_2 = float(self.p_2)
@@ -93,11 +97,67 @@ class SampledHyperparameter(Hyperparameter):
         self._ensure_step()
 
     def datatype(self):
-        """
-        Returns the datatype of this parameter.
-        This does not apply for references.
-        """
         return int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float
+
+
+class ReferenceHyperparameter(Hyperparameter):
+    """
+    Hyperparameter that references only a different one.
+    Thus, this parameter is not sampled but set after sampling.
+    """
+    def __init__(self, name: str, config: dict):
+        super().__init__(name)
+        self.reference = config.get('reference', None)
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        # nothing to do for references
+        return
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        # nothing to do for references
+        return
+
+    def datatype(self):
+        raise RuntimeError("Datatype unknown for ReferenceHyperparameter")
+
+
+class CategoricalHyperparameter(Hyperparameter):
+    """
+    A sampled hyperparameter, which is constraint to fixed,
+    user given values and datatype
+    """
+    def __init__(self, name: str, config: dict):
+        super().__init__(name)
+        self.allowed_values = config['values']
+        self.type = locate(config['datatype'])
+        self.allowed_values = [self.type(v) for v in self.allowed_values]
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        # nothing to do for categorical ones
+        return
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        # nothing to do for references
+        idx = np.random.randint(0, len(self.allowed_values))
+        self.val = self.allowed_values[idx]
+
+    def datatype(self):
+        return self.type
+
+
+def get_hyperparameter(name: str, config: dict) -> Hyperparameter:
+    """Factory function. Instantiates the correct Hyperparameter"""
+    if 'reference' in config.keys():
+        return ReferenceHyperparameter(name, config)
+    dist = config.get('distribution', None)
+    if dist == 'categorical':
+        return CategoricalHyperparameter(name, config)
+
+    return SampledHyperparameter(name, config)
 
 
 class ReferenceHyperparameter(Hyperparameter):
@@ -160,7 +220,12 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     # set references
     for par in params:
         if isinstance(par, ReferenceHyperparameter):
-            setattr(par, 'val', eval(par.reference))
+            try:
+                setattr(par, 'val', eval(par.reference))
+                # NOTE: literal_eval will cause ValueError: malformed node or string
+            except Exception as ex:
+                print(f"error in evaluating expression: {par.reference}")
+                raise ex
             locals().update({par.name: par.val})
 
     if constraints is None:
@@ -170,8 +235,9 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     for constr in constraints:
         try:
             const_res = eval(constr)
-        except SyntaxError:
-            raise SyntaxError(f"Invalid syntax in yaml config: {constr}")
+            # NOTE: literal_eval will cause ValueError: malformed node or string
+        except SyntaxError as ex:
+            raise SyntaxError(f"Invalid syntax in yaml config: {constr}") from ex
         if not const_res:
             return False
 

@@ -29,8 +29,8 @@ def test_hyperparameter_sampling():
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
         assert par['p3'] == 2 * par['p2']
-        p4 = par['p4']
-        assert p4 == 30 or p4 == 31 or p4 == 100
+        p_4 = par['p4']
+        assert p_4 == 30 or p_4 == 31 or p_4 == 100
 
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
@@ -39,8 +39,8 @@ def test_hyperparameter_sampling():
 def test_hyperparameter_errors():
     """Test for errors on unknown distribution or missing keys"""
     with pytest.raises(RuntimeError, match="Datatype unknown"):
-        p = get_hyperparameter('name', {'reference': 'a'})
-        p.datatype()
+        par = get_hyperparameter('name', {'reference': 'a'})
+        par.datatype()
 
     with pytest.raises(RuntimeError, match='Unsupported distribution'):
         get_hyperparameter('name', {'distribution': 'unknown'})

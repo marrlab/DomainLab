@@ -10,14 +10,6 @@ from torchvision import transforms
 from torch.utils import data as torchdata
 
 
-GTRANS4TILE = transforms.Compose([
-    transforms.RandomGrayscale(0.1),
-    # @FIXME: this is cheating for jiGen
-    # but seems to have a big impact on performance
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
-
-
 class WrapDsetPatches(torchdata.Dataset):
     """
     given dataset of images, return permuations of tiles of images re-weaved
@@ -26,14 +18,19 @@ class WrapDsetPatches(torchdata.Dataset):
                  num_perms2classify,
                  prob_no_perm,
                  grid_len,
-                 transform4tile=GTRANS4TILE,
+                 ppath=None,
                  flag_do_not_weave_tiles=False):
         """
         :param prob_no_perm: probability of no permutation
         """
+        if ppath is None and grid_len != 3:
+            raise RuntimeError("please provide npy file of numpy array with each row \
+                               being a permutation of the number of tiles, currently \
+                               we only support grid length 3")
         self.dataset = dataset
+        self._to_tensor = transforms.Compose([transforms.ToTensor()])
         self.arr1perm_per_row = self.__retrieve_permutations(
-            num_perms2classify)
+            num_perms2classify, ppath)
         # for 3*3 tiles, there are 9*8*7*6*5*...*1 >> 100,
         # we load from disk instead only 100 permutations
         # each row of the loaded array is a permutation of the 3*3 tile
@@ -41,7 +38,6 @@ class WrapDsetPatches(torchdata.Dataset):
         self.grid_len = grid_len
         # break the image into 3*3 tiles
         self.prob_no_perm = prob_no_perm
-        self._transform4tile = transform4tile
         if flag_do_not_weave_tiles:
             self.fun_weave_imgs = lambda x: x
         else:
@@ -75,7 +71,7 @@ class WrapDsetPatches(torchdata.Dataset):
                              ind_vertical * num_tiles,
                              (ind_horizontal + 1) * num_tiles,
                              (ind_vertical + 1) * num_tiles])
-        tile = self._transform4tile(tile)
+        tile = self._to_tensor(tile)
         return tile
 
     def __getitem__(self, index):
@@ -107,7 +103,6 @@ class WrapDsetPatches(torchdata.Dataset):
             perm_chosen = self.arr1perm_per_row[ind_which_perm - 1]
             list_reordered_tiles = [list_tiles[perm_chosen[ind_tile]]
                                     for ind_tile in range(num_grids)]
-
         stacked_tiles = torch.stack(list_reordered_tiles, 0)
         # the 0th dim is the batch dimension
         # ind_which_perm = 0 means no permutation, the classifier need to
@@ -118,7 +113,7 @@ class WrapDsetPatches(torchdata.Dataset):
     def __len__(self):
         return self.dataset.__len__()
 
-    def __retrieve_permutations(self, num_perms_as_classes):
+    def __retrieve_permutations(self, num_perms_as_classes, ppath=None):
         """
         for 9 tiles which partition the image, we have num_perms_as_classes
         number of different permutations of the tiles, the classifier will
@@ -126,8 +121,9 @@ class WrapDsetPatches(torchdata.Dataset):
         """
         # @FIXME: this assumes always a relative path
         mdir = os.path.dirname(os.path.realpath(__file__))
-        mpath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
-        mpath = os.path.join(mdir, "..", "..", mpath)
+        if ppath is None:
+            ppath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        mpath = os.path.join(mdir, "..", "..", ppath)
         arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:

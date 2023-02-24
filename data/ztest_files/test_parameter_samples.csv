@@ -1,2 +1,2 @@
 ,task,algo,params
-0,Task1,diva,"{'gamma_y': 10e5, 'gamma_d': 1e5}"
+0,Task_diva,diva,"{'gamma_y': 10e5, 'gamma_d': 1e5}"

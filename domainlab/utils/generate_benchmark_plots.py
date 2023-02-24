@@ -2,11 +2,17 @@
 generate the benchmark plots by calling the gen_bencmark_plots(...) function
 '''
 import os
-
+from ast import literal_eval   # literal_eval can safe evaluate python expression
 import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib
 import pandas as pd
 import seaborn as sns
+import numpy as np
+
+matplotlib.use('Agg')
+
+COLNAME_ALGO = "algo"
+COLNAME_PARAM = "params"
 
 
 def gen_benchmark_plots(agg_results: str, output_dir: str):
@@ -21,12 +27,31 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
     output_dir: path to a folder which shall contain the results
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
-                         #converters={'params': literal_eval},
+                         converters={COLNAME_PARAM: literal_eval},
+                         # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
+    raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[COLNAME_PARAM])
     # crop param_index and task from the dataframe
-    dataframe = raw_df.iloc[:, 2:]
+    dataframe = raw_df.iloc[:, 2:]  # @FIXME: hard coded
+    # generating plot
     gen_plots(dataframe, output_dir)
 
+
+def round_vals_in_dict(df_column_in):
+    '''
+    replaces the dictionary by a string containing only the significant digits of the hyperparams
+    df_column_in: columns of the dataframe containing the dictionary of hyperparams
+    '''
+    df_column = df_column_in.copy()
+    df_column_out = df_column_in.copy()
+    for i in range(df_column.shape[0]):
+        string = ''
+        for num, val in enumerate(list(df_column[i].values())):
+            key = list(df_column[i].keys())[num]
+            val = np.format_float_scientific(val, precision=1, unique=False, trim='0')
+            string += str(key) + ': ' + str(val) + ', '
+        df_column_out[i] = string[:-2]
+    return df_column_out
 
 
 def gen_plots(dataframe: pd.DataFrame, output_dir: str):
@@ -35,8 +60,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
     [' algo', ' epos', ' te_d', ' seed', ' params', ' acc', ' precision', ... ]
     '''
     os.makedirs(output_dir, exist_ok=True)
-
-    #scatterplot matrices
+    # scatterplot matrices
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png',
                        reg=True, distinguish_param_setups=False)
     scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png',
@@ -66,9 +90,9 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                             kde=False)
 
     # create plots for the different algortihms
-    for algorithm in dataframe['algo'].unique():
+    for algorithm in dataframe[COLNAME_ALGO].unique():
         os.makedirs(output_dir + '/' + str(algorithm), exist_ok=True)
-        dataframe_algo = dataframe[dataframe['algo'] == algorithm]
+        dataframe_algo = dataframe[dataframe[COLNAME_ALGO] == algorithm]
 
         # scatterplot matrices
         scatterplot_matrix(dataframe_algo,
@@ -124,8 +148,8 @@ def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setu
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(0, 'label',
-                          dataframe['algo'].astype(str) + ', ' +
-                          dataframe['params'].astype(str))
+                          dataframe[COLNAME_ALGO].astype(str) + ', ' +
+                          dataframe[COLNAME_PARAM].astype(str))
     else:
         index_ = list(range(5, dataframe.shape[1]))
         index_.insert(0, 0)
@@ -133,12 +157,12 @@ def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setu
 
     if reg:
         if not distinguish_param_setups:
-            g_p = sns.pairplot(data=dataframe_, hue='algo', corner=True, kind='reg')
+            g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind='reg')
         else:
             g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
     else:
         if not distinguish_param_setups:
-            g_p = sns.pairplot(data=dataframe_, hue='algo', corner=True)
+            g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True)
         else:
             g_p = sns.pairplot(data=dataframe_, hue='label', corner=True)
 
@@ -157,7 +181,6 @@ def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setu
         plt.savefig(file, dpi=300)
 
 
-
 def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=False):
     '''
     dataframe: dataframe containing the data with columns
@@ -171,30 +194,31 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
     obj1, obj2 = obj
 
     dataframe = dataframe_in.copy()
-    dataframe['params'] = dataframe['params'].astype(str)
+    dataframe[COLNAME_PARAM] = dataframe[COLNAME_PARAM].astype(str)
 
     if distinguish_hyperparam:
         if kde:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='params',
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_PARAM,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
                                 zorder=0, levels=8, alpha=0.35, warn_singular=False)
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='params',
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
         else:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='params',
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_PARAM,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1))
             gg_p = g_p.ax_joint
     else:
         if kde:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='algo',
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_ALGO,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
                                 zorder=0, levels=8, alpha=0.35, warn_singular=False)
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue='algo', style='params',
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_ALGO,
+                                   style=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
         else:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue='algo',
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_ALGO,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1))
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, style='params',
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, style=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
 
     gg_p.set_aspect('equal')
@@ -204,12 +228,12 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
         plt.savefig(file, dpi=300)
 
 
-
 def max_0_x(x_arg):
     '''
     max(0, x_arg)
     '''
     return max(0, x_arg)
+
 
 def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     '''
@@ -222,10 +246,10 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     dataframe = dataframe_in.copy()
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
-                         dataframe['algo'].astype(str) + ', ' +
-                         dataframe['params'].astype(str))
+                         dataframe[COLNAME_ALGO].astype(str) + ', ' +
+                         dataframe[COLNAME_PARAM].astype(str))
     else:
-        dataframe.insert(0, 'label', dataframe['algo'])
+        dataframe.insert(0, 'label', dataframe[COLNAME_ALGO])
     index = list(range(6, dataframe.shape[1]))
     num_lines = len(dataframe['label'].unique())
     _, axis = plt.subplots(figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True))

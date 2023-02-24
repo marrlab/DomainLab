@@ -31,50 +31,50 @@ def mk_fun_label2onehot(dim):
     return fun_label2onehot
 
 
-def plot_ds(ds, f_name, bs=32):
+def plot_ds(dset, f_name, batchsize=32):
     """
-    :param ds:
+    :param dset:
     :param f_name:
-    :param bs: batch_size
+    :param batchsize: batch_size
     """
-    loader_tr = data_utils.DataLoader(ds, batch_size=bs, shuffle=False)
+    loader_tr = data_utils.DataLoader(dset, batch_size=batchsize, shuffle=False)
     for _, (img, _, *_) in enumerate(loader_tr):
         nrow = min(img.size(0), 8)
         save_image(img.cpu(), f_name, nrow=nrow)
         break  # only one batch
 
 
-def plot_ds_list(ds_list, f_name, bs=8, shuffle=False):
+def plot_ds_list(ds_list, f_name, batchsize=8, shuffle=False):
     """
     plot list of datasets, each datasets in one row
     :param ds_list:
     :param fname:
-    :param bs:
+    :param batchsize:
     :param shuffle:
     """
     list_imgs = []
     for dset in ds_list:
-        loader = data_utils.DataLoader(dset, batch_size=bs, shuffle=shuffle)
+        loader = data_utils.DataLoader(dset, batch_size=batchsize, shuffle=shuffle)
         for _, (img, _, *_) in enumerate(loader):
             list_imgs.append(img)
             break
     comparison = torch.cat(list_imgs)
-    save_image(comparison.cpu(), f_name, nrow=bs)
+    save_image(comparison.cpu(), f_name, nrow=batchsize)
 
 
 class DsetInMemDecorator(Dataset):
     """
     fetch all items of a dataset into memory
     """
-    def __init__(self, dset, na=None):
+    def __init__(self, dset, name=None):
         """
         :param dset: x, y, *d
-        :param na: name of dataset
+        :param name: name of dataset
         """
         self.dset = dset
         self.item_list = []
-        if na is not None:
-            print("loading dset ", na)
+        if name is not None:
+            print("loading dset ", name)
         t_0 = datetime.datetime.now()
         for i in range(len(self.dset)):
             self.item_list.append(self.dset[i])
