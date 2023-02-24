@@ -4,7 +4,10 @@ from domainlab.arg_parser import mk_parser_main
 from tests.utils_test import utils_test_algo
 
 
-def test_dial():
+def test_dial_diva():
+    """
+    the combination of dial and diva: use dial trainer to train diva model
+    """
     utils_test_algo("--te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva \
                     --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 \
                     --gamma_y=7e5 --gamma_d=1e5 --trainer=dial")

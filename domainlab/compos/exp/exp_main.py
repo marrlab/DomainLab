@@ -16,7 +16,7 @@ class Exp():
     """
     Exp is combination of Task, Algorithm, and Configuration (including random seed)
     """
-    def __init__(self, args, task=None):
+    def __init__(self, args, task=None, visitor=AggWriter):
         """
         :param args:
         :param task:
@@ -28,7 +28,7 @@ class Exp():
                 self.dataset_sanity_check(args, args.san_num)
         self.task.init_business(args)
         self.args = args
-        self.visitor = AggWriter(self)
+        self.visitor = visitor(self)
         algo_builder = AlgoBuilderChainNodeGetter(self.args)()  # request
         self.trainer = algo_builder.init_business(self)
         self.epochs = self.args.epos
