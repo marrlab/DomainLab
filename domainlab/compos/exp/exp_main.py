@@ -47,7 +47,10 @@ class Exp():
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            print("now: ", str(t_c), "epoch time: ", t_c - t_before_epoch, "used: ", t_c - t_0,
+            print(f"epoch: {epoch} ",
+                  "now: ", str(t_c),
+                  "epoch time: ", t_c - t_before_epoch,
+                  "used: ", t_c - t_0,
                   "model: ", self.visitor.model_name)
             # current time, time since experiment start, epoch time
             if flag_stop:
