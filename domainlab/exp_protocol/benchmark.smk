@@ -14,6 +14,10 @@ except IndexError:
 sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 
 
+envvars:
+    "DOMAINLAB_CUDA_START_SEED"
+
+
 def experiment_result_files(_):
     """Lists all expected i.csv"""
     from domainlab.utils.hyperparameter_sampling import is_task
@@ -56,8 +60,24 @@ rule run_experiment:
             output_dir=config["output_dir"],
             allow_missing=True
         ))
+    params:
+        start_seed_str=os.environ["DOMAINLAB_CUDA_START_SEED"]
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
+        # import sys
+        # pos = None
+        # try:
+        #  pos = sys.argv.index('--envvars')
+        # except Exception as ex:
+        #  pos = None
+        # start_seed = sys.argv[pos+1]
+
+        start_seed_str = params.start_seed_str
+        if isinstance(start_seed_str, str) and (len(start_seed_str) > 0):
+          # hash will keep integer intact and hash strings to random seed
+          start_seed = hash(start_seed_str)
+        else:
+          start_seed = None
         # {index} defines wildcards named index
         index = int(expand(wildcards.index)[0])
         # :param config: dictionary from the benchmark yaml
@@ -66,7 +86,7 @@ rule run_experiment:
         # currently this correspond to the line number in the csv file, or row number
         # in the resulting pandas dataframe
         # :param out_file: path to the output csv
-        run_experiment(config,str(input.param_file),index,str(output.out_file))
+        run_experiment(config,str(input.param_file),index,str(output.out_file), start_seed)
 
 
 rule agg_results:
