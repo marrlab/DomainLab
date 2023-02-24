@@ -60,6 +60,7 @@ def run_experiment(
         param_file: str,
         param_index: int,
         out_file: str,
+        start_seed=None,
         misc=None,
 ):
     """
@@ -75,6 +76,7 @@ def run_experiment(
     currently this correspond to the line number in the csv file, or row number
     in the resulting pandas dataframe
     :param out_file: path to the output csv
+    :param start_seed: random seed to start for stochastic variations of pytorch
     :param misc: optional dictionary of additional parameters, if any.
 
     # FIXME: we might want to run the experiment using commandline arguments
@@ -103,10 +105,15 @@ def run_experiment(
         torch.cuda.init()
         print("before experiment loop: ")
         print(torch.cuda.memory_summary())
+    if start_seed is None:
+        start_seed = config['startseed']
+        end_seed = config['endseed']
+    else:
+        end_seed = start_seed + (config['endseed'] - config['startseed'])
 
     for te_d in config['test_domains']:
         args.te_d = te_d
-        for seed in range(config['startseed'], config['endseed'] + 1):
+        for seed in range(start_seed, end_seed + 1):
             set_seed(seed)
             args.seed = seed
             if torch.cuda.is_available():
