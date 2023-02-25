@@ -65,7 +65,7 @@ affiliations:
    index: 3
  - name: Technical University of Munich, Munich, Germany 
    index: 4
- - name: Ludwig Maximilian University of Munich
+ - name: Laboratory of Leukemia Diagnostics, Department of Medicine III, University Hospital, LMU Munich, Munich, Germany
    index: 5
  - name: Charité Lab for AI in Medicine, Charité Universitätsmedizin Berlin, Berlin, Germany
    index: 6
