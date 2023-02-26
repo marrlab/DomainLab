@@ -1,0 +1,23 @@
+\section{Statement of need}\label{statement-of-need}
+Over the past years, various methods have been proposed to address
+different aspects of domain generalization. However, their
+implementations are often limited to proof-of-concept code, interspersed
+with custom code for data access, preprocessing, evaluation, etc. These
+custom codes limit these methods' applicability, affect their
+reproducibility, and restrict the ability to compare with other
+state-of-the-art methods.
+
+\emph{DomainBed}~\cite{domainbed2022github} as an early published solution provided a common codebase for benchmarking domain generalization methods~\cite{gulrajani2020search}, however applying its algorithms to new use-cases requires extensive adaptation of its source code, including, for instance, that the neural network backbones are hard coded in the codebase itself and all components of an algorithm have to be initialized in the construction function, which is not suitable for complex algorithms that require flexibility and extensibility of its components like~\cite{mahajan2021domain, sun2021hierarchical}.
+A more recent concurrent work, *Dassl*~\cite{dassl2022github}, provides a codebase for some domain adaptation and domain generalization methods with semi-supervised learning~\cite{zhou2021domain}.
+Its design is more modular than DomainBed. However, the code base does
+not appear to be well-tested for long-term maintenance and the
+documentation is very limited.
+
+With DomainLab, we introduce a fully modular Python package for domain
+generalization with a PyTorch backend that follows best practices in
+software design and includes extensive documentation, which enables the
+research community to understand and contribute to the code. The
+DomainLab codebase contains extensive unit and end-to-end tests to
+verify the implemented functionality. The decoupling design of DomainLab
+allows factors that contributed most to a promising result to be
+isolated, for better comparability between methods.
