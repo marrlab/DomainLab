@@ -226,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -234,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -268,6 +282,13 @@
     Base class for Algorithm Builder
     """
     na_prefix = "NodeAlgoBuilder"
+
+<div class="viewcode-block" id="NodeAlgoBuilder.dset_decoration_args_algo"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.a_algo_builder.NodeAlgoBuilder.dset_decoration_args_algo">[docs]</a>    def dset_decoration_args_algo(self, args, ddset):
+        """
+        most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
+        """
+        print("processing dataset for ", args.aname)
+        return ddset</div>
 
     @property
     def name(self):
