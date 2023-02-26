@@ -15,8 +15,12 @@ snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "exam
 #snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 
 
-# print execution graph to pdf
+## Print execution graph to pdf ##
 
 #snakemake --dag --forceall -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" | dot -Tpdf > dag.pdf
 
 #snakemake --rulegraph --forceall -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" | dot -Tpdf > rulegraph.pdf
+
+## Run snakemake with slurm  ##
+
+#snakemake --profile "/home/icb/xinyue.zhang/DomainLab/examples/yaml/slurm" --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_helm_benchmark_debug.yaml" 2>&1 | tee $logfile 
