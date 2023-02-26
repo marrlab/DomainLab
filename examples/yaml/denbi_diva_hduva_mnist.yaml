@@ -1,0 +1,127 @@
+# test benchmark config.
+
+# dataset
+task: mnistcolor10
+
+test_domains:
+  - 3
+
+output_dir: zoutput/benchmarks/mnist_benchmark502
+dmem: False
+te_d:
+  - 0
+  - 1
+  - 2
+
+lr: 0.001
+
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 1
+sampling_seed: 502
+
+epos: 300
+bs: 64
+startseed: 1
+endseed: 2  # currently included
+
+# set all parameters to default first
+nname: conv_bn_pool_2
+#lr: 1e-4
+#gamma_reg: 0.1
+#es: 10
+#gen: False
+#split: 0
+#san_check: False
+#zd_dim: 64
+#zx_dim: 0
+#zy_dim: 64
+
+Task1:  # name
+  aname: diva
+  # set nname_dom = nname when changing nname
+  nname_dom: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+    early_stop:
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task2:  # name
+  aname: hduva
+
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    # Same config as diva.
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+    early_stop:
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
