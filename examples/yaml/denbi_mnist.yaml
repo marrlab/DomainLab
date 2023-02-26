@@ -6,25 +6,26 @@ task: mnistcolor10
 test_domains:
   - 3
 
-output_dir: zoutput/benchmarks/mnist_benchmark501
+output_dir: zoutput/benchmarks/mnist_benchmark503
 dmem: False
 te_d:
   - 0
   - 1
   - 2
 
-lr: 0.00001
+lr: 0.001
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 8
-sampling_seed: 501
+sampling_seed: 503
 
-epos: 300
+epos: 50
+es: 5
 bs: 64
 startseed: 1
-endseed: 2  # currently included
+endseed: 1  # currently included
 
 # set all parameters to default first
 nname: conv_bn_pool_2
@@ -71,14 +72,6 @@ Task1:  # name
     zd_dim:
       reference: zy_dim
 
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -113,14 +106,6 @@ Task2:  # name
     zd_dim:
       reference: zy_dim
 
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -146,7 +131,7 @@ Task3:  # name
     # this shall be set to be epos - epochs_ctr
     # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      reference: max(1, 300 - epochs_ctr)
+      reference: max(1, 50 - epochs_ctr)
 
     # factor to magnify cosine similarity
     tau:
@@ -160,14 +145,6 @@ Task3:  # name
       max: 20
       step: 1
       distribution: uniform
-
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
 
     gamma_reg:
       min: 0.01
@@ -193,14 +170,6 @@ Task4:  # name
       min: 0.1
       max: 0.5
       distribution: uniform
-
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
 
     gamma_reg:
       min: 0.01
@@ -229,13 +198,6 @@ Task6:  # name
   aname: deepall
 
   hyperparameters:
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
 
     gamma_reg:
       min: 0.01
@@ -261,14 +223,6 @@ Task7: # name
       min: 0.001
       max: 0.01
       distribution: loguniform
-
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
 
     gamma_reg:
       min: 0.01
