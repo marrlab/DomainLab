@@ -1,9 +1,18 @@
+"""
+unit and end-end test for deep all, dann
+"""
 import os
+import gc
+import torch
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
+from tests.utils_test import utils_test_algo
 
 
 def test_deepall():
+    """
+    unit deep all
+    """
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
@@ -13,9 +22,15 @@ def test_deepall():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
 
 
 def test_deepall_res():
+    """
+    resnet on deep all
+    """
     testdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.join(testdir, "..")
     rootdir = os.path.abspath(rootdir)
@@ -25,15 +40,20 @@ def test_deepall_res():
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
                                "--aname", "deepall", "--bs", "2",
-                               "--npath", "%s" % (path)
+                               "--npath", f"{path}"
                                ])
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
-
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
 
 
 def test_dann():
+    """
+    domain adversarial neural network
+    """
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
@@ -43,6 +63,17 @@ def test_dann():
                                ])
     exp = Exp(margs)
     exp.execute()
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
+
+def test_dann_dial():
+    """
+    train DANN with DIAL
+    """
+    args = "--te_d=caltech --task=mini_vlcs --aname=dann --bs=2 --nname=alexnet --gamma_reg=1.0 --trainer=dial"
+    utils_test_algo(args)
 
 
 def test_sanity_check():
@@ -58,3 +89,6 @@ def test_sanity_check():
                                ])
     exp = Exp(margs)
     exp.execute()
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
