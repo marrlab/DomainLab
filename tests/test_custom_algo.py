@@ -1,5 +1,7 @@
 import os
 import pytest
+import torch
+import gc
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.models.model_custom import AModelCustom
 from domainlab.arg_parser import mk_parser_main
@@ -19,6 +21,10 @@ def test_custom():
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     exp.trainer.post_tr()
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
 
 def test_custom2():
     testdir = os.path.dirname(os.path.realpath(__file__))
@@ -35,6 +41,10 @@ def test_custom2():
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     exp.trainer.post_tr()
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
 
 def test_amodelcustom():
     """Test that AModelCustom raises correct NotImplementedErrors
@@ -42,6 +52,7 @@ def test_amodelcustom():
     class Custom(AModelCustom):
         """Dummy class to create an instance of the abstract AModelCustom
         """
+        @property
         def dict_net_module_na2arg_na(self):
             pass
 
@@ -52,3 +63,7 @@ def test_amodelcustom():
         mod.forward(None, None, None)
     with pytest.raises(NotImplementedError):
         mod.cal_loss(None, None, None)
+    del mod
+    torch.cuda.empty_cache()
+    gc.collect()
+
