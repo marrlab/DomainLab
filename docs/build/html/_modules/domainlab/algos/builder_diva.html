@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -227,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -235,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -261,20 +274,28 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-algos-builder-diva--page-root">Source code for domainlab.algos.builder_diva</h1><div class="highlight"><pre>
-<span></span>from domainlab.algos.a_algo_builder import NodeAlgoBuilder
+<span></span>"""
+Builder pattern to build different component for experiment with DIVA
+"""
+from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.observers.c_obvisitor_gen import ObVisitorGen
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
+from domainlab.algos.trainers.train_dial import TrainerDIAL
+
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
-from domainlab.models.model_diva import ModelDIVA
+from domainlab.models.model_diva import mk_diva
 from domainlab.utils.utils_cuda import get_device
 
 
 <div class="viewcode-block" id="NodeAlgoBuilderDIVA"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA">[docs]</a>class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
+    """
+    Builder pattern to build different component for experiment with DIVA
+    """
 <div class="viewcode-block" id="NodeAlgoBuilderDIVA.init_business"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA.init_business">[docs]</a>    def init_business(self, exp):
         """
         return trainer, model, observer
@@ -284,8 +305,9 @@ from domainlab.utils.utils_cuda import get_device
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
-        model = ModelDIVA(node,
-                          zd_dim=args.zd_dim, zy_dim=args.zy_dim,
+        model = mk_diva()(node,
+                          zd_dim=args.zd_dim,
+                          zy_dim=args.zy_dim,
                           zx_dim=args.zx_dim,
                           list_str_y=task.list_str_y,
                           list_d_tr=task.list_domain_tr,
@@ -306,7 +328,12 @@ from domainlab.utils.utils_cuda import get_device
                 ObVisitorGen(exp,
                              model_sel,
                              device))
-        trainer = TrainerVisitor(model, task, observer, device, args)
+        if args.trainer == "dial":
+            trainer = TrainerDIAL(model, task, observer, device, args)
+        elif args.trainer is None:
+            trainer = TrainerVisitor(model, task, observer, device, args)
+        else:
+            raise NotImplementedError("diva does not support trainers other than default and dial")
         return trainer</div></div>
 </pre></div>
 
@@ -328,11 +355,11 @@ from domainlab.utils.utils_cuda import get_device
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

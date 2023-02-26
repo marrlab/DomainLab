@@ -5,6 +5,7 @@ operations that all claasification model should have
 import abc
 import numpy as np
 import torch
+from torch import nn as nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
@@ -12,6 +13,8 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
+from rich import print as rprint
+import pandas as pd
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -28,13 +31,26 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return self.perf_metric
 
     def cal_perf_metric(self, loader_tr, device, loader_te=None):
+        """
+        classification performance matric
+        """
         metric_te = None
         metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-        print("pooled train domains performance: \n", metric_tr_pool)
+        confmat = metric_tr_pool.pop("confmat")
+        print("pooled train domains performance:")
+        rprint(metric_tr_pool)
+        print("confusion matrix:")
+        print(pd.DataFrame(confmat))
+        metric_tr_pool["confmat"] = confmat
         # test set has no domain label, so can be more custom
         if loader_te is not None:
             metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-            print("out of domain test performance \n", metric_te)
+            confmat = metric_te.pop("confmat")
+            print("out of domain test performance:")
+            rprint(metric_te)
+            print("confusion matrix:")
+            print(pd.DataFrame(confmat))
+            metric_te["confmat"] = confmat
         return metric_te
 
     def evaluate(self, loader_te, device):
@@ -45,18 +61,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         print("before training, model accuracy:", acc)
 
     @abc.abstractmethod
-    def cal_loss(self, *tensors):
-        """
-        calculate the loss
-        """
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
         """
-        raise NotImplementedError
 
     @store_args
     def __init__(self, list_str_y, list_d_tr=None):
@@ -64,6 +72,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
+        self.list_str_y = list_str_y
+        self.list_d_tr = list_d_tr
+        self.perf_metric = None
+        self.loss4gen_adv = nn.KLDivLoss(size_average=False)
 
     def infer_y_vpicn(self, tensor):
         """
@@ -111,7 +123,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def pred2file(self, loader_te, device,
                   filename='path_prediction.txt', flag_pred_scalar=False):
         """
-        pred2file
+        pred2file dump predicted label to file as sanity check
         """
         self.eval()
         model_local = self.to(device)
@@ -126,8 +138,26 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 list_label_list = [np.asarray(label).argmax() for label in list_label_list]
             # label belongs to data
             list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
-            with open(filename, 'a') as handle_file:
+            with open(filename, 'a', encoding="utf8") as handle_file:
                 for pair in list_pair_path_pred:
                     # 1:-1 removes brackets of tuple
                     print(str(pair)[1:-1], file=handle_file)
         print("prediction saved in file ", filename)
+
+    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
+        """
+        calculate loss function for generation of adversarial images
+        """
+        x_adv.requires_grad_()
+        with torch.enable_grad():
+            logits_adv = self.cal_logit_y(x_adv)
+            logits_natural = self.cal_logit_y(x_natural)
+            prob_adv = F.log_softmax(logits_adv, dim=1)
+            prob_natural = F.softmax(logits_natural, dim=1)
+            loss_adv_gen_task = self.cal_task_loss(x_adv, vec_y)
+            loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
+        return loss_adv_gen + loss_adv_gen_task.sum()
+
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        return 0
+

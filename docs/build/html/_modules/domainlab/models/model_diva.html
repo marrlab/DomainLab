@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -227,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -235,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -271,109 +284,89 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-<div class="viewcode-block" id="ModelDIVA"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.ModelDIVA">[docs]</a>class ModelDIVA(VAEXYDClassif):
+<div class="viewcode-block" id="mk_diva"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.mk_diva">[docs]</a>def mk_diva(parent_class=VAEXYDClassif):
     """
-    DIVA
+    DIVA with arbitrary task loss
     """
-    @store_args
-    def __init__(self, chain_node_builder,
-                 zd_dim, zy_dim, zx_dim,
-                 list_str_y, list_d_tr,
-                 gamma_d, gamma_y,
-                 beta_d, beta_x, beta_y):
+    class ModelDIVA(parent_class):
         """
-        gamma: classification loss coefficient
+        DIVA
         """
-        super().__init__(chain_node_builder,
-                         zd_dim, zy_dim, zx_dim,
-                         list_str_y, list_d_tr)
-        self.dim_d_tr = len(self.list_d_tr)
-        if self.zd_dim &gt; 0:
-            self.add_module(
-                "net_p_zd",
-                self.chain_node_builder.construct_cond_prior(
-                    self.dim_d_tr, self.zd_dim))
-            self.add_module(
-                "net_classif_d",
-                self.chain_node_builder.construct_classifier(
-                    self.zd_dim, self.dim_d_tr))
+        @store_args
+        def __init__(self, chain_node_builder,
+                     zd_dim, zy_dim, zx_dim,
+                     list_str_y, list_d_tr,
+                     gamma_d, gamma_y,
+                     beta_d, beta_x, beta_y):
+            """
+            gamma: classification loss coefficient
+            """
+            super().__init__(chain_node_builder,
+                             zd_dim, zy_dim, zx_dim,
+                             list_str_y, list_d_tr)
+            self.dim_d_tr = len(self.list_d_tr)
+            if self.zd_dim &gt; 0:
+                self.add_module(
+                    "net_p_zd",
+                    self.chain_node_builder.construct_cond_prior(
+                        self.dim_d_tr, self.zd_dim))
+                self.add_module(
+                    "net_classif_d",
+                    self.chain_node_builder.construct_classifier(
+                        self.zd_dim, self.dim_d_tr))
 
-<div class="viewcode-block" id="ModelDIVA.hyper_update"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.ModelDIVA.hyper_update">[docs]</a>    def hyper_update(self, epoch, fun_scheduler):
-        """hyper_update.
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
 
-        :param epoch:
-        :param fun_scheduler:
-        """
-        dict_rst = fun_scheduler(epoch)
-        self.beta_d = dict_rst["beta_d"]
-        self.beta_y = dict_rst["beta_y"]
-        self.beta_x = dict_rst["beta_x"]</div>
+            :param epoch:
+            :param fun_scheduler:
+            """
+            dict_rst = fun_scheduler(epoch)
+            self.beta_d = dict_rst["beta_d"]
+            self.beta_y = dict_rst["beta_y"]
+            self.beta_x = dict_rst["beta_x"]
 
-<div class="viewcode-block" id="ModelDIVA.hyper_init"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.ModelDIVA.hyper_init">[docs]</a>    def hyper_init(self, functor_scheduler):
-        """hyper_init.
-        :param functor_scheduler:
-        """
-        return functor_scheduler(
-            beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)</div>
+        def hyper_init(self, functor_scheduler):
+            """hyper_init.
+            :param functor_scheduler:
+            """
+            return functor_scheduler(
+                beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
 
-<div class="viewcode-block" id="ModelDIVA.get_list_str_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.ModelDIVA.get_list_str_y">[docs]</a>    def get_list_str_y(self):
-        """get_list_str_y."""
-        return self._list_str_y</div>
+        def get_list_str_y(self):
+            """get_list_str_y."""
+            return self._list_str_y
 
-<div class="viewcode-block" id="ModelDIVA.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.ModelDIVA.forward">[docs]</a>    def forward(self, x, y, d):
-        """forward.
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+            q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
+            logit_d = self.net_classif_d(zd_q)
 
-        :param x:
-        :param y:
-        :param d:
-        """
-        q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(x)
-        logit_d = self.net_classif_d(zd_q)
+            batch_size = zd_q.shape[0]
+            device = zd_q.device
 
-        batch_size = zd_q.shape[0]
-        device = zd_q.device
+            p_zx = self.init_p_zx4batch(batch_size, device)
+            p_zy = self.net_p_zy(tensor_y)
+            p_zd = self.net_p_zd(tensor_d)
 
-        p_zx = self.init_p_zx4batch(batch_size, device)
-        p_zy = self.net_p_zy(y)
-        p_zd = self.net_p_zd(d)
+            z_concat = self.decoder.concat_ydx(zy_q, zd_q, zx_q)
+            loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
 
-        z_concat = self.decoder.concat_ydx(zy_q, zd_q, zx_q)
-        loss_recon_x, _, _ = self.decoder(z_concat, x)
+            zd_p_minus_zd_q = torch.sum(
+                p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
+            zx_p_minus_zx_q = torch.sum(
+                p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
+            zy_p_minus_zy_q = torch.sum(
+                p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
-        zd_p_minus_zd_q = torch.sum(
-            p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
-        zx_p_minus_zx_q = torch.sum(
-            p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
-        zy_p_minus_zy_q = torch.sum(
-            p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
+            _, d_target = tensor_d.max(dim=1)
+            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
 
-        _, d_target = d.max(dim=1)
-        lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-
-        lc_y = self.cal_task_loss(x, y)
-
-        return loss_recon_x \
-            - self.beta_d * zd_p_minus_zd_q \
-            - self.beta_x * zx_p_minus_zx_q \
-            - self.beta_y * zy_p_minus_zy_q \
-            + self.gamma_d * lc_d \
-            + self.gamma_y * lc_y, \
-            loss_recon_x,  \
-            zd_p_minus_zd_q, \
-            zx_p_minus_zx_q, \
-            zy_p_minus_zy_q, \
-            lc_y, \
-            lc_d</div>
-
-<div class="viewcode-block" id="ModelDIVA.cal_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_diva.ModelDIVA.cal_loss">[docs]</a>    def cal_loss(self, tensor_x, tensor_y, tensor_d):
-        """cal_loss.
-
-        :param tensor_x:
-        :param tensor_y:
-        :param tensor_d:
-        """
-        loss, *_ = self.forward(tensor_x, tensor_y, tensor_d)
-        return loss</div></div>
+            return loss_recon_x \
+                - self.beta_d * zd_p_minus_zd_q \
+                - self.beta_x * zx_p_minus_zx_q \
+                - self.beta_y * zy_p_minus_zy_q \
+                + self.gamma_d * lc_d
+    return ModelDIVA</div>
 </pre></div>
 
           </article>
@@ -394,11 +387,11 @@ from domainlab.utils.utils_class import store_args
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

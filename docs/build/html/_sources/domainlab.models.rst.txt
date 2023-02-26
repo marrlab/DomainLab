@@ -4,10 +4,26 @@ domainlab.models package
 Submodules
 ----------
 
+domainlab.models.a\_model module
+--------------------------------
+
+.. automodule:: domainlab.models.a_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.models.a\_model\_classif module
 -----------------------------------------
 
 .. automodule:: domainlab.models.a_model_classif
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.models.args\_jigen module
+-----------------------------------
+
+.. automodule:: domainlab.models.args_jigen
    :members:
    :undoc-members:
    :show-inheritance:
@@ -56,6 +72,14 @@ domainlab.models.model\_hduva module
 ------------------------------------
 
 .. automodule:: domainlab.models.model_hduva
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.models.model\_jigen module
+------------------------------------
+
+.. automodule:: domainlab.models.model_jigen
    :members:
    :undoc-members:
    :show-inheritance:

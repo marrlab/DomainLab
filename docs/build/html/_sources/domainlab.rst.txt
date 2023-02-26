@@ -10,6 +10,7 @@ Subpackages
    domainlab.algos
    domainlab.compos
    domainlab.dsets
+   domainlab.exp_protocol
    domainlab.models
    domainlab.tasks
    domainlab.utils

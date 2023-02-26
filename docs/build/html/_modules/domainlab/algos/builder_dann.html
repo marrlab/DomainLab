@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -227,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -235,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -261,16 +274,21 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-algos-builder-dann--page-root">Source code for domainlab.algos.builder_dann</h1><div class="highlight"><pre>
-<span></span>from domainlab.algos.a_algo_builder import NodeAlgoBuilder
+<span></span>"""
+builder for Domain Adversarial Neural Network: accept different training scheme
+"""
+from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.algos.trainers.train_visitor import TrainerVisitor
+from domainlab.algos.trainers.train_visitor import HyperSchedulerAneal
+from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-from domainlab.models.model_dann import ModelDAN
+from domainlab.models.model_dann import mk_dann
 from domainlab.utils.utils_cuda import get_device
 
 
@@ -309,14 +327,22 @@ from domainlab.utils.utils_cuda import get_device
         net_discriminator = ClassifDropoutReluLinear(
             dim_feat, len(task.list_domain_tr))
 
-        model = ModelDAN(list_str_y=task.list_str_y,
-                         list_str_d=task.list_domain_tr,
-                         alpha=args.gamma_reg,
-                         net_encoder=net_encoder,
-                         net_classifier=net_classifier,
-                         net_discriminator=net_discriminator)
-
-        trainer = TrainerBasic(model, task, observer, device, args)
+        model = mk_dann()(list_str_y=task.list_str_y,
+                          list_str_d=task.list_domain_tr,
+                          alpha=args.gamma_reg,
+                          net_encoder=net_encoder,
+                          net_classifier=net_classifier,
+                          net_discriminator=net_discriminator)
+        if args.trainer == "dial":
+            trainer = TrainerDIAL(model, task, observer, device, args)
+        elif args.trainer is None:
+            trainer = TrainerVisitor(model, task, observer, device, args)
+            trainer.set_scheduler(HyperSchedulerAneal,
+                                  total_steps=trainer.num_batches*args.epos,
+                                  flag_update_epoch=False,
+                                  flag_update_batch=True)
+        else:
+            raise RuntimeError("no other trainer supported yet for the selected algorithm")
         return trainer</div></div>
 </pre></div>
 
@@ -338,11 +364,11 @@ from domainlab.utils.utils_cuda import get_device
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

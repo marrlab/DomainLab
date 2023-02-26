@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -227,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -235,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -266,34 +279,68 @@ operations that all claasification model should have
 """
 
 import abc
-
+import numpy as np
 import torch
-import torch.nn as nn
+from torch import nn as nn
 from torch.nn import functional as F
 
+from domainlab.models.a_model import AModel
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
+from domainlab.utils.perf import PerfClassif
+from domainlab.utils.perf_metrics import PerfMetricClassif
+from rich import print as rprint
+import pandas as pd
 
 
-<div class="viewcode-block" id="AModelClassif"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif">[docs]</a>class AModelClassif(nn.Module, metaclass=abc.ABCMeta):
+<div class="viewcode-block" id="AModelClassif"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif">[docs]</a>class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have
     """
     match_feat_fun_na = "cal_logit_y"
 
-<div class="viewcode-block" id="AModelClassif.cal_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_loss">[docs]</a>    @abc.abstractmethod
-    def cal_loss(self, *tensors):
+<div class="viewcode-block" id="AModelClassif.create_perf_obj"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.create_perf_obj">[docs]</a>    def create_perf_obj(self, task):
         """
-        calculate the loss
+        for classification, dimension of target can be quieried from task
         """
-        raise NotImplementedError</div>
+        self.perf_metric = PerfMetricClassif(task.dim_y)
+        return self.perf_metric</div>
+
+<div class="viewcode-block" id="AModelClassif.cal_perf_metric"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_perf_metric">[docs]</a>    def cal_perf_metric(self, loader_tr, device, loader_te=None):
+        """
+        classification performance matric
+        """
+        metric_te = None
+        metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
+        confmat = metric_tr_pool.pop("confmat")
+        print("pooled train domains performance:")
+        rprint(metric_tr_pool)
+        print("confusion matrix:")
+        print(pd.DataFrame(confmat))
+        metric_tr_pool["confmat"] = confmat
+        # test set has no domain label, so can be more custom
+        if loader_te is not None:
+            metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
+            confmat = metric_te.pop("confmat")
+            print("out of domain test performance:")
+            rprint(metric_te)
+            print("confusion matrix:")
+            print(pd.DataFrame(confmat))
+            metric_te["confmat"] = confmat
+        return metric_te</div>
+
+<div class="viewcode-block" id="AModelClassif.evaluate"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.evaluate">[docs]</a>    def evaluate(self, loader_te, device):
+        """
+        for classification task, use the current model to cal acc
+        """
+        acc = PerfClassif.cal_acc(self, loader_te, device)
+        print("before training, model accuracy:", acc)</div>
 
 <div class="viewcode-block" id="AModelClassif.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_logit_y">[docs]</a>    @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
-        """
-        raise NotImplementedError</div>
+        """</div>
 
     @store_args
     def __init__(self, list_str_y, list_d_tr=None):
@@ -301,6 +348,10 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
+        self.list_str_y = list_str_y
+        self.list_d_tr = list_d_tr
+        self.perf_metric = None
+        self.loss4gen_adv = nn.KLDivLoss(size_average=False)
 
 <div class="viewcode-block" id="AModelClassif.infer_y_vpicn"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">[docs]</a>    def infer_y_vpicn(self, tensor):
         """
@@ -329,7 +380,8 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
         """
         Calculate the task loss. Used within the `cal_loss` methods of models
         that are subclasses of `AModelClassif`. Cross entropy loss for
-        classification is used here by default but could be modified by subclasses
+        classification is used here by default but could be modified by
+        subclasses
         as necessary.
 
         :param tensor_x: input
@@ -342,7 +394,49 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
         else:
             _, y_target = tensor_y.max(dim=1)
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
-        return lc_y</div></div>
+        return lc_y</div>
+
+<div class="viewcode-block" id="AModelClassif.pred2file"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.pred2file">[docs]</a>    def pred2file(self, loader_te, device,
+                  filename='path_prediction.txt', flag_pred_scalar=False):
+        """
+        pred2file dump predicted label to file as sanity check
+        """
+        self.eval()
+        model_local = self.to(device)
+        for _, (x_s, y_s, *_, path) in enumerate(loader_te):
+            x_s, y_s = x_s.to(device), y_s.to(device)
+            _, prob, *_ = model_local.infer_y_vpicn(x_s)
+            # print(path)
+            list_pred_list = prob.tolist()
+            list_label_list = y_s.tolist()
+            if flag_pred_scalar:
+                list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
+                list_label_list = [np.asarray(label).argmax() for label in list_label_list]
+            # label belongs to data
+            list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
+            with open(filename, 'a', encoding="utf8") as handle_file:
+                for pair in list_pair_path_pred:
+                    # 1:-1 removes brackets of tuple
+                    print(str(pair)[1:-1], file=handle_file)
+        print("prediction saved in file ", filename)</div>
+
+<div class="viewcode-block" id="AModelClassif.cal_loss_gen_adv"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_loss_gen_adv">[docs]</a>    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
+        """
+        calculate loss function for generation of adversarial images
+        """
+        x_adv.requires_grad_()
+        with torch.enable_grad():
+            logits_adv = self.cal_logit_y(x_adv)
+            logits_natural = self.cal_logit_y(x_natural)
+            prob_adv = F.log_softmax(logits_adv, dim=1)
+            prob_natural = F.softmax(logits_natural, dim=1)
+            loss_adv_gen_task = self.cal_task_loss(x_adv, vec_y)
+            loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
+        return loss_adv_gen + loss_adv_gen_task.sum()</div>
+
+<div class="viewcode-block" id="AModelClassif.cal_reg_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_reg_loss">[docs]</a>    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        return 0</div></div>
+
 </pre></div>
 
           </article>
@@ -363,11 +457,11 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

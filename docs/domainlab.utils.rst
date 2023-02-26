@@ -12,10 +12,26 @@ domainlab.utils.flows\_gen\_img\_model module
    :undoc-members:
    :show-inheritance:
 
+domainlab.utils.generate\_benchmark\_plots module
+-------------------------------------------------
+
+.. automodule:: domainlab.utils.generate_benchmark_plots
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.utils.get\_git\_tag module
 ------------------------------------
 
 .. automodule:: domainlab.utils.get_git_tag
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.utils.hyperparameter\_sampling module
+-----------------------------------------------
+
+.. automodule:: domainlab.utils.hyperparameter_sampling
    :members:
    :undoc-members:
    :show-inheritance:

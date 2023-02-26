@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -57,13 +57,13 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Implemented algorithms (models)" href="doc_algos.html" />
+    <link rel="next" title="JiGen" href="docJiGen.html" />
+    <link rel="prev" title="Overview of implemented models and algorithms" href="doc_algos.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -230,7 +230,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -298,6 +298,20 @@
       
     
     </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
+      
     
     </li>
   </ul>
@@ -387,6 +401,15 @@
 <section id="hyperparameter-warmup">
 <h2 id="hyperparameter-warmup">Hyperparameter warmup<a class="headerlink" href="#hyperparameter-warmup" title="Permalink to this heading">¶</a></h2>
 <p>Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument warmup</p>
+<p>Please cite our paper if you find it useful!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@inproceedings{sun2021hierarchical,
+  title={Hierarchical Variational Auto-Encoding for Unsupervised Domain Generalization},
+  author={Sun, Xudong and Buettner, Florian},
+  booktitle={ICLR 2021 RobustML workshop, https://arxiv.org/pdf/2101.09436.pdf},
+  year={2021}
+}
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -400,7 +423,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="doc_algos.html" title="Implemented algorithms (models)"
+            <a href="doc_algos.html" title="Overview of implemented models and algorithms"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -409,10 +432,21 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Implemented algorithms (models) </span>
+                      class="md-footer-nav__direction"> Previous </span> Overview of implemented models and algorithms </span>
               </div>
             </a>
           
+          
+            <a href="docJiGen.html" title="JiGen"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> JiGen </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         
@@ -422,11 +456,11 @@
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

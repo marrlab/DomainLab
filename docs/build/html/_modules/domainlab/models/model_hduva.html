@@ -56,7 +56,6 @@
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -227,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -235,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -266,144 +279,137 @@ Hierarchical Domain Unsupervised Variational Auto-Encoding
 """
 import torch
 from torch.distributions import Dirichlet
-from torch.nn import functional as F
 
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-<div class="viewcode-block" id="ModelHDUVA"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA">[docs]</a>class ModelHDUVA(VAEXYDClassif):
+<div class="viewcode-block" id="mk_hduva"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.mk_hduva">[docs]</a>def mk_hduva(parent_class=VAEXYDClassif):
     """
-    Hierarchical Domain Unsupervised Variational Auto-Encoding
+    Hierarchical Domain Unsupervised VAE with arbitrary task loss
     """
-<div class="viewcode-block" id="ModelHDUVA.hyper_update"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.hyper_update">[docs]</a>    def hyper_update(self, epoch, fun_scheduler):
-        """hyper_update.
+    class ModelHDUVA(parent_class):
+        """
+        Hierarchical Domain Unsupervised Variational Auto-Encoding
+        """
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
 
-        :param epoch:
-        :param fun_scheduler:
-        """
-        dict_rst = fun_scheduler(epoch)
-        self.beta_d = dict_rst["beta_d"]
-        self.beta_y = dict_rst["beta_y"]
-        self.beta_x = dict_rst["beta_x"]
-        self.beta_t = dict_rst["beta_t"]</div>
+            :param epoch:
+            :param fun_scheduler:
+            """
+            dict_rst = fun_scheduler(epoch)
+            self.beta_d = dict_rst["beta_d"]
+            self.beta_y = dict_rst["beta_y"]
+            self.beta_x = dict_rst["beta_x"]
+            self.beta_t = dict_rst["beta_t"]
 
-<div class="viewcode-block" id="ModelHDUVA.hyper_init"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.hyper_init">[docs]</a>    def hyper_init(self, functor_scheduler):
-        """hyper_init.
-        :param functor_scheduler:
-        """
-        return functor_scheduler(
-            beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
-            beta_t=self.beta_t)</div>
+        def hyper_init(self, functor_scheduler):
+            """hyper_init.
+            :param functor_scheduler:
+            """
+            return functor_scheduler(
+                beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
+                beta_t=self.beta_t)
 
-    @store_args
-    def __init__(self, chain_node_builder,
-                 zy_dim, zd_dim,
-                 list_str_y, list_d_tr,
-                 gamma_d, gamma_y,
-                 beta_d, beta_x, beta_y,
-                 beta_t,
-                 device,
-                 zx_dim=0,
-                 topic_dim=3):
-        """
-        """
-        super().__init__(chain_node_builder,
-                         zd_dim, zy_dim, zx_dim,
-                         list_str_y, list_d_tr)
+        @store_args
+        def __init__(self, chain_node_builder,
+                     zy_dim, zd_dim,
+                     list_str_y, list_d_tr,
+                     gamma_d, gamma_y,
+                     beta_d, beta_x, beta_y,
+                     beta_t,
+                     device,
+                     zx_dim=0,
+                     topic_dim=3):
+            """
+            """
+            super().__init__(chain_node_builder,
+                             zd_dim, zy_dim, zx_dim,
+                             list_str_y, list_d_tr)
 
-        # topic to zd follows Gaussian distribution
-        self.add_module("net_p_zd",
-                        self.chain_node_builder.construct_cond_prior(
-                            self.topic_dim, self.zd_dim))
+            # topic to zd follows Gaussian distribution
+            self.add_module("net_p_zd",
+                            self.chain_node_builder.construct_cond_prior(
+                                self.topic_dim, self.zd_dim))
 
-    def _init_components(self):
-        """
-        q(z|x)
-        p(zy)
-        q_{classif}(zy)
-        """
-        self.add_module("encoder", self.chain_node_builder.build_encoder(
-            self.device, self.topic_dim))
-        self.add_module("decoder", self.chain_node_builder.build_decoder(
-            self.topic_dim))
-        self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(
-                            self.dim_y, self.zy_dim))
-        self.add_module("net_classif_y",
-                        self.chain_node_builder.construct_classifier(
-                            self.zy_dim, self.dim_y))
+        def _init_components(self):
+            """
+            q(z|x)
+            p(zy)
+            q_{classif}(zy)
+            """
+            self.add_module("encoder", self.chain_node_builder.build_encoder(
+                self.device, self.topic_dim))
+            self.add_module("decoder", self.chain_node_builder.build_decoder(
+                self.topic_dim))
+            self.add_module("net_p_zy",
+                            self.chain_node_builder.construct_cond_prior(
+                                self.dim_y, self.zy_dim))
+            self.add_module("net_classif_y",
+                            self.chain_node_builder.construct_classifier(
+                                self.zy_dim, self.dim_y))
 
-<div class="viewcode-block" id="ModelHDUVA.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.cal_logit_y">[docs]</a>    def cal_logit_y(self, tensor_x):
-        """
-        calculate the logit for softmax classification
-        """
-        _, _, \
+        def cal_logit_y(self, tensor_x):
+            """
+            calculate the logit for softmax classification
+            """
             _, _, \
-            _, _, \
-            _, zy_q = self.encoder(tensor_x)
-        logit_y = self.net_classif_y(zy_q)
-        return logit_y</div>
+                _, _, \
+                _, _, \
+                _, zy_q = self.encoder(tensor_x)
+            logit_y = self.net_classif_y(zy_q)
+            return logit_y
 
-<div class="viewcode-block" id="ModelHDUVA.init_p_topic_batch"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.init_p_topic_batch">[docs]</a>    def init_p_topic_batch(self, batch_size, device):
-        """
-        flat prior
-        """
-        prior = Dirichlet(torch.ones(batch_size, self.topic_dim).to(device))
-        return prior</div>
+        def init_p_topic_batch(self, batch_size, device):
+            """
+            flat prior
+            """
+            prior = Dirichlet(torch.ones(batch_size, self.topic_dim).to(device))
+            return prior
 
-<div class="viewcode-block" id="ModelHDUVA.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.forward">[docs]</a>    def forward(self, x, y, d=None):
-        return self.cal_loss(x, y, d)</div>
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+            q_topic, topic_q, \
+                qzd, zd_q, \
+                qzx, zx_q, \
+                qzy, zy_q = self.encoder(tensor_x)
 
-<div class="viewcode-block" id="ModelHDUVA.cal_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_hduva.ModelHDUVA.cal_loss">[docs]</a>    def cal_loss(self, x, y, d=None):
-        """
-        :param x:
-        :param y:
-        """
-        q_topic, topic_q, \
-            qzd, zd_q, \
-            qzx, zx_q, \
-            qzy, zy_q = self.encoder(x)
+            batch_size = zd_q.shape[0]
+            device = zd_q.device
 
-        batch_size = zd_q.shape[0]
-        device = zd_q.device
+            p_topic = self.init_p_topic_batch(batch_size, device)
 
-        p_topic = self.init_p_topic_batch(batch_size, device)
+            # zx KL divergence
+            zx_p_minus_q = 0
+            if self.zx_dim &gt; 0:
+                p_zx = self.init_p_zx4batch(batch_size, device)
+                zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
-        # zx KL divergence
-        zx_p_minus_q = 0
-        if self.zx_dim &gt; 0:
-            p_zx = self.init_p_zx4batch(batch_size, device)
-            zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
+            # @FIXME: does monte-carlo KL makes the performance unstable?
+            # from torch.distributions import kl_divergence
 
-        # @FIXME: does monte-carlo KL makes the performance unstable?
-        # from torch.distributions import kl_divergence
+            # zy KL divergence
+            p_zy = self.net_p_zy(tensor_y)
+            zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
 
-        # zy KL divergence
-        p_zy = self.net_p_zy(y)
-        zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
+            # zd KL diverence
+            p_zd = self.net_p_zd(topic_q)
+            zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
 
-        # classification loss
-        lc_y = self.cal_task_loss(x, y)
+            # topic KL divergence
+            # @FIXME: why topic is still there?
+            topic_p_minus_q = p_topic.log_prob(topic_q) - q_topic.log_prob(topic_q)
 
-        # zd KL diverence
-        p_zd = self.net_p_zd(topic_q)
-        zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
-
-        # topic KL divergence
-        # @FIXME: why topic is still there?
-        topic_p_minus_q = p_topic.log_prob(topic_q) - q_topic.log_prob(topic_q)
-
-        # reconstruction
-        z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
-        loss_recon_x, _, _ = self.decoder(z_concat, x)
-        batch_loss = loss_recon_x \
-                     - self.beta_x * zx_p_minus_q \
-                     - self.beta_y * zy_p_minus_zy_q \
-                     - self.beta_d * zd_p_minus_q \
-                     - self.beta_t * topic_p_minus_q \
-                     + self.gamma_y * lc_y
-        return batch_loss</div></div>
+            # reconstruction
+            z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
+            loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
+            batch_loss = loss_recon_x \
+                - self.beta_x * zx_p_minus_q \
+                - self.beta_y * zy_p_minus_zy_q \
+                - self.beta_d * zd_p_minus_q \
+                - self.beta_t * topic_p_minus_q
+            return batch_loss
+    return ModelHDUVA</div>
 </pre></div>
 
           </article>
@@ -424,11 +430,11 @@ from domainlab.utils.utils_class import store_args
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

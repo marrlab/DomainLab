@@ -56,7 +56,6 @@
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
-    <script src="../../../../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -227,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -235,6 +234,20 @@
     
     
       <a href="../../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -261,8 +274,11 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-algos-trainers-train-visitor--page-root">Source code for domainlab.algos.trainers.train_visitor</h1><div class="highlight"><pre>
-<span></span>import numpy as np
-
+<span></span>"""
+update hyper-parameters during training
+"""
+import warnings
+import numpy as np
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
@@ -270,13 +286,43 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
     """
     TrainerVisitor
     """
+<div class="viewcode-block" id="TrainerVisitor.set_scheduler"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.set_scheduler">[docs]</a>    def set_scheduler(self, scheduler, total_steps,
+                      flag_update_epoch=False,
+                      flag_update_batch=False):
+        """
+        set the warmup or anealing strategy
+        """
+        self.hyper_scheduler = self.model.hyper_init(scheduler)
+        self.flag_update_hyper_per_epoch = flag_update_epoch
+        self.flag_update_hyper_per_batch = flag_update_batch
+        self.hyper_scheduler.set_steps(total_steps=total_steps)</div>
+
+<div class="viewcode-block" id="TrainerVisitor.after_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.after_batch">[docs]</a>    def after_batch(self, epoch, ind_batch):
+        if self.flag_update_hyper_per_batch:
+            self.model.hyper_update(epoch, self.hyper_scheduler)
+        return super().after_batch(epoch, ind_batch)</div>
+
 <div class="viewcode-block" id="TrainerVisitor.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.before_tr">[docs]</a>    def before_tr(self):
-        self.hyper_scheduler = self.model.hyper_init(HyperSchedulerWarmup)
-        # @FIXME: is there a way to make this more general?
-        self.hyper_scheduler.set_steps(steps=self.aconf.warmup)</div>
+        if self.hyper_scheduler is None:
+            warnings.warn("hyper-parameter scheduler not set, \
+                          going to use default Warmpup and epoch update")
+            self.set_scheduler(HyperSchedulerWarmup,
+                               total_steps=self.aconf.warmup,
+                               flag_update_epoch=True)</div>
 
 <div class="viewcode-block" id="TrainerVisitor.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
-        self.model.hyper_update(epoch, self.hyper_scheduler)
+        """
+        update hyper-parameters only per epoch
+        """
+        if self.flag_update_hyper_per_epoch:
+            self.model.hyper_update(epoch, self.hyper_scheduler)
+        return super().tr_epoch(epoch)</div>
+
+<div class="viewcode-block" id="TrainerVisitor.tr_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.TrainerVisitor.tr_batch">[docs]</a>    def tr_batch(self, epoch, ind_batch):
+        """
+        anneal hyper-parameter for each batch
+        """
+        self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().tr_epoch(epoch)</div></div>
 
 
@@ -286,25 +332,28 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
     """
     def __init__(self, **kwargs):
         self.dict_par_setpoint = kwargs
-        self.steps = None
+        self.total_steps = None
 
-<div class="viewcode-block" id="HyperSchedulerWarmup.set_steps"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerWarmup.set_steps">[docs]</a>    def set_steps(self, steps):
-        self.steps = steps</div>
+<div class="viewcode-block" id="HyperSchedulerWarmup.set_steps"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerWarmup.set_steps">[docs]</a>    def set_steps(self, total_steps):
+        """
+        set number of total_steps to gradually change optimization parameter
+        """
+        self.total_steps = total_steps</div>
 
 <div class="viewcode-block" id="HyperSchedulerWarmup.warmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerWarmup.warmup">[docs]</a>    def warmup(self, par_setpoint, epoch):
         """warmup.
         start from a small value of par to ramp up the steady state value using
-        # steps
+        # total_steps
         :param epoch:
         """
-        ratio = ((epoch+1) * 1.) / self.steps
+        ratio = ((epoch+1) * 1.) / self.total_steps
         list_par = [par_setpoint, par_setpoint * ratio]
         par = min(list_par)
         return par</div>
 
     def __call__(self, epoch):
         dict_rst = {}
-        for key in self.dict_par_setpoint:
+        for key, _ in self.dict_par_setpoint.items():
             dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
         return dict_rst</div>
 
@@ -313,19 +362,20 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
     """
     HyperSchedulerAneal
     """
-<div class="viewcode-block" id="HyperSchedulerAneal.aneal"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal.aneal">[docs]</a>    def aneal(self, epoch):
-        """warmup.
+<div class="viewcode-block" id="HyperSchedulerAneal.aneal"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_visitor.HyperSchedulerAneal.aneal">[docs]</a>    def aneal(self, epoch, alpha):
+        """
         start from a small value of par to ramp up the steady state value using
-        # steps
+        number of total_steps
         :param epoch:
         """
-        ratio = ((epoch+1) * 1.) / self.steps
-        return float((2. / (1. + np.exp(-10 * ratio)) - 1) * self._alpha)</div>
+        ratio = ((epoch+1) * 1.) / self.total_steps
+        denominator = (1. + np.exp(-10 * ratio))
+        return float((2. / denominator - 1) * alpha)</div>
 
     def __call__(self, epoch):
         dict_rst = {}
-        for key in self.dict_par_setpoint:
-            dict_rst[key] = self.aneal(epoch)
+        for key, val in self.dict_par_setpoint.items():
+            dict_rst[key] = self.aneal(epoch, val)
         return dict_rst</div>
 </pre></div>
 
@@ -347,11 +397,11 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

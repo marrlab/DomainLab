@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -57,11 +57,10 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Implemented algorithms (models)" href="doc_algos.html" />
+    <link rel="next" title="Overview of implemented models and algorithms" href="doc_algos.html" />
     <link rel="prev" title="domainlab.tasks package" href="domainlab.tasks.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
@@ -238,7 +237,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -246,6 +245,20 @@
     
     
       <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -267,105 +280,33 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.flows_gen_img_model" class="md-nav__link">domainlab.utils.flows_gen_img_model module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.flows_gen_img_model.FlowGenImgs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FlowGenImgs</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.flows_gen_img_model.FlowGenImgs.gen_img_loader" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FlowGenImgs.gen_img_loader()</span></code></a>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.flows_gen_img_model" class="md-nav__link">domainlab.utils.flows_gen_img_model module</a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.flows_gen_img_model.FlowGenImgs.gen_img_xyd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FlowGenImgs.gen_img_xyd()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.generate_benchmark_plots" class="md-nav__link">domainlab.utils.generate_benchmark_plots module</a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.flows_gen_img_model.fun_gen" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">fun_gen()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.get_git_tag" class="md-nav__link">domainlab.utils.get_git_tag module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.get_git_tag" class="md-nav__link">domainlab.utils.get_git_tag module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.get_git_tag.get_git_tag" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_git_tag()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.hyperparameter_sampling" class="md-nav__link">domainlab.utils.hyperparameter_sampling module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.override_interface" class="md-nav__link">domainlab.utils.override_interface module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.override_interface.override_interface" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">override_interface()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.override_interface" class="md-nav__link">domainlab.utils.override_interface module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.perf" class="md-nav__link">domainlab.utils.perf module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.perf.PerfClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfClassif</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.perf.PerfClassif.cal_acc" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfClassif.cal_acc()</span></code></a>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.perf" class="md-nav__link">domainlab.utils.perf module</a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.perf.PerfClassif.gen_fun_acc" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfClassif.gen_fun_acc()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.perf_metrics" class="md-nav__link">domainlab.utils.perf_metrics module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.perf_metrics" class="md-nav__link">domainlab.utils.perf_metrics module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.perf_metrics.PerfClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfClassif</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.perf_metrics.PerfClassif.cal_metrics" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfClassif.cal_metrics()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.test_img" class="md-nav__link">domainlab.utils.test_img module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.test_img" class="md-nav__link">domainlab.utils.test_img module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.test_img.mk_img" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_img()</span></code></a>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.u_import" class="md-nav__link">domainlab.utils.u_import module</a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.test_img.mk_rand_label_onehot" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_rand_label_onehot()</span></code></a>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.u_import_net_module" class="md-nav__link">domainlab.utils.u_import_net_module module</a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.test_img.mk_rand_xyd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_rand_xyd()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_class" class="md-nav__link">domainlab.utils.utils_class module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.u_import" class="md-nav__link">domainlab.utils.u_import module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.u_import.import_path" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">import_path()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_classif" class="md-nav__link">domainlab.utils.utils_classif module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.u_import_net_module" class="md-nav__link">domainlab.utils.u_import_net_module module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.u_import_net_module.build_external_obj_net_module_feat_extract" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">build_external_obj_net_module_feat_extract()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_cuda" class="md-nav__link">domainlab.utils.utils_cuda module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_class" class="md-nav__link">domainlab.utils.utils_class module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_class.store_args" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">store_args()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_classif" class="md-nav__link">domainlab.utils.utils_classif module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_classif.get_label_na" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_label_na()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_classif.logit2preds_vpic" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">logit2preds_vpic()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_classif.mk_dummy_label_list_str" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_dummy_label_list_str()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_cuda" class="md-nav__link">domainlab.utils.utils_cuda module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_cuda.get_device" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_device()</span></code></a>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_img_sav" class="md-nav__link">domainlab.utils.utils_img_sav module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_img_sav.mk_fun_sav_img" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_fun_sav_img()</span></code></a>
-        </li>
-        <li class="md-nav__item"><a href="#domainlab.utils.utils_img_sav.sav_add_title" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">sav_add_title()</span></code></a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_img_sav" class="md-nav__link">domainlab.utils.utils_img_sav module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.utils" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -406,12 +347,208 @@
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.flows_gen_img_model.</span></span><span class="sig-name descname"><span class="pre">fun_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subfolder_na</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_folder_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gen'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/flows_gen_img_model.html#fun_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.flows_gen_img_model.fun_gen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
+<section id="module-domainlab.utils.generate_benchmark_plots">
+<span id="domainlab-utils-generate-benchmark-plots-module"></span><h2 id="module-domainlab.utils.generate_benchmark_plots">domainlab.utils.generate_benchmark_plots module<a class="headerlink" href="#module-domainlab.utils.generate_benchmark_plots" title="Permalink to this heading">¶</a></h2>
+<p>generate the benchmark plots by calling the gen_bencmark_plots(…) function</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.gen_benchmark_plots">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">gen_benchmark_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agg_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#gen_benchmark_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.gen_benchmark_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate the benchmark plots from a csv file containing the aggregated restults.
+The csv file must have the columns:
+[param_index, task, algo, epos, te_d, seed, params, …]
+all columns after seed are intrepreted as objectives of the results, they can e.g.
+be acc, precision, recall, specificity, f1, auroc.</p>
+<p>agg_results: path to the csv file
+output_dir: path to a folder which shall contain the results</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.gen_plots">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">gen_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#gen_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.gen_plots" title="Permalink to this definition">¶</a></dt>
+<dd><p>dataframe: dataframe with columns
+[’ algo’, ‘ epos’, ‘ te_d’, ‘ seed’, ‘ params’, ‘ acc’, ‘ precision’, … ]</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.max_0_x">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">max_0_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_arg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#max_0_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.max_0_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>max(0, x_arg)</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.radar_plot">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">radar_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distinguish_hyperparam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#radar_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.radar_plot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>dataframe_in: dataframe containing the data with columns</dt><dd><p>[algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</dd>
+</dl>
+<p>file: filename to save the plots (if None, the plot will not be saved)
+distinguish_param_setups: if True the plot will not only distinguish between models,</p>
+<blockquote>
+<div><p>but also between the parameter setups</p>
+</div></blockquote>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.round_vals_in_dict">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">round_vals_in_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_column_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#round_vals_in_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.round_vals_in_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>replaces the dictionary by a string containing only the significant digits of the hyperparams
+df_column_in: columns of the dataframe containing the dictionary of hyperparams</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.scatterplot">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">scatterplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kde</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distinguish_hyperparam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#scatterplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.scatterplot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>dataframe: dataframe containing the data with columns</dt><dd><p>[algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</dd>
+</dl>
+<p>obj1 &amp; obj2: name of the objectives which shall be plotted against each other
+file: filename to save the plots (if None, the plot will not be saved)
+kde: if True the distribution of the points will be estimated and plotted as kde plot
+distinguish_param_setups: if True the plot will not only distinguish between models,</p>
+<blockquote>
+<div><p>but also between the parameter setups</p>
+</div></blockquote>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.scatterplot_matrix">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">scatterplot_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distinguish_param_setups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#scatterplot_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.scatterplot_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>dataframe: dataframe containing the data with columns</dt><dd><p>[algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</dd>
+</dl>
+<p>file: filename to save the plots (if None, the plot will not be saved)
+reg: if True a regression line will be plotted over the data
+distinguish_param_setups: if True the plot will not only distinguish between models,</p>
+<blockquote>
+<div><p>but also between the parameter setups</p>
+</div></blockquote>
+</dd></dl>
+</section>
 <section id="module-domainlab.utils.get_git_tag">
 <span id="domainlab-utils-get-git-tag-module"></span><h2 id="module-domainlab.utils.get_git_tag">domainlab.utils.get_git_tag module<a class="headerlink" href="#module-domainlab.utils.get_git_tag" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.get_git_tag.get_git_tag">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.get_git_tag.</span></span><span class="sig-name descname"><span class="pre">get_git_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_diff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/get_git_tag.html#get_git_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.get_git_tag.get_git_tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+</section>
+<section id="module-domainlab.utils.hyperparameter_sampling">
+<span id="domainlab-utils-hyperparameter-sampling-module"></span><h2 id="module-domainlab.utils.hyperparameter_sampling">domainlab.utils.hyperparameter_sampling module<a class="headerlink" href="#module-domainlab.utils.hyperparameter_sampling" title="Permalink to this heading">¶</a></h2>
+<p>Samples the hyperparameters according to a benchmark configuration file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">CategoricalHyperparameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#CategoricalHyperparameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="domainlab.utils.hyperparameter_sampling.Hyperparameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hyperparameter</span></code></a></p>
+<p>A sampled hyperparameter, which is constraint to fixed,
+user given values and datatype</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.datatype">
+<span class="sig-name descname"><span class="pre">datatype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#CategoricalHyperparameter.datatype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the datatype of this parameter.
+This does not apply for references.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#CategoricalHyperparameter.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample this parameter, respecting properties</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.Hyperparameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">Hyperparameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#Hyperparameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a hyperparameter.
+The datatype of .val is int if step and p1 is integer valued,
+else float.</p>
+<p>p1: min or mean
+p2: max or scale
+reference: None or name of referenced hyperparameter</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.Hyperparameter.datatype">
+<span class="sig-name descname"><span class="pre">datatype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#Hyperparameter.datatype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter.datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the datatype of this parameter.
+This does not apply for references.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.Hyperparameter.get_val">
+<span class="sig-name descname"><span class="pre">get_val</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#Hyperparameter.get_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter.get_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current value of the hyperparameter</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.Hyperparameter.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#Hyperparameter.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample this parameter, respecting properties</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">ReferenceHyperparameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#ReferenceHyperparameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="domainlab.utils.hyperparameter_sampling.Hyperparameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hyperparameter</span></code></a></p>
+<p>Hyperparameter that references only a different one.
+Thus, this parameter is not sampled but set after sampling.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.datatype">
+<span class="sig-name descname"><span class="pre">datatype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#ReferenceHyperparameter.datatype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the datatype of this parameter.
+This does not apply for references.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#ReferenceHyperparameter.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample this parameter, respecting properties</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.SampledHyperparameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">SampledHyperparameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#SampledHyperparameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.SampledHyperparameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="domainlab.utils.hyperparameter_sampling.Hyperparameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Hyperparameter</span></code></a></p>
+<p>A numeric hyperparameter that shall be sampled</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.SampledHyperparameter.datatype">
+<span class="sig-name descname"><span class="pre">datatype</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#SampledHyperparameter.datatype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the datatype of this parameter.
+This does not apply for references.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.SampledHyperparameter.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#SampledHyperparameter.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample this parameter, respecting properties</p>
+</dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.check_constraints">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">check_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="domainlab.utils.hyperparameter_sampling.Hyperparameter"><span class="pre">Hyperparameter</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#check_constraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.check_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the constraints are fulfilled.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.get_hyperparameter">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">get_hyperparameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="domainlab.utils.hyperparameter_sampling.Hyperparameter"><span class="pre">Hyperparameter</span></a></span></span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#get_hyperparameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.get_hyperparameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory function. Instantiates the correct Hyperparameter</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.is_task">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">is_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#is_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.is_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the value of this key is a task.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.sample_hyperparameters">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">sample_hyperparameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#sample_hyperparameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.sample_hyperparameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Samples the hyperparameters according to the given
+config, which should be the dictionary of the full
+benchmark config yaml.
+Result is saved to ‘output_dir/hyperparameters.csv’ of the
+config if not specified explicitly.</p>
+<p>Note: Parts of the yaml content are executed. Thus use this
+only with trusted config files.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.sample_parameters">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">sample_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#domainlab.utils.hyperparameter_sampling.Hyperparameter" title="domainlab.utils.hyperparameter_sampling.Hyperparameter"><span class="pre">Hyperparameter</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#sample_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.sample_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to sample from the hyperparameter list.</p>
+<p>Errors if in 10_0000 attempts no sample complying with the
+constraints is found.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.hyperparameter_sampling.sample_task">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.hyperparameter_sampling.</span></span><span class="sig-name descname"><span class="pre">sample_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/hyperparameter_sampling.html#sample_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.hyperparameter_sampling.sample_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample one task and add it to the dataframe</p>
+</dd></dl>
 </section>
 <section id="module-domainlab.utils.override_interface">
 <span id="domainlab-utils-override-interface-module"></span><h2 id="module-domainlab.utils.override_interface">domainlab.utils.override_interface module<a class="headerlink" href="#module-domainlab.utils.override_interface" title="Permalink to this heading">¶</a></h2>
@@ -471,13 +608,13 @@ default None, which means to traverse the whole dataset</p></li>
 <span id="domainlab-utils-perf-metrics-module"></span><h2 id="module-domainlab.utils.perf_metrics">domainlab.utils.perf_metrics module<a class="headerlink" href="#module-domainlab.utils.perf_metrics" title="Permalink to this heading">¶</a></h2>
 <p>Classification Performance</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfClassif">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf_metrics.</span></span><span class="sig-name descname"><span class="pre">PerfClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfClassif" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfMetricClassif">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf_metrics.</span></span><span class="sig-name descname"><span class="pre">PerfMetricClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Classification Performance metrics</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfClassif.cal_metrics">
-<span class="sig-name descname"><span class="pre">cal_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfClassif.cal_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfClassif.cal_metrics" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics">
+<span class="sig-name descname"><span class="pre">cal_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif.cal_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -614,12 +751,12 @@ maximum probability</p>
             </a>
           
           
-            <a href="doc_algos.html" title="Implemented algorithms (models)"
+            <a href="doc_algos.html" title="Overview of implemented models and algorithms"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Implemented algorithms (models) </span>
+                class="md-footer-nav__direction"> Next </span> Overview of implemented models and algorithms </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -633,11 +770,11 @@ maximum probability</p>
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2022, Marr Lab..
+              &#169; Copyright 2021-2023, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
