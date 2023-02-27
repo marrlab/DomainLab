@@ -7,7 +7,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
 
 class PerfMetricClassif():
     """Classification Performance metrics"""
-    def __init__(self, num_classes, average='macro'):
+    def __init__(self, num_classes, average=None):
         super().__init__()
         self.acc = Accuracy(num_classes=num_classes, average=average)
         self.precision = Precision(num_classes=num_classes, average=average)
@@ -49,14 +49,15 @@ class PerfMetricClassif():
         with torch.no_grad():
             for i, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
-                _, prob, _, *_ = model_local.infer_y_vpicn(x_s)
+                tensor_pred, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
+                _, scalar_pred = torch.max(tensor_pred, 1)
                 # self.acc.update(pred_label, target_label)  # bug found by xinyuejohn
                 # pred_label is (N,C) which we need to convert to (N)
                 # prob is (N,C) which is fine for torchmetrics
                 self.acc.update(prob, target_label)
                 self.precision.update(prob, target_label)
-                self.recall.update(prob, target_label)
+                self.recall.update(scalar_pred, target_label)
                 self.specificity.update(prob, target_label)
                 self.f1_score.update(prob, target_label)
                 self.auroc.update(prob, target_label)
