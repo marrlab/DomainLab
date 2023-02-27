@@ -15,19 +15,29 @@
 'member function arguments.
 package task {
   abstract class Task {
-    + dim_y
+    - transformations
+    - datasets for training domain
+    - datasets for test domain
   }
   Task <|-- TaskFolder
+  Task <|-- TaskPathList
 }
 
 package algos {
   abstract class AlgoBuilder {}
+  class Algorithm{}
   class ConcreteAlgoBuilder {}
   package trainer {
-    class Trainer {}
+    class Trainer {
+    - update_regularization_weight()
+    - update_model_parameter()
+    + calculate_loss()
+    }
   }
   package observer {
-    class Observer {}
+    class Observer {
+    + calculate_metric()
+    }
   }
   package model_selection {
     class ModelSel {}
@@ -36,50 +46,76 @@ package algos {
 
 package dataset <<DataBase>>{
   class Dataset {
-    --
-    __get__item__
-    --
-    --
+    +__get__item__()
   }
 }
 
 package model{
   abstract class Model {
-  + int dim_y
-  + int dim_d
+  + extract_feature()
+  + calculate_task_loss()
+  + calculate_regularization_loss()
+  + calculate_metric()
   }
   abstract class ModelBuilder {
-  +build_part_a()
-  +build_part_b()
+  +build_model_componet()
   }
   class ConcreteModel {}
   class ConcreteModelBuilder {}
+  package networks {}
 }
 
 
-package components {
-  package common_networks {
-  }
-  package patterns{}
   package experiment {
-    class Experiment {}
+    class Experiment {
+    + execute()
+    }
     class TaskHandler{}
+    class AlgoHandler{}
   }
+
+
+interface UserInput{
+- task
+- algorithm
++ read_yml_for_configuration()
+}
+
+class benchmark{
+ + run_experiment()
+ + plot_results()
+ + read_yml_for_configuration()
 }
 
 
-Experiment *-- Task
-Experiment *-- Trainer
+
+UserInput -- Task
+ModelBuilder <|-- ConcreteModelBuilder
+UserInput -- AlgoBuilder
+benchmark -- AlgoBuilder
+Experiment --* benchmark
 Trainer *-- Observer
 Trainer *-- Model
 Task o-- Dataset
 Model <|-- ConcreteModel
+AlgoBuilder <|-- ConcreteAlgoBuilder
 Model *-- ModelBuilder
-Experiment *-- AlgoBuilder
+Model *-- networks
+AlgoHandler *-- AlgoBuilder
 Experiment *-- TaskHandler
-ConcreteModelBuilder -- common_networks
+Experiment *-- AlgoHandler
+TaskHandler *-- Task
+ModelBuilder -- networks
 ConcreteAlgoBuilder -- Trainer
 ConcreteAlgoBuilder -- Observer
 ConcreteAlgoBuilder -- ModelSel
+
+AlgoBuilder *-- Algorithm
+Algorithm *-- Trainer
+Algorithm *-- Observer
+Observer *-- ModelSel
+
+Model -- Observer
+ModelSel -- Observer
 ConcreteModelBuilder -- ConcreteModel
 @enduml
