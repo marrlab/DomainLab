@@ -13,30 +13,42 @@
 'Sometimes the relationship between two classes is very weak. They are not 
 'implemented with member variables at all. Rather they might be implemented as 
 'member function arguments.
-package task {
+package tasks {
   abstract class Task {
     - transformations
-    - datasets for training domain
-    - datasets for test domain
+    - datasets (training domains)
+    - datasets (test domains)
   }
   Task <|-- TaskFolder
   Task <|-- TaskPathList
 }
 
 package algos {
-  abstract class AlgoBuilder {}
-  class Algorithm{}
-  class ConcreteAlgoBuilder {}
-  package trainer {
+  abstract class AlgoBuilder {
+  + build_model()
+  + build_trainer()
+  + build_observer()
+  + model_specific_task_processing()
+  }
+  class ConcreteAlgoBuilder {
+  + build_model()
+  + build_trainer()
+  + build_observer()
+  + model_specific_task_processing()
+  }
+  package trainers {
     class Trainer {
-    - update_regularization_weight()
-    - update_model_parameter()
+    + update_regularization_weight()
+    + update_model_parameter()
     + calculate_loss()
+    - model
+    - observer
+    - task
     }
   }
   package observer {
     class Observer {
-    + calculate_metric()
+    + trainer.model.calculate_metric() 
     }
   }
   package model_selection {
@@ -50,7 +62,10 @@ package dataset <<DataBase>>{
   }
 }
 
-package model{
+package YMLConfiguration <<DataBase>>{
+}
+
+package models{
   abstract class Model {
   + extract_feature()
   + calculate_task_loss()
@@ -60,7 +75,10 @@ package model{
   abstract class ModelBuilder {
   +build_model_componet()
   }
-  class ConcreteModel {}
+  class ConcreteModel {
+  + calculate_regularization_loss()
+  + extract_feature()
+  }
   class ConcreteModelBuilder {}
   package networks {}
 }
@@ -68,7 +86,9 @@ package model{
 
   package experiment {
     class Experiment {
-    + execute()
+  - task
+  - trainer
+  + execute()
     }
     class TaskHandler{}
     class AlgoHandler{}
@@ -77,11 +97,12 @@ package model{
 
 interface UserInput{
 - task
-- algorithm
+- hyperparameters
 + read_yml_for_configuration()
++ command_line_arguments()
 }
 
-class benchmark{
+protocol benchmark{
  + run_experiment()
  + plot_results()
  + read_yml_for_configuration()
@@ -89,33 +110,32 @@ class benchmark{
 
 
 
-UserInput -- Task
+UserInput -- YMLConfiguration
+UserInput -- tasks
+UserInput -- TaskHandler
 ModelBuilder <|-- ConcreteModelBuilder
-UserInput -- AlgoBuilder
-benchmark -- AlgoBuilder
+UserInput -- AlgoHandler
 Experiment --* benchmark
 Trainer *-- Observer
-Trainer *-- Model
+Trainer *-- ConcreteModel
 Task o-- Dataset
 Model <|-- ConcreteModel
 AlgoBuilder <|-- ConcreteAlgoBuilder
 Model *-- ModelBuilder
 Model *-- networks
-AlgoHandler *-- AlgoBuilder
+AlgoHandler *-- ConcreteAlgoBuilder
 Experiment *-- TaskHandler
 Experiment *-- AlgoHandler
-TaskHandler *-- Task
+TaskHandler *-- tasks
 ModelBuilder -- networks
-ConcreteAlgoBuilder -- Trainer
-ConcreteAlgoBuilder -- Observer
-ConcreteAlgoBuilder -- ModelSel
 
-AlgoBuilder *-- Algorithm
-Algorithm *-- Trainer
-Algorithm *-- Observer
+ConcreteAlgoBuilder *-- Trainer
+ConcreteAlgoBuilder -- ConcreteModel
+ConcreteAlgoBuilder -- Observer
+ConcreteAlgoBuilder -- Trainer
 Observer *-- ModelSel
 
-Model -- Observer
 ModelSel -- Observer
 ConcreteModelBuilder -- ConcreteModel
+benchmark -- UserInput
 @enduml
