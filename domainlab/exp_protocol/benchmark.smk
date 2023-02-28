@@ -32,6 +32,10 @@ def experiment_result_files(_):
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 
+rule all:
+    input: expand("{output_dir}/results.csv", output_dir=config["output_dir"])
+
+
 rule parameter_sampling:
     input:
         # path to config file as input, thus a full
@@ -120,8 +124,8 @@ rule gen_plots:
         gen_benchmark_plots(str(input.res_file), str(output.out_dir))
 
 
-rule all:
-    input:
-        # rules.gen_plots.output
-        rules.agg_results.output
-    default_target: True
+# rule all:
+#     input:
+#         # rules.gen_plots.output
+#         rules.agg_results.output
+#     default_target: True
