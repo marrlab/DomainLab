@@ -75,7 +75,9 @@ rule run_experiment:
         start_seed_str = params.start_seed_str
         if isinstance(start_seed_str, str) and (len(start_seed_str) > 0):
           # hash will keep integer intact and hash strings to random seed
-          start_seed = hash(start_seed_str)
+          # hased integer is signed and usually too big, random seed only
+          # allowed to be in [0, 2^32-1]
+          start_seed = abs(hash(start_seed_str)) % (2 ** 32)
         else:
           start_seed = None
         # {index} defines wildcards named index
