@@ -1,3 +1,5 @@
+import gc
+import torch
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.models.model_diva import mk_diva
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
@@ -36,3 +38,6 @@ def test_trainer_diva():
     trainer = TrainerVisitor(model, task=exp.task, observer=observer, device=device, aconf=margs)
     trainer.before_tr()
     trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()

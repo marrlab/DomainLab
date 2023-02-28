@@ -4,10 +4,10 @@ domainlab.tasks package
 Submodules
 ----------
 
-domainlab.tasks.a\_task module
-------------------------------
+domainlab.tasks.a\_task\_classif module
+---------------------------------------
 
-.. automodule:: domainlab.tasks.a_task
+.. automodule:: domainlab.tasks.a_task_classif
    :members:
    :undoc-members:
    :show-inheritance:
@@ -48,6 +48,14 @@ domainlab.tasks.task\_pathlist module
 -------------------------------------
 
 .. automodule:: domainlab.tasks.task_pathlist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.tasks.task\_utils module
+----------------------------------
+
+.. automodule:: domainlab.tasks.task_utils
    :members:
    :undoc-members:
    :show-inheritance:

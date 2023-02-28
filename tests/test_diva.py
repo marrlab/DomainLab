@@ -1,4 +1,6 @@
 import os
+import gc
+import torch
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 from tests.utils_test import utils_test_algo
@@ -22,6 +24,10 @@ def test_diva():
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     exp.trainer.post_tr()
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
 
 
 def test_trainer_diva():
@@ -37,6 +43,10 @@ def test_trainer_diva():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
 
 
 def test_trainer_diva_folder():
@@ -56,6 +66,10 @@ def test_trainer_diva_folder():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
 
 
 def test_trainer_diva_pathlist():
@@ -75,3 +89,7 @@ def test_trainer_diva_pathlist():
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
