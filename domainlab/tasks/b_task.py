@@ -6,24 +6,9 @@ from collections import Counter
 import torch
 from torch.utils.data.dataset import ConcatDataset
 
-from domainlab.tasks.a_task import NodeTaskDGClassif
+from domainlab.tasks.a_task_classif import NodeTaskDGClassif
 from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
                                         mk_onehot)
-from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
-from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
-
-
-def dset_decoration_args_algo(args, ddset):
-    if "match" in args.aname:  # @FIXME: are there ways not to use this if statement?
-        ddset = DsetIndDecorator4XYD(ddset)
-    if "jigen" in args.aname:
-        # FIXME: do this during before_tr
-        ddset = WrapDsetPatches(ddset,
-                                num_perms2classify=args.nperm,
-                                prob_no_perm=1-args.pperm,
-                                grid_len=args.grid_len,
-                                ppath=args.jigen_ppath)
-    return ddset
 
 
 class NodeTaskDict(NodeTaskDGClassif):
@@ -50,20 +35,39 @@ class NodeTaskDict(NodeTaskDGClassif):
         return self._list_domains
 
     def set_list_domains(self, list_domains):
+        """
+        setter for self._list_domains
+        """
         self._list_domains = list_domains
 
-    def get_dset_by_domain(self, args, na_domain):
+    def get_dset_by_domain(self, args, na_domain, split=False):
+        """
+        each domain correspond to one dataset
+        """
         raise NotImplementedError
+
+    def decorate_dset(self, model, args):
+        """
+        dispatch re-organization of data flow to model
+        """
 
     def init_business(self, args):
         """
         create a dictionary of datasets
         """
+        # @FIXME
+        from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
+        # ImportError: cannot import name 'AlgoBuilderChainNodeGetter'
+        # from partially initialized module 'domainlab.algos.zoo_algos'
+        # (most likely due to a circular import)
+        # (~/domainlab_master/domainlab/algos/zoo_algos.py)
+        node = AlgoBuilderChainNodeGetter(args)()
         list_domain_tr, list_domain_te = self.get_list_domains_tr_te(args.tr_d, args.te_d)
-        self.dict_dset = dict()
-        self.dict_dset_val = dict()
+        self.dict_dset = {}
+        self.dict_dset_val = {}
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
+            # FIXME: specify either split = True or False
             dset_tr, dset_val = self.get_dset_by_domain(args, na_domain)
             # @FIXME: currently, different task has different default values for
             # split, for TaskFolder split default to False, for mnist, split
@@ -71,8 +75,8 @@ class NodeTaskDict(NodeTaskDGClassif):
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)
             ddset_tr = DsetDomainVecDecorator(dset_tr, vec_domain, na_domain)
             ddset_val = DsetDomainVecDecorator(dset_val, vec_domain, na_domain)
-            ddset_tr = dset_decoration_args_algo(args, ddset_tr)
-            ddset_val = dset_decoration_args_algo(args, ddset_val)
+            ddset_tr = node.dset_decoration_args_algo(args, ddset_tr)
+            ddset_val = node.dset_decoration_args_algo(args, ddset_val)
             self.dict_dset.update({na_domain: ddset_tr})
             self.dict_dset_val.update({na_domain: ddset_val})
         ddset_mix = ConcatDataset(tuple(self.dict_dset.values()))
@@ -81,7 +85,7 @@ class NodeTaskDict(NodeTaskDGClassif):
         ddset_mix_val = ConcatDataset(tuple(self.dict_dset_val.values()))
         self._loader_val = mk_loader(ddset_mix_val, args.bs)
 
-        self.dict_dset_te = dict()
+        self.dict_dset_te = {}
         # No need to have domain Label for test
         for na_domain in list_domain_te:
             dset_te, *_ = self.get_dset_by_domain(args, na_domain, split=False)
@@ -110,7 +114,7 @@ class NodeTaskDict(NodeTaskDGClassif):
             labels_count += target.long()
 
         list_count = list(labels_count.cpu().numpy())
-        dict_class_count = dict()
+        dict_class_count = {}
         for name, count in zip(self.list_str_y, list_count):
             dict_class_count[name] = count
         return dict_class_count

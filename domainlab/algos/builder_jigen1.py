@@ -13,12 +13,24 @@ from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_jigen import mk_jigen
 from domainlab.utils.utils_cuda import get_device
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
 class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
     """
     NodeAlgoBuilderJiGen
     """
+    def dset_decoration_args_algo(self, args, ddset):
+        """
+        JiGen need to shuffle the tiles of the original image
+        """
+        ddset = WrapDsetPatches(ddset,
+                                num_perms2classify=args.nperm,
+                                prob_no_perm=1-args.pperm,
+                                grid_len=args.grid_len,
+                                ppath=args.jigen_ppath)
+        return ddset
+
     def init_business(self, exp):
         """
         return trainer, model, observer

@@ -237,7 +237,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -245,6 +245,20 @@
     
     
       <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -266,7 +280,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.tasks.a_task" class="md-nav__link">domainlab.tasks.a_task module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.tasks.a_task_classif" class="md-nav__link">domainlab.tasks.a_task_classif module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.tasks.b_task" class="md-nav__link">domainlab.tasks.b_task module</a>
         </li>
@@ -277,6 +291,8 @@
         <li class="md-nav__item"><a href="#module-domainlab.tasks.task_mnist_color" class="md-nav__link">domainlab.tasks.task_mnist_color module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.tasks.task_pathlist" class="md-nav__link">domainlab.tasks.task_pathlist module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.tasks.task_utils" class="md-nav__link">domainlab.tasks.task_utils module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.tasks.utils_task" class="md-nav__link">domainlab.tasks.utils_task module</a>
         </li>
@@ -302,30 +318,30 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="module-domainlab.tasks.a_task">
-<span id="domainlab-tasks-a-task-module"></span><h2 id="module-domainlab.tasks.a_task">domainlab.tasks.a_task module<a class="headerlink" href="#module-domainlab.tasks.a_task" title="Permalink to this heading">¶</a></h2>
+<section id="module-domainlab.tasks.a_task_classif">
+<span id="domainlab-tasks-a-task-classif-module"></span><h2 id="module-domainlab.tasks.a_task_classif">domainlab.tasks.a_task_classif module<a class="headerlink" href="#module-domainlab.tasks.a_task_classif" title="Permalink to this heading">¶</a></h2>
 <p>Abstract class for TaskClassif</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.a_task.</span></span><span class="sig-name descname"><span class="pre">NodeTaskDGClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.a_task_classif.</span></span><span class="sig-name descname"><span class="pre">NodeTaskDGClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></p>
 <p>Domain Generalization Classification Task</p>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.dim_y">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dim_y</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.dim_y" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.dim_y">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dim_y</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.dim_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>classification dimension</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.get_list_domains">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_domains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif.get_list_domains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.get_list_domains" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.get_list_domains">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_domains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif.get_list_domains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.get_list_domains" title="Permalink to this definition">¶</a></dt>
 <dd><ol class="arabic simple">
 <li><p>get list of domain names</p></li>
 <li><p>better use method than property so new domains can be added</p></li>
 </ol>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.get_list_domains_tr_te">
-<span class="sig-name descname"><span class="pre">get_list_domains_tr_te</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tr_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif.get_list_domains_tr_te"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.get_list_domains_tr_te" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.get_list_domains_tr_te">
+<span class="sig-name descname"><span class="pre">get_list_domains_tr_te</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tr_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">te_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif.get_list_domains_tr_te"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.get_list_domains_tr_te" title="Permalink to this definition">¶</a></dt>
 <dd><p>For static DG task, get train and test domains list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -343,23 +359,23 @@ int or str, or a list of int or str; required.</p></li>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.get_na">
-<span class="sig-name descname"><span class="pre">get_na</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">na_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif.get_na"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.get_na" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.get_na">
+<span class="sig-name descname"><span class="pre">get_na</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">na_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif.get_na"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.get_na" title="Permalink to this definition">¶</a></dt>
 <dd><p>task name appended with configurations
 :param na_tr: training domain names
 :param na_te: test domain names</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.init_business">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.init_business" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.init_business">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.init_business" title="Permalink to this definition">¶</a></dt>
 <dd><p>construct loader with resampling
 :param seed: random seed for resampling
 :param bs: batch size
 :param domain_na_tes: test domain names</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.is_myjob">
-<span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.is_myjob" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.is_myjob">
+<span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>request</strong> – string</p>
@@ -367,52 +383,44 @@ int or str, or a list of int or str; required.</p></li>
 </dl>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.isize">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isize</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.isize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.isize">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isize</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.isize" title="Permalink to this definition">¶</a></dt>
 <dd><p>image channel, height, width</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.list_domain_tr">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_domain_tr</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.list_domain_tr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.list_domain_tr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_domain_tr</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.list_domain_tr" title="Permalink to this definition">¶</a></dt>
+<dd><p>property getter of list of domains for this task</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.list_str_y">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_str_y</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.list_str_y" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.list_str_y">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_str_y</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.list_str_y" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.loader_te">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loader_te</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.loader_te" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.loader_te">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loader_te</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.loader_te" title="Permalink to this definition">¶</a></dt>
 <dd><p>loader of mixed test domains</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.loader_tr">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loader_tr</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.loader_tr" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.loader_tr">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loader_tr</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.loader_tr" title="Permalink to this definition">¶</a></dt>
 <dd><p>loader of mixed train domains</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.loader_val">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loader_val</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.loader_val" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.loader_val">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loader_val</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.loader_val" title="Permalink to this definition">¶</a></dt>
 <dd><p>loader of validation dataset on the training domains</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.sample_sav">
-<span class="sig-name descname"><span class="pre">sample_sav</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subfolder_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'task_sample'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#NodeTaskDGClassif.sample_sav"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.sample_sav" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.sample_sav">
+<span class="sig-name descname"><span class="pre">sample_sav</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subfolder_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'task_sample'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task_classif.html#NodeTaskDGClassif.sample_sav"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.sample_sav" title="Permalink to this definition">¶</a></dt>
 <dd><p>sample data from task and save to disk</p>
 </dd></dl>
 <dl class="py property">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.NodeTaskDGClassif.task_name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">task_name</span></span><a class="headerlink" href="#domainlab.tasks.a_task.NodeTaskDGClassif.task_name" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.a_task_classif.NodeTaskDGClassif.task_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">task_name</span></span><a class="headerlink" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif.task_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The basic name of the task, without configurations</p>
 </dd></dl>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.tasks.a_task.parse_domain_id">
-<span class="sig-prename descclassname"><span class="pre">domainlab.tasks.a_task.</span></span><span class="sig-name descname"><span class="pre">parse_domain_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_domain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_domains</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/a_task.html#parse_domain_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.a_task.parse_domain_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert ids to a list of domain names.
-:param list_domain_id: domain id or ids provided as an int or str,
-or a list of int or str.
-:param list_domains: list of available domains
-:return: list of domain names</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.tasks.b_task">
@@ -421,7 +429,7 @@ or a list of int or str.
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.b_task.</span></span><span class="sig-name descname"><span class="pre">NodeTaskDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.a_task.NodeTaskDGClassif" title="domainlab.tasks.a_task.NodeTaskDGClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDGClassif</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif" title="domainlab.tasks.a_task_classif.NodeTaskDGClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDGClassif</span></code></a></p>
 <p>Use dictionaries to create train and test domain split</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.count_domain_class">
@@ -430,9 +438,15 @@ or a list of int or str.
 return a double dictionary {“domain1”: {“class1”:3, “class2”: 4,…}, ….}</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.decorate_dset">
+<span class="sig-name descname"><span class="pre">decorate_dset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.decorate_dset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.decorate_dset" title="Permalink to this definition">¶</a></dt>
+<dd><p>dispatch re-organization of data flow to model</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain">
-<span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>each domain correspond to one dataset</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.get_list_domains">
 <span class="sig-name descname"><span class="pre">get_list_domains</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.get_list_domains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.get_list_domains" title="Permalink to this definition">¶</a></dt>
@@ -458,12 +472,9 @@ return a double dictionary {“domain1”: {“class1”:3, “class2”: 4,…}
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.set_list_domains">
 <span class="sig-name descname"><span class="pre">set_list_domains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_domains</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.set_list_domains"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.set_list_domains" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>setter for self._list_domains</p>
 </dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.tasks.b_task.dset_decoration_args_algo">
-<span class="sig-prename descclassname"><span class="pre">domainlab.tasks.b_task.</span></span><span class="sig-name descname"><span class="pre">dset_decoration_args_algo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#dset_decoration_args_algo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.dset_decoration_args_algo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 </section>
 <section id="module-domainlab.tasks.task_folder">
 <span id="domainlab-tasks-task-folder-module"></span><h2 id="module-domainlab.tasks.task_folder">domainlab.tasks.task_folder module<a class="headerlink" href="#module-domainlab.tasks.task_folder" title="Permalink to this heading">¶</a></h2>
@@ -492,7 +503,8 @@ then each domain correspond to one dataset</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.task_folder.NodeTaskFolder.get_dset_by_domain">
 <span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_folder.html#NodeTaskFolder.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_folder.NodeTaskFolder.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>each domain correspond to one dataset</p>
+</dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch">
@@ -503,7 +515,8 @@ different names</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch.get_dset_by_domain">
 <span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_folder.html#NodeTaskFolderClassNaMismatch.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>each domain correspond to one dataset</p>
+</dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.tasks.task_folder_mk">
@@ -604,6 +617,19 @@ of an image and the second slot contains the class label as a numerical string.<
 </ul>
 </dd>
 </dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.tasks.task_utils">
+<span id="domainlab-tasks-task-utils-module"></span><h2 id="module-domainlab.tasks.task_utils">domainlab.tasks.task_utils module<a class="headerlink" href="#module-domainlab.tasks.task_utils" title="Permalink to this heading">¶</a></h2>
+<p>convert ids to a list of domain names</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.tasks.task_utils.parse_domain_id">
+<span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_utils.</span></span><span class="sig-name descname"><span class="pre">parse_domain_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_domain_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_domains</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_utils.html#parse_domain_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_utils.parse_domain_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert ids to a list of domain names.
+:param list_domain_id: domain id or ids provided as an int or str,
+or a list of int or str.
+:param list_domains: list of available domains
+:return: list of domain names</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.tasks.utils_task">
