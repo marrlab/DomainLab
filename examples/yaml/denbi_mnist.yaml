@@ -6,7 +6,7 @@ task: mnistcolor10
 test_domains:
   - 3
 
-output_dir: zoutput/benchmarks/mnist_benchmark503
+output_dir: zoutput/benchmarks/mnist_benchmark503_2
 dmem: False
 te_d:
   - 0
@@ -24,8 +24,8 @@ sampling_seed: 503
 epos: 50
 es: 5
 bs: 64
-startseed: 1
-endseed: 1  # currently included
+startseed: 2
+endseed: 2  # currently included
 
 # set all parameters to default first
 nname: conv_bn_pool_2
