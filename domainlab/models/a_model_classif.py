@@ -3,8 +3,8 @@ operations that all claasification model should have
 """
 
 import abc
-import warnings
 import numpy as np
+import math
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
@@ -148,10 +148,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         print("prediction saved in file ", filename)
         file_acc = self.read_prediction_file(filename, spliter)
         acc_metric_te = metric_te['acc']
-        if file_acc != acc_metric_te:
+        if not math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01):
             str_info = f"prediction file acc {file_acc} \
                 not equal to torchmetric acc {acc_metric_te}"
-            warnings.warn(str_info)
+            raise RuntimeError(str_info)
         return file_acc
 
     def read_prediction_file(self, filename, spliter):
