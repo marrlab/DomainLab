@@ -62,10 +62,10 @@ class ObVisitor(AObVisitor):
         print("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
         self.exp.visitor(metric_te)
-        self.dump_prediction(model_ld)
+        self.dump_prediction(model_ld, metric_te)
         # prediction dump of test domain is essential to verify the prediction results
 
-    def dump_prediction(self, model_ld):
+    def dump_prediction(self, model_ld, metric_te):
         """
         given the test domain loader, use the loaded model model_ld to predict each instance
         """
@@ -82,7 +82,8 @@ class ObVisitor(AObVisitor):
             file_name = file_prefix + "_instance_wise_predictions.txt"
             model_ld.pred2file(
                 self.loader_te, self.device,
-                filename=file_name)
+                filename=file_name,
+                metric_te=metric_te)
 
     def clean_up(self):
         """

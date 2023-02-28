@@ -3,6 +3,7 @@ operations that all claasification model should have
 """
 
 import abc
+import warnings
 import numpy as np
 import torch
 from torch import nn as nn
@@ -120,7 +121,9 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         return lc_y
 
-    def pred2file(self, loader_te, device, filename):
+    def pred2file(self, loader_te, device, filename,
+                  metric_te,
+                  spliter="#"):
         """
         pred2file dump predicted label to file as sanity check
         """
@@ -138,11 +141,33 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 for list4one_obs_path_prob_target in list_pair_path_pred:
                     list_str_one_obs_path_target_predprob = [
                         str(ele) for ele in list4one_obs_path_prob_target]
-                    str_line = " # ".join(list_str_one_obs_path_target_predprob)
+                    str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
                     print(str_line, file=handle_file)
         print("prediction saved in file ", filename)
+        file_acc = self.read_prediction_file(filename, spliter)
+        acc_metric_te = metric_te['acc']
+        if file_acc != acc_metric_te:
+            str_info = f"prediction file acc {file_acc} \
+                not equal to torchmetric acc {acc_metric_te}"
+            warnings.warn(str_info)
+        return file_acc
+
+    def read_prediction_file(self, filename, spliter):
+        """
+        check if the written fiel could calculate acc
+        """
+        with open(filename, 'r', encoding="utf8") as handle_file:
+            list_lines = [line.strip().split(spliter) for line in handle_file]
+        count_correct = 0
+        for line in list_lines:
+            list_prob = [float(ele) for ele in line[2].split(",")]
+            if np.array(list_prob).argmax() == int(line[1]):
+                count_correct += 1
+        acc = count_correct / len(list_lines)
+        print(f"accuracy from prediction file {acc}")
+        return acc
 
     def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
         """
