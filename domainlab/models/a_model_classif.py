@@ -120,28 +120,28 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         return lc_y
 
-    def pred2file(self, loader_te, device,
-                  filename='path_prediction.txt', flag_pred_scalar=False):
+    def pred2file(self, loader_te, device, filename):
         """
         pred2file dump predicted label to file as sanity check
         """
         self.eval()
         model_local = self.to(device)
-        for _, (x_s, y_s, *_, path) in enumerate(loader_te):
+        for _, (x_s, y_s, *_, path4instance) in enumerate(loader_te):
             x_s, y_s = x_s.to(device), y_s.to(device)
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
-            # print(path)
-            list_pred_list = prob.tolist()
-            list_label_list = y_s.tolist()
-            if flag_pred_scalar:
-                list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
-                list_label_list = [np.asarray(label).argmax() for label in list_label_list]
-            # label belongs to data
-            list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
+            list_pred_prob_list = prob.tolist()
+            list_target_list = y_s.tolist()
+            list_target_scalar = [np.asarray(label).argmax() for label in list_target_list]
+            tuple_zip = zip(path4instance, list_target_scalar, list_pred_prob_list)
+            list_pair_path_pred = list(tuple_zip)
             with open(filename, 'a', encoding="utf8") as handle_file:
-                for pair in list_pair_path_pred:
-                    # 1:-1 removes brackets of tuple
-                    print(str(pair)[1:-1], file=handle_file)
+                for list4one_obs_path_prob_target in list_pair_path_pred:
+                    list_str_one_obs_path_target_predprob = [
+                        str(ele) for ele in list4one_obs_path_prob_target]
+                    str_line = " # ".join(list_str_one_obs_path_target_predprob)
+                    str_line = str_line.replace("[", "")
+                    str_line = str_line.replace("]", "")
+                    print(str_line, file=handle_file)
         print("prediction saved in file ", filename)
 
     def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
