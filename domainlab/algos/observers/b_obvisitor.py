@@ -62,13 +62,25 @@ class ObVisitor(AObVisitor):
         print("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
         self.exp.visitor(metric_te)
+        self.dump_prediction(model_ld)
+        # prediction dump of test domain is essential to verify the prediction results
+
+    def dump_prediction(self, model_ld):
+        """
+        given the test domain loader, use the loaded model model_ld to predict each instance
+        """
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
             fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
-            file_prefix = os.path.splitext(fname4model)[0]  # remove ".csv"
+            file_prefix = os.path.splitext(fname4model)[0]  # remove ".model"
+            dir4preds = os.path.join(self.exp.args.out, "saved_predicts")
+            if not os.path.exists(dir4preds):
+                os.mkdir(dir4preds)
+            file_prefix = os.path.join(dir4preds,
+                                       os.path.basename(file_prefix))
             file_name = file_prefix + "_instance_wise_predictions.txt"
-            self.host_trainer.model.pred2file(
+            model_ld.pred2file(
                 self.loader_te, self.device,
                 filename=file_name)
 
