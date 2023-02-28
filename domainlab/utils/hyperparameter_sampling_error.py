@@ -160,6 +160,57 @@ def get_hyperparameter(name: str, config: dict) -> Hyperparameter:
     return SampledHyperparameter(name, config)
 
 
+class ReferenceHyperparameter(Hyperparameter):
+    def __init__(self, name: str, config: dict):
+        super().__init__(name, config)
+        self.reference = config.get('reference', None)
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        # nothing to do for references
+        return
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        # nothing to do for references
+        return
+
+    def datatype(self):
+        raise RuntimeError("Datatype unknown for ReferenceHyperparameter")
+
+
+class CategoricalHyperparameter(Hyperparameter):
+    def __init__(self, name: str, config: dict):
+        super().__init__(name, config)
+        self.allowed_values = config['values']
+        self.type = locate(config['datatype'])
+        self.allowed_values = [self.type(v) for v in self.allowed_values]
+
+    def _ensure_step(self):
+        """Make sure that the hyperparameter sticks to the discrete grid"""
+        # nothing to do for categorical ones
+        return
+
+    def sample(self):
+        """Sample this parameter, respecting properties"""
+        # nothing to do for references
+        idx = np.random.randint(0, len(self.allowed_values))
+        self.val = self.allowed_values[idx]
+
+    def datatype(self):
+        return self.type
+
+
+def get_hyperparameter(name: str, config: dict) -> Hyperparameter:
+    if 'reference' in config.keys():
+        return ReferenceHyperparameter(name, config)
+    dist = config.get('distribution', None)
+    if dist == 'categorical':
+        return CategoricalHyperparameter(name, config)
+    else:
+        return SampledHyperparameter(name, config)
+
+
 def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     """Check if the constraints are fulfilled."""
     # set each param as a local variable
