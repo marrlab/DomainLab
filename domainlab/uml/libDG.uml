@@ -52,11 +52,13 @@ package algos {
     }
   }
   package model_selection {
-    class ModelSel {}
+    class ModelSel {
+    - early_stop
+    }
   }
 } 
 
-package dataset <<DataBase>>{
+package datasets <<DataBase>>{
   class Dataset {
     +__get__item__()
   }
