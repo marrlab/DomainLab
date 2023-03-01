@@ -77,6 +77,8 @@ rule run_experiment:
           # hash will keep integer intact and hash strings to random seed
           # hased integer is signed and usually too big, random seed only
           # allowed to be in [0, 2^32-1]
+          # if the user input is number, then hash will not change the value,
+          # so we recommend the user to use number as start seed
           start_seed = abs(hash(start_seed_str)) % (2 ** 32)
         else:
           start_seed = None
@@ -119,11 +121,12 @@ rule agg_results:
 rule agg_partial_results:
     input:
         dir=expand("{output_dir}/rule_results", output_dir=config["output_dir"])
+        # the defined dir is used in the run section below
     params:
         out_file=rules.agg_results.output.out_file
     run:
         import os
-        out_file = str(params.out_file)
+        out_file = str(params.out_file)   # main csv file to aggregate other csv files
         os.makedirs(os.path.dirname(out_file), exist_ok=True)
         has_header = False
         # print(f"exp_results={input.exp_results}")
@@ -144,6 +147,7 @@ rule agg_partial_results:
 
 
 rule gen_plots:
+    # depends on previous rules of agg_(partial_)results
     input:
         res_file=rules.agg_results.output.out_file
     output:

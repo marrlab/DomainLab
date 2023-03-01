@@ -17,6 +17,7 @@ snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "exam
 #snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 
 # only plot
+snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" --keep-going --allowed-rules agg_partial_results
 snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" --keep-going --allowed-rules gen_plots
 
 # print execution graph to pdf
