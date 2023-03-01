@@ -20,7 +20,7 @@ sampling_seed: 100
 
 # use only 3 epochs to check if results can be aggregated
 epos: 3
-bs: 128
+bs: 32
 startseed: 1000
 endseed: 1000  # currently included
 

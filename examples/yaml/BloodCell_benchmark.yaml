@@ -22,8 +22,8 @@ output_dir: zoutput/benchmarks/bloodcell_benchmark
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 5
 
-epos: 100
-batchsize: 16
+epos: 500
+batchsize: 32
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
 # different seeds are used to estimate the stochastic
@@ -91,17 +91,6 @@ Task1:  # name
     zd_dim:
       reference: zy_dim
 
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
 Task2:  # name
   aname: hduva
 
@@ -131,19 +120,10 @@ Task2:  # name
     zd_dim:
       reference: zy_dim
 
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 Task3:  # name
   aname: matchdg
+  # FIXME: epochs here need adjustment
 
   hyperparameters:
     # penalty weight for matching loss (Lambda in paper)
@@ -162,7 +142,7 @@ Task3:  # name
     # this shall be set to be epos - epochs_ctr
     # as epos cannot be referenced here one needs to hardcode this right number of epos here
     epochs_erm:
-      reference: 200 - epochs_ctr
+      reference: 500 - epochs_ctr
       
     # factor to magnify cosine similarity
     tau:
@@ -175,12 +155,6 @@ Task3:  # name
       min: 1
       max: 20
       step: 1
-      distribution: uniform
-
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
       distribution: uniform
 
     gamma_reg:
@@ -205,19 +179,6 @@ Task4:  # name
       max: 0.5
       distribution: uniform
 
-    # length of image in tile unit
-    grid_len:
-      min: 2
-      max: 5
-      step: 1
-      distribution: uniform
-
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -231,12 +192,6 @@ Task5:  # name
   aname: dann
 
   hyperparameters:
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -244,14 +199,8 @@ Task5:  # name
   
 Task6:  # name
   aname: deepall
-
+  # deepall does not really have hyper-parameters,here for consistence
   hyperparameters:
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -276,12 +225,6 @@ Task7: # name
       min: 0.0.001
       max: 0.01
       distribution: loguniform
-
-    early_stop:
-      min: 1
-      max: 11
-      step: 5
-      distribution: uniform
 
     gamma_reg:
       min: 0.01
