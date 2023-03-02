@@ -10,8 +10,8 @@ class TrainerBasic(AbstractTrainer):
     """
     basic trainer
     """
-    def __init__(self, model, task, observer, device, aconf):
-        super().__init__(model, task, observer, device, aconf)
+    def __init__(self, model, task, observer, device, aconf, flag_accept):
+        super().__init__(model, task, observer, device, aconf, flag_accept)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
 
     def before_tr(self):
@@ -35,3 +35,16 @@ class TrainerBasic(AbstractTrainer):
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
+
+    def train_batch(self, tensor_x, vec_y, vec_d, others):
+        """
+        use a temporary optimizer to update only the model upon a batch of data
+        """
+        optimizer = optim.Adam(self.model.parameters(), lr=self.aconf.lr)
+        tensor_x, vec_y, vec_d = \
+                tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
+        optimizer.zero_grad()
+        loss = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
+        loss = loss.sum()
+        loss.backward()
+        optimizer.step()
