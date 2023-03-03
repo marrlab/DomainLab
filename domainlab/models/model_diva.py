@@ -76,11 +76,11 @@ def mk_diva(parent_class=VAEXYDClassif):
             z_concat = self.decoder.concat_ydx(zy_q, zd_q, zx_q)
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
 
-            zd_p_minus_zd_q = torch.sum(
+            zd_p_minus_zd_q = g_inst_component_loss_agg(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
-            zx_p_minus_zx_q = torch.sum(
+            zx_p_minus_zx_q = g_inst_component_loss_agg(
                 p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
-            zy_p_minus_zy_q = torch.sum(
+            zy_p_minus_zy_q = g_inst_component_loss_agg(
                 p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
             _, d_target = tensor_d.max(dim=1)
