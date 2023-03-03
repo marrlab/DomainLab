@@ -4,6 +4,7 @@ DIVA
 import torch
 from torch.nn import functional as F
 
+from domainlab import g_inst_component_loss_agg
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
