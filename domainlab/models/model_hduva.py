@@ -108,7 +108,8 @@ def mk_hduva(parent_class=VAEXYDClassif):
             zx_p_minus_q = 0
             if self.zx_dim > 0:
                 p_zx = self.init_p_zx4batch(batch_size, device)
-                zx_p_minus_q = g_inst_component_loss_agg(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
+                zx_p_minus_q = g_inst_component_loss_agg(
+                    p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
             # @FIXME: does monte-carlo KL makes the performance unstable?
             # from torch.distributions import kl_divergence
