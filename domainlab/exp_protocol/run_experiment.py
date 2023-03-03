@@ -111,9 +111,9 @@ def run_experiment(
     else:
         end_seed = start_seed + (config['endseed'] - config['startseed'])
 
-    for te_d in config['test_domains']:
-        args.te_d = te_d
-        for seed in range(start_seed, end_seed + 1):
+    for seed in range(start_seed, end_seed + 1):
+        for te_d in config['test_domains']:
+            args.te_d = te_d
             set_seed(seed)
             args.seed = seed
             if torch.cuda.is_available():
