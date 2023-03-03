@@ -82,7 +82,8 @@ package models{
   + extract_feature()
   }
   class ConcreteModelBuilder {}
-  package networks {}
+  package networks {
+  }
 }
 
 
@@ -124,12 +125,12 @@ Task o-- Dataset
 Model <|-- ConcreteModel
 AlgoBuilder <|-- ConcreteAlgoBuilder
 Model *-- ModelBuilder
-Model *-- networks
+ConcreteModel *-- networks
 AlgoHandler *-- ConcreteAlgoBuilder
 Experiment *-- TaskHandler
 Experiment *-- AlgoHandler
 TaskHandler *-- tasks
-ModelBuilder -- networks
+ConcreteModelBuilder -- networks
 
 ConcreteAlgoBuilder *-- Trainer
 ConcreteAlgoBuilder -- ConcreteModel
@@ -138,6 +139,6 @@ ConcreteAlgoBuilder -- Trainer
 Observer *-- ModelSel
 
 ModelSel -- Observer
-ConcreteModelBuilder -- ConcreteModel
+ConcreteModelBuilder --* ConcreteModel
 benchmark -- UserInput
 @enduml
