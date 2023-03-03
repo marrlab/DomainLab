@@ -9,7 +9,7 @@ class AObVisitor(metaclass=abc.ABCMeta):
     Observer + Visitor pattern for model selection
     """
     @abc.abstractmethod
-    def update(self, epoch):
+    def update(self, epoch) -> bool:
         """
         return True/False whether the trainer should stop training
         """
