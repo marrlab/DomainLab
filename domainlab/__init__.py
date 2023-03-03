@@ -1,4 +1,5 @@
 __docformat__ = "restructuredtext"
+import torch
 
 algos = {
     "deepall": "Pool all domains together and train an ERM (empirical risk minimization) model",
@@ -8,3 +9,5 @@ algos = {
     "jigsaw": "Domain Generalization by Solving Jigsaw Puzzles, https://arxiv.org/abs/1903.06864",
     "matchdg": "Domain Generalization using Causal Matching, https://arxiv.org/abs/2006.07500"
 }
+
+global_loss_agg=torch.mean

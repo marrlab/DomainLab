@@ -6,6 +6,7 @@ from torch.distributions import Dirichlet
 
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
+from domainlab import global_loss_agg
 
 
 def mk_hduva(parent_class=VAEXYDClassif):
@@ -107,18 +108,18 @@ def mk_hduva(parent_class=VAEXYDClassif):
             zx_p_minus_q = 0
             if self.zx_dim > 0:
                 p_zx = self.init_p_zx4batch(batch_size, device)
-                zx_p_minus_q = torch.sum(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
+                zx_p_minus_q = global_loss_agg(p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
             # @FIXME: does monte-carlo KL makes the performance unstable?
             # from torch.distributions import kl_divergence
 
             # zy KL divergence
             p_zy = self.net_p_zy(tensor_y)
-            zy_p_minus_zy_q = torch.sum(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
+            zy_p_minus_zy_q = global_loss_agg(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
 
             # zd KL diverence
             p_zd = self.net_p_zd(topic_q)
-            zd_p_minus_q = torch.sum(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
+            zd_p_minus_q = global_loss_agg(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
 
             # topic KL divergence
             # @FIXME: why topic is still there?
