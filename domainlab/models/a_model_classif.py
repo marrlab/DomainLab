@@ -4,6 +4,7 @@ operations that all claasification model should have
 
 import abc
 import numpy as np
+import math
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
@@ -120,29 +121,53 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         return lc_y
 
-    def pred2file(self, loader_te, device,
-                  filename='path_prediction.txt', flag_pred_scalar=False):
+    def pred2file(self, loader_te, device, filename,
+                  metric_te,
+                  spliter="#"):
         """
         pred2file dump predicted label to file as sanity check
         """
         self.eval()
         model_local = self.to(device)
-        for _, (x_s, y_s, *_, path) in enumerate(loader_te):
+        for _, (x_s, y_s, *_, path4instance) in enumerate(loader_te):
             x_s, y_s = x_s.to(device), y_s.to(device)
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
-            # print(path)
-            list_pred_list = prob.tolist()
-            list_label_list = y_s.tolist()
-            if flag_pred_scalar:
-                list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
-                list_label_list = [np.asarray(label).argmax() for label in list_label_list]
-            # label belongs to data
-            list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
+            list_pred_prob_list = prob.tolist()
+            list_target_list = y_s.tolist()
+            list_target_scalar = [np.asarray(label).argmax() for label in list_target_list]
+            tuple_zip = zip(path4instance, list_target_scalar, list_pred_prob_list)
+            list_pair_path_pred = list(tuple_zip)
             with open(filename, 'a', encoding="utf8") as handle_file:
-                for pair in list_pair_path_pred:
-                    # 1:-1 removes brackets of tuple
-                    print(str(pair)[1:-1], file=handle_file)
+                for list4one_obs_path_prob_target in list_pair_path_pred:
+                    list_str_one_obs_path_target_predprob = [
+                        str(ele) for ele in list4one_obs_path_prob_target]
+                    str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
+                    str_line = str_line.replace("[", "")
+                    str_line = str_line.replace("]", "")
+                    print(str_line, file=handle_file)
         print("prediction saved in file ", filename)
+        file_acc = self.read_prediction_file(filename, spliter)
+        acc_metric_te = metric_te['acc']
+        if not math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01):
+            str_info = f"prediction file acc {file_acc} \
+                not equal to torchmetric acc {acc_metric_te}"
+            raise RuntimeError(str_info)
+        return file_acc
+
+    def read_prediction_file(self, filename, spliter):
+        """
+        check if the written fiel could calculate acc
+        """
+        with open(filename, 'r', encoding="utf8") as handle_file:
+            list_lines = [line.strip().split(spliter) for line in handle_file]
+        count_correct = 0
+        for line in list_lines:
+            list_prob = [float(ele) for ele in line[2].split(",")]
+            if np.array(list_prob).argmax() == int(line[1]):
+                count_correct += 1
+        acc = count_correct / len(list_lines)
+        print(f"accuracy from prediction file {acc}")
+        return acc
 
     def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
         """

@@ -11,8 +11,8 @@ tpath: examples/tasks/task_vlcs.py  # dataset
 # of the specified dataset.
 test_domains:
   - caltech
-  # - sun
-  # - labelme
+  - sun
+  - labelme
 
 output_dir: zoutput/benchmarks/demo_benchmark
 
@@ -25,7 +25,7 @@ num_param_samples: 2
 # startseed and endseed, this benchmark is fully reproducible.
 sampling_seed: 1  # Optional
 
-epos: 3
+epos: 2
 bs: 2
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
