@@ -10,4 +10,4 @@ algos = {
     "matchdg": "Domain Generalization using Causal Matching, https://arxiv.org/abs/2006.07500"
 }
 
-global_loss_agg=torch.mean
+g_inst_component_loss_agg=torch.mean
