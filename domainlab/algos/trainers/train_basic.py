@@ -34,4 +34,5 @@ class TrainerBasic(AbstractTrainer):
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
+        assert flag_stop is not None
         return flag_stop
