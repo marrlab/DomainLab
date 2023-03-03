@@ -21,7 +21,7 @@ output_dir: zoutput/benchmarks/bloodcell_benchmark
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 5
-
+sampling_seed:100
 epos: 500
 bs: 32
 # the seed is increased by +1 until it reaches endseed.
