@@ -11,9 +11,9 @@ tpath: examples/tasks/task_blood2.py
 # while training is performed on all other domains
 # of the specified dataset.
 test_domains:
-  - Acevedo
-  - Matek
-  - MLL
+  - acevedo
+  - matek
+  - mll
 
 output_dir: zoutput/benchmarks/bloodcell_benchmark
 
@@ -222,7 +222,7 @@ Task7: # name
       distribution: loguniform
 
     dial_epsilon:
-      min: 0.0.001
+      min: 0.001
       max: 0.01
       distribution: loguniform
 
