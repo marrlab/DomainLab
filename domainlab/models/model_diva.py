@@ -1,6 +1,7 @@
 """
 DIVA
 """
+import math
 import torch
 from torch.nn import functional as F
 
@@ -79,17 +80,23 @@ def mk_diva(parent_class=VAEXYDClassif):
             zd_p_minus_zd_q = g_inst_component_loss_agg(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
             # without aggregation, shape is [batchsize, zd_dim]
-            zx_p_minus_zx_q = g_inst_component_loss_agg(
-                p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
+            zx_p_minus_zx_q = 0
+            if self.zx_dim > 0:
+                # torch.sum will return 0 for empty tensor,
+                # torch.mean will return nan
+                zx_p_minus_zx_q = g_inst_component_loss_agg(
+                    p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
+
             zy_p_minus_zy_q = g_inst_component_loss_agg(
                 p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
 
-            return loss_recon_x \
+            loss_reg = loss_recon_x \
                 - self.beta_d * zd_p_minus_zd_q \
                 - self.beta_x * zx_p_minus_zx_q \
                 - self.beta_y * zy_p_minus_zy_q \
                 + self.gamma_d * lc_d
+            return loss_reg
     return ModelDIVA
