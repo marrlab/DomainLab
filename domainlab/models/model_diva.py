@@ -1,8 +1,6 @@
 """
 DIVA
 """
-import math
-import torch
 from torch.nn import functional as F
 
 from domainlab import g_inst_component_loss_agg
