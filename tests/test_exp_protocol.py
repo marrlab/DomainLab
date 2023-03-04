@@ -48,25 +48,29 @@ def agg_input_files() -> List[str]:
     """Create test input files for the agg tests."""
     test_dir = "zoutput/test/rule_results"
     os.makedirs(test_dir, exist_ok=True)
-    f0 = test_dir + "/0.csv"
-    f1 = test_dir + "/1.csv"
+    f_0 = test_dir + "/0.csv"
+    f_1 = test_dir + "/1.csv"
 
-    with open(f0, 'w') as f:
-        f.write(
-            "param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, aurocy\n"
-            "0, Task_diva, diva, 2, caltech, 1, \"{'gamma_y': 682408, 'gamma_d': 275835}\", 0.88461536, 0.852381,"
+    with open(f_0, 'w') as stream:
+        stream.write(
+            "param_index, task, algo, epos, te_d, seed, params, acc,"
+            " precision, recall, specificity, f1, aurocy\n"
+            "0, Task_diva, diva, 2, caltech, 1, \"{'gamma_y': 682408,"
+            " 'gamma_d': 275835}\", 0.88461536, 0.852381,"
             " 0.80833334, 0.80833334, 0.82705104, 0.98333335\n"
         )
 
-    with open(f1, 'w') as f:
-        f.write(
-            "param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, aurocy\n"
-            "1, TaskHduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037, 'zy_dim': 48}\", 0.7307692, 0.557971,"
+    with open(f_1, 'w') as stream:
+        stream.write(
+            "param_index, task, algo, epos, te_d, seed, params, acc,"
+            " precision, recall, specificity, f1, aurocy\n"
+            "1, TaskHduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037,"
+            " 'zy_dim': 48}\", 0.7307692, 0.557971,"
             " 0.5333333, 0.5333333, 0.5297158, 0.73333335"
         )
 
     # let the test run
-    yield [f0, f1]
+    yield [f_0, f_1]
     # cleanup test files.
     shutil.rmtree(test_dir)
 
@@ -83,17 +87,20 @@ def agg_output_file() -> str:
 @pytest.fixture
 def agg_expected_output() -> str:
     """Expected result file content for the agg tests."""
-    return "param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, aurocy\n" \
-           "0, Task_diva, diva, 2, caltech, 1, \"{'gamma_y': 682408, 'gamma_d': 275835}\", 0.88461536, 0.852381,"\
+    return "param_index, task, algo, epos, te_d, seed, params, acc," \
+           " precision, recall, specificity, f1, aurocy\n" \
+           "0, Task_diva, diva, 2, caltech, 1, \"{'gamma_y': 682408," \
+           " 'gamma_d': 275835}\", 0.88461536, 0.852381,"\
            " 0.80833334, 0.80833334, 0.82705104, 0.98333335\n"\
-           "1, TaskHduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037, 'zy_dim': 48}\", 0.7307692, 0.557971,"\
+           "1, TaskHduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037," \
+           " 'zy_dim': 48}\", 0.7307692, 0.557971,"\
            " 0.5333333, 0.5333333, 0.5297158, 0.73333335"
 
 
 def compare_file_content(filename: str, expected: str) -> bool:
     """Returns true if the given file contains the given string."""
-    with open(filename, 'r') as f:
-        content = f.readlines()
+    with open(filename, 'r') as stream:
+        content = stream.readlines()
     return ''.join(content) == expected
 
 
