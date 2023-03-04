@@ -60,6 +60,7 @@ class ObVisitor(AObVisitor):
         try:
             model_ld = self.exp.visitor.load()
         except FileNotFoundError:
+            # this can happen if loss is increasing, model never get selected
             return
 
         model_ld = model_ld.to(self.device)
