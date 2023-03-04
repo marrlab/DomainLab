@@ -78,6 +78,7 @@ def mk_diva(parent_class=VAEXYDClassif):
 
             zd_p_minus_zd_q = g_inst_component_loss_agg(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
+            # without aggregation, shape is [batchsize, zd_dim]
             zx_p_minus_zx_q = g_inst_component_loss_agg(
                 p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
             zy_p_minus_zy_q = g_inst_component_loss_agg(
