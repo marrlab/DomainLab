@@ -1,3 +1,8 @@
+"""
+Functions to join the csv result files generate by different jobs of the benchmarks into
+a single csv file.
+"""
+
 import os
 from typing import List
 
