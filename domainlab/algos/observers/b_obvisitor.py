@@ -62,8 +62,8 @@ class ObVisitor(AObVisitor):
         model_ld.eval()
         print("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
-        self.exp.visitor(metric_te)
         self.dump_prediction(model_ld, metric_te)
+        self.exp.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results
 
     def dump_prediction(self, model_ld, metric_te):
