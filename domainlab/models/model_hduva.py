@@ -75,17 +75,6 @@ def mk_hduva(parent_class=VAEXYDClassif):
                             self.chain_node_builder.construct_classifier(
                                 self.zy_dim, self.dim_y))
 
-        def cal_logit_y(self, tensor_x):
-            """
-            calculate the logit for softmax classification
-            """
-            _, _, \
-                _, _, \
-                _, _, \
-                _, zy_q = self.encoder(tensor_x)
-            logit_y = self.net_classif_y(zy_q)
-            return logit_y
-
         def init_p_topic_batch(self, batch_size, device):
             """
             flat prior

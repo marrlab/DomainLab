@@ -46,7 +46,10 @@ def mk_onehot(dim, ind):
     return vec
 
 
-def mk_loader(dset, bsize, drop_last=True, shuffle=True):
+def mk_loader(dset, bsize,
+              drop_last=True,
+              shuffle=True,
+              num_workers=int(0)):
     """
     :param bs: batch size
     """
@@ -56,9 +59,8 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
         dataset=dset,
         batch_size=bsize,
         shuffle=shuffle,
-        # shuffle must be true so the last incomplete
-        # batch get used in anohter epoch
-        num_workers=int(0),   # @FIXME:
+        # @FIXME: shuffle must be true so the last incomplete batch get used in another epoch?
+        num_workers=num_workers,   # @FIXME: num_workers=int(0) can be slow?
         drop_last=drop_last)
     return loader
 

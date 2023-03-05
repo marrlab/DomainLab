@@ -56,14 +56,19 @@ class ObVisitor(AObVisitor):
         """
         After training is done
         """
-        self.exp.visitor.save(self.host_trainer.model, "final")
-        model_ld = self.exp.visitor.load()
+        model_ld = None
+        try:
+            model_ld = self.exp.visitor.load()
+        except FileNotFoundError:
+            # this can happen if loss is increasing, model never get selected
+            return
+
         model_ld = model_ld.to(self.device)
         model_ld.eval()
         print("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
-        self.exp.visitor(metric_te)
         self.dump_prediction(model_ld, metric_te)
+        self.exp.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results
 
     def dump_prediction(self, model_ld, metric_te):
@@ -92,18 +97,26 @@ class ObVisitor(AObVisitor):
         """
         if not self.keep_model:
             try:
-                # oracle means use out-of-domain
-                # test accuracy to select the model
+                # oracle means use out-of-domain test accuracy to select the model
                 self.exp.visitor.remove("oracle")  # pylint: disable=E1101
-                # the last epoch
+            except FileNotFoundError:
+                pass
+
+            try:
+                # the last epoch:
+                # have a model to evaluate in case the training stops in between
                 self.exp.visitor.remove("epoch")  # pylint: disable=E1101
-                # epoch exist to still have a model to evaluate
-                # if the training stops in between
-                self.exp.visitor.remove("final")  # pylint: disable=E1101
+            except FileNotFoundError:
+                warnings.warn("failed to remove model_epoch: file not found")
+
+            try:
+                # without suffix: the selected model
                 self.exp.visitor.remove()  # pylint: disable=E1101
             except FileNotFoundError:
                 warnings.warn("failed to remove model")
+
             try:
-                self.exp.visitor.remove("ctr")  # pylint: disable=E1101 For matchdg
+                # for matchdg
+                self.exp.visitor.remove("ctr")  # pylint: disable=E1101
             except FileNotFoundError:
                 pass

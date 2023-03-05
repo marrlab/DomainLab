@@ -1,6 +1,7 @@
 """
 basic trainer
 """
+import math
 from torch import optim
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
@@ -33,6 +34,8 @@ class TrainerBasic(AbstractTrainer):
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
+        assert self.epo_loss_tr is not None
+        assert not math.isnan(self.epo_loss_tr)
         flag_stop = self.observer.update(epoch)  # notify observer
         assert flag_stop is not None
         return flag_stop

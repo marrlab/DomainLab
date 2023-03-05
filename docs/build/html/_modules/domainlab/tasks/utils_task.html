@@ -322,7 +322,10 @@ from domainlab.utils.utils_class import store_args
     return vec</div>
 
 
-<div class="viewcode-block" id="mk_loader"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.utils_task.mk_loader">[docs]</a>def mk_loader(dset, bsize, drop_last=True, shuffle=True):
+<div class="viewcode-block" id="mk_loader"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.utils_task.mk_loader">[docs]</a>def mk_loader(dset, bsize,
+              drop_last=True,
+              shuffle=True,
+              num_workers=int(0)):
     """
     :param bs: batch size
     """
@@ -332,9 +335,8 @@ from domainlab.utils.utils_class import store_args
         dataset=dset,
         batch_size=bsize,
         shuffle=shuffle,
-        # shuffle must be true so the last incomplete
-        # batch get used in anohter epoch
-        num_workers=int(0),   # @FIXME:
+        # @FIXME: shuffle must be true so the last incomplete batch get used in another epoch?
+        num_workers=num_workers,   # @FIXME: num_workers=int(0) can be slow?
         drop_last=drop_last)
     return loader</div>
 

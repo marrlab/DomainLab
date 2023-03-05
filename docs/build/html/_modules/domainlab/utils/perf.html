@@ -305,33 +305,34 @@ import torch
         return fun_acc</div>
 
 <div class="viewcode-block" id="PerfClassif.cal_acc"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf.PerfClassif.cal_acc">[docs]</a>    @classmethod
-    def cal_acc(cls, model, loader_te, device, max_batches=None):
+    def cal_acc(cls, model, loader_te, device):
         """
         :param model:
         :param loader_te:
         :param device: for final test, GPU can be used
-        :param max_batches:
-                maximum number of iteration for data loader, used to
-                probe performance with less computation burden.
-                default None, which means to traverse the whole dataset
         """
         model.eval()
         model_local = model.to(device)
-        if max_batches is None:
-            max_batches = len(loader_te)
-            fun_acc = cls.gen_fun_acc(model_local.dim_y)
+        fun_acc = cls.gen_fun_acc(model_local.dim_y)
+        list_vec_preds, list_vec_labels = cls.get_list_pred_target(
+            model_local, loader_te, device)
+        accuracy_y = fun_acc(list_vec_preds, list_vec_labels)
+        acc_y = accuracy_y.cpu().numpy().item()
+        return acc_y</div>
+
+<div class="viewcode-block" id="PerfClassif.get_list_pred_target"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf.PerfClassif.get_list_pred_target">[docs]</a>    @classmethod
+    def get_list_pred_target(cls, model_local, loader_te, device):
+        """
+        isolate function to check if prediction persist each time loader is went through
+        """
         list_vec_preds, list_vec_labels = [], []
         with torch.no_grad():
-            for i, (x_s, y_s, *_) in enumerate(loader_te):
+            for _, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
                 pred, *_ = model_local.infer_y_vpicn(x_s)
                 list_vec_preds.append(pred)
                 list_vec_labels.append(y_s)
-                if i &gt; max_batches:
-                    break
-        accuracy_y = fun_acc(list_vec_preds, list_vec_labels)
-        acc_y = accuracy_y.cpu().numpy().item()
-        return acc_y</div></div>
+        return list_vec_preds, list_vec_labels</div></div>
 </pre></div>
 
           </article>
