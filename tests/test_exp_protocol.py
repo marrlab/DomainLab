@@ -10,7 +10,7 @@ import torch
 import yaml
 
 from domainlab.arg_parser import mk_parser_main
-from domainlab.exp_protocol.aggregate_results import agg_results, agg_from_directory, agg_main
+from domainlab.exp_protocol.aggregate_results import agg_results, agg_main
 from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_args
 
 
@@ -43,9 +43,8 @@ def test_apply_dict_to_args():
     assert args.aname == 'diva'
 
 
-@pytest.fixture
-def agg_input_files() -> List[str]:
-    """Create test input files for the agg tests."""
+def create_agg_input_files() -> List[str]:
+    """Creates test input files."""
     test_dir = "zoutput/test/rule_results"
     os.makedirs(test_dir, exist_ok=True)
     f_0 = test_dir + "/0.csv"
@@ -68,11 +67,21 @@ def agg_input_files() -> List[str]:
             " 'zy_dim': 48}\", 0.7307692, 0.557971,"
             " 0.5333333, 0.5333333, 0.5297158, 0.73333335"
         )
+    return [f_0, f_1]
 
+
+def cleanup_agg_test_files():
+    """Delete temporal test files."""
+    shutil.rmtree("zoutput/test", ignore_errors=True)
+
+
+@pytest.fixture
+def agg_input_files() -> List[str]:
+    """Create test input files for the agg tests."""
     # let the test run
-    yield [f_0, f_1]
+    yield create_agg_input_files()
     # cleanup test files.
-    shutil.rmtree(test_dir, ignore_errors=True)
+    cleanup_agg_test_files()
 
 
 @pytest.fixture
@@ -98,7 +107,9 @@ def agg_expected_output() -> str:
 
 
 @pytest.fixture
-def bm_config(agg_input_files):
+def bm_config():
+    """Test benchmark config."""
+    create_agg_input_files()
     config_file = "zoutput/test/test_config.yaml"
     with open(config_file, 'w') as config:
         config.write("output_dir: zoutput/test\n")
@@ -106,7 +117,7 @@ def bm_config(agg_input_files):
     # let the test run
     yield open(config_file, 'r')
     # cleanup test files.
-    shutil.rmtree("zoutput/test", ignore_errors=True)
+    cleanup_agg_test_files()
 
 
 def compare_file_content(filename: str, expected: str) -> bool:

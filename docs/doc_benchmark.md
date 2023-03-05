@@ -60,4 +60,4 @@ The results form partially completed benchmarks can be obtained with
 ```commandline
 python main_out.py --agg_partial_bm BENCHMARK_CONFIG
 ```
-specifying yaml file of the benchmark.
+specifying the yaml file of the benchmark.
