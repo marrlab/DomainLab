@@ -332,7 +332,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.update">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.update" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>return True/False whether the trainer should stop training</p>
 </dd></dl>
 </dd></dl>
@@ -358,6 +358,11 @@
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up">
 <span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up" title="Permalink to this definition">¶</a></dt>
 <dd><p>to be called by a decorator</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction">
+<span class="sig-name descname"><span class="pre">dump_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_ld</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.dump_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the test domain loader, use the loaded model model_ld to predict each instance</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.update">
