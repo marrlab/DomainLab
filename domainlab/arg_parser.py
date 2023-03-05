@@ -3,12 +3,13 @@ Command line arguments
 """
 import argparse
 import warnings
+
 import yaml
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
-from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.models.args_jigen import add_args2parser_jigen
+from domainlab.models.args_vae import add_args2parser_vae
 
 
 def mk_parser_main():
@@ -105,8 +106,8 @@ def mk_parser_main():
                         help='tag in each line of result aggregation file \
                         e.g., to specify potential different configurations')
 
-    parser.add_argument('--agg_partial_bm', type=argparse.FileType(mode='r'),
-                        default=None, dest="bm_config",
+    parser.add_argument('--agg_partial_bm', type=str,
+                        default=None, dest="bm_dir",
                         help="Aggregates and plots partial data of a snakemake \
                         benchmark. Requires the benchmark config file. \
                         Other arguments will be ignored.")
@@ -186,7 +187,7 @@ def parse_cmd_args():
             else:
                 arg_dict[key] = value
 
-    if args.acon is None and args.bm_config is None:
+    if args.acon is None and args.bm_dir is None:
         print("\n\n")
         warnings.warn("no algorithm conf specified, going to use default")
         print("\n\n")

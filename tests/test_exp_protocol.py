@@ -110,12 +110,8 @@ def agg_expected_output() -> str:
 def bm_config():
     """Test benchmark config."""
     create_agg_input_files()
-    config_file = "zoutput/test/test_config.yaml"
-    with open(config_file, 'w') as config:
-        config.write("output_dir: zoutput/test\n")
-
     # let the test run
-    yield open(config_file, 'r')
+    yield "zoutput/test"
     # cleanup test files.
     cleanup_agg_test_files()
 

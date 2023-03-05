@@ -6,8 +6,6 @@ a single csv file.
 import os
 from typing import List
 
-import yaml
-
 from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
 
 
@@ -42,10 +40,9 @@ def agg_from_directory(input_dir: str, output_file: str):
     agg_results(file_list, output_file)
 
 
-def agg_main(bm_config, skip_plotting: bool = False):
+def agg_main(bm_dir: str, skip_plotting: bool = False):
     """Aggregates partial results and generate plots."""
-    config = yaml.safe_load(bm_config)
-    agg_output = f"{config['output_dir']}/results.csv"
-    agg_input = f"{config['output_dir']}/rule_results"
+    agg_output = f"{bm_dir}/results.csv"
+    agg_input = f"{bm_dir}/rule_results"
     agg_from_directory(agg_input, agg_output)
-    gen_benchmark_plots(agg_output, f'{config["output_dir"]}/graphics', skip_plotting)
+    gen_benchmark_plots(agg_output, f'{bm_dir}/graphics', skip_plotting)

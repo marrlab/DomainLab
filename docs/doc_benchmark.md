@@ -58,6 +58,6 @@ the `graphics` subdirectory, in which the values from `results.csv` are visualiz
 ## Obtain partial results
 The results form partially completed benchmarks can be obtained with
 ```commandline
-python main_out.py --agg_partial_bm BENCHMARK_CONFIG
+python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
-specifying the yaml file of the benchmark.
+specifying the benchmark output directory, i.e. the value of `output_dir` of the benchmark config.
