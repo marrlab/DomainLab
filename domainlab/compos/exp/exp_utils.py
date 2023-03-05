@@ -8,9 +8,9 @@ from pathlib import Path
 
 import torch
 
+from sklearn.metrics import ConfusionMatrixDisplay
 from domainlab.utils.get_git_tag import get_git_tag
 
-from sklearn.metrics import ConfusionMatrixDisplay
 
 
 class ExpModelPersistVisitor():
@@ -90,6 +90,7 @@ class ExpModelPersistVisitor():
     def load(self, suffix=None):
         """
         load pre-defined model name from disk
+        the save function is the same class so to ensure load will ways work
         """
         path = self.model_path
         if suffix is not None:
