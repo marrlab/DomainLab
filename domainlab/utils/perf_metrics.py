@@ -43,8 +43,8 @@ class PerfMetricClassif():
         self.auroc = self.auroc.to(device)
         self.specificity = self.specificity.to(device)
         self.confmat = self.confmat.to(device)
-        model.eval()
         model_local = model.to(device)
+        model_local.eval()
         with torch.no_grad():
             for _, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)

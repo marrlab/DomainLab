@@ -83,7 +83,9 @@ class NodeTaskDict(NodeTaskDGClassif):
         self._loader_tr = mk_loader(ddset_mix, args.bs)
 
         ddset_mix_val = ConcatDataset(tuple(self.dict_dset_val.values()))
-        self._loader_val = mk_loader(ddset_mix_val, args.bs)
+        self._loader_val = mk_loader(ddset_mix_val, args.bs,
+                                     shuffle=False,
+                                     drop_last=False)
 
         self.dict_dset_te = {}
         # No need to have domain Label for test
@@ -93,7 +95,9 @@ class NodeTaskDict(NodeTaskDGClassif):
             # train and validation, this is not needed in test domain
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))
-        self._loader_te = mk_loader(dset_te, args.bs, drop_last=False)
+        self._loader_te = mk_loader(dset_te, args.bs,
+                                    shuffle=False,
+                                    drop_last=False)
         self.count_domain_class()
 
     def count_domain_class(self):

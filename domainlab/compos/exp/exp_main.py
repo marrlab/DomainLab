@@ -55,6 +55,7 @@ class Exp():
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
+                print("early stop trigger")
                 break
             if epoch == self.epochs:
                 self.epoch_counter = self.epochs

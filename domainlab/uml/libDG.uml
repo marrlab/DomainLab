@@ -13,73 +13,132 @@
 'Sometimes the relationship between two classes is very weak. They are not 
 'implemented with member variables at all. Rather they might be implemented as 
 'member function arguments.
-package task {
+package tasks {
   abstract class Task {
-    + dim_y
+    - transformations
+    - datasets (training domains)
+    - datasets (test domains)
   }
   Task <|-- TaskFolder
+  Task <|-- TaskPathList
 }
 
 package algos {
-  abstract class AlgoBuilder {}
-  class ConcreteAlgoBuilder {}
-  package trainer {
-    class Trainer {}
+  abstract class AlgoBuilder {
+  + build_model()
+  + build_trainer()
+  + build_observer()
+  + model_specific_task_processing()
+  }
+  class ConcreteAlgoBuilder {
+  + build_model()
+  + build_trainer()
+  + build_observer()
+  + model_specific_task_processing()
+  }
+  package trainers {
+    class Trainer {
+    + update_regularization_weight()
+    + update_model_parameter()
+    + calculate_loss()
+    - model
+    - observer
+    - task
+    }
   }
   package observer {
-    class Observer {}
+    class Observer {
+    + trainer.model.calculate_metric() 
+    }
   }
   package model_selection {
-    class ModelSel {}
+    class ModelSel {
+    - early_stop
+    }
   }
 } 
 
-package dataset <<DataBase>>{
+package datasets <<DataBase>>{
   class Dataset {
-    --
-    __get__item__
-    --
-    --
+    +__get__item__()
   }
 }
 
-package model{
+package YMLConfiguration <<DataBase>>{
+}
+
+package models{
   abstract class Model {
-  + int dim_y
-  + int dim_d
+  + extract_feature()
+  + calculate_task_loss()
+  + calculate_regularization_loss()
+  + calculate_metric()
   }
   abstract class ModelBuilder {
-  +build_part_a()
-  +build_part_b()
+  +build_model_componet()
   }
-  class ConcreteModel {}
+  class ConcreteModel {
+  + calculate_regularization_loss()
+  + extract_feature()
+  }
   class ConcreteModelBuilder {}
+  package networks {
+  }
 }
 
 
-package components {
-  package common_networks {
-  }
-  package patterns{}
   package experiment {
-    class Experiment {}
+    class Experiment {
+  - task
+  - trainer
+  + execute()
+    }
     class TaskHandler{}
+    class AlgoHandler{}
   }
+
+
+interface UserInput{
+- task
+- hyperparameters
++ read_yml_for_configuration()
++ command_line_arguments()
+}
+
+protocol benchmark{
+ + run_experiment()
+ + plot_results()
+ + read_yml_for_configuration()
 }
 
 
-Experiment *-- Task
-Experiment *-- Trainer
+
+UserInput -- YMLConfiguration
+UserInput -- tasks
+UserInput -- TaskHandler
+ModelBuilder <|-- ConcreteModelBuilder
+UserInput -- AlgoHandler
+Experiment --* benchmark
 Trainer *-- Observer
-Trainer *-- Model
+Trainer *-- ConcreteModel
 Task o-- Dataset
 Model <|-- ConcreteModel
+AlgoBuilder <|-- ConcreteAlgoBuilder
 Model *-- ModelBuilder
-Experiment *-- AlgoBuilder
+ConcreteModel *-- networks
+AlgoHandler *-- ConcreteAlgoBuilder
 Experiment *-- TaskHandler
-ConcreteModelBuilder -- common_networks
-ConcreteAlgoBuilder -- Trainer
+Experiment *-- AlgoHandler
+TaskHandler *-- tasks
+ConcreteModelBuilder -- networks
+
+ConcreteAlgoBuilder *-- Trainer
+ConcreteAlgoBuilder -- ConcreteModel
 ConcreteAlgoBuilder -- Observer
-ConcreteAlgoBuilder -- ModelSel
-ConcreteModelBuilder -- ConcreteModel
+ConcreteAlgoBuilder -- Trainer
+Observer *-- ModelSel
+
+ModelSel -- Observer
+ConcreteModelBuilder --* ConcreteModel
+benchmark -- UserInput
 @enduml

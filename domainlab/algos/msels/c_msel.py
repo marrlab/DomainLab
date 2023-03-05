@@ -1,6 +1,7 @@
 """
 Model Selection should be decoupled from
 """
+import math
 from domainlab.algos.msels.a_model_sel import AMSel
 
 
@@ -11,7 +12,7 @@ class MSelTrLoss(AMSel):
     """
     def __init__(self, max_es):
         self.best_loss = float("inf")
-        self.es_c = 1
+        self.es_c = 0
         self.max_es = max_es
         super().__init__()
 
@@ -21,13 +22,15 @@ class MSelTrLoss(AMSel):
         """
         loss = self.trainer.epo_loss_tr   # @FIXME
         assert loss is not None
+        assert not math.isnan(loss)
         flag = True
         if loss < self.best_loss:
-            self.es_c = 1  # restore counter
+            self.es_c = 0  # restore counter
             self.best_loss = loss
         else:
             self.es_c += 1
             print("early stop counter: ", self.es_c)
+            print(f"loss:{loss}, best loss: {self.best_loss}")
             flag = False  # do not update best model
         return flag
 

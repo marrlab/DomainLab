@@ -317,7 +317,8 @@ from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
             print("model selected")
             self.exp.visitor.save(self.host_trainer.model)
             print("persisted")
-        return self.model_sel.if_stop()</div>
+        flag_stop = self.model_sel.if_stop()
+        return flag_stop</div>
 
 <div class="viewcode-block" id="ObVisitor.accept"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.accept">[docs]</a>    def accept(self, trainer):
         """
@@ -331,22 +332,40 @@ from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
         """
         After training is done
         """
-        self.exp.visitor.save(self.host_trainer.model, "final")
-        model_ld = self.exp.visitor.load()
+        model_ld = None
+        try:
+            model_ld = self.exp.visitor.load()
+        except FileNotFoundError:
+            # this can happen if loss is increasing, model never get selected
+            return
+
         model_ld = model_ld.to(self.device)
         model_ld.eval()
         print("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
-        self.exp.visitor(metric_te)
+        self.dump_prediction(model_ld, metric_te)
+        self.exp.visitor(metric_te)</div>
+        # prediction dump of test domain is essential to verify the prediction results
+
+<div class="viewcode-block" id="ObVisitor.dump_prediction"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction">[docs]</a>    def dump_prediction(self, model_ld, metric_te):
+        """
+        given the test domain loader, use the loaded model model_ld to predict each instance
+        """
         flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
             fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
-            file_prefix = os.path.splitext(fname4model)[0]  # remove ".csv"
+            file_prefix = os.path.splitext(fname4model)[0]  # remove ".model"
+            dir4preds = os.path.join(self.exp.args.out, "saved_predicts")
+            if not os.path.exists(dir4preds):
+                os.mkdir(dir4preds)
+            file_prefix = os.path.join(dir4preds,
+                                       os.path.basename(file_prefix))
             file_name = file_prefix + "_instance_wise_predictions.txt"
-            self.host_trainer.model.pred2file(
+            model_ld.pred2file(
                 self.loader_te, self.device,
-                filename=file_name)</div>
+                filename=file_name,
+                metric_te=metric_te)</div>
 
 <div class="viewcode-block" id="ObVisitor.clean_up"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up">[docs]</a>    def clean_up(self):
         """
@@ -354,19 +373,27 @@ from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
         """
         if not self.keep_model:
             try:
-                # oracle means use out-of-domain
-                # test accuracy to select the model
+                # oracle means use out-of-domain test accuracy to select the model
                 self.exp.visitor.remove("oracle")  # pylint: disable=E1101
-                # the last epoch
+            except FileNotFoundError:
+                pass
+
+            try:
+                # the last epoch:
+                # have a model to evaluate in case the training stops in between
                 self.exp.visitor.remove("epoch")  # pylint: disable=E1101
-                # epoch exist to still have a model to evaluate
-                # if the training stops in between
-                self.exp.visitor.remove("final")  # pylint: disable=E1101
+            except FileNotFoundError:
+                warnings.warn("failed to remove model_epoch: file not found")
+
+            try:
+                # without suffix: the selected model
                 self.exp.visitor.remove()  # pylint: disable=E1101
             except FileNotFoundError:
                 warnings.warn("failed to remove model")
+
             try:
-                self.exp.visitor.remove("ctr")  # pylint: disable=E1101 For matchdg
+                # for matchdg
+                self.exp.visitor.remove("ctr")  # pylint: disable=E1101
             except FileNotFoundError:
                 pass</div></div>
 </pre></div>
