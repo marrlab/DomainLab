@@ -280,6 +280,7 @@ operations that all claasification model should have
 
 import abc
 import numpy as np
+import math
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
@@ -311,22 +312,23 @@ import pandas as pd
         classification performance matric
         """
         metric_te = None
-        metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-        confmat = metric_tr_pool.pop("confmat")
-        print("pooled train domains performance:")
-        rprint(metric_tr_pool)
-        print("confusion matrix:")
-        print(pd.DataFrame(confmat))
-        metric_tr_pool["confmat"] = confmat
-        # test set has no domain label, so can be more custom
-        if loader_te is not None:
-            metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-            confmat = metric_te.pop("confmat")
-            print("out of domain test performance:")
-            rprint(metric_te)
+        with torch.no_grad():
+            metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
+            confmat = metric_tr_pool.pop("confmat")
+            print("pooled train domains performance:")
+            rprint(metric_tr_pool)
             print("confusion matrix:")
             print(pd.DataFrame(confmat))
-            metric_te["confmat"] = confmat
+            metric_tr_pool["confmat"] = confmat
+            # test set has no domain label, so can be more custom
+            if loader_te is not None:
+                metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
+                confmat = metric_te.pop("confmat")
+                print("out of domain test performance:")
+                rprint(metric_te)
+                print("confusion matrix:")
+                print(pd.DataFrame(confmat))
+                metric_te["confmat"] = confmat
         return metric_te</div>
 
 <div class="viewcode-block" id="AModelClassif.evaluate"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.evaluate">[docs]</a>    def evaluate(self, loader_te, device):
@@ -396,29 +398,61 @@ import pandas as pd
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         return lc_y</div>
 
-<div class="viewcode-block" id="AModelClassif.pred2file"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.pred2file">[docs]</a>    def pred2file(self, loader_te, device,
-                  filename='path_prediction.txt', flag_pred_scalar=False):
+<div class="viewcode-block" id="AModelClassif.pred2file"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.pred2file">[docs]</a>    def pred2file(self, loader_te, device, filename,
+                  metric_te,
+                  spliter="#"):
         """
         pred2file dump predicted label to file as sanity check
         """
         self.eval()
         model_local = self.to(device)
-        for _, (x_s, y_s, *_, path) in enumerate(loader_te):
+        for _, (x_s, y_s, *_, path4instance) in enumerate(loader_te):
             x_s, y_s = x_s.to(device), y_s.to(device)
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
-            # print(path)
-            list_pred_list = prob.tolist()
-            list_label_list = y_s.tolist()
-            if flag_pred_scalar:
-                list_pred_list = [np.asarray(pred).argmax() for pred in list_pred_list]
-                list_label_list = [np.asarray(label).argmax() for label in list_label_list]
-            # label belongs to data
-            list_pair_path_pred = list(zip(path, list_label_list, list_pred_list))
+            list_pred_prob_list = prob.tolist()
+            list_target_list = y_s.tolist()
+            list_target_scalar = [np.asarray(label).argmax() for label in list_target_list]
+            tuple_zip = zip(path4instance, list_target_scalar, list_pred_prob_list)
+            list_pair_path_pred = list(tuple_zip)
             with open(filename, 'a', encoding="utf8") as handle_file:
-                for pair in list_pair_path_pred:
-                    # 1:-1 removes brackets of tuple
-                    print(str(pair)[1:-1], file=handle_file)
-        print("prediction saved in file ", filename)</div>
+                for list4one_obs_path_prob_target in list_pair_path_pred:
+                    list_str_one_obs_path_target_predprob = [
+                        str(ele) for ele in list4one_obs_path_prob_target]
+                    str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
+                    str_line = str_line.replace("[", "")
+                    str_line = str_line.replace("]", "")
+                    print(str_line, file=handle_file)
+        print("prediction saved in file ", filename)
+        file_acc = self.read_prediction_file(filename, spliter)
+        acc_metric_te = metric_te['acc']
+        flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
+        acc_raw1 = PerfClassif.cal_acc(self, loader_te, device)
+        acc_raw2 = PerfClassif.cal_acc(self, loader_te, device)
+        flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
+        flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
+        if not (flag1 &amp; flag2 &amp; flag_raw_consistency):
+            str_info = f"inconsistent acc:  \
+                prediction file acc {file_acc} \
+                torchmetric acc {acc_metric_te} \
+                raw acc 1 {acc_raw1} \
+                raw acc 2 {acc_raw2}"
+            raise RuntimeError(str_info)
+        return file_acc</div>
+
+<div class="viewcode-block" id="AModelClassif.read_prediction_file"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.read_prediction_file">[docs]</a>    def read_prediction_file(self, filename, spliter):
+        """
+        check if the written fiel could calculate acc
+        """
+        with open(filename, 'r', encoding="utf8") as handle_file:
+            list_lines = [line.strip().split(spliter) for line in handle_file]
+        count_correct = 0
+        for line in list_lines:
+            list_prob = [float(ele) for ele in line[2].split(",")]
+            if np.array(list_prob).argmax() == int(line[1]):
+                count_correct += 1
+        acc = count_correct / len(list_lines)
+        print(f"accuracy from prediction file {acc}")
+        return acc</div>
 
 <div class="viewcode-block" id="AModelClassif.cal_loss_gen_adv"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_loss_gen_adv">[docs]</a>    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
         """
