@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -102,17 +103,6 @@ rule agg_results:
     run:
         from domainlab.exp_protocol.aggregate_results import agg_results
         agg_results(list(input.exp_results), str(output.out_file))
-
-
-rule agg_partial_results:
-    input:
-        dir=expand("{output_dir}/rule_results", output_dir=config["output_dir"])
-        # the defined dir is used in the run section below
-    params:
-        out_file=rules.agg_results.output.out_file
-    run:
-        from domainlab.exp_protocol.aggregate_results import agg_from_directory
-        agg_from_directory(str(input.dir), str(params.out_file))
 
 
 rule gen_plots:

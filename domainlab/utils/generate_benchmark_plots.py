@@ -15,7 +15,7 @@ COLNAME_ALGO = "algo"
 COLNAME_PARAM = "params"
 
 
-def gen_benchmark_plots(agg_results: str, output_dir: str):
+def gen_benchmark_plots(agg_results: str, output_dir: str, skip_gen: bool = False):
     '''
     generate the benchmark plots from a csv file containing the aggregated restults.
     The csv file must have the columns:
@@ -25,6 +25,7 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
 
     agg_results: path to the csv file
     output_dir: path to a folder which shall contain the results
+    skip_gen: Skips the actual plotting, used to speed up testing.
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
                          converters={COLNAME_PARAM: literal_eval},
@@ -33,6 +34,10 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
     raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[COLNAME_PARAM])
     # crop param_index and task from the dataframe
     dataframe = raw_df.iloc[:, 2:]  # @FIXME: hard coded
+
+    if skip_gen:
+        return
+
     # generating plot
     gen_plots(dataframe, output_dir)
 

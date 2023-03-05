@@ -10,7 +10,7 @@ import torch
 import yaml
 
 from domainlab.arg_parser import mk_parser_main
-from domainlab.exp_protocol.aggregate_results import agg_results, agg_from_directory
+from domainlab.exp_protocol.aggregate_results import agg_results, agg_from_directory, agg_main
 from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_args
 
 
@@ -72,7 +72,7 @@ def agg_input_files() -> List[str]:
     # let the test run
     yield [f_0, f_1]
     # cleanup test files.
-    shutil.rmtree(test_dir)
+    shutil.rmtree(test_dir, ignore_errors=True)
 
 
 @pytest.fixture
@@ -97,6 +97,18 @@ def agg_expected_output() -> str:
            " 0.5333333, 0.5333333, 0.5297158, 0.73333335"
 
 
+@pytest.fixture
+def bm_config(agg_input_files):
+    config_file = "zoutput/test/test_config.yaml"
+    with open(config_file, 'w') as config:
+        config.write("output_dir: zoutput/test\n")
+
+    # let the test run
+    yield open(config_file, 'r')
+    # cleanup test files.
+    shutil.rmtree("zoutput/test", ignore_errors=True)
+
+
 def compare_file_content(filename: str, expected: str) -> bool:
     """Returns true if the given file contains the given string."""
     with open(filename, 'r') as stream:
@@ -110,8 +122,7 @@ def test_agg_results(agg_input_files, agg_output_file, agg_expected_output):
     compare_file_content(agg_output_file, agg_expected_output)
 
 
-def test_agg_from_directory(agg_input_files, agg_output_file, agg_expected_output):
+def test_agg_main(bm_config, agg_output_file, agg_expected_output):
     """Testing the csv aggregation from a full directory."""
-    directory = os.path.dirname(agg_input_files[0])
-    agg_from_directory(directory, agg_output_file)
+    agg_main(bm_config, skip_plotting=True)
     compare_file_content(agg_output_file, agg_expected_output)

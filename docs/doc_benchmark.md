@@ -53,3 +53,11 @@ All files created by this benchmark are saved in the given output directory.
 The sampled hyperparameters can be found in `hyperparameters.csv`.
 The performance of the different runs can be found in `results.csv`. Moreover, there is
 the `graphics` subdirectory, in which the values from `results.csv` are visualized for interpretation.
+
+
+## Obtain partial results
+The results form partially completed benchmarks can be obtained with
+```commandline
+python main_out.py --agg_partial_bm BENCHMARK_CONFIG
+```
+specifying yaml file of the benchmark.
