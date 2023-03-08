@@ -3,11 +3,11 @@ from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.utils_task import ImSize
 
 
-img_size = 224
+IMG_SIZE = 224
 
 trans = transforms.Compose([
-    transforms.Resize((img_size, img_size)),
-    transforms.RandomResizedCrop(img_size, scale=(0.7, 1.0)),
+    transforms.Resize((IMG_SIZE, IMG_SIZE)),
+    transforms.RandomResizedCrop(IMG_SIZE, scale=(0.7, 1.0)),
     transforms.RandomHorizontalFlip(),
     transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
     transforms.RandomGrayscale(),
@@ -17,14 +17,14 @@ trans = transforms.Compose([
 ])
 
 trans_te = transforms.Compose([
-    transforms.Resize((img_size, img_size)),
+    transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406],
                          [0.229, 0.224, 0.225])
 ])
 
 
-task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif"},
+TASK = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif"},
                       list_str_y=[
                           "basophil",
                           "erythroblast",
@@ -84,13 +84,16 @@ task = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif
                           "matek": trans,
                       },
                       img_trans_te=trans_te,
-                      isize=ImSize(3, img_size, img_size),
+                      isize=ImSize(3, IMG_SIZE, IMG_SIZE),
                       dict_domain2imgroot={
-                          "matek": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Matek_cropped",
-                          "mll": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/MLL_20221220",
-                          "acevedo": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Acevedo_cropped"},
+                          "matek": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/\
+                            _Domains/Matek_cropped",
+                          "mll": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/\
+                            _Domains/MLL_20221220",
+                          "acevedo": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/\
+                            _Domains/Acevedo_cropped"},
                       taskna="blood_mon_eos_bas")
 
 
 def get_task(na=None):
-    return task
+    return TASK
