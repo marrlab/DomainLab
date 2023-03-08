@@ -10,6 +10,7 @@ cluster:
     --mem=60G 
     --job-name=smk-{rule}-{wildcards} 
     --output=logs/{rule}/{rule}-{wildcards}-%j.out 
+    --error=logs/{rule}/{rule}-{wildcards}-%j.err
 default-resources:
   - partition=gpu_p 
   - qos=gpu 
