@@ -86,12 +86,9 @@ TASK = mk_task_folder(extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif
                       img_trans_te=trans_te,
                       isize=ImSize(3, IMG_SIZE, IMG_SIZE),
                       dict_domain2imgroot={
-                          "matek": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/\
-                            _Domains/Matek_cropped",
-                          "mll": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/\
-                            _Domains/MLL_20221220",
-                          "acevedo": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/\
-                            _Domains/Acevedo_cropped"},
+                          "matek": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Matek_cropped",
+                          "mll": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/MLL_20221220",
+                          "acevedo": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Acevedo_cropped"},
                       taskna="blood_mon_eos_bas")
 
 
