@@ -2,18 +2,29 @@
 cluster:
   mkdir -p logs/{rule} &&
   sbatch
-    --partition=gpu_p # Put the job into the gpu partition
-    --qos=gpu # Request a quality of service for the job.
-    --gres=gpu:1 # Number of GPUs per node (gres=gpu:N)
-    --nice=10000 # Run the job with an adjusted scheduling priority within Slurm.
-    -c 2 # Allocating number of processes per task
-    --mem=60G # RAM per node
-    --job-name=smk-{rule}-{wildcards} # Specify name for job allocation
-    --output=logs/{rule}/{rule}-{wildcards}-%j.out # Output file for logs 
+    --partition=gpu_p 
+    # Put the job into the gpu partition
+    --qos=gpu 
+    # Request a quality of service for the job.
+    --gres=gpu:1 
+    # Number of GPUs per node (gres=gpu:N)
+    --nice=10000 
+    # Run the job with an adjusted scheduling priority within Slurm.
+    -c 2 
+    # Allocating number of processes per task
+    --mem=60G 
+    # RAM per node
+    --job-name=smk-{rule}-{wildcards} 
+    # Specify name for job allocation
+    --output=logs/{rule}/{rule}-{wildcards}-%j.out 
+    # Output file for logs 
 default-resources:
-  - partition=gpu_p # Put the job into the gpu partition
-  - qos=gpu # Request a quality of service for the job.
-  - mem_mb=1000 # memory in MB a cluster node must provide
+  - partition=gpu_p 
+    # Put the job into the gpu partition
+  - qos=gpu 
+    # Request a quality of service for the job.
+  - mem_mb=1000 
+    # memory in MB a cluster node must provide
 restart-times: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
