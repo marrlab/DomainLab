@@ -19,12 +19,10 @@ echo "verbose log: $logfile"
 
 # DENBI
 #snakemake --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/helm_runtime_evaluation.yaml" 2>&1 | tee $logfile
-# TODO create a snakemake call (alike above) to run on the helmholz vm
-# TODO set a reasonable number of cores (cores = 5 was very usefull, as we start 5 algorithms -> each algo gets one core)
 
 # Helmholtz
-snakemake --profile "/home/icb/xinyue.zhang/DomainLab/examples/yaml/slurm" --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_helm_benchmark.yaml" 2>&1 | tee $logfile 
-=======
+snakemake --profile "examples/yaml/slurm" --keep-going --keep-incomplete --notemp --cores 5 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/test_helm_benchmark.yaml" 2>&1 | tee $logfile 
+
 #snakemake -np -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 export DOMAINLAB_CUDA_START_SEED=$1
 
