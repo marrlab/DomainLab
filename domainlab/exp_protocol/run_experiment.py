@@ -2,14 +2,13 @@
 Runs one task for a single hyperparameter sample for each leave-out-domain
 and each random seed.
 """
-import gc
 import ast
-import warnings
+import gc
 
 import pandas as pd
 import torch
 
-from domainlab.arg_parser import mk_parser_main
+from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
 from domainlab.compos.exp.exp_cuda_seed import set_seed
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
@@ -25,34 +24,6 @@ def load_parameters(file: str, index: int) -> tuple:
     row = param_df.loc[index]
     params = ast.literal_eval(row.params)
     return row.task, params
-
-
-def apply_dict_to_args(args, data: dict, extend=False, flag_warn=False):
-    """
-    Tries to apply the data to the args dict of DomainLab.
-    Unknown keys are silently ignored as long as
-    extend is not set.
-    # FIXME: do we have a test to ensure args dict from
-    # domainlab really got what is passed from "data" dict?
-    """
-    arg_dict = args.__dict__
-    for key, value in data.items():
-        if (key in arg_dict) or extend:
-            if isinstance(value, list):
-                cur_val = arg_dict.get(key, None)
-                if not isinstance(cur_val, list):
-                    if cur_val is not None:
-                        # @FIXME: should we warn or raise Error?
-                        warnings.warn(f"input dictionary value is list, \
-                                    however, in DomainLab args, we have {cur_val}, \
-                                    going to overrite to list")
-                    arg_dict[key] = []
-                arg_dict[key].extend(value)
-            else:
-                arg_dict[key] = value
-        else:
-            if flag_warn:
-                warnings.warn(f"{key} does not exist in DomainLab, ignoring!")
 
 
 def run_experiment(
@@ -96,8 +67,10 @@ def run_experiment(
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    apply_dict_to_args(args, config)
-    apply_dict_to_args(args, config[task])
+    task_args = config[task].copy()
+    del task_args['hyperparameters']
+    apply_dict_to_args(args, config.get("domainlab_args", {}))
+    apply_dict_to_args(args, task_args)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
 
