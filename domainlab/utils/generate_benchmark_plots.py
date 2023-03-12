@@ -32,16 +32,16 @@ def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index : boo
                          # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
     raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[[COLNAME_idx_PARAM, COLNAME_PARAM]], use_param_index)
-    # crop param_index and task from the dataframe
-    dataframe = raw_df.iloc[:, 2:]  # @FIXME: hard coded
     # generating plot
-    gen_plots(dataframe, output_dir, use_param_index)
+    gen_plots(raw_df, output_dir, use_param_index)
 
 
 def round_vals_in_dict(df_column_in, use_param_index):
     '''
     replaces the dictionary by a string containing only the significant digits of the hyperparams
-    df_column_in: columns of the dataframe containing the dictionary of hyperparams
+    or (if use_param_index = True) by the parameter index
+    df_column_in: columns of the dataframe containing the param index and the dictionary of hyperparams
+    in the form [param_index, params]
     '''
     df_column = df_column_in.copy()
     df_column_out = df_column_in.iloc[:, 0].copy()
@@ -63,9 +63,15 @@ def round_vals_in_dict(df_column_in, use_param_index):
 def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
     '''
     dataframe: dataframe with columns
-    [' algo', ' epos', ' te_d', ' seed', ' params', ' acc', ' precision', ... ]
+    ['param_index', 'task', ' algo', ' epos', ' te_d', ' seed', ' params', ' acc', ' precision', ... ]
     '''
     os.makedirs(output_dir, exist_ok=True)
+    obj = dataframe.columns[7:]
+
+    # boxplots
+    for objective in obj:
+        boxplot(dataframe, objective, file=output_dir + '/variational_plots/' + objective)
+
     # scatterplot matrices
     scatterplot_matrix(dataframe, use_param_index,
                        file=output_dir + '/sp_matrix_reg.png',
@@ -86,7 +92,6 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
 
     # scatter plots for parirs of objectives
     os.makedirs(output_dir + '/scatterpl', exist_ok=True)
-    obj = dataframe.columns[5:]
     for i, obj_i in enumerate(obj):
         for j in range(i+1, len(obj)):
             try:
@@ -103,6 +108,11 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
     for algorithm in dataframe[COLNAME_ALGO].unique():
         os.makedirs(output_dir + '/' + str(algorithm), exist_ok=True)
         dataframe_algo = dataframe[dataframe[COLNAME_ALGO] == algorithm]
+
+        # boxplots
+        for objective in obj:
+            boxplot(dataframe_algo, objective,
+                    file=output_dir + '/' + str(algorithm) + '/variational_plots/' + objective)
 
         # scatterplot matrices
         scatterplot_matrix(dataframe_algo, use_param_index,
@@ -126,7 +136,6 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
 
         # scatter plots for parirs of objectives
         os.makedirs(output_dir + '/' + str(algorithm) + '/scatterpl', exist_ok=True)
-        obj = dataframe_algo.columns[5:]
         for i, obj_i in enumerate(obj):
             for j in range(i + 1, len(obj)):
                 try:
@@ -153,7 +162,7 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True, disti
     distinguish_param_setups: if True the plot will not only distinguish between models,
         but also between the parameter setups
     '''
-    dataframe = dataframe_in.copy()
+    dataframe = dataframe_in.iloc[:, 2:].copy()
     index = list(range(5, dataframe.shape[1]))
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
@@ -206,7 +215,7 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
     '''
     obj1, obj2 = obj
 
-    dataframe = dataframe_in.copy()
+    dataframe = dataframe_in.iloc[:, 2:].copy()
     dataframe[COLNAME_PARAM] = dataframe[COLNAME_PARAM].astype(str)
 
     if distinguish_hyperparam:
@@ -256,7 +265,7 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     distinguish_param_setups: if True the plot will not only distinguish between models,
         but also between the parameter setups
     '''
-    dataframe = dataframe_in.copy()
+    dataframe = dataframe_in.iloc[:, 2:].copy()
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
                          dataframe[COLNAME_ALGO].astype(str) + ', ' +
@@ -309,3 +318,69 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
 
     if file is not None:
         plt.savefig(file, dpi=300)
+
+
+def boxplot(dataframe_in, obj, file=None):
+    '''
+    generate the boxplots
+    dataframe_in: dataframe containing the data with columns
+        [param_idx, task , algo, epos, te_d, seed, params, obj1, ..., obj2]
+    obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+    file: foldername to save the plots (if None, the plot will not be saved)
+    '''
+    dataframe = dataframe_in.copy()
+    os.makedirs(file, exist_ok=True)
+
+    ### stochastic variation
+    fig, ax = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
+                           figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    # iterate over all algorithms
+    for num, algo in enumerate(list(dataframe[COLNAME_ALGO].unique())):
+        # distinguish if the algorithm does only have one param setup or multiple
+        if len(dataframe[COLNAME_ALGO].unique()) > 1:
+            # generate boxplot and swarmplot
+            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                        x=COLNAME_idx_PARAM, y=obj,
+                        ax=ax[num], showfliers=False,
+                        boxprops={"facecolor": (.4, .6, .8, .5)})
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                          x=COLNAME_idx_PARAM, y=obj, hue=COLNAME_idx_PARAM,
+                          legend=False, ax=ax[num],
+                          palette=sns.cubehelix_palette(n_colors=len(
+                                  dataframe[dataframe[COLNAME_ALGO] == algo][COLNAME_idx_PARAM].unique())))
+            # remove legend, set ylim, set x-label and remove y-label
+            ax[num].legend([], [], frameon=False)
+            ax[num].set_ylim([-0.1, 1.1])
+            ax[num].set_xlabel(algo)
+            if num != 0:
+                ax[num].set_ylabel('')
+        else:
+            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                        x=COLNAME_idx_PARAM, y=obj,
+                        ax=ax, showfliers=False,
+                        boxprops={"facecolor": (.4, .6, .8, .5)})
+            ax.set_ylim([-0.1, 1.1])
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                          x=COLNAME_idx_PARAM, y=obj, hue=COLNAME_idx_PARAM,
+                          legend=False, ax=ax,
+                          palette=sns.cubehelix_palette(n_colors=len(
+                                  dataframe[dataframe[COLNAME_ALGO] == algo][COLNAME_idx_PARAM].unique())))
+            ax.legend([], [], frameon=False)
+            ax.set_xlabel(algo)
+        plt.tight_layout()
+        if file is not None:
+            plt.savefig(file + '/stochastic_variation.png', dpi=300)
+
+    ### systematic variation
+    fig, ax = plt.subplots(1, 1, figsize=(2 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=ax, showfliers=False,
+                boxprops={"facecolor": (.4, .6, .8, .5)})
+    sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_idx_PARAM,
+                  legend=False, ax=ax,
+                  palette=sns.cubehelix_palette(n_colors=len(
+                     dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())[0]][COLNAME_idx_PARAM].unique())))
+    ax.set_ylim([-0.1, 1.1])
+    ax.legend([], [], frameon=False)
+    plt.tight_layout()
+    if file is not None:
+        plt.savefig(file + '/systematic_variation.png', dpi=300)
