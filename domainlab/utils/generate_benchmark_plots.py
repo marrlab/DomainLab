@@ -12,10 +12,11 @@ import numpy as np
 matplotlib.use('Agg')
 
 COLNAME_ALGO = "algo"
+COLNAME_idx_PARAM = "param_index"
 COLNAME_PARAM = "params"
 
 
-def gen_benchmark_plots(agg_results: str, output_dir: str):
+def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index : bool = True):
     '''
     generate the benchmark plots from a csv file containing the aggregated restults.
     The csv file must have the columns:
@@ -30,44 +31,53 @@ def gen_benchmark_plots(agg_results: str, output_dir: str):
                          converters={COLNAME_PARAM: literal_eval},
                          # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
-    raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[COLNAME_PARAM])
+    raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[[COLNAME_idx_PARAM, COLNAME_PARAM]], use_param_index)
     # crop param_index and task from the dataframe
     dataframe = raw_df.iloc[:, 2:]  # @FIXME: hard coded
     # generating plot
-    gen_plots(dataframe, output_dir)
+    gen_plots(dataframe, output_dir, use_param_index)
 
 
-def round_vals_in_dict(df_column_in):
+def round_vals_in_dict(df_column_in, use_param_index):
     '''
     replaces the dictionary by a string containing only the significant digits of the hyperparams
     df_column_in: columns of the dataframe containing the dictionary of hyperparams
     '''
     df_column = df_column_in.copy()
-    df_column_out = df_column_in.copy()
+    df_column_out = df_column_in.iloc[:, 0].copy()
+    df_column_out = df_column_out.astype(str)
     for i in range(df_column.shape[0]):
-        string = ''
-        for num, val in enumerate(list(df_column[i].values())):
-            key = list(df_column[i].keys())[num]
-            val = np.format_float_scientific(val, precision=1, unique=False, trim='0')
-            string += str(key) + ': ' + str(val) + ', '
-        df_column_out[i] = string[:-2]
+        if not use_param_index:
+            string = ''
+            for num, val in enumerate(list(df_column.iloc[i, 1].values())):
+                key = list(df_column.iloc[i, 1].keys())[num]
+                val = np.format_float_scientific(val, precision=1, unique=False, trim='0')
+                string += str(key) + ': ' + str(val) + ', '
+            df_column_out[i] = string[:-2]
+        else:
+            string = 'idx: ' + str(df_column.iloc[i, 0])
+            df_column_out[i] = string
     return df_column_out
 
 
-def gen_plots(dataframe: pd.DataFrame, output_dir: str):
+def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
     '''
     dataframe: dataframe with columns
     [' algo', ' epos', ' te_d', ' seed', ' params', ' acc', ' precision', ... ]
     '''
     os.makedirs(output_dir, exist_ok=True)
     # scatterplot matrices
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_reg.png',
+    scatterplot_matrix(dataframe, use_param_index,
+                       file=output_dir + '/sp_matrix_reg.png',
                        reg=True, distinguish_param_setups=False)
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix.png',
+    scatterplot_matrix(dataframe, use_param_index,
+                       file=output_dir + '/sp_matrix.png',
                        reg=False, distinguish_param_setups=False)
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist_reg.png',
+    scatterplot_matrix(dataframe, use_param_index,
+                       file=output_dir + '/sp_matrix_dist_reg.png',
                        reg=True, distinguish_param_setups=True)
-    scatterplot_matrix(dataframe, file=output_dir + '/sp_matrix_dist.png',
+    scatterplot_matrix(dataframe, use_param_index,
+                       file=output_dir + '/sp_matrix_dist.png',
                        reg=False, distinguish_param_setups=True)
 
     # radar plots
@@ -95,16 +105,16 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
         dataframe_algo = dataframe[dataframe[COLNAME_ALGO] == algorithm]
 
         # scatterplot matrices
-        scatterplot_matrix(dataframe_algo,
+        scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_reg.png',
                            reg=True, distinguish_param_setups=False)
-        scatterplot_matrix(dataframe_algo,
+        scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix.png',
                            reg=False, distinguish_param_setups=False)
-        scatterplot_matrix(dataframe_algo,
+        scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_dist_reg.png',
                            reg=True, distinguish_param_setups=True)
-        scatterplot_matrix(dataframe_algo,
+        scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_dist.png',
                            reg=False, distinguish_param_setups=True)
 
@@ -134,7 +144,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str):
                                 distinguish_hyperparam=True)
 
 
-def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setups=True):
+def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True, distinguish_param_setups=True):
     '''
     dataframe: dataframe containing the data with columns
         [algo, epos, te_d, seed, params, obj1, ..., obj2]
@@ -174,7 +184,10 @@ def scatterplot_matrix(dataframe_in, file=None, reg=True, distinguish_param_setu
                     g_p.axes[j, k].set_ylim((-0.1, 1.1))
 
     g_p.fig.set_size_inches(12.5, 12)
-    sns.move_legend(g_p, loc='upper right', bbox_to_anchor=(1., 1.), ncol=1)
+    if use_param_index and distinguish_param_setups:
+        sns.move_legend(g_p, loc='upper right', bbox_to_anchor=(1., 1.), ncol=3)
+    else:
+        sns.move_legend(g_p, loc='upper right', bbox_to_anchor=(1., 1.), ncol=1)
     plt.tight_layout()
 
     if file is not None:
