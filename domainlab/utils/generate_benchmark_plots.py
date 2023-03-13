@@ -15,6 +15,7 @@ COLNAME_ALGO = "algo"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
 G_DF_PLOT_COL_START = 2   # first two columns are ['param_index','task',
+G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
 
 
 def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index: bool = True):
@@ -63,13 +64,13 @@ def round_vals_in_dict(df_column_in, use_param_index):
     return df_column_out
 
 
-def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
+def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
     '''
     dataframe: dataframe with columns
     ['param_index','task',' algo',' epos',' te_d',' seed',' params',' acc','precision',...]
     '''
     os.makedirs(output_dir, exist_ok=True)
-    obj = dataframe.columns[7:]
+    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:]
 
     # boxplots
     for objective in obj:
