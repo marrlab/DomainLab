@@ -382,8 +382,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                           x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes,
                           palette=sns.cubehelix_palette(n_colors=len(
-                                  dataframe[dataframe[COLNAME_ALGO] == algo]
-                                  [COLNAME_IDX_PARAM].unique())))
+                                dataframe[dataframe[COLNAME_ALGO] == algo]
+                                [COLNAME_IDX_PARAM].unique())))
             axes.legend([], [], frameon=False)
             axes.set_xlabel(algo)
         plt.tight_layout()
