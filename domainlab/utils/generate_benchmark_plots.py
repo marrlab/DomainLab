@@ -77,16 +77,16 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
     # scatterplot matrices
     scatterplot_matrix(dataframe, use_param_index,
                        file=output_dir + '/sp_matrix_reg.png',
-                       reg=True, distinguish_param_setups=False)
+                       kind='reg', distinguish_param_setups=False)
     scatterplot_matrix(dataframe, use_param_index,
                        file=output_dir + '/sp_matrix.png',
-                       reg=False, distinguish_param_setups=False)
+                       kind='scatter', distinguish_param_setups=False)
     scatterplot_matrix(dataframe, use_param_index,
                        file=output_dir + '/sp_matrix_dist_reg.png',
-                       reg=True, distinguish_param_setups=True)
+                       kind='reg', distinguish_param_setups=True)
     scatterplot_matrix(dataframe, use_param_index,
                        file=output_dir + '/sp_matrix_dist.png',
-                       reg=False, distinguish_param_setups=True)
+                       kind='scatter', distinguish_param_setups=True)
 
     # radar plots
     radar_plot(dataframe, file=output_dir + '/radar_dist.png', distinguish_hyperparam=True)
@@ -119,16 +119,16 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
         # scatterplot matrices
         scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_reg.png',
-                           reg=True, distinguish_param_setups=False)
+                           kind='reg', distinguish_param_setups=False)
         scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix.png',
-                           reg=False, distinguish_param_setups=False)
+                           kind='scatter', distinguish_param_setups=False)
         scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_dist_reg.png',
-                           reg=True, distinguish_param_setups=True)
+                           kind='reg', distinguish_param_setups=True)
         scatterplot_matrix(dataframe_algo, use_param_index,
                            file=output_dir + '/' + str(algorithm) + '/sp_matrix_dist.png',
-                           reg=False, distinguish_param_setups=True)
+                           kind='scatter', distinguish_param_setups=True)
 
         # radar plots
         radar_plot(dataframe_algo, file=output_dir + '/' + str(algorithm) + '/radar_dist.png',
@@ -155,7 +155,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
                                 distinguish_hyperparam=True)
 
 
-def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True,
+def scatterplot_matrix(dataframe_in, use_param_index, file=None, kind='reg',
                        distinguish_param_setups=True):
     '''
     dataframe: dataframe containing the data with columns
@@ -173,19 +173,13 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True,
                           dataframe[COLNAME_ALGO].astype(str) + ', ' +
                           dataframe[COLNAME_PARAM].astype(str))
 
-        if reg:
-            g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
-        else:
-            g_p = sns.pairplot(data=dataframe_, hue='label', corner=True)
+        g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind=kind)
     else:
         index_ = list(range(5, dataframe.shape[1]))
         index_.insert(0, 0)
         dataframe_ = dataframe.iloc[:, index_]
 
-        if reg:
-            g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind='reg')
-        else:
-            g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True)
+        g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind=kind)
     # if reg:
     #     if not distinguish_param_setups:
     #         g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind='reg')
@@ -356,7 +350,7 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
 
     ### stochastic variation
     _, axes = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
-                             figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
+                           figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
     # iterate over all algorithms
     for num, algo in enumerate(list(dataframe[COLNAME_ALGO].unique())):
         # distinguish if the algorithm does only have one param setup or multiple
@@ -370,8 +364,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                           x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes[num],
                           palette=sns.cubehelix_palette(n_colors=len(
-                                dataframe[dataframe[COLNAME_ALGO] == algo]
-                                [COLNAME_IDX_PARAM].unique())))
+                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              [COLNAME_IDX_PARAM].unique())))
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
             axes[num].set_ylim([-0.1, 1.1])
