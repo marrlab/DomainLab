@@ -12,7 +12,7 @@ import numpy as np
 matplotlib.use('Agg')
 
 COLNAME_ALGO = "algo"
-COLNAME_idx_PARAM = "param_index"
+COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
 
 
@@ -31,7 +31,8 @@ def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index : boo
                          converters={COLNAME_PARAM: literal_eval},
                          # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
-    raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[[COLNAME_idx_PARAM, COLNAME_PARAM]], use_param_index)
+    raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[[COLNAME_IDX_PARAM, COLNAME_PARAM]],
+                                               use_param_index)
     # generating plot
     gen_plots(raw_df, output_dir, use_param_index)
 
@@ -40,8 +41,9 @@ def round_vals_in_dict(df_column_in, use_param_index):
     '''
     replaces the dictionary by a string containing only the significant digits of the hyperparams
     or (if use_param_index = True) by the parameter index
-    df_column_in: columns of the dataframe containing the param index and the dictionary of hyperparams
-    in the form [param_index, params]
+    df_column_in: columns of the dataframe containing the param index and the dictionary of
+        hyperparams in the form [param_index, params]
+    use_param_index: usage of param_index instead of exact values
     '''
     df_column = df_column_in.copy()
     df_column_out = df_column_in.iloc[:, 0].copy()
@@ -63,7 +65,7 @@ def round_vals_in_dict(df_column_in, use_param_index):
 def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
     '''
     dataframe: dataframe with columns
-    ['param_index', 'task', ' algo', ' epos', ' te_d', ' seed', ' params', ' acc', ' precision', ... ]
+    ['param_index','task',' algo',' epos',' te_d',' seed',' params',' acc','precision',...]
     '''
     os.makedirs(output_dir, exist_ok=True)
     obj = dataframe.columns[7:]
@@ -153,7 +155,8 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index : bool):
                                 distinguish_hyperparam=True)
 
 
-def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True, distinguish_param_setups=True):
+def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True,
+                       distinguish_param_setups=True):
     '''
     dataframe: dataframe containing the data with columns
         [algo, epos, te_d, seed, params, obj1, ..., obj2]
@@ -321,6 +324,10 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
 
 
 def boxplot(dataframe_in, obj, file=None):
+    boxplot_stochastic(dataframe_in, obj, file=file)
+    boxplot_systematic(dataframe_in, obj, file=file)
+
+def boxplot_stochastic(dataframe_in, obj, file=None):
     '''
     generate the boxplots
     dataframe_in: dataframe containing the data with columns
@@ -332,55 +339,63 @@ def boxplot(dataframe_in, obj, file=None):
     os.makedirs(file, exist_ok=True)
 
     ### stochastic variation
-    fig, ax = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
-                           figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    _, axes = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
+                             figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
     # iterate over all algorithms
     for num, algo in enumerate(list(dataframe[COLNAME_ALGO].unique())):
         # distinguish if the algorithm does only have one param setup or multiple
         if len(dataframe[COLNAME_ALGO].unique()) > 1:
             # generate boxplot and swarmplot
             sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                        x=COLNAME_idx_PARAM, y=obj,
-                        ax=ax[num], showfliers=False,
+                        x=COLNAME_IDX_PARAM, y=obj,
+                        ax=axes[num], showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
             sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                          x=COLNAME_idx_PARAM, y=obj, hue=COLNAME_idx_PARAM,
-                          legend=False, ax=ax[num],
+                          x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
+                          legend=False, ax=axes[num],
                           palette=sns.cubehelix_palette(n_colors=len(
-                                  dataframe[dataframe[COLNAME_ALGO] == algo][COLNAME_idx_PARAM].unique())))
+                                dataframe[dataframe[COLNAME_ALGO] == algo]
+                                [COLNAME_IDX_PARAM].unique())))
             # remove legend, set ylim, set x-label and remove y-label
-            ax[num].legend([], [], frameon=False)
-            ax[num].set_ylim([-0.1, 1.1])
-            ax[num].set_xlabel(algo)
+            axes[num].legend([], [], frameon=False)
+            axes[num].set_ylim([-0.1, 1.1])
+            axes[num].set_xlabel(algo)
             if num != 0:
-                ax[num].set_ylabel('')
+                axes[num].set_ylabel('')
         else:
             sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                        x=COLNAME_idx_PARAM, y=obj,
-                        ax=ax, showfliers=False,
+                        x=COLNAME_IDX_PARAM, y=obj,
+                        ax=axes, showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
-            ax.set_ylim([-0.1, 1.1])
+            axes.set_ylim([-0.1, 1.1])
             sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                          x=COLNAME_idx_PARAM, y=obj, hue=COLNAME_idx_PARAM,
-                          legend=False, ax=ax,
+                          x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
+                          legend=False, ax=axes,
                           palette=sns.cubehelix_palette(n_colors=len(
-                                  dataframe[dataframe[COLNAME_ALGO] == algo][COLNAME_idx_PARAM].unique())))
-            ax.legend([], [], frameon=False)
-            ax.set_xlabel(algo)
+                                  dataframe[dataframe[COLNAME_ALGO] == algo]
+                                  [COLNAME_IDX_PARAM].unique())))
+            axes.legend([], [], frameon=False)
+            axes.set_xlabel(algo)
         plt.tight_layout()
         if file is not None:
             plt.savefig(file + '/stochastic_variation.png', dpi=300)
 
+
+def boxplot_systematic(dataframe_in, obj, file=None):
+    dataframe = dataframe_in.copy()
+    os.makedirs(file, exist_ok=True)
+
     ### systematic variation
-    fig, ax = plt.subplots(1, 1, figsize=(2 * len(dataframe[COLNAME_ALGO].unique()), 6))
-    sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=ax, showfliers=False,
+    fig, axes = plt.subplots(1, 1, figsize=(2 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=axes, showfliers=False,
                 boxprops={"facecolor": (.4, .6, .8, .5)})
-    sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_idx_PARAM,
-                  legend=False, ax=ax,
+    sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
+                  legend=False, ax=axes,
                   palette=sns.cubehelix_palette(n_colors=len(
-                     dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())[0]][COLNAME_idx_PARAM].unique())))
-    ax.set_ylim([-0.1, 1.1])
-    ax.legend([], [], frameon=False)
+                     dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())
+                     [0]][COLNAME_IDX_PARAM].unique())))
+    axes.set_ylim([-0.1, 1.1])
+    axes.legend([], [], frameon=False)
     plt.tight_layout()
     if file is not None:
         plt.savefig(file + '/systematic_variation.png', dpi=300)
