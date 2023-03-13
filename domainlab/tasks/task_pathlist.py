@@ -9,18 +9,20 @@ import os
 
 import torch.multiprocessing
 
-torch.multiprocessing.set_sharing_strategy('file_system')
-# "too many opened files" https://github.com/pytorch/pytorch/issues/11201
-
-from torchvision import transforms
-
 from domainlab.dsets.dset_img_path_list import DsetImPathList
 from domainlab.dsets.utils_data import mk_fun_label2onehot
 from domainlab.tasks.b_task import NodeTaskDict
 
+torch.multiprocessing.set_sharing_strategy('file_system')
+# "too many opened files" https://github.com/pytorch/pytorch/issues/11201
+
 
 class NodeTaskPathListDummy(NodeTaskDict):
-    pass
+    """
+    typedef class so that other function can use isinstance
+    """
+    def get_dset_by_domain(self, args, na_domain, split=False):
+        raise NotImplementedError
 
 
 def mk_node_task_path_list(isize,
@@ -96,7 +98,6 @@ def mk_node_task_path_list(isize,
 
         def conf(self, args):
             """conf.
-
             :param args:
             """
             self.list_str_y = list_str_y
