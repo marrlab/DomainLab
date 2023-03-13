@@ -172,21 +172,30 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, reg=True,
         dataframe_.insert(0, 'label',
                           dataframe[COLNAME_ALGO].astype(str) + ', ' +
                           dataframe[COLNAME_PARAM].astype(str))
+
+        if reg:
+            g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
+        else:
+            g_p = sns.pairplot(data=dataframe_, hue='label', corner=True)
     else:
         index_ = list(range(5, dataframe.shape[1]))
         index_.insert(0, 0)
         dataframe_ = dataframe.iloc[:, index_]
 
-    if reg:
-        if not distinguish_param_setups:
+        if reg:
             g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind='reg')
         else:
-            g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
-    else:
-        if not distinguish_param_setups:
             g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True)
-        else:
-            g_p = sns.pairplot(data=dataframe_, hue='label', corner=True)
+    # if reg:
+    #     if not distinguish_param_setups:
+    #         g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind='reg')
+    #     else:
+    #         g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
+    # else:
+    #     if not distinguish_param_setups:
+    #         g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True)
+    #     else:
+    #         g_p = sns.pairplot(data=dataframe_, hue='label', corner=True)
 
     for i in range(len(index)):
         for j in range(len(index)):
@@ -324,12 +333,19 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
 
 
 def boxplot(dataframe_in, obj, file=None):
+    '''
+    generate the boxplots
+    dataframe_in: dataframe containing the data with columns
+        [param_idx, task , algo, epos, te_d, seed, params, obj1, ..., obj2]
+    obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+    file: foldername to save the plots (if None, the plot will not be saved)
+    '''
     boxplot_stochastic(dataframe_in, obj, file=file)
     boxplot_systematic(dataframe_in, obj, file=file)
 
 def boxplot_stochastic(dataframe_in, obj, file=None):
     '''
-    generate the boxplots
+    generate boxplot for stochastic variation
     dataframe_in: dataframe containing the data with columns
         [param_idx, task , algo, epos, te_d, seed, params, obj1, ..., obj2]
     obj: objective to be considered in the plot (needs to be contained in dataframe_in)
@@ -382,18 +398,25 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
 
 
 def boxplot_systematic(dataframe_in, obj, file=None):
+    '''
+    generate boxplot for ssystemtic variation
+    dataframe_in: dataframe containing the data with columns
+        [param_idx, task , algo, epos, te_d, seed, params, obj1, ..., obj2]
+    obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+    file: foldername to save the plots (if None, the plot will not be saved)
+    '''
     dataframe = dataframe_in.copy()
     os.makedirs(file, exist_ok=True)
 
     ### systematic variation
-    fig, axes = plt.subplots(1, 1, figsize=(2 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    _, axes = plt.subplots(1, 1, figsize=(2 * len(dataframe[COLNAME_ALGO].unique()), 6))
     sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=axes, showfliers=False,
                 boxprops={"facecolor": (.4, .6, .8, .5)})
     sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
                   legend=False, ax=axes,
                   palette=sns.cubehelix_palette(n_colors=len(
-                     dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())
-                     [0]][COLNAME_IDX_PARAM].unique())))
+                      dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())
+                                [0]][COLNAME_IDX_PARAM].unique())))
     axes.set_ylim([-0.1, 1.1])
     axes.legend([], [], frameon=False)
     plt.tight_layout()
