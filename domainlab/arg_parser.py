@@ -164,8 +164,6 @@ def apply_dict_to_args(args, data: dict, extend=False):
     Tries to apply the data to the args dict of DomainLab.
     Unknown keys are silently ignored as long as
     extend is not set.
-    # FIXME: do we have a test to ensure args dict from
-    # domainlab really got what is passed from "data" dict?
     """
     arg_dict = args.__dict__
     for key, value in data.items():
