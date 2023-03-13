@@ -174,13 +174,15 @@ def apply_dict_to_args(args, data: dict, extend=False):
                 cur_val = arg_dict.get(key, None)
                 if not isinstance(cur_val, list):
                     if cur_val is not None:
-                        # @FIXME: should we warn or raise Error?
-                        warnings.warn(f"input dictionary value is list, \
-                                    however, in DomainLab args, we have {cur_val}, \
-                                    going to overrite to list")
-                    arg_dict[key] = []
-                arg_dict[key].extend(value)
+                        raise RuntimeError(f"input dictionary value is list, \
+                                           however, in DomainLab args, we have {cur_val}, \
+                                           going to overrite to list")
+                    arg_dict[key] = []  # if args_dict[key] is None, cast it into a list
+                    # domainlab will take care of it if this argument can not be a list
+                arg_dict[key].extend(value)  # args_dict[key] is already a list
+                # keep existing values for the list arg_dct[key]
             else:
+                # over-write existing value
                 arg_dict[key] = value
         else:
             raise ValueError("Unsupported key: ", key)
