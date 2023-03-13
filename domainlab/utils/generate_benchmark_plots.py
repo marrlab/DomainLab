@@ -14,10 +14,10 @@ matplotlib.use('Agg')
 COLNAME_ALGO = "algo"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
-G_DF_PLOT_ROW_START = 2
+G_DF_PLOT_COL_START = 2   # first two columns are ['param_index','task',
 
 
-def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index : bool = True):
+def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index: bool = True):
     '''
     generate the benchmark plots from a csv file containing the aggregated restults.
     The csv file must have the columns:
@@ -166,7 +166,7 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, kind='reg',
     distinguish_param_setups: if True the plot will not only distinguish between models,
         but also between the parameter setups
     '''
-    dataframe = dataframe_in.iloc[:, G_DF_PLOT_ROW_START:].copy()
+    dataframe = dataframe_in.iloc[:, G_DF_PLOT_COL_START:].copy()
     index = list(range(5, dataframe.shape[1]))
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
@@ -222,7 +222,7 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
     '''
     obj1, obj2 = obj
 
-    dataframe = dataframe_in.iloc[:, G_DF_PLOT_ROW_START:].copy()
+    dataframe = dataframe_in.iloc[:, G_DF_PLOT_COL_START:].copy()
     dataframe[COLNAME_PARAM] = dataframe[COLNAME_PARAM].astype(str)
 
     if distinguish_hyperparam:
@@ -272,7 +272,7 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     distinguish_param_setups: if True the plot will not only distinguish between models,
         but also between the parameter setups
     '''
-    dataframe = dataframe_in.iloc[:, G_DF_PLOT_ROW_START:].copy()
+    dataframe = dataframe_in.iloc[:, G_DF_PLOT_COL_START:].copy()
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
                          dataframe[COLNAME_ALGO].astype(str) + ', ' +
