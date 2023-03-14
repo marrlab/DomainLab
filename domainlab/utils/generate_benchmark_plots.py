@@ -48,7 +48,7 @@ def round_vals_in_dict(df_column_in, use_param_index):
     use_param_index: usage of param_index instead of exact values
     '''
     df_column = df_column_in.copy()
-    df_column_out = df_column_in.iloc[COLNAME_IDX_PARAM].copy()
+    df_column_out = df_column_in[COLNAME_IDX_PARAM].copy()
     df_column_out = df_column_out.astype(str)
     for i in range(df_column.shape[0]):
         if not use_param_index:
@@ -379,7 +379,6 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                         x=COLNAME_IDX_PARAM, y=obj,
                         ax=axes, showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
-            axes.set_ylim([-0.1, 1.1])
             sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
                           x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes,
@@ -387,6 +386,7 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                               dataframe[dataframe[COLNAME_ALGO] == algo]
                               [COLNAME_IDX_PARAM].unique())))
             axes.legend([], [], frameon=False)
+            axes.set_ylim([-0.1, 1.1])
             axes.set_xlabel(algo)
         plt.tight_layout()
         if file is not None:
@@ -405,7 +405,73 @@ def boxplot_systematic(dataframe_in, obj, file=None):
     os.makedirs(file, exist_ok=True)
 
     ### systematic variation
-    _, axes = plt.subplots(1, 1, figsize=(2 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    _, axes = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
+                           figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
+
+    for num, algo in enumerate(list(dataframe[COLNAME_ALGO].unique())):
+        # distinguish if the algorithm does only have one param setup or multiple
+        if len(dataframe[COLNAME_ALGO].unique()) > 1:
+            # generate boxplot and swarmplot
+            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                        x=COLNAME_ALGO, y=obj,
+                        ax=axes[num], showfliers=False,
+                        boxprops={"facecolor": (.4, .6, .8, .5)})
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                          x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
+                          legend=False, ax=axes[num],
+                          palette=sns.cubehelix_palette(n_colors=len(
+                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              [COLNAME_IDX_PARAM].unique())))
+            # remove legend, set ylim, set x-label and remove y-label
+            axes[num].legend([], [], frameon=False)
+            axes[num].set_ylim([-0.1, 1.1])
+            axes[num].set_xlabel(algo)
+            if num != 0:
+                axes[num].set_ylabel('')
+        else:
+            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                        x=COLNAME_ALGO, y=obj,
+                        ax=axes, showfliers=False,
+                        boxprops={"facecolor": (.4, .6, .8, .5)})
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+                          x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
+                          legend=False, ax=axes,
+                          palette=sns.cubehelix_palette(n_colors=len(
+                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              [COLNAME_IDX_PARAM].unique())))
+            axes.legend([], [], frameon=False)
+            axes.set_ylim([-0.1, 1.1])
+            axes.set_xlabel(algo)
+        plt.tight_layout()
+
+    # sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=axes, showfliers=False,
+    #             boxprops={"facecolor": (.4, .6, .8, .5)})
+    # sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
+    #               legend=False, ax=axes,
+    #               palette=sns.cubehelix_palette(n_colors=len(
+    #                   dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())
+    #                             [0]][COLNAME_IDX_PARAM].unique())))
+    # axes.set_ylim([-0.1, 1.1])
+    # axes.legend([], [], frameon=False)
+    # plt.tight_layout()
+
+    if file is not None:
+        plt.savefig(file + '/systematic_variation.png', dpi=300)
+
+
+def boxplot_systematic2(dataframe_in, obj, file=None):
+    '''
+    generate boxplot for ssystemtic variation
+    dataframe_in: dataframe containing the data with columns
+        [param_idx, task , algo, epos, te_d, seed, params, obj1, ..., obj2]
+    obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+    file: foldername to save the plots (if None, the plot will not be saved)
+    '''
+    dataframe = dataframe_in.copy()
+    os.makedirs(file, exist_ok=True)
+
+    ### systematic variation
+    _, axes = plt.subplots(1, 1, figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
     sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=axes, showfliers=False,
                 boxprops={"facecolor": (.4, .6, .8, .5)})
     sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
