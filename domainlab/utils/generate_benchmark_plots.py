@@ -425,7 +425,7 @@ def boxplot_systematic(dataframe_in, obj, file=None):
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
             axes[num].set_ylim([-0.1, 1.1])
-            axes[num].set_xlabel(algo)
+            axes[num].set_xlabel(' ')
             if num != 0:
                 axes[num].set_ylabel('')
         else:
@@ -441,25 +441,16 @@ def boxplot_systematic(dataframe_in, obj, file=None):
                               [COLNAME_IDX_PARAM].unique())))
             axes.legend([], [], frameon=False)
             axes.set_ylim([-0.1, 1.1])
-            axes.set_xlabel(algo)
+            axes[num].set_xlabel(' ')
         plt.tight_layout()
-
-    # sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=axes, showfliers=False,
-    #             boxprops={"facecolor": (.4, .6, .8, .5)})
-    # sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
-    #               legend=False, ax=axes,
-    #               palette=sns.cubehelix_palette(n_colors=len(
-    #                   dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())
-    #                             [0]][COLNAME_IDX_PARAM].unique())))
-    # axes.set_ylim([-0.1, 1.1])
-    # axes.legend([], [], frameon=False)
-    # plt.tight_layout()
 
     if file is not None:
         plt.savefig(file + '/systematic_variation.png', dpi=300)
 
 
-def boxplot_systematic2(dataframe_in, obj, file=None):
+# This is the old version without using subplots for the systematic variation
+# The splitting into subplots makes a comparison with the stochastic variation easier
+def boxplot_systematic_old(dataframe_in, obj, file=None):
     '''
     generate boxplot for ssystemtic variation
     dataframe_in: dataframe containing the data with columns
