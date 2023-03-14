@@ -441,7 +441,7 @@ def boxplot_systematic(dataframe_in, obj, file=None):
                               [COLNAME_IDX_PARAM].unique())))
             axes.legend([], [], frameon=False)
             axes.set_ylim([-0.1, 1.1])
-            axes[num].set_xlabel(' ')
+            axes.set_xlabel(' ')
         plt.tight_layout()
 
     if file is not None:
