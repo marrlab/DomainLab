@@ -8,7 +8,7 @@ test_domains:
   - mll
 
 output_dir: zoutput/benchmarks/test_bloodcell_benchmark
-dmem: True
+dmem: False
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
@@ -20,7 +20,7 @@ sampling_seed: 100
 
 # use only 3 epochs to check if results can be aggregated
 epos: 3
-bs: 32
+bs: 16
 startseed: 1000
 endseed: 1000  # currently included
 
