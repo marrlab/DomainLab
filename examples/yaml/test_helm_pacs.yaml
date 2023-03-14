@@ -1,12 +1,20 @@
 # test benchmark config.
 
-tpath: examples/tasks/not_a_demo_task_path_list.py  # dataset
+# use only 3 epochs to check if results can be aggregated
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  tpath: examples/tasks/not_a_demo_task_path_list.py  # dataset
+  epos: 2
+  bs: 16
+  dmem: False
+  nname: alexnet
+  san_check: False
 
 test_domains:
   - sketch
 
 output_dir: zoutput/benchmarks/test_pacs
-dmem: False
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
@@ -16,15 +24,11 @@ num_param_samples: 2
 # TODO set num of param samples
 sampling_seed: 100
 
-# use only 3 epochs to check if results can be aggregated
-epos: 3
-bs: 16
+
 startseed: 1000
 endseed: 1000  # currently included
 
-# set all parameters to default first
-nname: alexnet
-san_check: False
+
 
 Task5:  # name
   aname: dann
