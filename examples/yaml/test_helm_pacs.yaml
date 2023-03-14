@@ -34,14 +34,6 @@ Task5:  # name
   aname: dann
 
   hyperparameters:
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -49,20 +41,6 @@ Task5:  # name
   
 Task6:  # name
   aname: deepall
-
-  hyperparameters:
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 Task7: # name
   aname: deepall_dial
@@ -83,14 +61,6 @@ Task7: # name
       min: 0.001
       max: 0.01
       distribution: loguniform
-
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
 
     gamma_reg:
       min: 0.01
