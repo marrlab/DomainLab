@@ -27,7 +27,8 @@ def get_task(na=None):
             "6": "house",
             "7": "person"},
 
-        # ## specify where to find the text file containning path for each image
+        # ## specify where to find the text file containing path for each image
+        # ## the text file below only need to specify the relative path
 
         # ## training
         dict_d2filepath_list_img_tr={
