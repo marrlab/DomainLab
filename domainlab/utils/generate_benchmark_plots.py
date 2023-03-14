@@ -48,18 +48,18 @@ def round_vals_in_dict(df_column_in, use_param_index):
     use_param_index: usage of param_index instead of exact values
     '''
     df_column = df_column_in.copy()
-    df_column_out = df_column_in.iloc[:, 0].copy()
+    df_column_out = df_column_in.iloc[COLNAME_IDX_PARAM].copy()
     df_column_out = df_column_out.astype(str)
     for i in range(df_column.shape[0]):
         if not use_param_index:
             string = ''
-            for num, val in enumerate(list(df_column.iloc[i, 1].values())):
-                key = list(df_column.iloc[i, 1].keys())[num]
+            for num, val in enumerate(list(df_column[COLNAME_PARAM][i].values())):
+                key = list(df_column[COLNAME_PARAM][i].keys())[num]
                 val = np.format_float_scientific(val, precision=1, unique=False, trim='0')
                 string += str(key) + ': ' + str(val) + ', '
-            df_column_out[i] = string[:-2]
+            df_column_out[i] = string[:-2]  # remove ', ' from the end of the string
         else:
-            string = 'idx: ' + str(df_column.iloc[i, 0])
+            string = 'idx: ' + str(df_column[COLNAME_IDX_PARAM][i])
             df_column_out[i] = string
     return df_column_out
 
