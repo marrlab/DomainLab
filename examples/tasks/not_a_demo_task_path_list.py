@@ -15,36 +15,41 @@ def get_task(na=None):
         isize=ImSize(3, 224, 224),
         list_str_y=["dog", "elephant", "giraffe", "guitar",
                     "horse", "house", "person"],
-        dict_class_label2name={"1": "dog",
+        dict_class_label_ind2name={"1": "dog",
                                "2": "elephant",
                                "3": "giraffe",
                                "4": "guitar",
                                "5": "horse",
                                "6": "house",
                                "7": "person"},
-        dict_d2filepath_list_img={
-            "art_painting": "~/Documents/datasets/pacs_split/art_painting_train_kfold.txt",
-            "cartoon": "~/Documents/datasets/pacs_split/cartoon_train_kfold.txt",
-            "photo": "~/Documents/datasets/pacs_split/photo_train_kfold.txt",
-            "sketch": "~/Documents/datasets/pacs_split/sketch_train_kfold.txt"},
+        dict_d2filepath_list_img_tr={
+            "art_painting": "data/pacs_split/art_painting_train_kfold.txt",
+            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
+            "photo": "data/pacs_split/photo_train_kfold.txt",
+            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
 
         dict_d2filepath_list_img_te={
-            "art_painting": "~/Documents/datasets/pacs_split/art_painting_train_kfold.txt",
-            "cartoon": "~/Documents/datasets/pacs_split/cartoon_train_kfold.txt",
-            "photo": "~/Documents/datasets/pacs_split/photo_train_kfold.txt",
-            "sketch": "~/Documents/datasets/pacs_split/sketch_train_kfold.txt"},
+            "art_painting": "data/pacs_split/art_painting_train_kfold.txt",
+            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
+            "photo": "data/pacs_split/photo_train_kfold.txt",
+            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
 
         dict_d2filepath_list_img_val={
-            "art_painting": "~/Documents/datasets/pacs_split/art_painting_crossval_kfold.txt",
-            "cartoon": "~/Documents/datasets/pacs_split/cartoon_train_kfold.txt",
-            "photo": "~/Documents/datasets/pacs_split/photo_train_kfold.txt",
-            "sketch": "~/Documents/datasets/pacs_split/sketch_train_kfold.txt"},
+            "art_painting": "data/pacs_split/art_painting_crossval_kfold.txt",
+            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
+            "photo": "data/pacs_split/photo_train_kfold.txt",
+            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
 
         dict_domain2imgroot={
             'art_painting': "~/Documents/datasets/pacs/raw",
             'cartoon': "~/Documents/datasets/pacs/raw",
             'photo': "~/Documents/datasets/pacs/raw",
             'sketch': "~/Documents/datasets/pacs/raw"},
-        trans4all=transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()]))  # @FIXME:
-    #  FIXME: 224 is already provided in image size
+        img_trans_tr=transforms.Compose(
+            [transforms.Resize((224, 224)),
+             transforms.ToTensor()]),
+        img_trans_te=transforms.Compose(
+        [transforms.Resize((224, 224)),
+            transforms.ToTensor()])
+    )
     return node
