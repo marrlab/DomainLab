@@ -362,7 +362,7 @@ from domainlab.tasks.b_task import NodeTaskDict
 
             dset = self._get_complete_domain(
                 na_domain,
-                self._dict_domain2filepath_list_im)
+                self._dict_domain2filepath_list_im_tr)
 
             dset_val = self._get_complete_domain(
                 na_domain,
@@ -378,7 +378,7 @@ from domainlab.tasks.b_task import NodeTaskDict
             self.list_str_y = list_str_y
             self.isize = isize
             self.dict_domain2imgroot = dict_domain2imgroot
-            self._dict_domain2filepath_list_im = dict_d2filepath_list_img
+            self._dict_domain2filepath_list_im_tr = dict_d2filepath_list_img
             self._dict_domain2filepath_list_im_val = dict_d2filepath_list_img_val
             self._dict_domain2filepath_list_im_te = dict_d2filepath_list_img_te
             self.set_list_domains(list(self.dict_domain2imgroot.keys()))
