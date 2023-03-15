@@ -23,6 +23,8 @@ def load_parameters(file: str, index: int) -> tuple:
     param_df = pd.read_csv(file, index_col=0)
     row = param_df.loc[index]
     params = ast.literal_eval(row.params)
+    # row.task has nothing to do with DomainLab task, it is
+    # benchmark task which correspond to one algorithm
     return row.task, params
 
 
@@ -54,23 +56,25 @@ def run_experiment(
     """
     if misc is None:
         misc = {}
-    task, hyperparameters = load_parameters(param_file, param_index)
+    str_algo_as_task, hyperparameters = load_parameters(param_file, param_index)
     # print("\n*******************************************************************")
-    # print(f"{task}, param_index={param_index}, params={hyperparameters}")
+    # print(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
     # print("*******************************************************************\n")
     misc['result_file'] = out_file
     misc['params'] = hyperparameters
-    misc['benchmark_task_name'] = task
+    misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
     misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    task_args = config[task].copy()
-    del task_args['hyperparameters']
-    apply_dict_to_args(args, config.get("domainlab_args", {}))
-    apply_dict_to_args(args, task_args)
+    args_algo_as_task = config[str_algo_as_task].copy()
+    if 'hyperparameters' in args_algo_as_task:
+        del args_algo_as_task['hyperparameters']
+    args_domainlab_common = config.get("domainlab_args", {})
+    apply_dict_to_args(args, args_domainlab_common)
+    apply_dict_to_args(args, args_algo_as_task)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
 
