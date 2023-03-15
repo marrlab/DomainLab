@@ -1,6 +1,14 @@
+"""
+Abstract Model Selection
+"""
+
 import abc
 
+
 class AMSel(metaclass=abc.ABCMeta):
+    """
+    Abstract Model Selection
+    """
     def __init__(self):
         self.trainer = None
         self.tr_obs = None
@@ -17,7 +25,6 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         observer + visitor pattern to trainer
         """
-        raise NotImplementedError
 
     def if_stop(self):
         """

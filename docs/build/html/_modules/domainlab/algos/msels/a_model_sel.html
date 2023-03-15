@@ -274,9 +274,17 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-algos-msels-a-model-sel--page-root">Source code for domainlab.algos.msels.a_model_sel</h1><div class="highlight"><pre>
-<span></span>import abc
+<span></span>"""
+Abstract Model Selection
+"""
+
+import abc
+
 
 <div class="viewcode-block" id="AMSel"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel">[docs]</a>class AMSel(metaclass=abc.ABCMeta):
+    """
+    Abstract Model Selection
+    """
     def __init__(self):
         self.trainer = None
         self.tr_obs = None
@@ -292,8 +300,7 @@
     def update(self):
         """
         observer + visitor pattern to trainer
-        """
-        raise NotImplementedError</div>
+        """</div>
 
 <div class="viewcode-block" id="AMSel.if_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.if_stop">[docs]</a>    def if_stop(self):
         """
