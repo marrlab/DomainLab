@@ -285,7 +285,7 @@ import abc
     Observer + Visitor pattern for model selection
     """
 <div class="viewcode-block" id="AObVisitor.update"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.update">[docs]</a>    @abc.abstractmethod
-    def update(self, epoch):
+    def update(self, epoch) -&gt; bool:
         """
         return True/False whether the trainer should stop training
         """</div>
