@@ -597,20 +597,26 @@ of an image and the second slot contains the class label as a numerical string.<
 <dt class="sig sig-object py" id="domainlab.tasks.task_pathlist.NodeTaskPathListDummy">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_pathlist.</span></span><span class="sig-name descname"><span class="pre">NodeTaskPathListDummy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_pathlist.html#NodeTaskPathListDummy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_pathlist.NodeTaskPathListDummy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task.NodeTaskDict" title="domainlab.tasks.b_task.NodeTaskDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDict</span></code></a></p>
+<p>typedef class so that other function can use isinstance</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.tasks.task_pathlist.NodeTaskPathListDummy.get_dset_by_domain">
+<span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_pathlist.html#NodeTaskPathListDummy.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_pathlist.NodeTaskPathListDummy.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>each domain correspond to one dataset</p>
+</dd></dl>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.tasks.task_pathlist.mk_node_task_path_list">
-<span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_pathlist.</span></span><span class="sig-name descname"><span class="pre">mk_node_task_path_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans4all</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_class_label2name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_domain2imgroot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_d2filepath_list_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_d2filepath_list_img_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_d2filepath_list_img_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_pathlist.html#mk_node_task_path_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_pathlist.mk_node_task_path_list" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_pathlist.</span></span><span class="sig-name descname"><span class="pre">mk_node_task_path_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_trans_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_trans_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_class_label_ind2name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_domain2imgroot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_d2filepath_list_img_tr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_d2filepath_list_img_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_d2filepath_list_img_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_pathlist.html#mk_node_task_path_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_pathlist.mk_node_task_path_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>mk_node_task_path_list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>isize</strong> – </p></li>
 <li><p><strong>list_str_y</strong> – </p></li>
-<li><p><strong>trans4all</strong> – </p></li>
-<li><p><strong>dict_class_label2name</strong> – </p></li>
+<li><p><strong>img_trans_tr</strong> – </p></li>
+<li><p><strong>dict_class_label_ind2name</strong> – </p></li>
 <li><p><strong>dict_domain2imgroot</strong> – </p></li>
-<li><p><strong>dict_d2filepath_list_img</strong> – </p></li>
+<li><p><strong>dict_d2filepath_list_img_tr</strong> – </p></li>
 <li><p><strong>dict_d2filepath_list_img_val</strong> – </p></li>
 <li><p><strong>dict_d2filepath_list_img_te</strong> – </p></li>
 <li><p><strong>succ</strong> – </p></li>
@@ -748,11 +754,20 @@ to print predictions together with path  for the test domain</p>
 </section>
 <section id="module-domainlab.tasks.utils_task_dset">
 <span id="domainlab-tasks-utils-task-dset-module"></span><h2 id="module-domainlab.tasks.utils_task_dset">domainlab.tasks.utils_task_dset module<a class="headerlink" href="#module-domainlab.tasks.utils_task_dset" title="Permalink to this heading">¶</a></h2>
+<p>task specific dataset operation</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.tasks.utils_task_dset.DsetIndDecorator4XYD">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.utils_task_dset.</span></span><span class="sig-name descname"><span class="pre">DsetIndDecorator4XYD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/utils_task_dset.html#DsetIndDecorator4XYD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.utils_task_dset.DsetIndDecorator4XYD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>For dataset of x, y, d,  decorate it wih index</p>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.tasks.utils_task_dset.DsetZip">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.utils_task_dset.</span></span><span class="sig-name descname"><span class="pre">DsetZip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dset2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/utils_task_dset.html#DsetZip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.utils_task_dset.DsetZip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+<p>enable zip return in getitem: x_1, y_1, x_2, y_2
+to avoid always the same match, the second dataset does not use the same idx in __get__item()
+but instead, a random one</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.tasks.zoo_tasks">
