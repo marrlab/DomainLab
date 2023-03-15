@@ -2,6 +2,7 @@
 Meta Learning Domain Generalization
 """
 import copy
+import random
 from torch import optim
 from torch.utils.data.dataset import ConcatDataset
 
@@ -35,17 +36,20 @@ class TrainerMLDG(AbstractTrainer):
         """
         create virtual source and target domain
         """
-        tuple_dsets = tuple(self.task.dict_dset.values())
-        ddset_source = ConcatDataset(tuple_dsets[:-1])
-        ddset_target = tuple_dsets[-1]
-        # @FIXME: replace with all combinations of train dataset, and concatenate data
+        list_dsets = list(self.task.dict_dset.values())
+        num_domains = len(list_dsets)
+        ind_target_domain = random.randrange(num_domains)
+        tuple_dsets_source = tuple(
+            list_dsets[ind] for ind in range(num_domains) if ind != ind_target_domain)
+        ddset_source = ConcatDataset(tuple_dsets_source)
+        ddset_target = list_dsets[ind_target_domain]
         ddset_mix = DsetZip(ddset_source, ddset_target)
         self.loader_tr_source_target = mk_loader(ddset_mix, self.aconf.bs)
 
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
-
+        self.prepare_ziped_loader()
         for ind_batch, (tensor_x_s, vec_y_s, vec_d_s, others_s,
                         tensor_x_t, vec_y_t, vec_d_t, *_) \
                 in enumerate(self.loader_tr_source_target):
