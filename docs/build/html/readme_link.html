@@ -315,22 +315,17 @@
 <a class="reference external" href="https://www.codacy.com/gh/marrlab/DomainLab/dashboard"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86"/></a></p>
 <section id="domain-generalization-and-domainlab">
 <h3 id="domain-generalization-and-domainlab">Domain Generalization and DomainLab<a class="headerlink" href="#domain-generalization-and-domainlab" title="Permalink to this heading">¶</a></h3>
-<p>Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains so the learned feature can generalize to new unseen domains.</p>
+<p>Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains so the learned feature can generalize to new unseen domains. Domain generalization algorithms try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss. A typical setting of evaluating domain generalization algorithms is the so called leave-one-domain-out scheme, where one dataset is collected from each distribution. Each time, one dataset/domain is left as test-set to estimate the generalization performance of a model trained upon the rest of domains/datasets.</p>
 </section>
 <section id="why-a-dedicated-package">
 <h3 id="why-a-dedicated-package">Why a dedicated package<a class="headerlink" href="#why-a-dedicated-package" title="Permalink to this heading">¶</a></h3>
-<p>Domain generalization algorithm try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss. A typical setting of evaluating domain generalization algorithm is the so called leave-one-domain-out scheme, where one dataset is collected from each distribution. Each time, one dataset/domain is left as test-set to estimate the generalization performance of a model trained upon the rest of domains/datasets.</p>
-<p>Once you came across a claim, that a domain generalization algorithm A can generate a “better” model h upon some datasets D with “better” performance compared to other algorithms, have you ever wondered:</p>
+<p>DomainLab is designed by maximal decoupling of different software componets and enhance maximal code reuse.</p>
+<p>To maximally decouple different attributing factors like loss function, neural network, training method, data feed method, DomainLab was implemented with software design patterns, where</p>
 <ul class="simple">
-<li><p>Is this mostly attributed to a more “powerful” neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?</p></li>
-<li><p>Is this mostly attributed the protocol of estimating the generalization performance? e.g. dataset split, Will this algorithm “work” for my datasets?</p></li>
-<li><p>Is this mostly attributed to the “clever” regularization algorithm or a special loss function A has used for the neural network?</p></li>
-</ul>
-<p>To maximally decouple these attributing factors, DomainLab was implemented with software design patterns, where</p>
-<ul class="simple">
-<li><p>Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See <span class="xref myst">Specify Custom Neural Networks for an algorithm</span></p></li>
-<li><p>To evaluate a domain generalization algorithm’s performance, the user can specify a “Task” in the form of custom python file and feed into the command line argument, thus it is at the user’s discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See <span class="xref myst">Task Specification</span>.</p></li>
-<li><p>To simply test an algorithm’s performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.</p></li>
+<li><p>Domain generalization algorithms include models with associated loss function, training of the model and data feed process. They were implemented by decoupled respective classes.</p></li>
+<li><p>Models was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See <span class="xref myst">Specify Custom Neural Networks for an algorithm</span></p></li>
+<li><p>To evaluate a domain generalization algorithm’s performance on your custom data, the user can specify a “Task” in the form of custom python file and feed into the command line argument, thus it is at the user’s discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See <span class="xref myst">Task Specification</span>. To simply test an algorithm’s performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.</p></li>
+<li><p>The benchmark across several algorithms can be done via a single line command along with some configuration files.</p></li>
 </ul>
 </section>
 <section id="getting-started">
