@@ -11,7 +11,7 @@ class TrainerBasic(AbstractTrainer):
     """
     basic trainer
     """
-    def __init__(self, model, task, observer, device, aconf, flag_accept):
+    def __init__(self, model, task, observer, device, aconf, flag_accept=True):
         super().__init__(model, task, observer, device, aconf, flag_accept)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
 
