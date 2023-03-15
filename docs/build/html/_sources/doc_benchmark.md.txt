@@ -12,9 +12,9 @@ the performance with respect to different hyperparameter choices is investigated
 The benchmark is configured in a yaml file. We refer to the
 [demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_benchmark.yaml)
 for a documented example. As one can see here, the user has to select:
-- Common arguments for all tasks. This typically includes the dataset on which the benchmark
+- Common arguments for all tasks under `domainlab_args`. This typically includes the dataset on which the benchmark
 shall be performed, as well as the number of epochs and batch size for training.
-Here also the number of different random seeds and hyperparameter samples is set.
+- The number of different random seeds and hyperparameter samples is set.
 - The domains which are used as leave-one-out for testing.
 - Different tasks, where each task contains: (1) Fixed parameters specific for this task,
 typically the algorithm name and related arguments and (2) varying hyperparameters, for which
