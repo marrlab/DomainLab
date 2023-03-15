@@ -2,7 +2,6 @@
 Base Class for trainer
 """
 import abc
-from torch import optim
 
 
 class AbstractTrainer(metaclass=abc.ABCMeta):
