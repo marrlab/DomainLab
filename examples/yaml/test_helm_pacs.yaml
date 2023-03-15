@@ -13,6 +13,9 @@ domainlab_args:
 
 test_domains:
   - sketch
+  - art-painting
+  - photo
+  - cartoon
 
 output_dir: zoutput/benchmarks/test_pacs
 
