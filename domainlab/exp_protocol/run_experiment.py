@@ -89,16 +89,27 @@ def run_experiment(
             args.te_d = te_d
             set_seed(seed)
             args.seed = seed
-            if torch.cuda.is_available():
-                print(torch.cuda.memory_summary())
+            try:
+                if torch.cuda.is_available():
+                    print("before experiment starts")
+                    print(torch.cuda.memory_summary())
+            except KeyError as ex:
+                print(ex)
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()
+            try:
+                if torch.cuda.is_available():
+                    print("before torch memory clean up")
+                    print(torch.cuda.memory_summary())
+            except KeyError as ex:
+                print(ex)
             del exp
             torch.cuda.empty_cache()
             gc.collect()
             try:
                 if torch.cuda.is_available():
+                    print("after torch memory clean up")
                     print(torch.cuda.memory_summary())
             except KeyError as ex:
                 print(ex)
