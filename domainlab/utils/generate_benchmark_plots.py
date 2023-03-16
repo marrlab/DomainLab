@@ -11,6 +11,9 @@ import numpy as np
 
 matplotlib.use('Agg')
 
+# header of the csv file:
+# param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc
+
 COLNAME_ALGO = "algo"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
@@ -167,8 +170,8 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, kind='reg',
     distinguish_param_setups: if True the plot will not only distinguish between models,
         but also between the parameter setups
     '''
-    dataframe = dataframe_in.iloc[:, G_DF_PLOT_COL_START:].copy()
-    index = list(range(5, dataframe.shape[1]))
+    dataframe = dataframe_in.copy()
+    index = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(0, 'label',
@@ -177,21 +180,11 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, kind='reg',
 
         g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind=kind)
     else:
-        index_ = list(range(5, dataframe.shape[1]))
-        index_.insert(0, 0)
+        index_ = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
+        index_.insert(0, G_DF_PLOT_COL_START)
         dataframe_ = dataframe.iloc[:, index_]
 
         g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind=kind)
-    # if reg:
-    #     if not distinguish_param_setups:
-    #         g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind='reg')
-    #     else:
-    #         g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind='reg')
-    # else:
-    #     if not distinguish_param_setups:
-    #         g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True)
-    #     else:
-    #         g_p = sns.pairplot(data=dataframe_, hue='label', corner=True)
 
     for i in range(len(index)):
         for j in range(len(index)):
@@ -223,7 +216,7 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
     '''
     obj1, obj2 = obj
 
-    dataframe = dataframe_in.iloc[:, G_DF_PLOT_COL_START:].copy()
+    dataframe = dataframe_in.copy()
     dataframe[COLNAME_PARAM] = dataframe[COLNAME_PARAM].astype(str)
 
     if distinguish_hyperparam:
@@ -273,14 +266,15 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     distinguish_param_setups: if True the plot will not only distinguish between models,
         but also between the parameter setups
     '''
-    dataframe = dataframe_in.iloc[:, G_DF_PLOT_COL_START:].copy()
+    dataframe = dataframe_in.copy()
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
                          dataframe[COLNAME_ALGO].astype(str) + ', ' +
                          dataframe[COLNAME_PARAM].astype(str))
     else:
         dataframe.insert(0, 'label', dataframe[COLNAME_ALGO])
-    index = list(range(6, dataframe.shape[1]))
+    # we need "G_DF_PLOT_COL_METRIC_START + 1" as we did insert the columns 'label' at index 0
+    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, dataframe.shape[1]))
     num_lines = len(dataframe['label'].unique())
     _, axis = plt.subplots(figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True))
     num = 0
