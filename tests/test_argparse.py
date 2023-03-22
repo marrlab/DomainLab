@@ -24,7 +24,7 @@ def test_parse_yml_args():
     testdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.join(testdir, "..")
     rootdir = os.path.abspath(rootdir)
-    file_path = os.path.join(rootdir, "examples/yaml/demo_config_single_run.yaml")
+    file_path = os.path.join(rootdir, "examples/yaml/demo_config_single_run_diva.yaml")
     sys.argv = ['main.py', '--config=' + file_path]
     args = parse_cmd_args()
 
