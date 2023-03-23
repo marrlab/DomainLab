@@ -1,43 +1,33 @@
 # test benchmark config.
 
-# dataset
-task: mnistcolor10
-
 test_domains:
   - 3
-
-output_dir: zoutput/benchmarks/mnist_benchmark503_2
-dmem: False
-te_d:
   - 0
-  - 1
-  - 2
 
-lr: 0.001
-
+output_dir: zoutput/benchmarks/mnist_benchmark
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 8
-sampling_seed: 503
+sampling_seed: 0
 
-epos: 50
-es: 5
-bs: 64
-startseed: 2
+startseed: 0
 endseed: 2  # currently included
 
-# set all parameters to default first
-nname: conv_bn_pool_2
-#lr: 1e-4
-#gamma_reg: 0.1
-#es: 10
-#gen: False
-#split: 0
-#san_check: False
-#zd_dim: 64
-#zx_dim: 0
-#zy_dim: 64
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  task: mnistcolor10
+  dmem: False
+  lr: 0.001
+  epos: 50
+  es: 5
+  bs: 64
+  nname: conv_bn_pool_2
+
 
 Task1:  # name
   aname: diva
@@ -181,14 +171,6 @@ Task5:  # name
   aname: dann
 
   hyperparameters:
-    early_stop:
-      distribution: categorical
-      datatype: int
-      values:
-        - 1
-        - 5
-        - 10
-
     gamma_reg:
       min: 0.01
       max: 10
@@ -197,12 +179,6 @@ Task5:  # name
 Task6:  # name
   aname: deepall
 
-  hyperparameters:
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 Task7: # name
   aname: deepall_dial
