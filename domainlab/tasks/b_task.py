@@ -13,31 +13,6 @@ class NodeTaskDict(NodeTaskDGClassif):
     """
     Use dictionaries to create train and test domain split
     """
-    @property
-    def list_str_y(self):
-        return self._list_str_y
-
-    @list_str_y.setter
-    def list_str_y(self, list_str_y):
-        self._list_str_y = list_str_y
-
-    @property
-    def isize(self):
-        return self._im_size
-
-    @isize.setter
-    def isize(self, im_size):
-        self._im_size = im_size
-
-    def get_list_domains(self):
-        return self._list_domains
-
-    def set_list_domains(self, list_domains):
-        """
-        setter for self._list_domains
-        """
-        self._list_domains = list_domains
-
     def get_dset_by_domain(self, args, na_domain, split=False):
         """
         each domain correspond to one dataset

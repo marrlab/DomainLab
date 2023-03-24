@@ -2,7 +2,6 @@
 Abstract class for TaskClassif
 """
 import os
-from abc import abstractproperty
 
 from domainlab.tasks.utils_task import img_loader2dir
 from domainlab.tasks.a_task import NodeTaskDG
@@ -16,9 +15,19 @@ class NodeTaskDGClassif(NodeTaskDG):
         super().__init__(succ)
         self._list_str_y = None
 
-    @abstractproperty
+    @property
     def list_str_y(self):
-        raise NotImplementedError
+        """
+        getter for list_str_y
+        """
+        return self._list_str_y
+
+    @list_str_y.setter
+    def list_str_y(self, list_str_y):
+        """
+        setter for list_str_y
+        """
+        self._list_str_y = list_str_y
 
     @property
     def dim_y(self):

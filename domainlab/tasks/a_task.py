@@ -39,24 +39,34 @@ class NodeTaskDG(AbstractChainNodeHandler):
     @abstractmethod
     def init_business(self, args):
         """
-        construct loader with resampling
-        :param seed: random seed for resampling
-        :param bs: batch size
-        :param domain_na_tes: test domain names
+        construct task
         """
-
-    @abstractmethod
     def get_list_domains(self):
         """
         1. get list of domain names
         2. better use method than property so new domains can be added
         """
-        raise NotImplementedError
+        return self._list_domains
 
-    @abstractproperty
+    def set_list_domains(self, list_domains):
+        """
+        setter for self._list_domains
+        """
+        self._list_domains = list_domains
+
+    @property
     def isize(self):
-        """image channel, height, width"""
-        raise NotImplementedError
+        """
+        getter for input size: isize
+        """
+        return self._im_size
+
+    @isize.setter
+    def isize(self, im_size):
+        """
+        setter for input size: isize
+        """
+        self._im_size = im_size
 
     @property
     def list_domain_tr(self):
