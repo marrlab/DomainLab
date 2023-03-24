@@ -1,8 +1,6 @@
 """
 Use dictionaries to create train and test domain split
 """
-from collections import Counter
-
 import torch
 from torch.utils.data.dataset import ConcatDataset
 
@@ -122,8 +120,3 @@ class NodeTaskDict(NodeTaskDGClassif):
         for name, count in zip(self.list_str_y, list_count):
             dict_class_count[name] = count
         return dict_class_count
-
-    def _count_class(self, dset):   # @FIXME: remove this
-        labels = dset.targets
-        class_dict = dict(Counter(labels))
-        return class_dict
