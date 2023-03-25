@@ -7,7 +7,7 @@ from domainlab.dsets.dset_subfolder import DsetSubFolder
 from domainlab.dsets.utils_data import (DsetInMemDecorator,
                                         fun_img_path_loader_default,
                                         mk_fun_label2onehot)
-from domainlab.tasks.b_task import NodeTaskDictClassif
+from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
 
 

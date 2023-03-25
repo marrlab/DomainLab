@@ -6,7 +6,7 @@ from torch.utils.data import random_split
 from domainlab.dsets.dset_mnist_color_solo_default import \
     DsetMNISTColorSoloDefault
 from domainlab.dsets.utils_color_palette import default_rgb_palette  # @FIXME
-from domainlab.tasks.b_task import NodeTaskDictClassif
+from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 from domainlab.tasks.utils_task import ImSize
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 
