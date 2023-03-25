@@ -1,8 +1,6 @@
 """
 Use dictionaries to create train and test domain split
 """
-from collections import Counter
-
 import torch
 from torch.utils.data.dataset import ConcatDataset
 
@@ -11,35 +9,10 @@ from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
                                         mk_onehot)
 
 
-class NodeTaskDict(NodeTaskDGClassif):
+class NodeTaskDictClassif(NodeTaskDGClassif):
     """
     Use dictionaries to create train and test domain split
     """
-    @property
-    def list_str_y(self):
-        return self._list_str_y
-
-    @list_str_y.setter
-    def list_str_y(self, list_str_y):
-        self._list_str_y = list_str_y
-
-    @property
-    def isize(self):
-        return self._im_size
-
-    @isize.setter
-    def isize(self, im_size):
-        self._im_size = im_size
-
-    def get_list_domains(self):
-        return self._list_domains
-
-    def set_list_domains(self, list_domains):
-        """
-        setter for self._list_domains
-        """
-        self._list_domains = list_domains
-
     def get_dset_by_domain(self, args, na_domain, split=False):
         """
         each domain correspond to one dataset
@@ -122,8 +95,3 @@ class NodeTaskDict(NodeTaskDGClassif):
         for name, count in zip(self.list_str_y, list_count):
             dict_class_count[name] = count
         return dict_class_count
-
-    def _count_class(self, dset):   # @FIXME: remove this
-        labels = dset.targets
-        class_dict = dict(Counter(labels))
-        return class_dict
