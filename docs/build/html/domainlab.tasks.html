@@ -286,6 +286,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.tasks.b_task" class="md-nav__link">domainlab.tasks.b_task module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.tasks.b_task_classif" class="md-nav__link">domainlab.tasks.b_task_classif module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.tasks.task_folder" class="md-nav__link">domainlab.tasks.task_folder module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.tasks.task_folder_mk" class="md-nav__link">domainlab.tasks.task_folder_mk module</a>
@@ -447,29 +449,49 @@ int or str, or a list of int or str; required.</p></li>
 <span id="domainlab-tasks-b-task-module"></span><h2 id="module-domainlab.tasks.b_task">domainlab.tasks.b_task module<a class="headerlink" href="#module-domainlab.tasks.b_task" title="Permalink to this heading">¶</a></h2>
 <p>Use dictionaries to create train and test domain split</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDictClassif">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.b_task.</span></span><span class="sig-name descname"><span class="pre">NodeTaskDictClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDictClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDictClassif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif" title="domainlab.tasks.a_task_classif.NodeTaskDGClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDGClassif</span></code></a></p>
+<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.b_task.</span></span><span class="sig-name descname"><span class="pre">NodeTaskDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.a_task.NodeTaskDG" title="domainlab.tasks.a_task.NodeTaskDG"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDG</span></code></a></p>
 <p>Use dictionaries to create train and test domain split</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDictClassif.count_domain_class">
-<span class="sig-name descname"><span class="pre">count_domain_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDictClassif.count_domain_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDictClassif.count_domain_class" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.decorate_dset">
+<span class="sig-name descname"><span class="pre">decorate_dset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.decorate_dset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.decorate_dset" title="Permalink to this definition">¶</a></dt>
+<dd><p>dispatch re-organization of data flow to model</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain">
+<span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>each domain correspond to one dataset</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDict.init_business">
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDict.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDict.init_business" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a dictionary of datasets</p>
+</dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.tasks.b_task_classif">
+<span id="domainlab-tasks-b-task-classif-module"></span><h2 id="module-domainlab.tasks.b_task_classif">domainlab.tasks.b_task_classif module<a class="headerlink" href="#module-domainlab.tasks.b_task_classif" title="Permalink to this heading">¶</a></h2>
+<p>Use dictionaries to create train and test domain split</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.tasks.b_task_classif.NodeTaskDictClassif">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.b_task_classif.</span></span><span class="sig-name descname"><span class="pre">NodeTaskDictClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task_classif.html#NodeTaskDictClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task.NodeTaskDict" title="domainlab.tasks.b_task.NodeTaskDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDict</span></code></a>, <a class="reference internal" href="#domainlab.tasks.a_task_classif.NodeTaskDGClassif" title="domainlab.tasks.a_task_classif.NodeTaskDGClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDGClassif</span></code></a></p>
+<p>Use dictionaries to create train and test domain split</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class">
+<span class="sig-name descname"><span class="pre">count_domain_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task_classif.html#NodeTaskDictClassif.count_domain_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>iterate all domains and count the class label distribution for each
 return a double dictionary {“domain1”: {“class1”:3, “class2”: 4,…}, ….}</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDictClassif.decorate_dset">
-<span class="sig-name descname"><span class="pre">decorate_dset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDictClassif.decorate_dset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDictClassif.decorate_dset" title="Permalink to this definition">¶</a></dt>
-<dd><p>dispatch re-organization of data flow to model</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDictClassif.get_dset_by_domain">
-<span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDictClassif.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDictClassif.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.b_task_classif.NodeTaskDictClassif.get_dset_by_domain">
+<span class="sig-name descname"><span class="pre">get_dset_by_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task_classif.html#NodeTaskDictClassif.get_dset_by_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif.get_dset_by_domain" title="Permalink to this definition">¶</a></dt>
 <dd><p>each domain correspond to one dataset</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.tasks.b_task.NodeTaskDictClassif.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task.html#NodeTaskDictClassif.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task.NodeTaskDictClassif.init_business" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/b_task_classif.html#NodeTaskDictClassif.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business" title="Permalink to this definition">¶</a></dt>
 <dd><p>create a dictionary of datasets</p>
 </dd></dl>
 </dd></dl>
@@ -480,7 +502,7 @@ return a double dictionary {“domain1”: {“class1”:3, “class2”: 4,…}
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.tasks.task_folder.NodeTaskFolder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_folder.</span></span><span class="sig-name descname"><span class="pre">NodeTaskFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_folder.html#NodeTaskFolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_folder.NodeTaskFolder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task.NodeTaskDictClassif" title="domainlab.tasks.b_task.NodeTaskDictClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDictClassif</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif" title="domainlab.tasks.b_task_classif.NodeTaskDictClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDictClassif</span></code></a></p>
 <p>create dataset by loading files from an organized folder
 then each domain correspond to one dataset</p>
 <dl class="py property">
@@ -552,7 +574,7 @@ names and values as the absolute path to each domain’s data.
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_mnist_color.</span></span><span class="sig-name descname"><span class="pre">NodeTaskMNISTColor10</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_mnist_color.html#NodeTaskMNISTColor10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task.NodeTaskDictClassif" title="domainlab.tasks.b_task.NodeTaskDictClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDictClassif</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif" title="domainlab.tasks.b_task_classif.NodeTaskDictClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDictClassif</span></code></a></p>
 <p>Use the deafult palette with 10 colors</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10.get_dset_by_domain">
@@ -595,7 +617,7 @@ of an image and the second slot contains the class label as a numerical string.<
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.tasks.task_pathlist.NodeTaskPathListDummy">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.tasks.task_pathlist.</span></span><span class="sig-name descname"><span class="pre">NodeTaskPathListDummy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">succ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/tasks/task_pathlist.html#NodeTaskPathListDummy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.tasks.task_pathlist.NodeTaskPathListDummy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task.NodeTaskDictClassif" title="domainlab.tasks.b_task.NodeTaskDictClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDictClassif</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.tasks.b_task_classif.NodeTaskDictClassif" title="domainlab.tasks.b_task_classif.NodeTaskDictClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeTaskDictClassif</span></code></a></p>
 <p>typedef class so that other function can use isinstance</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.tasks.task_pathlist.NodeTaskPathListDummy.get_dset_by_domain">

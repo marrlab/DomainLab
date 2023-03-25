@@ -48,7 +48,7 @@
     <link rel="apple-touch-icon" href="../../../_static/images/apple-icon-152x152.png"/>
   
   
-    <title>domainlab.tasks.task_folder &#8212; domainlab  documentation</title>
+    <title>domainlab.tasks.b_task_classif &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
@@ -79,7 +79,7 @@
   <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
   <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
   <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-  <a href="#_modules/domainlab/tasks/task_folder" tabindex="1" class="md-skip"> Skip to content </a>
+  <a href="#_modules/domainlab/tasks/b_task_classif" tabindex="1" class="md-skip"> Skip to content </a>
   <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
@@ -97,7 +97,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> domainlab.tasks.task_folder </span>
+          <span class="md-header-nav__topic"> domainlab.tasks.b_task_classif </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -273,108 +273,52 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <h1 id="modules-domainlab-tasks-task-folder--page-root">Source code for domainlab.tasks.task_folder</h1><div class="highlight"><pre>
+  <h1 id="modules-domainlab-tasks-b-task-classif--page-root">Source code for domainlab.tasks.b_task_classif</h1><div class="highlight"><pre>
 <span></span>"""
-When class names and numbers does not match across different domains
+Use dictionaries to create train and test domain split
 """
-from torchvision import transforms
+import torch
 
-from domainlab.dsets.dset_subfolder import DsetSubFolder
-from domainlab.dsets.utils_data import (DsetInMemDecorator,
-                                        fun_img_path_loader_default,
-                                        mk_fun_label2onehot)
-from domainlab.tasks.b_task_classif import NodeTaskDictClassif
-from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
+from domainlab.tasks.a_task_classif import NodeTaskDGClassif
+from domainlab.tasks.b_task import NodeTaskDict
 
 
-<div class="viewcode-block" id="NodeTaskFolder"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolder">[docs]</a>class NodeTaskFolder(NodeTaskDictClassif):
+<div class="viewcode-block" id="NodeTaskDictClassif"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif">[docs]</a>class NodeTaskDictClassif(NodeTaskDict, NodeTaskDGClassif):
     """
-    create dataset by loading files from an organized folder
-    then each domain correspond to one dataset
+    Use dictionaries to create train and test domain split
     """
-    @property
-    def dict_domain2imgroot(self):
+<div class="viewcode-block" id="NodeTaskDictClassif.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">[docs]</a>    def init_business(self, args):
         """
-        {"domain name":"xx/yy/zz"}
+        create a dictionary of datasets
         """
-        return self._dict_domains2imgroot
+        super().init_business(args)
+        self.count_domain_class()</div>
 
-    @dict_domain2imgroot.setter
-    def dict_domain2imgroot(self, dict_root):
+<div class="viewcode-block" id="NodeTaskDictClassif.get_dset_by_domain"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.get_dset_by_domain">[docs]</a>    def get_dset_by_domain(self, args, na_domain, split=False):
+        super().get_dset_by_domain(args, na_domain, split)</div>
+
+<div class="viewcode-block" id="NodeTaskDictClassif.count_domain_class"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class">[docs]</a>    def count_domain_class(self):
         """
-        {"domain name":"xx/yy/zz"}
+        iterate all domains and count the class label distribution for each
+        return a double dictionary {"domain1": {"class1":3, "class2": 4,...}, ....}
         """
-        if not isinstance(dict_root, dict):
-            raise RuntimeError("input is not diciontary")
-        self._dict_domains2imgroot = dict_root
+        for key, dset in self.dict_dset.items():
+            dict_class_count = self._count_class_one_hot(dset)
+            self.dict_domain_class_count[key] = dict_class_count
+        for key, dset in self.dict_dset_te.items():
+            dict_class_count = self._count_class_one_hot(dset)
+            self.dict_domain_class_count[key] = dict_class_count</div>
 
-    @property
-    def extensions(self):
-        """
-        return allowed extensions
-        """
-        return self.dict_att["img_extensions"]
+    def _count_class_one_hot(self, dset):
+        labels_count = torch.zeros(self.dim_y, dtype=torch.long)
+        for _, target, *_ in dset:
+            labels_count += target.long()
 
-    @extensions.setter
-    def extensions(self, str_format):
-        self.dict_att["img_extensions"] = str_format
-
-<div class="viewcode-block" id="NodeTaskFolder.get_dset_by_domain"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolder.get_dset_by_domain">[docs]</a>    def get_dset_by_domain(self, args, na_domain, split=False):
-        if float(args.split):
-            raise RuntimeError(
-                "this task does not support spliting training domain yet")
-        if self._dict_domain_img_trans:
-            trans = self._dict_domain_img_trans[na_domain]
-            if na_domain not in self.list_domain_tr:
-                trans = self.img_trans_te
-        else:
-            trans = transforms.ToTensor()
-        dset = DsetSubFolder(root=self.dict_domain2imgroot[na_domain],
-                             list_class_dir=self.list_str_y,
-                             loader=fun_img_path_loader_default,
-                             extensions=self.extensions,
-                             transform=trans,
-                             target_transform=mk_fun_label2onehot(len(self.list_str_y)))
-        return dset, dset  # @FIXME: validation by default set to be training set</div></div>
-
-
-<div class="viewcode-block" id="NodeTaskFolderClassNaMismatch"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch">[docs]</a>class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
-    """
-    when the folder names of the same class from different domains have
-    different names
-    """
-<div class="viewcode-block" id="NodeTaskFolderClassNaMismatch.get_dset_by_domain"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch.get_dset_by_domain">[docs]</a>    def get_dset_by_domain(self, args, na_domain, split=False):
-        if float(args.split):
-            raise RuntimeError(
-                "this task does not support spliting training domain yet")
-        print("reading domain:", na_domain)
-        domain_class_dirs = \
-            self._dict_domain_folder_name2class[na_domain].keys()
-        if self._dict_domain_img_trans:
-            trans = self._dict_domain_img_trans[na_domain]
-            if na_domain not in self.list_domain_tr:
-                trans = self.img_trans_te
-        else:
-            trans = transforms.ToTensor()
-
-        ext = None if self.extensions is None else self.extensions[na_domain]
-        dset = DsetSubFolder(root=self.dict_domain2imgroot[na_domain],
-                             list_class_dir=list(domain_class_dirs),
-                             loader=fun_img_path_loader_default,
-                             extensions=ext,
-                             transform=trans,
-                             target_transform=mk_fun_label2onehot(
-                                 len(self.list_str_y)))
-        # dset.path2imgs
-        dict_folder_name2class_global = \
-            self._dict_domain_folder_name2class[na_domain]
-        dset = DsetClassVecDecoratorImgPath(
-            dset, dict_folder_name2class_global, self.list_str_y)
-        # Always use the DsetInMemDecorator at the last step
-        # since it does not have other needed attributes in bewteen
-        if args.dmem:
-            dset = DsetInMemDecorator(dset, na_domain)
-        return dset, dset # @FIXME: validation by default set to be training set</div></div>
+        list_count = list(labels_count.cpu().numpy())
+        dict_class_count = {}
+        for name, count in zip(self.list_str_y, list_count):
+            dict_class_count[name] = count
+        return dict_class_count</div>
 </pre></div>
 
           </article>

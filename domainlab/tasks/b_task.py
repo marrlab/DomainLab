@@ -38,11 +38,7 @@ class NodeTaskDict(NodeTaskDG):
         self.dict_dset_val = {}
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
-            # FIXME: specify either split = True or False
-            dset_tr, dset_val = self.get_dset_by_domain(args, na_domain)
-            # @FIXME: currently, different task has different default values for
-            # split, for TaskFolder split default to False, for mnist, split
-            # default to True
+            dset_tr, dset_val = self.get_dset_by_domain(args, na_domain, split=args.split)
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)
             ddset_tr = DsetDomainVecDecorator(dset_tr, vec_domain, na_domain)
             ddset_val = DsetDomainVecDecorator(dset_val, vec_domain, na_domain)
@@ -62,7 +58,7 @@ class NodeTaskDict(NodeTaskDG):
         # No need to have domain Label for test
         for na_domain in list_domain_te:
             dset_te, *_ = self.get_dset_by_domain(args, na_domain, split=False)
-            # @FIXME: since get_dset_by_domain always return two datasets,
+            # NOTE: since get_dset_by_domain always return two datasets,
             # train and validation, this is not needed in test domain
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))

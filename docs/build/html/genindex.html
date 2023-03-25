@@ -473,7 +473,7 @@
       </ul></li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.Conv2d">Conv2d (class in domainlab.compos.nn_zoo.net_gated)</a>
 </li>
-      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDictClassif.count_domain_class">count_domain_class() (domainlab.tasks.b_task.NodeTaskDictClassif method)</a>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class">count_domain_class() (domainlab.tasks.b_task_classif.NodeTaskDictClassif method)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.create_perf_obj">create_perf_obj() (domainlab.models.a_model_classif.AModelClassif method)</a>
 </li>
@@ -493,7 +493,7 @@
         <li><a href="domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.datatype">(domainlab.utils.hyperparameter_sampling.SampledHyperparameter method)</a>
 </li>
       </ul></li>
-      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDictClassif.decorate_dset">decorate_dset() (domainlab.tasks.b_task.NodeTaskDictClassif method)</a>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.decorate_dset">decorate_dset() (domainlab.tasks.b_task.NodeTaskDict method)</a>
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet">DenseNet (class in domainlab.compos.nn_zoo.nn)</a>
 </li>
@@ -1074,6 +1074,13 @@
 </li>
       </ul></li>
       <li>
+    domainlab.tasks.b_task_classif
+
+      <ul>
+        <li><a href="domainlab.tasks.html#module-domainlab.tasks.b_task_classif">module</a>
+</li>
+      </ul></li>
+      <li>
     domainlab.tasks.task_folder
 
       <ul>
@@ -1374,9 +1381,11 @@
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.utils_cuda.get_device">get_device() (in module domainlab.utils.utils_cuda)</a>
 </li>
-      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDictClassif.get_dset_by_domain">get_dset_by_domain() (domainlab.tasks.b_task.NodeTaskDictClassif method)</a>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain">get_dset_by_domain() (domainlab.tasks.b_task.NodeTaskDict method)</a>
 
       <ul>
+        <li><a href="domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.get_dset_by_domain">(domainlab.tasks.b_task_classif.NodeTaskDictClassif method)</a>
+</li>
         <li><a href="domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolder.get_dset_by_domain">(domainlab.tasks.task_folder.NodeTaskFolder method)</a>
 </li>
         <li><a href="domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch.get_dset_by_domain">(domainlab.tasks.task_folder.NodeTaskFolderClassNaMismatch method)</a>
@@ -1503,7 +1512,9 @@
 </li>
         <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.init_business">(domainlab.tasks.a_task.NodeTaskDG method)</a>
 </li>
-        <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDictClassif.init_business">(domainlab.tasks.b_task.NodeTaskDictClassif method)</a>
+        <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.init_business">(domainlab.tasks.b_task.NodeTaskDict method)</a>
+</li>
+        <li><a href="domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">(domainlab.tasks.b_task_classif.NodeTaskDictClassif method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1790,6 +1801,8 @@
 </li>
         <li><a href="domainlab.tasks.html#module-domainlab.tasks.b_task">domainlab.tasks.b_task</a>
 </li>
+        <li><a href="domainlab.tasks.html#module-domainlab.tasks.b_task_classif">domainlab.tasks.b_task_classif</a>
+</li>
         <li><a href="domainlab.tasks.html#module-domainlab.tasks.task_folder">domainlab.tasks.task_folder</a>
 </li>
         <li><a href="domainlab.tasks.html#module-domainlab.tasks.task_folder_mk">domainlab.tasks.task_folder_mk</a>
@@ -1869,10 +1882,10 @@
 </li>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_deepall_mldg.NodeAlgoBuilderDeepAllMLDG">NodeAlgoBuilderDeepAllMLDG (class in domainlab.algos.builder_deepall_mldg)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA">NodeAlgoBuilderDIVA (class in domainlab.algos.builder_diva)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA">NodeAlgoBuilderHDUVA (class in domainlab.algos.builder_hduva)</a>
 </li>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">NodeAlgoBuilderJiGen (class in domainlab.algos.builder_jigen1)</a>
@@ -1883,7 +1896,9 @@
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.a_task_classif.NodeTaskDGClassif">NodeTaskDGClassif (class in domainlab.tasks.a_task_classif)</a>
 </li>
-      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDictClassif">NodeTaskDictClassif (class in domainlab.tasks.b_task)</a>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict">NodeTaskDict (class in domainlab.tasks.b_task)</a>
+</li>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif">NodeTaskDictClassif (class in domainlab.tasks.b_task_classif)</a>
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolder">NodeTaskFolder (class in domainlab.tasks.task_folder)</a>
 </li>
