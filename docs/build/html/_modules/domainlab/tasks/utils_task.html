@@ -516,7 +516,7 @@ from domainlab.utils.utils_class import store_args
         class_label_ind_batch = tensor1hot2ind(vec_y)
 
         # get domain label
-        # Note 1: test loaders don't return domain labels (see NodeTaskDict.init_business)
+        # Note 1: test loaders don't return domain labels (see NodeTaskDictClassif.init_business)
         # Note 2: for train loaders domain label will be the 0th element of other_vars (see DsetDomainVecDecorator class above)
         has_domain_label_ind = False
         if not test:

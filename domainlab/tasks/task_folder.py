@@ -7,11 +7,11 @@ from domainlab.dsets.dset_subfolder import DsetSubFolder
 from domainlab.dsets.utils_data import (DsetInMemDecorator,
                                         fun_img_path_loader_default,
                                         mk_fun_label2onehot)
-from domainlab.tasks.b_task import NodeTaskDict
+from domainlab.tasks.b_task import NodeTaskDictClassif
 from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
 
 
-class NodeTaskFolder(NodeTaskDict):
+class NodeTaskFolder(NodeTaskDictClassif):
     """
     create dataset by loading files from an organized folder
     then each domain correspond to one dataset

@@ -9,7 +9,7 @@ from domainlab.tasks.utils_task import (DsetDomainVecDecorator, mk_loader,
                                         mk_onehot)
 
 
-class NodeTaskDict(NodeTaskDGClassif):
+class NodeTaskDictClassif(NodeTaskDGClassif):
     """
     Use dictionaries to create train and test domain split
     """
