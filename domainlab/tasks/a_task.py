@@ -2,7 +2,7 @@
 Abstract class for Task
 """
 import warnings
-from abc import abstractmethod, abstractproperty
+from abc import abstractmethod
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.task_utils import parse_domain_id
