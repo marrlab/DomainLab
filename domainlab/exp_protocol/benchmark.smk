@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -100,50 +101,8 @@ rule agg_results:
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
     run:
-        import os
-        out_file = str(output.out_file)
-        os.makedirs(os.path.dirname(out_file), exist_ok=True)
-        has_header = False
-        # print(f"exp_results={input.exp_results}")
-        with open(out_file, 'w') as out_stream:
-            for res in input.exp_results:
-                with open(res, 'r') as in_stream:
-                    if has_header:
-                        # skip header line
-                        in_stream.readline()
-                    else:
-                        out_stream.writelines(in_stream.readline())
-                        has_header = True
-                    # write results to common file.
-                    out_stream.writelines(in_stream.readlines())
-
-
-rule agg_partial_results:
-    input:
-        dir=expand("{output_dir}/rule_results", output_dir=config["output_dir"])
-        # the defined dir is used in the run section below
-    params:
-        out_file=rules.agg_results.output.out_file
-    run:
-        import os
-        out_file = str(params.out_file)   # main csv file to aggregate other csv files
-        os.makedirs(os.path.dirname(out_file), exist_ok=True)
-        has_header = False
-        # print(f"exp_results={input.exp_results}")
-        with open(out_file, 'w') as out_stream:
-            for res in os.listdir(input.dir):
-                if not res.endswith('.csv'):
-                    # skip non-csv file entries
-                    continue
-                with open(res, 'r') as in_stream:
-                    if has_header:
-                        # skip header line
-                        in_stream.readline()
-                    else:
-                        out_stream.writelines(in_stream.readline())
-                        has_header = True
-                    # write results to common file.
-                    out_stream.writelines(in_stream.readlines())
+        from domainlab.exp_protocol.aggregate_results import agg_results
+        agg_results(list(input.exp_results), str(output.out_file))
 
 
 rule gen_plots:
