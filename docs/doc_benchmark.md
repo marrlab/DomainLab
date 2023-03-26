@@ -67,4 +67,4 @@ The results form partially completed benchmarks can be obtained with
 ```commandline
 python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
-specifying the benchmark output directory, i.e. the value of `output_dir` of the benchmark config.
+specifying the benchmark output directory, e.g. `zoutput/benchmarks/demo_benchmark`
