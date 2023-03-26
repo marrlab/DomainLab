@@ -5,7 +5,7 @@ from domainlab.exp_protocol import aggregate_results
 
 if __name__ == "__main__":
     args = parse_cmd_args()
-    if args.bm_config:
+    if args.bm_dir:
         aggregate_results.agg_main(args.bm_dir)
     else:
         set_seed(args.seed)
