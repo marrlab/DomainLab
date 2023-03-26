@@ -47,6 +47,14 @@ domainlab.algos.builder\_deepall module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.builder\_deepall\_mldg module
+---------------------------------------------
+
+.. automodule:: domainlab.algos.builder_deepall_mldg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.builder\_dial module
 ------------------------------------
 

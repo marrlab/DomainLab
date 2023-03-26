@@ -299,12 +299,12 @@ the performance with respect to different hyperparameter choices is investigated
 <section id="setting-up-a-benchmark">
 <h2 id="setting-up-a-benchmark">Setting up a benchmark<a class="headerlink" href="#setting-up-a-benchmark" title="Permalink to this heading">¶</a></h2>
 <p>The benchmark is configured in a yaml file. We refer to the
-<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_benchmark.yaml">demo_benchmark.yaml</a>
+<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_benchmark.yaml">demo_benchmark.yaml</a>
 for a documented example. As one can see here, the user has to select:</p>
 <ul class="simple">
-<li><p>Common arguments for all tasks. This typically includes the dataset on which the benchmark
-shall be performed, as well as the number of epochs and batch size for training.
-Here also the number of different random seeds and hyperparameter samples is set.</p></li>
+<li><p>Common arguments for all tasks under <code class="docutils literal notranslate"><span class="pre">domainlab_args</span></code>. This typically includes the dataset on which the benchmark
+shall be performed, as well as the number of epochs and batch size for training.</p></li>
+<li><p>The number of different random seeds and hyperparameter samples is set.</p></li>
 <li><p>The domains which are used as leave-one-out for testing.</p></li>
 <li><p>Different tasks, where each task contains: (1) Fixed parameters specific for this task,
 typically the algorithm name and related arguments and (2) varying hyperparameters, for which
@@ -315,8 +315,8 @@ the sensitivity shall be investigated.</p></li>
 <section id="configure-hyperparameter-sampling">
 <h2 id="configure-hyperparameter-sampling">Configure hyperparameter sampling<a class="headerlink" href="#configure-hyperparameter-sampling" title="Permalink to this heading">¶</a></h2>
 <p>An example files of the possibilities for hyperparameter sampling is
-<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_hyperparameter_sampling.yml">demo_hypeparameter_sampling.yml</a>.
-This file is of course an extract of <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_benchmark.yaml">demo_benchmark.yaml</a>,
+<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml">demo_hypeparameter_sampling.yml</a>.
+This file is of course an extract of <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_benchmark.yaml">demo_benchmark.yaml</a>,
 the sampling for benchmarks is specified directly in this single configuration file.</p>
 <p>In this example we can see:</p>
 <ul class="simple">
@@ -339,6 +339,11 @@ aborts with error.</p>
 <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/benchmark/run_snakemake.sh">here</a>.
 If several cores are provided, the benchmark is parallelized per hyperparameter sample and
 task.</p>
+<p>To run the benchmark with a specific configuration, one can execute</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./examples/benchmark/run_snakemake.sh ./examples/yaml/demo_benchmark.yaml 0 
+</pre></div>
+</div>
+<p>where the first argument is the benchmark configuration file and the second argument is optional which is the starting seed.</p>
 </section>
 <section id="obtained-results">
 <h2 id="obtained-results">Obtained results<a class="headerlink" href="#obtained-results" title="Permalink to this heading">¶</a></h2>

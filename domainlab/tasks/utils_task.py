@@ -46,7 +46,10 @@ def mk_onehot(dim, ind):
     return vec
 
 
-def mk_loader(dset, bsize, drop_last=True, shuffle=True):
+def mk_loader(dset, bsize,
+              drop_last=True,
+              shuffle=True,
+              num_workers=int(0)):
     """
     :param bs: batch size
     """
@@ -56,9 +59,8 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
         dataset=dset,
         batch_size=bsize,
         shuffle=shuffle,
-        # shuffle must be true so the last incomplete
-        # batch get used in anohter epoch
-        num_workers=int(0),   # @FIXME:
+        # @FIXME: shuffle must be true so the last incomplete batch get used in another epoch?
+        num_workers=num_workers,   # @FIXME: num_workers=int(0) can be slow?
         drop_last=drop_last)
     return loader
 
@@ -238,7 +240,7 @@ def img_loader2dir(loader,
         class_label_ind_batch = tensor1hot2ind(vec_y)
 
         # get domain label
-        # Note 1: test loaders don't return domain labels (see NodeTaskDict.init_business)
+        # Note 1: test loaders don't return domain labels (see NodeTaskDictClassif.init_business)
         # Note 2: for train loaders domain label will be the 0th element of other_vars (see DsetDomainVecDecorator class above)
         has_domain_label_ind = False
         if not test:

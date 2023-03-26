@@ -351,8 +351,52 @@
 <span id="domainlab-utils-generate-benchmark-plots-module"></span><h2 id="module-domainlab.utils.generate_benchmark_plots">domainlab.utils.generate_benchmark_plots module<a class="headerlink" href="#module-domainlab.utils.generate_benchmark_plots" title="Permalink to this heading">¶</a></h2>
 <p>generate the benchmark plots by calling the gen_bencmark_plots(…) function</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.boxplot">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.boxplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate the boxplots
+dataframe_in: dataframe containing the data with columns</p>
+<blockquote>
+<div><p>[param_idx, task , algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</div></blockquote>
+<p>obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+file: foldername to save the plots (if None, the plot will not be saved)</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.boxplot_stochastic">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">boxplot_stochastic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#boxplot_stochastic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.boxplot_stochastic" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate boxplot for stochastic variation
+dataframe_in: dataframe containing the data with columns</p>
+<blockquote>
+<div><p>[param_idx, task , algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</div></blockquote>
+<p>obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+file: foldername to save the plots (if None, the plot will not be saved)</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.boxplot_systematic">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">boxplot_systematic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#boxplot_systematic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.boxplot_systematic" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate boxplot for ssystemtic variation
+dataframe_in: dataframe containing the data with columns</p>
+<blockquote>
+<div><p>[param_idx, task , algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</div></blockquote>
+<p>obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+file: foldername to save the plots (if None, the plot will not be saved)</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.boxplot_systematic_old">
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">boxplot_systematic_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#boxplot_systematic_old"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.boxplot_systematic_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate boxplot for ssystemtic variation
+dataframe_in: dataframe containing the data with columns</p>
+<blockquote>
+<div><p>[param_idx, task , algo, epos, te_d, seed, params, obj1, …, obj2]</p>
+</div></blockquote>
+<p>obj: objective to be considered in the plot (needs to be contained in dataframe_in)
+file: foldername to save the plots (if None, the plot will not be saved)</p>
+</dd></dl>
+<dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.gen_benchmark_plots">
-<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">gen_benchmark_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agg_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#gen_benchmark_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.gen_benchmark_plots" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">gen_benchmark_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agg_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_param_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#gen_benchmark_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.gen_benchmark_plots" title="Permalink to this definition">¶</a></dt>
 <dd><p>generate the benchmark plots from a csv file containing the aggregated restults.
 The csv file must have the columns:
 [param_index, task, algo, epos, te_d, seed, params, …]
@@ -363,9 +407,9 @@ output_dir: path to a folder which shall contain the results</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.gen_plots">
-<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">gen_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#gen_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.gen_plots" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">gen_plots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_param_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#gen_plots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.gen_plots" title="Permalink to this definition">¶</a></dt>
 <dd><p>dataframe: dataframe with columns
-[’ algo’, ‘ epos’, ‘ te_d’, ‘ seed’, ‘ params’, ‘ acc’, ‘ precision’, … ]</p>
+[‘param_index’,’task’,’ algo’,’ epos’,’ te_d’,’ seed’,’ params’,’ acc’,’precision’,…]</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.max_0_x">
@@ -387,9 +431,14 @@ distinguish_param_setups: if True the plot will not only distinguish between mod
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.round_vals_in_dict">
-<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">round_vals_in_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_column_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#round_vals_in_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.round_vals_in_dict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">round_vals_in_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_column_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_param_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#round_vals_in_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.round_vals_in_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>replaces the dictionary by a string containing only the significant digits of the hyperparams
-df_column_in: columns of the dataframe containing the dictionary of hyperparams</p>
+or (if use_param_index = True) by the parameter index
+df_column_in: columns of the dataframe containing the param index and the dictionary of</p>
+<blockquote>
+<div><p>hyperparams in the form [param_index, params]</p>
+</div></blockquote>
+<p>use_param_index: usage of param_index instead of exact values</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.scatterplot">
@@ -408,7 +457,7 @@ distinguish_param_setups: if True the plot will not only distinguish between mod
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.scatterplot_matrix">
-<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">scatterplot_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distinguish_param_setups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#scatterplot_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.scatterplot_matrix" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">scatterplot_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_param_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distinguish_param_setups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#scatterplot_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.scatterplot_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>dataframe: dataframe containing the data with columns</dt><dd><p>[algo, epos, te_d, seed, params, obj1, …, obj2]</p>
 </dd>
@@ -579,16 +628,13 @@ function “overrider” accept will be the current child class</p>
 <p>Classification Performance</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.utils.perf.PerfClassif.cal_acc">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf.html#PerfClassif.cal_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf.PerfClassif.cal_acc" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf.html#PerfClassif.cal_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf.PerfClassif.cal_acc" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – </p></li>
 <li><p><strong>loader_te</strong> – </p></li>
 <li><p><strong>device</strong> – for final test, GPU can be used</p></li>
-<li><p><strong>max_batches</strong> – maximum number of iteration for data loader, used to
-probe performance with less computation burden.
-default None, which means to traverse the whole dataset</p></li>
 </ul>
 </dd>
 </dl>
@@ -602,6 +648,11 @@ default None, which means to traverse the whole dataset</p></li>
 </dd>
 </dl>
 </dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.utils.perf.PerfClassif.get_list_pred_target">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_pred_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_local</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf.html#PerfClassif.get_list_pred_target"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf.PerfClassif.get_list_pred_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>isolate function to check if prediction persist each time loader is went through</p>
+</dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.utils.perf_metrics">
@@ -609,21 +660,18 @@ default None, which means to traverse the whole dataset</p></li>
 <p>Classification Performance</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfMetricClassif">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf_metrics.</span></span><span class="sig-name descname"><span class="pre">PerfMetricClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf_metrics.</span></span><span class="sig-name descname"><span class="pre">PerfMetricClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_precision_recall_f1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Classification Performance metrics</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics">
-<span class="sig-name descname"><span class="pre">cal_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif.cal_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cal_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif.cal_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – </p></li>
 <li><p><strong>loader_te</strong> – </p></li>
 <li><p><strong>device</strong> – for final test, GPU can be used</p></li>
-<li><p><strong>max_batches</strong> – maximum number of iteration for data loader, used to
-probe performance with less computation burden.
-default None, which means to traverse the whole dataset</p></li>
 </ul>
 </dd>
 </dl>

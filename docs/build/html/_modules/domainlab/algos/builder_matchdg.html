@@ -274,7 +274,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-algos-builder-matchdg--page-root">Source code for domainlab.algos.builder_matchdg</h1><div class="highlight"><pre>
-<span></span>from domainlab.algos.a_algo_builder import NodeAlgoBuilder
+<span></span>"""
+builder for mathcdg with deepall
+"""
+from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
@@ -306,16 +309,20 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
             args,
             arg_name_of_net="nname",
             arg_path_of_net="npath")()  # request, # @FIXME: constant string
+
         erm_net = erm_builder.init_business(
-            flag_pretrain=True, dim_out=task.dim_y,
-            remove_last_layer=False, args=args,
-            i_c=task.isize.i_c, i_h=task.isize.i_h,
+            flag_pretrain=True,
+            dim_out=task.dim_y,
+            remove_last_layer=False,
+            args=args,
+            i_c=task.isize.i_c,
+            i_h=task.isize.i_h,
             i_w=task.isize.i_w)
 
         model = mk_deepall()(erm_net, list_str_y=task.list_str_y)
         model = ModelWrapMatchDGLogit(model, list_str_y=task.list_str_y)
-
         model = model.to(device)
+
         ctr_builder = FeatExtractNNBuilderChainNodeGetter(
             args,
             arg_name_of_net="nname",
@@ -336,6 +343,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
         observer = ObVisitor(exp,
                              model_sel,
                              device)
+
         trainer = TrainerMatchDG(exp, task, ctr_model, model, observer, args,
                                  device)
         return trainer</div></div>

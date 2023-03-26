@@ -1,6 +1,7 @@
 """
 basic trainer
 """
+import math
 from torch import optim
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
@@ -10,8 +11,8 @@ class TrainerBasic(AbstractTrainer):
     """
     basic trainer
     """
-    def __init__(self, model, task, observer, device, aconf):
-        super().__init__(model, task, observer, device, aconf)
+    def __init__(self, model, task, observer, device, aconf, flag_accept=True):
+        super().__init__(model, task, observer, device, aconf, flag_accept)
         self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
 
     def before_tr(self):
@@ -33,5 +34,21 @@ class TrainerBasic(AbstractTrainer):
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
+        assert self.epo_loss_tr is not None
+        assert not math.isnan(self.epo_loss_tr)
         flag_stop = self.observer.update(epoch)  # notify observer
+        assert flag_stop is not None
         return flag_stop
+
+    def train_batch(self, tensor_x, vec_y, vec_d, others):
+        """
+        use a temporary optimizer to update only the model upon a batch of data
+        """
+        optimizer = optim.Adam(self.model.parameters(), lr=self.aconf.lr)
+        tensor_x, vec_y, vec_d = \
+                tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
+        optimizer.zero_grad()
+        loss = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
+        loss = loss.sum()
+        loss.backward()
+        optimizer.step()

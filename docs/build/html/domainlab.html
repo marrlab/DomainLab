@@ -360,6 +360,7 @@
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_matchdg">domainlab.algos.trainers.train_matchdg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_mldg">domainlab.algos.trainers.train_mldg module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_visitor">domainlab.algos.trainers.train_visitor module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers">Module contents</a></li>
 </ul>
@@ -371,6 +372,7 @@
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_custom">domainlab.algos.builder_custom module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_dann">domainlab.algos.builder_dann module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_deepall">domainlab.algos.builder_deepall module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_deepall_mldg">domainlab.algos.builder_deepall_mldg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_dial">domainlab.algos.builder_dial module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_diva">domainlab.algos.builder_diva module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.html#module-domainlab.algos.builder_hduva">domainlab.algos.builder_hduva module</a></li>
@@ -444,8 +446,10 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.tasks.html">domainlab.tasks package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.a_task">domainlab.tasks.a_task module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.a_task_classif">domainlab.tasks.a_task_classif module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.b_task">domainlab.tasks.b_task module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.b_task_classif">domainlab.tasks.b_task_classif module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_folder">domainlab.tasks.task_folder module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_folder_mk">domainlab.tasks.task_folder_mk module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.tasks.html#module-domainlab.tasks.task_mnist_color">domainlab.tasks.task_mnist_color module</a></li>
@@ -486,6 +490,13 @@
 <span id="domainlab-arg-parser-module"></span><h2 id="module-domainlab.arg_parser">domainlab.arg_parser module<a class="headerlink" href="#module-domainlab.arg_parser" title="Permalink to this heading">¶</a></h2>
 <p>Command line arguments</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="domainlab.arg_parser.apply_dict_to_args">
+<span class="sig-prename descclassname"><span class="pre">domainlab.arg_parser.</span></span><span class="sig-name descname"><span class="pre">apply_dict_to_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/arg_parser.html#apply_dict_to_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.arg_parser.apply_dict_to_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to apply the data to the args dict of DomainLab.
+Unknown keys are silently ignored as long as
+extend is not set.</p>
+</dd></dl>
+<dl class="py function">
 <dt class="sig sig-object py" id="domainlab.arg_parser.mk_parser_main">
 <span class="sig-prename descclassname"><span class="pre">domainlab.arg_parser.</span></span><span class="sig-name descname"><span class="pre">mk_parser_main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/arg_parser.html#mk_parser_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.arg_parser.mk_parser_main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Args for command line definition</p>
@@ -498,6 +509,7 @@
 </section>
 <section id="module-domainlab">
 <span id="module-contents"></span><h2 id="module-domainlab">Module contents<a class="headerlink" href="#module-domainlab" title="Permalink to this heading">¶</a></h2>
+<p>globals for the whole package</p>
 </section>
 </section>
 
