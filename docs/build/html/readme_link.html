@@ -267,17 +267,19 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#readme-link--page-root" class="md-nav__link">Introduction</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab-playground-for-domain-generalization" class="md-nav__link">DomainLab: Playground for Domain Generalization</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data" class="md-nav__link">DomainLab: train robust neural networks using domain generalization algorithms on your data</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domain-generalization-and-domainlab" class="md-nav__link">Domain Generalization and DomainLab</a>
-        </li>
-        <li class="md-nav__item"><a href="#why-a-dedicated-package" class="md-nav__link">Why a dedicated package</a>
         </li>
         <li class="md-nav__item"><a href="#getting-started" class="md-nav__link">Getting started</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#installation" class="md-nav__link">Installation</a>
         </li>
-        <li class="md-nav__item"><a href="#basic-usage" class="md-nav__link">Basic usage</a>
+        <li class="md-nav__item"><a href="#basic-usage" class="md-nav__link">Basic usage</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#further-usage" class="md-nav__link">Further usage</a>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#output-structure-results-storage-and-performance-measure" class="md-nav__link">Output structure (results storage) and Performance Measure</a>
         </li></ul>
@@ -291,7 +293,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#software-design-pattern-extend-or-contribution-credits" class="md-nav__link">Software Design Pattern, Extend or Contribution, Credits</a>
+        <li class="md-nav__item"><a href="#software-design-pattern-extend-or-contribution" class="md-nav__link">Software Design Pattern, Extend or Contribution</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -308,54 +310,57 @@
             
   <section id="introduction">
 <h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this heading">¶</a></h1>
-<section class="tex2jax_ignore mathjax_ignore" id="domainlab-playground-for-domain-generalization">
-<h2 id="domainlab-playground-for-domain-generalization">DomainLab: Playground for Domain Generalization<a class="headerlink" href="#domainlab-playground-for-domain-generalization" title="Permalink to this heading">¶</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data">
+<h2 id="domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data">DomainLab: train robust neural networks using domain generalization algorithms on your data<a class="headerlink" href="#domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data" title="Permalink to this heading">¶</a></h2>
 <p><img alt="GH Actions CI " src="https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg"/>
 <a class="reference external" href="https://app.codecov.io/gh/marrlab/DomainLab"><img alt="codecov" src="https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg"/></a>
 <a class="reference external" href="https://www.codacy.com/gh/marrlab/DomainLab/dashboard"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86"/></a></p>
 <section id="domain-generalization-and-domainlab">
 <h3 id="domain-generalization-and-domainlab">Domain Generalization and DomainLab<a class="headerlink" href="#domain-generalization-and-domainlab" title="Permalink to this heading">¶</a></h3>
-<p>Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains so the learned feature can generalize to new unseen domains. Domain generalization algorithms try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss. A typical setting of evaluating domain generalization algorithms is the so called leave-one-domain-out scheme, where one dataset is collected from each distribution. Each time, one dataset/domain is left as test-set to estimate the generalization performance of a model trained upon the rest of domains/datasets.</p>
-</section>
-<section id="why-a-dedicated-package">
-<h3 id="why-a-dedicated-package">Why a dedicated package<a class="headerlink" href="#why-a-dedicated-package" title="Permalink to this heading">¶</a></h3>
-<p>DomainLab is designed by maximal decoupling of different software componets and enhance maximal code reuse.</p>
-<p>To maximally decouple different attributing factors like loss function, neural network, training method, data feed method, DomainLab was implemented with software design patterns, where</p>
+<p>Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains.</p>
+<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.</p>
 <ul class="simple">
-<li><p>Domain generalization algorithms include models with associated loss function, training of the model and data feed process. They were implemented by decoupled respective classes.</p></li>
-<li><p>Models was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See <span class="xref myst">Specify Custom Neural Networks for an algorithm</span></p></li>
-<li><p>To evaluate a domain generalization algorithm’s performance on your custom data, the user can specify a “Task” in the form of custom python file and feed into the command line argument, thus it is at the user’s discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See <span class="xref myst">Task Specification</span>. To simply test an algorithm’s performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.</p></li>
-<li><p>The benchmark across several algorithms can be done via a single line command along with some configuration files.</p></li>
+<li><p>To evaluate a domain generalization algorithm’s performance on your custom data, the user only need to specify ways to access the data in the form of a standalone python file. See <span class="xref myst">Task Specification</span>.</p></li>
+<li><p>To benchmark several algorithms on your dataset, a single line command along with a benchmark configuration files is sufficient. See <span class="xref myst">Benchmarks</span></p></li>
 </ul>
 </section>
 <section id="getting-started">
 <h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h3>
 <section id="installation">
 <h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h4>
+<p>We offer the following ways to install dependencies:</p>
 <ul class="simple">
-<li><p>Install via python-poetry:
-Read the python-poetry documentation <a class="reference external" href="https://python-poetry.org/">https://python-poetry.org/</a> and use the configuration file in this repository.</p></li>
-<li><p><strong>Or</strong> only install dependencies via pip
-Suppose you have cloned the repository and have changed directory to the cloned repository.</p></li>
+<li><p>Install via <a class="reference external" href="https://python-poetry.org/">python-poetry</a> and use the configuration file <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> in this repository.</p></li>
+<li><p><strong>Or</strong> only install dependencies via pip:</p></li>
 </ul>
+<p>Suppose you have cloned the repository and have changed directory to the cloned repository.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
 </section>
 <section id="basic-usage">
 <h4 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h4>
-<p>Suppose you have cloned the repository and the dependencies ready, change directory to the repository:
-DomainLab comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.</p>
+<p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <span class="xref myst">A minimal subsample of the VLCS dataset</span> and <span class="xref myst">an example configuration file for vlcs_mini</span></p>
+<p>Suppose you have cloned the repository and have the dependencies ready, change directory to this repository:</p>
+<p>To train a domain invariant model on the vlcs_mini task</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--config<span class="o">=</span>examples/yaml/demo_config_single_run_diva.yaml
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task <span class="xref myst">see here</span>, <code class="docutils literal notranslate"><span class="pre">--te_d</span></code> specifies the test domain name (or index starting from 0), <code class="docutils literal notranslate"><span class="pre">--config</span></code> specifies the configurations of the domain generalization algorithms, <span class="xref myst">see here</span></p>
+<section id="further-usage">
+<h5 id="further-usage">Further usage<a class="headerlink" href="#further-usage" title="Permalink to this heading">¶</a></h5>
+<p>Alternatively, in a verbose mode without using the algorithm configuration file:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task, see Example in <span class="xref myst">Task Specification</span>. <code class="docutils literal notranslate"><span class="pre">--aname</span></code> specifies which algorithm to use, see <span class="xref myst">Available Algorithms</span>, <code class="docutils literal notranslate"><span class="pre">--bs</span></code> specifies the batch size, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> restrain only running for 2 epochs and save results with prefix ‘debug’. For DIVA, the hyper-parameters include <code class="docutils literal notranslate"><span class="pre">--gamma_y=7e5</span></code> which is the relative weight of ERM loss compared to ELBO loss, and <code class="docutils literal notranslate"><span class="pre">--gamma_d=1e5</span></code>, which is the relative weight of domain classification loss compared to ELBO loss.
+<p>where <code class="docutils literal notranslate"><span class="pre">--aname</span></code> specifies which algorithm to use, see <span class="xref myst">Available Algorithms</span>, <code class="docutils literal notranslate"><span class="pre">--bs</span></code> specifies the batch size, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> restrain only running for 2 epochs and save results with prefix ‘debug’. For DIVA, the hyper-parameters include <code class="docutils literal notranslate"><span class="pre">--gamma_y=7e5</span></code> which is the relative weight of ERM loss compared to ELBO loss, and <code class="docutils literal notranslate"><span class="pre">--gamma_d=1e5</span></code>, which is the relative weight of domain classification loss compared to ELBO loss.
 <code class="docutils literal notranslate"><span class="pre">--nname</span></code> is to specify which neural network to use for feature extraction for classification, <code class="docutils literal notranslate"><span class="pre">--nname_dom</span></code> is to specify which neural network to use for feature extraction of domains.
 For usage of other arguments, check with</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
 </pre></div>
 </div>
 <p>See also <span class="xref myst">Examples</span>.</p>
+</section>
 </section>
 <section id="output-structure-results-storage-and-performance-measure">
 <h4 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this heading">¶</a></h4>
@@ -375,8 +380,8 @@ For usage of other arguments, check with</p>
 <span class="xref myst">Specify Custom Neural Networks for an algorithm</span></p>
 </section>
 </section>
-<section id="software-design-pattern-extend-or-contribution-credits">
-<h3 id="software-design-pattern-extend-or-contribution-credits">Software Design Pattern, Extend or Contribution, Credits<a class="headerlink" href="#software-design-pattern-extend-or-contribution-credits" title="Permalink to this heading">¶</a></h3>
+<section id="software-design-pattern-extend-or-contribution">
+<h3 id="software-design-pattern-extend-or-contribution">Software Design Pattern, Extend or Contribution<a class="headerlink" href="#software-design-pattern-extend-or-contribution" title="Permalink to this heading">¶</a></h3>
 <p><span class="xref myst">Extend or Contibute</span></p>
 </section>
 </section>

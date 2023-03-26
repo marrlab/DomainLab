@@ -10,7 +10,7 @@ the performance with respect to different hyperparameter choices is investigated
 
 ## Setting up a benchmark
 The benchmark is configured in a yaml file. We refer to the
-[demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_benchmark.yaml)
+[demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_benchmark.yaml)
 for a documented example. As one can see here, the user has to select:
 - Common arguments for all tasks under `domainlab_args`. This typically includes the dataset on which the benchmark
 shall be performed, as well as the number of epochs and batch size for training.
@@ -24,8 +24,8 @@ Set `sampling_seed` for a fully reproducible benchmark.
 
 ## Configure hyperparameter sampling
 An example files of the possibilities for hyperparameter sampling is
-[demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_hyperparameter_sampling.yml).
-This file is of course an extract of [demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/yaml/demo_benchmark.yaml),
+[demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml).
+This file is of course an extract of [demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_benchmark.yaml),
 the sampling for benchmarks is specified directly in this single configuration file.
 
 In this example we can see:
@@ -47,6 +47,13 @@ For executing the benchmark, a sample command can be found
 [here](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/benchmark/run_snakemake.sh).
 If several cores are provided, the benchmark is parallelized per hyperparameter sample and
 task.
+
+To run the benchmark with a specific configuration, one can execute 
+
+```
+./examples/benchmark/run_snakemake.sh ./examples/yaml/demo_benchmark.yaml 0 
+```
+where the first argument is the benchmark configuration file and the second argument is optional which is the starting seed.
 
 ## Obtained results
 All files created by this benchmark are saved in the given output directory.

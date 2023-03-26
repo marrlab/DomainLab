@@ -17,14 +17,15 @@ echo "verbose log: $logfile"
 # -s: snakefile
 # -- configfile: configuration yaml file of the benchmark
 
+CONFIGFILE=$1
 #snakemake -np -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
-export DOMAINLAB_CUDA_START_SEED=$1
+export DOMAINLAB_CUDA_START_SEED=$2
 
 # first display all tasks
-snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" --keep-going --summary  # this will give us a clue first what jobs will be run
+snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going --summary  # this will give us a clue first what jobs will be run
 
 # second submit the jobs
-snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml" --keep-going 2>&1 | tee "$logfile"
+snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going 2>&1 | tee "$logfile"
 
 #snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 
