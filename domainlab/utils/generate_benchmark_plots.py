@@ -21,6 +21,7 @@ G_DF_PLOT_COL_START = 2   # first two columns are ['param_index','task',
 G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
 
 
+
 def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index: bool = True):
     '''
     generate the benchmark plots from a csv file containing the aggregated restults.
@@ -31,13 +32,16 @@ def gen_benchmark_plots(agg_results: str, output_dir: str, use_param_index: bool
 
     agg_results: path to the csv file
     output_dir: path to a folder which shall contain the results
+    skip_gen: Skips the actual plotting, used to speed up testing.
     '''
     raw_df = pd.read_csv(agg_results, index_col=False,
                          converters={COLNAME_PARAM: literal_eval},
                          # literal_eval can safe evaluate python expression
                          skipinitialspace=True)
+
     raw_df[COLNAME_PARAM] = round_vals_in_dict(raw_df[[COLNAME_IDX_PARAM, COLNAME_PARAM]],
                                                use_param_index)
+
     # generating plot
     gen_plots(raw_df, output_dir, use_param_index)
 
