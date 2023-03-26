@@ -2,14 +2,13 @@
 Runs one task for a single hyperparameter sample for each leave-out-domain
 and each random seed.
 """
-import gc
 import ast
-import warnings
+import gc
 
 import pandas as pd
 import torch
 
-from domainlab.arg_parser import mk_parser_main
+from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
 from domainlab.compos.exp.exp_cuda_seed import set_seed
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
@@ -24,35 +23,9 @@ def load_parameters(file: str, index: int) -> tuple:
     param_df = pd.read_csv(file, index_col=0)
     row = param_df.loc[index]
     params = ast.literal_eval(row.params)
+    # row.task has nothing to do with DomainLab task, it is
+    # benchmark task which correspond to one algorithm
     return row.task, params
-
-
-def apply_dict_to_args(args, data: dict, extend=False, flag_warn=False):
-    """
-    Tries to apply the data to the args dict of DomainLab.
-    Unknown keys are silently ignored as long as
-    extend is not set.
-    # FIXME: do we have a test to ensure args dict from
-    # domainlab really got what is passed from "data" dict?
-    """
-    arg_dict = args.__dict__
-    for key, value in data.items():
-        if (key in arg_dict) or extend:
-            if isinstance(value, list):
-                cur_val = arg_dict.get(key, None)
-                if not isinstance(cur_val, list):
-                    if cur_val is not None:
-                        # @FIXME: should we warn or raise Error?
-                        warnings.warn(f"input dictionary value is list, \
-                                    however, in DomainLab args, we have {cur_val}, \
-                                    going to overrite to list")
-                    arg_dict[key] = []
-                arg_dict[key].extend(value)
-            else:
-                arg_dict[key] = value
-        else:
-            if flag_warn:
-                warnings.warn(f"{key} does not exist in DomainLab, ignoring!")
 
 
 def run_experiment(
@@ -83,21 +56,25 @@ def run_experiment(
     """
     if misc is None:
         misc = {}
-    task, hyperparameters = load_parameters(param_file, param_index)
+    str_algo_as_task, hyperparameters = load_parameters(param_file, param_index)
     # print("\n*******************************************************************")
-    # print(f"{task}, param_index={param_index}, params={hyperparameters}")
+    # print(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
     # print("*******************************************************************\n")
     misc['result_file'] = out_file
     misc['params'] = hyperparameters
-    misc['benchmark_task_name'] = task
+    misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
     misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    apply_dict_to_args(args, config)
-    apply_dict_to_args(args, config[task])
+    args_algo_as_task = config[str_algo_as_task].copy()
+    if 'hyperparameters' in args_algo_as_task:
+        del args_algo_as_task['hyperparameters']
+    args_domainlab_common = config.get("domainlab_args", {})
+    apply_dict_to_args(args, args_domainlab_common)
+    apply_dict_to_args(args, args_algo_as_task)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
 
@@ -116,16 +93,27 @@ def run_experiment(
             args.te_d = te_d
             set_seed(seed)
             args.seed = seed
-            if torch.cuda.is_available():
-                print(torch.cuda.memory_summary())
+            try:
+                if torch.cuda.is_available():
+                    print("before experiment starts")
+                    print(torch.cuda.memory_summary())
+            except KeyError as ex:
+                print(ex)
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()
+            try:
+                if torch.cuda.is_available():
+                    print("before torch memory clean up")
+                    print(torch.cuda.memory_summary())
+            except KeyError as ex:
+                print(ex)
             del exp
             torch.cuda.empty_cache()
             gc.collect()
             try:
                 if torch.cuda.is_available():
+                    print("after torch memory clean up")
                     print(torch.cuda.memory_summary())
             except KeyError as ex:
                 print(ex)

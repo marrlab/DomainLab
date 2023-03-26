@@ -1,11 +1,11 @@
 """
 Tests run_experiment.py
 """
+import pytest
 import torch
 import yaml
 
-from domainlab.arg_parser import mk_parser_main
-from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_args
+from domainlab.exp_protocol.run_experiment import run_experiment
 
 
 def test_run_experiment():
@@ -26,12 +26,6 @@ def test_run_experiment():
     config['test_domains'] = []
     run_experiment(config, param_file, param_index, out_file)
 
-
-def test_apply_dict_to_args():
-    """Testing apply_dict_to_args"""
-    parser = mk_parser_main()
-    args = parser.parse_args(args=[])
-    data = {'a': 1, 'b': [1, 2], 'aname': 'diva'}
-    apply_dict_to_args(args, data, extend=True)
-    assert args.a == 1
-    assert args.aname == 'diva'
+    config['domainlab_args']['batchsize'] = 16
+    with pytest.raises(ValueError):
+        run_experiment(config, param_file, param_index, out_file)

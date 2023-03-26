@@ -290,6 +290,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.builder_deepall" class="md-nav__link">domainlab.algos.builder_deepall module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_deepall_mldg" class="md-nav__link">domainlab.algos.builder_deepall_mldg module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.builder_dial" class="md-nav__link">domainlab.algos.builder_dial module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.builder_diva" class="md-nav__link">domainlab.algos.builder_diva module</a>
@@ -355,6 +357,7 @@
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_matchdg">domainlab.algos.trainers.train_matchdg module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_mldg">domainlab.algos.trainers.train_mldg module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_visitor">domainlab.algos.trainers.train_visitor module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers">Module contents</a></li>
 </ul>
@@ -441,6 +444,21 @@ doing the real job
 </dd></dl>
 </dd></dl>
 </section>
+<section id="module-domainlab.algos.builder_deepall_mldg">
+<span id="domainlab-algos-builder-deepall-mldg-module"></span><h2 id="module-domainlab.algos.builder_deepall_mldg">domainlab.algos.builder_deepall_mldg module<a class="headerlink" href="#module-domainlab.algos.builder_deepall_mldg" title="Permalink to this heading">¶</a></h2>
+<p>builder for domain invariant adversarial learning</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.algos.builder_deepall_mldg.NodeAlgoBuilderDeepAllMLDG">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_deepall_mldg.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderDeepAllMLDG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_deepall_mldg.html#NodeAlgoBuilderDeepAllMLDG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_deepall_mldg.NodeAlgoBuilderDeepAllMLDG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
+<p>builder for domain invariant adversarial learning</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.builder_deepall_mldg.NodeAlgoBuilderDeepAllMLDG.init_business">
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_deepall_mldg.html#NodeAlgoBuilderDeepAllMLDG.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_deepall_mldg.NodeAlgoBuilderDeepAllMLDG.init_business" title="Permalink to this definition">¶</a></dt>
+<dd><p>return trainer, model, observer</p>
+</dd></dl>
+</dd></dl>
+</section>
 <section id="module-domainlab.algos.builder_dial">
 <span id="domainlab-algos-builder-dial-module"></span><h2 id="module-domainlab.algos.builder_dial">domainlab.algos.builder_dial module<a class="headerlink" href="#module-domainlab.algos.builder_dial" title="Permalink to this heading">¶</a></h2>
 <p>builder for domain invariant adversarial learning</p>
@@ -505,6 +523,7 @@ doing the real job
 </section>
 <section id="module-domainlab.algos.builder_matchdg">
 <span id="domainlab-algos-builder-matchdg-module"></span><h2 id="module-domainlab.algos.builder_matchdg">domainlab.algos.builder_matchdg module<a class="headerlink" href="#module-domainlab.algos.builder_matchdg" title="Permalink to this heading">¶</a></h2>
+<p>builder for mathcdg with deepall</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_matchdg.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderMatchDG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_matchdg.html#NodeAlgoBuilderMatchDG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG" title="Permalink to this definition">¶</a></dt>
