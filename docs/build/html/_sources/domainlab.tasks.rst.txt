@@ -12,10 +12,26 @@ domainlab.tasks.a\_task module
    :undoc-members:
    :show-inheritance:
 
+domainlab.tasks.a\_task\_classif module
+---------------------------------------
+
+.. automodule:: domainlab.tasks.a_task_classif
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.tasks.b\_task module
 ------------------------------
 
 .. automodule:: domainlab.tasks.b_task
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.tasks.b\_task\_classif module
+---------------------------------------
+
+.. automodule:: domainlab.tasks.b_task_classif
    :members:
    :undoc-members:
    :show-inheritance:
@@ -48,6 +64,14 @@ domainlab.tasks.task\_pathlist module
 -------------------------------------
 
 .. automodule:: domainlab.tasks.task_pathlist
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.tasks.task\_utils module
+----------------------------------
+
+.. automodule:: domainlab.tasks.task_utils
    :members:
    :undoc-members:
    :show-inheritance:

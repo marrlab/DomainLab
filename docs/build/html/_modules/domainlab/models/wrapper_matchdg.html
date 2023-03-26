@@ -226,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -234,6 +234,20 @@
     
     
       <a href="../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -272,13 +286,18 @@ from domainlab.models.a_model_classif import AModelClassif
     """
     def __init__(self, net, list_str_y, list_str_d=None):
         super().__init__(list_str_y, list_str_d)
+        self.check_attribute(net)
+        self.net = net
+
+<div class="viewcode-block" id="ModelWrapMatchDGLogit.check_attribute"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.check_attribute">[docs]</a>    def check_attribute(self, net):
+        """
+        """
         fun_name = AModelClassif.match_feat_fun_na
         if not hasattr(net, fun_name):
             raise RuntimeError(
                 "model to be wrapped must inherit base class ",
                 str(AModelClassif.__class__),
-                " with attribute:", fun_name)
-        self.net = net
+                " with attribute:", fun_name)</div>
 
 <div class="viewcode-block" id="ModelWrapMatchDGLogit.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.cal_logit_y">[docs]</a>    def cal_logit_y(self, tensor_x):
         return self.net.cal_logit_y(tensor_x)</div>
@@ -292,6 +311,12 @@ from domainlab.models.a_model_classif import AModelClassif
 <div class="viewcode-block" id="ModelWrapMatchDGLogit.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.forward">[docs]</a>    def forward(self, tensor_x):
         """
         calculate features to be matched
+        """
+        return self.extract_semantic_feat(tensor_x)</div>
+
+<div class="viewcode-block" id="ModelWrapMatchDGLogit.extract_semantic_feat"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.extract_semantic_feat">[docs]</a>    def extract_semantic_feat(self, tensor_x):
+        """
+        extract semantic feature
         """
         logit_y = self.net.cal_logit_y(tensor_x)  # @FIXME: match other features instead of logit
         return logit_y</div></div>

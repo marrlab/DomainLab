@@ -1,39 +1,14 @@
 """
-Abstract class for TaskClassif
+Abstract class for Task
 """
-import os
 import warnings
-from abc import abstractmethod, abstractproperty
+from abc import abstractmethod
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
-from domainlab.tasks.utils_task import img_loader2dir
+from domainlab.tasks.task_utils import parse_domain_id
 
 
-def parse_domain_id(list_domain_id, list_domains):
-    """
-    Convert ids to a list of domain names.
-    :param list_domain_id: domain id or ids provided as an int or str,
-    or a list of int or str.
-    :param list_domains: list of available domains
-    :return: list of domain names
-    """
-    if not isinstance(list_domain_id, list):
-        list_domain_id = [list_domain_id]
-    list_domains_subset = []
-    for ele in list_domain_id:
-        if isinstance(ele, int):
-            list_domains_subset.append(list_domains[ele])
-        elif isinstance(ele, str):
-            if ele.isdigit():
-                list_domains_subset.append(list_domains[int(ele)])
-            else:
-                list_domains_subset.append(ele)
-        else:
-            raise RuntimeError("domain ids should be either int or str")
-    return list_domains_subset
-
-
-class NodeTaskDGClassif(AbstractChainNodeHandler):
+class NodeTaskDG(AbstractChainNodeHandler):
     """
     Domain Generalization Classification Task
     """
@@ -41,55 +16,63 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         super().__init__(succ)
         self._loader_tr = None
         self._loader_te = None
+        self._loader_val = None
         self._list_domains = None
         self._list_domain_tr = None
-        self.dict_dset = dict()
-        self.dict_dset_te = dict()
+        self.dict_dset = {}
+        self.dict_dset_te = {}
+        self.dict_dset_val = {}
         self.dict_domain_class_count = {}
         self.dim_d_tr = None  # public
-        self._list_str_y = None
         self._im_size = None
         self._dict_domains2imgroot = {}
         self._dict_domain_folder_name2class = {}  # {"domain1": {"class1":car, "class2":dog}}
         self._dict_domain_img_trans = {}
-        self._dict_domain2filepath_list_im = {}  # {"photo": "xxx/yyy/file_of_path2imgs"}
         self.dict_att = {}
+        self.img_trans_te = None
+        self.dict_domain2imgroot = {}
+        self._dict_domain2filepath_list_im_tr = {}  # {"photo": "xxx/yyy/file_of_path2imgs"}
+        self._dict_domain2filepath_list_im_val = {}
+        self._dict_domain2filepath_list_im_te = {}
+        self.dict_class_label_ind2name = None
 
     @abstractmethod
     def init_business(self, args):
         """
-        construct loader with resampling
-        :param seed: random seed for resampling
-        :param bs: batch size
-        :param domain_na_tes: test domain names
+        construct task
         """
-        raise NotImplementedError
-
-    @abstractmethod
     def get_list_domains(self):
         """
         1. get list of domain names
         2. better use method than property so new domains can be added
         """
-        raise NotImplementedError
+        return self._list_domains
 
-    @abstractproperty
-    def list_str_y(self):
-        raise NotImplementedError
+    def set_list_domains(self, list_domains):
+        """
+        setter for self._list_domains
+        """
+        self._list_domains = list_domains
 
-    @abstractproperty
-    def isize(self):
-        """image channel, height, width"""
-        raise NotImplementedError
-
-    ###########################################################################
     @property
-    def dim_y(self):
-        """classification dimension"""
-        return len(self.list_str_y)
+    def isize(self):
+        """
+        getter for input size: isize
+        """
+        return self._im_size
+
+    @isize.setter
+    def isize(self, im_size):
+        """
+        setter for input size: isize
+        """
+        self._im_size = im_size
 
     @property
     def list_domain_tr(self):
+        """
+        property getter of list of domains for this task
+        """
         if self._list_domain_tr is None:
             raise RuntimeError("task not intialized!")
         return self._list_domain_tr
@@ -114,6 +97,7 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
         """
         The basic name of the task, without configurations
         """
+        # @FIXME: hardcoded position
         return type(self).__name__[8:].lower()
 
     def get_na(self, na_tr, na_te):
@@ -156,34 +140,16 @@ class NodeTaskDGClassif(AbstractChainNodeHandler):
             list_domain_tr = parse_domain_id(tr_id, list_domains)
         if not set(list_domain_tr).issubset(set(list_domains)):
             raise RuntimeError(
-                "training domain %s is not subset of available domains %s"
-                % (list_domain_tr, list_domains))
+                f"training domain {list_domain_tr} is not \
+                subset of available domains {list_domains}")
 
         if set(list_domain_tr) & set(list_domain_te):
             warnings.warn(
-                "The sets of training and test domains overlap -- beware of data leakage or training to the test!",
+                "The sets of training and test domains overlap -- \
+                be aware of data leakage or training to the test!",
                 RuntimeWarning
             )
 
         self.dim_d_tr = len(list_domain_tr)
         self._list_domain_tr = list_domain_tr
         return list_domain_tr, list_domain_te
-
-    def sample_sav(self, root, batches=5, subfolder_na="task_sample"):
-        """
-        sample data from task and save to disk
-        """
-        folder_na = os.path.join(root, self.task_name, subfolder_na)
-
-        img_loader2dir(self.loader_te,
-                       list_domain_na=self.get_list_domains(),
-                       list_class_na=self.list_str_y,
-                       folder=folder_na,
-                       batches=batches,
-                       test=True)
-
-        img_loader2dir(self.loader_tr,
-                       list_domain_na=self.get_list_domains(),
-                       list_class_na=self.list_str_y,
-                       folder=folder_na,
-                       batches=batches)

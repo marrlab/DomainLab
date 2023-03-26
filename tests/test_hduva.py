@@ -1,6 +1,9 @@
 """
 end to end test
 """
+
+import gc
+import torch
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
@@ -13,11 +16,14 @@ def test_trainer_hduva():
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
                                "--aname", "hduva", "--bs", "2",
-                               "--nname", "conv_bn_pool_2",
+                               "--nname", "alexnet",
                                "--gamma_y", "7e5",
                                "--nname_topic_distrib_img2topic", "conv_bn_pool_2",
-                               "--nname_encoder_sandwich_layer_img2h4zd", "alexnet"
+                               "--nname_encoder_sandwich_layer_img2h4zd", "conv_bn_pool_2"
                                ])
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()

@@ -2,6 +2,7 @@
 Upon pixel wise mean and variance
 """
 import torch
+from domainlab import g_inst_component_loss_agg
 
 
 class NLLPixelLogistic256(object):
@@ -35,7 +36,8 @@ class NLLPixelLogistic256(object):
 
         # negative log-likelihood for each pixel
         log_logist_256 = - torch.log(cdf_plus - cdf_minus + 1.e-7)
-        nll = torch.sum(log_logist_256, dim=self.reduce_dims)
+        # torch.Size([100, 3, 28, 28])
+        nll = g_inst_component_loss_agg(log_logist_256, dim=self.reduce_dims)
         # NOTE: pixel NLL should always be summed
         # across the whole image of all channels
         # NOTE: result should be order 1 tensor of dim batch_size

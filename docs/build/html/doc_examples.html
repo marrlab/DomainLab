@@ -226,7 +226,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -234,6 +234,20 @@
     
     
       <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -326,6 +340,8 @@
         <li class="md-nav__item"><a href="#custom-algorithm-defined-in-external-python-file" class="md-nav__link">Custom algorithm defined in external python file</a>
         </li>
         <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a>
+        </li>
+        <li class="md-nav__item"><a href="#meta-learning-domain-generalization" class="md-nav__link">Meta Learning Domain Generalization</a>
         </li></ul>
             </nav>
         </li>
@@ -508,6 +524,13 @@
 <section id="adversarial-images-training">
 <h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="meta-learning-domain-generalization">
+<h2 id="meta-learning-domain-generalization">Meta Learning Domain Generalization<a class="headerlink" href="#meta-learning-domain-generalization" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepallmldg --nname=alexnet
+
 </pre></div>
 </div>
 </section>

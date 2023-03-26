@@ -13,6 +13,9 @@ Welcome to domainlab's documentation!
    modules
    doc_algos
    docHDUVA
+   docJiGen
+   doc_diva
+
 
 Indices and tables
 ==================

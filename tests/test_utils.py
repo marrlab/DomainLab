@@ -7,7 +7,11 @@ from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.exp_protocol.run_experiment import apply_dict_to_args
 from domainlab.utils.get_git_tag import get_git_tag
 
+
 def test_git_tag():
+    """
+    test if git tag could be generated
+    """
     get_git_tag()
 
 

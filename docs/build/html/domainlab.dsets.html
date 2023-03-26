@@ -60,7 +60,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="domainlab.models package" href="domainlab.models.html" />
+    <link rel="next" title="domainlab.exp_protocol package" href="domainlab.exp_protocol.html" />
     <link rel="prev" title="domainlab.compos.nn_zoo package" href="domainlab.compos.nn_zoo.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
@@ -237,7 +237,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -245,6 +245,20 @@
     
     
       <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -422,7 +436,7 @@ Returns: bool: True if the filename ends with one of given extensions</p>
 <p>Utilities for dataset</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_data.DsetInMemDecorator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">DsetInMemDecorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#DsetInMemDecorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.DsetInMemDecorator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">DsetInMemDecorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#DsetInMemDecorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.DsetInMemDecorator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>fetch all items of a dataset into memory</p>
 </dd></dl>
@@ -439,24 +453,24 @@ index to onehot</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_data.plot_ds">
-<span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">plot_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#plot_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.plot_ds" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">plot_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#plot_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.plot_ds" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> – </p></li>
+<li><p><strong>dset</strong> – </p></li>
 <li><p><strong>f_name</strong> – </p></li>
-<li><p><strong>bs</strong> – batch_size</p></li>
+<li><p><strong>batchsize</strong> – batch_size</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_data.plot_ds_list">
-<span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">plot_ds_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#plot_ds_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.plot_ds_list" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">plot_ds_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#plot_ds_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.plot_ds_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot list of datasets, each datasets in one row
 :param ds_list:
 :param fname:
-:param bs:
+:param batchsize:
 :param shuffle:</p>
 </dd></dl>
 </section>
@@ -466,7 +480,7 @@ index to onehot</p>
 include tile permutation</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_wrapdset_patches.</span></span><span class="sig-name descname"><span class="pre">WrapDsetPatches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset,</span> <span class="pre">num_perms2classify,</span> <span class="pre">prob_no_perm,</span> <span class="pre">grid_len,</span> <span class="pre">transform4tile=Compose(</span>     <span class="pre">RandomGrayscale(p=0.1)</span>     <span class="pre">ToTensor()</span>     <span class="pre">Normalize(mean=[0.485,</span> <span class="pre">0.456,</span> <span class="pre">0.406],</span> <span class="pre">std=[0.229,</span> <span class="pre">0.224,</span> <span class="pre">0.225])</span> <span class="pre">),</span> <span class="pre">flag_do_not_weave_tiles=False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_wrapdset_patches.html#WrapDsetPatches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_wrapdset_patches.</span></span><span class="sig-name descname"><span class="pre">WrapDsetPatches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_perms2classify</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_no_perm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_do_not_weave_tiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_wrapdset_patches.html#WrapDsetPatches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>given dataset of images, return permuations of tiles of images re-weaved</p>
 <dl class="py method">
@@ -505,12 +519,12 @@ include tile permutation</p>
             </a>
           
           
-            <a href="domainlab.models.html" title="domainlab.models package"
+            <a href="domainlab.exp_protocol.html" title="domainlab.exp_protocol package"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> domainlab.models package </span>
+                class="md-footer-nav__direction"> Next </span> domainlab.exp_protocol package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

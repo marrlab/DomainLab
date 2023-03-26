@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -10,7 +11,12 @@ except IndexError:
 
 # NOTE: this approach to obtain the path depends on the relative path of
 # this file to the domainlab directory
+
 sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
+
+
+envvars:
+    "DOMAINLAB_CUDA_START_SEED"
 
 
 def experiment_result_files(_):
@@ -48,69 +54,59 @@ rule run_experiment:
     input:
         param_file=rules.parameter_sampling.output
     output:
+        # snakemake keyword temporary for temporary directory
+        # like f-string in python {index} is generated in the run block as wildcards
         out_file=temporary(expand(
             "{output_dir}/rule_results/{index}.csv",
             output_dir=config["output_dir"],
             allow_missing=True
         ))
+    params:
+        start_seed_str=os.environ["DOMAINLAB_CUDA_START_SEED"]
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
+        # import sys
+        # pos = None
+        # try:
+        #  pos = sys.argv.index('--envvars')
+        # except Exception as ex:
+        #  pos = None
+        # start_seed = sys.argv[pos+1]
+
+        start_seed_str = params.start_seed_str
+        if isinstance(start_seed_str, str) and (len(start_seed_str) > 0):
+          # hash will keep integer intact and hash strings to random seed
+          # hased integer is signed and usually too big, random seed only
+          # allowed to be in [0, 2^32-1]
+          # if the user input is number, then hash will not change the value,
+          # so we recommend the user to use number as start seed
+          start_seed = abs(hash(start_seed_str)) % (2 ** 32)
+        else:
+          start_seed = None
+        # {index} defines wildcards named index
         index = int(expand(wildcards.index)[0])
-        run_experiment(config,str(input.param_file),index,str(output.out_file))
+        # :param config: dictionary from the benchmark yaml
+        # :param param_file: path to the csv with the parameter samples
+        # :param param_index: parameter index that should be covered by this task
+        # currently this correspond to the line number in the csv file, or row number
+        # in the resulting pandas dataframe
+        # :param out_file: path to the output csv
+        run_experiment(config,str(input.param_file),index,str(output.out_file), start_seed)
 
 
 rule agg_results:
+    # put different csv file in a big csv file
     input:
         exp_results=experiment_result_files
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
     run:
-        import os
-        out_file = str(output.out_file)
-        os.makedirs(os.path.dirname(out_file), exist_ok=True)
-        has_header = False
-        # print(f"exp_results={input.exp_results}")
-        with open(out_file, 'w') as out_stream:
-            for res in input.exp_results:
-                with open(res, 'r') as in_stream:
-                    if has_header:
-                        # skip header line
-                        in_stream.readline()
-                    else:
-                        out_stream.writelines(in_stream.readline())
-                        has_header = True
-                    # write results to common file.
-                    out_stream.writelines(in_stream.readlines())
-
-
-rule agg_partial_results:
-    input:
-        dir=expand("{output_dir}/rule_results", output_dir=config["output_dir"])
-    params:
-        out_file=rules.agg_results.output.out_file
-    run:
-        import os
-        out_file = str(params.out_file)
-        os.makedirs(os.path.dirname(out_file), exist_ok=True)
-        has_header = False
-        # print(f"exp_results={input.exp_results}")
-        with open(out_file, 'w') as out_stream:
-            for res in os.listdir(input.dir):
-                if not res.endswith('.csv'):
-                    # skip non-csv file entries
-                    continue
-                with open(res, 'r') as in_stream:
-                    if has_header:
-                        # skip header line
-                        in_stream.readline()
-                    else:
-                        out_stream.writelines(in_stream.readline())
-                        has_header = True
-                    # write results to common file.
-                    out_stream.writelines(in_stream.readlines())
+        from domainlab.exp_protocol.aggregate_results import agg_results
+        agg_results(list(input.exp_results), str(output.out_file))
 
 
 rule gen_plots:
+    # depends on previous rules of agg_(partial_)results
     input:
         res_file=rules.agg_results.output.out_file
     output:
@@ -121,6 +117,7 @@ rule gen_plots:
 
 
 rule all:
+    # output of plotting generation as input, i.e. all previous stages have to be carried out
     input:
         # rules.gen_plots.output
         rules.agg_results.output

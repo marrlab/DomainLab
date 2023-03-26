@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="domainlab.tasks package" href="domainlab.tasks.html" />
-    <link rel="prev" title="domainlab.dsets package" href="domainlab.dsets.html" />
+    <link rel="prev" title="domainlab.exp_protocol package" href="domainlab.exp_protocol.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -237,7 +237,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Implemented algorithms (models)</a>
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
       
     
     </li>
@@ -245,6 +245,20 @@
     
     
       <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
@@ -448,8 +462,13 @@ n: list of name of class</p>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.pred2file">
-<span class="sig-name descname"><span class="pre">pred2file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'path_prediction.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_pred_scalar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.pred2file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.pred2file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pred2file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spliter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.pred2file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.pred2file" title="Permalink to this definition">¶</a></dt>
 <dd><p>pred2file dump predicted label to file as sanity check</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.read_prediction_file">
+<span class="sig-name descname"><span class="pre">read_prediction_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spliter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.read_prediction_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.read_prediction_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if the written fiel could calculate acc</p>
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.training">
@@ -459,10 +478,12 @@ n: list of name of class</p>
 </section>
 <section id="module-domainlab.models.args_jigen">
 <span id="domainlab-models-args-jigen-module"></span><h2 id="module-domainlab.models.args_jigen">domainlab.models.args_jigen module<a class="headerlink" href="#module-domainlab.models.args_jigen" title="Permalink to this heading">¶</a></h2>
+<p>hyper-parameters for JiGen</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.args_jigen.add_args2parser_jigen">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.args_jigen.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_jigen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/args_jigen.html#add_args2parser_jigen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.args_jigen.add_args2parser_jigen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>hyper-parameters for JiGen</p>
+</dd></dl>
 </section>
 <section id="module-domainlab.models.args_vae">
 <span id="domainlab-models-args-vae-module"></span><h2 id="module-domainlab.models.args_vae">domainlab.models.args_vae module<a class="headerlink" href="#module-domainlab.models.args_vae" title="Permalink to this heading">¶</a></h2>
@@ -656,6 +677,15 @@ being the commandline argument name</p>
 <dd><p>task independent regularization loss for domain generalization</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.check_attribute">
+<span class="sig-name descname"><span class="pre">check_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/wrapper_matchdg.html#ModelWrapMatchDGLogit.check_attribute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.check_attribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/wrapper_matchdg.html#ModelWrapMatchDGLogit.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.extract_semantic_feat" title="Permalink to this definition">¶</a></dt>
+<dd><p>extract semantic feature</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.forward">
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/wrapper_matchdg.html#ModelWrapMatchDGLogit.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate features to be matched</p>
@@ -681,7 +711,7 @@ being the commandline argument name</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="domainlab.dsets.html" title="domainlab.dsets package"
+            <a href="domainlab.exp_protocol.html" title="domainlab.exp_protocol package"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -690,7 +720,7 @@ being the commandline argument name</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> domainlab.dsets package </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab.exp_protocol package </span>
               </div>
             </a>
           

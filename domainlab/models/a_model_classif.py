@@ -36,22 +36,23 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         classification performance matric
         """
         metric_te = None
-        metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-        confmat = metric_tr_pool.pop("confmat")
-        print("pooled train domains performance:")
-        rprint(metric_tr_pool)
-        # print("confusion matrix:")
-        # print(pd.DataFrame(confmat))
-        metric_tr_pool["confmat"] = confmat
-        # test set has no domain label, so can be more custom
-        if loader_te is not None:
-            metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-            confmat = metric_te.pop("confmat")
-            print("out of domain test performance:")
-            rprint(metric_te)
-            # print("confusion matrix:")
-            # print(pd.DataFrame(confmat))
-            metric_te["confmat"] = confmat
+        with torch.no_grad():
+            metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
+            confmat = metric_tr_pool.pop("confmat")
+            print("pooled train domains performance:")
+            rprint(metric_tr_pool)
+            print("confusion matrix:")
+            print(pd.DataFrame(confmat))
+            metric_tr_pool["confmat"] = confmat
+            # test set has no domain label, so can be more custom
+            if loader_te is not None:
+                metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
+                confmat = metric_te.pop("confmat")
+                print("out of domain test performance:")
+                rprint(metric_te)
+                print("confusion matrix:")
+                print(pd.DataFrame(confmat))
+                metric_te["confmat"] = confmat
         return metric_te
 
     def evaluate(self, loader_te, device):
@@ -148,9 +149,17 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         print("prediction saved in file ", filename)
         file_acc = self.read_prediction_file(filename, spliter)
         acc_metric_te = metric_te['acc']
-        if not math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01):
-            str_info = f"prediction file acc {file_acc} \
-                not equal to torchmetric acc {acc_metric_te}"
+        flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
+        acc_raw1 = PerfClassif.cal_acc(self, loader_te, device)
+        acc_raw2 = PerfClassif.cal_acc(self, loader_te, device)
+        flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
+        flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
+        if not (flag1 & flag2 & flag_raw_consistency):
+            str_info = f"inconsistent acc:  \
+                prediction file acc {file_acc} \
+                torchmetric acc {acc_metric_te} \
+                raw acc 1 {acc_raw1} \
+                raw acc 2 {acc_raw2}"
             raise RuntimeError(str_info)
         return file_acc
 
@@ -185,4 +194,3 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0
-

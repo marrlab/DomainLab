@@ -1,10 +1,5 @@
 # Example benchmark config script.
 
-# Arguments set here are passed to each task.
-# Specifications inside the tasks taking precedence.
-
-tpath: examples/tasks/task_vlcs.py  # dataset
-
 # list of all domains that are used as test domain
 # in a leave-one-out setup, i.e. for each run,
 # one domain from this list is chosen as test domain
@@ -13,7 +8,7 @@ tpath: examples/tasks/task_vlcs.py  # dataset
 test_domains:
   - caltech
   - sun
-  # - labelme
+  - labelme
 
 output_dir: zoutput/benchmarks/demo_benchmark
 
@@ -26,8 +21,6 @@ num_param_samples: 2
 # startseed and endseed, this benchmark is fully reproducible.
 sampling_seed: 1  # Optional
 
-epos: 3
-batchsize: 2
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
 # different seeds are used to estimate the stochastic
@@ -35,13 +28,19 @@ batchsize: 2
 startseed: 1
 endseed: 2  # currently included
 
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  tpath: examples/tasks/task_vlcs.py  # dataset
+  epos: 2
+  bs: 2
+
 # Each node containing the aname property is considered as a task.
-Task1:  # name
+Task_diva:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
   nname: alexnet
-  nname_dom: alexnet
-
+  npath_dom: examples/nets/resnet.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -68,10 +67,9 @@ Task1:  # name
       step: 1
       distribution: loguniform
 
-Task2:  # name
+TaskHduva:  # name
   aname: hduva
-
-  nname: conv_bn_pool_2
+  npath: examples/nets/resnet.py
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
 
@@ -88,9 +86,7 @@ Task2:  # name
       step: 4
       distribution: loguniform
 
-Task3:
-  aname: diva
-  nname: conv_bn_pool_2
-  nname_dom: conv_bn_pool_2
-  gamma_y: 75000
-  gamma_d: 100000
+
+Task_deep_all:
+  aname: deepall
+  nname: alexnet
