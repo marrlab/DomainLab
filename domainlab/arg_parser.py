@@ -106,6 +106,12 @@ def mk_parser_main():
                         help='tag in each line of result aggregation file \
                         e.g., to specify potential different configurations')
 
+    parser.add_argument('--agg_partial_bm', type=str,
+                        default=None, dest="bm_dir",
+                        help="Aggregates and plots partial data of a snakemake \
+                        benchmark. Requires the benchmark config file. \
+                        Other arguments will be ignored.")
+
     parser.add_argument('--msel', type=str, default=None,
                         help='model selection: val, elbo, recon, the \
                         elbo and recon only make sense for vae models,\
@@ -197,7 +203,7 @@ def parse_cmd_args():
         delattr(args, 'config_file')
         apply_dict_to_args(args, data)
 
-    if args.acon is None:
+    if args.acon is None and args.bm_dir is None:
         print("\n\n")
         warnings.warn("no algorithm conf specified, going to use default")
         print("\n\n")
