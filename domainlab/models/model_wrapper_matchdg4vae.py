@@ -19,7 +19,7 @@ class ModelWrapMatchDGVAE(AModelClassif):
         """
 
     def cal_logit_y(self, tensor_x):
-        raise NotImplementedError
+        return self.net.cal_logit_y(tensor_x)
 
     def extract_semantic_feat(self, tensor_x):
         """
