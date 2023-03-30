@@ -302,6 +302,10 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.model_vae_xyd_classif" class="md-nav__link">domainlab.models.model_vae_xyd_classif module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.models.model_wrapper_matchdg4net" class="md-nav__link">domainlab.models.model_wrapper_matchdg4net module</a>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.models.model_wrapper_matchdg4vae" class="md-nav__link">domainlab.models.model_wrapper_matchdg4vae module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.wrapper_matchdg" class="md-nav__link">domainlab.models.wrapper_matchdg module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models" class="md-nav__link">Module contents</a>
@@ -332,7 +336,7 @@
 <p>operations that all models (classification, segmentation, seq2seq)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel.cal_loss">
-<span class="sig-name descname"><span class="pre">cal_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">others</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.cal_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.cal_loss" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cal_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">others</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.cal_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.cal_loss" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate the loss</p>
 </dd></dl>
 <dl class="py method">
@@ -650,6 +654,64 @@ being the commandline argument name</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.models.model_wrapper_matchdg4net">
+<span id="domainlab-models-model-wrapper-matchdg4net-module"></span><h2 id="module-domainlab.models.model_wrapper_matchdg4net">domainlab.models.model_wrapper_matchdg4net module<a class="headerlink" href="#module-domainlab.models.model_wrapper_matchdg4net" title="Permalink to this heading">¶</a></h2>
+<p>Wrapper for MatchDG to conform of model class in DomainLab</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_wrapper_matchdg4net.</span></span><span class="sig-name descname"><span class="pre">ModelWrapMatchDGNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4net.html#ModelWrapMatchDGNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a></p>
+<p>Wrap an arbitrary model with interface:cal_logit_y</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.cal_logit_y">
+<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4net.html#ModelWrapMatchDGNet.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.cal_logit_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the logit for softmax classification</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.check_attribute">
+<span class="sig-name descname"><span class="pre">check_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4net.html#ModelWrapMatchDGNet.check_attribute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.check_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>not used</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4net.html#ModelWrapMatchDGNet.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.extract_semantic_feat" title="Permalink to this definition">¶</a></dt>
+<dd><p>extract semantic feature</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4net.ModelWrapMatchDGNet.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+</section>
+<section id="module-domainlab.models.model_wrapper_matchdg4vae">
+<span id="domainlab-models-model-wrapper-matchdg4vae-module"></span><h2 id="module-domainlab.models.model_wrapper_matchdg4vae">domainlab.models.model_wrapper_matchdg4vae module<a class="headerlink" href="#module-domainlab.models.model_wrapper_matchdg4vae" title="Permalink to this heading">¶</a></h2>
+<p>Wrapper for MatchDG to conform of model class in DomainLab</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_wrapper_matchdg4vae.</span></span><span class="sig-name descname"><span class="pre">ModelWrapMatchDGVAE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4vae.html#ModelWrapMatchDGVAE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a></p>
+<p>Wrap an arbitrary model with interface:cal_logit_y</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.cal_logit_y">
+<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4vae.html#ModelWrapMatchDGVAE.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.cal_logit_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the logit for softmax classification</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.check_attribute">
+<span class="sig-name descname"><span class="pre">check_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4vae.html#ModelWrapMatchDGVAE.check_attribute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.check_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>not used</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_wrapper_matchdg4vae.html#ModelWrapMatchDGVAE.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.extract_semantic_feat" title="Permalink to this definition">¶</a></dt>
+<dd><p>extract semantic feature</p>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.models.model_wrapper_matchdg4vae.ModelWrapMatchDGVAE.training" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 </section>
