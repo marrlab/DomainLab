@@ -5,3 +5,6 @@
 https://drive.google.com/uc?id=1JFr8f805nMUelQWWmfnJR3y4_SYoN5Pd
 
 [https://drive.google.com/uc?id=1JFr8f805nMUelQWWmfnJR3y4_SYoN5Pd](https://drive.google.com/uc?id=1JFr8f805nMUelQWWmfnJR3y4_SYoN5Pd)
+
+
+https://github.com/facebookresearch/DomainBed/blob/4294ec699df761b46a1505734f6be16ef009cad9/domainbed/scripts/download.py#L29
