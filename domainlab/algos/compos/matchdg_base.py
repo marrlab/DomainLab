@@ -80,7 +80,11 @@ class MatchAlgoBase():
 
         # @FIXME: what is the usefulness of (epoch > 0) as argument
         self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
-        obj_match(self.device, self.loader, lambda x: self.phi.extract_semantic_feat(x), (epoch > 0))
+        obj_match(
+            self.device,
+            self.loader,
+            lambda x: self.phi.extract_semantic_feat(x),
+            (epoch > 0))
 
 
 def get_base_domain_size4match_dg(task):

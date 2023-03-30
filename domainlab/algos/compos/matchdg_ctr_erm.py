@@ -28,8 +28,12 @@ class MatchCtrErm(MatchAlgoBase):
             self.mk_match_tensor(epoch=0)
 
     def train(self):
+        """
+        train self.epos number of epochs
+        """
         for epoch in range(self.epos):
             self.tr_epoch(epoch)
+
 
     def tr_epoch(self, epoch):
         """
@@ -55,9 +59,9 @@ class MatchCtrErm(MatchAlgoBase):
         print("single batch match tensor size: ", tuple_tensor_refdomain2each[0].shape)
 
         for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
-        # random loader with same batch size as the match tensor loader
-        # the 4th output of self.loader is not used at all,
-        # is only used for creating the match tensor
+            # random loader with same batch size as the match tensor loader
+            # the 4th output of self.loader is not used at all,
+            # is only used for creating the match tensor
             self.opt.zero_grad()
             x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
             # y_e_scalar = torch.argmax(y_e, dim=1).to(self.device)
@@ -101,7 +105,8 @@ class MatchCtrErm(MatchAlgoBase):
             # now batch_tensor_ref_domain2each first dim will not be batch_size!
             # batch_tensor_ref_domain2each.shape torch.Size([40, channel, 224, 224])
 
-            batch_feat_ref_domain2each = self.phi.extract_semantic_feat(batch_tensor_ref_domain2each)
+            batch_feat_ref_domain2each = self.phi.extract_semantic_feat(
+                batch_tensor_ref_domain2each)
             # batch_feat_ref_domain2each.shape torch.Size[40, 512]
             # torch.sum(torch.isnan(batch_tensor_ref_domain2each))
             # assert not torch.sum(torch.isnan(batch_feat_ref_domain2each))
@@ -114,7 +119,8 @@ class MatchCtrErm(MatchAlgoBase):
             # the last layer of the model is replaced with identity
 
             batch_ref_domain2each_y = tuple_tensor_ref_domain2each_y[batch_idx].to(self.device)
-            batch_ref_domain2each_y = batch_ref_domain2each_y.view(batch_ref_domain2each_y.shape[0]*batch_ref_domain2each_y.shape[1])
+            batch_ref_domain2each_y = batch_ref_domain2each_y.view(
+                batch_ref_domain2each_y.shape[0]*batch_ref_domain2each_y.shape[1])
 
             # @FIXME:
             # self.phi.cal_loss(batch_tensor_ref_domain2each,
@@ -127,7 +133,8 @@ class MatchCtrErm(MatchAlgoBase):
                 # not yet filled
                 # FIMXE: shall we leave batch_ref_domain2each_y scalar so it
                 # takes less memory?
-                loss_erm_match_tensor = self.phi.cal_loss(batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
+                loss_erm_match_tensor = self.phi.cal_loss(
+                    batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
             # Creating tensor of shape (domain size, total domains, feat size )
             # The match tensor's first two dimension

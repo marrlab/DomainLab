@@ -7,6 +7,7 @@ from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
+from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.models.model_hduva import mk_hduva
@@ -21,6 +22,10 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
     """
     NodeAlgoBuilderMatchHDUVA
     """
+    def dset_decoration_args_algo(self, args, ddset):
+        ddset = DsetIndDecorator4XYD(ddset)
+        return ddset
+
     def init_business(self, exp):
         """
         return trainer, model, observer
