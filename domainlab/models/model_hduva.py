@@ -129,11 +129,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             """
             :param tensor_x:
             """
-            q_topic, topic_q, \
-                qzd, zd_q, \
-                qzx, zx_q, \
-                qzy, zy_q = self.encoder(tensor_x)
-
-            return zy_q
+            zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
+            return zy_q_loc
 
     return ModelHDUVA
