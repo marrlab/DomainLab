@@ -1,0 +1,12 @@
+---  # train diva with mldg
+
+te_d: caltech
+tpath: examples/tasks/task_vlcs.py
+bs: 2
+aname: diva
+epos: 3 # 3 epochs
+trainer: mldg
+gamma_y: 700000.0 #
+gamma_d: 100000.0 #
+nname: examples/nets/resnet.py  # path of neural network to use
+nname_dom: examples/nets/restnet.py # path of neural network to use
