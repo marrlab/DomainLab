@@ -8,20 +8,10 @@ from domainlab.utils.utils_class import store_args
 from domainlab.models.a_model import AModel
 
 def mk_vae_xyd(parent=AModel):
-    class VAEXYD(parent):
+    class InterfaceVAEXYD(parent):
         """
         Base Class for XYD VAE
         """
-        @store_args
-        def __init__(self, chain_node_builder,
-                    zd_dim, zy_dim, zx_dim,
-                    list_str_d=None):
-            """
-            :param chain_node_builder: constructed object
-            """
-            super().__init__()
-            self.init()
-
         def init(self):
             self.chain_node_builder.init_business(
                 self.zd_dim, self.zx_dim, self.zy_dim)
