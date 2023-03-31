@@ -141,3 +141,9 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=exampl
 ```
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
 ```
+
+## Meta Learning Domain Generalization
+```
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepallmldg --nname=alexnet
+
+```

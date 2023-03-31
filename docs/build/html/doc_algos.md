@@ -7,6 +7,7 @@ Pool all domains together and train an ERM (empirical risk minimization) model
 
 ## algorithm "matchdg"
 Mahajan, Divyat, Shruti Tople, and Amit Sharma. "Domain generalization using causal matching." International Conference on Machine Learning. PMLR, 2021.
+
 ## algorithm "diva"
 Ilse, Maximilian, et al. "Diva: Domain invariant variational autoencoders." Medical Imaging with Deep Learning. PMLR, 2020.
 
@@ -21,3 +22,6 @@ Carlucci, Fabio M., et al. "Domain generalization by solving jigsaw puzzles." Pr
 
 ## algorithm deepall, dann, diva with trainer "dial"
 Levi, Matan, Idan Attias, and Aryeh Kontorovich. "Domain invariant adversarial learning.", Transactions on Machine Learning Research, arXiv preprint arXiv:2104.00322 (2021).
+
+## algorithm deepall with trainer "mldg"
+Li, Da, et al. "Learning to generalize: Meta-learning for domain generalization." Proceedings of the AAAI conference on artificial intelligence. Vol. 32. No. 1. 2018.

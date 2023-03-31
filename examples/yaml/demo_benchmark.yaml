@@ -1,9 +1,5 @@
 # Example benchmark config script.
 
-# Arguments set here are passed to each task.
-# Specifications inside the tasks taking precedence.
-tpath: examples/tasks/task_vlcs.py  # dataset
-
 # list of all domains that are used as test domain
 # in a leave-one-out setup, i.e. for each run,
 # one domain from this list is chosen as test domain
@@ -25,14 +21,19 @@ num_param_samples: 2
 # startseed and endseed, this benchmark is fully reproducible.
 sampling_seed: 1  # Optional
 
-epos: 2
-bs: 2
 # the seed is increased by +1 until it reaches endseed.
 # endseed is included, so in total startseed - endseed + 1
 # different seeds are used to estimate the stochastic
 # variance.
 startseed: 1
 endseed: 2  # currently included
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  tpath: examples/tasks/task_vlcs.py  # dataset
+  epos: 2
+  bs: 2
 
 # Each node containing the aname property is considered as a task.
 Task_diva:  # name

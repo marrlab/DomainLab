@@ -3,12 +3,13 @@ Command line arguments
 """
 import argparse
 import warnings
+
 import yaml
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
-from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.models.args_jigen import add_args2parser_jigen
+from domainlab.models.args_vae import add_args2parser_vae
 
 
 def mk_parser_main():
@@ -105,6 +106,12 @@ def mk_parser_main():
                         help='tag in each line of result aggregation file \
                         e.g., to specify potential different configurations')
 
+    parser.add_argument('--agg_partial_bm', type=str,
+                        default=None, dest="bm_dir",
+                        help="Aggregates and plots partial data of a snakemake \
+                        benchmark. Requires the benchmark config file. \
+                        Other arguments will be ignored.")
+
     parser.add_argument('--msel', type=str, default=None,
                         help='model selection: val, elbo, recon, the \
                         elbo and recon only make sense for vae models,\
@@ -158,6 +165,33 @@ def mk_parser_main():
     return parser
 
 
+def apply_dict_to_args(args, data: dict, extend=False):
+    """
+    Tries to apply the data to the args dict of DomainLab.
+    Unknown keys are silently ignored as long as
+    extend is not set.
+    """
+    arg_dict = args.__dict__
+    for key, value in data.items():
+        if (key in arg_dict) or extend:
+            if isinstance(value, list):
+                cur_val = arg_dict.get(key, None)
+                if not isinstance(cur_val, list):
+                    if cur_val is not None:
+                        raise RuntimeError(f"input dictionary value is list, \
+                                           however, in DomainLab args, we have {cur_val}, \
+                                           going to overrite to list")
+                    arg_dict[key] = []  # if args_dict[key] is None, cast it into a list
+                    # domainlab will take care of it if this argument can not be a list
+                arg_dict[key].extend(value)  # args_dict[key] is already a list
+                # keep existing values for the list arg_dct[key]
+            else:
+                # over-write existing value
+                arg_dict[key] = value
+        else:
+            raise ValueError("Unsupported key: ", key)
+
+
 def parse_cmd_args():
     """
     get args from command line
@@ -165,22 +199,11 @@ def parse_cmd_args():
     parser = mk_parser_main()
     args = parser.parse_args()
     if args.config_file:
-
         data = yaml.safe_load(args.config_file)
         delattr(args, 'config_file')
-        arg_dict = args.__dict__
+        apply_dict_to_args(args, data)
 
-        for key in data:
-            if key not in arg_dict:
-                raise ValueError("The key is not supported: ", key)
-
-        for key, value in data.items():
-            if isinstance(value, list):
-                arg_dict[key].extend(value)
-            else:
-                arg_dict[key] = value
-
-    if args.acon is None:
+    if args.acon is None and args.bm_dir is None:
         print("\n\n")
         warnings.warn("no algorithm conf specified, going to use default")
         print("\n\n")
