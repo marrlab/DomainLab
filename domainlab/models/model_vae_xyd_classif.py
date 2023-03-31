@@ -2,7 +2,7 @@
 Base Class for XYD VAE Classify
 """
 from domainlab.models.a_model_classif import AModelClassif
-from domainlab.models.model_vae_xyd import InterfaceVAEXYD
+from domainlab.models.interface_vae_xyd import InterfaceVAEXYD
 from domainlab.utils.utils_class import store_args
 
 
