@@ -2,11 +2,11 @@
 Base Class for XYD VAE Classify
 """
 from domainlab.models.a_model_classif import AModelClassif
-from domainlab.models.model_vae_xyd import VAEXYD
+from domainlab.models.model_vae_xyd import mk_vae_xyd
 from domainlab.utils.utils_class import store_args
 
 
-class VAEXYDClassif(AModelClassif, VAEXYD):
+class VAEXYDClassif(mk_vae_xyd(AModelClassif)):
     """
     Base Class for DIVA and HDUVA
     """
