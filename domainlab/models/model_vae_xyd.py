@@ -7,8 +7,8 @@ import torch.distributions as dist
 from domainlab.utils.utils_class import store_args
 from domainlab.models.a_model import AModel
 
-def mk_vae_xyd(parent=AModel):
-    class InterfaceVAEXYD(parent):
+
+    class InterfaceVAEXYD():
         """
         Base Class for XYD VAE
         """
@@ -45,4 +45,3 @@ def mk_vae_xyd(parent=AModel):
             zx_p_scale = torch.ones(batch_size, self.zx_dim).to(device)
             p_zx = dist.Normal(zx_p_loc, zx_p_scale)
             return p_zx
-    return VAEXYD
