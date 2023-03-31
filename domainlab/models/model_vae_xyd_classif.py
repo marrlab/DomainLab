@@ -2,11 +2,11 @@
 Base Class for XYD VAE Classify
 """
 from domainlab.models.a_model_classif import AModelClassif
-from domainlab.models.model_vae_xyd import mk_vae_xyd
+from domainlab.models.model_vae_xyd import InterfaceXYDVAE
 from domainlab.utils.utils_class import store_args
 
 
-class VAEXYDClassif(mk_vae_xyd(AModelClassif)):
+class VAEXYDClassif(AModelClassif, InterfaceXYDVAE):
     """
     Base Class for DIVA and HDUVA
     """
@@ -17,8 +17,8 @@ class VAEXYDClassif(mk_vae_xyd(AModelClassif)):
         """
         :param chain_node_builder: constructed object
         """
-        VAEXYD.__init__(self, chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y, list_str_d)
-        AModelClassif.__init__(self, list_str_y, list_str_d)
+        super().__init__(self, list_str_y, list_str_d)
+        self.init()
 
     def cal_logit_y(self, tensor_x):
         """
