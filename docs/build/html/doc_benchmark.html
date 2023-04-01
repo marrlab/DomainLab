@@ -274,6 +274,8 @@
         <li class="md-nav__item"><a href="#running-a-benchmark" class="md-nav__link">Running a benchmark</a>
         </li>
         <li class="md-nav__item"><a href="#obtained-results" class="md-nav__link">Obtained results</a>
+        </li>
+        <li class="md-nav__item"><a href="#obtain-partial-results" class="md-nav__link">Obtain partial results</a>
         </li></ul>
             </nav>
         </li>
@@ -340,7 +342,7 @@ aborts with error.</p>
 If several cores are provided, the benchmark is parallelized per hyperparameter sample and
 task.</p>
 <p>To run the benchmark with a specific configuration, one can execute</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./examples/benchmark/run_snakemake.sh ./examples/yaml/demo_benchmark.yaml 0 
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./run_benchmark.sh ./examples/yaml/demo_benchmark.yaml 0 
 </pre></div>
 </div>
 <p>where the first argument is the benchmark configuration file and the second argument is optional which is the starting seed.</p>
@@ -351,6 +353,14 @@ task.</p>
 The sampled hyperparameters can be found in <code class="docutils literal notranslate"><span class="pre">hyperparameters.csv</span></code>.
 The performance of the different runs can be found in <code class="docutils literal notranslate"><span class="pre">results.csv</span></code>. Moreover, there is
 the <code class="docutils literal notranslate"><span class="pre">graphics</span></code> subdirectory, in which the values from <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> are visualized for interpretation.</p>
+</section>
+<section id="obtain-partial-results">
+<h2 id="obtain-partial-results">Obtain partial results<a class="headerlink" href="#obtain-partial-results" title="Permalink to this heading">¶</a></h2>
+<p>The results form partially completed benchmarks can be obtained with</p>
+<div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>python main_out.py --agg_partial_bm OUTPUT_DIR
+</pre></div>
+</div>
+<p>specifying the benchmark output directory, e.g. <code class="docutils literal notranslate"><span class="pre">zoutput/benchmarks/demo_benchmark</span></code></p>
 </section>
 </section>
 

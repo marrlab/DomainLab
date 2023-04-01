@@ -288,11 +288,11 @@ from domainlab.utils.utils_class import store_args
 <div class="viewcode-block" id="MatchPair"><a class="viewcode-back" href="../../../../domainlab.algos.compos.html#domainlab.algos.compos.matchdg_match.MatchPair">[docs]</a>class MatchPair():
     @store_args
     def __init__(self,
-                 dim_y,  # @TODO: dim_y is not used here
+                 dim_y,
                  i_c,
                  i_h,
                  i_w,
-                 bs_match,  # @TODO: bs_match is not used here
+                 bs_match,
                  virtual_ref_dset_size,
                  num_domains_tr,
                  list_tr_domain_size):
@@ -302,6 +302,11 @@ from domainlab.utils.utils_class import store_args
         :param list_tr_domain_size:
         :param phi: neural network to generate causal features from input
         """
+        self.dim_y = dim_y
+        self.bs_match = bs_match
+        self.virtual_ref_dset_size = virtual_ref_dset_size
+        self.num_domains_tr = num_domains_tr
+        self.list_tr_domain_size = list_tr_domain_size
         self.dict_cls_ind_base_domain_ind = {}
         self.dict_virtual_dset2each_domain = MatchDictVirtualRefDset2EachDomain(
             virtual_ref_dset_size=virtual_ref_dset_size,
@@ -337,7 +342,6 @@ from domainlab.utils.utils_class import store_args
         for _, (x_e, y_e, d_e, idx_e) in enumerate(loader_full_data):
             # traverse mixed domain data from loader
             list_idx_several_ds.extend(list(idx_e.cpu().numpy()))
-            x_e = x_e
             y_e = torch.argmax(y_e, dim=1)
             d_e = torch.argmax(d_e, dim=1).numpy()
 
@@ -393,8 +397,11 @@ from domainlab.utils.utils_class import store_args
             base_domain_size = 0
             base_domain_idx = -1
             for domain_idx in range(self.num_domains_tr):
-                flag_curr_class = (self.dict_domain_data[domain_idx]['label'] == y_c)   # tensor of True/False
-                curr_size = self.dict_domain_data[domain_idx]['label'][flag_curr_class].shape[0]    # flag_curr_class are subset indicator
+                flag_curr_class = \
+                    (self.dict_domain_data[domain_idx]['label'] == y_c)   # tensor of True/False
+                curr_size = \
+                    self.dict_domain_data[domain_idx]['label'][flag_curr_class].shape[0]
+                # flag_curr_class are subset indicator
                 if base_domain_size &lt; curr_size:
                     base_domain_size = curr_size
                     base_domain_idx = domain_idx
@@ -403,7 +410,6 @@ from domainlab.utils.utils_class import store_args
             print("for class", y_c)
             print("domain index as base domain:", base_domain_idx)
             print("Base Domain size", base_domain_size)
-
 
 
     def __call__(self, device, loader, phi, flag_match_min_dist):
@@ -419,7 +425,8 @@ from domainlab.utils.utils_class import store_args
                 flags_base_domain_curr_cls = \
                     (self.dict_domain_data[base_domain_idx]['label'] == y_c)
                 flags_base_domain_curr_cls = flags_base_domain_curr_cls[:, 0]
-                global_inds_base_domain_curr_cls = self.dict_domain_data[base_domain_idx]['idx'][flags_base_domain_curr_cls]
+                global_inds_base_domain_curr_cls = \
+                    self.dict_domain_data[base_domain_idx]['idx'][flags_base_domain_curr_cls]
                 # pick out base domain class label y_c images
                 # the difference of this block is "curr_domain_ind"
                 # in iteration is
@@ -429,7 +436,8 @@ from domainlab.utils.utils_class import store_args
                 flag_curr_domain_curr_cls = (self.dict_domain_data[curr_domain_ind]['label'] == y_c)
                 # NO label matches y_c
                 flag_curr_domain_curr_cls = flag_curr_domain_curr_cls[:, 0]
-                global_inds_curr_domain_curr_cls = self.dict_domain_data[curr_domain_ind]['idx'][flag_curr_domain_curr_cls]
+                global_inds_curr_domain_curr_cls = \
+                    self.dict_domain_data[curr_domain_ind]['idx'][flag_curr_domain_curr_cls]
                 size_curr_domain_curr_cls = global_inds_curr_domain_curr_cls.shape[0]
                 if size_curr_domain_curr_cls == 0:  # there is no class y_c in current domain
                     print("current domain",
@@ -438,10 +446,12 @@ from domainlab.utils.utils_class import store_args
                     raise RuntimeError("current domain does not contain all classes")
 
                 # compute base domain features for class label y_c
-                x_base_domain_curr_cls = self.dict_domain_data[base_domain_idx]['data'][flags_base_domain_curr_cls]
+                x_base_domain_curr_cls = \
+                    self.dict_domain_data[base_domain_idx]['data'][flags_base_domain_curr_cls]
                 # pick out base domain class label y_c images
                 # split data into chunks
-                tuple_batch_x_base_domain_curr_cls = torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
+                tuple_batch_x_base_domain_curr_cls = \
+                    torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
                 # @FIXME. when x_base_domain_curr_cls is smaller
                 # than the self.bs_match, then there is only one batch
                 list_base_feat = []
@@ -450,12 +460,15 @@ from domainlab.utils.utils_class import store_args
                         batch_x_base_domain_curr_cls = batch_x_base_domain_curr_cls.to(device)
                         feat = phi(batch_x_base_domain_curr_cls)
                         list_base_feat.append(feat.cpu())
-                tensor_feat_base_domain_curr_cls = torch.cat(list_base_feat)   # base domain features
+                tensor_feat_base_domain_curr_cls = torch.cat(list_base_feat)
+                # base domain features
 
                 if flag_match_min_dist:  # if epoch &gt; 0:flag_match_min_dist=True
-                    x_curr_domain_curr_cls = self.dict_domain_data[curr_domain_ind]['data'][flag_curr_domain_curr_cls]
+                    x_curr_domain_curr_cls = \
+                        self.dict_domain_data[curr_domain_ind]['data'][flag_curr_domain_curr_cls]
                     # indices_curr pick out current domain y_c class images
-                    tuple_x_batch_curr_domain_curr_cls = torch.split(x_curr_domain_curr_cls, self.bs_match, dim=0)
+                    tuple_x_batch_curr_domain_curr_cls = \
+                        torch.split(x_curr_domain_curr_cls, self.bs_match, dim=0)
                     list_feat_x_curr_domain_curr_cls = []
                     for batch_feat in tuple_x_batch_curr_domain_curr_cls:
                         with torch.no_grad():
@@ -466,7 +479,8 @@ from domainlab.utils.utils_class import store_args
                     # feature through inference network for the current domain of class y_c
 
                 tensor_feat_base_domain_curr_cls = tensor_feat_base_domain_curr_cls.unsqueeze(1)
-                tuple_feat_base_domain_curr_cls = torch.split(tensor_feat_base_domain_curr_cls, self.bs_match, dim=0)
+                tuple_feat_base_domain_curr_cls = \
+                    torch.split(tensor_feat_base_domain_curr_cls, self.bs_match, dim=0)
 
                 counter_curr_cls_base_domain = 0
 
@@ -481,15 +495,21 @@ from domainlab.utils.utils_class import store_args
                         # could have simply computed
                         # tensor_feat_curr_domain_curr_cls -
                         # tensor_feat_base_domain_curr_cls
-                        dist_same_class_base_domain_curr_domain = torch.sum((tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls)**2, dim=2)
+                        dist_same_class_base_domain_curr_domain = \
+                            torch.sum(
+                                (tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls)**2,
+                                dim=2)
                         # tensor_feat_curr_domain_curr_cls.shape torch.Size([184, 512])
                         # feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
-                        # (tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls).shape: torch.Size([64, 184, 512])
+                        # (tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls).shape:
+                        # torch.Size([64, 184, 512])
                         # dist_same_class_base_domain_curr_domain.shape:
                         # torch.Size([64, 184]) is the per element distance of
                         # the cartesian product of feat_base_domain_curr_cls vs
                         # tensor_feat_curr_domain_curr_cls
-                        match_ind_base_domain_curr_domain = torch.argmin(dist_same_class_base_domain_curr_domain, dim=1)  # the batch index of the neareast neighbors
+                        match_ind_base_domain_curr_domain = \
+                            torch.argmin(dist_same_class_base_domain_curr_domain, dim=1)
+                        # the batch index of the neareast neighbors
                         # len(match_ind_base_domain_curr_domain)=64
                         # theoretically match_ind_base_domain_curr_domain can
                         # be a permutation of 0 to 183 though of size 64
@@ -501,9 +521,10 @@ from domainlab.utils.utils_class import store_args
                     for idx in range(feat_base_domain_curr_cls.shape[0]):
                         # counter_curr_cls_base_domain =0 at initialization
 
-                        ### global_inds_base_domain_curr_cls pick out base
+                        # ## global_inds_base_domain_curr_cls pick out base
                         # domain class label y_c images
-                        global_pos_base_domain_curr_cls = global_inds_base_domain_curr_cls[counter_curr_cls_base_domain].item()
+                        global_pos_base_domain_curr_cls = \
+                            global_inds_base_domain_curr_cls[counter_curr_cls_base_domain].item()
                         if curr_domain_ind == base_domain_idx:
                             ind_match_global_curr_domain_curr_cls = global_pos_base_domain_curr_cls
                         else:
