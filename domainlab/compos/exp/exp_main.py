@@ -1,5 +1,7 @@
 import datetime
 import os
+import shutil
+
 from torch.utils.data import Subset
 import torch.utils.data as data_utils
 import numpy as np
@@ -72,9 +74,15 @@ class Exp():
         This function dump a subsample of the dataset into hierarchical folder structure.
         """
         self.task.init_business(args)
-        f_name = os.path.join(args.out, 'Dset_extraction', self.task.task_name)
 
         list_domain_tr, list_domain_te = self.task.get_list_domains_tr_te(args.tr_d, args.te_d)
+
+
+        time_stamp = datetime.datetime.now()
+        f_name = os.path.join(args.out, 'Dset_extraction',
+                              self.task.task_name + ' ' + str(time_stamp))
+        # remove previous sanity checks with the same name
+        shutil.rmtree(f_name, ignore_errors=True)
 
         # for each training domain do...
         for domain in list_domain_tr:
