@@ -8,5 +8,5 @@ def test_diva_dial():
     """
     train diva with dial
     """
-    args = "-c examples/yaml/conf_diva_dial.yaml"
+    args = "--config=examples/yaml/conf_diva_dial.yaml"
     utils_test_algo(args)
