@@ -51,7 +51,7 @@ task.
 To run the benchmark with a specific configuration, one can execute 
 
 ```
-./examples/benchmark/run_snakemake.sh ./examples/yaml/demo_benchmark.yaml 0 
+./run_benchmark.sh ./examples/yaml/demo_benchmark.yaml 0 
 ```
 where the first argument is the benchmark configuration file and the second argument is optional which is the starting seed.
 
@@ -60,3 +60,11 @@ All files created by this benchmark are saved in the given output directory.
 The sampled hyperparameters can be found in `hyperparameters.csv`.
 The performance of the different runs can be found in `results.csv`. Moreover, there is
 the `graphics` subdirectory, in which the values from `results.csv` are visualized for interpretation.
+
+
+## Obtain partial results
+The results form partially completed benchmarks can be obtained with
+```commandline
+python main_out.py --agg_partial_bm OUTPUT_DIR
+```
+specifying the benchmark output directory, e.g. `zoutput/benchmarks/demo_benchmark`
