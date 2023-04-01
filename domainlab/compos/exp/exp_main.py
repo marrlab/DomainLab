@@ -86,20 +86,18 @@ class Exp():
 
         # for each training domain do...
         for domain in list_domain_tr:
-            self.save_san_check_for_domain(args, sample_num, f_name, domain)
+            d_dataset = self.task.get_dset_by_domain(args, domain)[0]
+            folder_name = f_name + '/train_domain/' + str(domain)
+            self.save_san_check_for_domain(sample_num, folder_name, d_dataset)
 
         # for each testing domain do...
         for domain in list_domain_te:
-            self.save_san_check_for_domain(args, sample_num, f_name, domain, test=True)
+            d_dataset = self.task.get_dset_by_domain(args, domain)[0]
+            folder_name = f_name + '/test_domain/' + str(domain)
+            self.save_san_check_for_domain(sample_num, folder_name, d_dataset)
 
 
-    def save_san_check_for_domain(self, args, sample_num, f_name, domain, test=False):
-        if not test:
-            folder_name = 'train_domain/' + str(domain)
-        else:
-            folder_name = 'test_domain/' + str(domain)
-
-        d_dataset = self.task.get_dset_by_domain(args, domain)[0]
+    def save_san_check_for_domain(self, sample_num, folder_name, d_dataset):
 
         # for each class do...
         for class_num in range(len(self.task.list_str_y)):
@@ -114,10 +112,10 @@ class Exp():
                     break
 
             class_dataset = Subset(d_dataset, domain_targets)
-            os.makedirs(f_name + '/' + folder_name, exist_ok=True)
+            os.makedirs(folder_name, exist_ok=True)
             plot_ds(
                 class_dataset,
-                f_name + '/' + folder_name + '/' +
+                folder_name + '/' +
                 str(self.task.list_str_y[class_num]) + '.jpg',
                 batchsize=sample_num
             )
