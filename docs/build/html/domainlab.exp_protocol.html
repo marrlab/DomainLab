@@ -280,6 +280,8 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.exp_protocol.aggregate_results" class="md-nav__link">domainlab.exp_protocol.aggregate_results module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.exp_protocol.run_experiment" class="md-nav__link">domainlab.exp_protocol.run_experiment module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.exp_protocol" class="md-nav__link">Module contents</a>
@@ -299,6 +301,35 @@
 <h1 id="domainlab-exp-protocol--page-root">domainlab.exp_protocol package<a class="headerlink" href="#domainlab-exp-protocol--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-domainlab.exp_protocol.aggregate_results">
+<span id="domainlab-exp-protocol-aggregate-results-module"></span><h2 id="module-domainlab.exp_protocol.aggregate_results">domainlab.exp_protocol.aggregate_results module<a class="headerlink" href="#module-domainlab.exp_protocol.aggregate_results" title="Permalink to this heading">¶</a></h2>
+<p>Functions to join the csv result files generate by different jobs of the benchmarks into
+a single csv file.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.exp_protocol.aggregate_results.agg_from_directory">
+<span class="sig-prename descclassname"><span class="pre">domainlab.exp_protocol.aggregate_results.</span></span><span class="sig-name descname"><span class="pre">agg_from_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp_protocol/aggregate_results.html#agg_from_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp_protocol.aggregate_results.agg_from_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aggregates all results from a directory. Used to aggregate partial results.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.exp_protocol.aggregate_results.agg_main">
+<span class="sig-prename descclassname"><span class="pre">domainlab.exp_protocol.aggregate_results.</span></span><span class="sig-name descname"><span class="pre">agg_main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bm_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_plotting</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp_protocol/aggregate_results.html#agg_main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp_protocol.aggregate_results.agg_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aggregates partial results and generate plots.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="domainlab.exp_protocol.aggregate_results.agg_results">
+<span class="sig-prename descclassname"><span class="pre">domainlab.exp_protocol.aggregate_results.</span></span><span class="sig-name descname"><span class="pre">agg_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_files</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp_protocol/aggregate_results.html#agg_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp_protocol.aggregate_results.agg_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aggregrates the results of the snakemake benchmark.</p>
+<p>Combines csv files with identical columns into a single csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_files</strong> – List of csv files with identical header.</p></li>
+<li><p><strong>output_file</strong> – Output csv file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 </section>
 <section id="module-domainlab.exp_protocol.run_experiment">
 <span id="domainlab-exp-protocol-run-experiment-module"></span><h2 id="module-domainlab.exp_protocol.run_experiment">domainlab.exp_protocol.run_experiment module<a class="headerlink" href="#module-domainlab.exp_protocol.run_experiment" title="Permalink to this heading">¶</a></h2>
