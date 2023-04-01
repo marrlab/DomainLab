@@ -98,6 +98,12 @@ class Exp():
 
 
     def save_san_check_for_domain(self, sample_num, folder_name, d_dataset):
+        '''
+        saves a extraction of the dataset (d_dataset) into folder (folder_name)
+        sample_num: int, number of images which are extracted from the dataset
+        folder_name: string, destination for the saved images
+        d_dataset: dataset
+        '''
 
         # for each class do...
         for class_num in range(len(self.task.list_str_y)):
