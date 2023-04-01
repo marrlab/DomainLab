@@ -36,6 +36,14 @@ domainlab.models.args\_vae module
    :undoc-members:
    :show-inheritance:
 
+domainlab.models.interface\_vae\_xyd module
+-------------------------------------------
+
+.. automodule:: domainlab.models.interface_vae_xyd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.models.model\_custom module
 -------------------------------------
 

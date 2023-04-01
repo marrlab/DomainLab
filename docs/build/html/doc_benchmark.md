@@ -51,7 +51,7 @@ task.
 To run the benchmark with a specific configuration, one can execute 
 
 ```
-./examples/benchmark/run_snakemake.sh ./examples/yaml/demo_benchmark.yaml 0 
+./run_benchmark.sh ./examples/yaml/demo_benchmark.yaml 0 
 ```
 where the first argument is the benchmark configuration file and the second argument is optional which is the starting seed.
 

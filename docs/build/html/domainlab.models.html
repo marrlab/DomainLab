@@ -288,6 +288,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.args_vae" class="md-nav__link">domainlab.models.args_vae module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-domainlab.models.interface_vae_xyd" class="md-nav__link">domainlab.models.interface_vae_xyd module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.model_custom" class="md-nav__link">domainlab.models.model_custom module</a>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.models.model_dann" class="md-nav__link">domainlab.models.model_dann module</a>
@@ -496,6 +498,36 @@ n: list of name of class</p>
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.args_vae.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_vae</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/args_vae.html#add_args2parser_vae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.args_vae.add_args2parser_vae" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
+<section id="module-domainlab.models.interface_vae_xyd">
+<span id="domainlab-models-interface-vae-xyd-module"></span><h2 id="module-domainlab.models.interface_vae_xyd">domainlab.models.interface_vae_xyd module<a class="headerlink" href="#module-domainlab.models.interface_vae_xyd" title="Permalink to this heading">¶</a></h2>
+<p>Base Class for XYD VAE</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.models.interface_vae_xyd.InterfaceVAEXYD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.interface_vae_xyd.</span></span><span class="sig-name descname"><span class="pre">InterfaceVAEXYD</span></span><a class="reference internal" href="_modules/domainlab/models/interface_vae_xyd.html#InterfaceVAEXYD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Interface (without constructor and inheritance) for XYD VAE</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/interface_vae_xyd.html#InterfaceVAEXYD.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init_p_zx4batch">
+<span class="sig-name descname"><span class="pre">init_p_zx4batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/interface_vae_xyd.html#InterfaceVAEXYD.init_p_zx4batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init_p_zx4batch" title="Permalink to this definition">¶</a></dt>
+<dd><ol class="arabic simple">
+<li><p>Generate pytorch distribution object.</p></li>
+<li><p>To be called by trainer</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_size</strong> – </p></li>
+<li><p><strong>device</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</section>
 <section id="module-domainlab.models.model_custom">
 <span id="domainlab-models-model-custom-module"></span><h2 id="module-domainlab.models.model_custom">domainlab.models.model_custom module<a class="headerlink" href="#module-domainlab.models.model_custom" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -624,32 +656,16 @@ being the commandline argument name</p>
 </section>
 <section id="module-domainlab.models.model_vae_xyd_classif">
 <span id="domainlab-models-model-vae-xyd-classif-module"></span><h2 id="module-domainlab.models.model_vae_xyd_classif">domainlab.models.model_vae_xyd_classif module<a class="headerlink" href="#module-domainlab.models.model_vae_xyd_classif" title="Permalink to this heading">¶</a></h2>
-<p>Base Class for XYD VAE</p>
+<p>Base Class for XYD VAE Classify</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_vae_xyd_classif.</span></span><span class="sig-name descname"><span class="pre">VAEXYDClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_node_builder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a></p>
-<p>Base Class for XYD VAE</p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a>, <a class="reference internal" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="domainlab.models.interface_vae_xyd.InterfaceVAEXYD"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceVAEXYD</span></code></a></p>
+<p>Base Class for DIVA and HDUVA</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y">
 <span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y" title="Permalink to this definition">¶</a></dt>
 <dd><p>calculate the logit for softmax classification</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.init_p_zx4batch">
-<span class="sig-name descname"><span class="pre">init_p_zx4batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.init_p_zx4batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.init_p_zx4batch" title="Permalink to this definition">¶</a></dt>
-<dd><ol class="arabic simple">
-<li><p>Generate pytorch distribution object.</p></li>
-<li><p>To be called by trainer</p></li>
-</ol>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>batch_size</strong> – </p></li>
-<li><p><strong>device</strong> – </p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.training">
