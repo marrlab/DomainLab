@@ -74,28 +74,42 @@ class Exp():
         self.task.init_business(args)
         f_name = os.path.join(args.out, 'Dset_extraction', self.task.task_name)
 
-        # for each domain do...
-        for domain in self.task.get_list_domains():
-            # generate a dataset for each domain
-            d_dataset = self.task.get_dset_by_domain(args, domain)[0]
+        list_domain_tr, list_domain_te = self.task.get_list_domains_tr_te(args.tr_d, args.te_d)
 
-            # for each class do...
-            for class_num in range(len(self.task.list_str_y)):
-                num_of_samples = 0
-                loader_domain = data_utils.DataLoader(d_dataset, batch_size=1, shuffle=False)
-                domain_targets = []
-                for num, (_, lab, *_) in enumerate(loader_domain):
-                    if int(np.argmax(lab[0])) == class_num:
-                        domain_targets.append(num)
-                        num_of_samples += 1
-                    if sample_num == num_of_samples:
-                        break
+        # for each training domain do...
+        for domain in list_domain_tr:
+            self.save_san_check_for_domain(args, sample_num, f_name, domain)
 
-                class_dataset = Subset(d_dataset, domain_targets)
-                os.makedirs(f_name + '/' + str(domain), exist_ok=True)
-                plot_ds(
-                    class_dataset,
-                    f_name + '/' + str(domain) + '/' +
-                    str(self.task.list_str_y[class_num]) + '.jpg',
-                    batchsize=sample_num
-                )
+        # for each testing domain do...
+        for domain in list_domain_te:
+            self.save_san_check_for_domain(args, sample_num, f_name, domain, test=True)
+
+
+    def save_san_check_for_domain(self, args, sample_num, f_name, domain, test=False):
+        if not test:
+            folder_name = 'train_domain/' + str(domain)
+        else:
+            folder_name = 'test_domain/' + str(domain)
+
+        d_dataset = self.task.get_dset_by_domain(args, domain)[0]
+
+        # for each class do...
+        for class_num in range(len(self.task.list_str_y)):
+            num_of_samples = 0
+            loader_domain = data_utils.DataLoader(d_dataset, batch_size=1, shuffle=False)
+            domain_targets = []
+            for num, (_, lab, *_) in enumerate(loader_domain):
+                if int(np.argmax(lab[0])) == class_num:
+                    domain_targets.append(num)
+                    num_of_samples += 1
+                if sample_num == num_of_samples:
+                    break
+
+            class_dataset = Subset(d_dataset, domain_targets)
+            os.makedirs(f_name + '/' + folder_name, exist_ok=True)
+            plot_ds(
+                class_dataset,
+                f_name + '/' + folder_name + '/' +
+                str(self.task.list_str_y[class_num]) + '.jpg',
+                batchsize=sample_num
+            )
