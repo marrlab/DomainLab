@@ -16,6 +16,11 @@ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nn
 ```
 python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --aname=diva --nname=alexnet --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5 --san_check --san_num=4
 ```
+### sanity check on only 2 train domains and 2 test domain2
+```
+python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --debug --bs=2 
+--aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=4
+```
 
 ### generation of images
 ```
