@@ -17,7 +17,8 @@ class TrainerChainNodeGetter(object):
         """__init__.
         :param args: command line arguments
         """
-        self.request = args
+        # NOTE: self.request.trainer is hard coded
+        self.request = args.trainer
 
     def __call__(self, lst_candidates=None, default=None):
         """
@@ -25,12 +26,11 @@ class TrainerChainNodeGetter(object):
         create heavy-weight business object
         2. hard code seems to be the best solution
         """
-        # NOTE: self.request.trainer is hard coded
-        if lst_candidates is not None and self.request.trainer not in lst_candidates:
-            raise RuntimeError(f"desired {self.request.trainer} is not supported \
+        if lst_candidates is not None and self.request not in lst_candidates:
+            raise RuntimeError(f"desired {self.request} is not supported \
                                among {lst_candidates}")
-        if default is not None and self.request.trainer is None:
-            self.request.trainer = default
+        if default is not None and self.request is None:
+            self.request = default
 
         chain = TrainerBasic(None)
         chain = TrainerDIAL(chain)
