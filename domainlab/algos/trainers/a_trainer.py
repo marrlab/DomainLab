@@ -103,7 +103,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         get the name of the algorithm
         """
-        na_prefix = AbstractTrainer.p_na_prefix
+        na_prefix = self.p_na_prefix
         len_prefix = len(na_prefix)
         na_class = type(self).__name__
         if na_class[:len_prefix] != na_prefix:

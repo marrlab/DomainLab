@@ -19,12 +19,19 @@ class TrainerChainNodeGetter(object):
         """
         self.request = args
 
-    def __call__(self, lst_candidates):
+    def __call__(self, lst_candidates=None, default=None):
         """
         1. construct the chain, filter out responsible node,
         create heavy-weight business object
         2. hard code seems to be the best solution
         """
+        # NOTE: self.request.trainer is hard coded
+        if lst_candidates is not None and self.request.trainer not in lst_candidates:
+            raise RuntimeError(f"desired {self.request.trainer} is not supported \
+                               among {lst_candidates}")
+        if default is not None and self.request.trainer is None:
+            self.request.trainer = default
+
         chain = TrainerBasic(None)
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
