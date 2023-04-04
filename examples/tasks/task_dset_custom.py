@@ -1,7 +1,7 @@
 import os
 from torchvision import transforms
 from domainlab.tasks.utils_task import ImSize
-from domainlab.tasks.task_custom_loader import mk_task_dset
+from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
 
 # relative path is essential here since this file is used for testing, no absolute directory possible
