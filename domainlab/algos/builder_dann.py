@@ -65,6 +65,4 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                                   total_steps=trainer.num_batches*args.epos,
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
-        else:
-            raise RuntimeError("no other trainer supported yet for the selected algorithm")
         return trainer
