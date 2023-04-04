@@ -356,11 +356,7 @@ from domainlab.algos.compos.matchdg_match import MatchPair
 
         # @FIXME: what is the usefulness of (epoch &gt; 0) as argument
         self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
-        obj_match(
-            self.device,
-            self.loader,
-            lambda x: self.phi.extract_semantic_feat(x),
-            (epoch &gt; 0))</div></div>
+            obj_match(self.device, self.loader, self.phi, (epoch &gt; 0))</div></div>
 
 
 <div class="viewcode-block" id="get_base_domain_size4match_dg"><a class="viewcode-back" href="../../../../domainlab.algos.compos.html#domainlab.algos.compos.matchdg_base.get_base_domain_size4match_dg">[docs]</a>def get_base_domain_size4match_dg(task):
