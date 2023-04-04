@@ -35,7 +35,8 @@ def test_trainer_diva():
     exp = Exp(margs)
     device = get_device(flag_no_cu=False)
     observer = ObVisitorCleanUp(ObVisitor(exp, model_sel, device))
-    trainer = TrainerVisitor(model, task=exp.task, observer=observer, device=device, aconf=margs)
+    trainer = TrainerVisitor()
+    trainer.init_business(model, task=exp.task, observer=observer, device=device, aconf=margs)
     trainer.before_tr()
     trainer.tr_epoch(0)
     del exp
