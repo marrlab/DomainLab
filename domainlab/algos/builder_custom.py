@@ -90,6 +90,7 @@ def make_basic_trainer(class_name_model):
             observer = ObVisitor(exp, model_sel, device)
             model = class_name_model(list_str_y=task.list_str_y)
             self.set_nets_from_dictionary(args, task, model)
-            trainer = TrainerBasic(model, task, observer, device, args)
+            trainer = TrainerBasic()
+            trainer.init_business(model, task, observer, device, args)
             return trainer
     return NodeAlgoBuilderCustom

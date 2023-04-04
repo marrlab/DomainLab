@@ -70,6 +70,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
                              model_sel,
                              device)
 
-        trainer = TrainerMatchDG(exp, task, ctr_model, model, observer, args,
-                                 device)
+        trainer = TrainerMatchDG()
+        trainer.init_business(exp, task, ctr_model, model, observer, args,
+                              device)
         return trainer

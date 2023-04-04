@@ -7,10 +7,10 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
 class TrainerMatchDG(AbstractTrainer):
     """
-    trainer for MatchDG
+    trainer for matchdg
     """
-    def __init__(self, exp, task, ctr_model, model, observer, args, device):
-        super().__init__(model, task, observer, device, args)
+    def init_business(self, exp, task, ctr_model, model, observer, args, device):
+        super().init_business(model, task, observer, device, args)
         self.exp = exp
         self.epo_loss_tr = None
         self.ctr_model = ctr_model

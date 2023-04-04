@@ -36,5 +36,6 @@ class NodeAlgoBuilderDeepAll_DIAL(NodeAlgoBuilder):
                                     i_w=task.isize.i_w)
 
         model = mk_deepall()(net, list_str_y=task.list_str_y)
-        trainer = TrainerDIAL(model, task, observer, device, args)
+        trainer = TrainerDIAL()
+        trainer.init_business(model, task, observer, device, args)
         return trainer

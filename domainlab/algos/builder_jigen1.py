@@ -70,7 +70,8 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
                            net_classifier_class=net_classifier,
                            net_classifier_permutation=net_classifier_perm)
 
-        trainer = TrainerVisitor(model, task, observer, device, args)
+        trainer = TrainerVisitor()
+        trainer.init_business(model, task, observer, device, args)
         trainer.set_scheduler(HyperSchedulerAneal,
                               total_steps=trainer.num_batches*args.epos,
                               flag_update_epoch=False,
