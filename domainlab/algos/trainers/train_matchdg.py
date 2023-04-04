@@ -1,3 +1,6 @@
+"""
+trainer for matchDG
+"""
 from domainlab.algos.compos.matchdg_ctr_erm import MatchCtrErm
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
@@ -11,6 +14,7 @@ class TrainerMatchDG(AbstractTrainer):
         self.exp = exp
         self.epo_loss_tr = None
         self.ctr_model = ctr_model
+        self.erm = None
         self.args = self.aconf
 
     def before_tr(self):

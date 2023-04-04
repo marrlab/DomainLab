@@ -82,7 +82,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             prior = Dirichlet(torch.ones(batch_size, self.topic_dim).to(device))
             return prior
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
             q_topic, topic_q, \
                 qzd, zd_q, \
                 qzx, zx_q, \
@@ -124,4 +124,12 @@ def mk_hduva(parent_class=VAEXYDClassif):
                 - self.beta_d * zd_p_minus_q \
                 - self.beta_t * topic_p_minus_q
             return batch_loss
+
+        def extract_semantic_features(self, tensor_x):
+            """
+            :param tensor_x:
+            """
+            zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
+            return zy_q_loc
+
     return ModelHDUVA

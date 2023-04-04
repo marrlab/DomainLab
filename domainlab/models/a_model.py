@@ -11,7 +11,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
-    def cal_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+    def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
         """

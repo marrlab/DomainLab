@@ -24,7 +24,6 @@ class MatchPair():
         :param virtual_ref_dset_size:  sum of biggest class sizes
         :param num_domains_tr:
         :param list_tr_domain_size:
-        :param phi: neural network to generate causal features from input
         """
         self.dim_y = dim_y
         self.bs_match = bs_match
@@ -135,8 +134,10 @@ class MatchPair():
             print("domain index as base domain:", base_domain_idx)
             print("Base Domain size", base_domain_size)
 
-
-    def __call__(self, device, loader, phi, flag_match_min_dist):
+    def __call__(self, device, loader, fun_extract_semantic_feat, flag_match_min_dist):
+        """
+        :param fun_extract_semantic_feat: function to generate causal features from input
+        """
         self._fill_data(loader)
         self._cal_base_domain()
         for curr_domain_ind in range(self.num_domains_tr):
@@ -182,7 +183,7 @@ class MatchPair():
                 for batch_x_base_domain_curr_cls in tuple_batch_x_base_domain_curr_cls:
                     with torch.no_grad():
                         batch_x_base_domain_curr_cls = batch_x_base_domain_curr_cls.to(device)
-                        feat = phi(batch_x_base_domain_curr_cls)
+                        feat = fun_extract_semantic_feat(batch_x_base_domain_curr_cls)
                         list_base_feat.append(feat.cpu())
                 tensor_feat_base_domain_curr_cls = torch.cat(list_base_feat)
                 # base domain features
@@ -197,7 +198,7 @@ class MatchPair():
                     for batch_feat in tuple_x_batch_curr_domain_curr_cls:
                         with torch.no_grad():
                             batch_feat = batch_feat.to(device)
-                            out = phi(batch_feat)
+                            out = fun_extract_semantic_feat(batch_feat)
                             list_feat_x_curr_domain_curr_cls.append(out.cpu())
                     tensor_feat_curr_domain_curr_cls = torch.cat(list_feat_x_curr_domain_curr_cls)
                     # feature through inference network for the current domain of class y_c

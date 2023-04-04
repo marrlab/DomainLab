@@ -1,5 +1,3 @@
-import copy
-
 from domainlab.compos.builder_nn_alex import mkNodeFeatExtractNNBuilderNameAlex
 from domainlab.compos.builder_nn_conv_bn_relu_2 import \
     mkNodeFeatExtractNNBuilderNameConvBnRelu2
