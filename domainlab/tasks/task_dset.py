@@ -1,11 +1,6 @@
 """
 Use dictionaries to create train and test domain split
 """
-from torch.utils.data.dataset import ConcatDataset
-
-from domainlab.tasks.utils_task import mk_loader
-from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
-from domainlab.tasks.b_task import NodeTaskDict
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 
 
@@ -13,9 +8,11 @@ def mk_task_dset(dict_domain2dset,
                  list_str_y,
                  isize,
                  taskna,  # name of the task
+                 dict_domain_img_trans=None,
+                 img_trans_te=None,
                  parent=NodeTaskDictClassif,
                  succ=None):
-    class NodeTaskLoader(parent):
+    class NodeTaskDset(parent):
         """
         Use dictionaries to create train and test domain split
         """
@@ -38,6 +35,8 @@ def mk_task_dset(dict_domain2dset,
         def conf(self, args):
             self.list_str_y = list_str_y
             self.isize = isize
+            self._dict_domain_img_trans = dict_domain_img_trans
+            self.img_trans_te = img_trans_te
 
         def get_dset_by_domain(self, args, na_domain, split=None):
             return dict_domain2dset[na_domain]
@@ -49,4 +48,4 @@ def mk_task_dset(dict_domain2dset,
             self.conf(args)
             self.set_list_domains(list(dict_domain2dset.keys()))
             super().init_business(args)
-    return NodeTaskLoader(succ=succ)
+    return NodeTaskDset(succ=succ)
