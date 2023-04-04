@@ -18,8 +18,7 @@ python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --aname=diva --nname
 ```
 ### sanity check on only 2 train domains and 2 test domain2
 ```
-python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --debug --bs=2 
---aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=4
+python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --debug --bs=2 --aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=4
 ```
 
 ### generation of images
