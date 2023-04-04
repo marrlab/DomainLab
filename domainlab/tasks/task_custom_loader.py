@@ -1,14 +1,12 @@
 """
 Use dictionaries to create train and test domain split
 """
-from collections import Counter
-import torch
 from torch.utils.data.dataset import ConcatDataset
 
-from domainlab.tasks.a_task import NodeTaskDGClassif
-from domainlab.tasks.utils_task import mk_loader, mk_onehot, DsetDomainVecDecorator
+from domainlab.tasks.utils_task import mk_loader
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 from domainlab.tasks.b_task import NodeTaskDict
+from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 
 
 def mk_task_dset(dset_tr,
@@ -18,8 +16,9 @@ def mk_task_dset(dset_tr,
                  list_str_y,
                  isize,
                  taskna,  # name of the task
+                 parent=NodeTaskDictClassif,
                  succ=None):
-    class NodeTaskLoader(NodeTaskDict):
+    class NodeTaskLoader(parent):
         """
         Use dictionaries to create train and test domain split
         """
