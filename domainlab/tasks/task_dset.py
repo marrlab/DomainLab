@@ -9,10 +9,7 @@ from domainlab.tasks.b_task import NodeTaskDict
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 
 
-def mk_task_dset(dset_tr,
-                 dset_val,
-                 dset_te,
-                 dict_domain2dset,
+def mk_task_dset(dict_domain2dset,
                  list_str_y,
                  isize,
                  taskna,  # name of the task
@@ -51,8 +48,5 @@ def mk_task_dset(dset_tr,
             """
             self.conf(args)
             self.set_list_domains(list(dict_domain2dset.keys()))
-            self._loader_tr = mk_loader(dset_tr, args.bs)
-            self._loader_val = mk_loader(dset_val, args.bs)
-            self._loader_te = mk_loader(dset_te, args.bs, drop_last=False)
             super().init_business(args)
     return NodeTaskLoader(succ=succ)
