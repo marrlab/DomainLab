@@ -100,6 +100,22 @@ domainlab.models.model\_vae\_xyd\_classif module
    :undoc-members:
    :show-inheritance:
 
+domainlab.models.model\_wrapper\_matchdg4net module
+---------------------------------------------------
+
+.. automodule:: domainlab.models.model_wrapper_matchdg4net
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.models.model\_wrapper\_matchdg4vae module
+---------------------------------------------------
+
+.. automodule:: domainlab.models.model_wrapper_matchdg4vae
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.models.wrapper\_matchdg module
 ----------------------------------------
 
