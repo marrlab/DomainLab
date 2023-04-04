@@ -7,7 +7,7 @@ output_dir: zoutput/benchmarks/pacs_benchmark
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 2
+num_param_samples: 8
 sampling_seed: 0
 
 startseed: 0
