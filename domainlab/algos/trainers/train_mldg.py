@@ -3,7 +3,6 @@ Meta Learning Domain Generalization
 """
 import copy
 import random
-from torch import optim
 from torch.utils.data.dataset import ConcatDataset
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
@@ -16,18 +15,13 @@ class TrainerMLDG(AbstractTrainer):
     """
     basic trainer
     """
-    def __init__(self, model, task, observer, device, aconf):
-        super().__init__(model, task, observer, device, aconf)
-        self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
-        self.inner_trainer = None
-        self.loader_tr_source_target = None
-
     def before_tr(self):
         """
         check the performance of randomly initialized weight
         """
         self.model.evaluate(self.loader_te, self.device)
-        self.inner_trainer = TrainerBasic(
+        self.inner_trainer = TrainerBasic()
+        self.inner_trainer.init_business(
             self.model, self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
         self.prepare_ziped_loader()
