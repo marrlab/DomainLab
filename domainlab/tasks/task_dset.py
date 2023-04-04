@@ -33,6 +33,11 @@ def mk_task_dset(dict_domain2dset,
             self._im_size = isize
 
         def conf(self, args):
+            """
+            set member variables
+            """
+            self._name = taskna
+            self._args = args
             self.list_str_y = list_str_y
             self.isize = isize
             self._dict_domain_img_trans = dict_domain_img_trans

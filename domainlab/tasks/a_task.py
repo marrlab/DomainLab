@@ -19,6 +19,8 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._loader_val = None
         self._list_domains = None
         self._list_domain_tr = None
+        self._name = None
+        self._args = None
         self.dict_dset = {}
         self.dict_dset_te = {}
         self.dict_dset_val = {}
