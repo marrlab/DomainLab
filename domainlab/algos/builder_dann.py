@@ -9,6 +9,7 @@ from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.algos.trainers.train_visitor import HyperSchedulerAneal
 from domainlab.algos.trainers.train_dial import TrainerDIAL
+from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
@@ -57,14 +58,11 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
                           net_discriminator=net_discriminator)
-        if args.trainer == "dial":
-            trainer = TrainerDIAL(model, task, observer, device, args)
-        elif args.trainer is None:
-            trainer = TrainerVisitor(model, task, observer, device, args)
+        trainer = TrainerChainNodeGetter(args)(default="visitor")
+        trainer.init_business(model, task, observer, device, args)
+        if trainer.name == "visitor":
             trainer.set_scheduler(HyperSchedulerAneal,
                                   total_steps=trainer.num_batches*args.epos,
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
-        else:
-            raise RuntimeError("no other trainer supported yet for the selected algorithm")
         return trainer

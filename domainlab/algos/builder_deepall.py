@@ -1,14 +1,20 @@
+"""
+builder for deepall
+"""
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_deep_all import mk_deepall
 from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
+    """
+    builder for deepall
+    """
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -30,5 +36,6 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                                     i_w=task.isize.i_w)
 
         model = mk_deepall()(net, list_str_y=task.list_str_y)
-        trainer = TrainerBasic(model, task, observer, device, args)
+        trainer = TrainerChainNodeGetter(args)(default="basic")
+        trainer.init_business(model, task, observer, device, args)
         return trainer
