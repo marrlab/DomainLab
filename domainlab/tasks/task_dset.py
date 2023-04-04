@@ -12,6 +12,11 @@ def mk_task_dset(dict_domain2dset,
                  img_trans_te=None,
                  parent=NodeTaskDictClassif,
                  succ=None):
+    """
+    make a task via a dictionary of dataset where the key is domain
+    value is a tuple of dataset for training and dataset for
+    validation (can be identical to training)
+    """
     class NodeTaskDset(parent):
         """
         Use dictionaries to create train and test domain split
