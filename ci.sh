@@ -4,7 +4,7 @@ starttime=`date +%s`
 bash -x -v ci_run_examples.sh
 sh ci_pytest_cov.sh
 git checkout doc2
-git merge master
+git merge master -m "."
 sh gen_doc.sh
 endtime=`date +%s`
 runtime=$((endtime-starttime))
