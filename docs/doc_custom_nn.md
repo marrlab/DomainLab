@@ -22,5 +22,5 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepal
 ### algorithm 'matchdg' with custom neural network
 
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
