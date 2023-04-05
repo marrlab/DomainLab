@@ -36,6 +36,14 @@ domainlab.tasks.b\_task\_classif module
    :undoc-members:
    :show-inheritance:
 
+domainlab.tasks.task\_dset module
+---------------------------------
+
+.. automodule:: domainlab.tasks.task_dset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.tasks.task\_folder module
 -----------------------------------
 

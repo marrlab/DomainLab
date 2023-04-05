@@ -60,6 +60,14 @@ domainlab.algos.trainers.train\_visitor module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.zoo\_trainer module
+--------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.zoo_trainer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
