@@ -64,11 +64,6 @@ Task1:  # name
     zd_dim:
       reference: zy_dim
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
 Task2:  # name
   aname: hduva
 
@@ -97,11 +92,6 @@ Task2:  # name
 
     zd_dim:
       reference: zy_dim
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 Task3:  # name
   aname: matchdg
