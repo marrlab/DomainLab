@@ -95,12 +95,6 @@ Task3:  # name
   aname: matchdg
 
   hyperparameters:
-    # penalty weight for matching loss (Lambda in paper)
-    penalty_ws:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
     # Total number of epochs for contrastive loss
     epochs_ctr:
       min: 2
@@ -121,6 +115,7 @@ Task3:  # name
       step: 1
       distribution: uniform
 
+    # penalty weight for matching loss (Lambda in paper)
     gamma_reg:
       min: 0.01
       max: 10
