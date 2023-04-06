@@ -14,8 +14,6 @@ def add_args2parser_matchdg(parser):
                         help='Number of epochs before updating the match tensor')
     parser.add_argument('--epochs_ctr', type=int, default=None,
                         help='Total number of epochs for ctr')
-    parser.add_argument('--penalty_ws', type=float, default=0.1,
-                        help='Penalty weight for Matching Loss')
     # args = parser.parse_args("")
     # return args
     return parser

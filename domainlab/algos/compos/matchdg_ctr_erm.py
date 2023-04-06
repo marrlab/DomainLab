@@ -20,7 +20,7 @@ class MatchCtrErm(MatchAlgoBase):
         self.str_phase = "ctr"
         self.lambda_ctr = 1.0
         if self.flag_erm:
-            self.lambda_ctr = self.args.penalty_ws
+            self.lambda_ctr = self.args.gamma_reg
             self.epos = self.args.epos - self.args.epochs_ctr
             self.str_phase = "erm"
             self.init_erm_phase()
