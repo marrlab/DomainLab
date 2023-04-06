@@ -21,7 +21,7 @@ class MatchCtrErm(MatchAlgoBase):
         self.lambda_ctr = 1.0
         if self.flag_erm:
             self.lambda_ctr = self.args.penalty_ws
-            self.epos = self.args.epochs_erm
+            self.epos = self.args.epos - self.args.epochs_ctr
             self.str_phase = "erm"
             self.init_erm_phase()
         else:

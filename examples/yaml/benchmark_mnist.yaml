@@ -120,11 +120,6 @@ Task3:  # name
       step: 1
       distribution: uniform
 
-    # this shall be set to be epos - epochs_ctr
-    # as epos cannot be referenced here one needs to hardcode this right number of epos here
-    epochs_erm:
-      reference: max(1, 50 - epochs_ctr)
-
     # factor to magnify cosine similarity
     tau:
       min: 0.01

@@ -66,7 +66,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen 
 
 ### model matchdg with implemented neural network
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
 ```
 
 ### hduva with implemented neural network
@@ -89,7 +89,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepal
 
 ### model matchdg with custom neural network
 ```
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epochs_erm=3 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
 
 ### hduva use custom net for sandwich encoder
