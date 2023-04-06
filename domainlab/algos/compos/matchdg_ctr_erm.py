@@ -9,10 +9,10 @@ class MatchCtrErm(MatchAlgoBase):
     """
     Contrastive Learning
     """
-    def __init__(self, task, phi, args, device, exp, flag_erm=False):
+    def __init__(self, task, phi, args, device, exp, flag_erm=False, opt=None):
         """
         """
-        super().__init__(task, phi, args, device, exp)
+        super().__init__(task, phi, args, device, exp, opt)
         self.epo_loss_tr = 0
         self.flag_erm = flag_erm
         self.epos = self.args.epochs_ctr
