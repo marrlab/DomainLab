@@ -48,13 +48,17 @@ class MatchCtrErm(MatchAlgoBase):
 
         inds_shuffle = torch.randperm(self.tensor_ref_domain2each_domain_x.size(0))
         # NOTE: match tensor size: N(ref domain size) * #(train domains) * (image size: c*h*w)
-        # self.tensor_ref_domain2each_domain_x[inds_shuffle] shuffles the match tensor at the first dimension
-        tuple_tensor_refdomain2each = torch.split(self.tensor_ref_domain2each_domain_x[inds_shuffle],
-                                                  self.args.bs, dim=0)
-        # Splits the tensor into chunks. Each chunk is a view of the original tensor of batch size self.args.bs
+        # self.tensor_ref_domain2each_domain_x[inds_shuffle]
+        # shuffles the match tensor at the first dimension
+        tuple_tensor_refdomain2each = torch.split(
+            self.tensor_ref_domain2each_domain_x[inds_shuffle],
+            self.args.bs, dim=0)
+        # Splits the tensor into chunks.
+        # Each chunk is a view of the original tensor of batch size self.args.bs
         # return is a tuple of the splited chunks
-        tuple_tensor_ref_domain2each_y = torch.split(self.tensor_ref_domain2each_domain_y[inds_shuffle],
-                                                     self.args.bs, dim=0)
+        tuple_tensor_ref_domain2each_y = torch.split(
+            self.tensor_ref_domain2each_domain_y[inds_shuffle],
+            self.args.bs, dim=0)
         print("number of batches in match tensor: ", len(tuple_tensor_refdomain2each))
         print("single batch match tensor size: ", tuple_tensor_refdomain2each[0].shape)
 
@@ -79,8 +83,6 @@ class MatchCtrErm(MatchAlgoBase):
             # these losses within one batch
 
             if self.flag_erm:
-                # logit_yhat = self.phi(x_e)  # @FIXME
-                # loss_erm_rnd_loader = F.cross_entropy(logit_yhat, y_e.long()).to(self.device)
                 loss_erm_rnd_loader = self.phi.cal_loss(x_e, y_e, d_e)
 
             num_batches = len(tuple_tensor_refdomain2each)
@@ -112,8 +114,8 @@ class MatchCtrErm(MatchAlgoBase):
             # assert not torch.sum(torch.isnan(batch_feat_ref_domain2each))
             flag_isnan = torch.any(torch.isnan(batch_feat_ref_domain2each))
             if flag_isnan:
-                # usually because learning rate is too big
-                raise RuntimeError("batch_feat_ref_domain2each NAN!")
+                print(batch_tensor_ref_domain2each)
+                raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big?")
 
             # for contrastive training phase,
             # the last layer of the model is replaced with identity
@@ -122,17 +124,10 @@ class MatchCtrErm(MatchAlgoBase):
             batch_ref_domain2each_y = batch_ref_domain2each_y.view(
                 batch_ref_domain2each_y.shape[0]*batch_ref_domain2each_y.shape[1])
 
-            # @FIXME:
-            # self.phi.cal_loss(batch_tensor_ref_domain2each,
-            # batch_ref_domain2each_y)
-
             if self.flag_erm:
-                # loss_erm_match_tensor = F.cross_entropy(batch_feat_ref_domain2each, batch_ref_domain2each_y.long()).to(self.device)
                 # @FIXME: check if batch_ref_domain2each_y is
                 # continuous number which means it is at its initial value,
                 # not yet filled
-                # FIMXE: shall we leave batch_ref_domain2each_y scalar so it
-                # takes less memory?
                 loss_erm_match_tensor = self.phi.cal_loss(
                     batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
@@ -148,9 +143,11 @@ class MatchCtrErm(MatchAlgoBase):
             # to make sure that the reshape only happens at the
             # first two dimension, the feature dim has to be kept intact
             dim_feat = batch_feat_ref_domain2each.shape[1]
-            batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(curr_batch_size, self.num_domain_tr, dim_feat)
+            batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(
+                curr_batch_size, self.num_domain_tr, dim_feat)
 
-            batch_ref_domain2each_y = batch_ref_domain2each_y.view(curr_batch_size, self.num_domain_tr)
+            batch_ref_domain2each_y = batch_ref_domain2each_y.view(
+                curr_batch_size, self.num_domain_tr)
 
             # The match tensor's first two dimension
             # [(Ref domain size) * (# train domains)] has been clamped
@@ -170,7 +167,7 @@ class MatchCtrErm(MatchAlgoBase):
                 subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
                 feat_same_cls = batch_feat_ref_domain2each[subset_same_cls]
                 feat_diff_cls = batch_feat_ref_domain2each[subset_diff_cls]
-                #print('class', y_c, "with same class and different class: ",
+                # print('class', y_c, "with same class and different class: ",
                 #      feat_same_cls.shape[0], feat_diff_cls.shape[0])
 
                 if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
@@ -210,9 +207,12 @@ class MatchCtrErm(MatchAlgoBase):
                             list_batch_loss_ctr.append(torch.sum(dist_same_cls_diff_domain))
                         else:
                             i_dist_same_cls_diff_domain = 1.0 - dist_same_cls_diff_domain
-                            i_dist_same_cls_diff_domain = i_dist_same_cls_diff_domain / self.args.tau
-                            partition = torch.log(torch.exp(i_dist_same_cls_diff_domain) + dist_diff_cls_same_domain)
-                            list_batch_loss_ctr.append(-1 * torch.sum(i_dist_same_cls_diff_domain - partition))
+                            i_dist_same_cls_diff_domain = \
+                                i_dist_same_cls_diff_domain / self.args.tau
+                            partition = torch.log(torch.exp(i_dist_same_cls_diff_domain) +
+                                                  dist_diff_cls_same_domain)
+                            list_batch_loss_ctr.append(
+                                -1 * torch.sum(i_dist_same_cls_diff_domain - partition))
 
                         counter_same_cls_diff_domain += dist_same_cls_diff_domain.shape[0]
 
