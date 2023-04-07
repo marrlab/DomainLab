@@ -104,9 +104,9 @@ Task3:  # name
       step: 1
       distribution: uniform
 
-    # factor to magnify cosine similarity
+    # factor to magnify cosine similarity, for mnist, to avoid numerical issue with nan, set tau min to be 0.1
     tau:
-      min: 0.01
+      min: 0.1
       max: 1
       distribution: loguniform
 
