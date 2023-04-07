@@ -16,7 +16,8 @@ sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 
 
 envvars:
-    "DOMAINLAB_CUDA_START_SEED"
+    "DOMAINLAB_CUDA_START_SEED",
+    "NUMBER_GPUS"
 
 
 def experiment_result_files(_):
@@ -44,7 +45,10 @@ rule parameter_sampling:
         # rerun is considered whenever the config yaml changed.
         expand("{path}", path=config_path)
     output:
-        dest=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
+        dest=expand("{output_dir}/hyperparameters.csv",
+            output_dir=config["output_dir"])
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
         sample_hyperparameters(config, str(output.dest))
@@ -63,6 +67,8 @@ rule run_experiment:
         ))
     params:
         start_seed_str=os.environ["DOMAINLAB_CUDA_START_SEED"]
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
         # import sys
@@ -100,6 +106,8 @@ rule agg_results:
         exp_results=experiment_result_files
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.exp_protocol.aggregate_results import agg_results
         agg_results(list(input.exp_results), str(output.out_file))
@@ -111,6 +119,8 @@ rule gen_plots:
         res_file=rules.agg_results.output.out_file
     output:
         out_dir=directory(expand("{output_dir}/graphics", output_dir=config["output_dir"]))
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
         gen_benchmark_plots(str(input.res_file), str(output.out_dir))
@@ -121,3 +131,5 @@ rule all:
     input:
         rules.gen_plots.output
     default_target: True
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]

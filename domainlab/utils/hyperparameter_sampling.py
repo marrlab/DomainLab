@@ -249,7 +249,7 @@ def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
     only with trusted config files.
     """
     if dest is None:
-        dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
+        dest = config['output_dir'] + os.sep + 'hyperparameters_' + str(config['sampling_seed']) + '.csv'
 
     if 'sampling_seed' in config.keys():
         np.random.seed(config['sampling_seed'])
