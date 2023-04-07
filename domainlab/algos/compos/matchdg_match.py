@@ -165,10 +165,8 @@ class MatchPair():
                     self.dict_domain_data[curr_domain_ind]['idx'][flag_curr_domain_curr_cls]
                 size_curr_domain_curr_cls = global_inds_curr_domain_curr_cls.shape[0]
                 if size_curr_domain_curr_cls == 0:  # there is no class y_c in current domain
-                    print("current domain",
-                          curr_domain_ind,
-                          " does not contain class ", y_c)
-                    raise RuntimeError("current domain does not contain all classes")
+                    raise RuntimeError(
+                        f"current domain {curr_domain_ind} does not contain class {y_c}")
 
                 # compute base domain features for class label y_c
                 x_base_domain_curr_cls = \
@@ -254,12 +252,18 @@ class MatchPair():
                             ind_match_global_curr_domain_curr_cls = global_pos_base_domain_curr_cls
                         else:
                             if flag_match_min_dist:  # if epoch > 0:match_min_dist=True
-                                ind_match_global_curr_domain_curr_cls = global_inds_curr_domain_curr_cls[match_ind_base_domain_curr_domain[idx]].item()
+                                ind_match_global_curr_domain_curr_cls = \
+                                    global_inds_curr_domain_curr_cls[
+                                        match_ind_base_domain_curr_domain[idx]].item()
                             else:  # if epoch == 0
-                                ind_match_global_curr_domain_curr_cls = global_inds_curr_domain_curr_cls[counter_curr_cls_base_domain%size_curr_domain_curr_cls].item()
+                                ind_match_global_curr_domain_curr_cls = \
+                                    global_inds_curr_domain_curr_cls[
+                                        counter_curr_cls_base_domain%size_curr_domain_curr_cls].item()
 
-                        self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
-                        self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
+                        self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = \
+                            self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
+                        self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = \
+                            self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
                         # @FIXME: label initially were set to random continuous
                         # value, which is a technique to check if
                         # every data has been filled
