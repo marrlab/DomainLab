@@ -1,8 +1,6 @@
 """
 trainer for matchDG
 """
-import torch
-from torch import optim
 from domainlab.algos.compos.matchdg_ctr_erm import MatchCtrErm
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
