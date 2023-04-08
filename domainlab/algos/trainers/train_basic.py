@@ -5,6 +5,7 @@ import math
 from torch import optim
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
+from domainlab.algos.trainers.a_trainer import mk_opt
 
 
 class TrainerBasic(AbstractTrainer):
@@ -41,7 +42,7 @@ class TrainerBasic(AbstractTrainer):
         use a temporary optimizer to update only the model upon a batch of data
         """
         # temparary optimizer
-        optimizer = optim.Adam(self.model.parameters(), lr=self.aconf.lr)
+        optimizer = mk_opt(self.model, self.aconf)
         tensor_x, vec_y, vec_d = \
             tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
         optimizer.zero_grad()
