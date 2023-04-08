@@ -5,6 +5,13 @@ import abc
 from torch import optim
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
+def mk_opt(model, aconf):
+    """
+    create optimizer
+    """
+    optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+    return optimizer
+
 
 class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
     """
@@ -69,7 +76,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_update_hyper_per_batch = False
         self.epo_loss_tr = None
         self.hyper_scheduler = None
-        self.optimizer = optim.Adam(self.model.parameters(), lr=aconf.lr)
+        self.optimizer = mk_opt(self.model, self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):

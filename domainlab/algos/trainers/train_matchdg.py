@@ -28,7 +28,8 @@ class TrainerMatchDG(AbstractTrainer):
                           phi=self.ctr_model,
                           args=self.args,
                           device=self.device,
-                          flag_erm=False)
+                          flag_erm=False,
+                          opt=None)
         ctr.train()
         print("Phase 1 finished: ", ctr.ctr_mpath)
         # phase 2: ERM, initialize object
@@ -37,7 +38,8 @@ class TrainerMatchDG(AbstractTrainer):
                                task=self.task,
                                args=self.args,
                                device=self.device,
-                               flag_erm=True)
+                               flag_erm=True,
+                               opt=self.optimizer)
 
     def tr_epoch(self, epoch):
         self.model.train()
