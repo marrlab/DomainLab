@@ -134,7 +134,8 @@ class MatchCtrErm(MatchAlgoBase):
         flag_isnan = torch.any(torch.isnan(batch_feat_ref_domain2each))
         if flag_isnan:
             print(batch_tensor_ref_domain2each)
-            raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big?")
+            raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big or \
+                               hyper-parameter tau not set appropriately?")
 
         # for contrastive training phase,
         # the last layer of the model is replaced with identity
