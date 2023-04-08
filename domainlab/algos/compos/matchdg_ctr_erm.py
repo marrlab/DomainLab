@@ -73,6 +73,8 @@ class MatchCtrErm(MatchAlgoBase):
             # is only used for creating the match tensor
             self.update_batch(epoch, batch_idx, x_e, y_e, d_e)
             if self.flag_stop is True:
+                print("ref/base domain vs each domain match \
+                      traversed one sweep, starting new epoch")
                 break
         if not self.flag_erm:
             # Save ctr model's weights post each epoch
