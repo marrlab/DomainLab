@@ -81,6 +81,9 @@ class MatchCtrErm(MatchAlgoBase):
             self.save_model_ctr_phase()
 
     def update_batch(self, epoch, batch_idx, x_e, y_e, d_e):
+        """
+        update network for each batch
+        """
         self.opt.zero_grad()
         x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
         # y_e_scalar = torch.argmax(y_e, dim=1).to(self.device)
