@@ -46,6 +46,20 @@ def test_custom2():
     gc.collect()
 
 
+def test_no_entwork_exeption():
+    parser = mk_parser_main()
+    argsstr = "python main_out.py --te_d=caltech --task=mini_vlcs --debug " \
+              "--bs=8 --aname=deepall --npath=tests/this_is_not_a_network.py"
+    margs = parser.parse_args(argsstr.split())
+    exp = Exp(margs)
+    exp.trainer.before_tr()
+    exp.trainer.tr_epoch(0)
+    exp.trainer.post_tr()
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
+
 def test_amodelcustom():
     """Test that AModelCustom raises correct NotImplementedErrors
     """
