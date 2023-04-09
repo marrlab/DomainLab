@@ -79,6 +79,6 @@ def test_sampling_seed():
 
     config['sampling_seed'] = 1
 
-    samples1 = sample_hyperparameters(config)
-    samples2 = sample_hyperparameters(config)
+    samples1 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+    samples2 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
     pd.testing.assert_frame_equal(samples1, samples2)
