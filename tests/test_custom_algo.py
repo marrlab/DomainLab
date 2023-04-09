@@ -47,6 +47,10 @@ def test_custom2():
 
 
 def test_no_entwork_exeption():
+    '''
+    test if we can acess the exeption wen using a costum network
+    which is not a network
+    '''
     parser = mk_parser_main()
     argsstr = "python main_out.py --te_d=caltech --task=mini_vlcs --debug " \
               "--bs=8 --aname=deepall --npath=tests/this_is_not_a_network.py"
