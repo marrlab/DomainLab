@@ -237,7 +237,9 @@ def is_task(val) -> bool:
     return isinstance(val, dict) and 'aname' in val.keys()
 
 
-def sample_hyperparameters(config: dict, dest: str = None, sampling_seed: int = None) -> pd.DataFrame:
+def sample_hyperparameters(config: dict,
+                           dest: str = None,
+                           sampling_seed: int = None) -> pd.DataFrame:
     """
     Samples the hyperparameters according to the given
     config, which should be the dictionary of the full
