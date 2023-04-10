@@ -46,6 +46,19 @@ def test_custom2():
     gc.collect()
 
 
+def test_no_network_exeption():
+    '''
+    test if we can acess the exeption wen using a costum network
+    which is not a network
+    '''
+    parser = mk_parser_main()
+    argsstr = "--te_d=caltech --task=mini_vlcs --debug \
+              --bs=8 --aname=deepall --npath=tests/this_is_not_a_network.py"
+    margs = parser.parse_args(argsstr.split())
+    with pytest.raises(RuntimeError, match='the pytorch module returned by'):
+        Exp(margs)
+
+
 def test_amodelcustom():
     """Test that AModelCustom raises correct NotImplementedErrors
     """
