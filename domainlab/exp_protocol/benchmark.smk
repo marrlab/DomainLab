@@ -17,8 +17,8 @@ sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 
 envvars:
     "DOMAINLAB_CUDA_START_SEED",
+    "DOMAINLAB_CUDA_HYPERPARAM_SEED",
     "NUMBER_GPUS"
-    "DOMAINLAB_CUDA_HYPERPARAM_SEED"
 
 
 def experiment_result_files(_):
