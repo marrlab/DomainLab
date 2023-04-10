@@ -16,7 +16,8 @@ sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 
 
 envvars:
-    "DOMAINLAB_CUDA_START_SEED"
+    "DOMAINLAB_CUDA_START_SEED",
+    "DOMAINLAB_CUDA_HYPERPARAM_SEED"
 
 
 def experiment_result_files(_):
@@ -45,9 +46,25 @@ rule parameter_sampling:
         expand("{path}", path=config_path)
     output:
         dest=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
+    params:
+        sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
-        sample_hyperparameters(config, str(output.dest))
+
+        sampling_seed_str = params.sampling_seed
+        if isinstance(sampling_seed_str, str) and (len(sampling_seed_str) > 0):
+          # hash will keep integer intact and hash strings to random seed
+          # hased integer is signed and usually too big, random seed only
+          # allowed to be in [0, 2^32-1]
+          # if the user input is number, then hash will not change the value,
+          # so we recommend the user to use number as start seed
+          sampling_seed = abs(hash(sampling_seed_str)) % (2 ** 32)
+        elif 'sampling_seed' in config.keys():
+          sampling_seed = config['sampling_seed']
+        else:
+          sampling_seed = None
+
+        sample_hyperparameters(config, str(output.dest), sampling_seed)
 
 
 rule run_experiment:

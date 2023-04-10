@@ -237,7 +237,9 @@ def is_task(val) -> bool:
     return isinstance(val, dict) and 'aname' in val.keys()
 
 
-def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
+def sample_hyperparameters(config: dict,
+                           dest: str = None,
+                           sampling_seed: int = None) -> pd.DataFrame:
     """
     Samples the hyperparameters according to the given
     config, which should be the dictionary of the full
@@ -251,8 +253,8 @@ def sample_hyperparameters(config: dict, dest: str = None) -> pd.DataFrame:
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
-    if 'sampling_seed' in config.keys():
-        np.random.seed(config['sampling_seed'])
+    if not sampling_seed is None:
+        np.random.seed(sampling_seed)
 
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
