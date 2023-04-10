@@ -26,7 +26,7 @@ sampling_seed: 1  # Optional
 # different seeds are used to estimate the stochastic
 # variance.
 startseed: 1
-endseed: 1  # currently included
+endseed: 2  # currently included
 
 domainlab_args:
   # Domainlab arguments passed to each task.

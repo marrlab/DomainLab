@@ -251,8 +251,7 @@ def sample_hyperparameters(config: dict,
     only with trusted config files.
     """
     if dest is None:
-        dest = config['output_dir'] + os.sep + \
-               'hyperparameters_' + str(sampling_seed) + '.csv'
+        dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
     if not sampling_seed is None:
         np.random.seed(sampling_seed)
