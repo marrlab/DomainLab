@@ -7,6 +7,7 @@ import yaml
 
 from domainlab.utils.hyperparameter_sampling import \
     sample_hyperparameters, sample_parameters, get_hyperparameter
+from tests.utils_test import assert_frame_not_equal
 
 
 def test_hyperparameter_sampling():
@@ -74,11 +75,24 @@ def test_sample_parameters_abort():
 
 def test_sampling_seed():
     """Tests if the same hyperparameters are sampled if sampling_seed is set"""
-    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r") as stream:
+    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
 
     config['sampling_seed'] = 1
 
-    samples1 = sample_hyperparameters(config)
-    samples2 = sample_hyperparameters(config)
+    samples1 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+    samples2 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
     pd.testing.assert_frame_equal(samples1, samples2)
+
+
+def test_sampling_seed_diff():
+    """Tests if the same hyperparameters are sampled if sampling_seed is set"""
+    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r", encoding="utf8") as stream:
+        config = yaml.safe_load(stream)
+
+    config['sampling_seed'] = 1
+    samples1 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+
+    config['sampling_seed'] = 2
+    samples2 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+    assert_frame_not_equal(samples1, samples2)

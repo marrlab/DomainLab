@@ -1,10 +1,9 @@
 import torch
-from torch import optim
 from domainlab.algos.compos.matchdg_match import MatchPair
 
 
 class MatchAlgoBase():
-    def __init__(self, task, phi, args, device, exp):
+    def __init__(self, task, phi, args, device, exp, opt):
         self.bs_match = args.bs  # use the same batch size for match tensor
         self.exp = exp
         self.task = task
@@ -24,8 +23,7 @@ class MatchAlgoBase():
         self.device = device
         self.phi = phi.to(self.device)
         #
-        self.opt = self.get_opt_sgd()
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.opt, step_size=25)
+        self.opt = opt
         self.ctr_mpath = self.exp.visitor.model_path + "_ctr"
         #
         self.tensor_ref_domain2each_domain_x = None
@@ -47,14 +45,6 @@ class MatchAlgoBase():
         # extra fields are fc.weight, fc.bias
         self.phi.eval()  # @FIXME
         self.mk_match_tensor(epoch=0)
-
-    def get_opt_sgd(self):
-        opt = optim.SGD([{'params': filter(
-                         lambda p: p.requires_grad,
-                         self.phi.parameters())}, ],
-                        lr=self.args.lr, weight_decay=5e-4,
-                        momentum=0.9, nesterov=True)
-        return opt
 
     def save_model_ctr_phase(self):
         # Store the weights of the model
