@@ -43,13 +43,13 @@ class SanityCheck():
         for domain in list_domain_tr:
             d_dataset = self.task.get_dset_by_domain(self.args, domain)[0]
             folder_name = f_name + '/train_domain/' + str(domain)
-            self.save_san_check_for_domain(self.args.sample_num, folder_name, d_dataset)
+            self.save_san_check_for_domain(self.args.san_num, folder_name, d_dataset)
 
         # for each testing domain do...
         for domain in list_domain_te:
             d_dataset = self.task.get_dset_by_domain(self.args, domain)[0]
             folder_name = f_name + '/test_domain/' + str(domain)
-            self.save_san_check_for_domain(self.args.sample_num, folder_name, d_dataset)
+            self.save_san_check_for_domain(self.args.san_num, folder_name, d_dataset)
 
 
     def save_san_check_for_domain(self, sample_num, folder_name, d_dataset):

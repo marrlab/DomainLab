@@ -28,7 +28,7 @@ class Exp():
         if task is None:
             self.task = TaskChainNodeGetter(args)()
             if args.san_check:
-                sancheck = SanityCheck(args, task)
+                sancheck = SanityCheck(args, self.task)
                 sancheck.dataset_sanity_check()
         self.task.init_business(args)
         self.args = args
