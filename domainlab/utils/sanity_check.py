@@ -1,3 +1,7 @@
+'''
+This class is used to perform the sanity check on a task description
+'''
+
 import datetime
 import os
 import shutil
@@ -25,7 +29,8 @@ class SanityCheck():
         """
         self.task.init_business(self.args)
 
-        list_domain_tr, list_domain_te = self.task.get_list_domains_tr_te(self.args.tr_d, self.args.te_d)
+        list_domain_tr, list_domain_te = self.task.get_list_domains_tr_te(self.args.tr_d,
+                                                                          self.args.te_d)
 
 
         time_stamp = datetime.datetime.now()
