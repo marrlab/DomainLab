@@ -13,9 +13,29 @@ echo "verbose log: $logfile"
 
 
 CONFIGFILE=$1
-export DOMAINLAB_CUDA_START_SEED=$2
-export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
-export NUMBER_GPUS=$4
+
+
+if [ -z "$2" ]
+then
+      export DOMAINLAB_CUDA_START_SEED=0
+else
+      export DOMAINLAB_CUDA_START_SEED=$2
+fi
+
+
+if [ -z "$3" ]
+then
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
+else
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
+fi
+
+if [ -z "$4" ]
+then
+      export NUMBER_GPUS=1
+else
+      export NUMBER_GPUS=$4
+fi
 
 
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)
