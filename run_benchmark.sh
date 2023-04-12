@@ -15,25 +15,34 @@ echo "verbose log: $logfile"
 CONFIGFILE=$1
 
 
+
 if [ -z "$2" ]
 then
-      export DOMAINLAB_CUDA_START_SEED=0
+      echo "argument 2: DOMAINLAB_CUDA_START_SEED empty"
+      echo "argument 2: DOMAINLAB_CUDA_START_SEED=$2"
 else
-      export DOMAINLAB_CUDA_START_SEED=$2
+      echo "argument 2: DOMAINLAB_CUDA_START_SEED=$2"
 fi
+
+export DOMAINLAB_CUDA_START_SEED=$2
 
 
 if [ -z "$3" ]
 then
-      export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
+      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED empty"
+      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED=$3"
 else
-      export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
+      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED=$3"
 fi
+export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
 
 if [ -z "$4" ]
 then
       export NUMBER_GPUS=1
+      echo "argument 4: NUMBER_GPUS set to 1"
+      echo "argument 4: NUMBER_GPUS=$NUMBER_GPUS"
 else
+      echo "argument 4: NUMBER_GPUS=$4"
       export NUMBER_GPUS=$4
 fi
 
