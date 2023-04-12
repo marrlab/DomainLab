@@ -10,7 +10,10 @@ def get_device(args):
     """
     flag_no_cu = args.nocu
     flag_cuda = torch.cuda.is_available() and (not flag_no_cu)
-    device = torch.device("cuda" if flag_cuda else "cpu")
+    if args.device is None:
+        device = torch.device("cuda" if flag_cuda else "cpu")
+    else:
+        device = torch.device("cuda:"+args.device if flag_cuda else "cpu")
     print("")
     print("using device:", str(device))
     print("")
