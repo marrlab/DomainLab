@@ -77,6 +77,7 @@ def run_experiment(
     apply_dict_to_args(args, args_algo_as_task)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
+    args.device = str(param_index % 4)
 
     if torch.cuda.is_available():
         torch.cuda.init()
