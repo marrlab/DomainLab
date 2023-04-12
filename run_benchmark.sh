@@ -16,33 +16,33 @@ CONFIGFILE=$1
 
 
 
+echo "argument 2=$2"
 if [ -z "$2" ]
 then
       echo "argument 2: DOMAINLAB_CUDA_START_SEED empty"
-      echo "argument 2: DOMAINLAB_CUDA_START_SEED=$2"
-else
-      echo "argument 2: DOMAINLAB_CUDA_START_SEED=$2"
 fi
 
 export DOMAINLAB_CUDA_START_SEED=$2
 
 
+echo "argument 3: $3"
+
 if [ -z "$3" ]
 then
-      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED empty"
-      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED=$3"
+      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED empty, will set to 0"
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
 else
-      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED=$3"
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
 fi
-export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
 
+
+echo "argument 4: NUMBER_GPUS=$4"
 if [ -z "$4" ]
 then
       export NUMBER_GPUS=1
       echo "argument 4: NUMBER_GPUS set to 1"
       echo "argument 4: NUMBER_GPUS=$NUMBER_GPUS"
 else
-      echo "argument 4: NUMBER_GPUS=$4"
       export NUMBER_GPUS=$4
 fi
 
