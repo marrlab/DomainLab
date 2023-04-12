@@ -97,9 +97,12 @@ rule run_experiment:
           # allowed to be in [0, 2^32-1]
           # if the user input is number, then hash will not change the value,
           # so we recommend the user to use number as start seed
-          start_seed = abs(hash(start_seed_str)) % (2 ** 32)
+          if start_seed_str.isdigit():
+            start_seed = int(start_seed_str)
+          else:
+            start_seed = abs(hash(start_seed_str)) % (2 ** 32)
         else:
-          start_seed = None
+          start_seed = None # use start seed defined in benchmark yaml configuration file
         # {index} defines wildcards named index
         index = int(expand(wildcards.index)[0])
         # :param config: dictionary from the benchmark yaml
