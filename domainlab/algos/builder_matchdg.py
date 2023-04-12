@@ -28,7 +28,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        device = get_device(args.nocu)
+        device = get_device(args)
 
         erm_builder = FeatExtractNNBuilderChainNodeGetter(
             args,

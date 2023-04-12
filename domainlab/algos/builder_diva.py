@@ -39,7 +39,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
                           beta_x=args.beta_x,
                           beta_y=args.beta_y,
                           beta_d=args.beta_d)
-        device = get_device(args.nocu)
+        device = get_device(args)
         model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
         if not args.gen:
             observer = ObVisitorCleanUp(

@@ -33,7 +33,7 @@ def test_trainer_diva():
                       beta_d=1.0, beta_y=1.0, beta_x=1.0)
     model_sel = MSelOracleVisitor(MSelTrLoss(max_es=margs.es))
     exp = Exp(margs)
-    device = get_device(flag_no_cu=False)
+    device = get_device(margs)
     observer = ObVisitorCleanUp(ObVisitor(exp, model_sel, device))
     trainer = TrainerVisitor()
     trainer.init_business(model, task=exp.task, observer=observer, device=device, aconf=margs)

@@ -14,7 +14,7 @@ def main_gen(args, task=None, model=None, device=None):
     """
     command line generate images
     """
-    device = get_device(args.nocu)
+    device = get_device(args)
     node = TaskChainNodeGetter(args)()
     node.init_business(args)
     model = torch.load(args.mpath, map_location="cpu")
