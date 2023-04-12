@@ -13,8 +13,39 @@ echo "verbose log: $logfile"
 
 
 CONFIGFILE=$1
+
+
+
+echo "argument 2=$2"
+if [ -z "$2" ]
+then
+      echo "argument 2: DOMAINLAB_CUDA_START_SEED empty"
+fi
+
 export DOMAINLAB_CUDA_START_SEED=$2
-export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
+
+
+echo "argument 3: $3"
+
+if [ -z "$3" ]
+then
+      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED empty, will set to 0"
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
+else
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
+fi
+
+
+echo "argument 4: NUMBER_GPUS=$4"
+if [ -z "$4" ]
+then
+      export NUMBER_GPUS=1
+      echo "argument 4: NUMBER_GPUS set to 1"
+      echo "argument 4: NUMBER_GPUS=$NUMBER_GPUS"
+else
+      export NUMBER_GPUS=$4
+fi
+
 
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)
 # -p: print shell commands
@@ -26,10 +57,10 @@ export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
 
 
 # first display all tasks
-snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going --summary  # this will give us a clue first what jobs will be run
+snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going --summary  # this will give us a clue first what jobs will be run
 
 # second submit the jobs
-snakemake --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going 2>&1 | tee "$logfile"
+snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going 2>&1 | tee "$logfile"
 
 
 # snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"

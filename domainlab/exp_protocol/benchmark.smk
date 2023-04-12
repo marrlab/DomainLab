@@ -17,7 +17,8 @@ sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 
 envvars:
     "DOMAINLAB_CUDA_START_SEED",
-    "DOMAINLAB_CUDA_HYPERPARAM_SEED"
+    "DOMAINLAB_CUDA_HYPERPARAM_SEED",
+    "NUMBER_GPUS"
 
 
 def experiment_result_files(_):
@@ -46,6 +47,8 @@ rule parameter_sampling:
         expand("{path}", path=config_path)
     output:
         dest=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     params:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
@@ -58,7 +61,10 @@ rule parameter_sampling:
           # allowed to be in [0, 2^32-1]
           # if the user input is number, then hash will not change the value,
           # so we recommend the user to use number as start seed
-          sampling_seed = abs(hash(sampling_seed_str)) % (2 ** 32)
+          if sampling_seed_str.isdigit():
+            sampling_seed = int(sampling_seed_str)
+          else:
+            sampling_seed = abs(hash(sampling_seed_str)) % (2 ** 32)
         elif 'sampling_seed' in config.keys():
           sampling_seed = config['sampling_seed']
         else:
@@ -80,6 +86,8 @@ rule run_experiment:
         ))
     params:
         start_seed_str=os.environ["DOMAINLAB_CUDA_START_SEED"]
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
         # import sys
@@ -120,6 +128,8 @@ rule agg_results:
         exp_results=experiment_result_files
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.exp_protocol.aggregate_results import agg_results
         agg_results(list(input.exp_results), str(output.out_file))
@@ -131,6 +141,8 @@ rule gen_plots:
         res_file=rules.agg_results.output.out_file
     output:
         out_dir=directory(expand("{output_dir}/graphics", output_dir=config["output_dir"]))
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
         gen_benchmark_plots(str(input.res_file), str(output.out_dir))
@@ -141,3 +153,5 @@ rule all:
     input:
         rules.gen_plots.output
     default_target: True
+    resources:
+        nvidia_gpu=os.environ["NUMBER_GPUS"]
