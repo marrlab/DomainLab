@@ -61,7 +61,10 @@ rule parameter_sampling:
           # allowed to be in [0, 2^32-1]
           # if the user input is number, then hash will not change the value,
           # so we recommend the user to use number as start seed
-          sampling_seed = abs(hash(sampling_seed_str)) % (2 ** 32)
+          if sampling_seed_str.isdigit():
+            sampling_seed = int(sampling_seed_str)
+          else:
+            sampling_seed = abs(hash(sampling_seed_str)) % (2 ** 32)
         elif 'sampling_seed' in config.keys():
           sampling_seed = config['sampling_seed']
         else:
