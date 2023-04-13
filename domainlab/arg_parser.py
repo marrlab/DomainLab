@@ -37,6 +37,9 @@ def mk_parser_main():
     parser.add_argument('--nocu', action='store_true', default=False,
                         help='disables CUDA')
 
+    parser.add_argument('--device', type=str, default=None,
+                        help='device name default None')
+
     parser.add_argument('--gen', action='store_true', default=False,
                         help='save generated images')
 

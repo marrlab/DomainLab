@@ -85,7 +85,7 @@ def make_basic_trainer(class_name_model):
             """
             task = exp.task
             args = exp.args
-            device = get_device(args.nocu)
+            device = get_device(args)
             model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
             observer = ObVisitor(exp, model_sel, device)
             model = class_name_model(list_str_y=task.list_str_y)

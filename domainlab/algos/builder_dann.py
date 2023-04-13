@@ -27,7 +27,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        device = get_device(args.nocu)
+        device = get_device(args)
         msel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
         observer = ObVisitor(exp, msel, device)
         observer = ObVisitorCleanUp(observer)

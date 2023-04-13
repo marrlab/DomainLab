@@ -31,7 +31,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
         args = exp.args
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
-        device = get_device(args.nocu)
+        device = get_device(args)
         node = VAEChainNodeGetter(request, args.topic_dim)()
         model = mk_hduva()(node,
                            zd_dim=args.zd_dim,

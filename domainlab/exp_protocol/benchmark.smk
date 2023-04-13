@@ -47,8 +47,6 @@ rule parameter_sampling:
         expand("{path}", path=config_path)
     output:
         dest=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
-    resources:
-        nvidia_gpu=os.environ["NUMBER_GPUS"]
     params:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
@@ -128,8 +126,6 @@ rule agg_results:
         exp_results=experiment_result_files
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
-    resources:
-        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.exp_protocol.aggregate_results import agg_results
         agg_results(list(input.exp_results), str(output.out_file))
@@ -141,8 +137,6 @@ rule gen_plots:
         res_file=rules.agg_results.output.out_file
     output:
         out_dir=directory(expand("{output_dir}/graphics", output_dir=config["output_dir"]))
-    resources:
-        nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
         from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
         gen_benchmark_plots(str(input.res_file), str(output.out_dir))
