@@ -84,8 +84,6 @@ rule run_experiment:
         ))
     params:
         start_seed_str=os.environ["DOMAINLAB_CUDA_START_SEED"]
-    resource_scopes:
-        gpus="global"
     resources:
         nvidia_gpu=os.environ["NUMBER_GPUS"]
     run:
