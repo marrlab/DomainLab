@@ -117,7 +117,8 @@ rule run_experiment:
         # currently this correspond to the line number in the csv file, or row number
         # in the resulting pandas dataframe
         # :param out_file: path to the output csv
-        run_experiment(config,str(input.param_file),index,str(output.out_file), start_seed, num_gpus=nvidia_gpu)
+        num_gpus = int(resources.nvidia_gpu)
+        run_experiment(config,str(input.param_file),index,str(output.out_file), start_seed, num_gpus=num_gpus)
 
 
 rule agg_results:
