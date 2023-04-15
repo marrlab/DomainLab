@@ -17,9 +17,3 @@ This procedure yields to the following availability of hyperparameter:
 - `--epochs_ctr`: number of epochs for minimizing the contrastive loss in phase 1.
 - `--epos_per_match_update`: Number of epochs before updating the match tensor.
 - `--gamma_reg`: weight for the regularization term in phase 2.
-
-
-
-
-
-
