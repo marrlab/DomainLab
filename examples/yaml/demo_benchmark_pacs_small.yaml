@@ -19,11 +19,11 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   ## dataset
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/demo_task_path_list_small.py
   dmem: False
   lr: 1e-5
   epos: 500
-  es: 5
+  es: 10
   bs: 64
   nname: alexnet
   san_check: True
