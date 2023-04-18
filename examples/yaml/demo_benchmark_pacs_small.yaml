@@ -24,7 +24,7 @@ domainlab_args:
   lr: 1e-5
   epos: 500
   es: 10
-  bs: 64
+  bs: 2
   nname: alexnet
   san_check: True
 
