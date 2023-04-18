@@ -22,8 +22,8 @@ domainlab_args:
   tpath: examples/tasks/demo_task_path_list_small.py
   dmem: False
   lr: 0.001
-  epos: 50
-  es: 5
+  epos: 500
+  es: 10
   bs: 64
   nname: alexnet
   san_check: True
