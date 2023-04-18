@@ -21,7 +21,7 @@ domainlab_args:
   ## dataset
   tpath: examples/tasks/demo_task_path_list_small.py
   dmem: False
-  lr: 0.001
+  lr: 1e-5
   epos: 500
   es: 10
   bs: 64
