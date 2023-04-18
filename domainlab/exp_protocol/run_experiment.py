@@ -35,6 +35,7 @@ def run_experiment(
         out_file: str,
         start_seed=None,
         misc=None,
+        num_gpus=1
 ):
     """
     Runs the experiment several times:
@@ -77,6 +78,7 @@ def run_experiment(
     apply_dict_to_args(args, args_algo_as_task)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
+    args.device = str(param_index % num_gpus)
 
     if torch.cuda.is_available():
         torch.cuda.init()
