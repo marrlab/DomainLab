@@ -33,9 +33,9 @@ def run_experiment(
         param_file: str,
         param_index: int,
         out_file: str,
-        num_gpus: int,
         start_seed=None,
-        misc=None
+        misc=None,
+        num_gpus=1
 ):
     """
     Runs the experiment several times:

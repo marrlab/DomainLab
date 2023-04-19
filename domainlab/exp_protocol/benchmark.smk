@@ -118,7 +118,7 @@ rule run_experiment:
         # in the resulting pandas dataframe
         # :param out_file: path to the output csv
         num_gpus = int(num_gpus_str)
-        run_experiment(config,str(input.param_file),index,str(output.out_file), num_gpus, start_seed)
+        run_experiment(config,str(input.param_file),index,str(output.out_file), start_seed, num_gpus=num_gpus)
 
 
 rule agg_results:
