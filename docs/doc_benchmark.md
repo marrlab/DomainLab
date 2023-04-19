@@ -48,7 +48,7 @@ For executing the benchmark, a sample command can be found
 If several cores are provided, the benchmark is parallelized per hyperparameter sample and
 task.
 
-To run the benchmark with a specific configuration, one can execute 
+To run the benchmark with a specific configuration, one can execute (we assume you have a machine with 4 cores or more. 
 
 ```
 ./run_benchmark_local_conf_seed2_gpu2.sh ./examples/yaml/demo_benchmark.yaml 0  0
