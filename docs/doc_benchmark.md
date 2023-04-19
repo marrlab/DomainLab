@@ -51,9 +51,9 @@ task.
 To run the benchmark with a specific configuration, one can execute 
 
 ```
-./run_benchmark.sh ./examples/yaml/demo_benchmark.yaml 0 
+./run_benchmark_local_conf_seed2_gpu2.sh ./examples/yaml/demo_benchmark.yaml 0  0
 ```
-where the first argument is the benchmark configuration file and the second argument is optional which is the starting seed.
+where the first argument is the benchmark configuration file and the second and third argument is optional which is the starting seed for cuda and hyperparameter sampling, the last optional argument is the number of GPUs to use, by default it is one, and this should be the case for cpu as well.
 
 ## Obtained results
 All files created by this benchmark are saved in the given output directory.
