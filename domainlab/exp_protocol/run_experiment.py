@@ -33,9 +33,9 @@ def run_experiment(
         param_file: str,
         param_index: int,
         out_file: str,
+        num_gpus: int,
         start_seed=None,
-        misc=None,
-        num_gpus=1
+        misc=None
 ):
     """
     Runs the experiment several times:
@@ -78,7 +78,8 @@ def run_experiment(
     apply_dict_to_args(args, args_algo_as_task)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
-    args.device = str(param_index % num_gpus)
+    gpu_ind = param_index % num_gpus
+    args.device = str(gpu_ind)
 
     if torch.cuda.is_available():
         torch.cuda.init()
@@ -101,6 +102,8 @@ def run_experiment(
                     print(torch.cuda.memory_summary())
             except KeyError as ex:
                 print(ex)
+            args.lr = float(args.lr)
+            # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()

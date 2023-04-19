@@ -22,7 +22,7 @@ domainlab_args:
   tpath: examples/tasks/demo_task_path_list_small.py
   dmem: False
   lr: 1e-5
-  epos: 500
+  epos: 2
   es: 10
   bs: 2
   nname: alexnet

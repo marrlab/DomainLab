@@ -60,7 +60,7 @@ fi
 snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going --summary  # this will give us a clue first what jobs will be run
 
 # second submit the jobs
-snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going 2>&1 | tee "$logfile"
+snakemake --rerun-incomplete --resources nvidia_gpu=$NUMBER_GPUS --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going 2>&1 | tee "$logfile"
 
 
 # snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
