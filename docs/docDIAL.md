@@ -25,10 +25,12 @@ The loss function of the algorithm is a combination of three terms:
 3. standard cross-entropy loss between predicted domain probability and domain label ($D_{nat}$ for the natural domain, $D_{adv}$ for the adversarial domain)
 
 The loss functions are given by:
+
 $$
 DIAL_{CE} = CE_{nat} + \lambda ~ CE_{adv} - r(D_{nat} + D_{adv}) \\
 DIAL_{KL} = CE_{nat} + \lambda ~ KL - r(D_{nat} + D_{adv})
 $$
+
 As the task is to minimize the label classification loss and maximize classification loss for the the adversarial domain, a gradient reversal layer is inserted into the network, right in front of the domain classifier. This layer leaves the input unchanged during forward propagation and reverses the gradient by multiplying it with a negative scalar during the back-propagation. This parameter is initialized to a small value and is gradually increased to $r$.
 
 
