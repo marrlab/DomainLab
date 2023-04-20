@@ -7,11 +7,11 @@ output_dir: zoutput/benchmarks/pacs_benchmark
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 8
+num_param_samples: 2
 sampling_seed: 0
 
 startseed: 0
-endseed: 5  # currently included
+endseed: 1  # currently included
 
 
 
@@ -19,12 +19,12 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   ## dataset
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/demo_task_path_list_small.py
   dmem: False
   lr: 1e-5
-  epos: 500
-  es: 5
-  bs: 64
+  epos: 2
+  es: 10
+  bs: 2
   nname: alexnet
   san_check: True
 
