@@ -20,12 +20,17 @@ DIAL_{KL} = CE_{nat} + \lambda ~ KL - r(D_{nat} + D_{adv})
 $$
 As the task is to minimize the label classification loss and maximize classification loss for the the adversarial domain, a gradient reversal layer is inserted into the network, right in front of the domain classifier. This layer leaves the input unchanged during forward propagation and reverses the gradient by multiplying it with a negative scalar during the back-propagation. This parameter is initialized to a small value and is gradually increased to $r$.
 
+
+<img src="figs/DIAL_netw.png" width="450"> 
+
+Fig: network structure (https://arxiv.org/pdf/2104.00322.pdf)
+
 ---
 
 This procedure yields to the following availability of hyperparameter:
 - `--dial_steps_perturb`: how many gradient step to go to find an image as adversarials
 - `--dial_noise_scale`: variance of gaussian noise to inject on pure image
-- `--dial_lr`: learning rate to generate adversarial images
+- `--dial_lr`: learning rate to generate adversarial images ($\tau$ in the paper)
 - `--dial_epsilon`: pixel wise threshold to perturb images
-- `--gamma_reg`: ?
-- `--lr`: learning rate
+- `--gamma_reg`: ? ($\epsilon$ in the paper)
+- `--lr`: learning rate ($\alpha$ in the paper)
