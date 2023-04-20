@@ -30,6 +30,8 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
 
     def _init_components(self):
         super()._init_components()
+        self.add_module("net_p_zy",
+                        self.chain_node_builder.construct_cond_prior(self.dim_y, self.zy_dim))
         self.add_module("net_classif_y",
                         self.chain_node_builder.construct_classifier(
                             self.zy_dim, self.dim_y))
