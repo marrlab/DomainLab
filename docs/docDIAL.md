@@ -27,7 +27,10 @@ The loss function of the algorithm is a combination of three terms:
 The loss functions are given by:
 
 $$
-DIAL_{CE} = CE_{nat} + \lambda ~ CE_{adv} - r(D_{nat} + D_{adv}) \\
+DIAL_{CE} = CE_{nat} + \lambda ~ CE_{adv} - r(D_{nat} + D_{adv}) 
+$$
+
+$$
 DIAL_{KL} = CE_{nat} + \lambda ~ KL - r(D_{nat} + D_{adv})
 $$
 
