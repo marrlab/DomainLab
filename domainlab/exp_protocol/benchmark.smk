@@ -85,7 +85,7 @@ rule run_experiment:
     params:
         start_seed_str=os.environ["DOMAINLAB_CUDA_START_SEED"]
     resources:
-        nvidia_gpu=os.environ["NUMBER_GPUS"]
+        nvidia_gpu=1
     run:
         from domainlab.exp_protocol.run_experiment import run_experiment
         # import sys
@@ -95,7 +95,7 @@ rule run_experiment:
         # except Exception as ex:
         #  pos = None
         # start_seed = sys.argv[pos+1]
-
+        num_gpus_str=os.environ["NUMBER_GPUS"]
         start_seed_str = params.start_seed_str
         if isinstance(start_seed_str, str) and (len(start_seed_str) > 0):
           # hash will keep integer intact and hash strings to random seed
@@ -117,7 +117,7 @@ rule run_experiment:
         # currently this correspond to the line number in the csv file, or row number
         # in the resulting pandas dataframe
         # :param out_file: path to the output csv
-        num_gpus = int(resources.nvidia_gpu)
+        num_gpus = int(num_gpus_str)
         run_experiment(config,str(input.param_file),index,str(output.out_file), start_seed, num_gpus=num_gpus)
 
 
@@ -148,5 +148,3 @@ rule all:
     input:
         rules.gen_plots.output
     default_target: True
-    resources:
-        nvidia_gpu=os.environ["NUMBER_GPUS"]
