@@ -2,9 +2,17 @@
 
 The algorithm introduced in https://arxiv.org/pdf/2104.00322.pdf uses adversarial learning to tackle the task of domain generalization. Therefore, the source domain is the natural dataset, while the target domain is generated using adversarial attack on the source domain.
 
+
 ## generating the adversarial domain
 
-For creating the adversarial domain one aims to find an adversarial image $x'$ to the natural image $x'$ with $||x- x'||$ small, such that the output of a classification network $\phi$ fulfills $||\phi(x) - \phi(x')||$ big. Domainlab archives this goal by starting with $x'_0 = x + \sigma \tilde{x}~$, $\tilde{x} \sim \mathcal{N}(0, 1)$ and using $n$ steps in a gradient descend with step size $\tau$ to maximize $||\phi(x) - \phi(x')||$.
+The generation of adversary images is demonstrated in figure 1.
+The task is to find an adversary image $x'$ to the natural image $x$ with $||x- x'||$ small, such that the output of a classification network $\phi$ fulfills $||\phi(x) - \phi(x')||$ big. In the example in figure 1 you can for example see, that the difference between the left and the right image of the panda is unobservable, but the classifier does still classify them differently.  
+
+In Domainlab the adversary images are created starting from a random perturbation of the natural image $x'_0 = x + \sigma \tilde{x}~$, $\tilde{x} \sim \mathcal{N}(0, 1)$ and using $n$ steps in a gradient descend with step size $\tau$ to maximize $||\phi(x) - \phi(x')||$. In general machine learning generation of adversary images is used in the training process to make networks more robust to adversarial attacks.
+
+<img src="figs/adv_example.png" width="450"> 
+
+Fig 1: adversarial domain (Image source: Figure 1 of Explaining and Harnessing Adversarial Examples https://arxiv.org/abs/1412.6572)
 
 ## network structure
 
@@ -14,7 +22,7 @@ During training the network is optimized to a have low error on the classificati
 
 <img src="figs/DIAL_netw.png" width="450"> 
 
-Fig: network structure (https://arxiv.org/pdf/2104.00322.pdf)
+Fig 2: network structure (https://arxiv.org/pdf/2104.00322.pdf)
 
 ## loss function
 
@@ -34,7 +42,7 @@ $$
 DIAL_{KL} = CE_{nat} + \lambda ~ KL - r(D_{nat} + D_{adv})
 $$
 
-As the task is to minimize the label classification loss and maximize classification loss for the the adversarial domain, a gradient reversal layer is inserted into the network, right in front of the domain classifier. This layer leaves the input unchanged during forward propagation and reverses the gradient by multiplying it with a negative scalar during the back-propagation. This parameter is initialized to a small value and is gradually increased to $r$.
+The task is to minimize the label classification loss while maximizing the classification loss for the adversarial domain. Therefore a gradient reversal layer is inserted into the network, right in front of the domain classifier. The layer leaves the input unchanged during forward propagation and reverses the gradient by multiplying it with a negative scalar during the back-propagation. This ensures that the weights in the feature extractor are actually chosen such that they maximize the domain classification loss. The parameter of the gradient reversal layer is initialized to a small value and is then gradually increased to $r$. 
 
 
 ---
