@@ -22,7 +22,7 @@ During training the network is optimized to a have low error on the classificati
 
 <img src="figs/DIAL_netw.png" width="450"> 
 
-Fig 2: network structure (https://arxiv.org/pdf/2104.00322.pdf)
+Fig 2: network structure (Image source: Figure 1 of Domain Invariant Adversarial Learning https://arxiv.org/pdf/2104.00322.pdf)
 
 ## loss function
 
