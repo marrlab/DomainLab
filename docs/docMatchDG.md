@@ -56,7 +56,7 @@ After $t$ epochs (`--epos_per_match_update`) the match tensor is updated. The sa
 **Phase 2:** Finally the classifier $f = h \circ \phi$ is trained using
 
 $$
-\underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} \, l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
+\underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} ~ l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
 $$
 
 The training of $h$ and $\phi$ is performed from scratch. The trained network $\phi^*$ from phase 1 is only used to update the matched data matrix using yielding $\Omega$. 
