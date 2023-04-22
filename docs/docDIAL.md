@@ -10,19 +10,21 @@ The task is to find an adversary image $x'$ to the natural image $x$ with $||x- 
 
 In Domainlab the adversary images are created starting from a random perturbation of the natural image $x'_0 = x + \sigma \tilde{x}~$, $\tilde{x} \sim \mathcal{N}(0, 1)$ and using $n$ steps in a gradient descend with step size $\tau$ to maximize $||\phi(x) - \phi(x')||$. In general machine learning, the generation of adversary images is used during the training process to make networks more robust to adversarial attacks.
 
-<img src="figs/adv_example.png" width="450"> 
-
-Fig 1: adversarial domain (Image source: Figure 1 of Explaining and Harnessing Adversarial Examples https://arxiv.org/abs/1412.6572)
+<div style="align: center; text-align:center;">
+ <img src="figs/adv_example.png" style="width:450px;"/> 
+ <div class="caption">Figure 1: adversarial domain (Image source: Figure 1 of Explaining and Harnessing Adversarial Examples https://arxiv.org/abs/1412.6572) </div>
+</div>
 
 ## network structure
 
 The network consists of three parts. At first a feature extractor, which extracts the main characteristics of the images. This features are then used as the input to a label classifier and a domain classifier. 
 During training the network is optimized to a have low error on the classification task, while ensuring that the internal representation (output of the feature extractor) cannot discriminate between the natural and adversarial domain. This goal can be archived by using a special loss function in combination with a gradient reversal layer.
 
+<div style="align: center; text-align:center;">
+ <img src="figs/DIAL_netw.png" style="width:450px;"/> 
+ <div class="caption">Figure 2: network structure (Image source: Figure 1 of Domain Invariant Adversarial Learning https://arxiv.org/pdf/2104.00322.pdf) </div>
+</div>
 
-<img src="figs/DIAL_netw.png" width="450"> 
-
-Fig 2: network structure (Image source: Figure 1 of Domain Invariant Adversarial Learning https://arxiv.org/pdf/2104.00322.pdf)
 
 ## loss function and gradient reversal layer
 
