@@ -20,7 +20,7 @@ Before defining the network, one needs to define three sets:
 - $\mathcal{C}$: causal feature space with $x_C \in \mathcal{C}$
 - $\mathcal{Y}$: label space with $y \in \mathcal{Y}$ 
 
-For the classification the goal is to classify an object only based on its causal features $x_C$, hence we define a network $h: \mathcal{C} \rightarrow \mathcal{Y}$. Since $x_C$ for an image $x$ is unknown, one needs to learn a representation function $\phi: \mathcal{X} \rightarrow \mathcal{C}$. By assumption for two images $x_j^{(d)}$ and $x_k^{(d')}$ of the same class, but from different domains $\text{ dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right)$ is small to enforce that the features in $\phi(x) \in \mathcal{C}$ are affected by the associated object and not the domain. This motivates the definition of a match function $\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow $ {$ 0, 1$ }, 
+For the classification the goal is to classify an object only based on its causal features $x_C$, hence we define a network $h: \mathcal{C} \rightarrow \mathcal{Y}$. Since $x_C$ for an image $x$ is unknown, one needs to learn a representation function $\phi: \mathcal{X} \rightarrow \mathcal{C}$. By assumption for two images $x_j^{(d)}$ and $x_k^{(d')}$ of the same class, but from different domains $\text{ dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right)$ is small to enforce that the features in $\phi(x) \in \mathcal{C}$ are affected by the associated object and not the domain. This motivates the definition of a match function $\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}$, 
 
 $$
 \Omega(x_j, x_k) = \begin{cases}
