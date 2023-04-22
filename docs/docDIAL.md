@@ -50,9 +50,9 @@ The task is to minimize the label classification loss while maximizing the class
 ---
 
 This procedure yields to the following availability of hyperparameter:
-- `--dial_steps_perturb`: how many gradient step to go to find an adversarial image ($n$ from "*generating the adversarial domain*" above)
-- `--dial_noise_scale`: variance of gaussian noise to inject on pure image ($\sigma$ from "*generating the adversarial domain*" above)
-- `--dial_lr`: learning rate to generate adversarial images ($\tau$ in the paper)
+- `--dial_steps_perturb`: how many gradient step to go to find an adversarial image ($n$ from "*generating the adversarial domain*")
+- `--dial_noise_scale`: variance of gaussian noise to inject on pure image ($\sigma$ from "*generating the adversarial domain*")
+- `--dial_lr`: learning rate to generate adversarial images ($\tau$ from "*generating the adversarial domain*")
 - `--dial_epsilon`: pixel wise threshold to perturb images
 - `--gamma_reg`: ? ($\epsilon$ in the paper)
 - `--lr`: learning rate ($\alpha$ in the paper)
