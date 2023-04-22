@@ -32,7 +32,7 @@ $$
 by using 
 
 $$
-\sum_{\substack{\Omega(x_j, x_k) = 1\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right) = 0.
+\sum_{\substack{\Omega(x_j, x_k) = 1,\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right) = 0.
 $$
 
 Together the networks form the desired classifier $f = h \circ \phi : \mathcal{X} \rightarrow \mathcal{Y}$.
@@ -45,7 +45,7 @@ Together the networks form the desired classifier $f = h \circ \phi : \mathcal{X
 **Phase 1:** sample batches $(B, K)$ from $\mathcal{M}$, with $B$ is batch size and train a match function $\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}$, by adapting the network parameter in $\phi$ to minimize the contrastive loss for every positive match pair $(x_j, x_k)$
 
 $$
-l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right) }{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right) + \sum\limits_{\substack{i=0\\ y_i \neq y_j}} \exp\left( \frac{\text{sim}(j, i)}{\tau} \right) }\right)
+l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right) }{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right) + \sum\limits_{\substack{i=0,\\ y_i \neq y_j}} \exp\left( \frac{\text{sim}(j, i)}{\tau} \right) }\right)
 $$
 
 where $\text{sim}(a, b) = \frac{\phi(x_a)^T \phi(x_b)}{||\phi(x_a)||~||\phi(x_b)||}$ is the cosine similarity and $\tau$ is a hyperparameter (`--tau`).
@@ -56,7 +56,7 @@ After $t$ epochs (`--epos_per_match_update`) the match tensor is updated. The sa
 **Phase 2:** Finally the classifier $f = h \circ \phi$ is trained using
 
 $$
-\underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} ~ l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
+\underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} ~ l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1,\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
 $$
 
 The training of $h$ and $\phi$ is performed from scratch. The trained network $\phi^*$ from phase 1 is only used to update the matched data matrix using yielding $\Omega$. 
