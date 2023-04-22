@@ -8,7 +8,7 @@ The authors of the paper motivate their approach by looking at the data-generati
 
 
 <div style="align: center; text-align:center;">
- <img src="figs/matchDG_causality.png" alt="PGM for HDUVA" style="width:200px;"/> 
+ <img src="figs/matchDG_causality.png" style="width:200px;"/> 
  <div class="caption">Figure 1: Structural causal model for the data-generating process. Observed variables are shaded; dashed arrows denote correlated nodes. Object may not be observed. (Image source: Figure 2 of Domain Generalization using Causal Matching https://arxiv.org/pdf/2006.07500.pdf) </div>
 </div>
 
@@ -56,7 +56,7 @@ After $t$ epochs (`--epos_per_match_update`) the match tensor is updated. The sa
 **Phase 2:** Finally the classifier $f = h \circ \phi$ is trained using
 
 $$
-\argmin_{h, \phi} \sum_{d \in D} \sum_{i=1}^{n_d} \, l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
+\underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} \, l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
 $$
 
 The training of $h$ and $\phi$ is performed from scratch. The trained network $\phi^*$ from phase 1 is only used to update the matched data matrix using yielding $\Omega$. 
