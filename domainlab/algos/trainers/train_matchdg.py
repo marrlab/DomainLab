@@ -31,7 +31,7 @@ class TrainerMatchDG(AbstractTrainer):
                           flag_erm=False,
                           opt=None)
         ctr.train()
-        print("Phase 1 finished: ", ctr.ctr_mpath)
+        self.logger.info("Phase 1 finished: ", ctr.ctr_mpath)
         # phase 2: ERM, initialize object
         self.erm = MatchCtrErm(phi=self.model,
                                exp=self.exp,

@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 from pathlib import Path
@@ -13,6 +14,13 @@ except IndexError:
 # this file to the domainlab directory
 
 sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
+
+# set up main logger
+os.makedirs(f'zoutput/benchmark_logs', exist_ok=True)
+main_handler = logging.FileHandler(f'zoutput/benchmark_logs/main_logger')
+main_logger = logging.getLogger('main_logger')
+main_logger.setLevel(logging.INFO)
+main_logger.addHandler(main_handler)
 
 
 envvars:
@@ -35,8 +43,8 @@ def experiment_result_files(_):
                 num_nonsample_tasks += 1
     # total number of hyperparameter samples
     total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
-    print(f"total_num_params={total_num_params}")
-    print(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
+    main_logger.info(f"total_num_params={total_num_params}")
+    main_logger.info(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 

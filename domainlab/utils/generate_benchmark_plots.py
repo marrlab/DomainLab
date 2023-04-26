@@ -1,6 +1,7 @@
 '''
 generate the benchmark plots by calling the gen_bencmark_plots(...) function
 '''
+import logging
 import os
 from ast import literal_eval   # literal_eval can safe evaluate python expression
 import matplotlib.pyplot as plt
@@ -109,8 +110,9 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
                 scatterplot(dataframe, [obj_i, obj[j]],
                             file=output_dir + '/scatterpl/' + obj_i + '_' + obj[j] + '.png')
             except IndexError:
-                print(f'WARNING: disabling kde because cov matrix is singular for objectives '
-                      f'{obj_i} & {obj[j]}')
+                logger = logging.getLogger('main_logger')
+                logger.warning(f'disabling kde because cov matrix is singular for objectives '
+                               f'{obj_i} & {obj[j]}')
                 scatterplot(dataframe, [obj_i, obj[j]],
                             file=output_dir + '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
                             kde=False)
@@ -155,8 +157,9 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
                                 '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
                                 distinguish_hyperparam=True)
                 except IndexError:
-                    print(f'WARNING: disabling kde because cov matrix is singular for objectives '
-                          f'{obj_i} & {obj[j]}')
+                    logger = logging.getLogger('main_logger')
+                    logger.warning(f'disabling kde because cov matrix is singular for objectives '
+                                   f'{obj_i} & {obj[j]}')
                     scatterplot(dataframe_algo, [obj_i, obj[j]],
                                 file=output_dir + '/' + str(algorithm) +
                                 '/scatterpl/' + obj_i + '_' + obj[j] + '.png',

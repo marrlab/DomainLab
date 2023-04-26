@@ -1,4 +1,5 @@
 import datetime
+import logging
 import os
 import shutil
 
@@ -19,11 +20,14 @@ class Exp():
     """
     Exp is combination of Task, Algorithm, and Configuration (including random seed)
     """
-    def __init__(self, args, task=None, visitor=AggWriter):
+    def __init__(self, args, logger_name='logger', task=None, visitor=AggWriter):
         """
         :param args:
         :param task:
         """
+        self.logger_name = logger_name
+        self.logger = logging.getLogger(self.logger_name)
+
         self.task = task
         if task is None:
             self.task = TaskChainNodeGetter(args)()
@@ -44,27 +48,27 @@ class Exp():
         check performance by loading persisted model
         """
         t_0 = datetime.datetime.now()
-        print('\n Experiment start at :', str(t_0))
+        self.logger.info('\n Experiment start at :', str(t_0))
         t_c = t_0
         self.trainer.before_tr()
         for epoch in range(1, self.epochs + 1):
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            print(f"epoch: {epoch} ",
-                  "now: ", str(t_c),
-                  "epoch time: ", t_c - t_before_epoch,
-                  "used: ", t_c - t_0,
-                  "model: ", self.visitor.model_name)
+            self.logger.info(f"epoch: {epoch} ",
+                             "now: ", str(t_c),
+                             "epoch time: ", t_c - t_before_epoch,
+                             "used: ", t_c - t_0,
+                             "model: ", self.visitor.model_name)
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
-                print("early stop trigger")
+                self.logger.info("early stop trigger")
                 break
             if epoch == self.epochs:
                 self.epoch_counter = self.epochs
             else:
                 self.epoch_counter += 1
-        print("Experiment finished at epoch:", self.epoch_counter,
-              "with time:", t_c - t_0, "at", t_c)
+        self.logger.info("Experiment finished at epoch:", self.epoch_counter,
+                         "with time:", t_c - t_0, "at", t_c)
         self.trainer.post_tr()
