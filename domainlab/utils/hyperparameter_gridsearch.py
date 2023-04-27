@@ -113,8 +113,7 @@ def lognormal_grid(param_config):
         return grid
 
 def add_next_param_from_list(param_grid: dict, grid: dict,
-                             grid_df: pd.DataFrame,
-                             task_name: str, algo: str):
+                             grid_df: pd.DataFrame):
     '''
     can be used in a recoursive fassion to add all combinations of the parameters in
     param_grid to grid_df
@@ -138,10 +137,10 @@ def add_next_param_from_list(param_grid: dict, grid: dict,
             param_grid_new = dict(param_grid)
             param_grid_new.pop(param_name)
             # resume with the next parameter
-            add_next_param_from_list(param_grid_new, grid_new, grid_df, task_name, algo)
+            add_next_param_from_list(param_grid_new, grid_new, grid_df)
     else:
         # add sample to grid_df
-        grid_df.loc[len(grid_df.index)] = [task_name, algo, grid]
+        grid_df.loc[len(grid_df.index)] = [grid]
 
 def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
     """Sample one task and add it to the dataframe"""
@@ -185,13 +184,14 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
 
         # create the grid from the individual parameter grids
         # constraints are not respected in this step
-        grid_df_prior = pd.DataFrame(columns=grid_df.columns)
-        add_next_param_from_list(param_grids, {}, grid_df_prior, task_name, algo)
+        grid_df_prior = pd.DataFrame(columns=['params'])
+        add_next_param_from_list(param_grids, {}, grid_df_prior)
 
         # add referenced params and check constraints
         for dict in grid_df_prior['params']:
             for key, val in dict.items():
                 exec("%s = val" % key)
+            # add referenced params
             for rev_param in referenced_params.keys():
                 val = eval(referenced_params[rev_param])
                 dict.update({rev_param: val})
@@ -236,8 +236,10 @@ def sample_gridsearch(config: dict,
     for key, val in config.items():
         if sampling.is_task(val):
             grid_task(samples, key, val)
+            print(f'number of gridpoints for {key} : {samples[samples["algo"] == val["aname"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
+    print(f'number of total sampled gridpoints: {samples.shape[0]}')
     samples.to_csv(dest)
     return samples
 
