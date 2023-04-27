@@ -4,7 +4,6 @@ and each random seed.
 """
 import ast
 import gc
-import os
 
 import pandas as pd
 import torch
