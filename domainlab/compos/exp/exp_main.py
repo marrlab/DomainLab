@@ -66,5 +66,5 @@ class Exp():
             else:
                 self.epoch_counter += 1
         print("Experiment finished at epoch:", self.epoch_counter,
-                         "with time:", t_c - t_0, "at", t_c)
+              "with time:", t_c - t_0, "at", t_c)
         self.trainer.post_tr()
