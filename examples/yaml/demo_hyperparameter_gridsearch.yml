@@ -1,6 +1,5 @@
 # only entries related to parameter sampling
 output_dir: "zoutput/benchmarks/hyperparameter_test"
-num_param_samples: 30
 mode: grid
 
 # currently, everything which contains the aname property is considered as a task.
@@ -45,14 +44,6 @@ Task1:  # name
     p5:
       reference: 2 * p3 / p1
 
-    p6:
-      distribution: categorical
-      values:
-        - 30
-        - 31
-        - 100
-      datatype: int
-
     # Optional
     constraints:
       # In this list, any valid Python code evaluating to bool can be used.
@@ -79,7 +70,7 @@ Task2:  # name
       max: 2
       step: 1
       distribution: uniform
-      num: 3
+      num: 5
 
     p3:
       reference: 2*p2
