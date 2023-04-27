@@ -15,6 +15,9 @@ def round_to_discreate_grid_uniform(grid, param_config):
         min = param_config['min']
         max = param_config['max']
 
+        if max - min < param_config['step']:
+            raise RuntimeError(f'distance between max and min to small for defined step size')
+
         discreate_gird = np.arange(min, max, step=param_config['step'])
         for num, elem in enumerate(list(grid)):
             grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
@@ -28,11 +31,13 @@ def round_to_discreate_grid_normal(grid, param_config):
     if param_config['step'] == 0:
         return grid
     else:
-        neq_steps = np.ceil((param_config['mean'] - np.min(grid)) /
-                                 param_config['step'])
+        # for normal and lognormal no min and max is provided
+        # in this case the grid is constructed around the mean
+        neg_steps = np.ceil((param_config['mean'] - np.min(grid)) /
+                            param_config['step'])
         pos_steps = np.ceil((np.max(grid) - param_config['mean']) /
-                                 param_config['step'])
-        min = param_config['mean'] - param_config['step'] * neq_steps
+                            param_config['step'])
+        min = param_config['mean'] - param_config['step'] * neg_steps
         max = param_config['mean'] + param_config['step'] * pos_steps
 
         discreate_gird = np.arange(min, max, step=param_config['step'])
@@ -77,7 +82,9 @@ def normal_grid(param_config, lognormal=False):
     get a normal distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'mean', 'std'
     '''
-    # use Box–Muller transform to get from a uniform distribution to a normal distribution
+    if param_config['num'] == 1:
+        return np.array([param_config['mean']])
+    # Box–Muller transform to get from a uniform distribution to a normal distribution
     num = int(np.floor(param_config['num'] / 2))
     step = 2 / (param_config['num'] + 1)
     # for a even number of samples
@@ -152,8 +159,8 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
         for param_name in config['hyperparameters'].keys():
             param_config = config['hyperparameters'][param_name]
             if not 'hyperparameters' in config.keys():
-                RuntimeError(f"the number of parameters in the grid direction "
-                             f"of {param_name} needs to be specified")
+                raise RuntimeError(f"the number of parameters in the grid direction "
+                                   f"of {param_name} needs to be specified")
 
             # constraints are not parameters
             if param_name == 'constraints':
@@ -163,7 +170,8 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
                 referenced_params.update({param_name: param_config['reference']})
             # sample cathegorical parameter
             elif param_config['distribution'] == 'categorical':
-                param_grid = sampling.CategoricalHyperparameter(param_name, param_config).allowed_values
+                param_grid = sampling.CategoricalHyperparameter\
+                    (param_name, param_config).allowed_values
                 param_grids.update({param_name: param_grid})
             # sample uniform parameter
             elif param_config['distribution'] == 'uniform':
@@ -207,7 +215,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
             else:
                 grid_df.loc[len(grid_df.index)] = [task_name, algo, dict]
         if grid_df[grid_df['algo'] == algo].shape[0] == 0:
-            RuntimeError('No valid value found for this grid spacing, refine your grid')
+            raise RuntimeError('No valid value found for this grid spacing, refine grid')
     else:
         # add single line if no varying hyperparameters are specified.
         grid_df.loc[len(grid_df.index)] = [task_name, algo, {}]

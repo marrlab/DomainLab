@@ -66,6 +66,16 @@ def test_hyperparameter_gridsearch():
     assert not a3samples.empty
 
 
+def test_gridhyperparameter_errors():
+    """Test for errors on unknown distribution or missing keys"""
+    with pytest.raises(RuntimeError, match="distance between max and min to small"):
+        sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
+                           'Task1': {'aname': 'Algo1',
+                                     'hyperparameters':
+                                         {'p1':{'min': 0, 'max': 1, 'step': 5,
+                                                'distribution': 'uniform', 'num': 2}}}})
+
+
 def test_hyperparameter_errors():
     """Test for errors on unknown distribution or missing keys"""
     with pytest.raises(RuntimeError, match="Datatype unknown"):
