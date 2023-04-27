@@ -41,7 +41,8 @@ def test_hyperparameter_sampling():
 
 def test_hyperparameter_gridsearch():
     """Test sampling from yaml, including constraints"""
-    with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r") as stream:
+    with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r", encoding="utf-8") \
+            as stream:
         config = yaml.safe_load(stream)
 
     samples = sample_gridsearch(config)
