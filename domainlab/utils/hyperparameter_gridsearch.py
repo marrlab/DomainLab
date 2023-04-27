@@ -5,6 +5,10 @@ import pandas as pd
 import domainlab.utils.hyperparameter_sampling as sampling
 
 def round_to_discreate_grid_uniform(grid, param_config):
+    '''
+    round the values of the grid to the grid spacing specified in the config
+    for uniform and loguniform grids
+    '''
     if param_config['step'] == 0:
         return grid
     else:
@@ -17,6 +21,10 @@ def round_to_discreate_grid_uniform(grid, param_config):
         return np.unique(grid)
 
 def round_to_discreate_grid_normal(grid, param_config):
+    '''
+    round the values of the grid to the grid spacing specified in the config
+    for normal and lognormal grids
+    '''
     if param_config['step'] == 0:
         return grid
     else:
@@ -31,7 +39,6 @@ def round_to_discreate_grid_normal(grid, param_config):
         for num, elem in enumerate(list(grid)):
             grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
         return np.unique(grid)
-
 
 def uniform_grid(param_config):
     '''
@@ -176,9 +183,10 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
                 param_grid = lognormal_grid(param_config)
                 param_grids.update({param_name: param_grid})
 
-        grid = {}
+        # create the grid from the individual parameter grids
+        # constraints are not respected in this step
         grid_df_prior = pd.DataFrame(columns=grid_df.columns)
-        add_next_param_from_list(param_grids, grid, grid_df_prior, task_name, algo)
+        add_next_param_from_list(param_grids, {}, grid_df_prior, task_name, algo)
 
         # add referenced params and check constraints
         for dict in grid_df_prior['params']:
@@ -209,7 +217,7 @@ def sample_gridsearch(config: dict,
                       dest: str = None,
                       sampling_seed: int = None) -> pd.DataFrame:
     """
-    Samples the hyperparameters according to the given
+    create the hyperparameters grid according to the given
     config, which should be the dictionary of the full
     benchmark config yaml.
     Result is saved to 'output_dir/hyperparameters.csv' of the

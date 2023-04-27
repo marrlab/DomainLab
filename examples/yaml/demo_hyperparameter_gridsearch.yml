@@ -1,5 +1,5 @@
 # only entries related to parameter sampling
-output_dir: "zoutput/benchmarks/hyperparameter_test"
+output_dir: "zoutput/benchmarks/hyperparameter_grid_test"
 mode: grid
 
 # currently, everything which contains the aname property is considered as a task.
