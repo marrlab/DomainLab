@@ -10,7 +10,7 @@ test_domains:
   - sun
   - labelme
 
-output_dir: zoutput/benchmarks/demo_benchmark_test
+output_dir: zoutput/benchmarks/demo_benchmark
 
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given

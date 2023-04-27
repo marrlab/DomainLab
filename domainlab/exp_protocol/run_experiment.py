@@ -8,7 +8,6 @@ import os
 
 import pandas as pd
 import torch
-import logging
 
 from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
 from domainlab.compos.exp.exp_cuda_seed import set_seed
@@ -57,12 +56,6 @@ def run_experiment(
 
     # FIXME: we might want to run the experiment using commandline arguments
     """
-    # each experiment does get its own logger
-    os.makedirs(f'zoutput/benchmark_logs', exist_ok=True)
-    experiment_handler = logging.FileHandler(f'./zoutput/benchmark_logs/idx_{param_index}')
-    logger = logging.getLogger(str(param_index))
-    logger.setLevel(logging.INFO)
-    logger.addHandler(experiment_handler)
 
     if misc is None:
         misc = {}
@@ -92,8 +85,8 @@ def run_experiment(
 
     if torch.cuda.is_available():
         torch.cuda.init()
-        logger.info("before experiment loop: ")
-        logger.info(torch.cuda.memory_summary())
+        print("before experiment loop: ")
+        print(torch.cuda.memory_summary())
     if start_seed is None:
         start_seed = config['startseed']
         end_seed = config['endseed']
@@ -107,27 +100,27 @@ def run_experiment(
             args.seed = seed
             try:
                 if torch.cuda.is_available():
-                    logger.info("before experiment starts")
-                    logger.info(torch.cuda.memory_summary())
+                    print("before experiment starts")
+                    print(torch.cuda.memory_summary())
             except KeyError as ex:
-                logger.error(ex)
+                print(ex)
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
-            exp = Exp(args=args, visitor=ExpProtocolAggWriter, logger_name=str(param_index))
+            exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             if not misc.get('testing', False):
                 exp.execute()
             try:
                 if torch.cuda.is_available():
-                    logger.info("before torch memory clean up")
-                    logger.info(torch.cuda.memory_summary())
+                    print("before torch memory clean up")
+                    print(torch.cuda.memory_summary())
             except KeyError as ex:
-                logger.error(ex)
+                print(ex)
             del exp
             torch.cuda.empty_cache()
             gc.collect()
             try:
                 if torch.cuda.is_available():
-                    logger.info("after torch memory clean up")
-                    logger.info(torch.cuda.memory_summary())
+                    print("after torch memory clean up")
+                    print(torch.cuda.memory_summary())
             except KeyError as ex:
-                logger.error(ex)
+                print(ex)

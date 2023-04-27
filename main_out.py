@@ -19,5 +19,5 @@ if __name__ == "__main__":
         aggregate_results.agg_main(args.bm_dir)
     else:
         set_seed(args.seed)
-        exp = Exp(args=args, logger_name='logger')
+        exp = Exp(args=args)
         exp.execute()

@@ -1,7 +1,6 @@
 """
 Samples the hyperparameters according to a benchmark configuration file.
 """
-import logging
 import os
 from pydoc import locate
 from typing import List
@@ -174,8 +173,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
                 setattr(par, 'val', eval(par.reference))
                 # NOTE: literal_eval will cause ValueError: malformed node or string
             except Exception as ex:
-                logger = logging.getLogger('main_logger')
-                logger.error(f"error in evaluating expression: {par.reference}")
+                print(f"error in evaluating expression: {par.reference}")
                 raise ex
             locals().update({par.name: par.val})
 
