@@ -1,6 +1,7 @@
 '''
 gridsearch for the hyperparameter space
 '''
+import ast
 import os
 
 import numpy as np
@@ -18,7 +19,7 @@ def round_to_discreate_grid_uniform(grid, param_config):
     maxi = param_config['max']
 
     if maxi - mini < param_config['step']:
-        raise RuntimeError(f'distance between max and min to small for defined step size')
+        raise RuntimeError('distance between max and min to small for defined step size')
 
     discreate_gird = np.arange(mini, maxi, step=param_config['step'])
     for num, elem in enumerate(list(grid)):
@@ -59,8 +60,7 @@ def uniform_grid(param_config):
     grid = np.linspace(mini + step / 2, maxi + step / 2, num)
     if 'step' in param_config.keys():
         return round_to_discreate_grid_uniform(grid, param_config)
-    else:
-        return grid
+    return grid
 
 def loguniform_grid(param_config):
     '''
@@ -155,12 +155,12 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
     '''
     for dictio in grid_df_prior['params']:
         for key, val in dictio.items():
-            exec("%s = val" % key)
+            exec(f"{key} = val")
         # add referenced params
         for rev_param, val in referenced_params.items():
             val = eval(val)
             dictio.update({rev_param: val})
-            exec("%s = val" % rev_param)
+            exec(f"{rev_param} = val")
         # check constraints
         if config['hyperparameters'].get('constraints', None) is not None:
             accepted = True
@@ -173,6 +173,10 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
             grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
 
 def sample_grid(param_config):
+    '''
+    given the parameter config, this function samples all parameters which are distributed
+    according the the categorical, uniform, loguniform, normal or lognormal distribution
+    '''
     # sample cathegorical parameter
     if param_config['distribution'] == 'categorical':
         param_grid = sampling.CategoricalHyperparameter('', param_config).allowed_values
@@ -195,7 +199,7 @@ def sample_grid(param_config):
     return param_grid
 
 def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
-    """Sample one task and add it to the dataframe"""
+    """create grid for one task and add it to the dataframe"""
     if 'hyperparameters' in config.keys():
         param_grids = {}
         referenced_params = {}
@@ -206,14 +210,13 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
                                    f"of {param_name} needs to be specified")
 
             # constraints are not parameters
-            if param_name == 'constraints':
-                continue
-            # remember all parameters which are reverenced
-            elif 'reference' in param_config.keys():
-                referenced_params.update({param_name: param_config['reference']})
-            # sample cathegorical parameter
-            else:
-                param_grids.update({param_name: sample_grid(param_config)})
+            if not param_name == 'constraints':
+                # remember all parameters which are reverenced
+                if 'reference' in param_config.keys():
+                    referenced_params.update({param_name: param_config['reference']})
+                # sample other parameter
+                elif param_name != 'constraints':
+                    param_grids.update({param_name: sample_grid(param_config)})
 
         # create the grid from the individual parameter grids
         # constraints are not respected in this step
