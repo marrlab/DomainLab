@@ -70,7 +70,7 @@ def test_hyperparameter_gridsearch():
     sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                        'Task1': {'aname': 'Algo1',
                                  'hyperparameters':
-                                     {'p1': {'min': 0, 'max': 1, 'step': 5,
+                                     {'p1': {'min': 0, 'max': 1, 'step': 0,
                                              'distribution': 'uniform', 'num': 2}}}},
                           sampling_seed=0)
 
