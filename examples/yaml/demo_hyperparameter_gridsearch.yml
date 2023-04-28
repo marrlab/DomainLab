@@ -55,13 +55,13 @@ Task1:  # name
       min: 0
       max: 1
       distribution: uniform
-      num: 1
+      num: 0
 
     p8:
       min: 1e-6
       max: 1
       distribution: loguniform
-      num: 1
+      num: 0
 
     # Optional
     constraints:
