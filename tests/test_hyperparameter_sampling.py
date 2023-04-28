@@ -71,7 +71,8 @@ def test_hyperparameter_gridsearch():
                        'Task1': {'aname': 'Algo1',
                                  'hyperparameters':
                                      {'p1': {'min': 0, 'max': 1, 'step': 5,
-                                             'distribution': 'uniform', 'num': 2}}}})
+                                             'distribution': 'uniform', 'num': 2}}}},
+                          sampling_seed=0)
 
 
 def test_gridhyperparameter_errors():
@@ -80,8 +81,7 @@ def test_gridhyperparameter_errors():
                            'Task1': {'aname': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 0, 'max': 1, 'step': 5,
-                                                'distribution': 'uniform', 'num': 2}}}},
-                          sampling_seed=0)
+                                                'distribution': 'uniform', 'num': 2}}}})
 
     with pytest.raises(RuntimeError, match="distribution \"random\" not implemented"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
