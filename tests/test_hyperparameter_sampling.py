@@ -66,15 +66,40 @@ def test_hyperparameter_gridsearch():
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
 
+    # test sampling seed
+    sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
+                       'Task1': {'aname': 'Algo1',
+                                 'hyperparameters':
+                                     {'p1': {'min': 0, 'max': 1, 'step': 5,
+                                             'distribution': 'uniform', 'num': 2}}}})
+
 
 def test_gridhyperparameter_errors():
-    """Test for errors on unknown distribution or missing keys"""
     with pytest.raises(RuntimeError, match="distance between max and min to small"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                            'Task1': {'aname': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 0, 'max': 1, 'step': 5,
-                                                'distribution': 'uniform', 'num': 2}}}})
+                                                'distribution': 'uniform', 'num': 2}}}},
+                          sampling_seed=0)
+
+    with pytest.raises(RuntimeError, match="distribution \"random\" not implemented"):
+        sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
+                           'Task1': {'aname': 'Algo1',
+                                     'hyperparameters':
+                                         {'p1':{'min': 0, 'max': 1, 'step': 0,
+                                                'distribution': 'random', 'num': 2}}}})
+
+    with pytest.raises(RuntimeError, match="No valid value found"):
+        sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
+                           'Task1': {'aname': 'Algo1',
+                                     'hyperparameters':
+                                         {'p1':{'min': 2, 'max': 3.5, 'step': 1,
+                                                'distribution': 'uniform', 'num': 2},
+                                          'p2':{'min': 0, 'max': 1.5, 'step': 1,
+                                                'distribution': 'uniform', 'num': 2},
+                                          'constraints': ['p1 < p2']
+                                          }}})
 
 
 def test_hyperparameter_errors():
