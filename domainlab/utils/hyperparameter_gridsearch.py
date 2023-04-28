@@ -1,7 +1,6 @@
 '''
 gridsearch for the hyperparameter space
 '''
-import ast
 import os
 
 import numpy as np
