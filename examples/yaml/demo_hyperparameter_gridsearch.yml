@@ -61,7 +61,7 @@ Task1:  # name
       min: 1e-6
       max: 1
       distribution: loguniform
-      num: 0
+      num: 1
 
     # Optional
     constraints:
