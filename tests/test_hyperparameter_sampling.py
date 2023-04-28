@@ -76,6 +76,7 @@ def test_hyperparameter_gridsearch():
 
 
 def test_gridhyperparameter_errors():
+    """Test for the errors which may occour in the sampling of the grid"""
     with pytest.raises(RuntimeError, match="distance between max and min to small"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                            'Task1': {'aname': 'Algo1',
