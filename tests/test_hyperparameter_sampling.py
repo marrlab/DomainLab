@@ -102,6 +102,14 @@ def test_gridhyperparameter_errors():
                                           'constraints': ['p1 < p2']
                                           }}})
 
+    with pytest.raises(RuntimeError, match="the number of parameters in the grid "
+                                           "direction of p1 needs to be specified"):
+        sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
+                           'Task1': {'aname': 'Algo1',
+                                     'hyperparameters':
+                                         {'p1': {'min': 0, 'max': 1, 'step': 0,
+                                                 'distribution': 'uniform'}}}})
+
 
 def test_hyperparameter_errors():
     """Test for errors on unknown distribution or missing keys"""

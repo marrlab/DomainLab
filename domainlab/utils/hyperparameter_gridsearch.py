@@ -204,9 +204,12 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
         referenced_params = {}
         for param_name in config['hyperparameters'].keys():
             param_config = config['hyperparameters'][param_name]
-            if not 'hyperparameters' in config.keys():
-                raise RuntimeError(f"the number of parameters in the grid direction "
-                                   f"of {param_name} needs to be specified")
+            if not param_name == 'constraints':
+                if not 'num' in param_config.keys() \
+                        and not 'reference' in param_config.keys() \
+                        and not param_config['distribution'] == 'categorical':
+                    raise RuntimeError(f"the number of parameters in the grid direction "
+                                       f"of {param_name} needs to be specified")
 
             # constraints are not parameters
             if not param_name == 'constraints':
