@@ -150,7 +150,7 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
                                          config, task_name):
     '''
     in the last step all parameters which are referenced need to be add to the
-    grid. All gridpoints not satisfying the constraints are removed afterwards
+    grid. All gridpoints not satisfying the constraints are removed afterwards.
     '''
     for dictio in grid_df_prior['params']:
         for key, val in dictio.items():
@@ -174,7 +174,7 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
 def sample_grid(param_config):
     '''
     given the parameter config, this function samples all parameters which are distributed
-    according the the categorical, uniform, loguniform, normal or lognormal distribution
+    according the the categorical, uniform, loguniform, normal or lognormal distribution.
     '''
     # sample cathegorical parameter
     if param_config['distribution'] == 'categorical':
