@@ -26,25 +26,40 @@ During training the network is optimized to a have low error on the classificati
 </div>
 
 
+[comment]: <> (## loss function and gradient reversal layer)
+
+[comment]: <> (The loss function of the algorithm is a combination of three terms:)
+
+
+[comment]: <> (standard cross entropy loss between the predicted label probabilities and the actual label $CE_{nat}$ for the natural domain, $CE_{adv}$ for the adversarial domain)
+
+[comment]: <> (Kullback-Leibler divergence between classifier output on the natural images and their adversarial counterparts $KL$)
+
+[comment]: <> (standard cross-entropy loss between predicted domain probability and domain label $D_{nat}$ for the natural domain, $D_{adv}$ for the adversarial domain)
+
+[comment]: <> (The loss functions are given by:)
+
+
+[comment]: <> ($$)
+[comment]: <> (DIAL_{CE} = CE_{nat} + \lambda ~ CE_{adv} - r / D_{nat} + D_{adv} / ) 
+
+[comment]: <> ($$)
+
+[comment]: <> ($$)
+[comment]: <> (DIAL_{KL} = CE_{nat} + \lambda ~ KL - r / D_{nat} + D_{adv} / )
+[comment]: <> ($$)
+
+
+[comment]: <> (The task is to minimize the label classification loss while maximizing the classification loss for the adversarial domain. Therefore a gradient reversal layer is inserted into the network, right in front of the domain classifier. The layer leaves the input unchanged during forward propagation and reverses the gradient by multiplying it with a negative scalar during the back-propagation. This ensures that the weights in the feature extractor are actually chosen such that they maximize the domain classification loss. The parameter of the gradient reversal layer is initialized to a small value and is then gradually increased to $r$.)
+
 ## loss function and gradient reversal layer
 
-The loss function of the algorithm is a combination of three terms:
-
-1. standard cross entropy loss between the predicted label probabilities and the actual label ($CE_{nat}$ for the natural domain, $CE_{adv}$ for the adversarial domain)
-2. Kullback-Leibler divergence between classifier output on the natural images and their adversarial counterparts ($KL$)
-3. standard cross-entropy loss between predicted domain probability and domain label ($D_{nat}$ for the natural domain, $D_{adv}$ for the adversarial domain)
-
-The loss functions are given by:
+The loss function for in the DomainLab package is different to the one described in the paper. It consists of the standard cross entropy loss between the predicted label probabilities and the actual label for the natural domain ($CE_{nat}$) and for the adversarial domain ($CE_{adv}$).
+The adversarial domain is weighted by the parameter $\gamma_\text{reg}$.
 
 $$
-DIAL_{CE} = CE_{nat} + \lambda ~ CE_{adv} - r(D_{nat} + D_{adv}) 
+\text{loss} = CE_{nat} + \gamma_\text{reg}\,CE_{adv}
 $$
-
-$$
-DIAL_{KL} = CE_{nat} + \lambda ~ KL - r(D_{nat} + D_{adv})
-$$
-
-The task is to minimize the label classification loss while maximizing the classification loss for the adversarial domain. Therefore a gradient reversal layer is inserted into the network, right in front of the domain classifier. The layer leaves the input unchanged during forward propagation and reverses the gradient by multiplying it with a negative scalar during the back-propagation. This ensures that the weights in the feature extractor are actually chosen such that they maximize the domain classification loss. The parameter of the gradient reversal layer is initialized to a small value and is then gradually increased to $r$. 
 
 
 ---
