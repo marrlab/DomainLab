@@ -21,7 +21,7 @@ domainlab_args:
   ## dataset
   tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
-  lr: 1e-5
+  lr: 5e-5
   epos: 500
   es: 5
   bs: 64
