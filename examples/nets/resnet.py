@@ -5,18 +5,40 @@ from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
 
 
+class costum_ResNet(nn.Module):
+    def __init__(self):
+        resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
+        # freez all batchnormalisation layers
+        for module in resnet50.modules():
+            if module._get_name() == 'BatchNorm2d':
+                module.requires_grad_(False)
+
+        self.resnet50_first_part = nn.Sequential(*(list(resnet50.children())[:-1]))
+        self.resnet50_second_part = list(resnet50.children())[-1]
+        self.dropout = nn.Dropout()
+
+    def forward(self, x):
+        x = self.resnet50_first_part(x)
+        x = self.dropout(x)
+        x = self.resnet50_second_part(x)
+        return x
+
+
 class ResNetBase(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision
     """
-    def fetch_net(self, flag_pretrain):
+    def fetch_net(self, flag_pretrain, Domainbed_version=False):
         """fetch_net.
 
         :param flag_pretrain:
         """
-        self.net_torchvision = torchvisionmodels.resnet.resnet50(
-            pretrained=flag_pretrain)
-        # CHANGEME: user can modify this line to choose other neural
+        if Domainbed_version:
+            self.net_torchvision = costum_ResNet()
+        else:
+            self.net_torchvision = torchvisionmodels.resnet.resnet50(
+                pretrained=flag_pretrain)
+        # CHANGEME: user can modify this line to choose other neural>
         # network architectures from 'torchvision.models'
 
 
