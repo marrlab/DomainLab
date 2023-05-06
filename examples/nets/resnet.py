@@ -6,7 +6,7 @@ from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
 
 
 class costum_ResNet(nn.Module):
-    def __init__(self):
+    def __init__(self, flag_pretrain):
         resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
         # freez all batchnormalisation layers
         for module in resnet50.modules():
@@ -34,7 +34,7 @@ class ResNetBase(NetTorchVisionBase):
         :param flag_pretrain:
         """
         if Domainbed_version:
-            self.net_torchvision = costum_ResNet()
+            self.net_torchvision = costum_ResNet(flag_pretrain)
         else:
             self.net_torchvision = torchvisionmodels.resnet.resnet50(
                 pretrained=flag_pretrain)
