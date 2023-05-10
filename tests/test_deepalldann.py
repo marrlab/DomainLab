@@ -50,6 +50,30 @@ def test_deepall_res():
     gc.collect()
 
 
+def test_deepall_resDomBed():
+    """
+    resnet on deep all
+    """
+    testdir = os.path.dirname(os.path.realpath(__file__))
+    rootdir = os.path.join(testdir, "..")
+    rootdir = os.path.abspath(rootdir)
+    path = os.path.join(rootdir, "examples/nets/resnet50DomainBed.py")
+
+    parser = mk_parser_main()
+    margs = parser.parse_args(["--te_d", "caltech",
+                               "--task", "mini_vlcs",
+                               "--aname", "deepall",
+                               "--bs", "2",
+                               "--npath", f"{path}"
+                               ])
+    exp = Exp(margs)
+    exp.trainer.before_tr()
+    exp.trainer.tr_epoch(0)
+    del exp
+    torch.cuda.empty_cache()
+    gc.collect()
+
+
 def test_dann():
     """
     domain adversarial neural network
