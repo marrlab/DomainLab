@@ -9,7 +9,7 @@ class ResNetBase(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision
     """
-    def fetch_net(self, flag_pretrain, Domainbed_version=False):
+    def fetch_net(self, flag_pretrain):
         """fetch_net.
 
         :param flag_pretrain:
