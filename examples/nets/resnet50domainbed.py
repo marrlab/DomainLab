@@ -1,12 +1,21 @@
-import torch.nn as nn
+'''
+resnet50 modified as described in
+https://arxiv.org/pdf/2007.01434.pdf appendix D
+'''
+from torch import nn
 from torchvision import models as torchvisionmodels
 
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
 
 
-class costum_ResNet(nn.Module):
+class costum_resnet(nn.Module):
+    '''
+    this costum resnet includes the modification described in
+    https://arxiv.org/pdf/2007.01434.pdf appendix D
+    '''
     def __init__(self, flag_pretrain):
+        self.flag_pretrain = flag_pretrain
         resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
         # freez all batchnormalisation layers
         for module in resnet50.modules():
@@ -17,11 +26,12 @@ class costum_ResNet(nn.Module):
         self.resnet50_second_part = list(resnet50.children())[-1]
         self.dropout = nn.Dropout()
 
-    def forward(self, x):
-        x = self.resnet50_first_part(x)
-        x = self.dropout(x)
-        x = self.resnet50_second_part(x)
-        return x
+    def forward(self, x_arg):
+        """forward function of the network"""
+        x_arg = self.resnet50_first_part(x_arg)
+        x_arg = self.dropout(x_arg)
+        x_arg = self.resnet50_second_part(x_arg)
+        return x_arg
 
 
 class ResNetBase(NetTorchVisionBase):
@@ -33,9 +43,8 @@ class ResNetBase(NetTorchVisionBase):
 
         :param flag_pretrain:
         """
-        self.net_torchvision = torchvisionmodels.resnet.resnet50(
-            pretrained=flag_pretrain)
-        # CHANGEME: user can modify this line to choose other neural>
+        self.net_torchvision = costum_resnet(flag_pretrain)
+        # CHANGEME: user can modify this line to choose other neural
         # network architectures from 'torchvision.models'
 
 

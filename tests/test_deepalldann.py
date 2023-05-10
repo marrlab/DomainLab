@@ -50,14 +50,14 @@ def test_deepall_res():
     gc.collect()
 
 
-def test_deepall_resDomBed():
+def test_deepall_resdombed():
     """
     resnet on deep all
     """
     testdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.join(testdir, "..")
     rootdir = os.path.abspath(rootdir)
-    path = os.path.join(rootdir, "examples/nets/resnet50DomainBed.py")
+    path = os.path.join(rootdir, "examples/nets/resnet50domainbed.py")
 
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
