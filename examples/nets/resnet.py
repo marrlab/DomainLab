@@ -16,7 +16,7 @@ class ResNetBase(NetTorchVisionBase):
         """
         self.net_torchvision = torchvisionmodels.resnet.resnet50(
             pretrained=flag_pretrain)
-        # CHANGEME: user can modify this line to choose other neural>
+        # CHANGEME: user can modify this line to choose other neural
         # network architectures from 'torchvision.models'
 
 
