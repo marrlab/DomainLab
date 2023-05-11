@@ -9,7 +9,7 @@ from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
 
 
-class costum_resnet(nn.Module):
+class CostumResNet(nn.Module):
     '''
     this costum resnet includes the modification described in
     https://arxiv.org/pdf/2007.01434.pdf appendix D
@@ -43,7 +43,7 @@ class ResNetBase(NetTorchVisionBase):
 
         :param flag_pretrain:
         """
-        self.net_torchvision = costum_resnet(flag_pretrain)
+        self.net_torchvision = CostumResNet(flag_pretrain)
         # CHANGEME: user can modify this line to choose other neural
         # network architectures from 'torchvision.models'
 
