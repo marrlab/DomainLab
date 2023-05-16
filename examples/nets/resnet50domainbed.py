@@ -15,6 +15,8 @@ class CostumResNet(nn.Module):
     https://arxiv.org/pdf/2007.01434.pdf appendix D
     '''
     def __init__(self, flag_pretrain):
+        super(CostumResNet, self).__init__()
+
         self.flag_pretrain = flag_pretrain
         resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
         # freez all batchnormalisation layers
@@ -23,14 +25,15 @@ class CostumResNet(nn.Module):
                 module.requires_grad_(False)
 
         self.resnet50_first_part = nn.Sequential(*(list(resnet50.children())[:-1]))
-        self.resnet50_second_part = list(resnet50.children())[-1]
         self.dropout = nn.Dropout()
+        self.fc = list(resnet50.children())[-1]
 
     def forward(self, x_arg):
         """forward function of the network"""
         x_arg = self.resnet50_first_part(x_arg)
         x_arg = self.dropout(x_arg)
-        x_arg = self.resnet50_second_part(x_arg)
+        x_arg = nn.Flatten()(x_arg)
+        x_arg = self.fc(x_arg)
         return x_arg
 
 
