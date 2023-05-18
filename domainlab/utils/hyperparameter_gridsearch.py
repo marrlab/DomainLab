@@ -1,5 +1,9 @@
 '''
 gridsearch for the hyperparameter space
+
+def add_next_param_from_list is an recursive function to make cartesian product along all the scalar hyper-parameters, this resursive function is used
+in def grid_task
+
 '''
 import os
 
