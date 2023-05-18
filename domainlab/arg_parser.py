@@ -204,7 +204,7 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
-    logger = Logger.get_logger(logger_name='main_out_logger', loglevel=args['loglevel'])
+    logger = Logger.get_logger(logger_name='main_out_logger', loglevel=args.loglevel)
     if args.config_file:
         data = yaml.safe_load(args.config_file)
         delattr(args, 'config_file')
