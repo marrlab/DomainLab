@@ -48,7 +48,7 @@ class MatchCtrErm(MatchAlgoBase):
         """
         self.epo_loss_tr = 0
         logger = Logger.get_logger()
-        logger.info(self.str_phase, "epoch", epoch)
+        logger.info(f"self.str_phase {epoch} epoch")
         # update match tensor
         if (epoch + 1) % self.epos_per_match == 0:
             self.mk_match_tensor(epoch)
@@ -66,8 +66,8 @@ class MatchCtrErm(MatchAlgoBase):
         self.tuple_tensor_ref_domain2each_y = torch.split(
             self.tensor_ref_domain2each_domain_y[inds_shuffle],
             self.args.bs, dim=0)
-        logger.info("number of batches in match tensor: ", len(self.tuple_tensor_refdomain2each))
-        logger.info("single batch match tensor size: ", self.tuple_tensor_refdomain2each[0].shape)
+        logger.info(f"number of batches in match tensor: {len(self.tuple_tensor_refdomain2each)}")
+        logger.info(f"single batch match tensor size: {self.tuple_tensor_refdomain2each[0].shape}")
 
         for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
             # random loader with same batch size as the match tensor loader
@@ -109,8 +109,8 @@ class MatchCtrErm(MatchAlgoBase):
 
         if batch_idx >= num_batches:
             logger = Logger.get_logger()
-            logger.info("ref/base domain vs each domain match \
-                    traversed one sweep, starting new epoch")
+            logger.info("ref/base domain vs each domain match"
+                        "traversed one sweep, starting new epoch")
             self.flag_stop = True
             return
 
@@ -138,8 +138,8 @@ class MatchCtrErm(MatchAlgoBase):
         if flag_isnan:
             logger = Logger.get_logger()
             logger.info(batch_tensor_ref_domain2each)
-            raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big or \
-                               hyper-parameter tau not set appropriately?")
+            raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big or"
+                               "hyper-parameter tau not set appropriately?")
 
         # for contrastive training phase,
         # the last layer of the model is replaced with identity
@@ -192,12 +192,12 @@ class MatchCtrErm(MatchAlgoBase):
             subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
             feat_same_cls = batch_feat_ref_domain2each[subset_same_cls]
             feat_diff_cls = batch_feat_ref_domain2each[subset_diff_cls]
-            logger.debug('class', y_c, "with same class and different class: ",
-                         feat_same_cls.shape[0], feat_diff_cls.shape[0])
+            logger.debug(f'class {y_c} with same class and different class: ',
+                         f'{feat_same_cls.shape[0]} {feat_diff_cls.shape[0]}')
 
             if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
-                logger.debug("no instances of label", y_c,
-                             "in the current batch, continue")
+                logger.debug(f"no instances of label {y_c}"
+                             f"in the current batch, continue")
                 continue
 
             if torch.sum(torch.isnan(feat_diff_cls)):

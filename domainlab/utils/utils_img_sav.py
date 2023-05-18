@@ -16,7 +16,7 @@ def mk_fun_sav_img(path=".", nrow=8, folder_na=""):
         f_p = os.path.join(path, folder_na, name)
         Path(os.path.dirname(f_p)).mkdir(parents=True, exist_ok=True)
         logger = Logger.get_logger()
-        logger.info("saving to ", f_p)
+        logger.info(f"saving to {f_p}")
         # works also if tensor is already in cpu
         tensor = comparison_tensor_stack.cpu()
         if title is None:

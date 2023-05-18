@@ -51,10 +51,10 @@ class Alex4DeepAll(AlexNetBase):
         super().__init__(flag_pretrain)
         if self.net_torchvision.classifier[6].out_features != dim_y:
             logger = Logger.get_logger()
-            logger.info("original alex net out dim", self.net_torchvision.classifier[6].out_features)
+            logger.info(f"original alex net out dim {self.net_torchvision.classifier[6].out_features}")
             num_ftrs = self.net_torchvision.classifier[6].in_features
             self.net_torchvision.classifier[6] = nn.Linear(num_ftrs, dim_y)
-            logger.info("re-initialized to ", dim_y)
+            logger.info(f"re-initialized to {dim_y}")
 
 
 class AlexNetNoLastLayer(AlexNetBase):

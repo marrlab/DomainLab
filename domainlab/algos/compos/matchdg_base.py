@@ -97,7 +97,7 @@ def get_base_domain_size4match_dg(task):
                 ref_domain = domain_key
                 num = task.dict_domain_class_count[domain_key][mclass]
         logger = Logger.get_logger()
-        logger.info("for class ", mclass, " bigest sample size is ",
-              num, "ref domain is", ref_domain)
+        logger.info(f"for class {mclass} bigest sample size is {num} "
+                    f"ref domain is {ref_domain}")
         base_domain_size += num
     return base_domain_size

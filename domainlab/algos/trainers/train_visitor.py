@@ -30,8 +30,8 @@ class TrainerVisitor(TrainerBasic):
     def before_tr(self):
         if self.hyper_scheduler is None:
             logger = Logger.get_logger()
-            logger.warning("hyper-parameter scheduler not set, \
-                           going to use default Warmpup and epoch update")
+            logger.warning(f"hyper-parameter scheduler not set,"
+                           f"going to use default Warmpup and epoch update")
             self.set_scheduler(HyperSchedulerWarmup,
                                total_steps=self.aconf.warmup,
                                flag_update_epoch=True)

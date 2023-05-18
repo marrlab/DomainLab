@@ -64,7 +64,7 @@ class ExpModelPersistVisitor():
         if self.host.args.debug:
             model_name = "debug_" + model_name
         logger = Logger.get_logger()
-        logger.info("model name:", model_name)
+        logger.info(f"model name: {model_name}")
         return model_name
 
     def save(self, model, suffix=None):
@@ -181,9 +181,9 @@ class AggWriter(ExpModelPersistVisitor):
         file_path = self.get_fpath()
         Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
         logger = Logger.get_logger()
-        logger.info("results aggregation path:", file_path)
+        logger.info(f"results aggregation path: {file_path}")
         with open(file_path, 'a', encoding="utf8") as f_h:
-            logger.info(str_line, file=f_h)
+            print(str_line, file=f_h)
 
     def confmat_to_file(self, confmat, confmat_filename):
         """Save confusion matrix as a figure
@@ -203,7 +203,7 @@ class AggWriter(ExpModelPersistVisitor):
         confmat_filename = confmat_filename.removeprefix("mname_")
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
         logger = Logger.get_logger()
-        logger.info("confusion matrix saved in file: ", file_path)
+        logger.info(f"confusion matrix saved in file: {file_path}")
         disp.figure_.savefig(file_path)
 
 

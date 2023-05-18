@@ -63,7 +63,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         acc = PerfClassif.cal_acc(self, loader_te, device)
         logger = Logger.get_logger()
-        logger.info("before training, model accuracy:", acc)
+        logger.info(f"before training, model accuracy: {acc}")
 
     @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
@@ -149,8 +149,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
-                    logger.info(str_line, file=handle_file)
-        logger.info("prediction saved in file ", filename)
+                    print(str_line, file=handle_file)
+        logger.info(f"prediction saved in file {filename}")
         file_acc = self.read_prediction_file(filename, spliter)
         acc_metric_te = metric_te['acc']
         flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
@@ -159,11 +159,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
         flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
         if not (flag1 & flag2 & flag_raw_consistency):
-            str_info = f"inconsistent acc:  \
-                prediction file acc {file_acc} \
-                torchmetric acc {acc_metric_te} \
-                raw acc 1 {acc_raw1} \
-                raw acc 2 {acc_raw2}"
+            str_info = f"inconsistent acc:" \
+                       f"prediction file acc {file_acc}" \
+                       f"torchmetric acc {acc_metric_te}" \
+                       f"raw acc 1 {acc_raw1}" \
+                       f"raw acc 2 {acc_raw2}"
             raise RuntimeError(str_info)
         return file_acc
 

@@ -46,18 +46,18 @@ class Exp():
         """
         t_0 = datetime.datetime.now()
         logger = Logger.get_logger()
-        logger.info('\n Experiment start at :', str(t_0))
+        logger.info(f'\n Experiment start at: {str(t_0)}')
         t_c = t_0
         self.trainer.before_tr()
         for epoch in range(1, self.epochs + 1):
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            logger.info(f"epoch: {epoch} ",
-                        "now: ", str(t_c),
-                        "epoch time: ", t_c - t_before_epoch,
-                        "used: ", t_c - t_0,
-                        "model: ", self.visitor.model_name)
+            logger.info(f"epoch: {epoch},"
+                        f"now: {str(t_c)},"
+                        f"epoch time: {t_c - t_before_epoch},"
+                        f"used: {t_c - t_0},"
+                        f"model: {self.visitor.model_name}")
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
@@ -67,6 +67,6 @@ class Exp():
                 self.epoch_counter = self.epochs
             else:
                 self.epoch_counter += 1
-        logger.info("Experiment finished at epoch:", self.epoch_counter,
-                    "with time:", t_c - t_0, "at", t_c)
+        logger.info(f"Experiment finished at epoch: {self.epoch_counter} "
+                    f"with time: {t_c - t_0} at {t_c}")
         self.trainer.post_tr()

@@ -77,9 +77,8 @@ class TaskChainNodeGetter(object):
             if self.args.task is None:
                 logger = Logger.get_logger()
                 logger.info("")
-                logger.info("overriding args.task ",
-                            self.args.task, " to  ",
-                            node.task_name)
+                logger.info(f"overriding args.task {self.args.task} "
+                            f"to {node.task_name}")
                 logger.info("")
                 self.request = node.task_name  # @FIXME
         node = chain.handle(self.request)

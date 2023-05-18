@@ -76,12 +76,12 @@ class DsetInMemDecorator(Dataset):
         self.item_list = []
         logger = Logger.get_logger()
         if name is not None:
-            logger.info("loading dset ", name)
+            logger.info(f"loading dset {name}")
         t_0 = datetime.datetime.now()
         for i in range(len(self.dset)):
             self.item_list.append(self.dset[i])
         t_1 = datetime.datetime.now()
-        logger.info("loading dataset to memory taken: ", t_1-t_0)
+        logger.info(f"loading dataset to memory taken: {t_1 - t_0}")
 
     def __getitem__(self, idx):
         """

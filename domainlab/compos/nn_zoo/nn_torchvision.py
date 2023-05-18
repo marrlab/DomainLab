@@ -28,4 +28,4 @@ class NetTorchVisionBase(nn.Module):
         for name, param in self.net_torchvision.named_parameters():
             if param.requires_grad:
                 logger = Logger.get_logger()
-                logger.info("layers that will be optimized: \t", name)
+                logger.info(f"layers that will be optimized: \t{name}")

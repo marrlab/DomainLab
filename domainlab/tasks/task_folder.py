@@ -73,7 +73,7 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
             raise RuntimeError(
                 "this task does not support spliting training domain yet")
         logger = Logger.get_logger()
-        logger.info("reading domain:", na_domain)
+        logger.info(f"reading domain: {na_domain}")
         domain_class_dirs = \
             self._dict_domain_folder_name2class[na_domain].keys()
         if self._dict_domain_img_trans:

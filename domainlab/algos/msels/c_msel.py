@@ -31,7 +31,7 @@ class MSelTrLoss(AMSel):
         else:
             self.es_c += 1
             logger = Logger.get_logger()
-            logger.info("early stop counter: ", self.es_c)
+            logger.info(f"early stop counter: {self.es_c}")
             logger.info(f"loss:{loss}, best loss: {self.best_loss}")
             flag = False  # do not update best model
         return flag

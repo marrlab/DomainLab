@@ -148,9 +148,8 @@ class NodeTaskDG(AbstractChainNodeHandler):
         if set(list_domain_tr) & set(list_domain_te):
             logger = Logger.get_logger()
             logger.warning(
-                "The sets of training and test domains overlap -- \
-                be aware of data leakage or training to the test!",
-                RuntimeWarning
+                "The sets of training and test domains overlap -- "
+                "be aware of data leakage or training to the test!"
             )
 
         self.dim_d_tr = len(list_domain_tr)

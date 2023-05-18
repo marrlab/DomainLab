@@ -86,7 +86,7 @@ def run_experiment(
     if torch.cuda.is_available():
         torch.cuda.init()
         logger.info("before experiment loop: ")
-        logger.info(torch.cuda.memory_summary())
+        logger.info(str(torch.cuda.memory_summary()))
     if start_seed is None:
         start_seed = config['startseed']
         end_seed = config['endseed']
@@ -101,9 +101,9 @@ def run_experiment(
             try:
                 if torch.cuda.is_available():
                     logger.info("before experiment starts")
-                    logger.info(torch.cuda.memory_summary())
+                    logger.info(str(torch.cuda.memory_summary()))
             except KeyError as ex:
-                logger.error(ex)
+                logger.error(str(ex))
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
@@ -112,15 +112,15 @@ def run_experiment(
             try:
                 if torch.cuda.is_available():
                     logger.info("before torch memory clean up")
-                    logger.info(torch.cuda.memory_summary())
+                    logger.info(str(torch.cuda.memory_summary()))
             except KeyError as ex:
-                logger.error(ex)
+                logger.error(str(ex))
             del exp
             torch.cuda.empty_cache()
             gc.collect()
             try:
                 if torch.cuda.is_available():
                     logger.info("after torch memory clean up")
-                    logger.info(torch.cuda.memory_summary())
+                    logger.info(str(torch.cuda.memory_summary()))
             except KeyError as ex:
-                logger.error(ex)
+                logger.error(str(ex))

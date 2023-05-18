@@ -13,7 +13,7 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
         """
         logger = Logger.get_logger()
-        logger.info("processing dataset for ", args.aname)
+        logger.info(f"processing dataset for {args.aname}")
         return ddset
 
     @property

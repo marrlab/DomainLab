@@ -33,7 +33,7 @@ class ObVisitor(AObVisitor):
 
     def update(self, epoch):
         logger = Logger.get_logger()
-        logger.info("epoch:", epoch)
+        logger.info(f"epoch: {epoch}")
         self.epo = epoch
         if epoch % self.epo_te == 0:
             metric_te = self.host_trainer.model.cal_perf_metric(

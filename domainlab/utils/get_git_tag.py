@@ -18,14 +18,14 @@ def get_git_tag(print_diff=False):
         try:
             diff_byte = subprocess.check_output(['git', 'diff'])
             if print_diff:
-                logger.info(diff_byte)  # print is currently ugly, do not use!
+                logger.info(str(diff_byte))  # print is currently ugly, do not use!
         except Exception:
             logger = Logger.get_logger()
             logger.warning("not in a git repository")
     try:
         tag_byte = subprocess.check_output(
             ["git", "describe", "--always"]).strip()
-        logger.info(tag_byte)
+        logger.info(str(tag_byte))
         tag_str = str(tag_byte)
         git_str = tag_str.replace("'", "")
         if flag_not_commited:

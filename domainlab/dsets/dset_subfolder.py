@@ -119,7 +119,7 @@ class DsetSubFolder(DatasetFolder):
         if sys.version_info >= (3, 5):
             # Faster and available in Python 3.5 and above
             list_subfolders = [subfolder.name for subfolder in list(os.scandir(mdir))]
-            logger.info(rprint("list of subfolders", list_subfolders))
+            logger.info(rprint(f"list of subfolders {list_subfolders}"))
             classes = [d.name for d in os.scandir(mdir) \
                        if d.is_dir() and d.name in self.list_class_dir]
         else:
@@ -127,8 +127,8 @@ class DsetSubFolder(DatasetFolder):
                        if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir]
         flag_user_input_classes_in_folder = (set(self.list_class_dir) <= set(classes))
         if not flag_user_input_classes_in_folder:
-            logger.info("user provided class names:", self.list_class_dir)
-            logger.info("subfolder names from folder:", mdir, classes)
+            logger.info(f"user provided class names: {self.list_class_dir}")
+            logger.info(f"subfolder names from folder: {mdir} {classes}")
             raise RuntimeError("user provided class names does not match the subfolder names")
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}

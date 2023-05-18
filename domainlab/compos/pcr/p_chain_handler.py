@@ -91,7 +91,7 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
 
     def print_options(self):
         logger = Logger.get_logger()
-        logger.info(self.__class__.__name__)
+        logger.info(str(self.__class__.__name__))
         if self._parent_node is not None:
             self._parent_node.print_options()
 
