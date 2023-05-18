@@ -445,31 +445,3 @@ def boxplot_systematic(dataframe_in, obj, file=None):
     if file is not None:
         plt.savefig(file + '/systematic_variation.png', dpi=300)
 
-
-# This is the old version without using subplots for the systematic variation
-# The splitting into subplots makes a comparison with the stochastic variation easier
-def boxplot_systematic_old(dataframe_in, obj, file=None):
-    '''
-    generate boxplot for ssystemtic variation
-    dataframe_in: dataframe containing the data with columns
-        [param_idx, task , algo, epos, te_d, seed, params, obj1, ..., obj2]
-    obj: objective to be considered in the plot (needs to be contained in dataframe_in)
-    file: foldername to save the plots (if None, the plot will not be saved)
-    '''
-    dataframe = dataframe_in.copy()
-    os.makedirs(file, exist_ok=True)
-
-    ### systematic variation
-    _, axes = plt.subplots(1, 1, figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
-    sns.boxplot(data=dataframe, x=COLNAME_ALGO, y=obj, ax=axes, showfliers=False,
-                boxprops={"facecolor": (.4, .6, .8, .5)})
-    sns.swarmplot(data=dataframe, x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
-                  legend=False, ax=axes,
-                  palette=sns.cubehelix_palette(n_colors=len(
-                      dataframe[dataframe[COLNAME_ALGO] == list(dataframe[COLNAME_ALGO].unique())
-                                [0]][COLNAME_IDX_PARAM].unique())))
-    axes.set_ylim([-0.1, 1.1])
-    axes.legend([], [], frameon=False)
-    plt.tight_layout()
-    if file is not None:
-        plt.savefig(file + '/systematic_variation.png', dpi=300)

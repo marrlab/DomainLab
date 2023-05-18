@@ -15,6 +15,8 @@ Welcome to domainlab's documentation!
    docHDUVA
    docJiGen
    doc_diva
+   docMatchDG
+   docDIAL
 
 
 Indices and tables
