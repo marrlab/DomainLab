@@ -8,6 +8,7 @@ import torch.utils.data as data_utils
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision.utils import save_image
+from domainlab.utils.logger import Logger
 
 
 def fun_img_path_loader_default(path):
@@ -73,13 +74,14 @@ class DsetInMemDecorator(Dataset):
         """
         self.dset = dset
         self.item_list = []
+        logger = Logger.get_logger()
         if name is not None:
-            print("loading dset ", name)
+            logger.info("loading dset ", name)
         t_0 = datetime.datetime.now()
         for i in range(len(self.dset)):
             self.item_list.append(self.dset[i])
         t_1 = datetime.datetime.now()
-        print("loading dataset to memory taken: ", t_1-t_0)
+        logger.info("loading dataset to memory taken: ", t_1-t_0)
 
     def __getitem__(self, idx):
         """

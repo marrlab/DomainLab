@@ -1,4 +1,5 @@
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
+from domainlab.utils.logger import Logger
 
 
 class NodeAlgoBuilder(AbstractChainNodeHandler):
@@ -11,7 +12,8 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         """
         most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
         """
-        print("processing dataset for ", args.aname)
+        logger = Logger.get_logger()
+        logger.info("processing dataset for ", args.aname)
         return ddset
 
     @property

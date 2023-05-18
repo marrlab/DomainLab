@@ -3,6 +3,7 @@ from torchvision import models as torchvisionmodels
 
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
+from domainlab.utils.logger import Logger
 
 
 class AlexNetBase(NetTorchVisionBase):
@@ -49,10 +50,11 @@ class Alex4DeepAll(AlexNetBase):
     def __init__(self, flag_pretrain, dim_y):
         super().__init__(flag_pretrain)
         if self.net_torchvision.classifier[6].out_features != dim_y:
-            print("original alex net out dim", self.net_torchvision.classifier[6].out_features)
+            logger = Logger.get_logger()
+            logger.info("original alex net out dim", self.net_torchvision.classifier[6].out_features)
             num_ftrs = self.net_torchvision.classifier[6].in_features
             self.net_torchvision.classifier[6] = nn.Linear(num_ftrs, dim_y)
-            print("re-initialized to ", dim_y)
+            logger.info("re-initialized to ", dim_y)
 
 
 class AlexNetNoLastLayer(AlexNetBase):

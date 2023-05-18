@@ -1,4 +1,5 @@
 import torch.nn as nn
+from domainlab.utils.logger import Logger
 
 
 class NetTorchVisionBase(nn.Module):
@@ -26,4 +27,5 @@ class NetTorchVisionBase(nn.Module):
         """
         for name, param in self.net_torchvision.named_parameters():
             if param.requires_grad:
-                print("layers that will be optimized: \t", name)
+                logger = Logger.get_logger()
+                logger.info("layers that will be optimized: \t", name)

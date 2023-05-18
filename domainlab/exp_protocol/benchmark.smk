@@ -2,6 +2,8 @@ import os
 import sys
 from pathlib import Path
 
+from domainlab.utils.logger import Logger
+
 try:
     config_path = workflow.configfiles[0]
 except IndexError:
@@ -35,8 +37,9 @@ def experiment_result_files(_):
                 num_nonsample_tasks += 1
     # total number of hyperparameter samples
     total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
-    print(f"total_num_params={total_num_params}")
-    print(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
+    logger = Logger.get_logger()
+    logger.info(f"total_num_params={total_num_params}")
+    logger.info(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 
@@ -51,6 +54,8 @@ rule parameter_sampling:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
+
+        Logger.get_logger(logger_name='benchmark_logger', loglevel='DEBUG')
 
         sampling_seed_str = params.sampling_seed
         if isinstance(sampling_seed_str, str) and (len(sampling_seed_str) > 0):

@@ -12,6 +12,7 @@ from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
 from domainlab.compos.exp.exp_cuda_seed import set_seed
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.utils.logger import Logger
 
 
 def load_parameters(file: str, index: int) -> tuple:
@@ -58,9 +59,10 @@ def run_experiment(
     if misc is None:
         misc = {}
     str_algo_as_task, hyperparameters = load_parameters(param_file, param_index)
-    # print("\n*******************************************************************")
-    # print(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
-    # print("*******************************************************************\n")
+    logger = Logger.get_logger()
+    logger.debug("\n*******************************************************************")
+    logger.debug(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
+    logger.debug("*******************************************************************\n")
     misc['result_file'] = out_file
     misc['params'] = hyperparameters
     misc['benchmark_task_name'] = str_algo_as_task
@@ -83,8 +85,8 @@ def run_experiment(
 
     if torch.cuda.is_available():
         torch.cuda.init()
-        print("before experiment loop: ")
-        print(torch.cuda.memory_summary())
+        logger.info("before experiment loop: ")
+        logger.info(torch.cuda.memory_summary())
     if start_seed is None:
         start_seed = config['startseed']
         end_seed = config['endseed']
@@ -98,10 +100,10 @@ def run_experiment(
             args.seed = seed
             try:
                 if torch.cuda.is_available():
-                    print("before experiment starts")
-                    print(torch.cuda.memory_summary())
+                    logger.info("before experiment starts")
+                    logger.info(torch.cuda.memory_summary())
             except KeyError as ex:
-                print(ex)
+                logger.error(ex)
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
@@ -109,16 +111,16 @@ def run_experiment(
                 exp.execute()
             try:
                 if torch.cuda.is_available():
-                    print("before torch memory clean up")
-                    print(torch.cuda.memory_summary())
+                    logger.info("before torch memory clean up")
+                    logger.info(torch.cuda.memory_summary())
             except KeyError as ex:
-                print(ex)
+                logger.error(ex)
             del exp
             torch.cuda.empty_cache()
             gc.collect()
             try:
                 if torch.cuda.is_available():
-                    print("after torch memory clean up")
-                    print(torch.cuda.memory_summary())
+                    logger.info("after torch memory clean up")
+                    logger.info(torch.cuda.memory_summary())
             except KeyError as ex:
-                print(ex)
+                logger.error(ex)

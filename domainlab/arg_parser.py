@@ -2,7 +2,6 @@
 Command line arguments
 """
 import argparse
-import warnings
 
 import yaml
 
@@ -10,6 +9,7 @@ from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
+from domainlab.utils.logger import Logger
 
 
 def mk_parser_main():
@@ -201,14 +201,15 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
+    logger = Logger.get_logger(logger_name='main_out_logger', loglevel='DEBUG')
     if args.config_file:
         data = yaml.safe_load(args.config_file)
         delattr(args, 'config_file')
         apply_dict_to_args(args, data)
 
     if args.acon is None and args.bm_dir is None:
-        print("\n\n")
-        warnings.warn("no algorithm conf specified, going to use default")
-        print("\n\n")
+        logger.warning("\n\n")
+        logger.warning("no algorithm conf specified, going to use default")
+        logger.warning("\n\n")
 
     return args

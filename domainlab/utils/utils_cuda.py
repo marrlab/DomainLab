@@ -2,6 +2,7 @@
 choose devices
 """
 import torch
+from domainlab.utils.logger import Logger
 
 
 def get_device(args):
@@ -14,7 +15,8 @@ def get_device(args):
         device = torch.device("cuda" if flag_cuda else "cpu")
     else:
         device = torch.device("cuda:"+args.device if flag_cuda else "cpu")
-    print("")
-    print("using device:", str(device))
-    print("")
+    logger = Logger.get_logger()
+    logger.info("")
+    logger.info("using device:", str(device))
+    logger.info("")
     return device

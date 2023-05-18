@@ -14,6 +14,8 @@ from ast import literal_eval   # literal_eval can safe evaluate python expressio
 import numpy as np
 import pandas as pd
 
+from domainlab.utils.logger import Logger
+
 
 class Hyperparameter:
     """
@@ -182,7 +184,8 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
                 setattr(par, 'val', eval(par.reference))
                 # NOTE: literal_eval will cause ValueError: malformed node or string
             except Exception as ex:
-                print(f"error in evaluating expression: {par.reference}")
+                logger = Logger.get_logger()
+                logger.info(f"error in evaluating expression: {par.reference}")
                 raise ex
             locals().update({par.name: par.val})
 

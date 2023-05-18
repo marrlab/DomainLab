@@ -7,6 +7,7 @@ import os
 from typing import List
 
 from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
+from domainlab.utils.logger import Logger
 
 
 def agg_results(input_files: List[str], output_file: str):
@@ -20,7 +21,8 @@ def agg_results(input_files: List[str], output_file: str):
     """
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     has_header = False
-    # print(f"exp_results={input.exp_results}")
+    logger = Logger.get_logger()
+    logger.debug(f"exp_results={input.exp_results}")
     with open(output_file, 'w') as out_stream:
         for res in input_files:
             with open(res, 'r') as in_stream:

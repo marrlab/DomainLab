@@ -16,6 +16,7 @@ from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from rich import print as rprint
 import pandas as pd
+from domainlab.utils.logger import Logger
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -39,19 +40,20 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         with torch.no_grad():
             metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
             confmat = metric_tr_pool.pop("confmat")
-            print("pooled train domains performance:")
-            rprint(metric_tr_pool)
-            print("confusion matrix:")
-            print(pd.DataFrame(confmat))
+            logger = Logger.get_logger()
+            logger.debug("pooled train domains performance:")
+            logger.debug(rprint(metric_tr_pool))
+            logger.debug("confusion matrix:")
+            logger.debug(pd.DataFrame(confmat))
             metric_tr_pool["confmat"] = confmat
             # test set has no domain label, so can be more custom
             if loader_te is not None:
                 metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
                 confmat = metric_te.pop("confmat")
-                print("out of domain test performance:")
-                rprint(metric_te)
-                print("confusion matrix:")
-                print(pd.DataFrame(confmat))
+                logger.debug("out of domain test performance:")
+                logger.debug(rprint(metric_te))
+                logger.debug("confusion matrix:")
+                logger.debug(pd.DataFrame(confmat))
                 metric_te["confmat"] = confmat
         return metric_te
 
@@ -60,7 +62,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         for classification task, use the current model to cal acc
         """
         acc = PerfClassif.cal_acc(self, loader_te, device)
-        print("before training, model accuracy:", acc)
+        logger = Logger.get_logger()
+        logger.info("before training, model accuracy:", acc)
 
     @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
@@ -130,6 +133,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         self.eval()
         model_local = self.to(device)
+        logger = Logger.get_logger()
         for _, (x_s, y_s, *_, path4instance) in enumerate(loader_te):
             x_s, y_s = x_s.to(device), y_s.to(device)
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
@@ -145,8 +149,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
-                    print(str_line, file=handle_file)
-        print("prediction saved in file ", filename)
+                    logger.info(str_line, file=handle_file)
+        logger.info("prediction saved in file ", filename)
         file_acc = self.read_prediction_file(filename, spliter)
         acc_metric_te = metric_te['acc']
         flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
@@ -175,7 +179,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             if np.array(list_prob).argmax() == int(line[1]):
                 count_correct += 1
         acc = count_correct / len(list_lines)
-        print(f"accuracy from prediction file {acc}")
+        logger = Logger.get_logger()
+        logger.info(f"accuracy from prediction file {acc}")
         return acc
 
     def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):

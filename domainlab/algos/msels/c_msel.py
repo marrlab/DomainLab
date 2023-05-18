@@ -3,6 +3,7 @@ Model Selection should be decoupled from
 """
 import math
 from domainlab.algos.msels.a_model_sel import AMSel
+from domainlab.utils.logger import Logger
 
 
 class MSelTrLoss(AMSel):
@@ -29,8 +30,9 @@ class MSelTrLoss(AMSel):
             self.best_loss = loss
         else:
             self.es_c += 1
-            print("early stop counter: ", self.es_c)
-            print(f"loss:{loss}, best loss: {self.best_loss}")
+            logger = Logger.get_logger()
+            logger.info("early stop counter: ", self.es_c)
+            logger.info(f"loss:{loss}, best loss: {self.best_loss}")
             flag = False  # do not update best model
         return flag
 

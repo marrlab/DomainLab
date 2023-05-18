@@ -1,4 +1,5 @@
 import warnings
+from domainlab.utils.logger import Logger
 
 import numpy as np
 import torch
@@ -107,7 +108,8 @@ class MatchPair():
         # value instead of class label
         for domain in range(self.num_domains_tr):
             if self.domain_count[domain] != self.list_tr_domain_size[domain]:
-                warnings.warn("domain_count show matching \
+                logger = Logger.get_logger()
+                logger.warning("domain_count show matching \
                     dictionary missing data!")
 
     def _cal_base_domain(self):
@@ -130,9 +132,10 @@ class MatchPair():
                     base_domain_idx = domain_idx
             self.dict_cls_ind_base_domain_ind[y_c] = base_domain_idx
             # for each class label, there is a base domain
-            print("for class", y_c)
-            print("domain index as base domain:", base_domain_idx)
-            print("Base Domain size", base_domain_size)
+            logger = Logger.get_logger()
+            logger.info("for class", y_c)
+            logger.info("domain index as base domain:", base_domain_idx)
+            logger.info("Base Domain size", base_domain_size)
 
     def __call__(self, device, loader, fun_extract_semantic_feat, flag_match_min_dist):
         """
@@ -271,9 +274,10 @@ class MatchPair():
                         counter_ref_dset_size += 1
 
             if counter_ref_dset_size != self.virtual_ref_dset_size:
-                print("counter_ref_dset_size", counter_ref_dset_size)
-                print("self.virtual_ref_dset_size", self.virtual_ref_dset_size)
-                # warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
+                logger = Logger.get_logger()
+                logger.info("counter_ref_dset_size", counter_ref_dset_size)
+                logger.info("self.virtual_ref_dset_size", self.virtual_ref_dset_size)
+                logger.warning("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
                 raise RuntimeError("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
 
 
@@ -292,7 +296,8 @@ class MatchPair():
                         if self.dict_virtual_dset2each_domain[key]['label'][d_i] != self.dict_virtual_dset2each_domain[key]['label'][d_j]:
                             # raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
                             wrong_case += 1
-        print('Total Label MisMatch across pairs: ', wrong_case)
+        logger = Logger.get_logger()
+        logger.info('Total Label MisMatch across pairs: ', wrong_case)
         if wrong_case != 0:
             raise RuntimeError("the reference domain \
                                has 'rows' with inconsistent class labels")
@@ -306,7 +311,7 @@ class MatchPair():
         tensor_ref_domain_each_domain_x = torch.stack(list_ref_domain_each_domain)
         tensor_ref_domain_each_domain_label = torch.stack(list_ref_domain_each_domain_label)
 
-        print(tensor_ref_domain_each_domain_x.shape, tensor_ref_domain_each_domain_label.shape)
+        logger.info(tensor_ref_domain_each_domain_x.shape, tensor_ref_domain_each_domain_label.shape)
 
         del self.dict_domain_data
         del self.dict_virtual_dset2each_domain

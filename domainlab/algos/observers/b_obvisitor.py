@@ -5,6 +5,7 @@ import warnings
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
+from domainlab.utils.logger import Logger
 
 
 class ObVisitor(AObVisitor):
@@ -31,16 +32,17 @@ class ObVisitor(AObVisitor):
         self.perf_metric = None
 
     def update(self, epoch):
-        print("epoch:", epoch)
+        logger = Logger.get_logger()
+        logger.info("epoch:", epoch)
         self.epo = epoch
         if epoch % self.epo_te == 0:
             metric_te = self.host_trainer.model.cal_perf_metric(
                 self.loader_tr, self.device, self.loader_te)
             self.metric_te = metric_te
         if self.model_sel.update():
-            print("model selected")
+            logger.info("model selected")
             self.exp.visitor.save(self.host_trainer.model)
-            print("persisted")
+            logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
         return flag_stop
 
@@ -65,7 +67,8 @@ class ObVisitor(AObVisitor):
 
         model_ld = model_ld.to(self.device)
         model_ld.eval()
-        print("persisted model performance metric: \n")
+        logger = Logger.get_logger()
+        logger.info("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
