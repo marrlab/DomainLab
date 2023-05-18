@@ -14,7 +14,6 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
-from rich import print as rprint
 import pandas as pd
 from domainlab.utils.logger import Logger
 
@@ -42,7 +41,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             confmat = metric_tr_pool.pop("confmat")
             logger = Logger.get_logger()
             logger.debug("pooled train domains performance:")
-            logger.debug(rprint(metric_tr_pool))
+            logger.debug(metric_tr_pool)
             logger.debug("confusion matrix:")
             logger.debug(pd.DataFrame(confmat))
             metric_tr_pool["confmat"] = confmat
@@ -51,7 +50,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
                 confmat = metric_te.pop("confmat")
                 logger.debug("out of domain test performance:")
-                logger.debug(rprint(metric_te))
+                logger.debug(metric_te)
                 logger.debug("confusion matrix:")
                 logger.debug(pd.DataFrame(confmat))
                 metric_te["confmat"] = confmat

@@ -8,7 +8,6 @@ import warnings
 from typing import Any, Tuple
 
 from torchvision.datasets import DatasetFolder
-from rich import print as rprint
 from domainlab.utils.logger import Logger
 
 def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bool:
@@ -119,7 +118,7 @@ class DsetSubFolder(DatasetFolder):
         if sys.version_info >= (3, 5):
             # Faster and available in Python 3.5 and above
             list_subfolders = [subfolder.name for subfolder in list(os.scandir(mdir))]
-            logger.info(rprint(f"list of subfolders {list_subfolders}"))
+            logger.info(f"list of subfolders {list_subfolders}")
             classes = [d.name for d in os.scandir(mdir) \
                        if d.is_dir() and d.name in self.list_class_dir]
         else:

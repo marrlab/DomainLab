@@ -2,8 +2,6 @@ import os
 import sys
 from pathlib import Path
 
-from domainlab.utils.logger import Logger
-
 try:
     config_path = workflow.configfiles[0]
 except IndexError:
@@ -26,6 +24,7 @@ envvars:
 def experiment_result_files(_):
     """Lists all expected i.csv"""
     from domainlab.utils.hyperparameter_sampling import is_task
+    from domainlab.utils.logger import Logger
     # count tasks
     num_sample_tasks = 0
     num_nonsample_tasks = 0
@@ -54,11 +53,6 @@ rule parameter_sampling:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
-
-        if 'loglevel' in config.keys():
-            Logger.get_logger(logger_name='benchmark_logger', loglevel=config['loglevel'])
-        else:
-            Logger.get_logger(logger_name='benchmark_logger', loglevel='INFO')
 
         sampling_seed_str = params.sampling_seed
         if isinstance(sampling_seed_str, str) and (len(sampling_seed_str) > 0):
