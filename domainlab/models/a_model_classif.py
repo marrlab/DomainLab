@@ -14,8 +14,8 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
-import pandas as pd
 from domainlab.utils.logger import Logger
+import pandas as pd
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):

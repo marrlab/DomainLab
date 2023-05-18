@@ -311,7 +311,8 @@ class MatchPair():
         tensor_ref_domain_each_domain_x = torch.stack(list_ref_domain_each_domain)
         tensor_ref_domain_each_domain_label = torch.stack(list_ref_domain_each_domain_label)
 
-        logger.info(f"{tensor_ref_domain_each_domain_x.shape} {tensor_ref_domain_each_domain_label.shape}")
+        logger.info(f"{tensor_ref_domain_each_domain_x.shape} "
+                    f"{tensor_ref_domain_each_domain_label.shape}")
 
         del self.dict_domain_data
         del self.dict_virtual_dset2each_domain

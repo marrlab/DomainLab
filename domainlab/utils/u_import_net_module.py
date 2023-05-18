@@ -35,8 +35,8 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
             net = getattr(net_module, name_fun)(dim_y, remove_last_layer)
         except Exception:
             logger = Logger.get_logger()
-            logger.error("function %s should return a neural network (pytorch module) that \
-                         that extract features from an image" % (name_signature))
+            logger.error(f"function {name_signature} should return a neural network "
+                         f"(pytorch module) that that extract features from an image")
             raise
         if net is None:
             raise RuntimeError("the pytorch module returned by %s is None"

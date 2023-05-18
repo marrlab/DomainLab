@@ -158,8 +158,8 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
                                 distinguish_hyperparam=True)
                 except IndexError:
                     logger = Logger.get_logger()
-                    logger.warning(f'WARNING: disabling kde because cov matrix is singular for objectives '
-                                   f'{obj_i} & {obj[j]}')
+                    logger.warning(f'WARNING: disabling kde because cov matrix is singular '
+                                   f'for objectives {obj_i} & {obj[j]}')
                     scatterplot(dataframe_algo, [obj_i, obj[j]],
                                 file=output_dir + '/' + str(algorithm) +
                                 '/scatterpl/' + obj_i + '_' + obj[j] + '.png',
