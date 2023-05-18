@@ -1,0 +1,2 @@
+- change conf.py to change the tabs in the website
+- change index.rst to change the left navigation bar (list of algoritms)
