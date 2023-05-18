@@ -55,7 +55,10 @@ rule parameter_sampling:
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
 
-        Logger.get_logger(logger_name='benchmark_logger', loglevel='DEBUG')
+        if 'loglevel' in config.keys():
+            Logger.get_logger(logger_name='benchmark_logger', loglevel=config['loglevel'])
+        else:
+            Logger.get_logger(logger_name='benchmark_logger', loglevel='INFO')
 
         sampling_seed_str = params.sampling_seed
         if isinstance(sampling_seed_str, str) and (len(sampling_seed_str) > 0):
