@@ -156,6 +156,9 @@ def mk_parser_main():
     arg_group_task.add_argument('--san_num', type=int, default=8,
                                 help='number of images to be dumped for the sanity check')
 
+    arg_group_task.add_argument('--loglevel', type=str, default='INFO',
+                                help='sets the loglevel of the logger')
+
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group('vae')
     arg_group_vae = add_args2parser_vae(arg_group_vae)
@@ -201,7 +204,7 @@ def parse_cmd_args():
     """
     parser = mk_parser_main()
     args = parser.parse_args()
-    logger = Logger.get_logger(logger_name='main_out_logger', loglevel='DEBUG')
+    logger = Logger.get_logger(logger_name='main_out_logger', loglevel=args['loglevel'])
     if args.config_file:
         data = yaml.safe_load(args.config_file)
         delattr(args, 'config_file')

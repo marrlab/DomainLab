@@ -6,7 +6,7 @@ class Logger:
     logger = None
 
     @staticmethod
-    def get_logger(logger_name='logger', loglevel='DEBUG'):
+    def get_logger(logger_name='logger', loglevel='INFO'):
         if Logger.logger is None:
             Logger.logger = logging.getLogger(logger_name)
             Logger.logger.setLevel(loglevel)
@@ -17,7 +17,7 @@ class Logger:
             # Create handlers and set their logging level
             filehandler = logging.FileHandler(logfolder + '/' + Logger.logger.name + '.log',
                                               mode='w')
-            filehandler.setLevel('DEBUG')
+            filehandler.setLevel(loglevel)
             # Add handlers to logger
             Logger.logger.addHandler(filehandler)
         return Logger.logger
