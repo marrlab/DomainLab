@@ -50,6 +50,7 @@ rule parameter_sampling:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
+        from domainlab.utils.hyperparameter_gridsearch import sample_gridsearch
 
         sampling_seed_str = params.sampling_seed
         if isinstance(sampling_seed_str, str) and (len(sampling_seed_str) > 0):
@@ -67,7 +68,11 @@ rule parameter_sampling:
         else:
           sampling_seed = None
 
-        sample_hyperparameters(config, str(output.dest), sampling_seed)
+        if 'mode' in config.keys:
+            if config['mode'] == 'grid':
+                sample_gridsearch(config,str(output.dest),sampling_seed)
+        else:
+            sample_hyperparameters(config, str(output.dest), sampling_seed)
 
 
 rule run_experiment:
