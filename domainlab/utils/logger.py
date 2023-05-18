@@ -3,6 +3,7 @@ A logger for our software
 '''
 import os
 import logging
+import multiprocessing
 
 
 class Logger:
@@ -12,7 +13,7 @@ class Logger:
     logger = None
 
     @staticmethod
-    def get_logger(logger_name='logger', loglevel='INFO'):
+    def get_logger(logger_name='logger_' + str(multiprocessing.current_process().pid), loglevel='INFO'):
         '''
         returns a logger
         if no logger was created yet, it will create a logger with the name
