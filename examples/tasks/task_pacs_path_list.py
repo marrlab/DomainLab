@@ -9,6 +9,8 @@ from torchvision import transforms
 from domainlab.tasks.task_pathlist import mk_node_task_path_list
 from domainlab.tasks.utils_task import ImSize
 
+G_PACS_RAW_PATH = "data/pacs_raw"  # change this to absolute directory where you have the raw images from PACS, 
+# domainlab repository contain already the file names in data/pacs_split folder of domainlab
 
 def get_task(na=None):
     node = mk_node_task_path_list(
@@ -41,10 +43,10 @@ def get_task(na=None):
             "sketch": "data/pacs_split/sketch_train_kfold.txt"},
 
         dict_domain2imgroot={
-            'art_painting': "~/Documents/datasets/pacs/raw",
-            'cartoon': "~/Documents/datasets/pacs/raw",
-            'photo': "~/Documents/datasets/pacs/raw",
-            'sketch': "~/Documents/datasets/pacs/raw"},
+            'art_painting': G_PACS_RAW_PATH,
+            'cartoon': G_PACS_RAW_PATH,
+            'photo': G_PACS_RAW_PATH,
+            'sketch': G_PACS_RAW_PATH},
         img_trans_tr=transforms.Compose(
             [transforms.Resize((224, 224)),
              transforms.ToTensor()]),
