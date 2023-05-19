@@ -50,20 +50,16 @@ For our test we like to compare diva and deepall, this was done using the follow
 python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=8
 ```
 
-early stop after 288 epochs
-
 ### diva 
 
 ```
 python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --lr=1e-3 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=1e5 --gamma_d=1e5 --san_check --san_num=8 --gen
 ```
 
-early stop after 24 epochs
-
 **Notes**
 - `--san_check` and `--san_num=8` are only used to generate the dataset extractions we plotted in figure 1 and 2.
 - `--epos` was set high enough to end the training using the early stopping criterion.
-- `--gen` for diva does not effect the training. If this keyword is passed to the command line, then the image generation is started after the training has finished. The generated images are presented below.
+- `--gen` for diva does not effect the training. If this keyword is passed to the command line, the image generation is started after the training has finished. The generated images are presented below.
 
 
 ### Results
