@@ -1,5 +1,8 @@
 #!/bin/bash
 # sphinx-quickstart
+git checkout doc2
+git merge master -m "merge master"
+
 cd docs
 pip install -r requirements.txt
 sphinx-apidoc -f -o . ../domainlab  # output path is current . directory (docs), module path
