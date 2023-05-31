@@ -8,6 +8,10 @@ timestamp() {
 # CONFIGFILE="examples/yaml/test_helm_benchmark.yaml"
 CONFIGFILE=$1
 export DOMAINLAB_CUDA_START_SEED=$2
+
+export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
+
+export NUMBER_GPUS=1
 logdir="zoutput/logs"
 mkdir -p $logdir
 logfile="$logdir/$(timestamp).out"
