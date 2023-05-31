@@ -54,7 +54,7 @@ def create_agg_input_files() -> List[str]:
         stream.write(
             "param_index, task, algo, epos, te_d, seed, params, acc,"
             " precision, recall, specificity, f1, aurocy\n"
-            "0, Task_diva, diva, 2, caltech, 1, \"{'gamma_y': 682408,"
+            "0, diva, diva, 2, caltech, 1, \"{'gamma_y': 682408,"
             " 'gamma_d': 275835}\", 0.88461536, 0.852381,"
             " 0.80833334, 0.80833334, 0.82705104, 0.98333335\n"
         )
@@ -63,7 +63,7 @@ def create_agg_input_files() -> List[str]:
         stream.write(
             "param_index, task, algo, epos, te_d, seed, params, acc,"
             " precision, recall, specificity, f1, aurocy\n"
-            "1, TaskHduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037,"
+            "1, hduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037,"
             " 'zy_dim': 48}\", 0.7307692, 0.557971,"
             " 0.5333333, 0.5333333, 0.5297158, 0.73333335"
         )
@@ -98,10 +98,10 @@ def agg_expected_output() -> str:
     """Expected result file content for the agg tests."""
     return "param_index, task, algo, epos, te_d, seed, params, acc," \
            " precision, recall, specificity, f1, aurocy\n" \
-           "0, Task_diva, diva, 2, caltech, 1, \"{'gamma_y': 682408," \
+           "0, diva, diva, 2, caltech, 1, \"{'gamma_y': 682408," \
            " 'gamma_d': 275835}\", 0.88461536, 0.852381,"\
            " 0.80833334, 0.80833334, 0.82705104, 0.98333335\n"\
-           "1, TaskHduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037," \
+           "1, hduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037," \
            " 'zy_dim': 48}\", 0.7307692, 0.557971,"\
            " 0.5333333, 0.5333333, 0.5297158, 0.73333335"
 
