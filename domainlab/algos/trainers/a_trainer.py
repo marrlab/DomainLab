@@ -5,13 +5,14 @@ import abc
 from torch import optim
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
+
 def mk_opt(model, aconf):
     """
     create optimizer
     """
     # optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
-    optimizer = optim.SGD(model.parameters, lr=aconf.lr,
-                          weight_decay=5e-4, momentum=0.9, nesterov=True)
+    optimizer = optim.SGD([{'params': filter(lambda p: p.requires_grad, model.parameters())}, ],
+                          lr=aconf.lr, weight_decay=5e-4, momentum=0.9, nesterov=True)
     return optimizer
 
 
