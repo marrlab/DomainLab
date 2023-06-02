@@ -28,6 +28,11 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         logit_y = self.net_classif_y(zy_q_loc)
         return logit_y
 
+
+    def cal_task_loss(self, tensor_x, tensor_y):
+        tloss = super().cal_task_loss(tensor_x, tensor_y)
+        return self.gamma_y * tloss
+
     def _init_components(self):
         super()._init_components()
         self.add_module("net_classif_y",
