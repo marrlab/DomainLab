@@ -9,7 +9,9 @@ def mk_opt(model, aconf):
     """
     create optimizer
     """
-    optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+    # optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+    optimizer = optim.SGD(model.parameters, lr=aconf.lr,
+                          weight_decay=5e-4, momentum=0.9, nesterov=True)
     return optimizer
 
 
