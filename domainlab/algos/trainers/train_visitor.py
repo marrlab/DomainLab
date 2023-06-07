@@ -97,7 +97,7 @@ class HyperSchedulerAneal(HyperSchedulerWarmup):
         # ratio is 0, denom is 2, 2/denom is 1, return is 0
         # ratio is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, return is 1
         # exp(-10) is approximately 0
-        # slowly increase the alpha
+        # slowly increase the regularization weight from 0 to 1*alpha as epochs goes on
         return float((2. / denominator - 1) * alpha)
 
     def __call__(self, epoch):
