@@ -90,3 +90,9 @@ hduva:  # name
 deep_all:
   aname: deepall
   nname: alexnet
+
+# set constant hyper-parameters
+mldg:
+    aname: deepallmldg
+    nname: alexnet
+    gamma_reg: 0.03

@@ -15,7 +15,8 @@ The benchmark is configured in a yaml file. We refer to the
 for a documented example. As one can see there, the user has to select:
 - Common arguments (hyper-parameters) for all algorithms to be benchmarked under `domainlab_args`. This typically includes the dataset on which the benchmark
 shall be performed, as well as the number of epochs and batch size for training, the number of random seeds and hyperparameter samples, the set of domains which are used as leave-one-domain-out for testing the domain generalization performance.
-- Specific hyper-parameter (ranges) for different algorithms, for which the sensitivity of generalization performance with respect to changing hyper-parameters shall be investigated.
+- Fixed hyper-parameter for each algorithm
+- Specific hyper-parameter ranges for different algorithms, for which the sensitivity of generalization performance with respect to changing hyper-parameters shall be investigated.
 
 ### Advanced hyperparameter sampling
 An example file [demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml) where hyperparameters can be sampled from different distributions: e.g. By using the `categorical` distribution type, a list of valid values for a hyperparameter can be specified.
