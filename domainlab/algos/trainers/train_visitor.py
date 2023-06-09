@@ -77,16 +77,16 @@ class HyperSchedulerWarmup():
 
     def __call__(self, epoch):
         dict_rst = {}
-        for key, _ in self.dict_par_setpoint.items():
-            dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
+        for key, val_setpoint in self.dict_par_setpoint.items():
+            dict_rst[key] = self.warmup(val_setpoint, epoch)
         return dict_rst
 
 
-class HyperSchedulerAneal(HyperSchedulerWarmup):
+class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
     """
-    HyperSchedulerAneal
+    HyperScheduler Exponential
     """
-    def aneal(self, epoch, alpha):
+    def aneal(self, par_setpoint, epoch):
         """
         start from a small value of par to ramp up the steady state value using
         number of total_steps
@@ -96,12 +96,6 @@ class HyperSchedulerAneal(HyperSchedulerWarmup):
         denominator = (1. + np.exp(-10 * ratio))
         # ratio is 0, denom is 2, 2/denom is 1, return is 0
         # ratio is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, return is 1
-        # exp(-10) is approximately 0
+        # exp(-10)=4.5e-5 is approximately 0
         # slowly increase the regularization weight from 0 to 1*alpha as epochs goes on
-        return float((2. / denominator - 1) * alpha)
-
-    def __call__(self, epoch):
-        dict_rst = {}
-        for key, val in self.dict_par_setpoint.items():
-            dict_rst[key] = self.aneal(epoch, val)
-        return dict_rst
+        return float((2. / denominator - 1) * par_setpoint)
