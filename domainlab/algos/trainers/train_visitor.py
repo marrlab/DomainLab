@@ -14,7 +14,8 @@ class TrainerVisitor(TrainerBasic):
                       flag_update_epoch=False,
                       flag_update_batch=False):
         """
-        set the warmup or anealing strategy
+        set the warmup strategy from objective scheduler
+        set wheter the hyper-parameter scheduling happens per epoch or per batch
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
         self.flag_update_hyper_per_epoch = flag_update_epoch
@@ -22,8 +23,12 @@ class TrainerVisitor(TrainerBasic):
         self.hyper_scheduler.set_steps(total_steps=total_steps)
 
     def after_batch(self, epoch, ind_batch):
+        """
+        if hyper-parameters should be updated per batch, then step
+        should be set to epoch*self.num_batches + ind_batch
+        """
         if self.flag_update_hyper_per_batch:
-            self.model.hyper_update(epoch, self.hyper_scheduler)
+            self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
@@ -40,13 +45,6 @@ class TrainerVisitor(TrainerBasic):
         """
         if self.flag_update_hyper_per_epoch:
             self.model.hyper_update(epoch, self.hyper_scheduler)
-        return super().tr_epoch(epoch)
-
-    def tr_batch(self, epoch, ind_batch):
-        """
-        anneal hyper-parameter for each batch
-        """
-        self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().tr_epoch(epoch)
 
 
