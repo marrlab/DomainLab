@@ -145,11 +145,16 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=exampl
 ```
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
 ```
-## Train DIVA model with DIAL trainer
+### Train DIVA model with DIAL trainer
 
 ```
 python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5 --trainer=dial
 ```
+### Set hyper-parameters for trainer as well
+``` 
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=diva --npath=examples/nets/resnet50domainbed.py --npath_dom=examples/nets/resnet
+.py --gamma_y=7e5 --gamma_d=1e5 --trainer=dial --dial_steps_perturb=1
+``` 
 
 ## Meta Learning Domain Generalization
 ```
