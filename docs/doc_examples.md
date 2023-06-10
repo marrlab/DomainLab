@@ -152,8 +152,7 @@ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nn
 ```
 ### Set hyper-parameters for trainer as well
 ``` 
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=diva --npath=examples/nets/resnet50domainbed.py --npath_dom=examples/nets/resnet
-.py --gamma_y=7e5 --gamma_d=1e5 --trainer=dial --dial_steps_perturb=1
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=diva --npath=examples/nets/resnet50domainbed.py --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5 --trainer=dial --dial_steps_perturb=1
 ``` 
 
 ## Meta Learning Domain Generalization
