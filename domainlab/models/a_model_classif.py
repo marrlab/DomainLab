@@ -33,17 +33,19 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
 
     def cal_perf_metric(self, loader_tr, device, loader_te=None):
         """
-        classification performance matric
+        classification performance metric: loader_te can be None, but only
+        loader_te is returned, loader_tr can also be None, but not returned
         """
         metric_te = None
         with torch.no_grad():
-            metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-            confmat = metric_tr_pool.pop("confmat")
-            print("pooled train domains performance:")
-            rprint(metric_tr_pool)
-            print("confusion matrix:")
-            print(pd.DataFrame(confmat))
-            metric_tr_pool["confmat"] = confmat
+            if loader_tr is not None:
+                metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
+                confmat = metric_tr_pool.pop("confmat")
+                print("pooled train domains performance:")
+                rprint(metric_tr_pool)
+                print("confusion matrix:")
+                print(pd.DataFrame(confmat))
+                metric_tr_pool["confmat"] = confmat
             # test set has no domain label, so can be more custom
             if loader_te is not None:
                 metric_te = self.perf_metric.cal_metrics(self, loader_te, device)

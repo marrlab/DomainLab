@@ -27,6 +27,7 @@ class ObVisitor(AObVisitor):
         self.epo_te = self.exp.args.epo_te
         self.epo = None
         self.metric_te = None
+        self.metric_val = None
         self.keep_model = self.exp.args.keep_model
         self.perf_metric = None
 
@@ -37,6 +38,9 @@ class ObVisitor(AObVisitor):
             metric_te = self.host_trainer.model.cal_perf_metric(
                 self.loader_tr, self.device, self.loader_te)
             self.metric_te = metric_te
+        if self.loader_val is not None:
+            self.metric_val = self.host_trainer.model.cal_perf_metric(
+                None, self.device, self.loader_val)
         if self.model_sel.update():
             print("model selected")
             self.exp.visitor.save(self.host_trainer.model)
