@@ -35,12 +35,14 @@ class ObVisitor(AObVisitor):
         print("epoch:", epoch)
         self.epo = epoch
         if epoch % self.epo_te == 0:
-            metric_te = self.host_trainer.model.cal_perf_metric(
-                self.loader_tr, self.device, self.loader_te)
+            print("training:")
+            self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
+            print("testing:")
+            metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
             self.metric_te = metric_te
         if self.loader_val is not None:
-            self.metric_val = self.host_trainer.model.cal_perf_metric(
-                None, self.device, self.loader_val)
+            print("validation")
+            self.metric_val = self.host_trainer.model.cal_perf_metric(self.loader_val, self.device)
         if self.model_sel.update():
             print("model selected")
             self.exp.visitor.save(self.host_trainer.model)
@@ -70,7 +72,7 @@ class ObVisitor(AObVisitor):
         model_ld = model_ld.to(self.device)
         model_ld.eval()
         print("persisted model performance metric: \n")
-        metric_te = model_ld.cal_perf_metric(self.loader_tr, self.device, self.loader_te)
+        metric_te = model_ld.cal_perf_metric(self.loader_te, self.device)
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results

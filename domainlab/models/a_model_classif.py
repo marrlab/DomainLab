@@ -31,31 +31,21 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         self.perf_metric = PerfMetricClassif(task.dim_y)
         return self.perf_metric
 
-    def cal_perf_metric(self, loader_tr, device, loader_te=None):
+    def cal_perf_metric(self, loader, device):
         """
-        classification performance metric: loader_te can be None, but only
-        loader_te is returned, loader_tr can also be None, but not returned
+        classification performance metric
         """
-        metric_te = None
+        metric = None
         with torch.no_grad():
-            if loader_tr is not None:
-                metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-                confmat = metric_tr_pool.pop("confmat")
-                print("pooled train domains performance:")
-                rprint(metric_tr_pool)
+            if loader is not None:
+                metric = self.perf_metric.cal_metrics(self, loader, device)
+                confmat = metric.pop("confmat")
+                print("scalar performance:")
+                rprint(metric)
                 print("confusion matrix:")
                 print(pd.DataFrame(confmat))
-                metric_tr_pool["confmat"] = confmat
-            # test set has no domain label, so can be more custom
-            if loader_te is not None:
-                metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-                confmat = metric_te.pop("confmat")
-                print("out of domain test performance:")
-                rprint(metric_te)
-                print("confusion matrix:")
-                print(pd.DataFrame(confmat))
-                metric_te["confmat"] = confmat
-        return metric_te
+                metric["confmat"] = confmat
+        return metric
 
     def evaluate(self, loader_te, device):
         """

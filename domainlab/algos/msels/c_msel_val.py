@@ -12,7 +12,7 @@ class MSelValPerf(AMSel):
     def __init__(self, max_es):
         self.es_c = 0
         self.max_es = max_es
-        self.best_val_acc = 0
+        self.best_val_acc = 0.0
         super().__init__()  # construct self.tr_obs (observer)
 
     def update(self):
@@ -21,7 +21,7 @@ class MSelValPerf(AMSel):
         """
         flag = True
         if self.tr_obs.metric_val["acc"] > self.best_val_acc:  # observer
-            self.best_val_acc = self.tr_obs.metric_te["acc"]
+            self.best_val_acc = self.tr_obs.metric_val["acc"]
             # FIXME: only works for classification
             self.es_c = 0  # restore counter
 
