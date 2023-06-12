@@ -41,7 +41,7 @@ class ObVisitor(AObVisitor):
         if epoch % self.epo_te == 0:
             print("---- Training Domain: ")
             self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
-            print("---- Out of Domain: ")
+            print("---- Test Domain (oracle): ")
             metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
             self.metric_te = metric_te
         if self.loader_val is not None:
