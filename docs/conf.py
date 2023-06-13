@@ -174,6 +174,11 @@ html_theme_options = {
             "internal": True,
             "title": "Examples"},
         {
+            "href": "doc_benchmark",
+            "internal": True,
+            "title": "Benchmarks"},
+
+        {
             "href": "doc_output",
             "internal": True,
             "title": "Output Structure"},

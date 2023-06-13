@@ -36,7 +36,7 @@ domainlab_args:
   bs: 2
 
 # Each node containing the aname property is considered as a task.
-Task_diva:  # name
+diva:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
   nname: alexnet
@@ -67,7 +67,7 @@ Task_diva:  # name
       step: 1
       distribution: loguniform
 
-TaskHduva:  # name
+hduva:  # name
   aname: hduva
   npath: examples/nets/resnet.py
   nname_topic_distrib_img2topic: conv_bn_pool_2
@@ -87,6 +87,12 @@ TaskHduva:  # name
       distribution: loguniform
 
 
-Task_deep_all:
+deep_all:
   aname: deepall
   nname: alexnet
+
+# set constant hyper-parameters
+mldg:
+    aname: deepallmldg
+    nname: alexnet
+    gamma_reg: 0.03

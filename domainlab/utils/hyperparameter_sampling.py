@@ -1,5 +1,10 @@
 """
 Samples the hyperparameters according to a benchmark configuration file.
+
+# Structure of this file:
+- Class Hyperparameter
+# Inherited Classes
+# Functions to sample hyper-parameters and log into csv file
 """
 import os
 from pydoc import locate
@@ -73,7 +78,11 @@ class SampledHyperparameter(Hyperparameter):
             return   # continous parameter
 
         # round to next discrete value.
+        # p_1 is the lower bound of the hyper-parameter range, p_2 the upper bound
         off = (self.val - self.p_1) % self.step
+        # $off$ is always smaller than step, depending on whether $off$ falls on the left half
+        # or right half of [0, step], move the hyper-parameter to the boundary so that
+        # updated hyper-parameter % step = 0
         if off < self.step / 2:
             self.val -= off
         else:

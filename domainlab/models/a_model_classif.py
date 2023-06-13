@@ -120,6 +120,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         else:
             _, y_target = tensor_y.max(dim=1)
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y
 
     def pred2file(self, loader_te, device, filename,
