@@ -31,16 +31,16 @@ def get_task(na=None):
             "sketch": "data/pacs_split/sketch_train_kfold.txt"},
 
         dict_d2filepath_list_img_te={
-            "art_painting": "data/pacs_split/art_painting_train_kfold.txt",
-            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
-            "photo": "data/pacs_split/photo_train_kfold.txt",
-            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
+            "art_painting": "data/pacs_split/art_painting_test_kfold.txt",
+            "cartoon": "data/pacs_split/cartoon_test_kfold.txt",
+            "photo": "data/pacs_split/photo_test_kfold.txt",
+            "sketch": "data/pacs_split/sketch_test_kfold.txt"},
 
         dict_d2filepath_list_img_val={
             "art_painting": "data/pacs_split/art_painting_crossval_kfold.txt",
-            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
-            "photo": "data/pacs_split/photo_train_kfold.txt",
-            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
+            "cartoon": "data/pacs_split/cartoon_crossval_kfold.txt",
+            "photo": "data/pacs_split/photo_crossval_kfold.txt",
+            "sketch": "data/pacs_split/sketch_crossval_kfold.txt"},
 
         dict_domain2imgroot={
             'art_painting': G_PACS_RAW_PATH,
