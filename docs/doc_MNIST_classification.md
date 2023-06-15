@@ -21,7 +21,7 @@ digits 0 - 9: <img src="figs/colored_MNIST/singels/digit0.jpg" style="width:30px
 </div>
 
 <br/>
-The available digit-background color combinations together with the domain number are shown in Figure 2 where we only different digit 0 are listed. 
+The available digit-background color combinations together with the domain number are shown in Figure 2 where only different digit 0s are listed. 
 Note that domain 0 and domain 3, for the same color, in one domain it appears as foreground and another as background color.  
 <br/>
 
