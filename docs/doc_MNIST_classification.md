@@ -3,8 +3,8 @@
 We include in the DomainLab package colored verion of MNIST where the color correspond to domain and digit correspond to semantic concept that we want to classify. 
 
 ## colored MNIST dataset
-We provide 10 different colored version of MNIST as 10 different domains which which number 0 to 9. The digit and background are colored differently, thus a color combination. 
-An extraction from domain 0 is shown in Figure 1. 
+We provide 10 different colored version of MNIST as 10 different domains which which number 0 to 9. The digit and background are colored differently, thus a domain correspond to a 2-color combination. 
+An extraction of digit 0 to 9 from domain 0 is shown in Figure 1. 
 
 <div style="align: center; text-align:center;">
 digits 0 - 9: <img src="figs/colored_MNIST/singels/digit0.jpg" style="width:30px;"/>
@@ -21,7 +21,8 @@ digits 0 - 9: <img src="figs/colored_MNIST/singels/digit0.jpg" style="width:30px
 </div>
 
 <br/>
-The available color combinations together with the domain number are shown in Figure 2. For each colors combination there are two domains available, such that each color does appear as foreground and as background color in different domains. 
+The available digit-background color combinations together with the domain number are shown in Figure 2 where we only different digit 0 are listed. 
+Note that domain 0 and domain 3, for the same color, in one domain it appears as foreground and another as background color.  
 <br/>
 
 <div style="align: center; text-align:center;">
