@@ -36,13 +36,6 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 
-    def tr_batch(self, epoch, ind_batch):
-        """
-        anneal parameter for each batch
-        """
-        self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
-        return super().tr_epoch(epoch)
-
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0

@@ -14,7 +14,8 @@ class TrainerVisitor(TrainerBasic):
                       flag_update_epoch=False,
                       flag_update_batch=False):
         """
-        set the warmup or anealing strategy
+        set the warmup strategy from objective scheduler
+        set wheter the hyper-parameter scheduling happens per epoch or per batch
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
         self.flag_update_hyper_per_epoch = flag_update_epoch
@@ -22,8 +23,12 @@ class TrainerVisitor(TrainerBasic):
         self.hyper_scheduler.set_steps(total_steps=total_steps)
 
     def after_batch(self, epoch, ind_batch):
+        """
+        if hyper-parameters should be updated per batch, then step
+        should be set to epoch*self.num_batches + ind_batch
+        """
         if self.flag_update_hyper_per_batch:
-            self.model.hyper_update(epoch, self.hyper_scheduler)
+            self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
@@ -40,13 +45,6 @@ class TrainerVisitor(TrainerBasic):
         """
         if self.flag_update_hyper_per_epoch:
             self.model.hyper_update(epoch, self.hyper_scheduler)
-        return super().tr_epoch(epoch)
-
-    def tr_batch(self, epoch, ind_batch):
-        """
-        anneal hyper-parameter for each batch
-        """
-        self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().tr_epoch(epoch)
 
 
@@ -77,16 +75,16 @@ class HyperSchedulerWarmup():
 
     def __call__(self, epoch):
         dict_rst = {}
-        for key, _ in self.dict_par_setpoint.items():
-            dict_rst[key] = self.warmup(self.dict_par_setpoint[key], epoch)
+        for key, val_setpoint in self.dict_par_setpoint.items():
+            dict_rst[key] = self.warmup(val_setpoint, epoch)
         return dict_rst
 
 
-class HyperSchedulerAneal(HyperSchedulerWarmup):
+class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
     """
-    HyperSchedulerAneal
+    HyperScheduler Exponential
     """
-    def aneal(self, epoch, alpha):
+    def aneal(self, par_setpoint, epoch):
         """
         start from a small value of par to ramp up the steady state value using
         number of total_steps
@@ -94,10 +92,8 @@ class HyperSchedulerAneal(HyperSchedulerWarmup):
         """
         ratio = ((epoch+1) * 1.) / self.total_steps
         denominator = (1. + np.exp(-10 * ratio))
-        return float((2. / denominator - 1) * alpha)
-
-    def __call__(self, epoch):
-        dict_rst = {}
-        for key, val in self.dict_par_setpoint.items():
-            dict_rst[key] = self.aneal(epoch, val)
-        return dict_rst
+        # ratio is 0, denom is 2, 2/denom is 1, return is 0
+        # ratio is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, return is 1
+        # exp(-10)=4.5e-5 is approximately 0
+        # slowly increase the regularization weight from 0 to 1*alpha as epochs goes on
+        return float((2. / denominator - 1) * par_setpoint)
