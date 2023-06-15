@@ -83,9 +83,3 @@ To give some more insights we can also look at the confusion matrix of both meth
 </div>
 
 <br/>
-
-## image generation of diva
-
-Diva comes with the possibility of image generation. The idea is to use the reconstruction network to reconstruct images from their latent representation while removing parts of the latent representation e.g. remove the part used to encode the class label or the domain label.
-
-
