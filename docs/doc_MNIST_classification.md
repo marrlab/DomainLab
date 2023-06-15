@@ -42,7 +42,7 @@ Note that domain 0 and domain 3, for the same color, in one domain it appears as
 
 ## domain generalisation on colored MNIST
 
-A particular hard task for domain classification is, if only a few training domains are available. We like to constitute this case by using just two domains for training which do include just two different colors, e.g. domain 0 and 3 from Figure 2. For testing we do choose domain 1 and 2 as the colors appearing here are far different from the ones used in training. 
+A particular hard task for domain generalization is, if only a few training domains are available and the test domain differs a lot from the train domains. Here we use domain 0 and 3 from Figure 2, for testing domain we choose domain 1 and 2 as the colors appearing here are far different from the ones used in training. 
 
 For our test we like to compare diva and deepall, this was done using the following command lines:
 
