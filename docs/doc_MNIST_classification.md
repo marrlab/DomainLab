@@ -1,11 +1,10 @@
 # colored MNIST classification
 
-An easy dataset to test domain generalisation is the colored MNIST dataset. It is included in the DomainLab package and gives an easy way to test the different methods.
-
+We include in the DomainLab package colored verion of MNIST where the color correspond to domain and digit correspond to semantic concept that we want to classify. 
 
 ## colored MNIST dataset
-
-The dataset of colored MNIST does consist of pseudocolored versions of the MNIST dataset. For the domain 0 an extraction from the dataset is shown in Figure 1. The available color combinations together with the domain number are shown in Figure 2. For each colors combination there are two domains available, such that each color does appear as foreground and as background color in different domains. 
+We provide 10 different colored version of MNIST as 10 different domains which which number 0 to 9. The digit and background are colored differently, thus a color combination. 
+An extraction from domain 0 is shown in Figure 1. 
 
 <div style="align: center; text-align:center;">
 digits 0 - 9: <img src="figs/colored_MNIST/singels/digit0.jpg" style="width:30px;"/>
@@ -21,6 +20,8 @@ digits 0 - 9: <img src="figs/colored_MNIST/singels/digit0.jpg" style="width:30px
  <div class="caption">Figure 1: digits zero to nine from domain zero of colored MNIST </div>
 </div>
 
+<br/>
+The available color combinations together with the domain number are shown in Figure 2. For each colors combination there are two domains available, such that each color does appear as foreground and as background color in different domains. 
 <br/>
 
 <div style="align: center; text-align:center;">
