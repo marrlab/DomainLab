@@ -14,6 +14,7 @@ from ast import literal_eval   # literal_eval can safe evaluate python expressio
 import numpy as np
 import pandas as pd
 
+from ..utils.get_git_tag import get_git_tag
 
 class Hyperparameter:
     """
@@ -259,6 +260,10 @@ def sample_hyperparameters(config: dict,
     Note: Parts of the yaml content are executed. Thus use this
     only with trusted config files.
     """
+    # create a txt file with the commit information
+    with open(config["output_dir"] + os.sep + 'commit.txt', 'w') as f:
+        f.write(get_git_tag())
+
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
