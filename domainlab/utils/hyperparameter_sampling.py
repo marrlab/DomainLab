@@ -260,10 +260,6 @@ def sample_hyperparameters(config: dict,
     Note: Parts of the yaml content are executed. Thus use this
     only with trusted config files.
     """
-    # create a txt file with the commit information
-    with open(config["output_dir"] + os.sep + 'commit.txt', 'w') as f:
-        f.write(get_git_tag())
-
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
@@ -277,5 +273,11 @@ def sample_hyperparameters(config: dict,
             sample_task(num_samples, samples, key, val)
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
+
+    # create a txt file with the commit information
+    f = open(config["output_dir"] + os.sep + 'commit.txt', 'w')
+    f.write(get_git_tag())
+    f.close()
+
     samples.to_csv(dest)
     return samples
