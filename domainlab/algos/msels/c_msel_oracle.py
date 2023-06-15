@@ -24,7 +24,8 @@ class MSelOracleVisitor(AMSel):
         """
         self.tr_obs.exp.visitor.save(self.trainer.model, "epoch")
         if self.tr_obs.metric_te["acc"] > self.best_oracle_acc:
-            self.best_oracle_acc = self.tr_obs.metric_te["acc"]  # FIXME: only works for classification
+            self.best_oracle_acc = self.tr_obs.metric_te["acc"]
+            # FIXME: only works for classification
             self.tr_obs.exp.visitor.save(self.trainer.model, "oracle")
             logger = Logger.get_logger()
             logger.info("oracle model saved")

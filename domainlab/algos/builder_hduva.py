@@ -1,9 +1,11 @@
+"""
+build hduva model, get trainer from cmd arguments
+"""
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel import MSelTrLoss
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter

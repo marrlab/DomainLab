@@ -1,7 +1,11 @@
+"""
+construct feature extractor, task neural network (e.g. classification) and domain classification network
+"""
 from torch.nn import functional as F
 
 from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.models.a_model_classif import AModelClassif
+
 
 def mk_dann(parent_class=AModelClassif):
     """Instantiate a Deep Adversarial Net (DAN) model
@@ -28,9 +32,9 @@ def mk_dann(parent_class=AModelClassif):
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
             :param epoch:
-            :param fun_scheduler:
+            :param fun_scheduler: the hyperparameter scheduler object
             """
-            dict_rst = fun_scheduler(epoch)
+            dict_rst = fun_scheduler(epoch)  # the __call__ method of hyperparameter scheduler
             self.alpha = dict_rst["alpha"]
 
         def hyper_init(self, functor_scheduler):
@@ -39,7 +43,7 @@ def mk_dann(parent_class=AModelClassif):
             """
             return functor_scheduler(alpha=self.alpha)
 
-        def cal_logit_y(self, tensor_x):
+        def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
             """
             calculate the logit for softmax classification
             """
