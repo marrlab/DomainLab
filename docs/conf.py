@@ -170,9 +170,19 @@ html_theme_options = {
             "internal": True,
             "title": "Custom Neural Network"},
         {
+            "href": "doc_MNIST_classification",
+            "internal": True,
+            "title": "Examples with MNIST"},
+        {
             "href": "doc_examples",
             "internal": True,
-            "title": "Examples"},
+            "title": "Examples by algorithm"},
+
+        {
+            "href": "doc_benchmark",
+            "internal": True,
+            "title": "Benchmarks"},
+
         {
             "href": "doc_output",
             "internal": True,

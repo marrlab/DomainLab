@@ -25,14 +25,14 @@ domainlab_args:
   epos: 500
   es: 5
   bs: 32
-  npath: examples/nets/resnet.py
+  npath: examples/nets/resnet50domainbed.py
   san_check: True
 
 
 Task1:  # name
   aname: diva
   # set nname_dom = nname when changing nname
-  npath_dom: examples/nets/resnet.py
+  npath_dom: examples/nets/resnet50domainbed.py
 
   hyperparameters:
     gamma_y:
@@ -65,8 +65,8 @@ Task1:  # name
 Task2:  # name
   aname: hduva
 
-  npath_topic_distrib_img2topic: examples/nets/resnet.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
 
   hyperparameters:
     # Same config as diva.

@@ -60,6 +60,14 @@ domainlab.utils.perf\_metrics module
    :undoc-members:
    :show-inheritance:
 
+domainlab.utils.sanity\_check module
+------------------------------------
+
+.. automodule:: domainlab.utils.sanity_check
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.utils.test\_img module
 --------------------------------
 
