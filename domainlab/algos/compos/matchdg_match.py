@@ -111,6 +111,8 @@ class MatchPair():
                 logger = Logger.get_logger()
                 logger.warning("domain_count show matching "
                                "dictionary missing data!")
+                warnings.warn("domain_count show matching "
+                              "dictionary missing data!")
 
     def _cal_base_domain(self):
         """

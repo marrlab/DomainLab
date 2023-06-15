@@ -1,7 +1,6 @@
 import os
 import warnings
 
-
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
@@ -114,12 +113,16 @@ class ObVisitor(AObVisitor):
                 # have a model to evaluate in case the training stops in between
                 self.exp.visitor.remove("epoch")  # pylint: disable=E1101
             except FileNotFoundError:
+                logger = Logger.get_logger()
+                logger.warn("failed to remove model_epoch: file not found")
                 warnings.warn("failed to remove model_epoch: file not found")
 
             try:
                 # without suffix: the selected model
                 self.exp.visitor.remove()  # pylint: disable=E1101
             except FileNotFoundError:
+                logger = Logger.get_logger()
+                logger.warn("failed to remove model")
                 warnings.warn("failed to remove model")
 
             try:

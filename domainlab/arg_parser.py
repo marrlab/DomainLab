@@ -2,6 +2,7 @@
 Command line arguments
 """
 import argparse
+import warnings
 
 import yaml
 
@@ -211,8 +212,9 @@ def parse_cmd_args():
         apply_dict_to_args(args, data)
 
     if args.acon is None and args.bm_dir is None:
-        logger.warning("\n\n")
-        logger.warning("no algorithm conf specified, going to use default")
-        logger.warning("\n\n")
+        logger.warn("\n\n")
+        logger.warn("no algorithm conf specified, going to use default")
+        logger.warn("\n\n")
+        warnings.warn("no algorithm conf specified, going to use default")
 
     return args

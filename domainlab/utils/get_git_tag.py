@@ -1,4 +1,5 @@
 import subprocess
+import warnings
 from subprocess import CalledProcessError
 
 from domainlab.utils.logger import Logger
@@ -13,6 +14,7 @@ def get_git_tag(print_diff=False):
     except CalledProcessError:
         logger.warning("\n\n")
         logger.warning("!!!: not committed yet")
+        warnings.warn("!!!: not committed yet")
         flag_not_commited = True
         logger.warning("\n\n")
         try:
@@ -22,6 +24,7 @@ def get_git_tag(print_diff=False):
         except Exception:
             logger = Logger.get_logger()
             logger.warning("not in a git repository")
+            warnings.warn("not in a git repository")
     try:
         tag_byte = subprocess.check_output(
             ["git", "describe", "--always"]).strip()
@@ -34,4 +37,5 @@ def get_git_tag(print_diff=False):
     except Exception:
         logger = Logger.get_logger()
         logger.warning("not in a git repository")
+        warnings.warn("not in a git repository")
     return "no_git_version"

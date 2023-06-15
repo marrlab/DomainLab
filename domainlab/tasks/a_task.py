@@ -2,6 +2,7 @@
 Abstract class for Task
 """
 from abc import abstractmethod
+import warnings
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.task_utils import parse_domain_id
@@ -147,9 +148,14 @@ class NodeTaskDG(AbstractChainNodeHandler):
 
         if set(list_domain_tr) & set(list_domain_te):
             logger = Logger.get_logger()
-            logger.warning(
+            logger.warn(
                 "The sets of training and test domains overlap -- "
                 "be aware of data leakage or training to the test!"
+            )
+            warnings.warn(
+                "The sets of training and test domains overlap -- "
+                "be aware of data leakage or training to the test!",
+                RuntimeWarning
             )
 
         self.dim_d_tr = len(list_domain_tr)

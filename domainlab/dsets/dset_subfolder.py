@@ -70,6 +70,8 @@ class DsetSubFolder(DatasetFolder):
         if is_valid_file is None and extensions is None:
             # setting default extensions
             extensions = ('jpg', 'jpeg', 'png')
+            logger = Logger.get_logger()
+            logger.warn("no user provided extensions, set to be jpg, jpeg, png")
             warnings.warn("no user provided extensions, set to be jpg, jpeg, png")
 
         super().__init__(root,
