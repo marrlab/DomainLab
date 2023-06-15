@@ -1,6 +1,7 @@
 import os
 import sys
 from pathlib import Path
+from domainlab.utils.get_git_tag import get_git_tag
 
 try:
     config_path = workflow.configfiles[0]
@@ -51,6 +52,10 @@ rule parameter_sampling:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
+
+        # create a txt file with the commit information
+        with open(f'{config["output_dir"]}/commit.txt','w') as f:
+            f.write(get_git_tag())
 
         sampling_seed_str = params.sampling_seed
         if isinstance(sampling_seed_str, str) and (len(sampling_seed_str) > 0):
