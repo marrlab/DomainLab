@@ -1,5 +1,5 @@
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.train_basic import TrainerBasic
@@ -86,7 +86,7 @@ def make_basic_trainer(class_name_model):
             task = exp.task
             args = exp.args
             device = get_device(args)
-            model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
+            model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
             observer = ObVisitor(exp, model_sel, device)
             model = class_name_model(list_str_y=task.list_str_y)
             self.set_nets_from_dictionary(args, task, model)

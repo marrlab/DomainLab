@@ -2,7 +2,7 @@
 builder for mathcdg with deepall
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
@@ -65,7 +65,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         ctr_model = ModelWrapMatchDGNet(ctr_net, list_str_y=task.list_str_y)
         ctr_model = ctr_model.to(device)
 
-        model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
+        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitor(exp,
                              model_sel,
                              device)
