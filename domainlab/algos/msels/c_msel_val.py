@@ -18,7 +18,7 @@ class MSelValPerf(MSelTrLoss):
         if the best model should be updated
         """
         flag = True
-        if self.tr_obs.metric_val is None:
+        if self.tr_obs.metric_val is None or self.tr_obs.str_msel == "loss_tr":
             return super().update()
         if self.tr_obs.metric_val["acc"] > self.best_val_acc:  # observer
             # different from loss, accuracy should be improved: the bigger the better

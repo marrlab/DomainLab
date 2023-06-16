@@ -29,6 +29,7 @@ class ObVisitor(AObVisitor):
         self.loader_val = self.exp.task.loader_val
         # Note loader_tr behaves/inherit different properties than loader_te
         self.epo_te = self.exp.args.epo_te
+        self.str_msel = self.exp.args.msel
         self.epo = None
         self.metric_te = None
         self.metric_val = None
