@@ -2,7 +2,6 @@
 basic trainer
 """
 import math
-from torch import optim
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.a_trainer import mk_opt

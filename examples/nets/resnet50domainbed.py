@@ -13,10 +13,15 @@ class CostumResNet(nn.Module):
     '''
     this costum resnet includes the modification described in
     https://arxiv.org/pdf/2007.01434.pdf appendix D
+
+    For the architecture “Resnet-50”, we replace the final (softmax) layer of a ResNet50 pretrained
+    on ImageNet and fine-tune. Observing that batch normalization interferes with domain
+    generalization algorithms (as different minibatches follow different distributions),
+    we freeze all batch normalization
+    layers before fine-tuning. We insert a dropout layer before the final linear layer.
     '''
     def __init__(self, flag_pretrain):
-        super(CostumResNet, self).__init__()
-
+        super().__init__()
         self.flag_pretrain = flag_pretrain
         resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
         # freez all batchnormalisation layers
