@@ -2,7 +2,7 @@
 build hduva model, get trainer from cmd arguments
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
@@ -41,7 +41,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
                            beta_x=args.beta_x,
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
-        model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
+        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitorCleanUp(
             ObVisitor(exp, model_sel, device))
         trainer = TrainerChainNodeGetter(args)(default="visitor")
