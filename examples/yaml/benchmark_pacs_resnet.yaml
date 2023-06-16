@@ -23,7 +23,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  es: 5
+  es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
   san_check: True
@@ -184,3 +184,14 @@ Task7: # name
       min: 0.01
       max: 10
       distribution: loguniform
+
+mldg:  # name
+  aname: deepallmldg
+
+  hyperparameters:
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+
