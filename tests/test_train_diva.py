@@ -9,7 +9,7 @@ from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_tr_loss import MSelTrLoss
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.utils.utils_cuda import get_device
 
