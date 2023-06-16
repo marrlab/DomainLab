@@ -9,7 +9,7 @@ from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
-from domainlab.algos.msels.c_msel_val import MSelValPerf
+from domainlab.algos.msels.c_msel_tr_loss import MSelTrLoss
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.utils.utils_cuda import get_device
 
@@ -31,7 +31,7 @@ def test_trainer_diva():
     model = mk_diva()(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d,
                       list_str_y=list_str_y, gamma_d=1.0, gamma_y=1.0,
                       beta_d=1.0, beta_y=1.0, beta_x=1.0)
-    model_sel = MSelOracleVisitor(MSelValPerf(max_es=margs.es))
+    model_sel = MSelOracleVisitor(MSelTrLoss(max_es=margs.es))
     exp = Exp(margs)
     device = get_device(margs)
     observer = ObVisitorCleanUp(ObVisitor(exp, model_sel, device))

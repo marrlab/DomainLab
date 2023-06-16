@@ -1,7 +1,7 @@
 """
 Model Selection should be decoupled from
 """
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_tr_loss import MSelTrLoss
 
 
 class MSelValPerf(MSelTrLoss):
