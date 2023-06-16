@@ -14,7 +14,8 @@ from ast import literal_eval   # literal_eval can safe evaluate python expressio
 import numpy as np
 import pandas as pd
 
-from ..utils.get_git_tag import get_git_tag
+from domainlab.utils.get_git_tag import get_git_tag
+
 
 class Hyperparameter:
     """
@@ -263,7 +264,7 @@ def sample_hyperparameters(config: dict,
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
-    if not sampling_seed is None:
+    if sampling_seed is not None:
         np.random.seed(sampling_seed)
 
     num_samples = config['num_param_samples']
@@ -275,9 +276,10 @@ def sample_hyperparameters(config: dict,
     os.makedirs(os.path.dirname(dest), exist_ok=True)
 
     # create a txt file with the commit information
-    f = open(config["output_dir"] + os.sep + 'commit.txt', 'w')
-    f.write(get_git_tag())
-    f.close()
+    with open(config["output_dir"] + os.sep + 'commit.txt', 'w', encoding="utf8") as file:
+        file.writelines("use git log |grep \n")
+        file.writelines("consider remove leading b in the line below \n")
+        file.write(get_git_tag())
 
     samples.to_csv(dest)
     return samples
