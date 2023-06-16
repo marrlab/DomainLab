@@ -7,6 +7,7 @@ Samples the hyperparameters according to a benchmark configuration file.
 # Functions to sample hyper-parameters and log into csv file
 """
 import os
+import json
 from pydoc import locate
 from typing import List
 from ast import literal_eval   # literal_eval can safe evaluate python expression
@@ -280,6 +281,8 @@ def sample_hyperparameters(config: dict,
         file.writelines("use git log |grep \n")
         file.writelines("consider remove leading b in the line below \n")
         file.write(get_git_tag())
+    with open(config["output_dir"] + os.sep + 'config.txt', 'w', encoding="utf8") as file:
+        json.dump(config, file)
 
     samples.to_csv(dest)
     return samples
