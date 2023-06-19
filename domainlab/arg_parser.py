@@ -28,7 +28,7 @@ def mk_parser_main():
     parser.add_argument('--gamma_reg', type=float, default=0.1,
                         help='weight of regularization loss')
 
-    parser.add_argument('--es', type=int, default=10,
+    parser.add_argument('--es', type=int, default=1,
                         help='early stop steps')
 
     parser.add_argument('--seed', type=int, default=0,
