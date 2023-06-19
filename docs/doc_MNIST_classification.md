@@ -46,20 +46,20 @@ A particular hard task for domain generalization is, if only a few training doma
 
 For our test we like to compare diva and deepall, this was done using the following command lines:
 
-### deepall
+### deepall (Emperical Risk Minimization)
 
 ```
-python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=8 --lr=1e-3
+python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=8 --lr=1e-3 --seed=0
 ```
 
 ### diva 
 
 ```
-python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=1e5 --gamma_d=1e5 --lr=1e-3
+python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=1e5 --gamma_d=1e5 --lr=1e-3 --seed=0
 ```
 
 **Notes**
-- `--san_check` and `--san_num=8` are only used to generate the dataset extractions we plotted in figure 1 and 2.
+- `--san_check` and `--san_num=8` are only used to generate the dataset extractions we plotted in figure 1 and 2 to check if the datasets we used for training are correct
 - `--epos` was set high enough to end the training using the early stopping criterion.
 
 
@@ -68,17 +68,6 @@ python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 
 For both algorithms the early stop criterion ended the training. Although diva is a more complex method which needs more time for one epoch of training, the total training time of dive was much lower than deepall, due to the fewer epochs. The performance of the trained models on the test domains are summarized in the following table:
 
 | method    | epochs | acc       | precision | recall     | specificity | f1          | auroc     |
-|-|-|-|-|-|-|-|-|
-| deepall   | 288 | 0.11      | 0.2102521 | 0.10883814 | 0.9009278   | 0.035100866 | 0.8317412 |
-| diva      | 24 | 0.9508333 | 0.9569898 | 0.94860333 | 0.994503    | 0.9506704   | 0.9992858 |
-
-To give some more insights we can also look at the confusion matrix of both methods in Figure 3. We see that deepall does classify nearly all digits a ones, which does lead to the low accuracy close to 10 %, which is not better than random guessing. For diva we see a very good prediction over all classes.
-
-
-<div style="align: center; text-align:center;">
- deepall: <img src="figs/colored_MNIST/ConvMat_deepall_trd03.png" style="width:300px;"/>
- , diva: <img src="figs/colored_MNIST/ConvMat_diva_trd03.png" style="width:300px;"/>
- <div class="caption">Figure 3: confusion matrix for domain 1 and 2 after training on domain 0 and 3 </div>
-</div>
-
-<br/>
+| -         | -      | -         | -         | -          | -           | -           | -         |
+| deepall   | 9      | 0.798     | 0.858     | 0.800      | 0.978       | 0.797       | 0.832     |
+| diva      | 16     | 0.959     | 0.961     | 0.958      | 0.995       | 0.958       | 0.999     |
