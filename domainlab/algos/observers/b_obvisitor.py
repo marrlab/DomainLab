@@ -45,7 +45,7 @@ class ObVisitor(AObVisitor):
             print("---- Test Domain (oracle): ")
             metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
             self.metric_te = metric_te
-        if self.loader_val is not None:
+        if self.loader_val is not None and self.str_msel == "val":
             print("---- Validation: ")
             self.metric_val = self.host_trainer.model.cal_perf_metric(self.loader_val, self.device)
         if self.model_sel.update():
