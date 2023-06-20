@@ -31,7 +31,7 @@ results in undefined behaviour.
 
 
 ## Running a benchmark
-For executing the benchmark, we provide two scripts in our repository: [one local version for running the benchmark on a standalone machine](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_local_conf_seed2_gpus.sh), and [a cluster version for running the benchmark on a slurm cluster](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm_conf_seed2.sh)
+For executing the benchmark, we provide two scripts in our repository: one local version for running the benchmark on a standalone machine: [run_benchmark_local_conf_seed2_gpus.sh](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_local_conf_seed2_gpus.sh), and a cluster version for running the benchmark on a slurm cluster:[run_benchmark_slurm_conf_seed2](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm_conf_seed2.sh)
 
 ### benchmark on a standalone machine (with or without GPU)
 To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab folder, one can execute (we assume you have a machine with 4 cores or more)
