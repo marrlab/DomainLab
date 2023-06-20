@@ -2,6 +2,9 @@
 
 The package offers various ways to specify the domain generalization task according to user's need.
 
+## Specify train and test domain directly
+[See example here](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py)
+
 ## TaskPathList
 The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.
 
