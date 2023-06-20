@@ -11,7 +11,7 @@ the performance with respect to different hyperparameter choices is investigated
 
 ## Setting up a benchmark
 The benchmark is configured in a yaml file. We refer to the
-[demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_benchmark.yaml)
+[demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/master/examples/benchmark/demo_benchmark.yaml)
 for a documented example. As one can see there, the user has to select:
 - Common arguments (hyper-parameters) for all algorithms to be benchmarked under `domainlab_args`. This typically includes the dataset on which the benchmark
 shall be performed, as well as the number of epochs and batch size for training, the number of random seeds and hyperparameter samples, the set of domains which are used as leave-one-domain-out for testing the domain generalization performance.
@@ -31,15 +31,22 @@ results in undefined behaviour.
 
 
 ## Running a benchmark
-For executing the benchmark, we provide a script [here](https://github.com/marrlab/DomainLab/blob/benchmark_snakemake/examples/benchmark/run_snakemake.sh).
+For executing the benchmark, we provide two scripts in our repository: [one local version for running the benchmark on a standalone machine](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_local_conf_seed2_gpus.sh), and [a cluster version for running the benchmark on a slurm cluster](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm_conf_seed.sh)
 
-To run the benchmark with a specific configuration, one can execute (we assume you have a machine with 4 cores or more)
+To run the benchmark with a specific configuration on a standalone machine, one can execute (we assume you have a machine with 4 cores or more)
 
 ```
-./run_benchmark_local_conf_seed2_gpus.sh ./examples/yaml/demo_benchmark.yaml 0  0
+./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0
 ```
 where the first argument is the benchmark configuration file and the second and third argument is optional which is the starting seed for cuda and hyperparameter sampling.
 One can also specify by the last optional argument the number of GPUs to use, by default it is one, and this should be the case for cpu as well (if your machine does not have GPU, the last argument will be set to 1 as well).
+
+### Running a benchmark on a HPC cluster with slurm
+In a submission node, clone DomaniLab repository, cd into the repository, execute the following command.
+```
+./run_benchmark_slurm_conf_seed ./examples/benchmark/demo_benchmark.yaml
+```
+Similar to the local version, one could also specify random seed for hyper-parameter sampling and random seed for pytorch.
 
 ## Obtained results
 All files created by this benchmark are saved in the given output directory.
@@ -53,4 +60,4 @@ The results form partially completed benchmarks can be obtained with
 ```commandline
 python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
-specifying the benchmark output directory, e.g. `zoutput/benchmarks/demo_benchmark`
+specifying the benchmark output directory, e.g. `./zoutput/benchmarks/demo_benchmark`
