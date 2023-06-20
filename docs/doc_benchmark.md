@@ -49,7 +49,7 @@ If you have access a HPC cluster with slurm support: In a submission node, clone
 Similar to the local version, one could also specify random seed for hyper-parameter sampling and random seed for pytorch.
 
 ## Obtained results
-All files created by this benchmark are saved in the given output directory.
+All files created by this benchmark are saved in the given output directory (by default `./zoutput/benchmarks`).
 The sampled hyperparameters can be found in `hyperparameters.csv`.
 The performance of the different runs can be found in `results.csv`. Moreover, there is
 the `graphics` subdirectory, in which the values from `results.csv` are visualized for interpretation.
