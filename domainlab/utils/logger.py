@@ -32,6 +32,10 @@ class Logger:
             filehandler = logging.FileHandler(logfolder + '/' + Logger.logger.name + '.log',
                                               mode='w')
             filehandler.setLevel(loglevel)
+
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(loglevel)
             # Add handlers to logger
             Logger.logger.addHandler(filehandler)
+            Logger.logger.addHandler(console_handler)
         return Logger.logger
