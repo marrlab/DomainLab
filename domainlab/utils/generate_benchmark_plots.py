@@ -14,10 +14,10 @@ matplotlib.use('Agg')
 # header of the csv file:
 # param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc
 
-COLNAME_ALGO = "algo"
+COLNAME_ALGO = "task"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
-G_DF_PLOT_COL_START = 2   # first two columns are ['param_index','task',
+G_DF_PLOT_COL_START = 1   # first two columns are ['param_index','task',
 G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
 
 
