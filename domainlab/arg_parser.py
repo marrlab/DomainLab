@@ -29,7 +29,7 @@ def mk_parser_main():
     parser.add_argument('--gamma_reg', type=float, default=0.1,
                         help='weight of regularization loss')
 
-    parser.add_argument('--es', type=int, default=10,
+    parser.add_argument('--es', type=int, default=1,
                         help='early stop steps')
 
     parser.add_argument('--seed', type=int, default=0,
@@ -116,8 +116,8 @@ def mk_parser_main():
                         benchmark. Requires the benchmark config file. \
                         Other arguments will be ignored.")
 
-    parser.add_argument('--msel', type=str, default=None,
-                        help='model selection: val, elbo, recon, the \
+    parser.add_argument('--msel', choices=['val', 'loss_tr'], default="val",
+                        help='model selection for early stop: val, loss_tr, recon, the \
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods')
 

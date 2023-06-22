@@ -2,7 +2,7 @@
 builder for Domain Adversarial Neural Network: accept different training scheme
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
@@ -28,7 +28,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        msel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
+        msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitor(exp, msel, device)
         observer = ObVisitorCleanUp(observer)
 

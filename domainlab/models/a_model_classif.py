@@ -14,6 +14,7 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
+from rich import print as rprint
 from domainlab.utils.logger import Logger
 import pandas as pd
 
@@ -31,30 +32,22 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         self.perf_metric = PerfMetricClassif(task.dim_y)
         return self.perf_metric
 
-    def cal_perf_metric(self, loader_tr, device, loader_te=None):
+    def cal_perf_metric(self, loader, device):
         """
-        classification performance matric
+        classification performance metric
         """
-        metric_te = None
+        metric = None
         with torch.no_grad():
-            metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-            confmat = metric_tr_pool.pop("confmat")
-            logger = Logger.get_logger()
-            logger.debug("pooled train domains performance:")
-            logger.debug(metric_tr_pool)
-            logger.debug("confusion matrix:")
-            logger.debug(pd.DataFrame(confmat))
-            metric_tr_pool["confmat"] = confmat
-            # test set has no domain label, so can be more custom
-            if loader_te is not None:
-                metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-                confmat = metric_te.pop("confmat")
-                logger.debug("out of domain test performance:")
-                logger.debug(metric_te)
+            if loader is not None:
+                metric = self.perf_metric.cal_metrics(self, loader, device)
+                confmat = metric.pop("confmat")
+                logger = Logger.get_logger()
+                logger.debug("scalar performance:")
+                logger.debug(str(metric))
                 logger.debug("confusion matrix:")
                 logger.debug(pd.DataFrame(confmat))
-                metric_te["confmat"] = confmat
-        return metric_te
+                metric["confmat"] = confmat
+        return metric
 
     def evaluate(self, loader_te, device):
         """

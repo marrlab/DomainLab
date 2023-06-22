@@ -2,7 +2,7 @@
 builder for domain invariant adversarial learning
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
@@ -21,7 +21,7 @@ class NodeAlgoBuilderDeepAllMLDG(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        model_sel = MSelTrLoss(max_es=args.es)
+        model_sel = MSelValPerf(max_es=args.es)
         observer = ObVisitor(exp, model_sel, device)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
