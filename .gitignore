@@ -1,7 +1,0 @@
-.ropeproject
-./zdpath
-./zoutput
-tests/__pycache__/
-*.pyc
-.vscode/
-.snakemake/
