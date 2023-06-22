@@ -5,6 +5,7 @@ operations that all claasification model should have
 import abc
 import numpy as np
 import math
+import pandas as pd
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
@@ -15,7 +16,6 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.logger import Logger
-import pandas as pd
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
