@@ -14,10 +14,10 @@ matplotlib.use('Agg')
 # header of the csv file:
 # param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc
 
-COLNAME_ALGO = "algo"
+COLNAME_TASK = "task"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
-G_DF_PLOT_COL_START = 2   # first two columns are ['param_index','task',
+G_DF_TASK_COL = 1   # column in which the task name is saved
 G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
 
 
@@ -116,9 +116,9 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
                             kde=False)
 
     # create plots for the different algortihms
-    for algorithm in dataframe[COLNAME_ALGO].unique():
+    for algorithm in dataframe[COLNAME_TASK].unique():
         os.makedirs(output_dir + '/' + str(algorithm), exist_ok=True)
-        dataframe_algo = dataframe[dataframe[COLNAME_ALGO] == algorithm]
+        dataframe_algo = dataframe[dataframe[COLNAME_TASK] == algorithm]
 
         # boxplots
         for objective in obj:
@@ -179,16 +179,16 @@ def scatterplot_matrix(dataframe_in, use_param_index, file=None, kind='reg',
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(0, 'label',
-                          dataframe[COLNAME_ALGO].astype(str) + ', ' +
+                          dataframe[COLNAME_TASK].astype(str) + ', ' +
                           dataframe[COLNAME_PARAM].astype(str))
 
         g_p = sns.pairplot(data=dataframe_, hue='label', corner=True, kind=kind)
     else:
         index_ = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
-        index_.insert(0, G_DF_PLOT_COL_START)
+        index_.insert(0, G_DF_TASK_COL)
         dataframe_ = dataframe.iloc[:, index_]
 
-        g_p = sns.pairplot(data=dataframe_, hue=COLNAME_ALGO, corner=True, kind=kind)
+        g_p = sns.pairplot(data=dataframe_, hue=COLNAME_TASK, corner=True, kind=kind)
 
     for i in range(len(index)):
         for j in range(len(index)):
@@ -236,14 +236,14 @@ def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=F
             gg_p = g_p.ax_joint
     else:
         if kde:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_ALGO,
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_TASK,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1), kind='kde',
                                 zorder=0, levels=8, alpha=0.35, warn_singular=False)
-            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_ALGO,
+            gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_TASK,
                                    style=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
         else:
-            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_ALGO,
+            g_p = sns.jointplot(data=dataframe, x=obj1, y=obj2, hue=COLNAME_TASK,
                                 xlim=(-0.1, 1.1), ylim=(-0.1, 1.1))
             gg_p = sns.scatterplot(data=dataframe, x=obj1, y=obj2, style=COLNAME_PARAM,
                                    ax=g_p.ax_joint)
@@ -273,10 +273,10 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     dataframe = dataframe_in.copy()
     if distinguish_hyperparam:
         dataframe.insert(0, 'label',
-                         dataframe[COLNAME_ALGO].astype(str) + ', ' +
+                         dataframe[COLNAME_TASK].astype(str) + ', ' +
                          dataframe[COLNAME_PARAM].astype(str))
     else:
-        dataframe.insert(0, 'label', dataframe[COLNAME_ALGO])
+        dataframe.insert(0, 'label', dataframe[COLNAME_TASK])
     # we need "G_DF_PLOT_COL_METRIC_START + 1" as we did insert the columns 'label' at index 0
     index = list(range(G_DF_PLOT_COL_METRIC_START + 1, dataframe.shape[1]))
     num_lines = len(dataframe['label'].unique())
@@ -349,22 +349,22 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
     os.makedirs(file, exist_ok=True)
 
     ### stochastic variation
-    _, axes = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
-                           figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    _, axes = plt.subplots(1, len(dataframe[COLNAME_TASK].unique()), sharey=True,
+                           figsize=(3 * len(dataframe[COLNAME_TASK].unique()), 6))
     # iterate over all algorithms
-    for num, algo in enumerate(list(dataframe[COLNAME_ALGO].unique())):
+    for num, algo in enumerate(list(dataframe[COLNAME_TASK].unique())):
         # distinguish if the algorithm does only have one param setup or multiple
-        if len(dataframe[COLNAME_ALGO].unique()) > 1:
+        if len(dataframe[COLNAME_TASK].unique()) > 1:
             # generate boxplot and swarmplot
-            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+            sns.boxplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
                         x=COLNAME_IDX_PARAM, y=obj,
                         ax=axes[num], showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
-            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
                           x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes[num],
                           palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              dataframe[dataframe[COLNAME_TASK] == algo]
                               [COLNAME_IDX_PARAM].unique())))
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
@@ -373,15 +373,15 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
             if num != 0:
                 axes[num].set_ylabel('')
         else:
-            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+            sns.boxplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
                         x=COLNAME_IDX_PARAM, y=obj,
                         ax=axes, showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
-            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
                           x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes,
                           palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              dataframe[dataframe[COLNAME_TASK] == algo]
                               [COLNAME_IDX_PARAM].unique())))
             axes.legend([], [], frameon=False)
             axes.set_ylim([-0.1, 1.1])
@@ -403,22 +403,22 @@ def boxplot_systematic(dataframe_in, obj, file=None):
     os.makedirs(file, exist_ok=True)
 
     ### systematic variation
-    _, axes = plt.subplots(1, len(dataframe[COLNAME_ALGO].unique()), sharey=True,
-                           figsize=(3 * len(dataframe[COLNAME_ALGO].unique()), 6))
+    _, axes = plt.subplots(1, len(dataframe[COLNAME_TASK].unique()), sharey=True,
+                           figsize=(3 * len(dataframe[COLNAME_TASK].unique()), 6))
 
-    for num, algo in enumerate(list(dataframe[COLNAME_ALGO].unique())):
+    for num, algo in enumerate(list(dataframe[COLNAME_TASK].unique())):
         # distinguish if the algorithm does only have one param setup or multiple
-        if len(dataframe[COLNAME_ALGO].unique()) > 1:
+        if len(dataframe[COLNAME_TASK].unique()) > 1:
             # generate boxplot and swarmplot
-            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                        x=COLNAME_ALGO, y=obj,
+            sns.boxplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
+                        x=COLNAME_TASK, y=obj,
                         ax=axes[num], showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
-            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                          x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
+                          x=COLNAME_TASK, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes[num],
                           palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              dataframe[dataframe[COLNAME_TASK] == algo]
                               [COLNAME_IDX_PARAM].unique())))
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
@@ -427,15 +427,15 @@ def boxplot_systematic(dataframe_in, obj, file=None):
             if num != 0:
                 axes[num].set_ylabel('')
         else:
-            sns.boxplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                        x=COLNAME_ALGO, y=obj,
+            sns.boxplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
+                        x=COLNAME_TASK, y=obj,
                         ax=axes, showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
-            sns.swarmplot(data=dataframe[dataframe[COLNAME_ALGO] == algo],
-                          x=COLNAME_ALGO, y=obj, hue=COLNAME_IDX_PARAM,
+            sns.swarmplot(data=dataframe[dataframe[COLNAME_TASK] == algo],
+                          x=COLNAME_TASK, y=obj, hue=COLNAME_IDX_PARAM,
                           legend=False, ax=axes,
                           palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_ALGO] == algo]
+                              dataframe[dataframe[COLNAME_TASK] == algo]
                               [COLNAME_IDX_PARAM].unique())))
             axes.legend([], [], frameon=False)
             axes.set_ylim([-0.1, 1.1])
