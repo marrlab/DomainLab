@@ -69,8 +69,7 @@ rule parameter_sampling:
           sampling_seed = config['sampling_seed']
         else:
           sampling_seed = None
-
-        if 'mode' in config.keys:
+        if 'mode' in config.keys():  # type(config)=dict
             if config['mode'] == 'grid':
                 sample_gridsearch(config,str(output.dest),sampling_seed)
         else:
