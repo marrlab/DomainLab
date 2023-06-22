@@ -1,9 +1,11 @@
 # test benchmark config.
 
 test_domains:
-  - sketch
+  - matek
+  - acevedo
+  - mll
 
-output_dir: zoutput/benchmarks/pacs_benchmark
+output_dir: zoutput/benchmarks/blood
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
@@ -19,17 +21,17 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   ## dataset
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_blood2.py
   dmem: False
   lr: 5e-5
   epos: 500
-  es: 5
+  es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
   san_check: True
 
 
-Task1:  # name
+diva:  # name
   aname: diva
   # set nname_dom = nname when changing nname
   npath_dom: examples/nets/resnet50domainbed.py
@@ -62,7 +64,7 @@ Task1:  # name
     zd_dim:
       reference: zy_dim
 
-Task2:  # name
+hduva:  # name
   aname: hduva
 
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
@@ -91,7 +93,7 @@ Task2:  # name
     zd_dim:
       reference: zy_dim
 
-Task3:  # name
+matchdg:  # name
   aname: matchdg
 
   hyperparameters:
@@ -121,7 +123,7 @@ Task3:  # name
       max: 10
       distribution: loguniform
 
-Task4:  # name
+jigen:  # name
   aname: jigen
   grid_len: 3
 
@@ -147,7 +149,7 @@ Task4:  # name
       distribution: loguniform
 
 
-Task5:  # name
+dann:  # name
   aname: dann
 
   hyperparameters:
@@ -156,11 +158,11 @@ Task5:  # name
       max: 10
       distribution: loguniform
 
-Task6:  # name
+deepall:  # name
   aname: deepall
 
 
-Task7: # name
+dial: # name
   aname: deepall_dial
 
   hyperparameters:
@@ -184,3 +186,14 @@ Task7: # name
       min: 0.01
       max: 10
       distribution: loguniform
+
+mldg:  # name
+  aname: deepallmldg
+
+  hyperparameters:
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+

@@ -1,0 +1,68 @@
+# test benchmark config.
+
+test_domains:
+  - 1
+  - 2
+
+output_dir: zoutput/benchmarks/mnist_benchmark
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 8
+sampling_seed: 0
+
+startseed: 0
+endseed: 2  # currently included
+
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  task: mnistcolor10
+  tr_d: [0, 3]
+  dmem: False
+  lr: 0.001
+  epos: 500
+  es: 1
+  bs: 32
+  nname: conv_bn_pool_2
+  san_check: False
+
+
+diva:  # name
+  aname: diva
+  # set nname_dom = nname when changing nname
+  nname_dom: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+erm:  # name
+  aname: deepall

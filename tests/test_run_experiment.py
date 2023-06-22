@@ -10,7 +10,7 @@ from domainlab.exp_protocol.run_experiment import run_experiment
 
 def test_run_experiment():
     """Checks the run_experiment function on a minimal basis"""
-    with open("examples/yaml/demo_benchmark.yaml", "r", encoding="utf8") as stream:
+    with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
     if torch.cuda.is_available():
         torch.cuda.init()

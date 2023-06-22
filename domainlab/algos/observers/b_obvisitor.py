@@ -42,12 +42,13 @@ class ObVisitor(AObVisitor):
         if epoch % self.epo_te == 0:
             print("---- Training Domain: ")
             self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
+            if self.loader_val is not None and self.str_msel == "val":
+                print("---- Validation: ")
+                self.metric_val = self.host_trainer.model.cal_perf_metric(
+                    self.loader_val, self.device)
             print("---- Test Domain (oracle): ")
             metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
             self.metric_te = metric_te
-        if self.loader_val is not None:
-            print("---- Validation: ")
-            self.metric_val = self.host_trainer.model.cal_perf_metric(self.loader_val, self.device)
         if self.model_sel.update():
             print("better model found")
             self.exp.visitor.save(self.host_trainer.model)
