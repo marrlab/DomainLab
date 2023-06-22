@@ -7,7 +7,6 @@ import os
 from typing import List
 
 from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
-from domainlab.utils.logger import Logger
 
 
 def agg_results(input_files: List[str], output_file: str):
