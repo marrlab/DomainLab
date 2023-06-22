@@ -55,6 +55,7 @@ def run_experiment(
 
     # FIXME: we might want to run the experiment using commandline arguments
     """
+
     if misc is None:
         misc = {}
     str_algo_as_task, hyperparameters = load_parameters(param_file, param_index)
