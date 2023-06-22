@@ -75,9 +75,10 @@ class ObVisitor(AObVisitor):
         except FileNotFoundError as err:  # if other errors/exceptions occur, we do not catch them
             # other exceptions will terminate the python script
             # this can happen if loss is increasing, model never get selected
-            print(err)
-            print("this error can occur if model selection criteria is worsening, \
-                  model never get persisted")
+            logger = Logger.get_logger()
+            logger.error(err)
+            logger.error("this error can occur if model selection criteria is worsening, "
+                         "model never get persisted")
             return
 
         model_ld = model_ld.to(self.device)
