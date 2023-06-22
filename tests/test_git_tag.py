@@ -29,7 +29,6 @@ def test_git_tag_error():
     with open("data/ztest_files/dummy_file.py", "r") as f:
         lines = f.readlines()
         lines = lines[:-1]
-    #os.remove("main_out.py")
     with open("data/ztest_files/dummy_file.py", "w") as f:
         for num, line in enumerate(lines):
             if num == len(lines) - 1:
