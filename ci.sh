@@ -9,7 +9,7 @@ bash -x -v ci_run_examples.sh
 sh ci_pytest_cov.sh
 
 # run benchmark
-./run_benchmark_local_conf_seed2_gpus.sh examples/yaml/demo_benchmark.yaml 10 101
+./run_benchmark_local_conf_seed2_gpus.sh examples/benchmark/demo_benchmark.yaml
 
 # update documentation
 # if git status | grep -q 'master'; then
