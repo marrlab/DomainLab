@@ -1,10 +1,14 @@
 # Task Specification
 
-The package offers various ways to specify the domain generalization task according to user's need.
+The package offers various ways to specify a domain generalization task (where to find the data, which domain to use as training, which to test) according to user's need.
 
-## Specify train and test domain directly
-[See example here](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py)
-To train a ERM (Emperical Risk Minimization) network:
+For all thress ways covered below, the user has to prepare a python file to feed via argument `--tpath` (means task path) into DomainLab.  We provide example python files in our repository [see all examples here for specifying domain generalization task](https://github.com/marrlab/DomainLab/tree/master/examples/tasks) so that the user could follow the example to create their own domain generalization task specification.  We provide inline comment to explain what each line is doing, as well as below in this documentation. 
+
+## Specify train and test domain dataset directly
+The most straightforward way to specify a domain generalization task is, if you have already a [PyTorch Dataset](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html) class for each domain: you could define a dictionary with the key being name for domain, and the value being the PyTorch Dataset you created corresponding to that domain (train and validation or only training) 
+[See an example python file here](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py)
+
+To train a ERM (Emperical Risk Minimization) network on this task:
 ```
 python main_out.py --te_d d1 --tr_d d2 d3 --tpath=examples/tasks/task_dset_custom.py --bs=32 --aname=deepall --nname=conv_bn_pool_2
 ```
