@@ -4,11 +4,6 @@ Code coverage issues:
     - lines 10-20
     - lines 28, 30-32
 '''
-import os
-
-import pytest
-from subprocess import CalledProcessError
-
 from domainlab.utils.get_git_tag import get_git_tag
 
 def test_git_tag():
