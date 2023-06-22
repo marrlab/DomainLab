@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="../../../../_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="../../../../_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#2196f3">
+  <script src="../../../../_static/javascripts/modernizr.js"></script>
+  
+  
+    <link rel="apple-touch-icon" href="../../../../_static/images/apple-icon-152x152.png"/>
+  
+  
+    <title>domainlab.algos.compos.matchdg_match &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  
+    <link rel="apple-touch-icon" href="../../../../_static/images/apple-icon-152x152.png"/>
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=teal data-md-color-accent=cyan>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#_modules/domainlab/algos/compos/matchdg_match" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../../index.html" title="domainlab  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">DomainLab</span>
+          <span class="md-header-nav__topic"> domainlab.algos.compos.matchdg_match </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="../../../../search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+            
+            <li class="md-tabs__item"><a href="../../../../readme_link.html" class="md-tabs__link">Introduction</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">Examples</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Examples</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+          <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../../index.html" title="domainlab documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    <a href="../../../../index.html"
+       title="domainlab documentation">DomainLab</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Contents:</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../modules.html" class="md-nav__link">domainlab</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docMatchDG.html" class="md-nav__link">MatchDG: Domain Generalization using Causal Matching</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docDIAL.html" class="md-nav__link">DIAL: Domain Invariant Adversarial Learning</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+  <ul class="md-nav__list" data-md-scrollfix="">
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <h1 id="modules-domainlab-algos-compos-matchdg-match--page-root">Source code for domainlab.algos.compos.matchdg_match</h1><div class="highlight"><pre>
+<span></span>import warnings
+
+import numpy as np
+import torch
+
+from domainlab.algos.compos.matchdg_utils import (
+    MatchDictNumDomain2SizeDomain, MatchDictVirtualRefDset2EachDomain)
+from domainlab.tasks.utils_task import mk_loader
+from domainlab.utils.utils_class import store_args
+
+
+<div class="viewcode-block" id="MatchPair"><a class="viewcode-back" href="../../../../domainlab.algos.compos.html#domainlab.algos.compos.matchdg_match.MatchPair">[docs]</a>class MatchPair():
+    @store_args
+    def __init__(self,
+                 dim_y,
+                 i_c,
+                 i_h,
+                 i_w,
+                 bs_match,
+                 virtual_ref_dset_size,
+                 num_domains_tr,
+                 list_tr_domain_size):
+        """
+        :param virtual_ref_dset_size:  sum of biggest class sizes
+        :param num_domains_tr:
+        :param list_tr_domain_size:
+        """
+        self.dim_y = dim_y
+        self.bs_match = bs_match
+        self.virtual_ref_dset_size = virtual_ref_dset_size
+        self.num_domains_tr = num_domains_tr
+        self.list_tr_domain_size = list_tr_domain_size
+        self.dict_cls_ind_base_domain_ind = {}
+        self.dict_virtual_dset2each_domain = MatchDictVirtualRefDset2EachDomain(
+            virtual_ref_dset_size=virtual_ref_dset_size,
+            num_domains_tr=num_domains_tr,
+            i_c=i_c, i_h=i_h, i_w=i_w)()
+
+        self.dict_domain_data = MatchDictNumDomain2SizeDomain(
+            num_domains_tr=num_domains_tr,
+            list_tr_domain_size=list_tr_domain_size,
+            i_c=i_c, i_h=i_h, i_w=i_w)()
+
+        self.indices_matched = {}
+        for key in range(virtual_ref_dset_size):
+            self.indices_matched[key] = []
+        self.perfect_match_rank = []
+
+        self.domain_count = {}
+        for domain in range(num_domains_tr):
+            self.domain_count[domain] = 0
+
+    def _fill_data(self, loader):
+        """
+        copy all data from loader, then store them in memory
+        variable self.dict_domain_data
+        """
+        # NOTE: loader contains data from several dataset
+        list_idx_several_ds = []
+        loader_full_data = mk_loader(
+            loader.dataset,
+            bsize=loader.batch_size,
+            drop_last=False)
+        # @FIXME: training loader will always drop the last incomplete batch
+        for _, (x_e, y_e, d_e, idx_e) in enumerate(loader_full_data):
+            # traverse mixed domain data from loader
+            list_idx_several_ds.extend(list(idx_e.cpu().numpy()))
+            y_e = torch.argmax(y_e, dim=1)
+            d_e = torch.argmax(d_e, dim=1).numpy()
+
+            # get all domains in current batch
+            unique_domains = np.unique(d_e)
+            for domain_idx in unique_domains:
+                # select all instances belong to one domain
+                flag_curr_domain = (d_e == domain_idx)
+
+                # flag_curr_domain is subset indicator of
+                # True of False for selection of data from the mini-batch
+
+                # get global index of all instances of the current domain
+                global_indices = idx_e[flag_curr_domain]
+
+                # global_indices are subset of idx_e, which contains
+                # global index of data from the loader
+                for local_ind in range(global_indices.shape[0]):
+                    # @FIXME: the following is just coping all data to
+                    # self.dict_domain_data (in memory with ordering),
+                    # which seems redundant
+
+                    # tensor.item get the scalar
+                    global_ind = global_indices[local_ind].item()
+                    self.dict_domain_data[domain_idx]['data'][global_ind] = \
+                        x_e[flag_curr_domain][local_ind]
+                    # flag_curr_domain are subset indicator
+                    # for selection of domain
+                    self.dict_domain_data[domain_idx]['label'][global_ind] = \
+                        y_e[flag_curr_domain][local_ind]
+                    # copy trainining batch to dict_domain_data
+                    self.dict_domain_data[domain_idx]['idx'][global_ind] = \
+                        idx_e[flag_curr_domain][local_ind]
+                    self.domain_count[domain_idx] += 1
+
+        # if all data has been re-organized(filled) into the current tensor
+        assert len(list_idx_several_ds) == len(loader.dataset)
+        # NOTE: check if self.dict_domain_data[domain_idx]['label'] has
+        # some instances that are initial continuous
+        # value instead of class label
+        for domain in range(self.num_domains_tr):
+            if self.domain_count[domain] != self.list_tr_domain_size[domain]:
+                warnings.warn("domain_count show matching \
+                    dictionary missing data!")
+
+    def _cal_base_domain(self):
+        """
+        # Determine the base_domain_idx as the domain
+        # with the max samples of the current class
+        # Create dictionary: class label -&gt; list of ordered flag_curr_domain
+        """
+        for y_c in range(self.dim_y):
+            base_domain_size = 0
+            base_domain_idx = -1
+            for domain_idx in range(self.num_domains_tr):
+                flag_curr_class = \
+                    (self.dict_domain_data[domain_idx]['label'] == y_c)   # tensor of True/False
+                curr_size = \
+                    self.dict_domain_data[domain_idx]['label'][flag_curr_class].shape[0]
+                # flag_curr_class are subset indicator
+                if base_domain_size &lt; curr_size:
+                    base_domain_size = curr_size
+                    base_domain_idx = domain_idx
+            self.dict_cls_ind_base_domain_ind[y_c] = base_domain_idx
+            # for each class label, there is a base domain
+            print("for class", y_c)
+            print("domain index as base domain:", base_domain_idx)
+            print("Base Domain size", base_domain_size)
+
+    def __call__(self, device, loader, fun_extract_semantic_feat, flag_match_min_dist):
+        """
+        :param fun_extract_semantic_feat: function to generate causal features from input
+        """
+        self._fill_data(loader)
+        self._cal_base_domain()
+        for curr_domain_ind in range(self.num_domains_tr):
+            counter_ref_dset_size = 0
+            for y_c in range(self.dim_y):
+                # which domain to use as the base domain for the current class
+                base_domain_idx = self.dict_cls_ind_base_domain_ind[y_c]
+
+                # subset indicator
+                flags_base_domain_curr_cls = \
+                    (self.dict_domain_data[base_domain_idx]['label'] == y_c)
+                flags_base_domain_curr_cls = flags_base_domain_curr_cls[:, 0]
+                global_inds_base_domain_curr_cls = \
+                    self.dict_domain_data[base_domain_idx]['idx'][flags_base_domain_curr_cls]
+                # pick out base domain class label y_c images
+                # the difference of this block is "curr_domain_ind"
+                # in iteration is
+                # used instead of base_domain_idx for current class
+
+                # pick out current domain y_c class images
+                flag_curr_domain_curr_cls = (self.dict_domain_data[curr_domain_ind]['label'] == y_c)
+                # NO label matches y_c
+                flag_curr_domain_curr_cls = flag_curr_domain_curr_cls[:, 0]
+                global_inds_curr_domain_curr_cls = \
+                    self.dict_domain_data[curr_domain_ind]['idx'][flag_curr_domain_curr_cls]
+                size_curr_domain_curr_cls = global_inds_curr_domain_curr_cls.shape[0]
+                if size_curr_domain_curr_cls == 0:  # there is no class y_c in current domain
+                    raise RuntimeError(
+                        f"current domain {curr_domain_ind} does not contain class {y_c}")
+
+                # compute base domain features for class label y_c
+                x_base_domain_curr_cls = \
+                    self.dict_domain_data[base_domain_idx]['data'][flags_base_domain_curr_cls]
+                # pick out base domain class label y_c images
+                # split data into chunks
+                tuple_batch_x_base_domain_curr_cls = \
+                    torch.split(x_base_domain_curr_cls, self.bs_match, dim=0)
+                # @FIXME. when x_base_domain_curr_cls is smaller
+                # than the self.bs_match, then there is only one batch
+                list_base_feat = []
+                for batch_x_base_domain_curr_cls in tuple_batch_x_base_domain_curr_cls:
+                    with torch.no_grad():
+                        batch_x_base_domain_curr_cls = batch_x_base_domain_curr_cls.to(device)
+                        feat = fun_extract_semantic_feat(batch_x_base_domain_curr_cls)
+                        list_base_feat.append(feat.cpu())
+                tensor_feat_base_domain_curr_cls = torch.cat(list_base_feat)
+                # base domain features
+
+                if flag_match_min_dist:  # if epoch &gt; 0:flag_match_min_dist=True
+                    x_curr_domain_curr_cls = \
+                        self.dict_domain_data[curr_domain_ind]['data'][flag_curr_domain_curr_cls]
+                    # indices_curr pick out current domain y_c class images
+                    tuple_x_batch_curr_domain_curr_cls = \
+                        torch.split(x_curr_domain_curr_cls, self.bs_match, dim=0)
+                    list_feat_x_curr_domain_curr_cls = []
+                    for batch_feat in tuple_x_batch_curr_domain_curr_cls:
+                        with torch.no_grad():
+                            batch_feat = batch_feat.to(device)
+                            out = fun_extract_semantic_feat(batch_feat)
+                            list_feat_x_curr_domain_curr_cls.append(out.cpu())
+                    tensor_feat_curr_domain_curr_cls = torch.cat(list_feat_x_curr_domain_curr_cls)
+                    # feature through inference network for the current domain of class y_c
+
+                tensor_feat_base_domain_curr_cls = tensor_feat_base_domain_curr_cls.unsqueeze(1)
+                tuple_feat_base_domain_curr_cls = \
+                    torch.split(tensor_feat_base_domain_curr_cls, self.bs_match, dim=0)
+
+                counter_curr_cls_base_domain = 0
+
+                # tuple_feat_base_domain_curr_cls is a tuple of splitted part
+                for feat_base_domain_curr_cls in tuple_feat_base_domain_curr_cls:
+
+                    if flag_match_min_dist:   # if epoch &gt; 0:flag_match_min_dist=True
+                        # Need to compute over batches of
+                        # feature due to device Memory out errors
+                        # Else no need for loop over
+                        # tuple_feat_base_domain_curr_cls;
+                        # could have simply computed
+                        # tensor_feat_curr_domain_curr_cls -
+                        # tensor_feat_base_domain_curr_cls
+                        dist_same_class_base_domain_curr_domain = \
+                            torch.sum(
+                                (tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls)**2,
+                                dim=2)
+                        # tensor_feat_curr_domain_curr_cls.shape torch.Size([184, 512])
+                        # feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
+                        # (tensor_feat_curr_domain_curr_cls - feat_base_domain_curr_cls).shape:
+                        # torch.Size([64, 184, 512])
+                        # dist_same_class_base_domain_curr_domain.shape:
+                        # torch.Size([64, 184]) is the per element distance of
+                        # the cartesian product of feat_base_domain_curr_cls vs
+                        # tensor_feat_curr_domain_curr_cls
+                        match_ind_base_domain_curr_domain = \
+                            torch.argmin(dist_same_class_base_domain_curr_domain, dim=1)
+                        # the batch index of the neareast neighbors
+                        # len(match_ind_base_domain_curr_domain)=64
+                        # theoretically match_ind_base_domain_curr_domain can
+                        # be a permutation of 0 to 183 though of size 64
+                        # sort_val, sort_idx = \
+                        # torch.sort(dist_same_class_base_domain_curr_domain, dim=1)
+                        del dist_same_class_base_domain_curr_domain
+
+                    #  feat_base_domain_curr_cls.shape torch.Size([64, 1, 512])
+                    for idx in range(feat_base_domain_curr_cls.shape[0]):
+                        # counter_curr_cls_base_domain =0 at initialization
+
+                        # ## global_inds_base_domain_curr_cls pick out base
+                        # domain class label y_c images
+                        global_pos_base_domain_curr_cls = \
+                            global_inds_base_domain_curr_cls[counter_curr_cls_base_domain].item()
+                        if curr_domain_ind == base_domain_idx:
+                            ind_match_global_curr_domain_curr_cls = global_pos_base_domain_curr_cls
+                        else:
+                            if flag_match_min_dist:  # if epoch &gt; 0:match_min_dist=True
+                                ind_match_global_curr_domain_curr_cls = \
+                                    global_inds_curr_domain_curr_cls[
+                                        match_ind_base_domain_curr_domain[idx]].item()
+                            else:  # if epoch == 0
+                                ind_match_global_curr_domain_curr_cls = \
+                                    global_inds_curr_domain_curr_cls[
+                                        counter_curr_cls_base_domain%size_curr_domain_curr_cls].item()
+
+                        self.dict_virtual_dset2each_domain[counter_ref_dset_size]['data'][curr_domain_ind] = \
+                            self.dict_domain_data[curr_domain_ind]['data'][ind_match_global_curr_domain_curr_cls]
+                        self.dict_virtual_dset2each_domain[counter_ref_dset_size]['label'][curr_domain_ind] = \
+                            self.dict_domain_data[curr_domain_ind]['label'][ind_match_global_curr_domain_curr_cls]
+                        # @FIXME: label initially were set to random continuous
+                        # value, which is a technique to check if
+                        # every data has been filled
+                        counter_curr_cls_base_domain += 1
+                        counter_ref_dset_size += 1
+
+            if counter_ref_dset_size != self.virtual_ref_dset_size:
+                print("counter_ref_dset_size", counter_ref_dset_size)
+                print("self.virtual_ref_dset_size", self.virtual_ref_dset_size)
+                # warnings.warn("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
+                raise RuntimeError("counter_ref_dset_size not equal to self.virtual_ref_dset_size")
+
+
+        for key in self.dict_virtual_dset2each_domain.keys():
+            if self.dict_virtual_dset2each_domain[key]['label'].shape[0] != self.num_domains_tr:
+                raise RuntimeError("self.dict_virtual_dset2each_domain, \
+                                   one key correspond to value tensor not \
+                                   equal to number of training domains")
+
+        # Sanity Check: Ensure paired points have the same class label
+        wrong_case = 0
+        for key in self.dict_virtual_dset2each_domain.keys():
+            for d_i in range(self.dict_virtual_dset2each_domain[key]['label'].shape[0]):
+                for d_j in range(self.dict_virtual_dset2each_domain[key]['label'].shape[0]):
+                    if d_j &gt; d_i:
+                        if self.dict_virtual_dset2each_domain[key]['label'][d_i] != self.dict_virtual_dset2each_domain[key]['label'][d_j]:
+                            # raise RuntimeError("the reference domain has 'rows' with inconsistent class labels")
+                            wrong_case += 1
+        print('Total Label MisMatch across pairs: ', wrong_case)
+        if wrong_case != 0:
+            raise RuntimeError("the reference domain \
+                               has 'rows' with inconsistent class labels")
+
+        list_ref_domain_each_domain = []
+        list_ref_domain_each_domain_label = []
+        for ind_ref_domain_key in self.dict_virtual_dset2each_domain.keys():
+            list_ref_domain_each_domain.append(self.dict_virtual_dset2each_domain[ind_ref_domain_key]['data'])
+            list_ref_domain_each_domain_label.append(self.dict_virtual_dset2each_domain[ind_ref_domain_key]['label'])
+
+        tensor_ref_domain_each_domain_x = torch.stack(list_ref_domain_each_domain)
+        tensor_ref_domain_each_domain_label = torch.stack(list_ref_domain_each_domain_label)
+
+        print(tensor_ref_domain_each_domain_x.shape, tensor_ref_domain_each_domain_label.shape)
+
+        del self.dict_domain_data
+        del self.dict_virtual_dset2each_domain
+        return tensor_ref_domain_each_domain_x, tensor_ref_domain_each_domain_label</div>
+</pre></div>
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021-2023, Marr Lab..
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../../../../_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

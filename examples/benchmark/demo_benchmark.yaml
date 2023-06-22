@@ -1,0 +1,98 @@
+# Example benchmark config script.
+
+# list of all domains that are used as test domain
+# in a leave-one-out setup, i.e. for each run,
+# one domain from this list is chosen as test domain
+# while training is performed on all other domains
+# of the specified dataset.
+test_domains:
+  - caltech
+  - sun
+  - labelme
+
+output_dir: zoutput/benchmarks/demo_benchmark
+
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(test_domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 2
+# sets the seed for hyperparameter sampling.
+# With this option and the experiment seeds from
+# startseed and endseed, this benchmark is fully reproducible.
+sampling_seed: 1  # Optional
+
+# the seed is increased by +1 until it reaches endseed.
+# endseed is included, so in total startseed - endseed + 1
+# different seeds are used to estimate the stochastic
+# variance.
+startseed: 1
+endseed: 2  # currently included
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  tpath: examples/tasks/task_vlcs.py  # dataset
+  epos: 2
+  bs: 2
+
+# Each node containing the aname property is considered as a task.
+diva:  # name
+  # Parameters that are fixed for all runs of this task.
+  aname: diva
+  nname: alexnet
+  npath_dom: examples/nets/resnet.py
+  # specification of parameters that shall vary
+  # between runs to analyze the sensitivity
+  # of this task w.r.t. these parameters.
+  hyperparameters:
+    # Each parameter must contain:
+    # - distribution (uniform | loguniform | normal | lognormal)
+    # - min and max if distribution is uniform or loguniform
+    # - mean and std if distribution is normal or lognormal
+
+    # step is optional and defines discrete parameters
+    # with the given step size.
+    # If min/mean and step are integer valued,
+    # the hyperparameter is ensured to be integer valued too.
+    # Otherwise, it is a float and rounding errors can occur.
+    gamma_y:
+      min: 10e4
+      max: 10e6
+      step: 1
+      distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 1
+      distribution: loguniform
+
+hduva:  # name
+  aname: hduva
+  npath: examples/nets/resnet.py
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 7e4
+      max: 7e6
+      step: 1
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 128
+      step: 4
+      distribution: loguniform
+
+
+deep_all:
+  aname: deepall
+  nname: alexnet
+
+# set constant hyper-parameters
+mldg:
+    aname: deepallmldg
+    nname: alexnet
+    gamma_reg: 0.03

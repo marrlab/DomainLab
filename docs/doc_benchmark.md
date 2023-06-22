@@ -1,0 +1,63 @@
+# Benchmarking with DomainLab
+
+The package offers the ability to benchmark different algorithms against each other, as well as
+against different hyper-parameter setting and random seed.
+The results are collected in a csv file, but also prepared in charts.
+
+Within each benchmark, two aspects are considered:
+1. Stochastic variation: Variation of the performance with respect to different random seeds.
+2. Sensitivity to selected hyperparameters: By sampling hyperparameters randomly,
+the performance with respect to different hyperparameter choices is investigated. 
+
+## Setting up a benchmark
+The benchmark is configured in a yaml file. We refer to the
+[demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/master/examples/benchmark/demo_benchmark.yaml)
+for a documented example. As one can see there, the user has to select:
+- Common arguments (hyper-parameters) for all algorithms to be benchmarked under `domainlab_args`. This typically includes the dataset on which the benchmark
+shall be performed, as well as the number of epochs and batch size for training, the number of random seeds and hyperparameter samples, the set of domains which are used as leave-one-domain-out for testing the domain generalization performance.
+- Fixed hyper-parameter for each algorithm
+- Specific hyper-parameter ranges for different algorithms, for which the sensitivity of generalization performance with respect to changing hyper-parameters shall be investigated.
+
+### Advanced hyperparameter sampling
+An example file [demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml) where hyperparameters can be sampled from different distributions: e.g. By using the `categorical` distribution type, a list of valid values for a hyperparameter can be specified.
+
+#### Handling Constraints 
+- We currently use rejection sampling, if 10,000 samples are rejected in a row, the sampling
+aborts with error.
+- Equality constraints are not supported in the constraints section. 
+- To enforce equality of two hyperparameters use the `reference` key, see `p4` of `Task1` in  [demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml)
+References are supported only to sampled hyperparameters, referencing a reference
+results in undefined behaviour.
+
+
+## Running a benchmark
+For executing the benchmark, we provide two scripts in our repository: one local version for running the benchmark on a standalone machine: [run_benchmark_local_conf_seed2_gpus.sh](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_local_conf_seed2_gpus.sh), and a cluster version for running the benchmark on a slurm cluster:[run_benchmark_slurm_conf_seed2.sh](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm_conf_seed2.sh)
+
+### benchmark on a standalone machine (with or without GPU)
+To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab folder, one can execute (we assume you have a machine with 4 cores or more)
+```
+./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0
+```
+where the first argument is the benchmark configuration file and the second and third argument is optional which is the starting seed for cuda and hyperparameter sampling.
+One can also specify by the last optional argument the number of GPUs to use, by default it is one, and this should be the case for cpu as well (if your machine does not have GPU, the last argument will be set to 1 as well).
+
+### benchmark on a HPC cluster with slurm
+If you have access a HPC cluster with slurm support: In a submission node, clone DomaniLab repository, cd into the repository, execute the following command.
+```
+./run_benchmark_slurm_conf_seed2.sh ./examples/benchmark/demo_benchmark.yaml
+```
+Similar to the local version, one could also specify random seed for hyper-parameter sampling and random seed for pytorch.
+
+## Obtained results
+All files created by this benchmark are saved in the given output directory (by default `./zoutput/benchmarks`).
+The sampled hyperparameters can be found in `hyperparameters.csv`.
+The performance of the different runs can be found in `results.csv`. Moreover, there is
+the `graphics` subdirectory, in which the values from `results.csv` are visualized for interpretation.
+
+
+## Obtain partial results
+The results form partially completed benchmarks can be obtained with
+```commandline
+python main_out.py --agg_partial_bm OUTPUT_DIR
+```
+specifying the benchmark output directory, e.g. `./zoutput/benchmarks/demo_benchmark`
