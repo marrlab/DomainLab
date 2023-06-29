@@ -4,7 +4,7 @@
 
 Look at this example
 
-```
+```shell
 cd ..
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
 
