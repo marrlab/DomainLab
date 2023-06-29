@@ -35,7 +35,7 @@ For executing the benchmark, we provide two scripts in our repository: one local
 
 ### benchmark on a standalone machine (with or without GPU)
 To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab folder, one can execute (we assume you have a machine with 4 cores or more)
-```
+```shell
 ./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0
 ```
 where the first argument is the benchmark configuration file and the second and third argument is optional which is the starting seed for cuda and hyperparameter sampling.
@@ -43,7 +43,7 @@ One can also specify by the last optional argument the number of GPUs to use, by
 
 ### benchmark on a HPC cluster with slurm
 If you have access a HPC cluster with slurm support: In a submission node, clone DomaniLab repository, cd into the repository, execute the following command.
-```
+```shell
 ./run_benchmark_slurm_conf_seed2.sh ./examples/benchmark/demo_benchmark.yaml
 ```
 Similar to the local version, one could also specify random seed for hyper-parameter sampling and random seed for pytorch.
