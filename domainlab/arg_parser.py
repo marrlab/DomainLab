@@ -116,6 +116,27 @@ def mk_parser_main():
                         benchmark. Requires the benchmark config file. \
                         Other arguments will be ignored.")
 
+    parser.add_argument('--gen_plots', type=str,
+                        default=None, dest="plot_data",
+                        help="plots the data of a snakemake benchmark. "
+                             "Requires the results.csv file"
+                             "and an output file (specify by --outp_file,"
+                             "default is zoutput/benchmarks/shell_benchmark). "
+                             "Other arguments will be ignored.")
+
+    parser.add_argument('--outp_dir', type=str,
+                        default='zoutput/benchmarks/shell_benchmark', dest="outp_dir",
+                        help="outpus file for the plots when creating them"
+                             "using --gen_plots. "
+                             "Default is zoutput/benchmarks/shell_benchmark")
+
+    parser.add_argument('--param_idx', type=bool,
+                        default=True, dest="param_idx",
+                        help="True: parameter index is used in the "
+                             "pots generated with --gen_plots."
+                             "False: parameter name is used."
+                             "Default is True.")
+
     parser.add_argument('--msel', choices=['val', 'loss_tr'], default="val",
                         help='model selection for early stop: val, loss_tr, recon, the \
                         elbo and recon only make sense for vae models,\
