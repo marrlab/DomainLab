@@ -27,7 +27,7 @@ We offer the following ways to install dependencies:
  
 Suppose you have cloned the repository and have changed directory to the cloned repository.
 
-```bash
+```shell
 pip install -r requirements.txt
 ```
 
@@ -38,7 +38,7 @@ Suppose you have cloned the repository and have the dependencies ready, change d
 
 To train a domain invariant model on the vlcs_mini task
 
-```bash
+```shell
 python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --config=examples/yaml/demo_config_single_run_diva.yaml 
 ```
 where `--tpath` specifies the path of a user specified python file which defines the domain generalization task [see here](./examples/tasks/task_vlcs.py), `--te_d` specifies the test domain name (or index starting from 0), `--config` specifies the configurations of the domain generalization algorithms, [see here](./examples/yaml/demo_config_single_run_diva.yaml)
@@ -46,7 +46,7 @@ where `--tpath` specifies the path of a user specified python file which defines
 #### Further usage
 Alternatively, in a verbose mode without using the algorithm configuration file:
 
-```bash
+```shell
 python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --aname=diva --gamma_y=7e5 --gamma_d=1e5 --nname=alexnet --nname_dom=conv_bn_pool_2
 ```
 
@@ -54,7 +54,7 @@ where `--aname` specifies which algorithm to use, see [Available Algorithms](./d
 `--nname` is to specify which neural network to use for feature extraction for classification, `--nname_dom` is to specify which neural network to use for feature extraction of domains.
 For usage of other arguments, check with
 
-```bash
+```shell
 python main_out.py --help
 ```
 

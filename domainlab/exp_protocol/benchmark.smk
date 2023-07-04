@@ -23,6 +23,7 @@ envvars:
 def experiment_result_files(_):
     """Lists all expected i.csv"""
     from domainlab.utils.hyperparameter_sampling import is_task
+    from domainlab.utils.logger import Logger
     # count tasks
     num_sample_tasks = 0
     num_nonsample_tasks = 0
@@ -34,8 +35,9 @@ def experiment_result_files(_):
                 num_nonsample_tasks += 1
     # total number of hyperparameter samples
     total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
-    print(f"total_num_params={total_num_params}")
-    print(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
+    logger = Logger.get_logger()
+    logger.info(f"total_num_params={total_num_params}")
+    logger.info(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
 
@@ -67,8 +69,7 @@ rule parameter_sampling:
           sampling_seed = config['sampling_seed']
         else:
           sampling_seed = None
-
-        if 'mode' in config.keys:
+        if 'mode' in config.keys():  # type(config)=dict
             if config['mode'] == 'grid':
                 sample_gridsearch(config,str(output.dest),sampling_seed)
         else:

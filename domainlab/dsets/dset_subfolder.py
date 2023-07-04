@@ -8,7 +8,7 @@ import warnings
 from typing import Any, Tuple
 
 from torchvision.datasets import DatasetFolder
-from rich import print as rprint
+from domainlab.utils.logger import Logger
 
 def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bool:
     """
@@ -70,6 +70,8 @@ class DsetSubFolder(DatasetFolder):
         if is_valid_file is None and extensions is None:
             # setting default extensions
             extensions = ('jpg', 'jpeg', 'png')
+            logger = Logger.get_logger()
+            logger.warn("no user provided extensions, set to be jpg, jpeg, png")
             warnings.warn("no user provided extensions, set to be jpg, jpeg, png")
 
         super().__init__(root,
@@ -114,10 +116,11 @@ class DsetSubFolder(DatasetFolder):
         Ensures:
             No class is a submdirectory of another.
         """
+        logger = Logger.get_logger()
         if sys.version_info >= (3, 5):
             # Faster and available in Python 3.5 and above
             list_subfolders = [subfolder.name for subfolder in list(os.scandir(mdir))]
-            rprint("list of subfolders", list_subfolders)
+            logger.info(f"list of subfolders {list_subfolders}")
             classes = [d.name for d in os.scandir(mdir) \
                        if d.is_dir() and d.name in self.list_class_dir]
         else:
@@ -125,8 +128,8 @@ class DsetSubFolder(DatasetFolder):
                        if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir]
         flag_user_input_classes_in_folder = (set(self.list_class_dir) <= set(classes))
         if not flag_user_input_classes_in_folder:
-            print("user provided class names:", self.list_class_dir)
-            print("subfolder names from folder:", mdir, classes)
+            logger.info(f"user provided class names: {self.list_class_dir}")
+            logger.info(f"subfolder names from folder: {mdir} {classes}")
             raise RuntimeError("user provided class names does not match the subfolder names")
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}

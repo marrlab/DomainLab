@@ -48,13 +48,13 @@ For our test we like to compare diva and deepall, this was done using the follow
 
 ### deepall (Emperical Risk Minimization)
 
-```
+```shell
 python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=deepall --nname=conv_bn_pool_2 --san_check --san_num=8 --lr=1e-3 --seed=0
 ```
 
 ### diva 
 
-```
+```shell
 python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=1e5 --gamma_d=1e5 --lr=1e-3 --seed=0
 ```
 
@@ -65,7 +65,7 @@ python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 
 
 ### Results
 
-For both algorithms the early stop criterion ended the training. Although diva is a more complex method which needs more time for one epoch of training, the total training time of dive was much lower than deepall, due to the fewer epochs. The performance of the trained models on the test domains are summarized in the following table:
+For both algorithms the early stop criterion ended the training. The performance of the trained models on the test domains are summarized in the following table:
 
 | method    | epochs | acc       | precision | recall     | specificity | f1          | auroc     |
 | -         | -      | -         | -         | -          | -           | -           | -         |
