@@ -29,7 +29,7 @@ domainlab_args:
   san_check: True
 
 
-Task1:  # name
+diva:  # name
   aname: diva
   # set nname_dom = nname when changing nname
   npath_dom: examples/nets/resnet50domainbed.py
@@ -62,7 +62,7 @@ Task1:  # name
     zd_dim:
       reference: zy_dim
 
-Task2:  # name
+hduva:  # name
   aname: hduva
 
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
@@ -91,7 +91,7 @@ Task2:  # name
     zd_dim:
       reference: zy_dim
 
-Task3:  # name
+matchdg:  # name
   aname: matchdg
 
   hyperparameters:
@@ -121,7 +121,7 @@ Task3:  # name
       max: 10
       distribution: loguniform
 
-Task4:  # name
+jigen:  # name
   aname: jigen
   grid_len: 3
 
@@ -147,7 +147,7 @@ Task4:  # name
       distribution: loguniform
 
 
-Task5:  # name
+dann:  # name
   aname: dann
 
   hyperparameters:
@@ -156,11 +156,11 @@ Task5:  # name
       max: 10
       distribution: loguniform
 
-Task6:  # name
+erm:  # name
   aname: deepall
 
 
-Task7: # name
+dial: # name
   aname: deepall_dial
 
   hyperparameters:
@@ -195,3 +195,122 @@ mldg:  # name
       distribution: loguniform
 
 
+hduva_matchdg:  # name
+  aname: matchhduva
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+
+  hyperparameters:
+    # Same config as diva.
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+
+    # Total number of epochs for contrastive loss
+    epochs_ctr:
+      min: 2
+      max: 10
+      step: 1
+      distribution: uniform
+
+    # factor to magnify cosine similarity
+    tau:
+      min: 0.01
+      max: 1
+      distribution: loguniform
+
+    # Number of epochs before updating the match tensor
+    epos_per_match_update:
+      min: 1
+      max: 20
+      step: 1
+      distribution: uniform
+
+    # penalty weight for matching loss (Lambda in paper)
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+
+diva_dial:
+  # Parameters that are fixed for all runs of this task.
+  aname: diva
+  trainer: dial
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  # specification of parameters that shall vary
+  # between runs to analyze the sensitivity
+  # of this task w.r.t. these parameters.
+  hyperparameters:
+    # Each parameter must contain:
+    # - distribution (uniform | loguniform | normal | lognormal)
+    # - min and max if distribution is uniform or loguniform
+    # - mean and std if distribution is normal or lognormal
+
+    # step is optional and defines discrete parameters
+    # with the given step size.
+    # If min/mean and step are integer valued,
+    # the hyperparameter is ensured to be integer valued too.
+    # Otherwise, it is a float and rounding errors can occur.
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+
+    dial_steps_perturb:
+      min: 1
+      max: 10
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.001
+      max: 0.01
+      distribution: loguniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
