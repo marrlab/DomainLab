@@ -10,6 +10,8 @@ import os
 import numpy as np
 import pandas as pd
 import domainlab.utils.hyperparameter_sampling as sampling
+from domainlab.utils.logger import Logger
+
 
 def round_to_discreate_grid_uniform(grid, param_config):
     '''
@@ -258,14 +260,15 @@ def sample_gridsearch(config: dict,
     if not sampling_seed is None:
         np.random.seed(sampling_seed)
 
+    logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     for key, val in config.items():
         if sampling.is_task(val):
             grid_task(samples, key, val)
-            print(f'number of gridpoints for {key} : '
-                  f'{samples[samples["algo"] == val["aname"]].shape[0]}')
+            logger.info(f'number of gridpoints for {key} : '
+                        f'{samples[samples["algo"] == val["aname"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
-    print(f'number of total sampled gridpoints: {samples.shape[0]}')
+    logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')
     samples.to_csv(dest)
     return samples

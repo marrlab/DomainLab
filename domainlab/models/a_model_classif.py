@@ -5,6 +5,7 @@ operations that all claasification model should have
 import abc
 import numpy as np
 import math
+import pandas as pd
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
@@ -14,8 +15,7 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
-from rich import print as rprint
-import pandas as pd
+from domainlab.utils.logger import Logger
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -40,10 +40,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             if loader is not None:
                 metric = self.perf_metric.cal_metrics(self, loader, device)
                 confmat = metric.pop("confmat")
-                print("scalar performance:")
-                rprint(metric)
-                print("confusion matrix:")
-                print(pd.DataFrame(confmat))
+                logger = Logger.get_logger()
+                logger.debug("scalar performance:")
+                logger.debug(str(metric))
+                logger.debug("confusion matrix:")
+                logger.debug(pd.DataFrame(confmat))
                 metric["confmat"] = confmat
         return metric
 
@@ -52,7 +53,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         for classification task, use the current model to cal acc
         """
         acc = PerfClassif.cal_acc(self, loader_te, device)
-        print("before training, model accuracy:", acc)
+        logger = Logger.get_logger()
+        logger.info(f"before training, model accuracy: {acc}")
 
     @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
@@ -123,6 +125,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         self.eval()
         model_local = self.to(device)
+        logger = Logger.get_logger()
         for _, (x_s, y_s, *_, path4instance) in enumerate(loader_te):
             x_s, y_s = x_s.to(device), y_s.to(device)
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
@@ -139,7 +142,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
                     print(str_line, file=handle_file)
-        print("prediction saved in file ", filename)
+        logger.info(f"prediction saved in file {filename}")
         file_acc = self.read_prediction_file(filename, spliter)
         acc_metric_te = metric_te['acc']
         flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
@@ -148,11 +151,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
         flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
         if not (flag1 & flag2 & flag_raw_consistency):
-            str_info = f"inconsistent acc:  \
-                prediction file acc {file_acc} \
-                torchmetric acc {acc_metric_te} \
-                raw acc 1 {acc_raw1} \
-                raw acc 2 {acc_raw2}"
+            str_info = f"inconsistent acc:" \
+                       f"prediction file acc {file_acc}" \
+                       f"torchmetric acc {acc_metric_te}" \
+                       f"raw acc 1 {acc_raw1}" \
+                       f"raw acc 2 {acc_raw2}"
             raise RuntimeError(str_info)
         return file_acc
 
@@ -168,7 +171,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             if np.array(list_prob).argmax() == int(line[1]):
                 count_correct += 1
         acc = count_correct / len(list_lines)
-        print(f"accuracy from prediction file {acc}")
+        logger = Logger.get_logger()
+        logger.info(f"accuracy from prediction file {acc}")
         return acc
 
     def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):

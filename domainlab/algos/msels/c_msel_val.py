@@ -2,6 +2,7 @@
 Model Selection should be decoupled from
 """
 from domainlab.algos.msels.c_msel_tr_loss import MSelTrLoss
+from domainlab.utils.logger import Logger
 
 
 class MSelValPerf(MSelTrLoss):
@@ -28,8 +29,10 @@ class MSelValPerf(MSelTrLoss):
 
         else:
             self.es_c += 1
-            print("early stop counter: ", self.es_c)
-            print(f"val acc:{self.tr_obs.metric_te['acc']}, best validation acc: {self.best_val_acc}")
+            logger = Logger.get_logger()
+            logger.debug("early stop counter: ", self.es_c)
+            logger.debug(f"val acc:{self.tr_obs.metric_te['acc']}, "
+                         f"best validation acc: {self.best_val_acc}")
             flag = False  # do not update best model
 
         return flag

@@ -5,10 +5,10 @@ dispatch performance evaluation to model, dispatch model selection to model sele
 import os
 import warnings
 
-
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
 from domainlab.tasks.task_pathlist import NodeTaskPathListDummy
+from domainlab.utils.logger import Logger
 
 
 class ObVisitor(AObVisitor):
@@ -37,22 +37,23 @@ class ObVisitor(AObVisitor):
         self.perf_metric = None
 
     def update(self, epoch):
-        print("epoch:", epoch)
+        logger = Logger.get_logger()
+        logger.info(f"epoch: {epoch}")
         self.epo = epoch
         if epoch % self.epo_te == 0:
-            print("---- Training Domain: ")
+            logger.debug("---- Training Domain: ")
             self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
             if self.loader_val is not None and self.str_msel == "val":
-                print("---- Validation: ")
+                logger.debug("---- Validation: ")
                 self.metric_val = self.host_trainer.model.cal_perf_metric(
                     self.loader_val, self.device)
-            print("---- Test Domain (oracle): ")
+            logger.debug("---- Test Domain (oracle): ")
             metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
             self.metric_te = metric_te
         if self.model_sel.update():
-            print("better model found")
+            logger.info("better model found")
             self.exp.visitor.save(self.host_trainer.model)
-            print("persisted")
+            logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
         return flag_stop
 
@@ -74,14 +75,16 @@ class ObVisitor(AObVisitor):
         except FileNotFoundError as err:  # if other errors/exceptions occur, we do not catch them
             # other exceptions will terminate the python script
             # this can happen if loss is increasing, model never get selected
-            print(err)
-            print("this error can occur if model selection criteria is worsening, \
-                  model never get persisted")
+            logger = Logger.get_logger()
+            logger.error(err)
+            logger.error("this error can occur if model selection criteria is worsening, "
+                         "model never get persisted")
             return
 
         model_ld = model_ld.to(self.device)
         model_ld.eval()
-        print("persisted model performance metric: \n")
+        logger = Logger.get_logger()
+        logger.info("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_te, self.device)
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
@@ -123,12 +126,16 @@ class ObVisitor(AObVisitor):
                 # have a model to evaluate in case the training stops in between
                 self.exp.visitor.remove("epoch")  # pylint: disable=E1101
             except FileNotFoundError:
+                logger = Logger.get_logger()
+                logger.warn("failed to remove model_epoch: file not found")
                 warnings.warn("failed to remove model_epoch: file not found")
 
             try:
                 # without suffix: the selected model
                 self.exp.visitor.remove()  # pylint: disable=E1101
             except FileNotFoundError:
+                logger = Logger.get_logger()
+                logger.warn("failed to remove model")
                 warnings.warn("failed to remove model")
 
             try:
