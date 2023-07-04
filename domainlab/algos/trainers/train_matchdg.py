@@ -3,6 +3,7 @@ trainer for matchDG
 """
 from domainlab.algos.compos.matchdg_ctr_erm import MatchCtrErm
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
+from domainlab.utils.logger import Logger
 
 
 class TrainerMatchDG(AbstractTrainer):
@@ -31,7 +32,8 @@ class TrainerMatchDG(AbstractTrainer):
                           flag_erm=False,
                           opt=None)
         ctr.train()
-        print("Phase 1 finished: ", ctr.ctr_mpath)
+        logger = Logger.get_logger()
+        logger.info(f"Phase 1 finished: {ctr.ctr_mpath}")
         # phase 2: ERM, initialize object
         self.erm = MatchCtrErm(phi=self.model,
                                exp=self.exp,

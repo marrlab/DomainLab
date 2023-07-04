@@ -2,6 +2,7 @@
 Model Selection should be decoupled from
 """
 from domainlab.algos.msels.a_model_sel import AMSel
+from domainlab.utils.logger import Logger
 
 
 class MSelOracleVisitor(AMSel):
@@ -26,7 +27,8 @@ class MSelOracleVisitor(AMSel):
             self.best_oracle_acc = self.tr_obs.metric_te["acc"]
             # FIXME: only works for classification
             self.tr_obs.exp.visitor.save(self.trainer.model, "oracle")
-            print("oracle model saved")
+            logger = Logger.get_logger()
+            logger.info("oracle model saved")
         return self.msel.update()
 
     def if_stop(self):

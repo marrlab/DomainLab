@@ -1,5 +1,6 @@
 import torch
 from domainlab.algos.compos.matchdg_match import MatchPair
+from domainlab.utils.logger import Logger
 
 
 class MatchAlgoBase():
@@ -95,7 +96,8 @@ def get_base_domain_size4match_dg(task):
             if task.dict_domain_class_count[domain_key][mclass] > num:
                 ref_domain = domain_key
                 num = task.dict_domain_class_count[domain_key][mclass]
-        print("for class ", mclass, " bigest sample size is ",
-              num, "ref domain is", ref_domain)
+        logger = Logger.get_logger()
+        logger.info(f"for class {mclass} bigest sample size is {num} "
+                    f"ref domain is {ref_domain}")
         base_domain_size += num
     return base_domain_size

@@ -1,11 +1,12 @@
 """
 Abstract class for Task
 """
-import warnings
 from abc import abstractmethod
+import warnings
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.task_utils import parse_domain_id
+from domainlab.utils.logger import Logger
 
 
 class NodeTaskDG(AbstractChainNodeHandler):
@@ -146,9 +147,14 @@ class NodeTaskDG(AbstractChainNodeHandler):
                 subset of available domains {list_domains}")
 
         if set(list_domain_tr) & set(list_domain_te):
+            logger = Logger.get_logger()
+            logger.warn(
+                "The sets of training and test domains overlap -- "
+                "be aware of data leakage or training to the test!"
+            )
             warnings.warn(
-                "The sets of training and test domains overlap -- \
-                be aware of data leakage or training to the test!",
+                "The sets of training and test domains overlap -- "
+                "be aware of data leakage or training to the test!",
                 RuntimeWarning
             )
 

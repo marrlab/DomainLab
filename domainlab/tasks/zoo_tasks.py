@@ -7,6 +7,7 @@ from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
 from domainlab.tasks.utils_task import ImSize
 from domainlab.utils.u_import import import_path
+from domainlab.utils.logger import Logger
 
 path_this_file = os.path.dirname(os.path.realpath(__file__))
 
@@ -74,11 +75,11 @@ class TaskChainNodeGetter(object):
             chain.set_parent(node)
             chain = node
             if self.args.task is None:
-                print("")
-                print("overriding args.task ",
-                      self.args.task, " to  ",
-                      node.task_name)
-                print("")
+                logger = Logger.get_logger()
+                logger.info("")
+                logger.info(f"overriding args.task {self.args.task} "
+                            f"to {node.task_name}")
+                logger.info("")
                 self.request = node.task_name  # @FIXME
         node = chain.handle(self.request)
         return node
