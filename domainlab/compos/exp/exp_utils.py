@@ -217,7 +217,7 @@ class ExpProtocolAggWriter(AggWriter):
         epos_name = "epos"
         dict_cols = {
             "param_index": self.host.args.param_index,
-            "task": self.host.args.benchmark_task_name,
+            "method": self.host.args.benchmark_task_name,
             "algo": self.algo_name,
             epos_name: None,
             "te_d": self.host.args.te_d,
