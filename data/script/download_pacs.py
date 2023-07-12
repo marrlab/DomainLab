@@ -2,7 +2,7 @@
 import os
 import tarfile
 from zipfile import ZipFile
-import gdown    #-> add to requirements.txt
+import gdown
 
 def stage_path(data_dir, name):
     '''
