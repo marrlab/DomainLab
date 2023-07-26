@@ -17,7 +17,7 @@ class ResNetBase(NetTorchVisionBase):
         """
         if flag_pretrain:
             self.net_torchvision = torchvisionmodels.resnet.resnet50(
-                weights=ResNet50_Weights.DEFAULT)
+                weights=ResNet50_Weights.IMAGENET1K_V2)
         else:
             self.net_torchvision = torchvisionmodels.resnet.resnet50(
                 weights='None')
