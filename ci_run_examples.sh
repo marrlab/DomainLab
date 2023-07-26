@@ -16,11 +16,11 @@ echo "benchmark  done"
 sed -n '/```shell/,/```/ p' docs/doc_custom_nn.md | sed '/^```/ d' > ./sh_temp_nn.sh
 bash -x -v -e sh_temp_nn.sh
 
-
 sed -n '/```shell/,/```/ p' docs/doc_tasks.md | sed '/^```/ d' > ./sh_temp_task.sh
 bash -x -v -e sh_temp_task.sh
 
 sed -n '/```shell/,/```/ p' README.md | sed '/^```/ d' > ./sh_temp_readme.sh
 bash -x -v -e sh_temp_readme.sh
 
-# sed -n '/```shell/,/```/ p' docs/doc_extend_contribute.md | sed '/^```/ d' > ./sh_temp.sh
+# sed -n '/```shell/,/```/ p' docs/doc_extend_contribute.md | sed '/^```/ d' > ./sh_temp_extend.sh
+#bash -x -v -e sh_temp_extend.sh
