@@ -7,7 +7,7 @@ The results are collected in a csv file, but also prepared in charts.
 Within each benchmark, two aspects are considered:
 1. Stochastic variation: Variation of the performance with respect to different random seeds.
 2. Sensitivity to selected hyperparameters: By sampling hyperparameters randomly,
-the performance with respect to different hyperparameter choices is investigated. 
+the performance with respect to different hyperparameter choices is investigated.
 
 ## Setting up a benchmark
 The benchmark is configured in a yaml file. We refer to the
@@ -36,6 +36,7 @@ For executing the benchmark, we provide two scripts in our repository: one local
 ### benchmark on a standalone machine (with or without GPU)
 To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab folder, one can execute (we assume you have a machine with 4 cores or more)
 ```shell
+# Note: this has only been tested on Linux based systems and may not work on Windows
 ./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0
 ```
 where the first argument is the benchmark configuration file and the second and third argument is optional which is the starting seed for cuda and hyperparameter sampling.
@@ -44,6 +45,7 @@ One can also specify by the last optional argument the number of GPUs to use, by
 ### benchmark on a HPC cluster with slurm
 If you have access a HPC cluster with slurm support: In a submission node, clone DomaniLab repository, cd into the repository, execute the following command.
 ```cluster
+# Note: this has only been tested on Linux based systems and may not work on Windows
 ./run_benchmark_slurm_conf_seed2.sh ./examples/benchmark/demo_benchmark.yaml
 ```
 Similar to the local version, one could also specify random seed for hyper-parameter sampling and random seed for pytorch.
