@@ -1,0 +1,39 @@
+
+test_domains:
+  - 3
+  - 0
+
+# only entries related to parameter sampling
+output_dir: zoutput/benchmarks/gs_learningrate_deepall
+mode: grid
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  task: mnistcolor10
+  tr_d: [1, 2, 4]
+  dmem: False
+  epos: 50
+  es: 5
+  bs: 64
+  san_check: True
+  npath: examples/nets/resnet.py
+
+# currently, everything which contains the aname property is considered as a task.
+deepall:  # name
+  aname: deepall
+  # Each parameter must contain:
+  # - distribution
+  # - min and max if distribution is uniform or loguniform
+  # - mean and std if distribution is normal or lognormal
+  # - values and datatype if categorical
+  # OR
+  # reference, use this for equality constraints.
+  hyperparameters:
+    lr:
+      min: 1e-5
+      max: 0.0003162
+      distribution: loguniform
+      step: 0
+      num: 10
