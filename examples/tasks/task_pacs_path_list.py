@@ -9,7 +9,8 @@ from torchvision import transforms
 from domainlab.tasks.task_pathlist import mk_node_task_path_list
 from domainlab.tasks.utils_task import ImSize
 
-G_PACS_RAW_PATH = "/home/aih/xudong.sun/Documents/datasets/pacs/raw"  # change this to absolute directory where you have the raw images from PACS, 
+# change this to absolute directory where you have the raw images from PACS,
+G_PACS_RAW_PATH = "data/pacs/PACS"
 # domainlab repository contain already the file names in data/pacs_split folder of domainlab
 
 def get_task(na=None):

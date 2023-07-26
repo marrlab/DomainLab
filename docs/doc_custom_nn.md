@@ -16,11 +16,11 @@ See examples below from `--npath=examples/nets/resnet.py` where the examples can
 ### algorithm 'deepall' with custom neural network
 
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=deepall --npath=examples/nets/resnet.py
 ```
 
 ### algorithm 'matchdg' with custom neural network
 
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
