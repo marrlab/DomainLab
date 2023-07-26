@@ -43,7 +43,7 @@ One can also specify by the last optional argument the number of GPUs to use, by
 
 ### benchmark on a HPC cluster with slurm
 If you have access a HPC cluster with slurm support: In a submission node, clone DomaniLab repository, cd into the repository, execute the following command.
-```shell
+```cluster
 ./run_benchmark_slurm_conf_seed2.sh ./examples/benchmark/demo_benchmark.yaml
 ```
 Similar to the local version, one could also specify random seed for hyper-parameter sampling and random seed for pytorch.
@@ -66,7 +66,7 @@ specifying the benchmark output directory, e.g. `./zoutput/benchmarks/demo_bench
 
 For generating the graphics directly from a csv file one could use 
 
-```
+```commandline
 python main_out.py --gen_plots CSV_FILE --outp_dir OUTPUT_DIR
 ```
 
