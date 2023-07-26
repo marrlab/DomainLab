@@ -5,10 +5,9 @@
 Look at this example
 
 ```shell
-cd ..
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --apath=examples/algos/demo_custom_model.py --aname=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
 
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_algo_builder.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --apath=examples/algos/demo_custom_model.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
 ```
 
 where the example python file corresponding to `--apath` defines a model which contains several modules that can be customized to different neural networks via `--npath_argna2val` if the neural network is specified in a python file

@@ -22,5 +22,5 @@ bash -x -v -e sh_temp_task.sh
 sed -n '/```shell/,/```/ p' README.md | sed '/^```/ d' > ./sh_temp_readme.sh
 bash -x -v -e sh_temp_readme.sh
 
-# sed -n '/```shell/,/```/ p' docs/doc_extend_contribute.md | sed '/^```/ d' > ./sh_temp_extend.sh
-#bash -x -v -e sh_temp_extend.sh
+sed -n '/```shell/,/```/ p' docs/doc_extend_contribute.md | sed '/^```/ d' > ./sh_temp_extend.sh
+bash -x -v -e sh_temp_extend.sh
