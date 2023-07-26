@@ -31,3 +31,6 @@ jobs:
         flags: unittests
         env_vars: OS,PYTHON
         fail_ci_if_error: true
+    - name: check examples work in documentation and tutorial
+      run: bash ci_run_examples.sh
+
