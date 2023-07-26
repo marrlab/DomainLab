@@ -73,8 +73,8 @@ def loguniform_grid(param_config):
     param_config: config which needs to contain 'num', 'max', 'min'
     '''
     num = param_config['num']
-    maxi = float(param_config['max'])
-    mini = float(param_config['min'])
+    maxi = np.log10(float(param_config['max']))
+    mini = np.log10(float(param_config['min']))
     step = (maxi - mini) / num
     # linspace does exclude the end of the interval and include the beginning
     grid = 10 ** np.linspace(mini + step / 2, maxi + step / 2, num)
