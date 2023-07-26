@@ -31,6 +31,11 @@ Suppose you have cloned the repository and have changed directory to the cloned 
 pip install -r requirements.txt
 ```
 
+#### Windows installation details
+
+To install DomainLab on Windows, please remove the `snakemake` dependency from the `requirements.txt` file.
+Benchmarking is currently not supported on Windows due to the dependency on Snakemake.
+
 ### Basic usage
 DomainLab comes with some minimal toy-dataset to test its basis functionality, see [A minimal subsample of the VLCS dataset](./data/vlcs_mini) and [an example configuration file for vlcs_mini](./examples/tasks/task_vlcs.py)
 
