@@ -26,14 +26,14 @@ domainlab_args:
   es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   san_check: True
 
 
 diva:  # name
   aname: diva
   # set nname_dom = nname when changing nname
-  npath_dom: examples/nets/resnet50domainbed.py
-
   hyperparameters:
     gamma_y:
       min: 1e4
@@ -64,9 +64,6 @@ diva:  # name
 
 hduva:  # name
   aname: hduva
-
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
 
   hyperparameters:
     # Same config as diva.
@@ -250,8 +247,6 @@ diva_dial:
   # Parameters that are fixed for all runs of this task.
   aname: diva
   trainer: dial
-  npath: examples/nets/resnet50domainbed.py
-  npath_dom: examples/nets/resnet50domainbed.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -320,8 +315,6 @@ diva_mldg:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
   trainer: mldg
-  nname: alexnet
-  npath_dom: examples/nets/resnet.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -352,10 +345,6 @@ diva_mldg:  # name
 hduva_mldg:  # name
   aname: hduva
   trainer: mldg
-  npath: examples/nets/resnet.py
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
-
   hyperparameters:
     gamma_y:
       min: 7e4
