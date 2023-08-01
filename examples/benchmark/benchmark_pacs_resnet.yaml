@@ -64,6 +64,7 @@ diva:  # name
 
 hduva:  # name
   aname: hduva
+  zx_dim: 0
 
   hyperparameters:
     # Same config as diva.
@@ -72,12 +73,6 @@ hduva:  # name
       max: 2e5
       step: 100
       distribution: loguniform
-
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
 
     zy_dim:
       min: 32
@@ -194,8 +189,6 @@ mldg:  # name
 
 hduva_matchdg:  # name
   aname: matchhduva
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 0
 
   hyperparameters:
