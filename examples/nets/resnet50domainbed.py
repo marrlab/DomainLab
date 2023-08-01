@@ -4,6 +4,7 @@ https://arxiv.org/pdf/2007.01434.pdf appendix D
 '''
 from torch import nn
 from torchvision import models as torchvisionmodels
+from torchvision.models import ResNet50_Weights
 
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
@@ -23,7 +24,14 @@ class CostumResNet(nn.Module):
     def __init__(self, flag_pretrain):
         super().__init__()
         self.flag_pretrain = flag_pretrain
-        resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
+
+        if flag_pretrain:
+            resnet50 = torchvisionmodels.resnet.resnet50(
+                weights=ResNet50_Weights.IMAGENET1K_V2)
+        else:
+            resnet50 = torchvisionmodels.resnet.resnet50(
+                weights='None')
+
         # freez all batchnormalisation layers
         for module in resnet50.modules():
             if module._get_name() == 'BatchNorm2d':
@@ -42,6 +50,7 @@ class CostumResNet(nn.Module):
         return x_arg
 
 
+# NetTorchVisionBase is interface defined in DomainLab
 class ResNetBase(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision
