@@ -10,8 +10,8 @@ from domainlab.algos.trainers.train_visitor import TrainerVisitor
 
 class TrainerChainNodeGetter(object):
     """
-    1. Hardcoded chain
-    3. Return selected node
+    Chain of Responsibility: node is named in pattern Trainer[XXX] where the string 
+    after 'Trainer' is the name to be passed to args.trainer.
     """
     def __init__(self, args):
         """__init__.
@@ -38,6 +38,6 @@ class TrainerChainNodeGetter(object):
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
-        chain = TrainerVisitor(chain)
+        chain = TrainerVisitor(chain)  # FIXME: change to warmup
         node = chain.handle(self.request)
         return node
