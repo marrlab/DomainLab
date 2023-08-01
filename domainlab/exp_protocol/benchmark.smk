@@ -22,13 +22,13 @@ envvars:
 
 def experiment_result_files(_):
     """Lists all expected i.csv"""
-    from domainlab.utils.hyperparameter_sampling import is_task
+    from domainlab.utils.hyperparameter_sampling import is_dict_with_key
     from domainlab.utils.logger import Logger
     # count tasks
     num_sample_tasks = 0
     num_nonsample_tasks = 0
     for key, val in config.items():
-        if is_task(val):
+        if is_dict_with_key(val, "aname"):
             if 'hyperparameters' in val.keys():
                 num_sample_tasks += 1
             else:
