@@ -263,7 +263,7 @@ def sample_gridsearch(config: dict,
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     for key, val in config.items():
-        if sampling.is_task(val):
+        if sampling.is_dict_with_key(val, "aname"):
             grid_task(samples, key, val)
             logger.info(f'number of gridpoints for {key} : '
                         f'{samples[samples["algo"] == val["aname"]].shape[0]}')
