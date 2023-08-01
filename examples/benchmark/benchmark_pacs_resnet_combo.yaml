@@ -20,12 +20,15 @@ domainlab_args:
   # task specific arguments take precedence.
   ## dataset
   tpath: examples/tasks/task_pacs_path_list.py
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   dmem: False
   lr: 5e-5
   epos: 500
   es: 1
   bs: 32
-  npath: examples/nets/resnet50domainbed.py
   san_check: True
 
 erm:  # name
@@ -34,8 +37,6 @@ erm:  # name
 
 hduva_matchdg:  # name
   aname: matchhduva
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 0
 
   hyperparameters:
@@ -82,13 +83,82 @@ hduva_matchdg:  # name
       max: 10
       distribution: loguniform
 
+hduva_dial:
+  # Parameters that are fixed for all runs of this task.
+  aname: hduva
+  trainer: dial
+  npath: examples/nets/resnet50domainbed.py
+  nname_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  nname_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  # specification of parameters that shall vary
+  # between runs to analyze the sensitivity
+  # of this task w.r.t. these parameters.
+  hyperparameters:
+    # Each parameter must contain:
+    # - distribution (uniform | loguniform | normal | lognormal)
+    # - min and max if distribution is uniform or loguniform
+    # - mean and std if distribution is normal or lognormal
+
+    # step is optional and defines discrete parameters
+    # with the given step size.
+    # If min/mean and step are integer valued,
+    # the hyperparameter is ensured to be integer valued too.
+    # Otherwise, it is a float and rounding errors can occur.
+    gamma_y:
+      min: 1e4
+      max: 2e5
+      step: 100
+      distribution: loguniform
+
+    gamma_d:
+      min: 1e4
+      max: 1e6
+      step: 10_000
+      distribution: loguniform
+
+    zx_dim:
+      min: 0
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      reference: zy_dim
+
+
+    dial_steps_perturb:
+      min: 1
+      max: 10
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.001
+      max: 0.01
+      distribution: loguniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+
 
 diva_dial:
   # Parameters that are fixed for all runs of this task.
   aname: diva
   trainer: dial
-  npath: examples/nets/resnet50domainbed.py
-  npath_dom: examples/nets/resnet50domainbed.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -157,8 +227,7 @@ diva_mldg:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
   trainer: mldg
-  nname: alexnet
-  npath_dom: examples/nets/resnet.py
+
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -189,9 +258,6 @@ diva_mldg:  # name
 hduva_mldg:  # name
   aname: hduva
   trainer: mldg
-  npath: examples/nets/resnet.py
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
 
   hyperparameters:
     gamma_y:
