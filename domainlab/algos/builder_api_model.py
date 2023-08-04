@@ -28,5 +28,4 @@ class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
         observer = ObVisitorCleanUp(
             ObVisitor(exp, model_sel, device))
         trainer = TrainerChainNodeGetter(args)(default="visitor")
-        trainer.init_business(exp.model, task, observer, device, args)
         return trainer

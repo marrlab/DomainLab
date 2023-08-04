@@ -5,7 +5,7 @@ from domainlab.arg_parser import mk_parser_main
 from domainlab.compos.exp.exp_main import Exp
 
 def mk_exp(task, model, trainer, test_domain, batchsize):
-    str_arg = f"--task=mnist10 --aname=deepall --trainer={trainer} --te_d={test_domain} --bs={batchsize}"
+    str_arg = f"--task=mnist10 --aname=apimodel --trainer={trainer} --te_d={test_domain} --bs={batchsize}"
     parser = mk_parser_main()
     conf = parser.parse_args(str_arg.split())
     exp = Exp(conf, task)   # FIXME: trainer does not need to be executed twice
