@@ -63,7 +63,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
 
     @store_args
-    def __init__(self, list_str_y, list_d_tr=None):
+    def __init__(self, list_str_y=None, list_d_tr=None):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
