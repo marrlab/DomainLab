@@ -39,17 +39,19 @@ class Exp():
         self.epochs = self.args.epos
         self.epoch_counter = 1
 
-    def execute(self):
+    def execute(self, num_epochs=None):
         """
         train model
         check performance by loading persisted model
         """
+        if num_epochs is None:
+            num_epochs = self.epochs + 1
         t_0 = datetime.datetime.now()
         logger = Logger.get_logger()
         logger.info(f'\n Experiment start at: {str(t_0)}')
         t_c = t_0
         self.trainer.before_tr()
-        for epoch in range(1, self.epochs + 1):
+        for epoch in range(1, num_epochs):
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
