@@ -5,7 +5,7 @@ from domainlab.arg_parser import mk_parser_main
 from domainlab.compos.exp.exp_main import Exp
 
 def mk_exp(task, model, trainer, test_domain, batchsize):
-    str_arg = f"--task=mnist10 --aname=deepall --trainer={trainer} --te_d={test_domain} --bs={batchsize} --max_es=1"
+    str_arg = f"--task=mnist10 --aname=deepall --trainer={trainer} --te_d={test_domain} --bs={batchsize}"
     parser = mk_parser_main()
     conf = parser.parse_args(str_arg.split())
     exp = Exp(conf, task)   # FIXME: trainer does not need to be executed twice
@@ -54,5 +54,5 @@ def test():
     model = mk_deepall()(backbone)
 
     ## make trainer for model
-    exp = mk_exp(task, model, trainer="mldg", test_domain=["0", "1", "2"], batchsize=32)
+    exp = mk_exp(task, model, trainer="mldg", test_domain="d1", batchsize=32)
     exp.execute()
