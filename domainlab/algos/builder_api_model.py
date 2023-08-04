@@ -13,7 +13,6 @@ class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
         """
         return trainer, model, observer
         """
-        task = exp.task
         args = exp.args
         trainer = TrainerChainNodeGetter(args)(default="visitor")
         return trainer
