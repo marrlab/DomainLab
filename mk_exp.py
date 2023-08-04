@@ -10,3 +10,26 @@ def mk_exp(task, test_domain, batchsize):
     conf = parser.parse_args(str_arg.split())
     exp = Exp(conf, task)
     return exp
+
+
+
+def test():
+
+    from torchvision import models as torchvisionmodels
+    from torchvision.models import ResNet50_Weights
+
+    from domainlab.models.model_deep_all import mk_deepall
+    from domainlab.algos.trainers.trainer_mldg import TrainerMLDG
+
+    from domainlab.compos.nn_zoo.nn import LayerId
+    from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
+
+    model_sel = MSelValPerf(max_es=1)
+    observer = ObVisitor(exp, model_sel, device=torch.device("gpu"))
+    dim_y = 10
+    backbone = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, dim_y)
+    model = mk_deepall()(backbone)
+    trainer = TrainerMLDG()
+    trainer.init_business(model, task, observer, device, args)
