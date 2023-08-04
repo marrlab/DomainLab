@@ -16,7 +16,9 @@ def mk_deepall(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, net, list_str_y, list_str_d=None):
+        def __init__(self, net, list_str_y=None, list_str_d=None):
+            if list_str_y is None:
+                list_str_y = [f"class{i}" for i in net.modules[-1].out_features]
             super().__init__(list_str_y, list_str_d)
             self.add_module("net", net)
 
