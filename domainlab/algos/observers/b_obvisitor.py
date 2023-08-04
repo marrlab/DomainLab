@@ -15,25 +15,26 @@ class ObVisitor(AObVisitor):
     """
     Observer + Visitor pattern for model selection
     """
-    def __init__(self, exp, model_sel, device):
+    def __init__(self, task, visitor, model_sel, out, epo_te, str_msel, keep_model, device):
         """
         observer trainer
         """
+        self.out = out
         self.host_trainer = None
-        self.exp = exp
         self.model_sel = model_sel
+        self.visitor = visitor
         self.device = device
-        self.task = self.exp.task
+        self.task = task
         self.loader_te = self.task.loader_te
         self.loader_tr = self.task.loader_tr
         self.loader_val = self.task.loader_val
         # Note loader_tr behaves/inherit different properties than loader_te
-        self.epo_te = self.exp.args.epo_te
-        self.str_msel = self.exp.args.msel
+        self.epo_te = epo_te
+        self.str_msel = str_msel
         self.epo = None
         self.metric_te = None
         self.metric_val = None
-        self.keep_model = self.exp.args.keep_model
+        self.keep_model = keep_model
         self.perf_metric = None
 
     def update(self, epoch):
@@ -52,7 +53,7 @@ class ObVisitor(AObVisitor):
             self.metric_te = metric_te
         if self.model_sel.update():
             logger.info("better model found")
-            self.exp.visitor.save(self.host_trainer.model)
+            self.visitor.save(self.host_trainer.model)
             logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
         return flag_stop
@@ -71,7 +72,7 @@ class ObVisitor(AObVisitor):
         """
         model_ld = None
         try:
-            model_ld = self.exp.visitor.load()
+            model_ld = self.visitor.load()
         except FileNotFoundError as err:  # if other errors/exceptions occur, we do not catch them
             # other exceptions will terminate the python script
             # this can happen if loss is increasing, model never get selected
@@ -87,19 +88,19 @@ class ObVisitor(AObVisitor):
         logger.info("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_te, self.device)
         self.dump_prediction(model_ld, metric_te)
-        self.exp.visitor(metric_te)
+        self.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results
 
     def dump_prediction(self, model_ld, metric_te):
         """
         given the test domain loader, use the loaded model model_ld to predict each instance
         """
-        flag_task_folder = isinstance(self.exp.task, NodeTaskFolderClassNaMismatch)
-        flag_task_path_list = isinstance(self.exp.task, NodeTaskPathListDummy)
+        flag_task_folder = isinstance(self.task, NodeTaskFolderClassNaMismatch)
+        flag_task_path_list = isinstance(self.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
+            fname4model = self.visitor.model_path  # pylint: disable=E1101
             file_prefix = os.path.splitext(fname4model)[0]  # remove ".model"
-            dir4preds = os.path.join(self.exp.args.out, "saved_predicts")
+            dir4preds = os.path.join(self.out, "saved_predicts")
             if not os.path.exists(dir4preds):
                 os.mkdir(dir4preds)
             file_prefix = os.path.join(dir4preds,
@@ -117,14 +118,14 @@ class ObVisitor(AObVisitor):
         if not self.keep_model:
             try:
                 # oracle means use out-of-domain test accuracy to select the model
-                self.exp.visitor.remove("oracle")  # pylint: disable=E1101
+                self.visitor.remove("oracle")  # pylint: disable=E1101
             except FileNotFoundError:
                 pass
 
             try:
                 # the last epoch:
                 # have a model to evaluate in case the training stops in between
-                self.exp.visitor.remove("epoch")  # pylint: disable=E1101
+                self.visitor.remove("epoch")  # pylint: disable=E1101
             except FileNotFoundError:
                 logger = Logger.get_logger()
                 logger.warn("failed to remove model_epoch: file not found")
@@ -132,7 +133,7 @@ class ObVisitor(AObVisitor):
 
             try:
                 # without suffix: the selected model
-                self.exp.visitor.remove()  # pylint: disable=E1101
+                self.visitor.remove()  # pylint: disable=E1101
             except FileNotFoundError:
                 logger = Logger.get_logger()
                 logger.warn("failed to remove model")
@@ -140,6 +141,6 @@ class ObVisitor(AObVisitor):
 
             try:
                 # for matchdg
-                self.exp.visitor.remove("ctr")  # pylint: disable=E1101
+                self.visitor.remove("ctr")  # pylint: disable=E1101
             except FileNotFoundError:
                 pass
