@@ -11,7 +11,10 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 
 
 def mk_exp(task, model, trainer, test_domain, batchsize):
-    str_arg = f"--task=mnist10 --aname=apimodel --trainer={trainer} --te_d={test_domain} --bs={batchsize}"
+    """
+    test_domain must be a single string
+    """
+    str_arg = f"--aname=apimodel --trainer={trainer} --te_d={test_domain} --bs={batchsize}"
     parser = mk_parser_main()
     conf = parser.parse_args(str_arg.split())
     device = get_device(conf)
