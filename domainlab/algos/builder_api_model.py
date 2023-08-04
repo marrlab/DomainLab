@@ -19,9 +19,5 @@ class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        device = get_device(args)
-        model_sel = MSelValPerf(max_es=args.es)
-        observer = ObVisitorCleanUp(
-            ObVisitor(exp, model_sel, device))
         trainer = TrainerChainNodeGetter(args)(default="visitor")
         return trainer
