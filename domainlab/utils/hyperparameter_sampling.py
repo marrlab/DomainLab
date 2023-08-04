@@ -231,6 +231,8 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
     """Sample one task and add it to the dataframe"""
     algo = config['aname']
     if 'hyperparameters' in config.keys():
+        # in benchmark configuration file, sub-section hyperparameters 
+        # means changing hyper-parameters
         params = []
         for key, val in config['hyperparameters'].items():
             if key == 'constraints':
@@ -246,9 +248,9 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
         sample_df.loc[len(sample_df.index)] = [task_name, algo, {}]
 
 
-def is_task(val) -> bool:
-    """Determines if the value of this key is a task."""
-    return isinstance(val, dict) and 'aname' in val.keys()
+def is_dict_with_key(input_dict, key) -> bool:
+    """Determines if the input argument is a dictionary and it has key"""
+    return isinstance(input_dict, dict) and key in input_dict.keys()
 
 
 def sample_hyperparameters(config: dict,
@@ -273,7 +275,7 @@ def sample_hyperparameters(config: dict,
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     for key, val in config.items():
-        if is_task(val):
+        if is_dict_with_key(val, "aname"):
             sample_task(num_samples, samples, key, val)
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)

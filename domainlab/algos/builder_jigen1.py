@@ -8,6 +8,7 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_visitor import TrainerVisitor
 from domainlab.algos.trainers.train_visitor import HyperSchedulerWarmupExponential
+from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
@@ -70,10 +71,11 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
                            net_classifier_class=net_classifier,
                            net_classifier_permutation=net_classifier_perm)
 
-        trainer = TrainerVisitor()
+        trainer = TrainerChainNodeGetter(args)(default="visitor")
         trainer.init_business(model, task, observer, device, args)
-        trainer.set_scheduler(HyperSchedulerWarmupExponential,
-                              total_steps=trainer.num_batches*args.epos,
-                              flag_update_epoch=False,
-                              flag_update_batch=True)
+        if isinstance(trainer, TrainerVisitor):
+            trainer.set_scheduler(HyperSchedulerWarmupExponential,
+                                  total_steps=trainer.num_batches*args.epos,
+                                  flag_update_epoch=False,
+                                  flag_update_batch=True)
         return trainer

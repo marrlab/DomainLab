@@ -1,5 +1,6 @@
 import torch.nn as nn
 from torchvision import models as torchvisionmodels
+from torchvision.models import ResNet50_Weights
 
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
@@ -14,8 +15,12 @@ class ResNetBase(NetTorchVisionBase):
 
         :param flag_pretrain:
         """
-        self.net_torchvision = torchvisionmodels.resnet.resnet50(
-            pretrained=flag_pretrain)
+        if flag_pretrain:
+            self.net_torchvision = torchvisionmodels.resnet.resnet50(
+                weights=ResNet50_Weights.IMAGENET1K_V2)
+        else:
+            self.net_torchvision = torchvisionmodels.resnet.resnet50(
+                weights='None')
         # CHANGEME: user can modify this line to choose other neural
         # network architectures from 'torchvision.models'
 
