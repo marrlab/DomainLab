@@ -50,9 +50,6 @@ def mk_task_dset(dict_domain2dset,
             self._dict_domain_img_trans = dict_domain_img_trans
             self.img_trans_te = img_trans_te
 
-        def get_dset_by_domain(self, args, na_domain, split=None):
-            return dict_domain2dset[na_domain]
-
         def init_business(self, args):
             """
             create a dictionary of datasets

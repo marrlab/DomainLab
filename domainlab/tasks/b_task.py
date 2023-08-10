@@ -16,7 +16,10 @@ class NodeTaskDict(NodeTaskDG):
         """
         each domain correspond to one dataset
         """
-        raise NotImplementedError
+        dset_val = None
+        if self.dict_dset_val.has_key(na_domain):
+            dset_val = self.dict_dset_val[na_domain]
+        return (self.dict_dset_tr[na_domain], dset_val)
 
     def decorate_dset(self, model, args):
         """
