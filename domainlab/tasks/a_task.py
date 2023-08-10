@@ -22,7 +22,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._list_domain_tr = None
         self._name = None
         self._args = None
-        self.dict_dset = {}
+        self.dict_dset_tr = {}
         self.dict_dset_te = {}
         self.dict_dset_val = {}
         self.dict_domain_class_count = {}

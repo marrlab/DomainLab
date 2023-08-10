@@ -34,7 +34,7 @@ class NodeTaskDict(NodeTaskDG):
         # (~/domainlab_master/domainlab/algos/zoo_algos.py)
         node = AlgoBuilderChainNodeGetter(args)()
         list_domain_tr, list_domain_te = self.get_list_domains_tr_te(args.tr_d, args.te_d)
-        self.dict_dset = {}
+        self.dict_dset_tr = {}
         self.dict_dset_val = {}
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
@@ -44,9 +44,9 @@ class NodeTaskDict(NodeTaskDG):
             ddset_val = DsetDomainVecDecorator(dset_val, vec_domain, na_domain)
             ddset_tr = node.dset_decoration_args_algo(args, ddset_tr)
             ddset_val = node.dset_decoration_args_algo(args, ddset_val)
-            self.dict_dset.update({na_domain: ddset_tr})
+            self.dict_dset_tr.update({na_domain: ddset_tr})
             self.dict_dset_val.update({na_domain: ddset_val})
-        ddset_mix = ConcatDataset(tuple(self.dict_dset.values()))
+        ddset_mix = ConcatDataset(tuple(self.dict_dset_tr.values()))
         self._loader_tr = mk_loader(ddset_mix, args.bs)
 
         ddset_mix_val = ConcatDataset(tuple(self.dict_dset_val.values()))

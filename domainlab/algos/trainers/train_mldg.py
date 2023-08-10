@@ -30,7 +30,7 @@ class TrainerMLDG(AbstractTrainer):
         """
         create virtual source and target domain
         """
-        list_dsets = list(self.task.dict_dset.values())
+        list_dsets = list(self.task.dict_dset_tr.values())
         num_domains = len(list_dsets)
         ind_target_domain = random.randrange(num_domains)
         tuple_dsets_source = tuple(

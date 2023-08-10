@@ -1,7 +1,7 @@
 """
 Use dictionaries to create train and test domain split
 """
-from domainlab.tasks.b_task_classif import NodeTaskDictClassif
+from domainlab.tasks.b_task_classif import NodeTaskDictClassif  # abstract class
 
 
 def mk_task_dset(dict_domain2dset,
@@ -41,6 +41,8 @@ def mk_task_dset(dict_domain2dset,
             """
             set member variables
             """
+            if dict_domain2dset is not None:
+                self.dict_dset_tr = dict_domain2dset
             self._name = taskna
             self._args = args
             self.list_str_y = list_str_y
@@ -58,4 +60,9 @@ def mk_task_dset(dict_domain2dset,
             self.conf(args)
             self.set_list_domains(list(dict_domain2dset.keys()))
             super().init_business(args)
+
+        def add_domain(self, name, dset_tr, dset_val=None):
+            self.dict_dset_tr[name] = dset_tr
+            self.dict_dset_val = {}
+
     return NodeTaskDset(succ=succ)
