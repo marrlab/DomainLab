@@ -17,7 +17,7 @@ class NodeTaskDict(NodeTaskDG):
         each domain correspond to one dataset
         """
         dset_val = None
-        if self.dict_dset_val.has_key(na_domain):
+        if na_domain in self.dict_dset_val:
             dset_val = self.dict_dset_val[na_domain]
         return (self.dict_dset_tr[na_domain], dset_val)
 
