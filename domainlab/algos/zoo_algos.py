@@ -1,3 +1,6 @@
+"""
+chain of responsibility pattern for algorithm selection
+"""
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
 from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
@@ -12,16 +15,19 @@ from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
 from domainlab.utils.u_import import import_path
 
 
-class AlgoBuilderChainNodeGetter(object):
+class AlgoBuilderChainNodeGetter():
     """
     1. Hardcoded chain
     3. Return selected node
     """
     def __init__(self, aname, apath):
         self.aname = aname
-        self.apath = apth
+        self.apath = apath
 
     def register_external_node(self, chain):
+        """
+        if the user specify an external python file to implement the algorithm
+        """
         if self.apath is None:
             return chain
         node_module = import_path(self.apath)
@@ -45,5 +51,5 @@ class AlgoBuilderChainNodeGetter(object):
         chain = NodeAlgoBuilderMatchHDUVA(chain)
         chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
-        node = chain.handle(self.request)
+        node = chain.handle(self.aname)
         return node
