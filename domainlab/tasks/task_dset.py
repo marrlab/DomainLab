@@ -50,7 +50,7 @@ def mk_task_dset(dict_domain2dset,
             self.set_list_domains(list(dict_domain2dset.keys()))
             super().init_business(args)
 
-        def add_domain(self, name, dset_tr, dset_val=None):
+        def add_domain(self, name, dset_tr, trains=None, dset_val=None):
             self.dict_dset_tr[name] = dset_tr
             self.dict_dset_val = {}
 
