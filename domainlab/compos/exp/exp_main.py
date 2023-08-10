@@ -1,15 +1,13 @@
+"""
+experiment
+"""
 import datetime
 import os
-import shutil
 
-from torch.utils.data import Subset
-import torch.utils.data as data_utils
-import numpy as np
 
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
 from domainlab.compos.exp.exp_utils import AggWriter
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
-from domainlab.dsets.utils_data import plot_ds
 from domainlab.utils.sanity_check import SanityCheck
 from domainlab.utils.logger import Logger
 
@@ -34,8 +32,7 @@ class Exp():
         self.task.init_business(args)
         self.args = args
         self.visitor = visitor(self)
-        aname = RequestArgs2ExpCmd(args)()
-        algo_builder = AlgoBuilderChainNodeGetter(aname, self.args.apath)()  # request
+        algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         self.trainer = algo_builder.init_business(self)
         self.epochs = self.args.epos
         self.epoch_counter = 1
