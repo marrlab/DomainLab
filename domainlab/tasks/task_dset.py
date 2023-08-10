@@ -21,14 +21,6 @@ def mk_task_dset(dict_domain2dset,
         """
         Use dictionaries to create train and test domain split
         """
-        @property
-        def isize(self):
-            return self._im_size
-
-        @isize.setter
-        def isize(self, isize):
-            self._im_size = isize
-
         def conf(self, args):
             """
             set member variables
