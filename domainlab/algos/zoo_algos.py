@@ -9,7 +9,6 @@ from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
 from domainlab.algos.builder_match_hduva import NodeAlgoBuilderMatchHDUVA
 from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
 
-from domainlab.compos.pcr.request import RequestArgs2ExpCmd
 from domainlab.utils.u_import import import_path
 
 
@@ -18,14 +17,14 @@ class AlgoBuilderChainNodeGetter(object):
     1. Hardcoded chain
     3. Return selected node
     """
-    def __init__(self, args):
-        self.request = RequestArgs2ExpCmd(args)()
-        self.args = args
+    def __init__(self, aname, apath):
+        self.aname = aname
+        self.apath = apth
 
     def register_external_node(self, chain):
-        if self.args.apath is None:
+        if self.apath is None:
             return chain
-        node_module = import_path(self.args.apath)
+        node_module = import_path(self.apath)
         node_fun = node_module.get_node_na()  # @FIXME: build_node API need
         newchain = node_fun(chain)
         return newchain

@@ -34,7 +34,8 @@ class Exp():
         self.task.init_business(args)
         self.args = args
         self.visitor = visitor(self)
-        algo_builder = AlgoBuilderChainNodeGetter(self.args)()  # request
+        aname = RequestArgs2ExpCmd(args)()
+        algo_builder = AlgoBuilderChainNodeGetter(aname, self.args.apath)()  # request
         self.trainer = algo_builder.init_business(self)
         self.epochs = self.args.epos
         self.epoch_counter = 1
