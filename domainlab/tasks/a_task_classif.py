@@ -9,7 +9,7 @@ from domainlab.tasks.a_task import NodeTaskDG
 
 class NodeTaskDGClassif(NodeTaskDG):
     """
-    parent class for classification
+    abstract class for classification task
     """
     def __init__(self, succ=None):
         super().__init__(succ)
