@@ -20,6 +20,13 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 ## Getting started
 
 ### Installation
+#### Virtual environment (strongly recommended)
+
+`conda create --name domainlab_py39 python=3.9`
+
+then 
+`conda activate domainlab_py39`
+
 #### Development version (recommended)
 
 Suppose you have cloned the repository and have changed directory to the cloned repository.
