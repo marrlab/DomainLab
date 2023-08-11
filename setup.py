@@ -1,3 +1,6 @@
+"""
+run python setup.py install to install DomainLab into system
+"""
 from setuptools import find_packages, setup
 setup(
     name='domainlab',
@@ -5,5 +8,5 @@ setup(
     version='0.1.0',
     description='Library of Domain Generalization',
     author='Xudong Sun, et.al.',
-    license='',
+    license='MIT',
 )
