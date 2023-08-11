@@ -10,7 +10,7 @@ class MatchAlgoBase():
         self.task = task
         self.num_domain_tr = len(self.task.list_domain_tr)
         train_domains = self.task.list_domain_tr
-        self.list_tr_domain_size = [len(self.task.dict_dset[key]) \
+        self.list_tr_domain_size = [len(self.task.dict_dset_tr[key]) \
             for key in train_domains]
         # so that order is kept!
         self.base_domain_size = get_base_domain_size4match_dg(self.task)
