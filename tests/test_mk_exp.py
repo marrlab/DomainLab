@@ -3,7 +3,6 @@ make an experiment
 """
 from torch import nn
 from torchvision import models as torchvisionmodels
-from torchvision import transforms
 from torchvision.models import ResNet50_Weights
 
 from domainlab.mk_exp import mk_exp
@@ -14,18 +13,21 @@ from domainlab.tasks.utils_task import ImSize
 
 
 def test_mk_exp():
+    """
+    test mk experiment API
+    """
     # specify domain generalization task
 
     task = mk_task_dset(isize=ImSize(3, 28, 28),  taskna="custom_task")
     task.add_domain(name="domain1",
-                    dset_tr=DsetMNISTColorSoloDefault(0, "zoutput"),
-                    dset_val=DsetMNISTColorSoloDefault(1, "zoutput"))
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
     task.add_domain(name="domain2",
-                    dset_tr=DsetMNISTColorSoloDefault(2, "zoutput"),
-                    dset_val=DsetMNISTColorSoloDefault(3, "zoutput"))
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
     task.add_domain(name="domain3",
-                    dset_tr=DsetMNISTColorSoloDefault(4, "zoutput"),
-                    dset_val=DsetMNISTColorSoloDefault(5, "zoutput"))
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
 
     # specify backbone to use
     dim_y = 10
