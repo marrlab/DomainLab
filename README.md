@@ -27,7 +27,7 @@ Suppose you have cloned the repository and have changed directory to the cloned 
 ```shell
 pip install -r requirements.txt
 ```
-or 
+then 
 
 `python setup.py install`
 
