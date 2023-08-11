@@ -15,17 +15,17 @@ from domainlab.tasks.utils_task import ImSize
 
 def test_mk_exp():
     # specify domain generalization task
-    DICT_DOMAIN2DSET = {}  # build dictionary of domains, here we give domains named "d1", "d2", "d3".
-    DICT_DOMAIN2DSET["d1"] = (DsetMNISTColorSoloDefault(0, "zout"),
-            DsetMNISTColorSoloDefault(0, "zout"))  # first position in tuple is training, second is validation
-    DICT_DOMAIN2DSET["d2"] = (DsetMNISTColorSoloDefault(1, "zout"),  # train and validation for domain "d2"
-            DsetMNISTColorSoloDefault(1, "zout"))
-    DICT_DOMAIN2DSET["d3"] = (DsetMNISTColorSoloDefault(2, "zout"),
-            DsetMNISTColorSoloDefault(2, "zout"))  # train and validation for domain "d3"
 
-    IMG_TRANS = transforms.Compose([transforms.ToTensor()])      # specify transformations to use for training data
-
-    task = mk_task_dset(isize=ImSize(3, 28, 28))
+    task = mk_task_dset(isize=ImSize(3, 28, 28),  taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0, "zoutput"),
+                    dset_val=DsetMNISTColorSoloDefault(1, "zoutput"))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2, "zoutput"),
+                    dset_val=DsetMNISTColorSoloDefault(3, "zoutput"))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4, "zoutput"),
+                    dset_val=DsetMNISTColorSoloDefault(5, "zoutput"))
 
     # specify backbone to use
     dim_y = 10
@@ -33,9 +33,9 @@ def test_mk_exp():
     num_final_in = backbone.fc.in_features
     backbone.fc = nn.Linear(num_final_in, dim_y)
 
-    ## specify model to use
+    # specify model to use
     model = mk_deepall()(backbone)
 
-    ## make trainer for model
-    exp = mk_exp(task, model, trainer="mldg", test_domain="d1", batchsize=32)
+    # make trainer for model
+    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
     exp.execute(num_epochs=1)
