@@ -20,17 +20,12 @@ def test_mk_exp():
             DsetMNISTColorSoloDefault(0, "zout"))  # first position in tuple is training, second is validation
     DICT_DOMAIN2DSET["d2"] = (DsetMNISTColorSoloDefault(1, "zout"),  # train and validation for domain "d2"
             DsetMNISTColorSoloDefault(1, "zout"))
-    DICT_DOMAIN2DSET["d3"] = (DsetMNISTColorSoloDefault(2, "zout"), 
+    DICT_DOMAIN2DSET["d3"] = (DsetMNISTColorSoloDefault(2, "zout"),
             DsetMNISTColorSoloDefault(2, "zout"))  # train and validation for domain "d3"
 
     IMG_TRANS = transforms.Compose([transforms.ToTensor()])      # specify transformations to use for training data
 
-    task = mk_task_dset(DICT_DOMAIN2DSET,  # the constructed dictionary above
-                        list_str_y=[str(ele) for ele in range(0, 10)],  # a list of strings naming each class to classify
-                        isize=ImSize(3, 28, 28),   # the image size
-                        dict_domain_img_trans={"d1": IMG_TRANS, "d2": IMG_TRANS, "d3": IMG_TRANS},  # for each domain, one could specify different transformations
-                        img_trans_te=IMG_TRANS, # use the same transformation for test set
-                        taskna="demo_task")  # give a name for your task constructed.
+    task = mk_task_dset(isize=ImSize(3, 28, 28))
 
     # specify backbone to use
     dim_y = 10

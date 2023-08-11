@@ -4,12 +4,10 @@ Use dictionaries to create train and test domain split
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif  # abstract class
 
 
-def mk_task_dset(dict_domain2dset,
-                 list_str_y,
-                 isize,
-                 taskna,  # name of the task
-                 dict_domain_img_trans=None,
-                 img_trans_te=None,
+def mk_task_dset(isize,
+                 taskna="task_custom",  # name of the task
+                 dict_domain2dset=None,
+                 list_str_y=None,
                  parent=NodeTaskDictClassif,
                  succ=None):
     """
@@ -30,9 +28,9 @@ def mk_task_dset(dict_domain2dset,
             self._name = taskna
             self._args = args  # for debug
             self.list_str_y = list_str_y
+            if self.list_str_y is None:
+                self.list_str_y=[f"class{ele}" for ele in range(0, 10)]
             self.isize = isize
-            self._dict_domain_img_trans = dict_domain_img_trans
-            self.img_trans_te = img_trans_te
 
         def get_dset_by_domain(self, args, na_domain, split=False):
             """
@@ -45,10 +43,10 @@ def mk_task_dset(dict_domain2dset,
             create a dictionary of datasets
             """
             self.conf(args)
-            self.set_list_domains(list(dict_domain2dset.keys()))
+            self.set_list_domains(list(self.dict_dset_all.keys()))
             super().init_business(args)
 
-        def add_tr_domain(self, name, dset_tr, trans=None, dset_val=None):
+        def add_domain(self, name, dset_tr, dset_val=None):
             """
             add domain via, name, dataset and transformations
             """
