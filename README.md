@@ -22,7 +22,7 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 We offer the following ways to install dependencies:
 
 -   Install via [python-poetry](https://python-poetry.org/) and use the configuration file `pyproject.toml` in this repository.
-
+-   Install via `python setup.py install`
 -   **Or** only install dependencies via pip:
  
 Suppose you have cloned the repository and have changed directory to the cloned repository.
