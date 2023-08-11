@@ -14,12 +14,9 @@ class NodeTaskDict(NodeTaskDG):
     """
     def get_dset_by_domain(self, args, na_domain, split=False):
         """
-        each domain correspond to one dataset
+        each domain correspond to one dataset, must be implemented by child class
         """
-        dset_val = None
-        if na_domain in self.dict_dset_val:
-            dset_val = self.dict_dset_val[na_domain]
-        return (self.dict_dset_tr[na_domain], dset_val)
+        raise NotImplementedError  # it is safe for each subclass to implement this
 
     def decorate_dset(self, model, args):
         """
@@ -43,7 +40,7 @@ class NodeTaskDict(NodeTaskDG):
         dim_d = len(list_domain_tr)
         for (ind_domain_dummy, na_domain) in enumerate(list_domain_tr):
             dset_tr, dset_val = self.get_dset_by_domain(args, na_domain, split=args.split)
-            vec_domain = mk_onehot(dim_d, ind_domain_dummy)
+            vec_domain = mk_onehot(dim_d, ind_domain_dummy)  # for diva, dann
             ddset_tr = DsetDomainVecDecorator(dset_tr, vec_domain, na_domain)
             ddset_val = DsetDomainVecDecorator(dset_val, vec_domain, na_domain)
             ddset_tr = node_algo.dset_decoration_args_algo(args, ddset_tr)

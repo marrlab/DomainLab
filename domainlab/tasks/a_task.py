@@ -1,5 +1,5 @@
 """
-Abstract class for Task
+Base class for Task
 """
 from abc import abstractmethod
 import warnings
@@ -19,14 +19,15 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._loader_te = None
         self._loader_val = None
         self._list_domains = None
-        self._list_domain_tr = None
+        self._list_domain_tr = None  # versatile
         self._name = None
         self._args = None
-        self.dict_dset_tr = {}
-        self.dict_dset_te = {}
-        self.dict_dset_val = {}
+        self.dict_dset_all = {}  # persist
+        self.dict_dset_tr = {}  # versatile variable: which domains to use as training
+        self.dict_dset_te = {}  # versatile
+        self.dict_dset_val = {}  # versatile
         self.dict_domain_class_count = {}
-        self.dim_d_tr = None  # public
+        self.dim_d_tr = None  # public, only used for diva
         self._im_size = None
         self._dict_domains2imgroot = {}
         self._dict_domain_folder_name2class = {}  # {"domain1": {"class1":car, "class2":dog}}
