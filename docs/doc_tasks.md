@@ -10,9 +10,9 @@ The most straightforward way to specify a domain generalization task is, if you 
 
 To train a ERM (Emperical Risk Minimization) network on this task:
 ```shell
-python main_out.py --te_d d1 --tr_d d2 d3 --tpath=examples/tasks/task_dset_custom.py --bs=32 --aname=deepall --nname=conv_bn_pool_2
+python main_out.py --te_d domain1 --tr_d domain2 domain3 --tpath=examples/tasks/task_dset_custom.py --bs=32 --aname=deepall --nname=conv_bn_pool_2
 ```
-here in the example, 3 domains are defined to be named "d1", "d2", "d3", `--tpath` specifies where the python file specifying the task is stored, `--bs=32` use 32 as batchsize, `deepall` is our nickname for ERM, `--nname` specifies a hard coded neural network in DomainLab, to use custom neural network, see related documentation.
+here in the example, 3 domains are defined to be named "domain1", "domain2", "domain3", `--tpath` specifies where the python file specifying the task is stored, `--bs=32` use 32 as batchsize, `deepall` is our nickname for ERM, `--nname` specifies a hard coded neural network in DomainLab, to use custom neural network, see related documentation.
 
 ## TaskPathList
 The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.
