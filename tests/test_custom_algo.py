@@ -11,7 +11,7 @@ def test_custom():
     testdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.join(testdir, "..")
     rootdir = os.path.abspath(rootdir)
-    mpath = os.path.join(rootdir, "examples/algos/demo_custom_model.py")
+    mpath = os.path.join(rootdir, "examples/models/demo_custom_model.py")
     parser = mk_parser_main()
     argsstr = "--te_d=caltech --task=mini_vlcs --aname=custom --bs=2 --debug \
                --apath=%s --nname_argna2val my_custom_arg_name \
@@ -30,7 +30,7 @@ def test_custom2():
     testdir = os.path.dirname(os.path.realpath(__file__))
     rootdir = os.path.join(testdir, "..")
     rootdir = os.path.abspath(rootdir)
-    mpath = os.path.join(rootdir, "examples/algos/demo_custom_model.py")
+    mpath = os.path.join(rootdir, "examples/models/demo_custom_model.py")
     path_net = os.path.join(rootdir, "examples/nets/resnet.py")
     parser = mk_parser_main()
     argsstr = "--te_d=caltech --task=mini_vlcs --aname=custom --bs=2 --debug \
