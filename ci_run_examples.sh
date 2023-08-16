@@ -9,10 +9,6 @@ sed -n '/```shell/,/```/ p' docs/doc_MNIST_classification.md | sed '/^```/ d' > 
 bash -x -v -e sh_temp_mnist.sh
 echo "mnist example done"
 
-sed -n '/```shell/,/```/ p' docs/doc_benchmark.md | sed '/^```/ d' > ./sh_temp_benchmark.sh
-bash -x -v -e sh_temp_benchmark.sh
-echo "benchmark  done"
-
 sed -n '/```shell/,/```/ p' docs/doc_custom_nn.md | sed '/^```/ d' > ./sh_temp_nn.sh
 bash -x -v -e sh_temp_nn.sh
 
