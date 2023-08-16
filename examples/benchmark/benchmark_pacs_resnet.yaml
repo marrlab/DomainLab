@@ -26,53 +26,24 @@ domainlab_args:
   es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   san_check: True
 
 
 diva:  # name
   aname: diva
   # set nname_dom = nname when changing nname
-  npath_dom: examples/nets/resnet50domainbed.py
-
   hyperparameters:
     gamma_y:
       min: 1e4
-      max: 2e5
+      max: 1e6
       step: 100
       distribution: loguniform
 
     gamma_d:
       min: 1e4
       max: 1e6
-      step: 10_000
-      distribution: loguniform
-
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
-
-hduva:  # name
-  aname: hduva
-
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-
-  hyperparameters:
-    # Same config as diva.
-    gamma_y:
-      min: 1e4
-      max: 2e5
       step: 100
       distribution: loguniform
 
@@ -89,7 +60,34 @@ hduva:  # name
       distribution: uniform
 
     zd_dim:
-      reference: zy_dim
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+hduva:  # name
+  aname: hduva
+  zx_dim: 0
+
+  hyperparameters:
+    # Same config as diva.
+    gamma_y:
+      min: 1e4
+      max: 1e6
+      step: 100
+      distribution: loguniform
+
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+
+    zd_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
 
 matchdg:  # name
   aname: matchdg
@@ -197,15 +195,13 @@ mldg:  # name
 
 hduva_matchdg:  # name
   aname: matchhduva
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 0
 
   hyperparameters:
     # Same config as diva.
     gamma_y:
       min: 1e4
-      max: 2e5
+      max: 1e6
       step: 100
       distribution: loguniform
 
@@ -216,8 +212,10 @@ hduva_matchdg:  # name
       distribution: uniform
 
     zd_dim:
-      reference: zy_dim
-
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
 
     # Total number of epochs for contrastive loss
     epochs_ctr:
@@ -250,8 +248,6 @@ diva_dial:
   # Parameters that are fixed for all runs of this task.
   aname: diva
   trainer: dial
-  npath: examples/nets/resnet50domainbed.py
-  npath_dom: examples/nets/resnet50domainbed.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -268,14 +264,14 @@ diva_dial:
     # Otherwise, it is a float and rounding errors can occur.
     gamma_y:
       min: 1e4
-      max: 2e5
+      max: 1e6
       step: 100
       distribution: loguniform
 
     gamma_d:
       min: 1e4
       max: 1e6
-      step: 10_000
+      step: 100
       distribution: loguniform
 
     zx_dim:
@@ -291,8 +287,10 @@ diva_dial:
       distribution: uniform
 
     zd_dim:
-      reference: zy_dim
-
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
 
     dial_steps_perturb:
       min: 1
@@ -320,8 +318,6 @@ diva_mldg:  # name
   # Parameters that are fixed for all runs of this task.
   aname: diva
   trainer: mldg
-  nname: alexnet
-  npath_dom: examples/nets/resnet.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
@@ -337,34 +333,40 @@ diva_mldg:  # name
     # the hyperparameter is ensured to be integer valued too.
     # Otherwise, it is a float and rounding errors can occur.
     gamma_y:
-      min: 10e4
-      max: 10e6
-      step: 1
+      min: 1e4
+      max: 1e6
+      step: 100
       distribution: loguniform
 
     gamma_d:
       min: 1e4
       max: 1e6
-      step: 1
+      step: 100
+      distribution: loguniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
       distribution: loguniform
 
 
 hduva_mldg:  # name
   aname: hduva
   trainer: mldg
-  npath: examples/nets/resnet.py
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
-
   hyperparameters:
     gamma_y:
-      min: 7e4
-      max: 7e6
-      step: 1
+      min: 1e4
+      max: 1e6
+      step: 100
       distribution: loguniform
 
     zy_dim:
       min: 32
       max: 128
-      step: 4
+      step: 32
+      distribution: loguniform
+
+    gamma_reg:
+      min: 0.01
+      max: 10
       distribution: loguniform

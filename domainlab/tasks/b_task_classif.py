@@ -23,7 +23,7 @@ class NodeTaskDictClassif(NodeTaskDict, NodeTaskDGClassif):
         iterate all domains and count the class label distribution for each
         return a double dictionary {"domain1": {"class1":3, "class2": 4,...}, ....}
         """
-        for key, dset in self.dict_dset.items():
+        for key, dset in self.dict_dset_tr.items():
             dict_class_count = self._count_class_one_hot(dset)
             self.dict_domain_class_count[key] = dict_class_count
         for key, dset in self.dict_dset_te.items():

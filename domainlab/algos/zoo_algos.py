@@ -1,3 +1,6 @@
+"""
+chain of responsibility pattern for algorithm selection
+"""
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
 from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
@@ -7,23 +10,27 @@ from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
 from domainlab.algos.builder_match_hduva import NodeAlgoBuilderMatchHDUVA
-from domainlab.compos.pcr.request import RequestArgs2ExpCmd
+from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
+
 from domainlab.utils.u_import import import_path
 
 
-class AlgoBuilderChainNodeGetter(object):
+class AlgoBuilderChainNodeGetter():
     """
     1. Hardcoded chain
     3. Return selected node
     """
-    def __init__(self, args):
-        self.request = RequestArgs2ExpCmd(args)()
-        self.args = args
+    def __init__(self, aname, apath):
+        self.aname = aname
+        self.apath = apath
 
     def register_external_node(self, chain):
-        if self.args.apath is None:
+        """
+        if the user specify an external python file to implement the algorithm
+        """
+        if self.apath is None:
             return chain
-        node_module = import_path(self.args.apath)
+        node_module = import_path(self.apath)
         node_fun = node_module.get_node_na()  # @FIXME: build_node API need
         newchain = node_fun(chain)
         return newchain
@@ -42,6 +49,7 @@ class AlgoBuilderChainNodeGetter(object):
         chain = NodeAlgoBuilderHDUVA(chain)
         chain = NodeAlgoBuilderMatchDG(chain)
         chain = NodeAlgoBuilderMatchHDUVA(chain)
+        chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
-        node = chain.handle(self.request)
+        node = chain.handle(self.aname)
         return node

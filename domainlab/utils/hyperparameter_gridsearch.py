@@ -73,8 +73,8 @@ def loguniform_grid(param_config):
     param_config: config which needs to contain 'num', 'max', 'min'
     '''
     num = param_config['num']
-    maxi = float(param_config['max'])
-    mini = float(param_config['min'])
+    maxi = np.log10(float(param_config['max']))
+    mini = np.log10(float(param_config['min']))
     step = (maxi - mini) / num
     # linspace does exclude the end of the interval and include the beginning
     grid = 10 ** np.linspace(mini + step / 2, maxi + step / 2, num)
@@ -263,7 +263,7 @@ def sample_gridsearch(config: dict,
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     for key, val in config.items():
-        if sampling.is_task(val):
+        if sampling.is_dict_with_key(val, "aname"):
             grid_task(samples, key, val)
             logger.info(f'number of gridpoints for {key} : '
                         f'{samples[samples["algo"] == val["aname"]].shape[0]}')

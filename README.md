@@ -18,18 +18,36 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 
 
 ## Getting started
+
 ### Installation
-We offer the following ways to install dependencies:
+#### Create a virtual environment for DomainLab (strongly recommended)
 
--   Install via [python-poetry](https://python-poetry.org/) and use the configuration file `pyproject.toml` in this repository.
+`conda create --name domainlab_py39 python=3.9`
 
--   **Or** only install dependencies via pip:
- 
+then 
+`conda activate domainlab_py39`
+
+#### Install Development version (recommended)
+
 Suppose you have cloned the repository and have changed directory to the cloned repository.
 
 ```shell
 pip install -r requirements.txt
 ```
+then 
+
+`python setup.py install`
+
+#### Windows installation details
+
+To install DomainLab on Windows, please remove the `snakemake` dependency from the `requirements.txt` file.
+Benchmarking is currently not supported on Windows due to the dependency on Snakemake.
+
+#### Dependencies management
+-   [python-poetry](https://python-poetry.org/) and use the configuration file `pyproject.toml` in this repository.
+ 
+#### Release
+- Install via `pip install domainlab`
 
 ### Basic usage
 DomainLab comes with some minimal toy-dataset to test its basis functionality, see [A minimal subsample of the VLCS dataset](./data/vlcs_mini) and [an example configuration file for vlcs_mini](./examples/tasks/task_vlcs.py)
