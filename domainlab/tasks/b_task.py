@@ -23,17 +23,10 @@ class NodeTaskDict(NodeTaskDG):
         dispatch re-organization of data flow to model
         """
 
-    def init_business(self, args):
+    def init_business(self, node_algo, args):
         """
         create a dictionary of datasets
         """
-        from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
-        # ImportError: cannot import name 'AlgoBuilderChainNodeGetter'
-        # from partially initialized module 'domainlab.algos.zoo_algos'
-        # (most likely due to a circular import)
-        # (~/domainlab_master/domainlab/algos/zoo_algos.py)
-        # We need algochain getter to do algorithm specific processing
-        node_algo = AlgoBuilderChainNodeGetter(args.aname, args.apath)()
         list_domain_tr, list_domain_te = self.get_list_domains_tr_te(args.tr_d, args.te_d)
         self.dict_dset_tr = {}
         self.dict_dset_val = {}

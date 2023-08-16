@@ -29,11 +29,11 @@ class Exp():
             if args.san_check:
                 sancheck = SanityCheck(args, self.task)
                 sancheck.dataset_sanity_check()
-        self.task.init_business(args)
         self.args = args
         self.visitor = visitor(self)
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         self.trainer = algo_builder.init_business(self)
+        self.task.init_business(self.trainer, args)
         self.epochs = self.args.epos
         self.epoch_counter = 1
 
