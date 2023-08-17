@@ -31,11 +31,12 @@ class Exp():
                 sancheck.dataset_sanity_check()
         self.args = args
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
-        self.trainer = algo_builder.init_business(self)
+        self.trainer, self.model, observer, device = algo_builder.init_business(self)
         self.task.init_business(self.trainer, args)
         self.visitor = visitor(self)  # visitor depends on task initialization first
         self.epochs = self.args.epos
         self.epoch_counter = 1
+        self.trainer.init_business(self.model, self.task, observer, device, args)
 
     def execute(self, num_epochs=None):
         """

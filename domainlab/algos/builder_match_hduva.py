@@ -77,4 +77,4 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
         trainer = TrainerMatchDG()
         trainer.init_business(exp, task, ctr_model, model, observer, args, device)
 
-        return trainer
+        return trainer, model, observer, device
