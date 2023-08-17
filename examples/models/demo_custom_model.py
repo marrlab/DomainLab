@@ -14,6 +14,11 @@ class ModelCustom(AModelCustom):
     """
     @property
     def dict_net_module_na2arg_na(self):
+        """
+        we use this property to associate the module "net_predict" with commandline argument
+        "my_custom_arg_name", so that one could use "net_predict" while being transparent to
+        what exact backbone is used. 
+        """
         return {"net_predict": "my_custom_arg_name"}
 
     def cal_logit_y(self, tensor_x):

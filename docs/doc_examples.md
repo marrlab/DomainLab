@@ -134,16 +134,16 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 
 ## Custom algorithm defined in external python file
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_model.py --aname=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --aname=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
 ```
 
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/algos/demo_custom_model.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --aname=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
 ```
 
 ## Adversarial images training
 ```shell
-python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall_dial --nname=conv_bn_pool_2
+python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --aname=deepall --trainer=dial --nname=conv_bn_pool_2
 ```
 ### Train DIVA model with DIAL trainer
 
@@ -157,5 +157,5 @@ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nn
 
 ## Meta Learning Domain Generalization
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepallmldg --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --trainer=mldg --nname=alexnet
 ```
