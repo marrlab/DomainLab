@@ -157,5 +157,5 @@ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=diva --nn
 
 ## Meta Learning Domain Generalization
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepallmldg --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --trainer=mldg --nname=alexnet
 ```
