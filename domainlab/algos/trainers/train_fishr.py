@@ -61,3 +61,12 @@ class TrainerFishr(TrainerBasic):
         for name, _grads in dict_grads.items():
             all_idx = 0
             for domain_id, bsize in enumerate(len_mini
+
+        with backpack(Variance()):
+            loss.backward()
+
+        list_param_grad = []
+        list_param_var = []
+        for param in model.parameters():
+            list_param_grad.append(param.grad)
+            list_param_var.append(param.variance)
