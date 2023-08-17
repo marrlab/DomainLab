@@ -2,9 +2,10 @@
 use random start to generate adversarial images
 """
 import torch
+import copy
 from torch.autograd import Variable
 import torch.nn as nn
-import OrderedDict
+from collections import OrderedDict
 
 try:
     from backpack import backpack, extend
@@ -14,15 +15,12 @@ except:
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
+_bce_extended = extend(nn.CrossEntropyLoss(reduction='none'))
 
 class TrainerFishr(TrainerBasic):
     """
     Trainer Domain Invariant Adversarial Learning
     """
-    def __init__(self):
-        super().__init__()
-        self.bce_extended = extend(nn.CrossEntropyLoss(reduction='none'))
-
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
@@ -44,8 +42,10 @@ class TrainerFishr(TrainerBasic):
         """
         use backpack
         """
-        logits = self.model.cal_logit_y(tensor_x)
-        loss_erm = self.bce_extended(logits, vec_y).sum()
+        extend_model = extend(copy.deepcopy(self.model))
+        logits = extend_model.cal_logit_y(tensor_x.clone()).clone()
+        # logits = extend_model(tensor_x.clone()).clone()
+        loss_erm = _bce_extended(logits, vec_y).sum()
         #with backpack(BatchGrad()):
         #    loss_erm.backward(
         #        inputs=list(self.model.parameters()), retain_graph=True, create_graph=True)
@@ -62,6 +62,7 @@ class TrainerFishr(TrainerBasic):
             loss_erm.backward(
                 inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
             )
+        breakpoint()
 
         dict_variance = OrderedDict(
             [(name, weights.variance.clone().view(weights.variance.size(0), -1))
