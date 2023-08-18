@@ -119,7 +119,7 @@ def mk_node_task_path_list(isize,
             self._dict_domain2filepath_list_im_te = dict_d2filepath_list_img_te
             self.set_list_domains(list(self.dict_domain2imgroot.keys()))
 
-        def init_business(self, args):
+        def init_business(self, args, node_algo_builder):
             """init_business.
 
             :param args:
