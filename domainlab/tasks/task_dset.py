@@ -41,13 +41,13 @@ def mk_task_dset(isize,
             """
             return self.dict_dset_all[na_domain]
 
-        def init_business(self, args):
+        def init_business(self, args, node_algo_builder=None):
             """
             create a dictionary of datasets
             """
             self._args = args  # for debug
             self.set_list_domains(list(self.dict_dset_all.keys()))
-            super().init_business(args)
+            super().init_business(args, node_algo_builder)
 
         def add_domain(self, name, dset_tr, dset_val=None):
             """
