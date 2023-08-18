@@ -15,4 +15,4 @@ class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
         """
         args = exp.args
         trainer = TrainerChainNodeGetter(args)(default="visitor")
-        return trainer
+        return trainer, None, None, None
