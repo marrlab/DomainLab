@@ -19,6 +19,10 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
     """
     Builder pattern to build different component for experiment with DIVA
     """
+    def get_trainer(self, args):
+        trainer = TrainerChainNodeGetter(args)(default="visitor")
+        return trainer
+
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -51,5 +55,5 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
                 ObVisitorGen(exp,
                              model_sel,
                              device))
-        trainer = TrainerChainNodeGetter(args)(default="visitor")
+        trainer = self.get_trainer(args)
         return trainer, model, observer, device
