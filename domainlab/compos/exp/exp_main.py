@@ -33,7 +33,6 @@ class Exp():
 
         self.args = args
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
-        trainer = algo_builder.get_trainer(args)
         self.task.init_business(node_algo_builder=algo_builder, args=args)
         self.trainer, self.model, observer, device = algo_builder.init_business(self)
         self.visitor = visitor(self)  # visitor depends on task initialization first
