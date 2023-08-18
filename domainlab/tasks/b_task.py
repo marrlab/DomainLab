@@ -23,7 +23,7 @@ class NodeTaskDict(NodeTaskDG):
         dispatch re-organization of data flow to model
         """
 
-    def init_business(self, node_algo_builder, args):
+    def init_business(self, args, node_algo_builder=None):
         """
         create a dictionary of datasets
         """
@@ -36,8 +36,9 @@ class NodeTaskDict(NodeTaskDG):
             vec_domain = mk_onehot(dim_d, ind_domain_dummy)  # for diva, dann
             ddset_tr = DsetDomainVecDecorator(dset_tr, vec_domain, na_domain)
             ddset_val = DsetDomainVecDecorator(dset_val, vec_domain, na_domain)
-            ddset_tr = node_algo_builder.dset_decoration_args_algo(args, ddset_tr)
-            ddset_val = node_algo_builder.dset_decoration_args_algo(args, ddset_val)
+            if node_algo_builder is not None:
+                ddset_tr = node_algo_builder.dset_decoration_args_algo(args, ddset_tr)
+                ddset_val = node_algo_builder.dset_decoration_args_algo(args, ddset_val)
             self.dict_dset_tr.update({na_domain: ddset_tr})
             self.dict_dset_val.update({na_domain: ddset_val})
         ddset_mix = ConcatDataset(tuple(self.dict_dset_tr.values()))
