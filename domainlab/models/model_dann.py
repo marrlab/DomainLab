@@ -8,7 +8,8 @@ from domainlab.models.a_model_classif import AModelClassif
 
 
 def mk_dann(parent_class=AModelClassif):
-    """Instantiate a Deep Adversarial Net (DAN) model
+    """
+    Instantiate a Deep Adversarial Net (DAN) model
 
     Args:
         parent_class (AModel, optional): Class object determining the task
@@ -17,7 +18,13 @@ def mk_dann(parent_class=AModelClassif):
     Returns:
         ModelDAN: model inheriting from parent class
 
-        Test Lisa
+    Notes:
+        list_str_y: list of labels
+        list_str_d: list of domains
+        alpha: total_loss = task_loss + \alpha * regularization_loss
+        net_encoder: neural network to extract the features, input: training data
+        net_classifier: neural network, input: output of net_encoder, output: label
+        net_discriminator: neural network, input: output of net_encoder, output: training domain
     """
     class ModelDAN(parent_class):
         """
@@ -25,6 +32,9 @@ def mk_dann(parent_class=AModelClassif):
         """
         def __init__(self, list_str_y, list_str_d,
                      alpha, net_encoder, net_classifier, net_discriminator):
+            """
+            See documentation above in mk_dann() function
+            """             
             super().__init__(list_str_y, list_str_d)
             self.alpha = alpha
             self.net_encoder = net_encoder
