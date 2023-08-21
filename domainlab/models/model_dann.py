@@ -16,6 +16,8 @@ def mk_dann(parent_class=AModelClassif):
 
     Returns:
         ModelDAN: model inheriting from parent class
+
+        Test Lisa
     """
     class ModelDAN(parent_class):
         """
