@@ -36,8 +36,17 @@ class NodeTaskDGClassif(NodeTaskDG):
     def dim_y(self):
         """classification dimension"""
         if self._dim_y is None:
-            return len(self.list_str_y)
+            if self.list_str_y is not None:
+                return len(self.list_str_y)
+            raise RuntimeError("attribute list_str_y not set yet")
         return self._dim_y
+
+    @dim_y.setter
+    def dim_y(self, dim_y):
+        """
+        setter for dim_y, for classification task, the number of labels to predict
+        """
+        self._dim_y = dim_y
 
     def sample_sav(self, root, batches=5, subfolder_na="task_sample"):
         """

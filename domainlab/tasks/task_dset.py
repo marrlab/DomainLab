@@ -27,12 +27,15 @@ def mk_task_dset(isize,
             if dict_domain2dset is not None:
                 self.dict_dset_all = dict_domain2dset
             self._name = taskna
+
+            if list_str_y is None and dim_y is None:
+                raise RuntimeError("arguments list_str_y and dim_y can not be both None!")
+
+            self.list_str_y = list_str_y   # list_str_y has to be initialized before dim_y
             self.dim_y = dim_y
-            self.list_str_y = list_str_y
-            if self.list_str_y is None and self.dim_y is None:
-                raise RuntimeError("list_str_y and dim_y can not be both None!")
+
             if self.list_str_y is None:
-                self.list_str_y=[f"class{ele}" for ele in range(0, self.dim_y)]
+                self.list_str_y = [f"class{ele}" for ele in range(0, self.dim_y)]
             self.isize = isize
 
         def get_dset_by_domain(self, args, na_domain, split=False):
