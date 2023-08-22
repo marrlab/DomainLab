@@ -3,6 +3,10 @@ build algorithm from API coded model with custom backbone
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
+from domainlab.algos.msels.c_msel_val import MSelValPerf
+from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
+from domainlab.algos.observers.b_obvisitor import ObVisitor
+from domainlab.utils.utils_cuda import get_device
 
 
 class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
@@ -14,5 +18,8 @@ class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
         return trainer, model, observer
         """
         args = exp.args
+        device = get_device(args)
+        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+        observer = ObVisitor(exp, model_sel, device)
         trainer = TrainerChainNodeGetter(args)(default="visitor")
-        return trainer, None, None, None
+        return trainer, None, observer, device
