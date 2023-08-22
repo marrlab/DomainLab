@@ -18,7 +18,7 @@ class Exp():
     """
     Exp is combination of Task, Algorithm, and Configuration (including random seed)
     """
-    def __init__(self, args, task=None, visitor=AggWriter):
+    def __init__(self, args, task=None, model=None, visitor=AggWriter):
         """
         :param args:
         :param task:
@@ -34,6 +34,8 @@ class Exp():
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         self.task.init_business(node_algo_builder=algo_builder, args=args)
         self.trainer, self.model, observer, device = algo_builder.init_business(self)
+        if model is not None:
+            self.model = model
         self.visitor = visitor(self)  # visitor depends on task initialization first
         self.epochs = self.args.epos
         self.epoch_counter = 1
