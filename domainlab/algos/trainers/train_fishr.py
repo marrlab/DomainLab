@@ -23,6 +23,7 @@ class TrainerFishr(TrainerBasic):
     """
     def tr_epoch(self, epoch):
         self.model.train()
+        self.model.convert4backpack()
         self.epo_loss_tr = 0
         for ind_batch, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
             tensor_x, vec_y, vec_d = \
@@ -42,9 +43,7 @@ class TrainerFishr(TrainerBasic):
         """
         use backpack
         """
-        # extend_model = extend(copy.deepcopy(self.model.net.net_torchvision))
-        extend_model = extend(self.model.net.net_torchvision, use_converter=True)
-        logits = extend_model(tensor_x.clone())
+        logits = self.model.cal_logit_y(tensor_x.clone())
         loss_erm = _bce_extended(logits, vec_y).sum()
 
         with backpack(Variance()):
@@ -52,7 +51,7 @@ class TrainerFishr(TrainerBasic):
                 inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
             )
 
-        for name, param in extend_model.named_parameters():
+        for name, param in self.model.named_parameters():
             print(name)
             print(".grad.shape:             ", param.variance.shape)
 
