@@ -15,8 +15,10 @@ def mk_dann(parent_class=AModelClassif):
         The model is trained to solve two tasks:
         1. Standard image classification.
         2. Domain classification.
-        Here for, a feature extractor is adversarially trained to minimize the loss of the image classifier and maximize the loss of the domain classifier.
-        For more details, see: Ganin, Yaroslav, et al. "Domain-adversarial training of neural networks." The journal of machine learning research 17.1 (2016): 2096-2030.
+        Here for, a feature extractor is adversarially trained to minimize the loss of the image classifier
+        and maximize the loss of the domain classifier.
+        For more details, see: Ganin, Yaroslav, et al. "Domain-adversarial training of neural networks."
+        The journal of machine learning research 17.1 (2016): 2096-2030.
 
     Args:
         parent_class (AModel, optional): Class object determining the task
@@ -31,7 +33,8 @@ def mk_dann(parent_class=AModelClassif):
         alpha: total_loss = task_loss + \alpha * regularization_loss
         net_encoder: neural network to extract the features, input: training data
         net_classifier: neural network, input: output of net_encoder, output: label prediction
-        net_discriminator: neural network, input: output of net_encoder, output: prediction of training domain
+        net_discriminator: neural network, input: output of net_encoder,
+            output: prediction of training domain
     """
     
     class ModelDAN(parent_class):
