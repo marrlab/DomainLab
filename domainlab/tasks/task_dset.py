@@ -6,7 +6,6 @@ from domainlab.tasks.b_task_classif import NodeTaskDictClassif  # abstract class
 
 def mk_task_dset(isize,
                  taskna="task_custom",  # name of the task
-                 dict_domain2dset=None,
                  dim_y=None,
                  list_str_y=None,
                  parent=NodeTaskDictClassif,
@@ -24,8 +23,6 @@ def mk_task_dset(isize,
             """
             set member variables
             """
-            if dict_domain2dset is not None:
-                self.dict_dset_all = dict_domain2dset
             self._name = taskna
 
             if list_str_y is None and dim_y is None:
