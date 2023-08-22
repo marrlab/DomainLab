@@ -18,7 +18,7 @@ def test_mk_exp():
     """
     # specify domain generalization task
 
-    task = mk_task_dset(isize=ImSize(3, 28, 28),  taskna="custom_task")
+    task = mk_task_dset(isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
     task.add_domain(name="domain1",
                     dset_tr=DsetMNISTColorSoloDefault(0),
                     dset_val=DsetMNISTColorSoloDefault(1))
