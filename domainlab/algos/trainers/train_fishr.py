@@ -42,32 +42,22 @@ class TrainerFishr(TrainerBasic):
         """
         use backpack
         """
-        #extend_model = extend(copy.deepcopy(self.model.net))
-        # logits = extend_model.cal_logit_y(tensor_x.clone()).clone()
-        # logits = extend_model(tensor_x.clone()).clone()
-        logits = self.model.cal_logit_y(tensor_x.clone()).clone()
+        # extend_model = extend(copy.deepcopy(self.model.net.net_torchvision))
+        extend_model = extend(self.model.net.net_torchvision, use_converter=True)
+        logits = extend_model(tensor_x.clone())
         loss_erm = _bce_extended(logits, vec_y).sum()
 
-
-        with backpack(BatchGrad()):
+        with backpack(Variance()):
             loss_erm.backward(
-                inputs=list(self.model.parameters()), retain_graph=True, create_graph=True)
+                inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
+            )
 
-        # FIXME: OBJECTS HAS NO attribute grad_batch
-        dict_grads = OrderedDict(
-            [(name, weights.grad_batch.clone().view(weights.grad_batch.size(0), -1))
-             for (name, weights) in self.model.net.named_parameters()])
-
-        #  backpack should be able to compute the variance directly
-        #with backpack(Variance()):
-        #    loss_erm.backward(
-        #        inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
-        #    )
+        for name, param in extend_model.named_parameters():
+            print(name)
+            print(".grad.shape:             ", param.variance.shape)
 
         dict_variance = OrderedDict(
-            [(name, weights.variance.clone().view(weights.variance.size(0), -1))
+            [(name, weights.variance.clone())
              for name, weights in self.model.named_parameters()
-            ]
-        )
-
+             ])
         return 0
