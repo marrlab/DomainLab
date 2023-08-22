@@ -76,9 +76,9 @@ class ObVisitor(AObVisitor):
             # other exceptions will terminate the python script
             # this can happen if loss is increasing, model never get selected
             logger = Logger.get_logger()
-            logger.error(err)
-            logger.error("this error can occur if model selection criteria is worsening, "
-                         "model never get persisted")
+            logger.warning(err)
+            logger.warning("this error can occur if model selection criteria is worsening, "
+                           "model never get persisted, no performance metric is reported")
             return
 
         model_ld = model_ld.to(self.device)
