@@ -43,11 +43,10 @@ class TrainerFishr(TrainerBasic):
         """
         use backpack
         """
-        logits = self.model.cal_logit_y(tensor_x.clone())
-        loss_erm = _bce_extended(logits, vec_y).sum()
+        loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
 
         with backpack(Variance()):
-            loss_erm.backward(
+            loss.backward(
                 inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
             )
 
