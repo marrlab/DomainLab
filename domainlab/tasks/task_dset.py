@@ -6,7 +6,7 @@ from domainlab.tasks.b_task_classif import NodeTaskDictClassif  # abstract class
 
 def mk_task_dset(isize,
                  taskna="task_custom",  # name of the task
-                 dict_domain2dset=None,
+                 dim_y=None,
                  list_str_y=None,
                  parent=NodeTaskDictClassif,
                  succ=None):
@@ -19,17 +19,20 @@ def mk_task_dset(isize,
         """
         Use dictionaries to create train and test domain split
         """
-        def conf(self, args):
+        def conf_without_args(self):
             """
             set member variables
             """
-            if dict_domain2dset is not None:
-                self.dict_dset_all = dict_domain2dset
             self._name = taskna
-            self._args = args  # for debug
-            self.list_str_y = list_str_y
+
+            if list_str_y is None and dim_y is None:
+                raise RuntimeError("arguments list_str_y and dim_y can not be both None!")
+
+            self.list_str_y = list_str_y   # list_str_y has to be initialized before dim_y
+            self.dim_y = dim_y
+
             if self.list_str_y is None:
-                self.list_str_y=[f"class{ele}" for ele in range(0, 10)]
+                self.list_str_y = [f"class{ele}" for ele in range(0, self.dim_y)]
             self.isize = isize
 
         def get_dset_by_domain(self, args, na_domain, split=False):
@@ -38,13 +41,13 @@ def mk_task_dset(isize,
             """
             return self.dict_dset_all[na_domain]
 
-        def init_business(self, args):
+        def init_business(self, args, node_algo_builder=None):
             """
             create a dictionary of datasets
             """
-            self.conf(args)
+            self._args = args  # for debug
             self.set_list_domains(list(self.dict_dset_all.keys()))
-            super().init_business(args)
+            super().init_business(args, node_algo_builder)
 
         def add_domain(self, name, dset_tr, dset_val=None):
             """
