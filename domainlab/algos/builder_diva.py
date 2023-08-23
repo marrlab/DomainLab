@@ -20,6 +20,9 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
     Builder pattern to build different component for experiment with DIVA
     """
     def get_trainer(self, args):
+        """
+        chain of responsibility pattern for fetching trainer from dictionary
+        """
         trainer = TrainerChainNodeGetter(args)(default="visitor")
         return trainer
 

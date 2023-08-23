@@ -15,6 +15,9 @@ def make_basic_trainer(class_name_model):
         """NodeAlgoBuilderCustom."""
 
         def get_trainer(self, args):
+            """
+            chain of responsibility pattern for fetching trainer from commandline parsed arguments
+            """
             trainer = TrainerChainNodeGetter(args)(default="basic")
             return trainer
 
