@@ -18,7 +18,7 @@ def mk_exp(task, model, trainer, test_domain, batchsize):
     parser = mk_parser_main()
     conf = parser.parse_args(str_arg.split())
     device = get_device(conf)
-    exp = Exp(conf, task)   # FIXME: trainer does not need to be executed twice
+    exp = Exp(conf, task, model=model)   # FIXME: trainer does not need to be executed twice
     model_sel = MSelOracleVisitor(MSelValPerf(max_es=conf.es))
     observer = ObVisitor(exp, model_sel, device)
     exp.trainer.init_business(model, task, observer, device, conf)
