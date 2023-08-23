@@ -39,9 +39,15 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._dict_domain2filepath_list_im_val = {}
         self._dict_domain2filepath_list_im_te = {}
         self.dict_class_label_ind2name = None
+        self.conf_without_args()  # configuration without init_business
+
+    def conf_without_args(self):
+        """
+        configuration without init_business
+        """
 
     @abstractmethod
-    def init_business(self, args):
+    def init_business(self, args, node_algo_builder=None):
         """
         construct task
         """
