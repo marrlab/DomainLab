@@ -33,6 +33,8 @@ class Exp():
         self.args = args
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         self.task.init_business(node_algo_builder=algo_builder, args=args)
+        # jigen algorithm builder has method dset_decoration_args_algo, which could AOP 
+        # into the task intilization process
         self.trainer, self.model, observer, device = algo_builder.init_business(self)
         if model is not None:
             self.model = model
@@ -40,6 +42,7 @@ class Exp():
         self.epochs = self.args.epos
         self.epoch_counter = 1
         if not self.trainer.flag_initialized:
+            # for matchdg
             self.trainer.init_business(self.model, self.task, observer, device, args)
 
     def execute(self, num_epochs=None):
