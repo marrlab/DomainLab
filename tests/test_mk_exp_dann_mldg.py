@@ -11,22 +11,23 @@ from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.models.model_dann import mk_dann
 from domainlab.tasks.utils_task import ImSize
 
+
 def test_mk_exp_dann_mldg():
     """
     test mk experiment API with "dann" model and "mldg" trainer
     """
 
     # specify domain generalization task
-    task = mk_task_dset(dim_y = 10, isize=ImSize(3, 28, 28),  taskna="custom_task")
+    task = mk_task_dset(dim_y=10, isize=ImSize(3, 28, 28), taskna="custom_task")
     task.add_domain(name="domain1",
-                dset_tr=DsetMNISTColorSoloDefault(0),
-                dset_val=DsetMNISTColorSoloDefault(1))
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
     task.add_domain(name="domain2",
-                dset_tr=DsetMNISTColorSoloDefault(2),
-                dset_val=DsetMNISTColorSoloDefault(3))
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
     task.add_domain(name="domain3",
-                dset_tr=DsetMNISTColorSoloDefault(4),
-                dset_val=DsetMNISTColorSoloDefault(5))
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
 
     # specify task-specific parameters
     num_output_net_classifier = task.dim_y
