@@ -17,21 +17,37 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
 _bce_extended = extend(nn.CrossEntropyLoss(reduction='none'))
 
+
 class TrainerFishr(TrainerBasic):
     """
-    Trainer Domain Invariant Adversarial Learning
+    Minimize the variance of the per domain variance of gradients
     """
     def tr_epoch(self, epoch):
+        list_loaders = list(self.dict_loader_tr.values())
+        loaders_zip = zip(*list_loaders)
         self.model.train()
         self.model.convert4backpack()
         self.epo_loss_tr = 0
-        for ind_batch, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
-            tensor_x, vec_y, vec_d = \
-                tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
+
+        for ind_batch, tuple_data_domains_batch in enumerate(loaders_zip):
             self.optimizer.zero_grad()
-            loss_erm = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
-            loss_fishr = self.cal_fishr(tensor_x, vec_y, vec_d)
-            loss = loss_erm.sum() + self.aconf.gamma_reg * loss_fishr
+            list_dict_var_grads = []
+            list_loss_erm = []
+            for tuple_x_y_d_single_domain in tuple_data_domains_batch:  # traverse each domain
+                # first dimension of tensor_x is batchsize
+                tensor_x, vec_y, vec_d = tuple_x_y_d_single_domain
+                tensor_x, vec_y, vec_d = \
+                    tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
+                dict_var_grads_single_domain = self.cal_dict_variance_grads(tensor_x, vec_y)
+                list_dict_var_grads.append(dict_var_grads_single_domain)
+                loss_erm = self.model.cal_loss(tensor_x, vec_y, vec_d)
+                list_loss_erm.append(loss_erm.sum())   # FIXME: let sum() to be configurable
+            # now len(list_dict_var_grads) = (# domains)
+
+            dict_layerwise_var_var_grads = self.variance_between_dict(list_dict_var_grads)
+
+            loss_fishr = sum(dict_layerwise_var_var_grads.values())
+            loss = sum(list_loss_erm) + self.aconf.gamma_reg * loss_fishr
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
@@ -75,6 +91,7 @@ class TrainerFishr(TrainerBasic):
         dict_v_pow = self.cal_power_single_dict(dict_mean)
 
         dict_fishr = {dict_mean_v2[key]-dict_v_pow[key] for key in dict_v_pow.keys()}
+        return dict_fishr
 
     def cal_power_single_dict(self, mdict):
         """
@@ -89,9 +106,13 @@ class TrainerFishr(TrainerBasic):
         dict_mean = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in dict_d1.keys()}
         return dict_mean
 
-    def cal_fishr(self, tensor_x, vec_y, vec_d):
+    def cal_dict_variance_grads(self, tensor_x, vec_y):
         """
-        use backpack
+        input should be tensor with the first dimension to be the batch size
+        this function then use backpack to create a dictionary where the key
+        is the name for the layer of a neural network, the value is the diagonal
+        variance of each scalar component of the gradient of the loss w.r.t.
+        the parameter: {"layer1": Tensor[batchsize=32, 64, 3, 11, 11 ]} as a convolution kernel
         """
         loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
 
@@ -108,4 +129,4 @@ class TrainerFishr(TrainerBasic):
             [(name, weights.variance.clone())
              for name, weights in self.model.named_parameters()
              ])
-        return 0
+        return dict_variance
