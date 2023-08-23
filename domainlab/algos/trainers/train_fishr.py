@@ -33,9 +33,9 @@ class TrainerFishr(TrainerBasic):
             self.optimizer.zero_grad()
             list_dict_var_grads = []
             list_loss_erm = []
-            for tuple_x_y_d_single_domain in tuple_data_domains_batch:  # traverse each domain
+            for list_x_y_d_single_domain in tuple_data_domains_batch:  # traverse each domain
                 # first dimension of tensor_x is batchsize
-                tensor_x, vec_y, vec_d = tuple_x_y_d_single_domain
+                tensor_x, vec_y, vec_d, *_ = tuple(list_x_y_d_single_domain)
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 dict_var_grads_single_domain = self.cal_dict_variance_grads(tensor_x, vec_y)
@@ -45,8 +45,8 @@ class TrainerFishr(TrainerBasic):
             # now len(list_dict_var_grads) = (# domains)
 
             dict_layerwise_var_var_grads = self.variance_between_dict(list_dict_var_grads)
-
-            loss_fishr = sum(dict_layerwise_var_var_grads.values())
+            dict_layerwise_var_var_grads_sum = {key: val.sum() for key, val in dict_layerwise_var_var_grads.items()}
+            loss_fishr = sum(dict_layerwise_var_var_grads_sum.values())
             loss = sum(list_loss_erm) + self.aconf.gamma_reg * loss_fishr
             loss.backward()
             self.optimizer.step()
@@ -70,7 +70,6 @@ class TrainerFishr(TrainerBasic):
          coming from domain i, and $var$ means the variance.
          Let $v=1/n\\sum_i v_i represent the mean across n domains
          We are interested in $1/n\\sum_(v_i-v)^2=1/n \\sum_i v_i^2 - v^2$
-        """
         import torch
         dict_d1 = {f"layer{i}": torch.rand(3,3) for i in range(5)}
         dict_d2 = {f"layer{i}": torch.rand(3,3) for i in range(5)}
@@ -79,32 +78,31 @@ class TrainerFishr(TrainerBasic):
         dict_key_list = {key: [ele[key] for ele in list_dict] for key in dict_d1.keys()}
         tensor_stack = torch.stack(dict_key_list["layer1"])
         torch.mean(tensor_stack, dim=0)
-
         # use 1
-        dict_mean = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in dict_d1.keys()}
         # e
         {torch.pow(dict_d1[key], 2) for key in dict_d1}
-
-        list_dict_pow = [{torch.pow(dict_ele[key], 2) for key in dict_d1} for dict_ele in list_dict]
-
-        dict_mean_v2 = self.cal_mean_across_dict(list_dict_pow)
-        dict_v_pow = self.cal_power_single_dict(dict_mean)
-
-        dict_fishr = {dict_mean_v2[key]-dict_v_pow[key] for key in dict_v_pow.keys()}
-        return dict_fishr
+        """
+        dict_d1 = list_dict_var_paragrad[0]
+        list_dict_var_paragrad_squared = [{key:torch.pow(dict_ele[key], 2) for key in dict_d1} for dict_ele in list_dict_var_paragrad]
+        dict_mean_square_var_paragrad = self.cal_mean_across_dict(list_dict_var_paragrad_squared)   # \bar(v^2)
+        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict_var_paragrad]), dim=0) for key in dict_d1.keys()}
+        dict_square_mean_var_paragrad = self.cal_power_single_dict(dict_mean_var_paragrad)  # $\\bar(v)^2$
+        # now we do \bar(v^2)- (\bar(v))²
+        dict_layerwise_var_var_grads = {key:dict_mean_square_var_paragrad[key]-dict_square_mean_var_paragrad[key] for key in dict_square_mean_var_paragrad.keys()}
+        return dict_layerwise_var_var_grads
 
     def cal_power_single_dict(self, mdict):
         """
         """
-        dict_rst = {torch.pow(mdict[key], 2) for key in mdict}
+        dict_rst = {key:torch.pow(mdict[key], 2) for key in mdict}
         return dict_rst
 
-    def cal_mean_across_dict(list_dict):
+    def cal_mean_across_dict(self, list_dict):
         """
         """
         dict_d1 = list_dict[0]
-        dict_mean = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in dict_d1.keys()}
-        return dict_mean
+        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in dict_d1.keys()}
+        return dict_mean_var_paragrad
 
     def cal_dict_variance_grads(self, tensor_x, vec_y):
         """
