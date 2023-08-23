@@ -17,7 +17,7 @@ def test_mk_exp_dann_mldg():
     """
 
     # specify domain generalization task
-    task = mk_task_dset(isize=ImSize(3, 28, 28),  taskna="custom_task")
+    task = mk_task_dset(dim_y = 10, isize=ImSize(3, 28, 28),  taskna="custom_task")
     task.add_domain(name="domain1",
                 dset_tr=DsetMNISTColorSoloDefault(0),
                 dset_val=DsetMNISTColorSoloDefault(1))
@@ -29,7 +29,7 @@ def test_mk_exp_dann_mldg():
                 dset_val=DsetMNISTColorSoloDefault(5))
 
     # specify task-specific parameters
-    num_output_net_classifier = 10
+    num_output_net_classifier = task.dim_y
     num_output_net_discriminator = 2
     list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
     list_str_d = ["domain1", "domain2", "domain3"]
