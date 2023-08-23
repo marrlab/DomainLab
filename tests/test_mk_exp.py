@@ -18,7 +18,7 @@ def test_mk_exp():
     """
     # specify domain generalization task
 
-    task = mk_task_dset(isize=ImSize(3, 28, 28),  taskna="custom_task")
+    task = mk_task_dset(isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
     task.add_domain(name="domain1",
                     dset_tr=DsetMNISTColorSoloDefault(0),
                     dset_val=DsetMNISTColorSoloDefault(1))
@@ -30,10 +30,9 @@ def test_mk_exp():
                     dset_val=DsetMNISTColorSoloDefault(5))
 
     # specify backbone to use
-    dim_y = 10
     backbone = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
     num_final_in = backbone.fc.in_features
-    backbone.fc = nn.Linear(num_final_in, dim_y)
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
     model = mk_deepall()(backbone)
