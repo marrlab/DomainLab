@@ -12,8 +12,11 @@ class NodeTaskDGClassif(NodeTaskDG):
     abstract class for classification task
     """
     def __init__(self, succ=None):
-        super().__init__(succ)
+        # just for declaration of variables
         self._list_str_y = None
+        self._dim_y = None
+        # super() must come last instead of in the beginning
+        super().__init__(succ)
 
     @property
     def list_str_y(self):
@@ -32,7 +35,18 @@ class NodeTaskDGClassif(NodeTaskDG):
     @property
     def dim_y(self):
         """classification dimension"""
-        return len(self.list_str_y)
+        if self._dim_y is None:
+            if self.list_str_y is not None:
+                return len(self.list_str_y)
+            raise RuntimeError("attribute list_str_y not set yet")
+        return self._dim_y
+
+    @dim_y.setter
+    def dim_y(self, dim_y):
+        """
+        setter for dim_y, for classification task, the number of labels to predict
+        """
+        self._dim_y = dim_y
 
     def sample_sav(self, root, batches=5, subfolder_na="task_sample"):
         """
