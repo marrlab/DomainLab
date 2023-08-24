@@ -1,0 +1,21 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+    branches:
+      - "master"
+  schedule:
+    # every two weeks on Monday at 3 am
+    - cron: "0 3/336 * * 1"
+
+jobs:
+  docs:
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
