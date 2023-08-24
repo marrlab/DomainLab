@@ -8,5 +8,6 @@ def test_deepall_mldg():
     """
     train DeepAll with MLDG
     """
-    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=deepall --trainer=fishr --nname=alexnet"
+    args = ("--te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=deepall --trainer=fishr "
+            "--nname=alexnet")
     utils_test_algo(args)

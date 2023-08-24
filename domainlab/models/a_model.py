@@ -6,18 +6,12 @@ import abc
 
 from torch import nn
 
-try:
-    from backpack import extend
-except:
-    backpack = None
-
-
-
 
 class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
@@ -49,4 +43,3 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param d:
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
-

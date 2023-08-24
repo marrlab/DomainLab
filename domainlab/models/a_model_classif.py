@@ -10,14 +10,10 @@ import torch
 from torch import nn as nn
 from torch.nn import functional as F
 
-
 try:
-    from backpack import backpack, extend
-    from backpack.extensions import BatchGrad, Variance
+    from backpack import extend
 except:
     backpack = None
-
-
 
 from domainlab.models.a_model import AModel
 from domainlab.utils.utils_class import store_args
@@ -149,7 +145,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 for list4one_obs_path_prob_target in list_pair_path_pred:
                     list_str_one_obs_path_target_predprob = [
                         str(ele) for ele in list4one_obs_path_prob_target]
-                    str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
+                    str_line = (" " + spliter + " ").join(list_str_one_obs_path_target_predprob)
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
                     print(str_line, file=handle_file)

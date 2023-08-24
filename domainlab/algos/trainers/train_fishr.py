@@ -45,7 +45,8 @@ class TrainerFishr(TrainerBasic):
             # now len(list_dict_var_grads) = (# domains)
 
             dict_layerwise_var_var_grads = self.variance_between_dict(list_dict_var_grads)
-            dict_layerwise_var_var_grads_sum = {key: val.sum() for key, val in dict_layerwise_var_var_grads.items()}
+            dict_layerwise_var_var_grads_sum = \
+                {key: val.sum() for key, val in dict_layerwise_var_var_grads.items()}
             loss_fishr = sum(dict_layerwise_var_var_grads_sum.values())
             loss = sum(list_loss_erm) + self.aconf.gamma_reg * loss_fishr
             loss.backward()
@@ -83,15 +84,20 @@ class TrainerFishr(TrainerBasic):
         {torch.pow(dict_d1[key], 2) for key in dict_d1}
         """
         dict_d1 = list_dict_var_paragrad[0]
-        list_dict_var_paragrad_squared = [{key: torch.pow(dict_ele[key], 2) for key in dict_d1} for dict_ele in
-                                          list_dict_var_paragrad]
-        dict_mean_square_var_paragrad = self.cal_mean_across_dict(list_dict_var_paragrad_squared)  # \bar(v^2)
-        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict_var_paragrad]), dim=0) for
-                                  key in dict_d1.keys()}
-        dict_square_mean_var_paragrad = self.cal_power_single_dict(dict_mean_var_paragrad)  # $\\bar(v)^2$
+        # \bar(v^2)
+        list_dict_var_paragrad_squared = [{key: torch.pow(dict_ele[key], 2) for key in dict_d1}
+                                          for dict_ele in list_dict_var_paragrad]
+        dict_mean_square_var_paragrad = self.cal_mean_across_dict(list_dict_var_paragrad_squared)
+        # $\\bar(v)^2$
+        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key]
+                                                               for ele in list_dict_var_paragrad]),
+                                                  dim=0)
+                                  for key in dict_d1.keys()}
+        dict_square_mean_var_paragrad = self.cal_power_single_dict(dict_mean_var_paragrad)
         # now we do \bar(v^2)- (\bar(v))²
-        dict_layerwise_var_var_grads = {key: dict_mean_square_var_paragrad[key] - dict_square_mean_var_paragrad[key] for
-                                        key in dict_square_mean_var_paragrad.keys()}
+        dict_layerwise_var_var_grads = \
+            {key: dict_mean_square_var_paragrad[key] - dict_square_mean_var_paragrad[key]
+             for key in dict_square_mean_var_paragrad.keys()}
         return dict_layerwise_var_var_grads
 
     def cal_power_single_dict(self, mdict):
@@ -104,8 +110,9 @@ class TrainerFishr(TrainerBasic):
         """
         """
         dict_d1 = list_dict[0]
-        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in
-                                  dict_d1.keys()}
+        dict_mean_var_paragrad = \
+            {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0)
+             for key in dict_d1.keys()}
         return dict_mean_var_paragrad
 
     def cal_dict_variance_grads(self, tensor_x, vec_y):
