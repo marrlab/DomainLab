@@ -203,7 +203,21 @@ def sample_grid(param_config):
                            f'[categorical, uniform, loguniform, normal, lognormal]')
     return param_grid
 
-def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
+def build_param_grid_of_shared_params(shared_df):
+    '''
+    go back from the data frame format of the shared hyperparamters to a list format
+    '''
+    if shared_df is None:
+        return None
+    shared_grid = {}
+    for key in shared_df['params'].iloc[0].keys():
+        grid_points = []
+        for i in shared_df['params'].keys():
+            grid_points.append(shared_df['params'][i][key])
+        shared_grid[key] = np.array(grid_points)
+    return shared_grid
+
+def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd.DataFrame):
     """create grid for one task and add it to the dataframe"""
     if 'hyperparameters' in config.keys():
         param_grids = {}
@@ -229,6 +243,10 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
         # create the grid from the individual parameter grids
         # constraints are not respected in this step
         grid_df_prior = pd.DataFrame(columns=['params'])
+        shared_grid = build_param_grid_of_shared_params(shared_df)
+        if shared_grid is not None:
+            for key in shared_grid.keys():
+                param_grids[key] = shared_grid[key]
         add_next_param_from_list(param_grids, {}, grid_df_prior)
 
         # add referenced params and check constraints
@@ -262,9 +280,12 @@ def sample_gridsearch(config: dict,
 
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
+    shared_samples = pd.DataFrame(columns=['task', 'algo', 'params'])
+    shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+    grid_task(shared_samples, 'all', shared_val, None)
     for key, val in config.items():
         if sampling.is_dict_with_key(val, "aname"):
-            grid_task(samples, key, val)
+            grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
                         f'{samples[samples["algo"] == val["aname"]].shape[0]}')
 

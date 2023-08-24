@@ -54,6 +54,7 @@ def test_hyperparameter_gridsearch():
         assert par['p2'] % 1 == pytest.approx(0)
         assert par['p4'] == par['p3']
         assert par['p5'] == 2 * par['p3'] / par['p1']
+        assert par['p1_shared'] == par['p1']
 
     a2samples = samples[samples['algo'] == 'Algo2']
     for par in a2samples['params']:
