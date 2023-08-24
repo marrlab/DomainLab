@@ -6,6 +6,7 @@ Samples the hyperparameters according to a benchmark configuration file.
 # Inherited Classes
 # Functions to sample hyper-parameters and log into csv file
 """
+import copy
 import os
 import json
 from pydoc import locate
@@ -207,7 +208,8 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
     return True
 
 
-def sample_parameters(params: List[Hyperparameter], constraints) -> dict:
+def sample_parameters(init_params: List[Hyperparameter], constraints,
+                      shared_config, shared_samples) -> dict:
     """
     Tries to sample from the hyperparameter list.
 
@@ -215,8 +217,44 @@ def sample_parameters(params: List[Hyperparameter], constraints) -> dict:
     constraints is found.
     """
     for _ in range(10_000):
+        params = copy.deepcopy(init_params)
         for par in params:
             par.sample()
+        # add a random hyperparameter from the shared hyperparameter dataframe
+        if shared_samples is not None:
+            # sample one line from the pandas dataframe
+            shared_samp = shared_samples.sample(1).iloc[0]['params']
+            for key in shared_samp.keys():
+                par = Hyperparameter(key)
+                par.val = shared_samp[key]
+                par.name = key
+                params.append(par)
+        # check constrained
+        if check_constraints(params, constraints):
+            samples = {}
+            for par in params:
+                samples[par.name] = par.val
+            return samples
+
+    # if there was no sample found fullfilling the constrained above,
+    # this may be due to the shared hyperparameters.
+    # If so, new samples are generated for the shared hyperparameters
+    logger = Logger.get_logger()
+    logger.warning(f"The constrainds coundn't be met with the shared Hyperparameters, "
+                   f"shared dataframe pool will be ignored for now.")
+    for _ in range(10_000):
+        params = copy.deepcopy(init_params)
+        # add the shared hyperparameter as a sampled hyperparameter
+        if shared_samples is not None:
+            shared_samp = shared_samples.sample(1).iloc[0]['params']
+            for key in shared_samp.keys():
+                par = SampledHyperparameter(key, shared_config[key])
+                par.sample()
+                par.name = key
+                params.append(par)
+        for par in params:
+            par.sample()
+        # check constrained
         if check_constraints(params, constraints):
             samples = {}
             for par in params:
@@ -227,7 +265,12 @@ def sample_parameters(params: List[Hyperparameter], constraints) -> dict:
                        "Are the bounds and constraints reasonable?")
 
 
-def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, config: dict):
+def sample_task(num_samples: int,
+                sample_df: pd.DataFrame,
+                task_name: str,
+                config: dict,
+                shared_config: dict,
+                shared_samples: pd.DataFrame):
     """Sample one task and add it to the dataframe"""
     algo = config['aname']
     if 'hyperparameters' in config.keys():
@@ -235,13 +278,13 @@ def sample_task(num_samples: int, sample_df: pd.DataFrame, task_name: str, confi
         # means changing hyper-parameters
         params = []
         for key, val in config['hyperparameters'].items():
-            if key == 'constraints':
+            if key == 'constraints' or key == 'num_shared_param_samples':
                 continue
             params += [get_hyperparameter(key, val)]
 
         constraints = config['hyperparameters'].get('constraints', None)
         for _ in range(num_samples):
-            sample = sample_parameters(params, constraints)
+            sample = sample_parameters(params, constraints, shared_config, shared_samples)
             sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
     else:
         # add single line if no varying hyperparameters are specified.
@@ -274,9 +317,35 @@ def sample_hyperparameters(config: dict,
 
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
+    shared_config_full = config['Shared params']
+    shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
+    if 'Shared params' in config.keys():
+        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        sample_task(shared_config_full['num_shared_param_samples'], shared_samples_full, 'all', shared_val, None, None)  # fill up the dataframe shared samples
+    else:
+        shared_samples_full = None
     for key, val in config.items():
         if is_dict_with_key(val, "aname"):
-            sample_task(num_samples, samples, key, val)
+            shared_samples = shared_samples_full.copy()
+            shared_config = shared_config_full.copy()
+            if 'shared' in val.keys():
+                shared = val['shared']
+            else:
+                shared = []
+            for line_num in range(shared_samples.shape[0]):
+                hyper_p_dict = shared_samples.iloc[line_num]['params']
+                key_list = copy.deepcopy(list(hyper_p_dict.keys()))
+                for key in key_list:
+                    if key not in shared:
+                        del hyper_p_dict[key]
+                shared_samples.iloc[line_num]['params'] = hyper_p_dict
+            for key in key_list:
+                if not key == 'num_shared_param_samples':
+                    if key not in shared:
+                        del shared_config[key]
+            # remove all duplicates
+            shared_samples = shared_samples[~shared_samples['params'].apply(tuple).duplicated()]
+            sample_task(num_samples, samples, key, val, shared_config, shared_samples)
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
 
