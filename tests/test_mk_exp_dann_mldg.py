@@ -11,8 +11,12 @@ from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.models.model_dann import mk_dann
 from domainlab.tasks.utils_task import ImSize
 
+def test_mk_exp_dann():
+    test_trainer_dann(trainer="mldg")
+    test_trainer_dann(trainer="dial")
+    test_trainer_dann(trainer="dial")
 
-def test_mk_exp_dann_mldg():
+def test_trainer_dann(trainer):
     """
     test mk experiment API with "dann" model and "mldg" trainer
     """
@@ -50,5 +54,5 @@ def test_mk_exp_dann_mldg():
     model = mk_dann()(list_str_y, list_str_d, alpha, net_encoder, net_classifier, net_discriminator)
 
     # make trainer for model
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
+    exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
     exp.execute(num_epochs=3)
