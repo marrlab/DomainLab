@@ -26,8 +26,9 @@ def round_to_discreate_grid_uniform(grid, param_config):
     if maxi - mini < param_config['step']:
         raise RuntimeError('distance between max and min to small for defined step size')
 
-    discreate_gird = np.arange(mini, maxi, step=param_config['step'])
+    discreate_gird = np.arange(mini, maxi + param_config['step'], step=param_config['step'])
     for num, elem in enumerate(list(grid)):
+        # search for the closest allowed grid point to the scalar elem
         grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
     return np.unique(grid)
 
@@ -61,8 +62,9 @@ def uniform_grid(param_config):
     maxi = float(param_config['max'])
     mini = float(param_config['min'])
     step = (maxi - mini) / num
-    # linspace does exclude the end of the interval and include the beginning
-    grid = np.linspace(mini + step / 2, maxi + step / 2, num)
+    # linspace does include the end of the interval and include the beginning
+    # we move away from mini and maxi to sample inside the open interval (mini, maxi)
+    grid = np.linspace(mini + step / 2, maxi - step / 2, num)
     if 'step' in param_config.keys():
         return round_to_discreate_grid_uniform(grid, param_config)
     return grid
@@ -220,11 +222,11 @@ def build_param_grid_of_shared_params(shared_df):
 def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd.DataFrame):
     """create grid for one task and add it to the dataframe"""
     if 'hyperparameters' in config.keys():
-        param_grids = {}
+        dict_param_grids = {}
         referenced_params = {}
         for param_name in config['hyperparameters'].keys():
             param_config = config['hyperparameters'][param_name]
-            if not param_name == 'constraints':
+            if  not param_name == 'constraints':
                 if not 'num' in param_config.keys() \
                         and not 'reference' in param_config.keys() \
                         and not param_config['distribution'] == 'categorical':
@@ -238,16 +240,18 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
                     referenced_params.update({param_name: param_config['reference']})
                 # sample other parameter
                 elif param_name != 'constraints':
-                    param_grids.update({param_name: sample_grid(param_config)})
+                    dict_param_grids.update({param_name: sample_grid(param_config)})
 
         # create the grid from the individual parameter grids
         # constraints are not respected in this step
         grid_df_prior = pd.DataFrame(columns=['params'])
-        shared_grid = build_param_grid_of_shared_params(shared_df)
-        if shared_grid is not None:
-            for key in shared_grid.keys():
-                param_grids[key] = shared_grid[key]
-        add_next_param_from_list(param_grids, {}, grid_df_prior)
+        dict_shared_grid = build_param_grid_of_shared_params(shared_df)
+        if 'shared' in config.keys():
+            dict_shared_grid = {key: dict_shared_grid[key] for key in config['shared']}
+            if dict_shared_grid is not None:
+                for key in dict_shared_grid.keys():
+                    dict_param_grids[key] = dict_shared_grid[key]
+        add_next_param_from_list(dict_param_grids, {}, grid_df_prior)
 
         # add referenced params and check constraints
         add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
@@ -283,7 +287,7 @@ def sample_gridsearch(config: dict,
     shared_samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     if 'Shared params' in config.keys():
         shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
-        grid_task(shared_samples, 'all', shared_val, None)
+        grid_task(shared_samples, 'all', shared_val, None)  # fill up the dataframe shared samples
     else:
         shared_samples = None
     for key, val in config.items():

@@ -10,6 +10,13 @@ Shared params:
     step: 0
     num: 3
 
+  p2_shared:
+    distribution: normal
+    mean: 5
+    std: 10
+    step: 1
+    num: 2
+
 # currently, everything which contains the aname property is considered as a task.
 Task1:  # name
   aname: Algo1
@@ -20,6 +27,10 @@ Task1:  # name
   # - values and datatype if categorical
   # OR
   # reference, use this for equality constraints.
+  shared:
+    - p1_shared
+    - p2_shared
+
   hyperparameters:
     p1:
       distribution: uniform    # uniform | loguniform | normal | lognormal | categorical
@@ -84,6 +95,9 @@ Task1:  # name
 
 Task2:  # name
   aname: Algo2
+
+  shared:
+    - p1_shared
 
   hyperparameters:
     p1:

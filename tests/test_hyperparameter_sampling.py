@@ -63,9 +63,12 @@ def test_hyperparameter_gridsearch():
         assert par['p3'] == 2 * par['p2']
         p_4 = par['p4']
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
+        assert 'p2_shared' not in par.keys()
 
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
+    assert 'p1_shared' not in a3samples.keys()
+    assert 'p2_shared' not in a3samples.keys()
 
     # test sampling seed
     sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
