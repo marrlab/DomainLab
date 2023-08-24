@@ -20,9 +20,8 @@ def round_to_discreate_grid_uniform(grid, param_config):
     '''
     if param_config['step'] == 0:
         return grid
-    mini = param_config['min']
-    maxi = param_config['max']
-
+    mini = float(param_config['min'])
+    maxi = float(param_config['max'])
     if maxi - mini < param_config['step']:
         raise RuntimeError('distance between max and min to small for defined step size')
 
