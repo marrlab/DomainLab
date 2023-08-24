@@ -1,15 +1,14 @@
 """
 use random start to generate adversarial images
 """
-import torch
-import copy
-from torch.autograd import Variable
-import torch.nn as nn
+
 from collections import OrderedDict
+import torch
+from torch import nn
 
 try:
     from backpack import backpack, extend
-    from backpack.extensions import BatchGrad, Variance
+    from backpack.extensions import Variance
 except:
     backpack = None
 
@@ -22,6 +21,7 @@ class TrainerFishr(TrainerBasic):
     """
     Minimize the variance of the per domain variance of gradients
     """
+
     def tr_epoch(self, epoch):
         list_loaders = list(self.dict_loader_tr.values())
         loaders_zip = zip(*list_loaders)
@@ -41,7 +41,7 @@ class TrainerFishr(TrainerBasic):
                 dict_var_grads_single_domain = self.cal_dict_variance_grads(tensor_x, vec_y)
                 list_dict_var_grads.append(dict_var_grads_single_domain)
                 loss_erm = self.model.cal_loss(tensor_x, vec_y, vec_d)
-                list_loss_erm.append(loss_erm.sum())   # FIXME: let sum() to be configurable
+                list_loss_erm.append(loss_erm.sum())  # FIXME: let sum() to be configurable
             # now len(list_dict_var_grads) = (# domains)
 
             dict_layerwise_var_var_grads = self.variance_between_dict(list_dict_var_grads)
@@ -83,25 +83,29 @@ class TrainerFishr(TrainerBasic):
         {torch.pow(dict_d1[key], 2) for key in dict_d1}
         """
         dict_d1 = list_dict_var_paragrad[0]
-        list_dict_var_paragrad_squared = [{key:torch.pow(dict_ele[key], 2) for key in dict_d1} for dict_ele in list_dict_var_paragrad]
-        dict_mean_square_var_paragrad = self.cal_mean_across_dict(list_dict_var_paragrad_squared)   # \bar(v^2)
-        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict_var_paragrad]), dim=0) for key in dict_d1.keys()}
+        list_dict_var_paragrad_squared = [{key: torch.pow(dict_ele[key], 2) for key in dict_d1} for dict_ele in
+                                          list_dict_var_paragrad]
+        dict_mean_square_var_paragrad = self.cal_mean_across_dict(list_dict_var_paragrad_squared)  # \bar(v^2)
+        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict_var_paragrad]), dim=0) for
+                                  key in dict_d1.keys()}
         dict_square_mean_var_paragrad = self.cal_power_single_dict(dict_mean_var_paragrad)  # $\\bar(v)^2$
         # now we do \bar(v^2)- (\bar(v))²
-        dict_layerwise_var_var_grads = {key:dict_mean_square_var_paragrad[key]-dict_square_mean_var_paragrad[key] for key in dict_square_mean_var_paragrad.keys()}
+        dict_layerwise_var_var_grads = {key: dict_mean_square_var_paragrad[key] - dict_square_mean_var_paragrad[key] for
+                                        key in dict_square_mean_var_paragrad.keys()}
         return dict_layerwise_var_var_grads
 
     def cal_power_single_dict(self, mdict):
         """
         """
-        dict_rst = {key:torch.pow(mdict[key], 2) for key in mdict}
+        dict_rst = {key: torch.pow(mdict[key], 2) for key in mdict}
         return dict_rst
 
     def cal_mean_across_dict(self, list_dict):
         """
         """
         dict_d1 = list_dict[0]
-        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in dict_d1.keys()}
+        dict_mean_var_paragrad = {key: torch.mean(torch.stack([ele[key] for ele in list_dict]), dim=0) for key in
+                                  dict_d1.keys()}
         return dict_mean_var_paragrad
 
     def cal_dict_variance_grads(self, tensor_x, vec_y):
