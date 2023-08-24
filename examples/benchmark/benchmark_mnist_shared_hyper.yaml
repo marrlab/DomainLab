@@ -23,6 +23,14 @@ Shared params:
       distribution: loguniform
       num: 2
 
+    zy_dim:
+      min: 32
+      max: 96
+      step: 32
+      distribution: uniform
+      num: 2
+
+
 domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
@@ -42,6 +50,7 @@ Task1:  # name
   aname: diva
   shared:
     - gamma_y
+    - zy_dim
   nname_dom: conv_bn_pool_2
 
   hyperparameters:
@@ -59,13 +68,6 @@ Task1:  # name
       distribution: uniform
       num: 2
 
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-
     zd_dim:
       reference: zy_dim
 
@@ -76,20 +78,8 @@ Task2:  # name
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   shared:
     - gamma_y
+    - zy_dim
+  zx_dim: 0
   hyperparameters:
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-
     zd_dim:
       reference: zy_dim
