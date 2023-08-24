@@ -78,4 +78,4 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
                                   total_steps=trainer.num_batches*args.epos,
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
-        return trainer
+        return trainer, model, observer, device

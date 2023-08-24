@@ -46,4 +46,4 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
             ObVisitor(exp, model_sel, device))
         trainer = TrainerChainNodeGetter(args)(default="visitor")
         trainer.init_business(model, task, observer, device, args)
-        return trainer
+        return trainer, model, observer, device
