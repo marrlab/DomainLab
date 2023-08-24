@@ -281,8 +281,11 @@ def sample_gridsearch(config: dict,
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     shared_samples = pd.DataFrame(columns=['task', 'algo', 'params'])
-    shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
-    grid_task(shared_samples, 'all', shared_val, None)
+    if 'Shared params' in config.keys():
+        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        grid_task(shared_samples, 'all', shared_val, None)
+    else:
+        shared_samples = None
     for key, val in config.items():
         if sampling.is_dict_with_key(val, "aname"):
             grid_task(samples, key, val, shared_samples)

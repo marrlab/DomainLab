@@ -2,6 +2,15 @@
 output_dir: "zoutput/benchmarks/hyperparameter_test"
 num_param_samples: 30
 
+
+Shared params:
+  p1_shared:
+    distribution: uniform
+    min: 1
+    max: 3
+    step: 0
+    num: 3
+
 # currently, everything which contains the aname property is considered as a task.
 Task1:  # name
   aname: Algo1
