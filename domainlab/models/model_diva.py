@@ -10,8 +10,40 @@ from domainlab.utils.utils_class import store_args
 
 def mk_diva(parent_class=VAEXYDClassif):
     """
-    DIVA with arbitrary task loss
+    Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
+
+    Details:
+        This method is creating a generative model based on a variational autoencoder, which can
+        reconstruct the input images. Here for, three different encoders with latent variables are
+        trained, each representing a latent subspace for the domain, class and residual features
+        information, respectively. The latent subspaces serve for disentangling the respective
+        sources of variation. To reconstruct the input image, the three latent variables are fed
+        into a decoder.
+        Additionally, two classifiers are trained, which predict the domain and the class label.
+        For more details, see:
+        Ilse, Maximilian, et al. "Diva: Domain invariant variational autoencoders."
+            Medical Imaging with Deep Learning. PMLR, 2020.
+
+    Args:
+        parent_class: Class object determining the task type. Defaults to VAEXYDClassif.
+
+    Returns:
+        ModelDIVA: model inheriting from parent class.
+
+    Input Parameters:
+        zd_dim: size of latent space for domain-specific information
+        zy_dim: size of latent space for class-specific information
+        zx_dim: size of latent space for residual variance
+        chain_node_builder: TODO
+        list_str_y: list of labels
+        list_d_tr: list of training domains
+        gamma_d: weighting term for d classifier
+        gamma_y: weighting term for y classifier
+        beta_d: weighting term for domain encoder
+        beta_x: weighting term for residual variation encoder
+        beta_y: weighting term for class encoder
     """
+
     class ModelDIVA(parent_class):
         """
         DIVA
