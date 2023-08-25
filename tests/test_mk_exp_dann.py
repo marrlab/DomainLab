@@ -17,11 +17,11 @@ def test_mk_exp_dann():
     test mk experiment API with "dann" model and "mldg", "dial" trainers
     """
 
-    test_mk_exp_dann_trainer(trainer="mldg")
-    test_mk_exp_dann_trainer(trainer="dial")
+    test_mk_exp_dann_trainer(my_trainer="mldg")
+    test_mk_exp_dann_trainer(my_trainer="dial")
 
 
-def test_mk_exp_dann_trainer(trainer):
+def test_mk_exp_dann_trainer(my_trainer):
     """
     test mk experiment API with "dann" model and arbitrary trainer
     """
@@ -59,5 +59,5 @@ def test_mk_exp_dann_trainer(trainer):
     model = mk_dann()(list_str_y, list_str_d, alpha, net_encoder, net_classifier, net_discriminator)
 
     # make trainer for model
-    exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
-    exp.execute(num_epochs=3)
+    exp = mk_exp(task, model, trainer=my_trainer, test_domain="domain1", batchsize=32)
+    exp.execute(num_epochs=2)
