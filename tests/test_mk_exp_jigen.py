@@ -1,6 +1,8 @@
 """
 make an experiment using "jigen" model
 """
+from typing import Union, Any
+
 from torch import nn
 from torchvision import models as torchvisionmodels
 from torchvision.models import ResNet50_Weights
@@ -13,8 +15,9 @@ from domainlab.tasks.utils_task import ImSize
 
 
 """
-test mk experiment API with "jigen" model and "mldg" trainer
+test mk experiment API with "jigen"
 """
+
 
 # specify domain generalization task
 task = mk_task_dset(dim_y=10, isize=ImSize(3, 28, 28),  taskna="custom_task")
@@ -30,7 +33,7 @@ task.add_domain(name="domain3",
 
 # specify parameters
 num_output_net_classifier = task.dim_y
-num_output_net_permutation = 2 #file runs for = 2 but not for anything else (should be 32?)
+num_output_net_permutation = 2
 list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
 list_str_d = ["domain1", "domain2", "domain3"]
 coeff_reg = 1e-3
