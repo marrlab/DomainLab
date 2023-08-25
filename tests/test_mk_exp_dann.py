@@ -11,14 +11,19 @@ from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.models.model_dann import mk_dann
 from domainlab.tasks.utils_task import ImSize
 
-def test_mk_exp_dann():
-    test_trainer_dann(trainer="mldg")
-    test_trainer_dann(trainer="dial")
-    test_trainer_dann(trainer="dial")
 
-def test_trainer_dann(trainer):
+def test_mk_exp_dann():
     """
-    test mk experiment API with "dann" model and "mldg" trainer
+    test mk experiment API with "dann" model and "mldg", "dial" trainers
+    """
+
+    test_mk_exp_dann_trainer(trainer="mldg")
+    test_mk_exp_dann_trainer(trainer="dial")
+
+
+def test_mk_exp_dann_trainer(trainer):
+    """
+    test mk experiment API with "dann" model and arbitrary trainer
     """
 
     # specify domain generalization task
