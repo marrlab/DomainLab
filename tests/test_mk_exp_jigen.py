@@ -1,7 +1,6 @@
 """
 make an experiment using "jigen" model
 """
-from typing import Union, Any
 
 from torch import nn
 from torchvision import models as torchvisionmodels
@@ -14,43 +13,53 @@ from domainlab.models.model_jigen import mk_jigen
 from domainlab.tasks.utils_task import ImSize
 
 
-"""
-test mk experiment API with "jigen"
-"""
+def test_mk_exp_jigen():
+    """
+    test mk experiment API with "jigen" model and "mldg", "dial" trainer
+    """
+
+    test_mk_exp_jigen_trainer(trainer="mldg")
+    test_mk_exp_jigen_trainer(trainer="dial")
 
 
-# specify domain generalization task
-task = mk_task_dset(dim_y=10, isize=ImSize(3, 28, 28),  taskna="custom_task")
-task.add_domain(name="domain1",
-            dset_tr=DsetMNISTColorSoloDefault(0),
-            dset_val=DsetMNISTColorSoloDefault(1))
-task.add_domain(name="domain2",
-            dset_tr=DsetMNISTColorSoloDefault(2),
-            dset_val=DsetMNISTColorSoloDefault(3))
-task.add_domain(name="domain3",
-            dset_tr=DsetMNISTColorSoloDefault(4),
-            dset_val=DsetMNISTColorSoloDefault(5))
+def test_mk_exp_jigen_trainer(trainer):
+    """
+    test mk experiment API with "jigen" model and custom trainer
+    """
 
-# specify parameters
-num_output_net_classifier = task.dim_y
-num_output_net_permutation = 2
-list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
-list_str_d = ["domain1", "domain2", "domain3"]
-coeff_reg = 1e-3
+    # specify domain generalization task:
+    task = mk_task_dset(dim_y=10, isize=ImSize(3, 28, 28),  taskna="custom_task")
+    task.add_domain(name="domain1",
+                dset_tr=DsetMNISTColorSoloDefault(0),
+                dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                dset_tr=DsetMNISTColorSoloDefault(2),
+                dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                dset_tr=DsetMNISTColorSoloDefault(4),
+                dset_val=DsetMNISTColorSoloDefault(5))
 
-# specify feature extractor as ConvNet
-net_encoder = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-num_output_net_encoder = net_encoder.fc.out_features
+    # specify parameters
+    num_output_net_classifier = task.dim_y
+    num_output_net_permutation = 2
+    list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
+    list_str_d = ["domain1", "domain2", "domain3"]
+    coeff_reg = 1e-3
 
-# specify permutation classifier as linear network
-net_permutation = nn.Linear(num_output_net_encoder, num_output_net_permutation)
+    # specify net encoder
+    net_encoder = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_output_net_encoder = net_encoder.fc.out_features
 
-# specify label classifier as linear network
-net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
+    # specify permutation classifier as linear network
+    net_permutation = nn.Linear(num_output_net_encoder, num_output_net_permutation)
 
-# specify model to use
-model = mk_jigen()(list_str_y, list_str_d, net_encoder, net_classifier, net_permutation, coeff_reg)
+    # specify label classifier as linear network
+    net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
 
-# make trainer for model
-exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
-exp.execute(num_epochs=3)
+    # specify model to use
+    model = mk_jigen()(list_str_y, list_str_d, net_encoder,
+                       net_classifier, net_permutation, coeff_reg)
+
+    # make trainer for model
+    exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
+    exp.execute(num_epochs=2)
