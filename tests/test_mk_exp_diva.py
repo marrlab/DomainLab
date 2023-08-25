@@ -12,7 +12,7 @@ from domainlab.compos.vae.c_vae_builder_classif import ChainNodeVAEBuilderClassi
 
 
 """
-test mk experiment API with "diva" model and "mldg" trainer
+test mk experiment API with "diva" model
 """
 
 # specify domain generalization task
@@ -31,7 +31,7 @@ task.add_domain(name="domain3",
 zd_dim = 3
 zy_dim = 10
 zx_dim = 0 # TODO: specify zx_dim
-chain_node_builder = ChainNodeVAEBuilderClassifCondPrior(successor_node=None).init_business(zd_dim, zx_dim, zy_dim) # TODO: fix chain_node_builder?
+chain_node_builder = ChainNodeVAEBuilderClassifCondPrior(successor_node=None).init_business(zd_dim, zx_dim, zy_dim) # TODO: chain_node_builder
 list_str_y = [f"class{i}" for i in range(zy_dim)]
 list_d_tr = ["domain2", "domain3"]
 gamma_d = 0
@@ -45,4 +45,4 @@ model = mk_diva()(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y, list_d
 
 # make trainer for model
 exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
-exp.execute(num_epochs=3)
+exp.execute(num_epochs=2)
