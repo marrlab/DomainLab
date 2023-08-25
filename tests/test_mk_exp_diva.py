@@ -7,8 +7,6 @@ from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefa
 from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.models.model_diva import mk_diva
 from domainlab.tasks.utils_task import ImSize
-from domainlab.compos.vae.a_vae_builder import AbstractVAEBuilderChainNode
-from domainlab.compos.vae.c_vae_builder_classif import ChainNodeVAEBuilderClassifCondPrior
 
 
 """
@@ -30,18 +28,19 @@ task.add_domain(name="domain3",
 # specify parameters
 zd_dim = 3
 zy_dim = 10
-zx_dim = 0 # TODO: specify zx_dim
-chain_node_builder = ChainNodeVAEBuilderClassifCondPrior(successor_node=None).init_business(zd_dim, zx_dim, zy_dim) # TODO: chain_node_builder
-list_str_y = [f"class{i}" for i in range(zy_dim)]
+zx_dim = 30
+chain_node_builder = None  # TODO: chain_node_builder
+list_str_y = [f"class{i}" for i in range(task.dim_y)]
 list_d_tr = ["domain2", "domain3"]
-gamma_d = 0
-gamma_y = 0
-beta_d = 0
-beta_x = 0
-beta_y = 0
+gamma_d = 1e5
+gamma_y = 7e5
+beta_d = 1e3
+beta_x = 1e3
+beta_y = 1e3
 
 # specify model to use
-model = mk_diva()(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y, list_d_tr, gamma_d, gamma_y, beta_d, beta_x, beta_y)
+model = mk_diva()(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y, list_d_tr, gamma_d,
+                  gamma_y, beta_d, beta_x, beta_y)
 
 # make trainer for model
 exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
