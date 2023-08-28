@@ -209,7 +209,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -> bool:
 
 
 def sample_parameters(init_params: List[Hyperparameter], constraints,
-                      shared_config, shared_samples) -> dict:
+                      shared_config=None, shared_samples=None) -> dict:
     """
     Tries to sample from the hyperparameter list.
 
@@ -274,7 +274,7 @@ def sample_task(num_samples: int,
     """Sample one task and add it to the dataframe"""
     algo = config['aname']
     if 'hyperparameters' in config.keys():
-        # in benchmark configuration file, sub-section hyperparameters 
+        # in benchmark configuration file, sub-section hyperparameters
         # means changing hyper-parameters
         params = []
         for key, val in config['hyperparameters'].items():
