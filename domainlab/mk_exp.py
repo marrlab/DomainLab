@@ -10,11 +10,11 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 
 
 
-def mk_exp(task, model, trainer, test_domain, batchsize):
+def mk_exp(task, model, trainer:str, test_domain:str, batchsize:int):
     """
     Creates a custom experiment. The user can specify the input parameters.
 
-    Parameters: task, model, trainer, test_domain (must be a single string), batch size
+    Parameters: task, model, trainer (string), test_domain (string), batch size (int)
 
     Returns: experiment
     """
