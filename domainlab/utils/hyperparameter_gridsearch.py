@@ -13,7 +13,7 @@ import domainlab.utils.hyperparameter_sampling as sampling
 from domainlab.utils.logger import Logger
 
 
-def round_to_discreate_grid_uniform(grid, param_config):
+def round_to_discreate_grid_uniform(grid, param_config, flag_int=False):
     '''
     round the values of the grid to the grid spacing specified in the config
     for uniform and loguniform grids
@@ -29,7 +29,11 @@ def round_to_discreate_grid_uniform(grid, param_config):
     for num, elem in enumerate(list(grid)):
         # search for the closest allowed grid point to the scalar elem
         grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
-    return np.unique(grid)
+    grid_unique = np.unique(grid)
+    grid_out = grid_unique
+    if flag_int:
+        grid_out = grid_unique.astype(int)
+    return grid_out
 
 def round_to_discreate_grid_normal(grid, param_config):
     '''
@@ -65,7 +69,9 @@ def uniform_grid(param_config):
     # we move away from mini and maxi to sample inside the open interval (mini, maxi)
     grid = np.linspace(mini + step / 2, maxi - step / 2, num)
     if 'step' in param_config.keys():
-        return round_to_discreate_grid_uniform(grid, param_config)
+        flag_int = isinstance(param_config["step"], int)
+        return round_to_discreate_grid_uniform(
+            grid, param_config, flag_int)
     return grid
 
 def loguniform_grid(param_config):
@@ -219,7 +225,7 @@ def build_param_grid_of_shared_params(shared_df):
     return shared_grid
 
 def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd.DataFrame):
-    """create grid for one task and add it to the dataframe"""
+    """create grid for one sampling task for a method and add it to the dataframe"""
     if 'hyperparameters' in config.keys():
         dict_param_grids = {}
         referenced_params = {}
@@ -284,6 +290,7 @@ def sample_gridsearch(config: dict,
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     shared_samples = pd.DataFrame(columns=['task', 'algo', 'params'])
+
     if 'Shared params' in config.keys():
         shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
         grid_task(shared_samples, 'all', shared_val, None)  # fill up the dataframe shared samples
