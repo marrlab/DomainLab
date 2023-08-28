@@ -31,16 +31,16 @@ def mk_diva(parent_class=VAEXYDClassif):
         ModelDIVA: model inheriting from parent class.
 
     Input Parameters:
-        zd_dim: size of latent space for domain-specific information
-        zy_dim: size of latent space for class-specific information
-        zx_dim: size of latent space for residual variance
-        chain_node_builder: TODO
-        list_str_y: list of labels
-        list_d_tr: list of training domains
-        gamma_d: weighting term for d classifier
-        gamma_y: weighting term for y classifier
-        beta_d: weighting term for domain encoder
-        beta_x: weighting term for residual variation encoder
+        zd_dim: size of latent space for domain-specific information,
+        zy_dim: size of latent space for class-specific information,
+        zx_dim: size of latent space for residual variance,
+        chain_node_builder: TODO,
+        list_str_y: list of labels,
+        list_d_tr: list of training domains,
+        gamma_d: weighting term for d classifier,
+        gamma_y: weighting term for y classifier,
+        beta_d: weighting term for domain encoder,
+        beta_x: weighting term for residual variation encoder,
         beta_y: weighting term for class encoder
     """
 
