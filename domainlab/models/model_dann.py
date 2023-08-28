@@ -31,7 +31,7 @@ def mk_dann(parent_class=AModelClassif):
     Input Parameters:
         list_str_y: list of labels,
         list_str_d: list of domains,
-        alpha: total_loss = task_loss + $$\\alpha$$ * regularization_loss,
+        alpha: total_loss = task_loss + $$\\alpha$$ * domain_classification_loss,
         net_encoder: neural network to extract the features (input: training data),
         net_classifier: neural network (input: output of net_encoder; output: label prediction),
         net_discriminator: neural network (input: output of net_encoder;
