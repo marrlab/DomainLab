@@ -46,8 +46,10 @@ domainlab_args:
   san_check: True
 
 
-Task1:  # name
+method_diva:  # name
   aname: diva
+  zx_dim: 0
+  zd_dim: 32
   shared:
     - gamma_y
     - zy_dim
@@ -60,7 +62,6 @@ Task1:  # name
       step: 10_000
       distribution: loguniform
       num: 2
-
     zx_dim:
       min: 0
       max: 96
@@ -68,10 +69,8 @@ Task1:  # name
       distribution: uniform
       num: 2
 
-    zd_dim:
-      reference: zy_dim
 
-Task2:  # name
+method_hduva:  # name
   aname: hduva
 
   nname_topic_distrib_img2topic: conv_bn_pool_2
@@ -80,6 +79,4 @@ Task2:  # name
     - gamma_y
     - zy_dim
   zx_dim: 0
-  hyperparameters:
-    zd_dim:
-      reference: zy_dim
+  zd_dim: 32
