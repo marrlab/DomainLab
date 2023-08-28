@@ -22,9 +22,9 @@ def mk_hduva(parent_class=VAEXYDClassif):
         and another one for converting an image to a topic distribution. The overall objective is
         constructed by adding an additional weighted term to the ELBO loss.
         For more details, see:
-            Sun, Xudong, and Buettner, Florian.
-            "Hierarchical variational auto-encoding for unsupervised domain generalization."
-            arXiv preprint arXiv:2101.09436 (2021).
+        Sun, Xudong, and Buettner, Florian.
+        "Hierarchical variational auto-encoding for unsupervised domain generalization."
+        arXiv preprint arXiv:2101.09436 (2021).
 
     Args:
         parent_class: Class object determining the task type. Defaults to VAEXYDClassif.
@@ -33,20 +33,20 @@ def mk_hduva(parent_class=VAEXYDClassif):
         ModelHDUVA: model inheriting from parent class.
 
     Input Parameters:
-        zd_dim: size of latent space for domain-specific information
-        zy_dim: size of latent space for class-specific information
-        zx_dim: size of latent space for residual variance, defaults to 0
-        chain_node_builder: TODO
-        list_str_y: list of labels
-        list_d_tr: list of training domains
-        gamma_d: TODO
-        gamma_y: weighting term for additional term in ELBO loss
-        beta_d: weighting term for the domain component of ELBO loss
-        beta_x: weighting term for residual variation component of ELBO loss
-        beta_y: weighting term for class component of ELBO loss
-        beta_t: weighting term for the topic component of ELBO loss
-        device: TODO
-        topic_dim: size of latent space for topics, defaults to 3
+        zd_dim: size of latent space for domain-specific information,
+        zy_dim: size of latent space for class-specific information,
+        zx_dim: size of latent space for residual variance (defaults to 0),
+        chain_node_builder: TODO,
+        list_str_y: list of labels,
+        list_d_tr: list of training domains,
+        gamma_d: TODO,
+        gamma_y: weighting term for additional term in ELBO loss,
+        beta_d: weighting term for the domain component of ELBO loss,
+        beta_x: weighting term for residual variation component of ELBO loss,
+        beta_y: weighting term for class component of ELBO loss,
+        beta_t: weighting term for the topic component of ELBO loss,
+        device: TODO,
+        topic_dim: size of latent space for topics (defaults to 3)
     """
 
     class ModelHDUVA(parent_class):
