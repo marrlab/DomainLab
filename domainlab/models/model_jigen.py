@@ -13,14 +13,15 @@ def mk_jigen(parent_class=AModelClassif):
 
     Details:
         The model is trained to solve two tasks:
-        1. Standard image classification.
+        1. Standard image classification;
         2. Source images are decomposed into grids of patches, which are then permuted. The task
-            is recovering the original image by predicting the right permutation of the patches.
+        is recovering the original image by predicting the right permutation of the patches;
+
         The (permuted) input data is first fed into a encoder neural network
         and then into the two classification networks.
         For more details, see:
         Carlucci, Fabio M., et al. "Domain generalization by solving jigsaw puzzles."
-            Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.
+        Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.
     
     Args:
         parent_class (AModel, optional): Class object determining the task
@@ -30,12 +31,13 @@ def mk_jigen(parent_class=AModelClassif):
         ModelJiGen: model inheriting from parent class
 
     Input Parameters: 
-        list_str_y: list of labels
-        list_str_d: list of domains
-        net_encoder: neural network, input: training data (standard and shuffled)
-        net_classifier_class: neural network, input: output of net_encoder, output: label prediction
-        net_classifier_permutation: neural network, input: output of net_encoder,
-            output: prediction of permutation index
+        list_str_y: list of labels,
+        list_str_d: list of domains,
+        net_encoder: neural network (input: training data, standard and shuffled),
+        net_classifier_class: neural network (input: output of net_encoder;
+        output: label prediction),
+        net_classifier_permutation: neural network (input: output of net_encoder;
+        output: prediction of permutation index),
         coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss
     """
     class_dann = mk_dann(parent_class)
