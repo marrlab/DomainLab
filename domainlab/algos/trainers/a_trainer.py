@@ -50,6 +50,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         # mldg
         self.inner_trainer = None
         self.loader_tr_source_target = None
+        self.flag_initialized = False
 
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
@@ -77,6 +78,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.epo_loss_tr = None
         self.hyper_scheduler = None
         self.optimizer = mk_opt(self.model, self.aconf)
+        self.flag_initialized = True
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):

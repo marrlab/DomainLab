@@ -35,7 +35,7 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @store_args
-    def __init__(self, ind_color, path,
+    def __init__(self, ind_color, path="zoutput",
                  subset_step=100,
                  color_scheme="both",
                  label_transform=mk_fun_label2onehot(10),
@@ -58,7 +58,7 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         """
         dpath = os.path.normpath(path)
         flag_train = True
-        if raw_split!="train":
+        if raw_split != "train":
             flag_train = False
         dataset = datasets.MNIST(root=dpath,
                                  train=flag_train,
