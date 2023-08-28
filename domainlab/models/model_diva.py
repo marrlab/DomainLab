@@ -22,7 +22,7 @@ def mk_diva(parent_class=VAEXYDClassif):
         Additionally, two classifiers are trained, which predict the domain and the class label.
         For more details, see:
         Ilse, Maximilian, et al. "Diva: Domain invariant variational autoencoders."
-            Medical Imaging with Deep Learning. PMLR, 2020.
+        Medical Imaging with Deep Learning. PMLR, 2020.
 
     Args:
         parent_class: Class object determining the task type. Defaults to VAEXYDClassif.
