@@ -11,8 +11,44 @@ from domainlab import g_inst_component_loss_agg
 
 def mk_hduva(parent_class=VAEXYDClassif):
     """
-    Hierarchical Domain Unsupervised VAE with arbitrary task loss
+    Instantiate a Hierarchical Domain Unsupervised VAE (HDUVA) with arbitrary task loss.
+
+    Details:
+        The model makes use of several latent variables representing the information for the
+        classes, domains and the residual variance of the inputs, respectively. The domain structure
+        is modelled by introducing an hierarchical level and another latent variable, denoted as
+        topic. The domain information during training can be incomplete. Two encoder networks are
+        trained. One for converting an image to be compatible with the latent spaces of the domains
+        and another one for converting an image to a topic distribution. The overall objective is
+        constructed by adding an additional weighted term to the ELBO loss.
+        For more details, see:
+            Sun, Xudong, and Buettner, Florian.
+            "Hierarchical variational auto-encoding for unsupervised domain generalization."
+            arXiv preprint arXiv:2101.09436 (2021).
+
+    Args:
+        parent_class: Class object determining the task type. Defaults to VAEXYDClassif.
+
+    Returns:
+        ModelHDUVA: model inheriting from parent class.
+
+    Input Parameters:
+        zd_dim: size of latent space for domain-specific information
+        zy_dim: size of latent space for class-specific information
+        zx_dim: size of latent space for residual variance, defaults to 0
+        chain_node_builder: TODO
+        list_str_y: list of labels
+        list_d_tr: list of training domains
+        gamma_d: TODO
+        gamma_y: weighting term for additional term in ELBO loss
+        beta_d: weighting term for the domain component of ELBO loss
+        beta_x: weighting term for residual variation component of ELBO loss
+        beta_y: weighting term for class component of ELBO loss
+        beta_t: weighting term for the topic component of ELBO loss
+        device: TODO
+        topic_dim: size of latent space for topics, defaults to 3
     """
+
     class ModelHDUVA(parent_class):
         """
         Hierarchical Domain Unsupervised Variational Auto-Encoding
