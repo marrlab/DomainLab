@@ -23,7 +23,7 @@ def test_mk_exp_dann():
 
 def mk_exp_dann(trainer="mldg"):
     """
-    test mk experiment API with "dann" model and arbitrary trainer
+    execute experiment with "dann" model and arbitrary trainer
     """
 
     # specify domain generalization task
