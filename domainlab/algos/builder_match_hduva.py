@@ -6,7 +6,7 @@ from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
-from domainlab.compos.pcr.request import RequestVAEBuilderCHW
+from domainlab.compos.pcr.request import ConfVAEBuilder
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.models.model_hduva import mk_hduva
 from domainlab.utils.utils_cuda import get_device
@@ -29,7 +29,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        request = RequestVAEBuilderCHW(
+        request = ConfVAEBuilder(
             task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args)
         node = VAEChainNodeGetter(request, args.topic_dim)()

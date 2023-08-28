@@ -2,7 +2,7 @@
 from domainlab.models.model_diva import mk_diva
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
-from domainlab.compos.pcr.request import RequestVAEBuilderCHW
+from domainlab.compos.pcr.request import ConfVAEBuilder
 from domainlab.arg_parser import mk_parser_main
 from domainlab.utils.test_img import mk_rand_xyd
 
@@ -16,7 +16,7 @@ def test_model_diva():
     d_dim = 2
     list_str_y = mk_dummy_label_list_str("class", y_dim)
     list_str_d = mk_dummy_label_list_str("domain", d_dim)
-    request = RequestVAEBuilderCHW(3, 28, 28, args=margs)
+    request = ConfVAEBuilder(3, 28, 28, args=margs)
 
     node = VAEChainNodeGetter(request)()
     model = mk_diva()(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d,

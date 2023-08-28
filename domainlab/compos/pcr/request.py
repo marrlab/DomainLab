@@ -1,10 +1,15 @@
+"""
+request for chain of responsibility pattern builder
+"""
 from domainlab.utils.utils_class import store_args
 
 
-class RequestVAEBuilderCHW():
-    @store_args
-    def __init__(self, i_c, i_h, i_w, args):
-        pass
+class ConfVAEBuilder():
+    def __init__(self, isize, args):
+        self.i_c = isize[0]
+        self.i_h = isize[1]
+        self.i_w = isize[2]
+        self.args = args
 
 
 class RequestTask():

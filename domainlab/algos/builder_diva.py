@@ -9,7 +9,7 @@ from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.observers.c_obvisitor_gen import ObVisitorGen
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 
-from domainlab.compos.pcr.request import RequestVAEBuilderCHW
+from domainlab.compos.pcr.request import ConfVAEBuilder
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.models.model_diva import mk_diva
 from domainlab.utils.utils_cuda import get_device
@@ -32,7 +32,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        request = RequestVAEBuilderCHW(
+        request = ConfVAEBuilder(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
         model = mk_diva()(node,
