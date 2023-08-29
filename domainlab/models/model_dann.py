@@ -1,5 +1,6 @@
 """
-construct feature extractor, task neural network (e.g. classification) and domain classification network
+construct feature extractor, task neural network (e.g. classification) and domain classification
+network
 """
 from torch.nn import functional as F
 
@@ -36,7 +37,11 @@ def mk_dann(parent_class=AModelClassif):
         net_classifier: neural network (input: output of net_encoder; output: label prediction),
         net_discriminator: neural network (input: output of net_encoder;
         output: prediction of training domain)
-        """
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_dann.py
+    """
 
     class ModelDAN(parent_class):
         """
