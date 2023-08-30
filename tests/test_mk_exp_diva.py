@@ -7,6 +7,8 @@ from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefa
 from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.models.model_diva import mk_diva
 from domainlab.tasks.utils_task import ImSize
+from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
+from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 
 
 def test_mk_exp_diva():
@@ -39,7 +41,9 @@ def mk_exp_diva(trainer="mldg"):
     zd_dim = 3
     zy_dim = 10
     zx_dim = 30
-    chain_node_builder = None  # TODO: chain_node_builder
+    args = f"--aname=apimodel --trainer={trainer} --te_d=domain1 --bs=32"
+    request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w, args)
+    chain_node_builder = VAEChainNodeGetter(request)()  # TODO: chain_node_builder
     list_str_y = [f"class{i}" for i in range(task.dim_y)]
     list_d_tr = ["domain2", "domain3"]
     gamma_d = 1e5
