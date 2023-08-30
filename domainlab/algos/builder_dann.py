@@ -6,9 +6,7 @@ from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 from domainlab.algos.trainers.train_hyper_scheduler import HyperSchedulerWarmupExponential
-from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
@@ -58,9 +56,9 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
                           net_discriminator=net_discriminator)
-        trainer = TrainerChainNodeGetter(args)(default="visitor")
+        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
-        if trainer.name == "visitor":
+        if trainer.name == "hyperscheduler":
             trainer.set_scheduler(HyperSchedulerWarmupExponential,
                                   total_steps=trainer.num_batches*args.epos,
                                   flag_update_epoch=False,
