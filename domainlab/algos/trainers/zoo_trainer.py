@@ -5,7 +5,7 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
-from domainlab.algos.trainers.train_visitor import TrainerHyperScheduler
+from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 
 
 class TrainerChainNodeGetter(object):

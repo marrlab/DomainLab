@@ -6,8 +6,8 @@ from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.trainers.train_visitor import TrainerHyperScheduler
-from domainlab.algos.trainers.train_visitor import HyperSchedulerWarmupExponential
+from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
+from domainlab.algos.trainers.train_hyper_scheduler import HyperSchedulerWarmupExponential
 from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear

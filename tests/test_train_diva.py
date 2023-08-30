@@ -5,7 +5,7 @@ from domainlab.models.model_diva import mk_diva
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
-from domainlab.algos.trainers.train_visitor import TrainerHyperScheduler
+from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
