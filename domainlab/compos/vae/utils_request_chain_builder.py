@@ -1,5 +1,5 @@
 from domainlab.compos.vae.zoo_vae_builders_classif import (
-    NodeVAEBuilderArg, NodeVAEBuilderImgAlex, NodeVAEBuilderImgConvBnPool)
+    NodeVAEBuilderArg, NodeVAEBuilderUser, NodeVAEBuilderImgAlex, NodeVAEBuilderImgConvBnPool)
 from domainlab.compos.vae.zoo_vae_builders_classif_topic import \
     NodeVAEBuilderImgTopic
 
@@ -26,7 +26,8 @@ class VAEChainNodeGetter(object):
         if self.topic_dim is not None:
             chain = NodeVAEBuilderImgTopic(None)
         else:
-            chain = NodeVAEBuilderImgConvBnPool(None)
+            chain = NodeVAEBuilderUser(None)
+            chain = NodeVAEBuilderImgConvBnPool(chain)
             chain = NodeVAEBuilderImgAlex(chain)
             chain = NodeVAEBuilderArg(chain)
         node = chain.handle(self.request)

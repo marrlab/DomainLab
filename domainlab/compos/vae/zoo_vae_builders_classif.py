@@ -7,11 +7,11 @@ from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv impo
     DecoderConcatLatentFCReshapeConvGatedConv
 from domainlab.compos.vae.compos.encoder_xyd_parallel import (
     XYDEncoderParallelAlex, XYDEncoderParallelConvBnReluPool,
-    XYDEncoderParallelExtern)
+    XYDEncoderParallelExtern, XYDEncoderParallelUser)
 
 
 class ChainNodeVAEBuilderClassifCondPriorBase(
-        ChainNodeVAEBuilderClassifCondPrior):
+    ChainNodeVAEBuilderClassifCondPrior):
     """
     base class of AE builder
     """
@@ -40,7 +40,7 @@ class ChainNodeVAEBuilderClassifCondPriorBase(
     def build_decoder(self):
         """build_decoder."""
         decoder = DecoderConcatLatentFCReshapeConvGatedConv(
-            z_dim=self.zd_dim+self.zx_dim+self.zy_dim,
+            z_dim=self.zd_dim + self.zx_dim + self.zy_dim,
             i_c=self.i_c, i_w=self.i_w,
             i_h=self.i_h)
         return decoder
@@ -70,6 +70,20 @@ class NodeVAEBuilderArg(ChainNodeVAEBuilderClassifCondPriorBase):
         return encoder
 
 
+class NodeVAEBuilderUser(ChainNodeVAEBuilderClassifCondPriorBase):
+    """Build encoders according to test_mk_exp file"""
+
+    def is_myjob(self, request):
+        flag = hasattr(request, request.net_x)
+        self.request = request
+        return flag
+
+    def build_encoder(self):
+        encoder = XYDEncoderParallelUser(self.request.net_class_d, self.request.net_x,
+                                         self.request.net_class_y)
+        return encoder
+
+
 class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
     def is_myjob(self, request):
         """is_myjob.
@@ -77,7 +91,7 @@ class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
         :param request:
         """
         flag = (request.args.nname == "conv_bn_pool_2" or
-                request.args.nname_dom == "conv_bn_pool_2")   # @FIXME
+                request.args.nname_dom == "conv_bn_pool_2")  # @FIXME
         self.config_img(flag, request)
         return flag
 
