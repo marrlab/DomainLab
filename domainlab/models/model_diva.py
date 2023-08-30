@@ -51,8 +51,10 @@ def mk_diva(parent_class=VAEXYDClassif):
             self.beta_x = dict_rst["beta_x"]
 
         def hyper_init(self, functor_scheduler):
-            """hyper_init.
-            :param functor_scheduler:
+            """
+            initiate a scheduler object via class name and things inside this model
+
+            :param functor_scheduler: the class name of the scheduler
             """
             return functor_scheduler(
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
