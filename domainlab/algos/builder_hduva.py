@@ -44,6 +44,6 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitorCleanUp(
             ObVisitor(exp, model_sel, device))
-        trainer = TrainerChainNodeGetter(args)(default="visitor")
+        trainer = TrainerChainNodeGetter(args)(default="hyper_scheduler")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device
