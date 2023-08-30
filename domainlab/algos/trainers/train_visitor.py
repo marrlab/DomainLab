@@ -7,9 +7,9 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.utils.logger import Logger
 
 
-class TrainerVisitor(TrainerBasic):
+class TrainerHyperScheduler(TrainerBasic):
     """
-    TrainerVisitor
+    TrainerHyperScheduler
     """
     def set_scheduler(self, scheduler, total_steps,
                       flag_update_epoch=False,
