@@ -263,9 +263,17 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
                                              config, task_name)
         if grid_df[grid_df['algo'] == config['aname']].shape[0] == 0:
             raise RuntimeError('No valid value found for this grid spacing, refine grid')
+        return grid_df
+    elif 'shared' in config.keys():
+        shared_grid = shared_df.copy()
+        shared_grid['algo'] = config['aname']
+        shared_grid['task'] = task_name
+        grid_df = grid_df.append(shared_grid, ignore_index=True)
+        return grid_df
     else:
         # add single line if no varying hyperparameters are specified.
         grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], {}]
+        return grid_df
 
 
 def sample_gridsearch(config: dict,
@@ -293,12 +301,12 @@ def sample_gridsearch(config: dict,
 
     if 'Shared params' in config.keys():
         shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
-        grid_task(shared_samples, 'all', shared_val, None)  # fill up the dataframe shared samples
+        shared_samples = grid_task(shared_samples, 'all', shared_val, None)  # fill up the dataframe shared samples
     else:
         shared_samples = None
     for key, val in config.items():
         if sampling.is_dict_with_key(val, "aname"):
-            grid_task(samples, key, val, shared_samples)
+            samples  = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
                         f'{samples[samples["algo"] == val["aname"]].shape[0]}')
 
