@@ -73,9 +73,6 @@ Task1:  # name
 Task2:  # name
   aname: Algo2
 
-  shared:
-    - p1_shared
-
   hyperparameters:
     p1:
       mean: 1
@@ -103,3 +100,9 @@ Task2:  # name
 Task3:
   aname: Algo3
   zd_dim: 5
+
+  shared:
+    - p1_shared
+
+  constraints:
+    - "p1_shared < -2"
