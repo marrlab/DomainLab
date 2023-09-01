@@ -26,9 +26,9 @@ class VAEChainNodeGetter(object):
         if self.topic_dim is not None:
             chain = NodeVAEBuilderImgTopic(None)
         else:
-            chain = NodeVAEBuilderUser(None)
-            chain = NodeVAEBuilderImgConvBnPool(chain)
+            chain = NodeVAEBuilderImgConvBnPool(None)
             chain = NodeVAEBuilderImgAlex(chain)
             chain = NodeVAEBuilderArg(chain)
+            chain = NodeVAEBuilderUser(chain)
         node = chain.handle(self.request)
         return node

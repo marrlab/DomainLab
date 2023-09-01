@@ -48,12 +48,13 @@ num_dom = 3
 zd_dim = 3
 zy_dim = 10
 zx_dim = 30
-net_class_d = nn.Linear( 6 , num_dom)
 net_x = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-net_class_y = nn.Linear( 6, task.dim_y)
+# net_in_feat = net_x.fc.out_features
+net_class_d = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+net_class_y = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
 request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w,
                               net_class_d, net_x, net_class_y)
-chain_node_builder = VAEChainNodeGetter(request)()  # TODO: chain_node_builder
+chain_node_builder = VAEChainNodeGetter(request)()
 list_str_y = [f"class{i}" for i in range(task.dim_y)]
 list_d_tr = ["domain2", "domain3"]
 gamma_d = 1e5
