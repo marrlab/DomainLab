@@ -5,12 +5,12 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
-from domainlab.algos.trainers.train_visitor import TrainerVisitor
+from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 
 
 class TrainerChainNodeGetter(object):
     """
-    Chain of Responsibility: node is named in pattern Trainer[XXX] where the string 
+    Chain of Responsibility: node is named in pattern Trainer[XXX] where the string
     after 'Trainer' is the name to be passed to args.trainer.
     """
     def __init__(self, args):
@@ -38,6 +38,6 @@ class TrainerChainNodeGetter(object):
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
-        chain = TrainerVisitor(chain)  # FIXME: change to warmup
+        chain = TrainerHyperScheduler(chain)  # FIXME: change to warmup
         node = chain.handle(self.request)
         return node
