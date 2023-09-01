@@ -14,7 +14,16 @@ def mk_exp(task, model, trainer:str, test_domain:str, batchsize:int):
     """
     Creates a custom experiment. The user can specify the input parameters.
 
-    Parameters: task, model, trainer (string), test_domain (string), batch size (int)
+    Input Parameters:
+        - task: create a task to a custom dataset by importing "mk_task_dset" function from
+        "domainlab.tasks.task_dset". For more explanation on the input params refer to the
+        documentation found in "domainlab.tasks.task_dset.py".
+        - model: create a model "myModel" by importing "mk_myModel" function from
+        "domainlab.models.model_myModel". For a concrete example and explanation of the input params
+        refer to the documentation found in "domainlab.models.model_myModel.py"
+        - trainer: string,
+        - test_domain: string,
+        - batch size: int
 
     Returns: experiment
     """
