@@ -18,9 +18,9 @@ def mk_exp(task, model, trainer:str, test_domain:str, batchsize:int):
         - task: create a task to a custom dataset by importing "mk_task_dset" function from
         "domainlab.tasks.task_dset". For more explanation on the input params refer to the
         documentation found in "domainlab.tasks.task_dset.py".
-        - model: create a model "myModel" by importing "mk_myModel" function from
-        "domainlab.models.model_myModel". For a concrete example and explanation of the input params
-        refer to the documentation found in "domainlab.models.model_myModel.py"
+        - model: create a model [NameOfModel] by importing "mk_[NameOfModel]" function from
+        "domainlab.models.model_[NameOfModel]". For a concrete example and explanation of the input
+        params refer to the documentation found in "domainlab.models.model_[NameOfModel].py"
         - trainer: string,
         - test_domain: string,
         - batch size: int
