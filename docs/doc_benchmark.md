@@ -42,14 +42,14 @@ Furthermore, the user can declare:
   - `te_d`: list of test domains (mandatory)
   - `tr_d`: list of training domains (mandatory)
 - `output_dir`: path to the custom output directory (mandatory)
-- `num_param_samples`: number of hyperparameters to be sampled
+- `num_param_samples`: number of hyperparameters to be sampled (int, mandatory)
 - `Shared params`: a list including `num_shared_param_samples` (number of samples for the shared
 params) and the shared hyperparameters with respective sampling distribution (optional)
 
 Depending on which hyperparameter sampling technique is used (see section below), the user must also
 respect/declare the following:
 - random hyperparameter sampling:
-  - `sampling_seed`, `startseed`, `endseed` must be defined outside the experiment
+  - `sampling_seed` (int), `startseed` (int), `endseed` (int) must be defined outside the experiment
   - `distribution`: specifies the distribution used for sampling, must be specified for each
   hyperparameter (for available distributions see section below)
   definitions (mandatory)
@@ -61,20 +61,21 @@ respect/declare the following:
   
 
 ### Hyperparameter sampling
-The package offers the option to randomly sample hyperparameters from different distribution.
+The package offers the option to randomly sample hyperparameters from different distributions.
 An example can be found in [demo_hyperparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml). We offer two sampling
 techniques, random hyperparameter sampling and grid search. Each technique offers the following
 distributions to sample from:
 - `categorical` distribution type: a list of valid values for a hyperparameter can be specified
 - `uniform` and `loguniform` distribution. The user must define the following for each
-hyperparameter:
-  - `mean`: mean of normal distribution
-  - `std`: standard deviation of normal distribution
-- `normal` and `lognormal`distribution. The user must define the following for each hyperparameter:
+hyperparameter (mandatory):
+  - `mean`: mean of normal distribution (float)
+  - `std`: standard deviation of normal distribution (float >= 0)
+- `normal` and `lognormal`distribution. The user must define the following for each hyperparameter
+  (mandatory):
   - `min`: lower bound for samples (int)
   - `max`: upper bound for samples (int)
-  - `step`: "step-size" of grid starting from lower bound. Only points lying on the grid can be
-  sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
+    - `step`: "step-size" (float) of grid starting from lower bound. Only points lying on the grid
+    can be sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
   
 
 ### Constraints
