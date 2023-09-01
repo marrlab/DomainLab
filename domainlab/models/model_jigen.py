@@ -39,7 +39,12 @@ def mk_jigen(parent_class=AModelClassif):
         net_classifier_permutation: neural network (input: output of net_encoder;
         output: prediction of permutation index),
         coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_jigen.py
     """
+
     class_dann = mk_dann(parent_class)
 
     class ModelJiGen(class_dann):
