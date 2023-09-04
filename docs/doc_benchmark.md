@@ -65,7 +65,9 @@ The package offers the option to randomly sample hyperparameters from different 
 An example can be found in [demo_hyperparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml). We offer two sampling
 techniques, random hyperparameter sampling and grid search. Each technique offers the following
 distributions to sample from:
-- `categorical` distribution type: a list of valid values for a hyperparameter can be specified
+- `categorical` distribution. For each parameter the user can specify:
+  - `values`: a list of valid values 
+  - `datatype`: the datatype of the list elements
 - `uniform` and `loguniform` distribution. The user must define the following for each
 hyperparameter (mandatory):
   - `mean`: mean of normal distribution (float)
