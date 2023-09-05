@@ -34,25 +34,25 @@ For fitting the model, we need to specify the 4 $\beta$-weights related to the t
 ## Model parameters
 In addition to these hyperparameters, the following model parameters can be specified: 
 
-- Size of latent space for domain-specific information: zd_dim 
-- Size of latent space for residual variance: zx_dim
-- Size of latent space for class-specific information: zy_dim
-- Size of latent space for topics $s$: topic_dim
-- Size of latent space for latent image representation for topic: topic_h_dim
-- Size of latent space for latent image representation for domain: img_h_dim
+- `zd_dim`: size of latent space for domain-specific information 
+- `zx_dim`: size of latent space for residual variance
+- `zy_dim`: size of latent space for class-specific information
+- `topic_dim`: size of latent space for topics $s$
+- `topic_h_dim`: size of latent space for latent image representation for topic
+- `img_h_dim`: size of latent space for latent image representation for domain
 
 Finally, 2 models need to be specified: A network converting an image to a topic distribution (of size topic_h_dim) and an encoder converting an image to a latent representation that can be concatenated to $z_d$ (size img_h_dim). The names and paths of the networks are: 
 
-- nname_topic_distrib_img2topic
-- npath_topic_distrib_img2topic
+- `nname_topic_distrib_img2topic`
+- `npath_topic_distrib_img2topic`
 
 and
-- nname_encoder_sandwich_layer_img2h4zd
-- npath_encoder_sandwich_layer_img2h4zd
+- `nname_encoder_sandwich_layer_img2h4zd`
+- `npath_encoder_sandwich_layer_img2h4zd`
 
 
 ## Hyperparameter warmup
-Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument warmup
+Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument `warmup`.
 
 Please cite our paper if you find it useful!
 ```text
