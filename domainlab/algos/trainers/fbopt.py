@@ -41,26 +41,17 @@ class HyperSchedulerFeedback():
         the current value of $theta$
         """
         flag_success = False
-        self.ploss_old_theta_new_mu = self.eval_loss(mmu_new, self.theta)
-        self.ploss_old_theta_old_mu = self.eval_loss(self.mmu, self.theta)
+        self.ploss_old_theta_new_mu = self.trainer.eval_loss(mmu_new, self.theta)
+        self.ploss_old_theta_old_mu = self.trainer.eval_loss(self.mmu, self.theta)
         for _ in range(self.budget_theta_per_step):
-            theta4mu_new = self.trainer.opt_theta(mmu_new)
-            self.ploss_new_theta_new_mu = self.eval_loss(mmu_new, theta4mu_new)
-            self.ploss_new_theta_old_mu = self.eval_loss(self.mmu, theta4mu_new)
+            theta4mu_new = self.trainer.opt_theta(mmu_new, self.trainer.model.named_parameters())  # FIXME: get theta from model
+            self.ploss_new_theta_new_mu = self.trainer.eval_loss(mmu_new, theta4mu_new)
+            self.ploss_new_theta_old_mu = self.trainer.eval_loss(self.mmu, theta4mu_new)
             if self.is_criteria_met():
                 self.mmu = mmu_new
                 self.theta = theta4mu_new
                 flag_success = True
         return flag_success
-
-    def eval_loss(self, mmu, theta):
-        """
-        evaluate the penalty function value
-        """
-        v_reg_loss = self.trainer.model.cal_reg_loss(theta)
-        loss_reg = self.inner_product(v_reg_loss, mmu)
-        ploss = loss_reg + self.trainer.model.cal_task_loss(theta)
-        return ploss
 
     def inner_product(self, mmu, v_reg_loss):
         """
