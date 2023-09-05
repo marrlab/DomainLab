@@ -56,6 +56,8 @@ respect/declare the following:
   (mandatory)
   - `distribution`: specifies the distribution used for sampling, must be specified for each
   hyperparameter (for available distributions see section below)
+  - `step`: "step-size" (float) of the grid. Only points lying on the grid
+  can be sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
   
 
 ### Hyperparameter sampling
@@ -76,8 +78,7 @@ hyperparameter (mandatory):
   (mandatory):
   - `min`: lower bound for samples (int)
   - `max`: upper bound for samples (int)
-  - `step`: "step-size" (float) of grid, starting from the lower bound. Only points lying on the grid
-  can be sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
+  
   
 
 ### Constraints
