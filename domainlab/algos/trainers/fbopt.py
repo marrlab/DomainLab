@@ -7,10 +7,11 @@ class HyperSchedulerFeedback():
     """
     design $\\mu$$ sequence based on state of penalized loss
     """
-    def __init__(self, **kwargs):
+    def __init__(self, trainer, **kwargs):
         """
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
+        self.trainer = trainer
         self.dict_par_init = kwargs
         self.ploss_old_theta_old_mu = None
         self.ploss_old_theta_new_mu = None
@@ -19,7 +20,6 @@ class HyperSchedulerFeedback():
         self.delta_mu = 0.01   # FIXME
         self.theta = None
         self.mmu = None
-        self.opt_theta = None  # theta operator
         self.budget_mu_per_step = 5  # FIXME
         self.budget_theta_per_step = 5
 
@@ -44,7 +44,7 @@ class HyperSchedulerFeedback():
         self.ploss_old_theta_new_mu = self.eval_loss(mmu_new, self.theta)
         self.ploss_old_theta_old_mu = self.eval_loss(self.mmu, self.theta)
         for _ in range(self.budget_theta_per_step):
-            theta4mu_new = self.opt_theta(mmu_new)
+            theta4mu_new = self.trainer.opt_theta(mmu_new)
             self.ploss_new_theta_new_mu = self.eval_loss(mmu_new, theta4mu_new)
             self.ploss_new_theta_old_mu = self.eval_loss(self.mmu, theta4mu_new)
             if self.is_criteria_met():
