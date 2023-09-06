@@ -12,6 +12,7 @@ from domainlab.models.model_diva import mk_diva
 from domainlab.tasks.utils_task import ImSize
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.compos.pcr.request import RequestVAEBuilderNN
+from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
 
 
 def test_mk_exp_diva():
@@ -39,30 +40,19 @@ def mk_exp_diva(trainer="mldg"):
                 dset_tr=DsetMNISTColorSoloDefault(4),
                 dset_val=DsetMNISTColorSoloDefault(5))
 
-    #remove me
-    #trainer = "mldg"
-
     # specify parameters
-    num_dom = 3
+    list_str_y = [f"class{i}" for i in range(task.dim_y)]
+    list_d_tr = ["domain2", "domain3"]
     zd_dim = 3
     zy_dim = 10
     zx_dim = 30
-    # net_x = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-    # net_class_d = nn.Linear(28, 3)
-    # net_class_y = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-    # net_class_d = nn.Linear(28, 3)
-    # net_class_y = nn.Linear(28,10)
-    # request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w,
-    #                              net_class_d, net_x, net_class_y)
-    request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w)
-    chain_node_builder = VAEChainNodeGetter(request)()
-    list_str_y = [f"class{i}" for i in range(task.dim_y)]
-    list_d_tr = ["domain2", "domain3"]
     gamma_d = 1e5
     gamma_y = 7e5
     beta_d = 1e3
     beta_x = 1e3
     beta_y = 1e3
+    request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w)
+    chain_node_builder = VAEChainNodeGetter(request)()
 
     # specify model to use
     model = mk_diva()(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y, list_d_tr, gamma_d,

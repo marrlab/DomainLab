@@ -42,9 +42,9 @@ class XYDEncoderParallelUser(XYDEncoderParallel):
     This class only reimplemented constructor of parent class
     """
     @store_args
-    # def __init__(self, net_class_d, net_x, net_class_y, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w):
+    #def __init__(self, net_class_d, net_x, net_class_y, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w):
     def __init__(self, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w):
-        #"""
+
         net_infer_zd = LSEncoderConvBnReluPool(
             self.zd_dim, self.i_c, self.i_w, self.i_h, conv_stride=1)
         net_infer_zx = LSEncoderConvBnReluPool(
@@ -54,7 +54,6 @@ class XYDEncoderParallelUser(XYDEncoderParallel):
             self.zy_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=1)
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)
-        #"""
         #super().__init__(net_class_d, net_x, net_class_y)
 
 

@@ -74,15 +74,17 @@ class NodeVAEBuilderUser(ChainNodeVAEBuilderClassifCondPriorBase):
     """Build encoders according to test_mk_exp file"""
 
     def is_myjob(self, request):
-        flag = hasattr(request, "net_x")
-        self.request = request
+        flag = not hasattr(request, "args")
+        # self.request = request
         self.config_img(flag, request)
         return flag
 
     def build_encoder(self):
-        encoder = XYDEncoderParallelUser(self.request.net_class_d, self.request.net_x,
+        """encoder = XYDEncoderParallelUser(self.request.net_class_d, self.request.net_x,
                                          self.request.net_class_y,
                                          self.zd_dim, self.zx_dim, self.zy_dim,
+                                         self.i_c, self.i_h, self.i_w)"""
+        encoder = XYDEncoderParallelUser(self.zd_dim, self.zx_dim, self.zy_dim,
                                          self.i_c, self.i_h, self.i_w)
         return encoder
 
