@@ -23,6 +23,14 @@ domainlab.algos.a\_algo\_builder module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.builder\_api\_model module
+------------------------------------------
+
+.. automodule:: domainlab.algos.builder_api_model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.builder\_custom module
 --------------------------------------
 
@@ -43,22 +51,6 @@ domainlab.algos.builder\_deepall module
 ---------------------------------------
 
 .. automodule:: domainlab.algos.builder_deepall
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.algos.builder\_deepall\_mldg module
----------------------------------------------
-
-.. automodule:: domainlab.algos.builder_deepall_mldg
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.algos.builder\_dial module
-------------------------------------
-
-.. automodule:: domainlab.algos.builder_dial
    :members:
    :undoc-members:
    :show-inheritance:

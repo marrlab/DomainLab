@@ -36,6 +36,14 @@ domainlab.algos.trainers.train\_dial module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.train\_hyper\_scheduler module
+-------------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_hyper_scheduler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_matchdg module
 ----------------------------------------------
 
@@ -48,14 +56,6 @@ domainlab.algos.trainers.train\_mldg module
 -------------------------------------------
 
 .. automodule:: domainlab.algos.trainers.train_mldg
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-domainlab.algos.trainers.train\_visitor module
-----------------------------------------------
-
-.. automodule:: domainlab.algos.trainers.train_visitor
    :members:
    :undoc-members:
    :show-inheritance:

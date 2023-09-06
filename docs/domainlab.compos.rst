@@ -7,7 +7,10 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   domainlab.compos.exp
    domainlab.compos.nn_zoo
+   domainlab.compos.pcr
+   domainlab.compos.vae
 
 Submodules
 ----------

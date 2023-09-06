@@ -28,10 +28,26 @@ domainlab.utils.get\_git\_tag module
    :undoc-members:
    :show-inheritance:
 
+domainlab.utils.hyperparameter\_gridsearch module
+-------------------------------------------------
+
+.. automodule:: domainlab.utils.hyperparameter_gridsearch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.utils.hyperparameter\_sampling module
 -----------------------------------------------
 
 .. automodule:: domainlab.utils.hyperparameter_sampling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.utils.logger module
+-----------------------------
+
+.. automodule:: domainlab.utils.logger
    :members:
    :undoc-members:
    :show-inheritance:

@@ -26,6 +26,14 @@ domainlab.arg\_parser module
    :undoc-members:
    :show-inheritance:
 
+domainlab.mk\_exp module
+------------------------
+
+.. automodule:: domainlab.mk_exp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
