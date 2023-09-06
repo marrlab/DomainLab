@@ -6,6 +6,8 @@ from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefa
 from domainlab.tasks.task_dset import mk_task_dset
 from domainlab.models.model_hduva import mk_hduva
 from domainlab.tasks.utils_task import ImSize
+from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
+from domainlab.compos.pcr.request import RequestVAEBuilderNN
 
 
 def test_mk_exp_hduva():
@@ -35,7 +37,6 @@ def mk_exp_hduva(trainer="mldg"):
                     dset_val=DsetMNISTColorSoloDefault(5))
 
     # specify backbone to use
-    chain_node_builder = None  # TODO: chain_node_builder
     zy_dim = 10
     zd_dim = 3
     list_str_y = [f"class{i}" for i in range(task.dim_y)]
@@ -46,9 +47,11 @@ def mk_exp_hduva(trainer="mldg"):
     beta_x = 1e3
     beta_y = 1e3
     beta_t = 1e3
-    device = None  # TODO: specify device
+    device = "cpu"
     zx_dim = 0
     topic_dim = 3
+    request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w)
+    chain_node_builder = VAEChainNodeGetter(request)()
 
     # specify model to use
     model = mk_hduva()(chain_node_builder, zy_dim, zd_dim, list_str_y, list_d_tr, gamma_d, gamma_y,
