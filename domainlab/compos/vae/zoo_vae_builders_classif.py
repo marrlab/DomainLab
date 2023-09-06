@@ -81,7 +81,9 @@ class NodeVAEBuilderUser(ChainNodeVAEBuilderClassifCondPriorBase):
 
     def build_encoder(self):
         encoder = XYDEncoderParallelUser(self.request.net_class_d, self.request.net_x,
-                                         self.request.net_class_y)
+                                         self.request.net_class_y,
+                                         self.zd_dim, self.zx_dim, self.zy_dim,
+                                         self.i_c, self.i_h, self.i_w)
         return encoder
 
 

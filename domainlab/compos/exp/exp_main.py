@@ -49,6 +49,7 @@ class Exp():
             self.trainer.init_business(self.model, self.task, observer, device, args)
 
     def execute(self, num_epochs=None):
+        print("exp Start")
         """
         train model
         check performance by loading persisted model
