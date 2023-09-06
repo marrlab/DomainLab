@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#2196f3">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+  
+    <title>MatchDG: Domain Generalization using Causal Matching &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DIAL: Domain Invariant Adversarial Learning" href="docDIAL.html" />
+    <link rel="prev" title="DIVA: Domain Invariant Variational Autoencoders" href="doc_diva.html" />
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=teal data-md-color-accent=cyan>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#docMatchDG" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="domainlab  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">DomainLab</span>
+          <span class="md-header-nav__topic"> MatchDG: Domain Generalization using Causal Matching </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+            
+            <li class="md-tabs__item"><a href="readme_link.html" class="md-tabs__link">Introduction</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="domainlab documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    <a href="index.html"
+       title="domainlab documentation">DomainLab</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Contents:</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="modules.html" class="md-nav__link">domainlab</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> MatchDG: Domain Generalization using Causal Matching </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">MatchDG: Domain Generalization using Causal Matching</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docmatchdg--page-root" class="md-nav__link">MatchDG: Domain Generalization using Causal Matching</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#motivation-causality-theory" class="md-nav__link">Motivation: causality theory</a>
+        </li>
+        <li class="md-nav__item"><a href="#network" class="md-nav__link">Network</a>
+        </li>
+        <li class="md-nav__item"><a href="#training" class="md-nav__link">Training</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#motivation-causality-theory" class="md-nav__link">Motivation: causality theory</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#network" class="md-nav__link">Network</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#training" class="md-nav__link">Training</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docDIAL.html" class="md-nav__link">DIAL: Domain Invariant Adversarial Learning</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docmatchdg--page-root" class="md-nav__link">MatchDG: Domain Generalization using Causal Matching</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#motivation-causality-theory" class="md-nav__link">Motivation: causality theory</a>
+        </li>
+        <li class="md-nav__item"><a href="#network" class="md-nav__link">Network</a>
+        </li>
+        <li class="md-nav__item"><a href="#training" class="md-nav__link">Training</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="matchdg-domain-generalization-using-causal-matching">
+<h1 id="docmatchdg--page-root">MatchDG: Domain Generalization using Causal Matching<a class="headerlink" href="#docmatchdg--page-root" title="Permalink to this heading">¶</a></h1>
+<p>This algorithm introduced in <a class="reference external" href="https://arxiv.org/pdf/2006.07500.pdf">https://arxiv.org/pdf/2006.07500.pdf</a> is motivated by causality theory. The authors try to enforce, that a model does classify an image only on the object information included in the image and not on the domain information.</p>
+<section id="motivation-causality-theory">
+<h2 id="motivation-causality-theory">Motivation: causality theory<a class="headerlink" href="#motivation-causality-theory" title="Permalink to this heading">¶</a></h2>
+<p>The authors of the paper motivate their approach by looking at the data-generation process. The underlying causal model (SCM) is given in figure 1. In the graphic one starts of from the object <span class="math notranslate nohighlight">\(O\)</span> and the domain D. The object is directly influenced by its true label <span class="math notranslate nohighlight">\(y_\text{true}\)</span> while label and domain do only correlate with each other. Additionally the object is correlated with the domain conditioned on <span class="math notranslate nohighlight">\(y_\text{true}\)</span>. The information from the object <span class="math notranslate nohighlight">\(O\)</span> and the domain <span class="math notranslate nohighlight">\(D\)</span> do together form the image <span class="math notranslate nohighlight">\(x\)</span> which shall be classified by the neuronal network. Doing so, the object does contribute to the image by providing high-level causal features <span class="math notranslate nohighlight">\(x_C\)</span> that are common to any image of the same object. This features are the key for classifying the object, as there is only subliminal influence of the domain, therefore the prediction <span class="math notranslate nohighlight">\(y\)</span> is only depending on this causal features. The second contribution to the image are domain-dependent high-level features of the object <span class="math notranslate nohighlight">\(x_A\)</span>, which depend on both, the object <span class="math notranslate nohighlight">\(O\)</span> and the domain <span class="math notranslate nohighlight">\(D\)</span>. This domain-dependent features shall not be respected in the classification as there is a high influence of the domain.</p>
+<div style="align: center; text-align:center;">
+<img src="figs/matchDG_causality.png" style="width:200px;"/>
+<div class="caption">Figure 1: Structural causal model for the data-generating process. Observed variables are shaded; dashed arrows denote correlated nodes. Object may not be observed. (Image source: Figure 2 of Domain Generalization using Causal Matching https://arxiv.org/pdf/2006.07500.pdf) </div>
+</div>
+</section>
+<section id="network">
+<h2 id="network">Network<a class="headerlink" href="#network" title="Permalink to this heading">¶</a></h2>
+<p>Before defining the network, one needs to define three sets:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathcal{X}\)</span>: image space with <span class="math notranslate nohighlight">\(x \in \mathcal{X}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{C}\)</span>: causal feature space with <span class="math notranslate nohighlight">\(x_C \in \mathcal{C}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{Y}\)</span>: label space with <span class="math notranslate nohighlight">\(y \in \mathcal{Y}\)</span></p></li>
+</ul>
+<p>For the classification the goal is to classify an object only based on its causal features <span class="math notranslate nohighlight">\(x_C\)</span>, hence we define a network <span class="math notranslate nohighlight">\(h: \mathcal{C} \rightarrow \mathcal{Y}\)</span>. Since <span class="math notranslate nohighlight">\(x_C\)</span> for an image <span class="math notranslate nohighlight">\(x\)</span> is unknown, one needs to learn a representation function <span class="math notranslate nohighlight">\(\phi: \mathcal{X} \rightarrow \mathcal{C}\)</span>. By assumption for two images <span class="math notranslate nohighlight">\(x_j^{(d)}\)</span> and <span class="math notranslate nohighlight">\(x_k^{(d')}\)</span> of the same class, but from different domains <span class="math notranslate nohighlight">\(\text{ dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right)\)</span> is small to enforce that the features in <span class="math notranslate nohighlight">\(\phi(x) \in \mathcal{C}\)</span> are affected by the associated object and not the domain. This motivates the definition of a match function <span class="math notranslate nohighlight">\(\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Omega(x_j, x_k) = \begin{cases}
+1 \quad &amp; \text{$x_j$ and $x_k$ correspond to the same object} \\
+0 &amp; \text{otherwise}
+\end{cases} 
+\end{split}\]</div>
+<p>by using</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\sum_{\substack{\Omega(x_j, x_k) = 1,\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right) = 0.
+\end{split}\]</div>
+<p>Together the networks form the desired classifier <span class="math notranslate nohighlight">\(f = h \circ \phi : \mathcal{X} \rightarrow \mathcal{Y}\)</span>.</p>
+</section>
+<section id="training">
+<h2 id="training">Training<a class="headerlink" href="#training" title="Permalink to this heading">¶</a></h2>
+<p><strong>Initialisation:</strong> first of all match pairs of same-class data points from different domains are constructed. Given a data point, another data point with the same label from a different domain is selected randomly. The matching across domains is done relative to a base domain, which is chosen as the domain with the highest number of samples for that class. This leads to a matched data matrix <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> of size <span class="math notranslate nohighlight">\((N', K)\)</span> with <span class="math notranslate nohighlight">\(N'\)</span> sum of the size of base domains over all classes and <span class="math notranslate nohighlight">\(K\)</span> number ob domains.</p>
+<p><strong>Phase 1:</strong> sample batches <span class="math notranslate nohighlight">\((B, K)\)</span> from <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>, with <span class="math notranslate nohighlight">\(B\)</span> is batch size and train a match function <span class="math notranslate nohighlight">\(\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}\)</span>, by adapting the network parameter in <span class="math notranslate nohighlight">\(\phi\)</span> to minimize the contrastive loss for every positive match pair <span class="math notranslate nohighlight">\((x_j, x_k)\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right) }{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right) + \sum\limits_{\substack{i=0,\\ y_i \neq y_j}} \exp\left( \frac{\text{sim}(j, i)}{\tau} \right) }\right)
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{sim}(a, b) = \frac{\phi(x_a)^T \phi(x_b)}{||\phi(x_a)||~||\phi(x_b)||}\)</span> is the cosine similarity and <span class="math notranslate nohighlight">\(\tau\)</span> is a hyperparameter (<code class="docutils literal notranslate"><span class="pre">--tau</span></code>).</p>
+<p>After <span class="math notranslate nohighlight">\(t\)</span> epochs (<code class="docutils literal notranslate"><span class="pre">--epos_per_match_update</span></code>) the match tensor is updated. The same procedure of selecting a base domain for each class is used, but instead of randomly matching data points across domains, we find the nearest neighbor among the data point in base domain and data points in the other domains, having the same class label, with respect to <span class="math notranslate nohighlight">\(l_2\)</span> distance between their representations <span class="math notranslate nohighlight">\(\phi_\text{epoch}(x)\)</span>.</p>
+<p><strong>Phase 2:</strong> Finally the classifier <span class="math notranslate nohighlight">\(f = h \circ \phi\)</span> is trained using</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} ~ l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1,\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
+\end{split}\]</div>
+<p>The training of <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> is performed from scratch. The trained network <span class="math notranslate nohighlight">\(\phi^*\)</span> from phase 1 is only used to update the matched data matrix using yielding <span class="math notranslate nohighlight">\(\Omega\)</span>.</p>
+<hr class="docutils"/>
+<p>This procedure yields to the following availability of hyperparameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--tau</span></code>: hyperparameter in the contrastive loss. In the paper this parameter is chosen to be <span class="math notranslate nohighlight">\(0.05\)</span> in all experiments. (<span class="math notranslate nohighlight">\(\tau\)</span> from phase 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--epochs_ctr</span></code>: number of epochs for minimizing the contrastive loss in phase 1.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--epos_per_match_update</span></code>: Number of epochs before updating the match tensor. (<span class="math notranslate nohighlight">\(t\)</span> from phase 1)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>: weight for the regularization term in phase 2. (<span class="math notranslate nohighlight">\(\gamma_\text{reg}\)</span> from phase 2)</p></li>
+</ul>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="doc_diva.html" title="DIVA: Domain Invariant Variational Autoencoders"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> DIVA: Domain Invariant Variational Autoencoders </span>
+              </div>
+            </a>
+          
+          
+            <a href="docDIAL.html" title="DIAL: Domain Invariant Adversarial Learning"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> DIAL: Domain Invariant Adversarial Learning </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021-2023, Marr Lab..
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

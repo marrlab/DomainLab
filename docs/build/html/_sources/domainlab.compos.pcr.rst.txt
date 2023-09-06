@@ -1,0 +1,29 @@
+domainlab.compos.pcr package
+============================
+
+Submodules
+----------
+
+domainlab.compos.pcr.p\_chain\_handler module
+---------------------------------------------
+
+.. automodule:: domainlab.compos.pcr.p_chain_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.pcr.request module
+-----------------------------------
+
+.. automodule:: domainlab.compos.pcr.request
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: domainlab.compos.pcr
+   :members:
+   :undoc-members:
+   :show-inheritance:

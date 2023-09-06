@@ -1,0 +1,109 @@
+domainlab.compos.vae.compos package
+===================================
+
+Submodules
+----------
+
+domainlab.compos.vae.compos.decoder\_concat\_vec\_reshape\_conv module
+----------------------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.decoder\_concat\_vec\_reshape\_conv\_gated\_conv module
+-----------------------------------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.decoder\_cond\_prior module
+-------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.decoder_cond_prior
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.decoder\_losses module
+--------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.decoder_losses
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder module
+------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_dirichlet module
+-----------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_dirichlet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_domain\_topic module
+---------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_domain_topic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_domain\_topic\_img2topic module
+--------------------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_domain_topic_img2topic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_domain\_topic\_img\_topic2zd module
+------------------------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_xyd\_parallel module
+---------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_xyd_parallel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_xydt\_elevator module
+----------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_xydt_elevator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.compos.encoder\_zy module
+----------------------------------------------
+
+.. automodule:: domainlab.compos.vae.compos.encoder_zy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: domainlab.compos.vae.compos
+   :members:
+   :undoc-members:
+   :show-inheritance:

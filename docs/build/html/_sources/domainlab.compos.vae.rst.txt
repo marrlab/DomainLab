@@ -1,0 +1,85 @@
+domainlab.compos.vae package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   domainlab.compos.vae.compos
+
+Submodules
+----------
+
+domainlab.compos.vae.a\_model\_builder module
+---------------------------------------------
+
+.. automodule:: domainlab.compos.vae.a_model_builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.a\_vae\_builder module
+-------------------------------------------
+
+.. automodule:: domainlab.compos.vae.a_vae_builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.c\_vae\_adaptor\_model\_recon module
+---------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.c_vae_adaptor_model_recon
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.c\_vae\_builder\_classif module
+----------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.c_vae_builder_classif
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.c\_vae\_recon module
+-----------------------------------------
+
+.. automodule:: domainlab.compos.vae.c_vae_recon
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.utils\_request\_chain\_builder module
+----------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.utils_request_chain_builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.zoo\_vae\_builders\_classif module
+-------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.zoo_vae_builders_classif
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.compos.vae.zoo\_vae\_builders\_classif\_topic module
+--------------------------------------------------------------
+
+.. automodule:: domainlab.compos.vae.zoo_vae_builders_classif_topic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: domainlab.compos.vae
+   :members:
+   :undoc-members:
+   :show-inheritance:
