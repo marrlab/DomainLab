@@ -37,7 +37,7 @@ def test_hyperparameter_sampling():
         assert par['p3'] == 2 * par['p2']
         p_4 = par['p4']
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
-        assert type(p_4) == int
+        assert np.issubdtype(type(p_4), np.integer)
 
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
