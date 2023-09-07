@@ -1,4 +1,5 @@
 #!/bin/bash
+Set -e
 
 timestamp() {
 #  date +"%T" # current time
