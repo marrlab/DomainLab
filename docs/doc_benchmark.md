@@ -40,6 +40,8 @@ Furthermore, the user can declare:
   - `te_d`: list of test domains (mandatory)
   - `tr_d`: list of training domains (mandatory)
 - `output_dir`: path to the custom output directory (mandatory)
+- `startseed`: creates reproducible results (mandatory)
+- `endseed`: creates reproducible results (mandatory)
 - `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
 - `Shared params`: a list including `num_shared_param_samples` (number of samples for the shared
 hyperparameters) and the shared hyperparameters with respective sampling distribution (optional)
@@ -47,7 +49,7 @@ hyperparameters) and the shared hyperparameters with respective sampling distrib
 Depending on which hyperparameter sampling technique is used (see section below), the user must also
 respect/declare the following:
 - random hyperparameter sampling:
-  - `sampling_seed` (int), `startseed` (int), `endseed` (int) must be defined outside the experiments
+  - `sampling_seed` (int) must be defined outside the experiments
   - `num_param_samples`: number of hyperparameters to be sampled (int, mandatory), must be defined outside the experiments
   - `distribution`: specifies the distribution used for sampling, must be specified for each
   hyperparameter, for available distributions see section below (mandatory)
