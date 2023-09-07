@@ -78,9 +78,7 @@ def test_fallback_solution_of_sample_parameters():
 
 def test_hyperparameter_gridsearch():
     """Test sampling from yaml, including constraints"""
-    #with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r", encoding="utf-8") \
-    #        as stream:
-    with open("examples/benchmark/benchmark_mnist_shared_hyper_grid.yaml", "r", encoding="utf-8") \
+    with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r", encoding="utf-8") \
             as stream:
         config = yaml.safe_load(stream)
 
