@@ -14,7 +14,7 @@ import domainlab.utils.hyperparameter_sampling as sampling
 from domainlab.utils.logger import Logger
 
 
-def round_to_discreate_grid_uniform(grid, param_config, flag_int=False):
+def round_to_discreate_grid_uniform(grid, param_config):
     '''
     round the values of the grid to the grid spacing specified in the config
     for uniform and loguniform grids
@@ -26,12 +26,17 @@ def round_to_discreate_grid_uniform(grid, param_config, flag_int=False):
     if maxi - mini < param_config['step']:
         raise RuntimeError('distance between max and min to small for defined step size')
 
-    discreate_gird = np.arange(mini, maxi + param_config['step'], step=param_config['step'])
+    discreate_gird = np.arange(mini, maxi + float(param_config['step']),
+                               step=float(param_config['step']))
     for num, elem in enumerate(list(grid)):
         # search for the closest allowed grid point to the scalar elem
         grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
     grid_unique = np.unique(grid)
     grid_out = grid_unique
+    flag_int = True
+    for element in grid_out:
+        if element % 1 != 0:
+            flag_int = False
     if flag_int:
         grid_out = grid_unique.astype(int)
     return grid_out
@@ -45,14 +50,14 @@ def round_to_discreate_grid_normal(grid, param_config):
         return grid
     # for normal and lognormal no min and max is provided
     # in this case the grid is constructed around the mean
-    neg_steps = np.ceil((param_config['mean'] - np.min(grid)) /
-                        param_config['step'])
-    pos_steps = np.ceil((np.max(grid) - param_config['mean']) /
-                        param_config['step'])
-    mini = param_config['mean'] - param_config['step'] * neg_steps
-    maxi = param_config['mean'] + param_config['step'] * pos_steps
+    neg_steps = np.ceil((float(param_config['mean']) - np.min(grid)) /
+                        float(param_config['step']))
+    pos_steps = np.ceil((np.max(grid) - float(param_config['mean'])) /
+                        float(param_config['step']))
+    mini = float(param_config['mean']) - float(param_config['step']) * neg_steps
+    maxi = float(param_config['mean']) + float(param_config['step']) * pos_steps
 
-    discreate_gird = np.arange(mini, maxi, step=param_config['step'])
+    discreate_gird = np.arange(mini, maxi, step=float(param_config['step']))
     for num, elem in enumerate(list(grid)):
         grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
     return np.unique(grid)
@@ -62,7 +67,7 @@ def uniform_grid(param_config):
     get a uniform distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'max', 'min', 'step'
     '''
-    num = param_config['num']
+    num = int(param_config['num'])
     maxi = float(param_config['max'])
     mini = float(param_config['min'])
     step = (maxi - mini) / num
@@ -70,9 +75,8 @@ def uniform_grid(param_config):
     # we move away from mini and maxi to sample inside the open interval (mini, maxi)
     grid = np.linspace(mini + step / 2, maxi - step / 2, num)
     if 'step' in param_config.keys():
-        flag_int = isinstance(param_config["step"], int)
         return round_to_discreate_grid_uniform(
-            grid, param_config, flag_int)
+            grid, param_config)
     return grid
 
 def loguniform_grid(param_config):
