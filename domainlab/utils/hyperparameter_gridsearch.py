@@ -173,9 +173,13 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
             dictio.update({rev_param: val})
             exec(f"{rev_param} = val")
         # check constraints
-        if config['hyperparameters'].get('constraints', None) is not None:
+        if 'hyperparameters' in config.keys():
+            constraints = config['hyperparameters'].get('constraints', None)
+        else:
+            constraints = config.get('constraints', None)
+        if constraints is not None:
             accepted = True
-            for constr in config['hyperparameters'].get('constraints', None):
+            for constr in constraints:
                 if not eval(constr):
                     accepted = False
             if accepted:
