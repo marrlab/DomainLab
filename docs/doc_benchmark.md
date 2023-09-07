@@ -15,14 +15,14 @@ example. The user can create different custom experiments, which are to be bench
 experiment can have a custom name.
 
 An experiment can specify following arguments:
-- `aname`: name of the model. An experiment with an incorrect `aname` will not be considered in the
-benchmark! (mandatory)
+- `aname`: name of the model. An experiment with an incorrect `aname` is not considered in the
+benchmark (mandatory)
 - `hyperparameters`: model-specific hyperparameters (for more details on the hyperparameters we
 refer to the model-specific documentation). The hyperparameters can be randomly sampled, see
-next section
-- `shared`: a list of the parameter, which the respective experiment shares with another experiment
+next section (optional)
+- `shared`: a list of parameters, which the respective experiment shares with another experiment
 (optional)
-- `constraints`: a list of constraints, see section below (optional)
+- `constraints`: a list of constraints for the hyperparameters, see section below (optional)
 - `trainer`: trainer to be used (optional, e.g. "dial" or "mldg")
 - model-specific arguments (for more details we refer to the model-specific documentation)
 
@@ -41,7 +41,6 @@ Furthermore, the user can declare:
   - `tr_d`: list of training domains (mandatory)
 - `output_dir`: path to the custom output directory (mandatory)
 - `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
-- `num_param_samples`: number of hyperparameters to be sampled (int, mandatory)
 - `Shared params`: a list including `num_shared_param_samples` (number of samples for the shared
 hyperparameters) and the shared hyperparameters with respective sampling distribution (optional)
 
@@ -49,21 +48,24 @@ Depending on which hyperparameter sampling technique is used (see section below)
 respect/declare the following:
 - random hyperparameter sampling:
   - `sampling_seed` (int), `startseed` (int), `endseed` (int) must be defined outside the experiments
+  - `num_param_samples`: number of hyperparameters to be sampled (int, mandatory), must be defined outside the experiments
   - `distribution`: specifies the distribution used for sampling, must be specified for each
   hyperparameter, for available distributions see section below (mandatory)
+  - `step`: "step-size" (float) between samples. Only points being a multiple of the step-size apart
+  can be sampled. `0` means that each real number can be sampled.
 - grid search hyperparameter sampling (`mode`:`grid`):
   - `num`: number of hyperparameters to be sampled (int) must be specified for each hyperparameter
   (mandatory)
   - `distribution`: specifies the distribution used for sampling, must be specified for each
   hyperparameter (for available distributions see section below)
-  - `step`: "step-size" (float) of the grid. Only points lying on the grid
+  - `step`: "step-size" (float) of the grid points. Only points lying on the grid
   can be sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
   
 
 ### Hyperparameter sampling
 The benchmark offers the option to randomly sample hyperparameters from different distributions.
 An example can be found in [demo_hyperparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml). We offer two sampling
-techniques, random hyperparameter sampling and grid search. The default sampling mode is the random
+techniques, random hyperparameter sampling and grid search. The default sampling mode is random
 hyperparameter sampling. If grid search should be applied, the user must specify `mode`:`grid`.
 
 Each sampling technique offers the following distributions:
@@ -103,23 +105,22 @@ To run the benchmark with a specific configuration on a standalone machine, insi
 folder, one can execute (we assume you have a machine with 4 cores or more)
 ```shell
 # Note: this has only been tested on Linux based systems and may not work on Windows
-./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0
+./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0  2
 ```
-where the first argument is the benchmark configuration file, and the second and third argument,
-which is the starting seed for cuda and hyperparameter sampling, is optional. By the last optional
-argument the user can also specify the number of GPUs to use, by default it is one, and this should
-be the case for cpu as well (if your machine does not have GPU, the last argument will be set to 1
-as well).
+where the first argument is the benchmark configuration file (mandatory), the second and the third 
+arguments are the starting seeds for cuda and the hyperparameter sampling (both optional) and the
+fourth argument is the number of GPUs to use (optional). The number of GPUs defaults to one 
+(if your machine does not have GPU, the last argument defaults to one as well and CPU is used).
 
 ### Benchmark on a HPC cluster with slurm
-If you have access an HPC cluster with slurm support: In a submission node, clone the DomainLab
+If you have access to an HPC cluster with slurm support: In a submission node, clone the DomainLab
 repository, cd into the repository and execute the following command:
 ```cluster
 # Note: this has only been tested on Linux based systems and may not work on Windows
 ./run_benchmark_slurm.sh ./examples/benchmark/demo_benchmark.yaml
 ```
-Similar to the local version, the user can also specify a random seed for hyperparameter sampling and
-a random seed for pytorch.
+Similar to the local version explained above, the user can also specify a random seed for 
+hyperparameter sampling and pytorch.
 
 ## Obtained results
 All files created by this benchmark are saved in the given output directory
@@ -127,7 +128,7 @@ All files created by this benchmark are saved in the given output directory
 `hyperparameters.csv`. The performance of the different runs can be found aggregated in `results.csv`.
 Moreover, there is the `graphics` subdirectory, in which the values from `results.csv` are
 visualized for interpretation.
-In the case that the benchmark is not entirely completed, the user can obtain partial results as
+In case that the benchmark is not entirely completed, the user can obtain partial results as
 explained below.
 
 
@@ -138,7 +139,8 @@ the following after cd into the DomainLab directory:
 ```commandline
 python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
-specifying the benchmark output directory, e.g. `./zoutput/benchmarks/demo_benchmark`.
+specifying the benchmark output directory containing the partially completed benchmark,
+e.g. `./zoutput/benchmarks/demo_benchmark`.
 
 ### Generate plots from .csv file
 If the benchmark is not completed, the `graphics` subdirectory might not be created. The user can then manually
@@ -150,7 +152,7 @@ python main_out.py --gen_plots CSV_FILE --outp_dir OUTPUT_DIR
 ```
 
 specifying the path of the csv file of the aggregated results (e.g. `./zoutput/benchmarks/demo_benchmark/results.csv`)
-and the output directory (e.g. `./zoutput/benchmarks/demo_benchmark`).
+and the output directory of the partially completed benchmark (e.g. `./zoutput/benchmarks/demo_benchmark`).
 Note that the cvs file must have the same form as the one generated by the fully executed benchmark, i.e. 
 
 
