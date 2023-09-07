@@ -6,7 +6,8 @@ import pytest
 import yaml
 
 from domainlab.utils.hyperparameter_sampling import \
-    sample_hyperparameters, sample_parameters, get_hyperparameter
+    sample_hyperparameters, sample_parameters, get_hyperparameter, \
+    Hyperparameter, SampledHyperparameter
 from domainlab.utils.hyperparameter_gridsearch import \
     sample_gridsearch
 from tests.utils_test import assert_frame_not_equal
@@ -38,6 +39,39 @@ def test_hyperparameter_sampling():
 
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
+
+    # test the case with less parameter samples than shared samples
+    config['num_param_samples'] = 3
+    sample_hyperparameters(config)
+
+
+def test_fallback_solution_of_sample_parameters():
+    '''
+    trying to meet the constrainds with the pool of presampled shared
+    hyperparameters may not be possible, in this case the shared
+    hyperparameters are sampled accoring to their config.
+    This case is tested in this function
+    '''
+    # define a task specific hyperparameter
+    config = {'distribution': 'uniform', 'min': 0, 'max': 1, 'step': 0}
+    par = SampledHyperparameter('p1', config)
+    init_params = [par]
+    # set a constrained with a shared hyperparameter
+    constraints = ['p1 > p1_shared']
+    # set config for shared hyperparameter
+    shared_config = {'num_shared_param_samples': 2,
+                     'p1_shared': {'distribution': 'uniform',
+                                   'min': 0, 'max': 10, 'step': 0}}
+    # set the shared samples to values which do never meet the
+    # constrained with the task specific hyperparameter
+    shared_samples = pd.DataFrame(
+        [['all', 'all', {'p1_shared': 5}],
+         ['all', 'all', {'p1_shared': 6}]],
+        columns=['task', 'algo', 'params']
+    )
+    sample_parameters(init_params, constraints,
+                      shared_config=shared_config,
+                      shared_samples=shared_samples)
 
 
 def test_hyperparameter_gridsearch():

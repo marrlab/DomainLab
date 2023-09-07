@@ -317,7 +317,7 @@ def sample_task(num_samples: int,
         # for the case that we expect more hyperparameter samples for the algorithm as provided
         # in the shared sampes we use the shared config to sample new hyperparameters to ensure
         # that we have distinct hyperparameters
-        if num_samples - shared_samples.shape[0] > 0:
+        if num_samples - shared_samp.shape[0] > 0:
             s_config = shared_config.copy()
             s_dict = {}
             for keys in s_config.keys():
@@ -329,7 +329,7 @@ def sample_task(num_samples: int,
             s_config['hyperparameters'] = s_dict
 
             # sample new shared hyperparameters
-            sample_df = sample_task(num_samples - shared_samples.shape[0],
+            sample_df = sample_task(num_samples - shared_samp.shape[0],
                                     task_name, (s_config, sample_df), (None, None))
             # add previously sampled shared hyperparameters
             sample_df = sample_df.append(shared_samp, ignore_index=True)
