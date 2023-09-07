@@ -38,6 +38,8 @@ class XYDTEncoderElevator(nn.Module):
         return zy_loc
 
 
+# TODO: class XYDTEncoderUser()
+
 class XYDTEncoderArg(XYDTEncoderElevator):
     """
     This class only reimplemented constructor of parent class

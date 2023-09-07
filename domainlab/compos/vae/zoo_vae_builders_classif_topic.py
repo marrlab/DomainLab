@@ -4,7 +4,7 @@ Chain node VAE builders
 from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv import \
     DecoderConcatLatentFCReshapeConvGatedConv
 from domainlab.compos.vae.compos.encoder_xydt_elevator import XYDTEncoderArg
-from domainlab.compos.vae.zoo_vae_builders_classif import NodeVAEBuilderArg
+from domainlab.compos.vae.zoo_vae_builders_classif import (NodeVAEBuilderArg, NodeVAEBuilderUser)
 
 
 class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
@@ -15,7 +15,7 @@ class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
         :param request:
         """
         self.args = request.args
-        flag = True  # @FIXME
+        flag = hasattr(request, "args")
         self.config_img(flag, request)
         return flag
 
@@ -46,3 +46,22 @@ class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
             i_c=self.i_c, i_w=self.i_w,
             i_h=self.i_h)
         return decoder
+
+
+class NodeVAEBuilderImgTopicUser(NodeVAEBuilderUser):
+    """NodeVAEBuilderImgTopic if user input does not come via command line, but from test file"""
+
+
+    def is_myjob(self, request):
+        flag = not hasattr(request, "args")
+        self.config_img(flag, request)
+        return flag
+
+
+    def build_encoder(self):  # TODO
+        # encoder = XYDTEncoderUser(
+        return
+
+
+    def build_decoder(self):  # TODO
+        return
