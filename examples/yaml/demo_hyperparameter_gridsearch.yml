@@ -143,3 +143,7 @@ Task3:
 
   constraints:
     - 'p1_shared <= 2'
+
+Task4:
+  aname: Algo3
+  zd_dim: 5
