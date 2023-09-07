@@ -1,9 +1,6 @@
 """
 make an experiment using "diva" model
 """
-from torch import nn
-from torchvision import models as torchvisionmodels
-from torchvision.models import ResNet50_Weights
 
 from domainlab.mk_exp import mk_exp
 from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
@@ -51,7 +48,15 @@ def mk_exp_diva(trainer="mldg"):
     beta_d = 1e3
     beta_x = 1e3
     beta_y = 1e3
-    request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w)
+    net_class_d = LSEncoderConvBnReluPool(
+        zd_dim, task.isize.c, task.isize.w, task.isize.h, conv_stride=1)
+    net_x = LSEncoderConvBnReluPool(
+        zx_dim, task.isize.c, task.isize.w, task.isize.h, conv_stride=1)
+    net_class_y = LSEncoderConvBnReluPool(
+        zy_dim, task.isize.c, task.isize.w, task.isize.h, conv_stride=1)
+
+    request = RequestVAEBuilderNN(net_class_d, net_x, net_class_y,
+                                  task.isize.c, task.isize.h, task.isize.w)
     chain_node_builder = VAEChainNodeGetter(request)()
 
     # specify model to use
