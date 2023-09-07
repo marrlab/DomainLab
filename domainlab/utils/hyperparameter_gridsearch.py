@@ -19,11 +19,11 @@ def round_to_discreate_grid_uniform(grid, param_config):
     round the values of the grid to the grid spacing specified in the config
     for uniform and loguniform grids
     '''
-    if param_config['step'] == 0:
+    if float(param_config['step']) == 0:
         return grid
     mini = float(param_config['min'])
     maxi = float(param_config['max'])
-    if maxi - mini < param_config['step']:
+    if maxi - mini < float(param_config['step']):
         raise RuntimeError('distance between max and min to small for defined step size')
 
     discreate_gird = np.arange(mini, maxi + float(param_config['step']),
@@ -40,7 +40,7 @@ def round_to_discreate_grid_normal(grid, param_config):
     round the values of the grid to the grid spacing specified in the config
     for normal and lognormal grids
     '''
-    if param_config['step'] == 0:
+    if float(param_config['step']) == 0:
         return grid
     # for normal and lognormal no min and max is provided
     # in this case the grid is constructed around the mean
@@ -78,7 +78,7 @@ def loguniform_grid(param_config):
     get a loguniform distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'max', 'min'
     '''
-    num = param_config['num']
+    num = int(param_config['num'])
     maxi = np.log10(float(param_config['max']))
     mini = np.log10(float(param_config['min']))
     step = (maxi - mini) / num
@@ -93,18 +93,19 @@ def normal_grid(param_config, lognormal=False):
     get a normal distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'mean', 'std'
     '''
-    if param_config['num'] == 1:
-        return np.array([param_config['mean']])
+    if int(param_config['num']) == 1:
+        return np.array([float(param_config['mean'])])
     # Box–Muller transform to get from a uniform distribution to a normal distribution
-    num = int(np.floor(param_config['num'] / 2))
-    step = 2 / (param_config['num'] + 1)
+    num = int(np.floor(int(param_config['num']) / 2))
+    step = 2 / (int(param_config['num']) + 1)
     # for a even number of samples
-    if param_config['num'] % 2 == 0:
+    if int(param_config['num']) % 2 == 0:
         param_grid = np.arange(step, 1, step=step)[:num]
         stnormal_grid = np.sqrt(-2 * np.log(param_grid))
         stnormal_grid = np.append(stnormal_grid, -stnormal_grid)
         stnormal_grid = stnormal_grid / np.std(stnormal_grid)
-        stnormal_grid = param_config['std'] * stnormal_grid + param_config['mean']
+        stnormal_grid = float(param_config['std']) * stnormal_grid + \
+                        float(param_config['mean'])
     # for a odd number of samples
     else:
         param_grid = np.arange(step, 1, step=step)[:num]
@@ -112,7 +113,8 @@ def normal_grid(param_config, lognormal=False):
         stnormal_grid = np.append(stnormal_grid, -stnormal_grid)
         stnormal_grid = np.append(stnormal_grid, 0)
         stnormal_grid = stnormal_grid / np.std(stnormal_grid)
-        stnormal_grid = param_config['std'] * stnormal_grid + param_config['mean']
+        stnormal_grid = float(param_config['std']) * stnormal_grid + \
+                        float(param_config['mean'])
 
     if 'step' in param_config.keys() and lognormal is False:
         return round_to_discreate_grid_normal(stnormal_grid, param_config)
@@ -211,6 +213,7 @@ def sample_grid(param_config):
         raise RuntimeError(f'distribution \"{param_config["distribution"]}\" not '
                            f'implemented use a distribution from '
                            f'[categorical, uniform, loguniform, normal, lognormal]')
+
     # ensure that the gird does have the correct datatype
     # (only check for int, othervise float is used)
     if 'datatype' in param_config.keys():
