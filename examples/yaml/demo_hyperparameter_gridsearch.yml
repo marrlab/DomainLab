@@ -45,6 +45,7 @@ Task1:  # name
       std: 2  # in case of normal
       step: 1 # integer valued
       num: 3
+      datatype: int
 
     p3:
       min: 1e-6
@@ -82,6 +83,21 @@ Task1:  # name
       distribution: loguniform
       num: 1
 
+    p9:
+      distribution: normal
+      mean: 0.5
+      std: 2
+      step: 1
+      num: 3
+      datatype: int
+
+    p10:
+      distribution: normal
+      mean: 0.5
+      std: 2
+      step: 1
+      num: 3
+
     # Optional
     constraints:
       # In this list, any valid Python code evaluating to bool can be used.
@@ -117,9 +133,9 @@ Task2:  # name
     p4:
       distribution: categorical
       values:
-        - 30
-        - 31
-        - 100
+        - 30.0
+        - 31.0
+        - 100.0
       datatype: int
 
     p5:

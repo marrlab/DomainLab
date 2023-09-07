@@ -1,6 +1,7 @@
 """
 tests hyperparameter_sampling.py
 """
+import numpy as np
 import pandas as pd
 import pytest
 import yaml
@@ -36,6 +37,7 @@ def test_hyperparameter_sampling():
         assert par['p3'] == 2 * par['p2']
         p_4 = par['p4']
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
+        assert type(p_4) == int
 
     a3samples = samples[samples['algo'] == 'Algo3']
     assert not a3samples.empty
@@ -87,9 +89,12 @@ def test_hyperparameter_gridsearch():
         assert par['p1'] < par['p2']
         assert par['p3'] < par['p2']
         assert par['p2'] % 1 == pytest.approx(0)
+        assert np.issubdtype(type(par['p2']), np.integer)
         assert par['p4'] == par['p3']
         assert par['p5'] == 2 * par['p3'] / par['p1']
         assert par['p1_shared'] == par['p1']
+        assert np.issubdtype(type(par['p9']), np.integer)
+        assert par['p10'] % 1 == 0.5
 
     a2samples = samples[samples['algo'] == 'Algo2']
     for par in a2samples['params']:
@@ -98,6 +103,7 @@ def test_hyperparameter_gridsearch():
         assert par['p3'] == 2 * par['p2']
         p_4 = par['p4']
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
+        assert np.issubdtype(type(par['p4']), np.integer)
         assert 'p2_shared' not in par.keys()
 
     a3samples = samples[samples['algo'] == 'Algo3']

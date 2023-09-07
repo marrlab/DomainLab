@@ -92,9 +92,9 @@ Task2:  # name
     p4:
       distribution: categorical
       values:
-        - 30
-        - 31
-        - 100
+        - 30.0
+        - 31.0
+        - 100.0
       datatype: int
 
 Task3:

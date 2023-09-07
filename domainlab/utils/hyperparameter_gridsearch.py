@@ -33,12 +33,6 @@ def round_to_discreate_grid_uniform(grid, param_config):
         grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
     grid_unique = np.unique(grid)
     grid_out = grid_unique
-    flag_int = True
-    for element in grid_out:
-        if element % 1 != 0:
-            flag_int = False
-    if flag_int:
-        grid_out = grid_unique.astype(int)
     return grid_out
 
 def round_to_discreate_grid_normal(grid, param_config):
@@ -213,6 +207,12 @@ def sample_grid(param_config):
         raise RuntimeError(f'distribution \"{param_config["distribution"]}\" not '
                            f'implemented use a distribution from '
                            f'[categorical, uniform, loguniform, normal, lognormal]')
+    # ensure that the gird does have the correct datatype
+    # (only check for int, othervise float is used)
+    if 'datatype' in param_config.keys():
+        if param_config['datatype'] == 'int':
+            param_grid = np.array(param_grid)
+            param_grid = param_grid.astype(int)
     return param_grid
 
 def build_param_grid_of_shared_params(shared_df):
