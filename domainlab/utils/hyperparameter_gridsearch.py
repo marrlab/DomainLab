@@ -333,8 +333,8 @@ def sample_gridsearch(config: dict,
         shared_samples_full = None
     for key, val in config.items():
         if sampling.is_dict_with_key(val, "aname"):
-            shared_samples = shared_samples_full.copy(deep=True)
             if shared_samples_full is not None:
+                shared_samples = shared_samples_full.copy(deep=True)
                 if 'shared' in val.keys():
                     shared = val['shared']
                 else:
@@ -348,6 +348,8 @@ def sample_gridsearch(config: dict,
                     shared_samples.iloc[line_num]['params'] = hyper_p_dict
                 # remove all duplicates
                 shared_samples = shared_samples.drop_duplicates(subset='params')
+            else:
+                shared_samples = None
 
             samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
