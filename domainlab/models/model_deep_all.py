@@ -3,15 +3,29 @@ from domainlab.utils.override_interface import override_interface
 
 
 def mk_deepall(parent_class=AModelClassif):
-    """Instantiate a Deepall model
+    """
+    Instantiate a Deepall (ERM) model
+
+    Details:
+        Creates a model, which trains a neural network via standard empirical risk minimization
+        (ERM). The fact that the training data stems from different domains is neglected, as all
+        domains are pooled together during training.
 
     Args:
         parent_class (AModel, optional):
             Class object determining the task type. Defaults to AModelClassif.
 
     Returns:
-        ModelDeepAlll: model inheriting from parent class
+        ModelDeepAll: model inheriting from parent class
+
+    Input Parameters:
+        custom neural network, the output dimension must be the number of labels
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py
     """
+
     class ModelDeepAll(parent_class):
         """
         anonymous
