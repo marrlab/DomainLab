@@ -29,6 +29,7 @@ Shared params:
       step: 32
       distribution: uniform
       num: 2
+      datatype: int
 
 
 domainlab_args:
@@ -68,6 +69,7 @@ method_diva:  # name
       step: 32
       distribution: uniform
       num: 2
+      datatype: int
 
 
 method_hduva:  # name
