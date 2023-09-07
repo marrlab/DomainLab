@@ -163,3 +163,10 @@ Task3:
 Task4:
   aname: Algo3
   zd_dim: 5
+
+  shared:
+    - p1_shared
+
+Task5:
+  aname: Algo3
+  zd_dim: 5
