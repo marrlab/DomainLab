@@ -37,6 +37,7 @@ def experiment_result_files(_):
                 num_nonsample_tasks += 1
     # total number of hyperparameter samples
     logger = Logger.get_logger()
+    #TODO this needs to be known before the hyperparameters are sampled
     hyperparam_df = pd.read_csv(f'{config["output_dir"]}/hyperparameters.csv')
     total_num_params = hyperparam_df.shape[0]
     #total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
