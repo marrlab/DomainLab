@@ -225,6 +225,37 @@ def build_param_grid_of_shared_params(shared_df):
         shared_grid[key] = np.array(grid_points)
     return shared_grid
 
+def rais_error_if_num_not_specified(param_name: str, param_config: dict):
+    '''
+    for each parameter a number of grid points needs to be specified
+    This function raises an error if this is not the case
+    param_name: parameter name under consideration
+    param_config: config of this parameter
+    '''
+    if not param_name == 'constraints':
+        if not 'num' in param_config.keys() \
+                and not 'reference' in param_config.keys() \
+                and not param_config['distribution'] == 'categorical':
+            raise RuntimeError(f"the number of parameters in the grid direction "
+                               f"of {param_name} needs to be specified")
+
+def add_shared_params_to_param_grids(shared_df, dict_param_grids, config):
+    '''
+    use the parameters in the dataframe of shared parameters and add them
+    to the dictionary of parameters for the current task
+    only the shared parameters specified in the config are respected
+    shared_df: Dataframe of shared hyperparameters
+    dict_param_grids: dictionary of the parameter grids
+    config: config for the current task
+    '''
+    dict_shared_grid = build_param_grid_of_shared_params(shared_df)
+    if 'shared' in config.keys():
+        dict_shared_grid = {key: dict_shared_grid[key] for key in config['shared']}
+        if dict_shared_grid is not None:
+            for key in dict_shared_grid.keys():
+                dict_param_grids[key] = dict_shared_grid[key]
+    return dict_param_grids
+
 def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd.DataFrame):
     """create grid for one sampling task for a method and add it to the dataframe"""
     if 'hyperparameters' in config.keys():
@@ -232,12 +263,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         referenced_params = {}
         for param_name in config['hyperparameters'].keys():
             param_config = config['hyperparameters'][param_name]
-            if not param_name == 'constraints':
-                if not 'num' in param_config.keys() \
-                        and not 'reference' in param_config.keys() \
-                        and not param_config['distribution'] == 'categorical':
-                    raise RuntimeError(f"the number of parameters in the grid direction "
-                                       f"of {param_name} needs to be specified")
+            rais_error_if_num_not_specified(param_name, param_config)
 
             # constraints are not parameters
             if not param_name == 'constraints':
@@ -251,12 +277,9 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         # create the grid from the individual parameter grids
         # constraints are not respected in this step
         grid_df_prior = pd.DataFrame(columns=['params'])
-        dict_shared_grid = build_param_grid_of_shared_params(shared_df)
-        if 'shared' in config.keys():
-            dict_shared_grid = {key: dict_shared_grid[key] for key in config['shared']}
-            if dict_shared_grid is not None:
-                for key in dict_shared_grid.keys():
-                    dict_param_grids[key] = dict_shared_grid[key]
+        # add shared parameters to dict_param_grids
+        dict_param_grids = add_shared_params_to_param_grids(
+            shared_df, dict_param_grids, config)
         add_next_param_from_list(dict_param_grids, {}, grid_df_prior)
 
         # add referenced params and check constraints

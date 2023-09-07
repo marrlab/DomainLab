@@ -289,6 +289,42 @@ def create_samples_from_shared_samples(shared_samples: pd.DataFrame,
                 shared_samp = shared_samp.drop(idx)
     return shared_samp
 
+def sample_task_only_shared(num_samples, task_name, sample_df, config, shared_conf_samp):
+    '''
+    sample one task and add it to the dataframe for task descriptions which only
+    contain shared hyperparameters
+    '''
+    shared_config, shared_samples = shared_conf_samp
+    # copy the shared samples dataframe and add the corrct algo and taks names
+    shared_samp = create_samples_from_shared_samples(shared_samples, config, task_name)
+
+    # for the case that we expect more hyperparameter samples for the algorithm as provided
+    # in the shared sampes we use the shared config to sample new hyperparameters to ensure
+    # that we have distinct hyperparameters
+    if num_samples - shared_samp.shape[0] > 0:
+        s_config = shared_config.copy()
+        s_dict = {}
+        for keys in s_config.keys():
+            if keys != 'num_shared_param_samples':
+                s_dict[keys] = s_config[keys]
+        if 'constraints' in config.keys():
+            s_dict['constraints'] = config['constraints']
+        s_config['aname'] = config['aname']
+        s_config['hyperparameters'] = s_dict
+
+        # sample new shared hyperparameters
+        sample_df = sample_task(num_samples - shared_samp.shape[0],
+                                task_name, (s_config, sample_df), (None, None))
+        # add previously sampled shared hyperparameters
+        sample_df = sample_df.append(shared_samp, ignore_index=True)
+    # for the case that the number of shared samples is >= the expected number of
+    # sampled hyperparameters we randomly choose rows in the sampled hyperparameters df
+    else:
+        shared_samp = shared_samp.sample(num_samples)
+        sample_df = sample_df.append(shared_samp, ignore_index=True)
+
+    return sample_df
+
 def sample_task(num_samples: int,
                 task_name: str,
                 conf_samp: tuple,
@@ -296,7 +332,6 @@ def sample_task(num_samples: int,
     """Sample one task and add it to the dataframe"""
     config, sample_df = conf_samp
     shared_config, shared_samples = shared_conf_samp
-    algo = config['aname']
     if 'hyperparameters' in config.keys():
         # in benchmark configuration file, sub-section hyperparameters
         # means changing hyper-parameters
@@ -309,39 +344,13 @@ def sample_task(num_samples: int,
         constraints = config['hyperparameters'].get('constraints', None)
         for _ in range(num_samples):
             sample = sample_parameters(params, constraints, shared_config, shared_samples)
-            sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
+            sample_df.loc[len(sample_df.index)] = [task_name, config['aname'], sample]
     elif 'shared' in config.keys():
-        # copy the shared samples dataframe and add the corrct algo and taks names
-        shared_samp = create_samples_from_shared_samples(shared_samples, config, task_name)
-
-        # for the case that we expect more hyperparameter samples for the algorithm as provided
-        # in the shared sampes we use the shared config to sample new hyperparameters to ensure
-        # that we have distinct hyperparameters
-        if num_samples - shared_samp.shape[0] > 0:
-            s_config = shared_config.copy()
-            s_dict = {}
-            for keys in s_config.keys():
-                if keys != 'num_shared_param_samples':
-                    s_dict[keys] = s_config[keys]
-            if 'constraints' in config.keys():
-                s_dict['constraints'] = config['constraints']
-            s_config['aname'] = algo
-            s_config['hyperparameters'] = s_dict
-
-            # sample new shared hyperparameters
-            sample_df = sample_task(num_samples - shared_samp.shape[0],
-                                    task_name, (s_config, sample_df), (None, None))
-            # add previously sampled shared hyperparameters
-            sample_df = sample_df.append(shared_samp, ignore_index=True)
-
-        # for the case that the number of shared samples is >= the expected number of
-        # sampled hyperparameters we randomly choose rows in the sampled hyperparameters df
-        else:
-            shared_samp = shared_samp.sample(num_samples)
-            sample_df = sample_df.append(shared_samp, ignore_index=True)
+        sample_df = sample_task_only_shared(num_samples, task_name, sample_df,
+                                            config, (shared_config, shared_samples))
     else:
         # add single line if no varying hyperparameters are specified.
-        sample_df.loc[len(sample_df.index)] = [task_name, algo, {}]
+        sample_df.loc[len(sample_df.index)] = [task_name, config['aname'], {}]
     return sample_df
 
 
