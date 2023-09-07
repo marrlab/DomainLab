@@ -5,6 +5,7 @@ def add_next_param_from_list is an recursive function to make cartesian product 
 in def grid_task
 
 '''
+import copy
 import os
 
 import numpy as np
@@ -231,7 +232,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         referenced_params = {}
         for param_name in config['hyperparameters'].keys():
             param_config = config['hyperparameters'][param_name]
-            if  not param_name == 'constraints':
+            if not param_name == 'constraints':
                 if not 'num' in param_config.keys() \
                         and not 'reference' in param_config.keys() \
                         and not param_config['distribution'] == 'categorical':
@@ -268,7 +269,9 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         shared_grid = shared_df.copy()
         shared_grid['algo'] = config['aname']
         shared_grid['task'] = task_name
-        grid_df = grid_df.append(shared_grid, ignore_index=True)
+        if 'constraints' in config.keys():
+            config['hyperparameters'] = {'constraints': config['constraints']}
+        add_references_and_check_constraints(shared_grid, grid_df, {}, config, task_name)
         return grid_df
     else:
         # add single line if no varying hyperparameters are specified.
@@ -297,16 +300,33 @@ def sample_gridsearch(config: dict,
 
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
-    shared_samples = pd.DataFrame(columns=['task', 'algo', 'params'])
+    shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
 
     if 'Shared params' in config.keys():
         shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
-        shared_samples = grid_task(shared_samples, 'all', shared_val, None)  # fill up the dataframe shared samples
+        # fill up the dataframe shared samples
+        shared_samples_full = grid_task(shared_samples_full, 'all', shared_val, None)
     else:
-        shared_samples = None
+        shared_samples_full = None
     for key, val in config.items():
         if sampling.is_dict_with_key(val, "aname"):
-            samples  = grid_task(samples, key, val, shared_samples)
+            shared_samples = shared_samples_full.copy(deep=True)
+            if shared_samples_full is not None:
+                if 'shared' in val.keys():
+                    shared = val['shared']
+                else:
+                    shared = []
+                for line_num in range(shared_samples.shape[0]):
+                    hyper_p_dict = shared_samples.iloc[line_num]['params'].copy()
+                    key_list = copy.deepcopy(list(hyper_p_dict.keys()))
+                    for key_ in key_list:
+                        if key_ not in shared:
+                            del hyper_p_dict[key_]
+                    shared_samples.iloc[line_num]['params'] = hyper_p_dict
+                # remove all duplicates
+                shared_samples = shared_samples.drop_duplicates(subset='params')
+
+            samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
                         f'{samples[samples["algo"] == val["aname"]].shape[0]}')
 

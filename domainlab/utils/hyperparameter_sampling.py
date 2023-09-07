@@ -240,8 +240,8 @@ def sample_parameters(init_params: List[Hyperparameter], constraints,
     # this may be due to the shared hyperparameters.
     # If so, new samples are generated for the shared hyperparameters
     logger = Logger.get_logger()
-    logger.warning(f"The constrainds coundn't be met with the shared Hyperparameters, "
-                   f"shared dataframe pool will be ignored for now.")
+    logger.warning("The constrainds coundn't be met with the shared Hyperparameters, "
+                   "shared dataframe pool will be ignored for now.")
     for _ in range(10_000):
         params = copy.deepcopy(init_params)
         # add the shared hyperparameter as a sampled hyperparameter
@@ -265,20 +265,44 @@ def sample_parameters(init_params: List[Hyperparameter], constraints,
                        "Are the bounds and constraints reasonable?")
 
 
+def create_samples_from_shared_samples(shared_samples: pd.DataFrame,
+                                       config: dict,
+                                       task_name: str):
+    '''
+    add informations like task, algo and constrainds to the shared samples
+    Parameters:
+    shared_samples: pd Dataframe with columns ['task', 'algo', 'params']
+    config: dataframe with yaml configuration of the current task
+    task_name: name of the current task
+    '''
+    shared_samp = shared_samples.copy()
+    shared_samp['algo'] = config['aname']
+    shared_samp['task'] = task_name
+    # respect the constraints if specified in the task
+    if 'constraints' in config.keys():
+        for idx in range(shared_samp.shape[0] - 1, -1, -1):
+            name = list(shared_samp['params'].iloc[idx].keys())[0]
+            value = shared_samp['params'].iloc[idx][name]
+            par = Hyperparameter(name)
+            par.val = value
+            if not check_constraints([par], config['constraints']):
+                shared_samp = shared_samp.drop(idx)
+    return shared_samp
+
 def sample_task(num_samples: int,
-                sample_df: pd.DataFrame,
                 task_name: str,
-                config: dict,
-                shared_config: dict,
-                shared_samples: pd.DataFrame):
+                conf_samp: tuple,
+                shared_conf_samp: tuple):
     """Sample one task and add it to the dataframe"""
+    config, sample_df = conf_samp
+    shared_config, shared_samples = shared_conf_samp
     algo = config['aname']
     if 'hyperparameters' in config.keys():
         # in benchmark configuration file, sub-section hyperparameters
         # means changing hyper-parameters
         params = []
         for key, val in config['hyperparameters'].items():
-            if key == 'constraints' or key == 'num_shared_param_samples':
+            if key in ('constraints', 'num_shared_param_samples'):
                 continue
             params += [get_hyperparameter(key, val)]
 
@@ -288,18 +312,7 @@ def sample_task(num_samples: int,
             sample_df.loc[len(sample_df.index)] = [task_name, algo, sample]
     elif 'shared' in config.keys():
         # copy the shared samples dataframe and add the corrct algo and taks names
-        shared_samp = shared_samples.copy()
-        shared_samp['algo'] = config['aname']
-        shared_samp['task'] = task_name
-        # respect the constraints if specified in the task
-        if 'constraints' in config.keys():
-            for idx in range(shared_samp.shape[0]-1, -1, -1):
-                name = list(shared_samp['params'].iloc[idx].keys())[0]
-                value = shared_samp['params'].iloc[idx][name]
-                par = Hyperparameter(name)
-                par.val = value
-                if not check_constraints([par], config['constraints']):
-                    shared_samp = shared_samp.drop(idx)
+        shared_samp = create_samples_from_shared_samples(shared_samples, config, task_name)
 
         # for the case that we expect more hyperparameter samples for the algorithm as provided
         # in the shared sampes we use the shared config to sample new hyperparameters to ensure
@@ -317,7 +330,7 @@ def sample_task(num_samples: int,
 
             # sample new shared hyperparameters
             sample_df = sample_task(num_samples - shared_samples.shape[0],
-                                    sample_df, task_name, s_config, None, None)
+                                    task_name, (s_config, sample_df), (None, None))
             # add previously sampled shared hyperparameters
             sample_df = sample_df.append(shared_samp, ignore_index=True)
 
@@ -336,6 +349,37 @@ def is_dict_with_key(input_dict, key) -> bool:
     """Determines if the input argument is a dictionary and it has key"""
     return isinstance(input_dict, dict) and key in input_dict.keys()
 
+def get_shared_samples(shared_samples_full: pd.DataFrame,
+                       shared_config_full: dict,
+                       task_config: dict):
+    '''
+    - creates a dataframe with columns [task, algo, params],
+    task and algo are all for all rows, but params is filled with the
+    shared parameters of shared_samples_full requested by task_config.
+
+    - creates a shared config containing only information about the
+    shared hyperparameters requested by the task_config
+    '''
+    shared_samples = shared_samples_full.copy(deep=True)
+    shared_config = shared_config_full.copy()
+    if 'shared' in task_config.keys():
+        shared = task_config['shared']
+    else:
+        shared = []
+    for line_num in range(shared_samples.shape[0]):
+        hyper_p_dict = shared_samples.iloc[line_num]['params'].copy()
+        key_list = copy.deepcopy(list(hyper_p_dict.keys()))
+        for key_ in key_list:
+            if key_ not in shared:
+                del hyper_p_dict[key_]
+        shared_samples.iloc[line_num]['params'] = hyper_p_dict
+    for key_ in key_list:
+        if not key_ == 'num_shared_param_samples':
+            if key_ not in shared:
+                del shared_config[key_]
+    # remove all duplicates
+    shared_samples = shared_samples.drop_duplicates(subset='params')
+    return shared_samples, shared_config
 
 def sample_hyperparameters(config: dict,
                            dest: str = None,
@@ -362,32 +406,22 @@ def sample_hyperparameters(config: dict,
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
     if 'Shared params' in config.keys():
         shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
-        shared_samples_full = sample_task(shared_config_full['num_shared_param_samples'], shared_samples_full, 'all', shared_val, None, None)  # fill up the dataframe shared samples
+        # fill up the dataframe shared samples
+        shared_samples_full = sample_task(shared_config_full['num_shared_param_samples'],
+                                          'all', (shared_val, shared_samples_full), (None, None))
     else:
         shared_samples_full = None
     for key, val in config.items():
         if is_dict_with_key(val, "aname"):
-            shared_samples = shared_samples_full.copy(deep=True)
-            shared_config = shared_config_full.copy()
-            if 'shared' in val.keys():
-                shared = val['shared']
+            if shared_samples_full is not None:
+                shared_samples, shared_config = get_shared_samples(
+                    shared_samples_full, shared_config_full, val)
             else:
-                shared = []
-            for line_num in range(shared_samples.shape[0]):
-                hyper_p_dict = shared_samples.iloc[line_num]['params'].copy()
-                key_list = copy.deepcopy(list(hyper_p_dict.keys()))
-                for key_ in key_list:
-                    if key_ not in shared:
-                        del hyper_p_dict[key_]
-                shared_samples.iloc[line_num]['params'] = hyper_p_dict
-            for key_ in key_list:
-                if not key_ == 'num_shared_param_samples':
-                    if key_ not in shared:
-                        del shared_config[key_]
-            # remove all duplicates
-            shared_samples = shared_samples.drop_duplicates(subset='params')
+                shared_config = None
+                shared_samples = None
 
-            samples = sample_task(num_samples, samples, key, val, shared_config, shared_samples)
+            samples = sample_task(num_samples, key, (val, samples),
+                                  (shared_config, shared_samples))
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
 
