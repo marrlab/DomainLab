@@ -7,9 +7,9 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.utils.logger import Logger
 
 
-class TrainerVisitor(TrainerBasic):
+class TrainerHyperScheduler(TrainerBasic):
     """
-    TrainerVisitor
+    TrainerHyperScheduler
     """
     def set_scheduler(self, scheduler, total_steps,
                       flag_update_epoch=False,
@@ -17,6 +17,13 @@ class TrainerVisitor(TrainerBasic):
         """
         set the warmup strategy from objective scheduler
         set wheter the hyper-parameter scheduling happens per epoch or per batch
+
+        Args:
+            scheduler: The class name of the scheduler, the object corresponding to
+            this class name will be created inside model
+            total_steps: number of steps to change the hyper-parameters
+            flag_update_epoch: if hyper-parameters should be changed per epoch
+            flag_update_batch: if hyper-parameters should be changed per batch
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
         self.flag_update_hyper_per_epoch = flag_update_epoch
@@ -57,6 +64,9 @@ class HyperSchedulerWarmup():
     HyperSchedulerWarmup
     """
     def __init__(self, **kwargs):
+        """
+        kwargs is a dictionary with key the hyper-parameter name and its value
+        """
         self.dict_par_setpoint = kwargs
         self.total_steps = None
 
