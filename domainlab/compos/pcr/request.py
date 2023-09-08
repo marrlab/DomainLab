@@ -11,7 +11,6 @@ class RequestVAEBuilderNN():
     @store_args
     def __init__(self, net_class_d, net_x, net_class_y, i_c, i_h, i_w):
         """net_class_d, net_x and net_class_y are neural networks defined by the user"""
-        pass
 
 class RequestTask():
     """
