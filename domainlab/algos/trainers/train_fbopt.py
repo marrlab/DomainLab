@@ -26,32 +26,32 @@ class TrainerFbOpt(AbstractTrainer):
             scheduler: The class name of the scheduler, the object corresponding to
             this class name will be created inside model
         """
+        # model.hyper_init will register the hyper-parameters of the model to scheduler
+        self.hyper_scheduler = self.model.hyper_init(scheduler)
 
     def before_tr(self):
         """
-        check the performance of randomly initialized weight
+        before training begins, construct helper objects
         """
-        self.set_scheduler()
+        self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.model.evaluate(self.loader_te, self.device)
-        self.inner_trainer = TrainerBasic()
+        self.inner_trainer = TrainerBasic()  # look ahead
+        # here we need a mechanism to generate deep copy of the model
         self.inner_trainer.init_business(
-            self.model, self.task, self.observer, self.device, self.aconf,
+            copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
 
-    def opt_theta(self, dict4mu, theta0):
+    def opt_theta(self, dict4mu, dict_theta0):
         """
         operator for theta, move gradient for one epoch, then check if criteria is met
+        this method will be invoked by the hyper-parameter scheduling object
         """
-        self.inner_trainer.model.set_params(theta0)   # FIXME: implement for each model
+        self.inner_trainer.model.set_params(dict_theta0)
+        # mock the model hyper-parameter to be from dict4mu
         self.inner_trainer.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
+        # hide implementation details of inner_trainer
         for _, (tensor_x, vec_y, vec_d, *others) in enumerate(self.inner_trainer.loader_tr):
             self.inner_trainer.train_batch(tensor_x, vec_y, vec_d, others)  # update inner_net
-            # the following is not needed anymore
-            # loss_look_forward = inner_net.cal_task_loss(tensor_x, vec_y)
-            # loss_source = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
-            # loss = loss_source.sum() + self.aconf.gamma_reg * loss_look_forward.sum()
-            # loss.backward()
-            # self.optimizer.step()
         dict_par = self.inner_trainer.model.name_parameters()
         return dict_par
 
@@ -77,7 +77,7 @@ class TrainerFbOpt(AbstractTrainer):
 
     def tr_epoch(self, epoch):
         self.model.train()
-        self.hyper_scheduler.search_mu()   # if mu not found, will raise error
+        self.hyper_scheduler.search_mu()   # if mu not found, will terminate
         self.model.set_params(self.hyper_scheduler.theta)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop

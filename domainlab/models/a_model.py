@@ -11,6 +11,12 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+    def set_params(self, dict_params):
+        """
+        set
+        """
+        self.load_state_dict(dict_params, strict=False)
+
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
