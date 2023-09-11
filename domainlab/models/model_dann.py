@@ -1,5 +1,6 @@
 """
-construct feature extractor, task neural network (e.g. classification) and domain classification network
+construct feature extractor, task neural network (e.g. classification) and domain classification
+network
 """
 from torch.nn import functional as F
 
@@ -8,7 +9,18 @@ from domainlab.models.a_model_classif import AModelClassif
 
 
 def mk_dann(parent_class=AModelClassif):
-    """Instantiate a Deep Adversarial Net (DAN) model
+    """
+    Instantiate a Deep Adversarial Net (DAN) model
+
+    Details:
+        The model is trained to solve two tasks:
+        1. Standard image classification.
+        2. Domain classification.
+        Here for, a feature extractor is adversarially trained to minimize the loss of the image 
+        classifier and maximize the loss of the domain classifier.
+        For more details, see:
+        Ganin, Yaroslav, et al. "Domain-adversarial training of neural networks."
+        The journal of machine learning research 17.1 (2016): 2096-2030.
 
     Args:
         parent_class (AModel, optional): Class object determining the task
@@ -16,13 +28,30 @@ def mk_dann(parent_class=AModelClassif):
 
     Returns:
         ModelDAN: model inheriting from parent class
+
+    Input Parameters:
+        list_str_y: list of labels,
+        list_str_d: list of domains,
+        alpha: total_loss = task_loss + $$\\alpha$$ * domain_classification_loss,
+        net_encoder: neural network to extract the features (input: training data),
+        net_classifier: neural network (input: output of net_encoder; output: label prediction),
+        net_discriminator: neural network (input: output of net_encoder;
+        output: prediction of training domain)
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_dann.py
     """
+
     class ModelDAN(parent_class):
         """
         anonymous
         """
         def __init__(self, list_str_y, list_str_d,
                      alpha, net_encoder, net_classifier, net_discriminator):
+            """
+            See documentation above in mk_dann() function
+            """
             super().__init__(list_str_y, list_str_d)
             self.alpha = alpha
             self.net_encoder = net_encoder

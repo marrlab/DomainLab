@@ -1,5 +1,5 @@
 """
-make an experiment
+make an experiment using the "deepall" model
 """
 from torch import nn
 from torchvision import models as torchvisionmodels
@@ -12,12 +12,21 @@ from domainlab.models.model_deep_all import mk_deepall
 from domainlab.tasks.utils_task import ImSize
 
 
-def test_mk_exp():
+def test_mk_exp_deepall():
     """
-    test mk experiment API
+    test mk experiment API with "deepall" model and "mldg", "dial" trainers
+    """
+
+    mk_exp_deepall(trainer="mldg")
+    mk_exp_deepall(trainer="dial")
+
+
+def mk_exp_deepall(trainer="mldg"):
+    """
+    execute experiment with "deepall" model and custom trainer
+
     """
     # specify domain generalization task
-
     task = mk_task_dset(isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
     task.add_domain(name="domain1",
                     dset_tr=DsetMNISTColorSoloDefault(0),
@@ -38,5 +47,5 @@ def test_mk_exp():
     model = mk_deepall()(backbone)
 
     # make trainer for model
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
-    exp.execute(num_epochs=1)
+    exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
+    exp.execute(num_epochs=2)
