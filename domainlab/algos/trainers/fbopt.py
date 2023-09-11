@@ -32,6 +32,7 @@ class HyperSchedulerFeedback():
         mmu = None
         for miter in range(self.budget_mu_per_step):
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
+            print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):
                 print(f"found reg-pareto operator with mu={mmu}")
                 flag_success = True
@@ -54,7 +55,8 @@ class HyperSchedulerFeedback():
         flag_success = False
         self.ploss_old_theta_new_mu = self.trainer.eval_loss(mmu_new, self.dict_theta)
         self.ploss_old_theta_old_mu = self.trainer.eval_loss(self.mmu, self.dict_theta)
-        for _ in range(self.budget_theta_update_per_mu):
+        for i in range(self.budget_theta_update_per_mu):
+            print(f"update theta at iteration {i} with mu={mmu_new}")
             theta4mu_new = self.trainer.opt_theta(mmu_new, self.dict_theta)
             self.ploss_new_theta_new_mu = self.trainer.eval_loss(mmu_new, theta4mu_new)
             self.ploss_new_theta_old_mu = self.trainer.eval_loss(self.mmu, theta4mu_new)
