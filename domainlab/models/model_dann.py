@@ -16,7 +16,7 @@ def mk_dann(parent_class=AModelClassif):
         The model is trained to solve two tasks:
         1. Standard image classification.
         2. Domain classification.
-        Here for, a feature extractor is adversarially trained to minimize the loss of the image 
+        Here for, a feature extractor is adversarially trained to minimize the loss of the image
         classifier and maximize the loss of the domain classifier.
         For more details, see:
         Ganin, Yaroslav, et al. "Domain-adversarial training of neural networks."
@@ -66,11 +66,11 @@ def mk_dann(parent_class=AModelClassif):
             dict_rst = fun_scheduler(epoch)  # the __call__ method of hyperparameter scheduler
             self.alpha = dict_rst["alpha"]
 
-        def hyper_init(self, functor_scheduler):
+        def hyper_init(self, functor_scheduler, trainer=None):
             """hyper_init.
             :param functor_scheduler:
             """
-            return functor_scheduler(alpha=self.alpha)
+            return functor_scheduler(trainer=trainer, alpha=self.alpha)
 
         def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
             """

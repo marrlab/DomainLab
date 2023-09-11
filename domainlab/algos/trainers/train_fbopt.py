@@ -30,7 +30,7 @@ class TrainerFbOpt(AbstractTrainer):
             this class name will be created inside model
         """
         # model.hyper_init will register the hyper-parameters of the model to scheduler
-        self.hyper_scheduler = self.model.hyper_init(scheduler)
+        self.hyper_scheduler = self.model.hyper_init(scheduler, trainer=self)
 
     def before_tr(self):
         """

@@ -12,14 +12,13 @@ class HyperSchedulerFeedback():
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
         self.trainer = trainer
-        self.dict_par_init = kwargs
+        self.mmu = kwargs
         self.ploss_old_theta_old_mu = None
         self.ploss_old_theta_new_mu = None
         self.ploss_new_theta_old_mu = None
         self.ploss_new_theta_new_mu = None
         self.delta_mu = 0.01   # FIXME
         self.dict_theta = None
-        self.mmu = None
         self.budget_mu_per_step = 5  # FIXME
         self.budget_theta_per_step = 5
 
@@ -31,11 +30,17 @@ class HyperSchedulerFeedback():
         self.dict_theta = dict_theta
         flag_success = False
         for miter in range(self.budget_mu_per_step):
-            mmu = self.mmu + miter * self.delta_mu
+            mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
             if self.search_theta(mmu):
                 flag_success = True
         if not flag_success:
             raise RuntimeError("failed to find mu within budget")
+
+    def dict_addition(self, dict_base, delta):
+        """
+        increase the value of a dictionary by delta
+        """
+        return {key: val + delta for key, val in dict_base.items()}
 
     def search_theta(self, mmu_new):
         """
