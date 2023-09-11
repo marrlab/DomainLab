@@ -9,6 +9,9 @@ from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
 
 
 class HyperSetter():
+    """
+    mock object to force hyper-parameter in the model
+    """
     def __init__(self, dict_hyper):
         self.dict_hyper = dict_hyper
 
@@ -66,10 +69,11 @@ class TrainerFbOpt(AbstractTrainer):
         epo_reg_loss = 0
         epo_task_loss = 0
         epo_p_loss = 0  # penalized loss
-        # FIXME: will loader be corupted? if called at different places?
-        for ind_batch, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
+        # FIXME: will loader be corupted? if called at different places? if we do not make deep copy
+        for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
             b_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d).sum()
-            b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y, vec_d).sum()  # sum will kill the dimension of the mini batch
+            b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y, vec_d).sum()
+            # sum will kill the dimension of the mini batch
             b_p_loss = temp_model.cal_p_loss(tensor_x, vec_y).sum()
             epo_reg_loss += b_reg_loss
             epo_task_loss += b_task_loss
@@ -78,8 +82,8 @@ class TrainerFbOpt(AbstractTrainer):
 
     def tr_epoch(self, epoch):
         self.model.train()
-        # FIXME: hyper_scheduler should use the last theta
-        self.hyper_scheduler.search_mu()   # if mu not found, will terminate
-        self.model.set_params(self.hyper_scheduler.theta)
+        self.hyper_scheduler.search_mu(
+            self.model.named_parameters())   # if mu not found, will terminate
+        self.model.set_params(self.hyper_scheduler.dict_theta)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop

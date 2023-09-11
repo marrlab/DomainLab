@@ -18,15 +18,17 @@ class HyperSchedulerFeedback():
         self.ploss_new_theta_old_mu = None
         self.ploss_new_theta_new_mu = None
         self.delta_mu = 0.01   # FIXME
-        self.theta = None
+        self.dict_theta = None
         self.mmu = None
         self.budget_mu_per_step = 5  # FIXME
         self.budget_theta_per_step = 5
 
-    def search_mu(self):
+    def search_mu(self, dict_theta):
         """
+        start from parameter dict_theta,
         enlarge mmu to see if the criteria is met
         """
+        self.dict_theta = dict_theta
         flag_success = False
         for miter in range(self.budget_mu_per_step):
             mmu = self.mmu + miter * self.delta_mu
@@ -41,15 +43,15 @@ class HyperSchedulerFeedback():
         the current value of $theta$
         """
         flag_success = False
-        self.ploss_old_theta_new_mu = self.trainer.eval_loss(mmu_new, self.theta)
-        self.ploss_old_theta_old_mu = self.trainer.eval_loss(self.mmu, self.theta)
+        self.ploss_old_theta_new_mu = self.trainer.eval_loss(mmu_new, self.dict_theta)
+        self.ploss_old_theta_old_mu = self.trainer.eval_loss(self.mmu, self.dict_theta)
         for _ in range(self.budget_theta_per_step):
-            theta4mu_new = self.trainer.opt_theta(mmu_new, self.trainer.model.named_parameters())  # FIXME: get theta from model
+            theta4mu_new = self.trainer.opt_theta(mmu_new, self.dict_theta)
             self.ploss_new_theta_new_mu = self.trainer.eval_loss(mmu_new, theta4mu_new)
             self.ploss_new_theta_old_mu = self.trainer.eval_loss(self.mmu, theta4mu_new)
             if self.is_criteria_met():
                 self.mmu = mmu_new
-                self.theta = theta4mu_new
+                self.dict_theta = theta4mu_new
                 flag_success = True
         return flag_success
 
