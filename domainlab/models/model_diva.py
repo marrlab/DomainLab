@@ -34,7 +34,9 @@ def mk_diva(parent_class=VAEXYDClassif):
         zd_dim: size of latent space for domain-specific information,
         zy_dim: size of latent space for class-specific information,
         zx_dim: size of latent space for residual variance,
-        chain_node_builder: TODO,
+        chain_node_builder: creates the neural network specified by the user; object of the class
+        "VAEChainNodeGetter" (see domainlab/compos/vae/utils_request_chain_builder.py)
+        being initialized by entering a user request,
         list_str_y: list of labels,
         list_d_tr: list of training domains,
         gamma_d: weighting term for d classifier,
@@ -42,6 +44,10 @@ def mk_diva(parent_class=VAEXYDClassif):
         beta_d: weighting term for domain encoder,
         beta_x: weighting term for residual variation encoder,
         beta_y: weighting term for class encoder
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_diva.py
     """
 
     class ModelDIVA(parent_class):
