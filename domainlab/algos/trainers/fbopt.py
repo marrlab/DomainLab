@@ -20,7 +20,7 @@ class HyperSchedulerFeedback():
         self.delta_mu = 0.01   # FIXME
         self.dict_theta = None
         self.budget_mu_per_step = 5  # FIXME
-        self.budget_theta_update_per_mu = 5
+        self.budget_theta_update_per_mu = 5  # np.infty
 
     def search_mu(self, dict_theta):
         """
@@ -58,9 +58,9 @@ class HyperSchedulerFeedback():
             theta4mu_new = self.trainer.opt_theta(mmu_new, self.dict_theta)
             self.ploss_new_theta_new_mu = self.trainer.eval_loss(mmu_new, theta4mu_new)
             self.ploss_new_theta_old_mu = self.trainer.eval_loss(self.mmu, theta4mu_new)
+            self.dict_theta = theta4mu_new
             if self.is_criteria_met():
                 self.mmu = mmu_new
-                self.dict_theta = theta4mu_new
                 flag_success = True
         return flag_success
 
