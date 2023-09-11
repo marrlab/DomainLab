@@ -30,7 +30,6 @@ class HyperSchedulerFeedback():
         enlarge mmu to see if the criteria is met
         """
         self.dict_theta = dict_theta
-        flag_success = False
         mmu = None
         for miter in range(self.budget_mu_per_step):
             # FIXME: the same mu is tried two times since miter=0
@@ -38,12 +37,11 @@ class HyperSchedulerFeedback():
             print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):
                 print(f"!!!found reg-pareto operator with mu={mmu}")
-                flag_success = True
                 self.mmu = mmu
-        if not flag_success:
-            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
-        return flag_success
+                return True
+        logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+        logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
+        return False
 
     def dict_addition(self, dict_base, delta):
         """
