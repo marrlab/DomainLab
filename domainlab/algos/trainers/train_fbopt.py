@@ -83,7 +83,7 @@ class TrainerFbOpt(AbstractTrainer):
     def tr_epoch(self, epoch):
         self.model.train()
         self.hyper_scheduler.search_mu(
-            self.model.named_parameters())   # if mu not found, will terminate
+            dict(self.model.named_parameters()))   # if mu not found, will terminate
         self.model.set_params(self.hyper_scheduler.dict_theta)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
