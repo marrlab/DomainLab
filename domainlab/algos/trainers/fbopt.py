@@ -33,6 +33,7 @@ class HyperSchedulerFeedback():
         flag_success = False
         mmu = None
         for miter in range(self.budget_mu_per_step):
+            # FIXME: the same mu is tried two times since miter=0
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
             print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):
