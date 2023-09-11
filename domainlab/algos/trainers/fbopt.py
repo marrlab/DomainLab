@@ -37,7 +37,7 @@ class HyperSchedulerFeedback():
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
             print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):
-                print(f"found reg-pareto operator with mu={mmu}")
+                print(f"!!!found reg-pareto operator with mu={mmu}")
                 flag_success = True
                 self.mmu = mmu
         if not flag_success:
