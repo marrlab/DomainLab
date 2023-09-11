@@ -38,6 +38,7 @@ class HyperSchedulerFeedback():
             if self.search_theta(mmu):
                 print(f"found reg-pareto operator with mu={mmu}")
                 flag_success = True
+                self.mmu = mmu
         if not flag_success:
             warnings.warn("!!!!!!failed to find mu within budget, mu={mmu}")
         return flag_success

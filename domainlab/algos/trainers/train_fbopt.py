@@ -67,6 +67,7 @@ class TrainerFbOpt(AbstractTrainer):
         temp_model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
         temp_model.set_params(dict_theta)
         epo_reg_loss = 0
+        # FIXME: check if reg is decreasing
         epo_task_loss = 0
         epo_p_loss = 0  # penalized loss
         # FIXME: will loader be corupted? if called at different places? if we do not make deep copy
@@ -87,6 +88,7 @@ class TrainerFbOpt(AbstractTrainer):
         flag_success = self.hyper_scheduler.search_mu(
             dict(self.model.named_parameters()))   # if mu not found, will terminate
         if flag_success:
+            # only in success case, mu will be updated
             self.model.set_params(self.hyper_scheduler.dict_theta)
         else:
             # if failed to find reg-pareto descent operator, continue training
