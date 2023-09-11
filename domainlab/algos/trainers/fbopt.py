@@ -15,6 +15,7 @@ class HyperSchedulerFeedback():
         """
         self.trainer = trainer
         self.mmu = kwargs
+        self.mmu = {key: 0.0 for key, val in self.mmu.items()}
         self.ploss_old_theta_old_mu = None
         self.ploss_old_theta_new_mu = None
         self.ploss_new_theta_old_mu = None
