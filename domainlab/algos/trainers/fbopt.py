@@ -29,12 +29,14 @@ class HyperSchedulerFeedback():
         """
         self.dict_theta = dict_theta
         flag_success = False
+        mmu = None
         for miter in range(self.budget_mu_per_step):
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
             if self.search_theta(mmu):
+                print(f"found reg-pareto operator with mu={mmu}")
                 flag_success = True
         if not flag_success:
-            raise RuntimeError("failed to find mu within budget")
+            raise RuntimeError("failed to find mu within budget, mu={mmu}")
 
     def dict_addition(self, dict_base, delta):
         """
@@ -46,6 +48,8 @@ class HyperSchedulerFeedback():
         """
         conditioned on fixed $$\\mu$$, the operator should search theta based on
         the current value of $theta$
+
+        the execution will set the value for mu and theta as well
         """
         flag_success = False
         self.ploss_old_theta_new_mu = self.trainer.eval_loss(mmu_new, self.dict_theta)
