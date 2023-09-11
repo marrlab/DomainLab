@@ -55,7 +55,7 @@ class TrainerFbOpt(AbstractTrainer):
         # hide implementation details of inner_trainer
         for _, (tensor_x, vec_y, vec_d, *others) in enumerate(self.inner_trainer.loader_tr):
             self.inner_trainer.train_batch(tensor_x, vec_y, vec_d, others)  # update inner_net
-        dict_par = self.inner_trainer.model.name_parameters()
+        dict_par = dict(self.inner_trainer.model.named_parameters())
         return dict_par
 
     def eval_loss(self, dict4mu, dict_theta):
@@ -71,10 +71,12 @@ class TrainerFbOpt(AbstractTrainer):
         epo_p_loss = 0  # penalized loss
         # FIXME: will loader be corupted? if called at different places? if we do not make deep copy
         for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
+            tensor_x, vec_y, vec_d = \
+                tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             b_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d).sum()
-            b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y, vec_d).sum()
+            b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y).sum()
             # sum will kill the dimension of the mini batch
-            b_p_loss = temp_model.cal_p_loss(tensor_x, vec_y).sum()
+            b_p_loss = temp_model.cal_loss(tensor_x, vec_y, vec_d).sum()
             epo_reg_loss += b_reg_loss
             epo_task_loss += b_task_loss
             epo_p_loss += b_p_loss
