@@ -42,7 +42,7 @@ class HyperSchedulerFeedback():
                 self.mmu = mmu
         if not flag_success:
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.warn("!!!!!!failed to find mu within budget, mu={mmu}")
+            logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
         return flag_success
 
     def dict_addition(self, dict_base, delta):
