@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import copy
+import warnings
 
 
 class HyperSchedulerFeedback():
@@ -38,7 +39,8 @@ class HyperSchedulerFeedback():
                 print(f"found reg-pareto operator with mu={mmu}")
                 flag_success = True
         if not flag_success:
-            raise RuntimeError("failed to find mu within budget, mu={mmu}")
+            warnings.warn("!!!!!!failed to find mu within budget, mu={mmu}")
+        return flag_success
 
     def dict_addition(self, dict_base, delta):
         """

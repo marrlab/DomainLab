@@ -84,8 +84,12 @@ class TrainerFbOpt(AbstractTrainer):
 
     def tr_epoch(self, epoch):
         self.model.train()
-        self.hyper_scheduler.search_mu(
+        flag_success = self.hyper_scheduler.search_mu(
             dict(self.model.named_parameters()))   # if mu not found, will terminate
-        self.model.set_params(self.hyper_scheduler.dict_theta)
-        flag_stop = self.observer.update(epoch)  # notify observer
+        if flag_success:
+            self.model.set_params(self.hyper_scheduler.dict_theta)
+        else:
+            # if failed to find reg-pareto descent operator, continue training
+            self.inner_trainer.tr_epoch(epoch)
+        flag_stop = self.observer.update(epoch)  # FIXME: should count how many epochs were used
         return flag_stop
