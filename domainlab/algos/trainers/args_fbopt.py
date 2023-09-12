@@ -7,9 +7,9 @@ def add_args2parser_fbopt(parser):
     """
     append hyper-parameters to the main argparser
     """
-    parser.add_argument('--init_mu4beta', type=float, default=0.01,
+    parser.add_argument('--init_mu4beta', type=float, default=0.001,
                         help='initial beta for multiplication')
-    parser.add_argument('--beta_mu', type=float, default=1.2,
+    parser.add_argument('--beta_mu', type=float, default=1.1,
                         help='how much to multiply mu each time')
     parser.add_argument('--delta_mu', type=float, default=None,
                         help='how much to increment mu each time')
