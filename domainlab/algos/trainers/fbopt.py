@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import copy
+import numpy as np
 from domainlab.utils.logger import Logger
 
 
@@ -21,6 +22,7 @@ class HyperSchedulerFeedback():
         self.ploss_new_theta_old_mu = None
         self.ploss_new_theta_new_mu = None
         self.delta_mu = trainer.aconf.delta_mu
+        self.init_mu = trainer.aconf.init_mu4beta
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta = None
         self.budget_mu_per_step = trainer.aconf.budget_mu_per_step
@@ -48,10 +50,14 @@ class HyperSchedulerFeedback():
         """
         update a dictionary according to iteration
         """
+        if miter == 0:
+            return self.mmu
         if self.delta_mu is not None:
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
         elif self.beta_mu is not None:
-            mmu = self.dict_multiply(self.mmu, self.beta_mu)
+            multiplier = np.power(self.beta_mu, miter)
+            base = self.dict_addition(self.mmu, self.init_mu)
+            mmu = self.dict_multiply(base, multiplier)
         else:
             raise RuntimeError("delta_mu and beta_mu can not be simultaneously None!")
         return mmu
