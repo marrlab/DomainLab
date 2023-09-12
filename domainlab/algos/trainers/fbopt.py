@@ -20,10 +20,11 @@ class HyperSchedulerFeedback():
         self.ploss_old_theta_new_mu = None
         self.ploss_new_theta_old_mu = None
         self.ploss_new_theta_new_mu = None
-        self.delta_mu = 0.01   # FIXME
+        self.delta_mu = trainer.aconf.delta_mu
+        self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta = None
-        self.budget_mu_per_step = 5  # FIXME
-        self.budget_theta_update_per_mu = 5  # np.infty
+        self.budget_mu_per_step = trainer.aconf.budget_mu_per_step
+        self.budget_theta_update_per_mu = trainer.aconf.budget_theta_update_per_mu
 
     def search_mu(self, dict_theta, iter_start=0):
         """
@@ -33,7 +34,7 @@ class HyperSchedulerFeedback():
         self.dict_theta = dict_theta
         mmu = None
         for miter in range(iter_start, self.budget_mu_per_step):
-            mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
+            mmu = self.dict_iter(miter)
             print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):
                 print(f"!!!found reg-pareto operator with mu={mmu}")
@@ -42,6 +43,25 @@ class HyperSchedulerFeedback():
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
         return False
+
+    def dict_iter(self, miter):
+        """
+        update a dictionary according to iteration
+        """
+        if self.delta_mu is not None:
+            mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
+        elif self.beta_mu is not None:
+            mmu = self.dict_multiply(self.mmu, self.beta_mu)
+        else:
+            raise RuntimeError("delta_mu and beta_mu can not be simultaneously None!")
+        return mmu
+
+    def dict_multiply(self, dict_base, multiplier):
+        """
+        multiply a float to each element of a dictionary
+        """
+        assert multiplier > 1
+        return {key: val*multiplier for key, val in dict_base.items()}
 
     def dict_addition(self, dict_base, delta):
         """
