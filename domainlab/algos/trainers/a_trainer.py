@@ -51,6 +51,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.inner_trainer = None
         self.loader_tr_source_target = None
         self.flag_initialized = False
+        # fbopt
+        self.mu_iter_start = 0
 
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
