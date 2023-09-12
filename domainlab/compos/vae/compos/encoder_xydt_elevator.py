@@ -85,6 +85,13 @@ class XYDTEncoderArg(XYDTEncoderElevator):
         super().__init__(net_infer_zd_topic, net_infer_zx, net_infer_zy)
 
 
+class XYDTEncoderArgUser(XYDTEncoderElevator):
+
+    @store_args
+    def __init__(self, net_infer_zd_topic, net_infer_zx, net_infer_zy):
+        super().__init__(net_infer_zd_topic, net_infer_zx, net_infer_zy)
+
+
 # To remove
 class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
     """
