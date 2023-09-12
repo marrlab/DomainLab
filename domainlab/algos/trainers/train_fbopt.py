@@ -49,6 +49,7 @@ class TrainerFbOpt(AbstractTrainer):
         operator for theta, move gradient for one epoch, then check if criteria is met
         this method will be invoked by the hyper-parameter scheduling object
         """
+        self.inner_trainer.reset()
         self.inner_trainer.model.set_params(dict_theta0)
         # mock the model hyper-parameter to be from dict4mu
         self.inner_trainer.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))

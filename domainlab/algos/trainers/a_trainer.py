@@ -80,6 +80,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.optimizer = mk_opt(self.model, self.aconf)
         self.flag_initialized = True
 
+    def reset(self):
+        """
+        make a new optimizer to clear internal state
+        """
+        self.optimizer = mk_opt(self.model, self.aconf)
+
     @abc.abstractmethod
     def tr_epoch(self, epoch):
         """
