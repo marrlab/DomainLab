@@ -99,4 +99,4 @@ class TrainerFbOpt(AbstractTrainer):
             self.model.set_params(dict_par)
         flag_stop = self.observer.update(epoch)  # FIXME: should count how many epochs were used
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
-        return True  # total number of epochs controled in args
+        return False  # total number of epochs controled in args
