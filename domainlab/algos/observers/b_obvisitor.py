@@ -47,9 +47,10 @@ class ObVisitor(AObVisitor):
                 logger.debug("---- Validation: ")
                 self.metric_val = self.host_trainer.model.cal_perf_metric(
                     self.loader_val, self.device)
-            logger.debug("---- Test Domain (oracle): ")
-            metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
-            self.metric_te = metric_te
+            if self.loader_te is not None:
+                logger.debug("---- Test Domain (oracle): ")
+                metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
+                self.metric_te = metric_te
         if self.model_sel.update():
             logger.info("better model found")
             self.exp.visitor.save(self.host_trainer.model)
