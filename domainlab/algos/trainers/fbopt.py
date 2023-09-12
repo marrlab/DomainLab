@@ -25,15 +25,14 @@ class HyperSchedulerFeedback():
         self.budget_mu_per_step = 5  # FIXME
         self.budget_theta_update_per_mu = 5  # np.infty
 
-    def search_mu(self, dict_theta):
+    def search_mu(self, dict_theta, iter_start=0):
         """
         start from parameter dict_theta,
         enlarge mmu to see if the criteria is met
         """
         self.dict_theta = dict_theta
         mmu = None
-        for miter in range(self.budget_mu_per_step):
-            # FIXME: the same mu is tried two times since miter=0
+        for miter in range(iter_start, self.budget_mu_per_step):
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
             print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):

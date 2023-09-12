@@ -49,6 +49,7 @@ class TrainerFbOpt(AbstractTrainer):
         operator for theta, move gradient for one epoch, then check if criteria is met
         this method will be invoked by the hyper-parameter scheduling object
         """
+        self.inner_trainer.reset()
         self.inner_trainer.model.set_params(dict_theta0)
         # mock the model hyper-parameter to be from dict4mu
         self.inner_trainer.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
@@ -86,7 +87,8 @@ class TrainerFbOpt(AbstractTrainer):
     def tr_epoch(self, epoch):
         self.model.train()
         flag_success = self.hyper_scheduler.search_mu(
-            dict(self.model.named_parameters()))   # if mu not found, will terminate
+            dict(self.model.named_parameters()),
+            iter_start=self.mu_iter_start)
         if flag_success:
             # only in success case, mu will be updated
             self.model.set_params(self.hyper_scheduler.dict_theta)
@@ -96,4 +98,5 @@ class TrainerFbOpt(AbstractTrainer):
             dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
             self.model.set_params(dict_par)
         flag_stop = self.observer.update(epoch)  # FIXME: should count how many epochs were used
+        self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return flag_stop

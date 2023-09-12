@@ -51,6 +51,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.inner_trainer = None
         self.loader_tr_source_target = None
         self.flag_initialized = False
+        # fbopt
+        self.mu_iter_start = 0
 
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
@@ -79,6 +81,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.hyper_scheduler = None
         self.optimizer = mk_opt(self.model, self.aconf)
         self.flag_initialized = True
+
+    def reset(self):
+        """
+        make a new optimizer to clear internal state
+        """
+        self.optimizer = mk_opt(self.model, self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
