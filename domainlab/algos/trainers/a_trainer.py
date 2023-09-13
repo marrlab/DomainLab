@@ -36,6 +36,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.aconf = None
         #
         self.loader_tr = None
+        self.loader_tr_no_drop = None
         self.loader_te = None
         self.num_batches = None
         self.flag_update_hyper_per_epoch = None
@@ -67,6 +68,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.aconf = aconf
         #
         self.loader_tr = task.loader_tr
+        self.loader_tr_no_drop = task._loader_tr_no_drop
         self.loader_te = task.loader_te
 
         if flag_accept:

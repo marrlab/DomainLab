@@ -71,9 +71,8 @@ class TrainerFbOpt(AbstractTrainer):
         temp_model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
         temp_model.set_params(dict_theta)
         epo_p_loss = 0  # penalized loss
-        # FIXME: will loader be corupted? if called at different places? if we do not make deep copy
         with torch.no_grad():
-            for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
+            for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 # sum will kill the dimension of the mini batch
@@ -87,14 +86,12 @@ class TrainerFbOpt(AbstractTrainer):
         ERM loss on all available training data
         # TODO: normalize loss via batchsize
         """
-        # FIXME: move this to model instead of having it in trainer here
         temp_model = copy.deepcopy(self.model)
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = 0
         epo_task_loss = 0
-        # FIXME: will loader be corupted? if called at different places? if we do not make deep copy
         with torch.no_grad():
-            for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
+            for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 b_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d).sum()
