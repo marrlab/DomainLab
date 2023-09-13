@@ -39,6 +39,8 @@ class HyperSchedulerFeedback():
         self.dict_theta = dict_theta
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         mmu = None
+        # self.mmu is not updated until a reg-descent operator is found
+        self.ploss_old_theta_old_mu = self.trainer.eval_p_loss(self.mmu, self.dict_theta)
         for miter in range(iter_start, self.budget_mu_per_step):
             mmu = self.dict_iter(miter)
             print(f"trying mu={mmu} at mu iteration {miter}")
@@ -89,7 +91,6 @@ class HyperSchedulerFeedback():
         the execution will set the value for mu and theta as well
         """
         self.ploss_old_theta_new_mu = self.trainer.eval_p_loss(mmu_new, self.dict_theta)
-        self.ploss_old_theta_old_mu = self.trainer.eval_p_loss(self.mmu, self.dict_theta)
         theta4mu_new = copy.deepcopy(self.dict_theta)
         for i in range(self.budget_theta_update_per_mu):
             print(f"search theta at iteration {i} with mu={mmu_new}")
