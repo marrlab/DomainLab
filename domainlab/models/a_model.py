@@ -16,6 +16,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         set
         """
         # FIXME: net1.load_state_dict(net2.state_dict()) contains more information than model.named_parameters() like optimizer status
+        # but I dont know another method to set neural network weights without using load_state_dict
         self.load_state_dict(dict_params, strict=False)
 
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
