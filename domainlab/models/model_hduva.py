@@ -121,12 +121,8 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # reconstruction
             z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
-            batch_loss = loss_recon_x \
-                - self.beta_x * zx_p_minus_q \
-                - self.beta_y * zy_p_minus_zy_q \
-                - self.beta_d * zd_p_minus_q \
-                - self.beta_t * topic_p_minus_q
-            return batch_loss
+            return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
+                [1.0, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
         def extract_semantic_features(self, tensor_x):
             """
