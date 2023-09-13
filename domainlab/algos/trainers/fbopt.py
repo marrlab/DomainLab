@@ -82,22 +82,19 @@ class HyperSchedulerFeedback():
 
         the execution will set the value for mu and theta as well
         """
-        flag_success = False
-        self.ploss_old_theta_new_mu = self.trainer.eval_loss(mmu_new, self.dict_theta)
-        self.ploss_old_theta_old_mu = self.trainer.eval_loss(self.mmu, self.dict_theta)
+        self.ploss_old_theta_new_mu = self.trainer.eval_p_loss(mmu_new, self.dict_theta)
+        self.ploss_old_theta_old_mu = self.trainer.eval_p_loss(self.mmu, self.dict_theta)
         theta4mu_new = copy.deepcopy(self.dict_theta)
         for i in range(self.budget_theta_update_per_mu):
-            print(f"update theta at iteration {i} with mu={mmu_new}")
+            print(f"search theta at iteration {i} with mu={mmu_new}")
             theta4mu_new = self.trainer.opt_theta(mmu_new, theta4mu_new)
-            self.ploss_new_theta_new_mu = self.trainer.eval_loss(mmu_new, theta4mu_new)
-            self.ploss_new_theta_old_mu = self.trainer.eval_loss(self.mmu, theta4mu_new)
+            self.ploss_new_theta_new_mu = self.trainer.eval_p_loss(mmu_new, theta4mu_new)
+            self.ploss_new_theta_old_mu = self.trainer.eval_p_loss(self.mmu, theta4mu_new)
             if self.is_criteria_met():
                 self.mmu = mmu_new
-                flag_success = True
-                # FIXME: update theta only if current mu is good enough?
                 self.dict_theta = theta4mu_new
-                return flag_success
-        return flag_success
+                return True
+        return False
 
     def inner_product(self, mmu, v_reg_loss):
         """
