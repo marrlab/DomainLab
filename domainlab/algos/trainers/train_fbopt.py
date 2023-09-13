@@ -87,6 +87,7 @@ class TrainerFbOpt(AbstractTrainer):
         # TODO: normalize loss via batchsize
         """
         temp_model = copy.deepcopy(self.model)
+        temp_model.eval()
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = 0
         epo_task_loss = 0

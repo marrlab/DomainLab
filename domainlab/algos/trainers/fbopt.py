@@ -27,23 +27,29 @@ class HyperSchedulerFeedback():
         self.dict_theta = None
         self.budget_mu_per_step = trainer.aconf.budget_mu_per_step
         self.budget_theta_update_per_mu = trainer.aconf.budget_theta_update_per_mu
+        self.count_found_operator = 0
+        self.count_search_mu = 0
 
     def search_mu(self, dict_theta, iter_start=0):
         """
         start from parameter dict_theta,
         enlarge mmu to see if the criteria is met
         """
+        self.count_search_mu += 1
         self.dict_theta = dict_theta
+        logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         mmu = None
         for miter in range(iter_start, self.budget_mu_per_step):
             mmu = self.dict_iter(miter)
             print(f"trying mu={mmu} at mu iteration {miter}")
             if self.search_theta(mmu):
-                print(f"!!!found reg-pareto operator with mu={mmu}")
+                self.count_found_operator += 1
+                logger.info(f"!!!found reg-pareto operator with mu={mmu}")
+                logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
                 self.mmu = mmu
                 return True
-        logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
+        logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
         return False
 
     def dict_iter(self, miter):
