@@ -88,8 +88,8 @@ class XYDTEncoderArg(XYDTEncoderElevator):
 class XYDTEncoderArgUser(XYDTEncoderElevator):
 
     @store_args
-    def __init__(self, net_infer_zd_topic, net_infer_zx, net_infer_zy):
-        super().__init__(net_infer_zd_topic, net_infer_zx, net_infer_zy)
+    def __init__(self, net_class_d, net_x, net_class_y):
+        super().__init__(net_class_d, net_x, net_class_y)
 
 
 # To remove

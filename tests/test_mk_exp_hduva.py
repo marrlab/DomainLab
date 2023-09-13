@@ -57,12 +57,13 @@ def mk_exp_hduva(trainer="mldg"):
     net_x = LSEncoderConvBnReluPool(zx_dim,
                                     task.isize.c, task.isize.w, task.isize.h,
                                     conv_stride=1)
+    # FIXME
     net_class_d = LSEncoderConvBnReluPool(zd_dim,
                                     task.isize.c, task.isize.w, task.isize.h,
                                     conv_stride=1)
 
-    request = RequestVAEBuilderNN(task.isize.c, task.isize.h, task.isize.w,
-                                  net_class_y, net_x, net_class_d)
+    request = RequestVAEBuilderNN(net_class_d, net_x, net_class_y,
+                                  task.isize.c, task.isize.h, task.isize.w)
     chain_node_builder = VAEChainNodeGetter(request, topic_dim)()
 
     # specify model to use
