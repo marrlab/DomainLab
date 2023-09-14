@@ -78,7 +78,7 @@ def run_experiment(
         del args_algo_as_task['hyperparameters']
     args_domainlab_common = config.get("domainlab_args", {})
     apply_dict_to_args(args, args_domainlab_common)
-    apply_dict_to_args(args, args_algo_as_task)
+    apply_dict_to_args(args, args_algo_as_task, extend=True)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
     gpu_ind = param_index % num_gpus
