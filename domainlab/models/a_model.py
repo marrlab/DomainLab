@@ -28,10 +28,12 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         loss_reg = self.inner_product(list_loss, list_multiplier)
         return self.cal_task_loss(tensor_x, tensor_y) + loss_reg
 
-
     def inner_product(self, list_loss_scalar, list_multiplier):
         """
         compute inner product between list of scalar loss and multiplier
+        - the first dimension of the tensor v_reg_loss is mini-batch
+        the second dimension is the number of regularizers
+        - the vector mmu has dimension the number of regularizers
         """
         list_tuple = zip(list_loss_scalar, list_multiplier)
         rst = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
