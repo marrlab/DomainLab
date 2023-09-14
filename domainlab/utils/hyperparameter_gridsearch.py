@@ -242,8 +242,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict):
 
 
 def sample_gridsearch(config: dict,
-                      dest: str = None,
-                      sampling_seed: int = None) -> pd.DataFrame:
+                      dest: str = None) -> pd.DataFrame:
     """
     create the hyperparameters grid according to the given
     config, which should be the dictionary of the full
@@ -256,9 +255,6 @@ def sample_gridsearch(config: dict,
     """
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
-
-    if not sampling_seed is None:
-        np.random.seed(sampling_seed)
 
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
