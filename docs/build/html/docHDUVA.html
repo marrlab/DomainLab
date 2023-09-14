@@ -398,27 +398,27 @@
 <h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this heading">¶</a></h2>
 <p>In addition to these hyperparameters, the following model parameters can be specified:</p>
 <ul class="simple">
-<li><p>Size of latent space for domain-specific information: zd_dim</p></li>
-<li><p>Size of latent space for residual variance: zx_dim</p></li>
-<li><p>Size of latent space for class-specific information: zy_dim</p></li>
-<li><p>Size of latent space for topics <span class="math notranslate nohighlight">\(s\)</span>: topic_dim</p></li>
-<li><p>Size of latent space for latent image representation for topic: topic_h_dim</p></li>
-<li><p>Size of latent space for latent image representation for domain: img_h_dim</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zd_dim</span></code>: size of latent space for domain-specific information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zx_dim</span></code>: size of latent space for residual variance</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zy_dim</span></code>: size of latent space for class-specific information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>: size of latent space for topics <span class="math notranslate nohighlight">\(s\)</span></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic_h_dim</span></code>: size of latent space for latent image representation for topic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>: size of latent space for latent image representation for domain</p></li>
 </ul>
 <p>Finally, 2 models need to be specified: A network converting an image to a topic distribution (of size topic_h_dim) and an encoder converting an image to a latent representation that can be concatenated to <span class="math notranslate nohighlight">\(z_d\)</span> (size img_h_dim). The names and paths of the networks are:</p>
 <ul class="simple">
-<li><p>nname_topic_distrib_img2topic</p></li>
-<li><p>npath_topic_distrib_img2topic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_topic_distrib_img2topic</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">npath_topic_distrib_img2topic</span></code></p></li>
 </ul>
 <p>and</p>
 <ul class="simple">
-<li><p>nname_encoder_sandwich_layer_img2h4zd</p></li>
-<li><p>npath_encoder_sandwich_layer_img2h4zd</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_layer_img2h4zd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_sandwich_layer_img2h4zd</span></code></p></li>
 </ul>
 </section>
 <section id="hyperparameter-warmup">
 <h2 id="hyperparameter-warmup">Hyperparameter warmup<a class="headerlink" href="#hyperparameter-warmup" title="Permalink to this heading">¶</a></h2>
-<p>Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument warmup</p>
+<p>Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument <code class="docutils literal notranslate"><span class="pre">warmup</span></code>.</p>
 <p>Please cite our paper if you find it useful!</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@inproceedings{sun2021hierarchical,
   title={Hierarchical Variational Auto-Encoding for Unsupervised Domain Generalization},

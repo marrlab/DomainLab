@@ -301,11 +301,11 @@ from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv impo
     DecoderConcatLatentFCReshapeConvGatedConv
 from domainlab.compos.vae.compos.encoder_xyd_parallel import (
     XYDEncoderParallelAlex, XYDEncoderParallelConvBnReluPool,
-    XYDEncoderParallelExtern)
+    XYDEncoderParallelExtern, XYDEncoderParallelUser)
 
 
 <div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase">[docs]</a>class ChainNodeVAEBuilderClassifCondPriorBase(
-        ChainNodeVAEBuilderClassifCondPrior):
+    ChainNodeVAEBuilderClassifCondPrior):
     """
     base class of AE builder
     """
@@ -334,7 +334,7 @@ from domainlab.compos.vae.compos.encoder_xyd_parallel import (
 <div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.build_decoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.build_decoder">[docs]</a>    def build_decoder(self):
         """build_decoder."""
         decoder = DecoderConcatLatentFCReshapeConvGatedConv(
-            z_dim=self.zd_dim+self.zx_dim+self.zy_dim,
+            z_dim=self.zd_dim + self.zx_dim + self.zy_dim,
             i_c=self.i_c, i_w=self.i_w,
             i_h=self.i_h)
         return decoder</div></div>
@@ -364,6 +364,22 @@ from domainlab.compos.vae.compos.encoder_xyd_parallel import (
         return encoder</div></div>
 
 
+<div class="viewcode-block" id="NodeVAEBuilderUser"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser">[docs]</a>class NodeVAEBuilderUser(ChainNodeVAEBuilderClassifCondPriorBase):
+    """Build encoders according to test_mk_exp file"""
+
+<div class="viewcode-block" id="NodeVAEBuilderUser.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.is_myjob">[docs]</a>    def is_myjob(self, request):
+        flag = not hasattr(request, "args")
+        self.request = request
+        self.config_img(flag, request)
+        return flag</div>
+
+<div class="viewcode-block" id="NodeVAEBuilderUser.build_encoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.build_encoder">[docs]</a>    def build_encoder(self):
+        encoder = XYDEncoderParallelUser(self.request.net_class_d,
+                                         self.request.net_x,
+                                         self.request.net_class_y)
+        return encoder</div></div>
+
+
 <div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool">[docs]</a>class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
 <div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.is_myjob">[docs]</a>    def is_myjob(self, request):
         """is_myjob.
@@ -371,7 +387,7 @@ from domainlab.compos.vae.compos.encoder_xyd_parallel import (
         :param request:
         """
         flag = (request.args.nname == "conv_bn_pool_2" or
-                request.args.nname_dom == "conv_bn_pool_2")   # @FIXME
+                request.args.nname_dom == "conv_bn_pool_2")  # @FIXME
         self.config_img(flag, request)
         return flag</div>
 

@@ -676,7 +676,50 @@ domains are pooled together during training.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_diva.mk_diva">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.model_diva.</span></span><span class="sig-name descname"><span class="pre">mk_diva</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.model_vae_xyd_classif.VAEXYDClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_diva.html#mk_diva"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_diva.mk_diva" title="Permalink to this definition">¶</a></dt>
-<dd><p>DIVA with arbitrary task loss</p>
+<dd><p>Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.</p>
+<dl class="simple">
+<dt>Details:</dt><dd><p>This method is creating a generative model based on a variational autoencoder, which can
+reconstruct the input images. Here for, three different encoders with latent variables are
+trained, each representing a latent subspace for the domain, class and residual features
+information, respectively. The latent subspaces serve for disentangling the respective
+sources of variation. To reconstruct the input image, the three latent variables are fed
+into a decoder.
+Additionally, two classifiers are trained, which predict the domain and the class label.
+For more details, see:
+Ilse, Maximilian, et al. “Diva: Domain invariant variational autoencoders.”
+Medical Imaging with Deep Learning. PMLR, 2020.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parent_class</strong> – Class object determining the task type. Defaults to VAEXYDClassif.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>model inheriting from parent class.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ModelDIVA</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Input Parameters:</dt><dd><p>zd_dim: size of latent space for domain-specific information,
+zy_dim: size of latent space for class-specific information,
+zx_dim: size of latent space for residual variance,
+chain_node_builder: creates the neural network specified by the user; object of the class
+“VAEChainNodeGetter” (see domainlab/compos/vae/utils_request_chain_builder.py)
+being initialized by entering a user request,
+list_str_y: list of labels,
+list_d_tr: list of training domains,
+gamma_d: weighting term for d classifier,
+gamma_y: weighting term for y classifier,
+beta_d: weighting term for domain encoder,
+beta_x: weighting term for residual variation encoder,
+beta_y: weighting term for class encoder</p>
+</dd>
+<dt>Usage:</dt><dd><p>For a concrete example, see:
+<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_diva.py">https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_diva.py</a></p>
+</dd>
+</dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_hduva">

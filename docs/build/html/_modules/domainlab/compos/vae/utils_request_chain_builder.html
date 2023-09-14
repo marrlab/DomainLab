@@ -293,9 +293,8 @@
             
   <h1 id="modules-domainlab-compos-vae-utils-request-chain-builder--page-root">Source code for domainlab.compos.vae.utils_request_chain_builder</h1><div class="highlight"><pre>
 <span></span>from domainlab.compos.vae.zoo_vae_builders_classif import (
-    NodeVAEBuilderArg, NodeVAEBuilderImgAlex, NodeVAEBuilderImgConvBnPool)
-from domainlab.compos.vae.zoo_vae_builders_classif_topic import \
-    NodeVAEBuilderImgTopic
+    NodeVAEBuilderArg, NodeVAEBuilderUser, NodeVAEBuilderImgAlex, NodeVAEBuilderImgConvBnPool)
+from domainlab.compos.vae.zoo_vae_builders_classif_topic import NodeVAEBuilderImgTopic
 
 
 <div class="viewcode-block" id="VAEChainNodeGetter"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.utils_request_chain_builder.VAEChainNodeGetter">[docs]</a>class VAEChainNodeGetter(object):
@@ -323,6 +322,7 @@ from domainlab.compos.vae.zoo_vae_builders_classif_topic import \
             chain = NodeVAEBuilderImgConvBnPool(None)
             chain = NodeVAEBuilderImgAlex(chain)
             chain = NodeVAEBuilderArg(chain)
+            chain = NodeVAEBuilderUser(chain)
         node = chain.handle(self.request)
         return node</div>
 </pre></div>

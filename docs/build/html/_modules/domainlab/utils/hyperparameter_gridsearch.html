@@ -536,8 +536,7 @@ from domainlab.utils.logger import Logger
 
 
 <div class="viewcode-block" id="sample_gridsearch"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.sample_gridsearch">[docs]</a>def sample_gridsearch(config: dict,
-                      dest: str = None,
-                      sampling_seed: int = None) -&gt; pd.DataFrame:
+                      dest: str = None) -&gt; pd.DataFrame:
     """
     create the hyperparameters grid according to the given
     config, which should be the dictionary of the full
@@ -550,9 +549,6 @@ from domainlab.utils.logger import Logger
     """
     if dest is None:
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
-
-    if not sampling_seed is None:
-        np.random.seed(sampling_seed)
 
     logger = Logger.get_logger()
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])

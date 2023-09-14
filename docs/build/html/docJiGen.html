@@ -255,10 +255,24 @@
       
         
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">JiGen</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#model-parameters" class="md-nav__link">Model parameters</a>
       
+    
+    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -294,7 +308,14 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">JiGen</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -306,12 +327,32 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="jigen">
 <h1 id="docjigen--page-root">JiGen<a class="headerlink" href="#docjigen--page-root" title="Permalink to this heading">¶</a></h1>
-<p>The JiGen method proposed in <a class="reference external" href="https://arxiv.org/abs/1903.06864">https://arxiv.org/abs/2007.01434</a> by Carlucci et al. extends the understanding of the concept of spatial correlation in the neuronal network by training the network not only on a classification task, but also on solving jigsaw puzzles.</p>
-<p>For the jigsaw puzzles the images are split into <span class="math notranslate nohighlight">\(n \times n\)</span> patches and permutated.</p>
-<p>The model is to predict the permutation index which result in the permutated image.</p>
-<p>To be able to solve the classification problem and the jigsaw puzzle in parallel, shuffled and ordered images will first be fed into a convolutional network for feature extraction and will then be given to the image classifier and the jigsaw classifier.</p>
-<p>For the training of classificaiton task the network uses a cross-entropy loss for both tasks while weighting the jigsaw classifier by a hyper parameter. Additionally the relative ratio or probability of shuffling the tiles of one instance from training data set is given by another hyper parameter.</p>
-<p>The advantage of this method is that is does not require domain label, as the jigsaw puzzle can be solved despite the missing domain labels.</p>
+<p>The JiGen method extends the understanding of the concept of spatial correlation in the
+neural network by training the network not only on a classification task, but also on solving jigsaw puzzles.</p>
+<p>To create a jigsaw puzzle, an image is split into <span class="math notranslate nohighlight">\(n \times n\)</span> patches, which are then permuted.
+The goal is training the model to predict the correct permutation, which results in the permuted image.</p>
+<p>To solve the classification problem and the jigsaw puzzle in parallel, the permuted and
+the original images are first fed into a convolutional network for feature extraction and then given
+to two classifiers, one being the image classifier and the other the jigsaw classifier.</p>
+<p>For the training of both classification networks, a cross-entropy loss is used. The total loss is then
+given by the loss of the image classification task plus the loss of the jigsaw task, whereby the
+jigsaw loss is weighted by a hyperparameter.
+Another hyperparameter denotes the probability of shuffling the patches of one instance from the training
+data set, i.e. the relative ratio.</p>
+<p>The advantage of this method is that it does not require domain labels, as the jigsaw puzzle can be
+solved despite missing domain labels.</p>
+<section id="model-parameters">
+<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this heading">¶</a></h2>
+<p>The following hyperparameters can be specified:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nperm</span></code>: number of patches in a permutation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pperm</span></code>: relative ratio, as explained above</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamma_reg</span></code>: weighting term for the jigsaw classifier</p></li>
+</ul>
+<p>Furthermore, the user can specify a custom grid length via <code class="docutils literal notranslate"><span class="pre">grid_len</span></code>.</p>
+<p><em>Reference</em>: Carlucci, Fabio M., et al. “Domain generalization by solving jigsaw puzzles.”
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.</p>
+</section>
 </section>
 
 

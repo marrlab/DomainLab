@@ -331,6 +331,15 @@ from domainlab.utils.utils_class import store_args
         return zy_loc</div></div>
 
 
+<div class="viewcode-block" id="XYDEncoderParallelUser"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser">[docs]</a>class XYDEncoderParallelUser(XYDEncoderParallel):
+    """
+    This class only reimplemented constructor of parent class
+    """
+    @store_args
+    def __init__(self, net_class_d, net_x, net_class_y):
+        super().__init__(net_class_d, net_x, net_class_y)</div>
+
+
 <div class="viewcode-block" id="XYDEncoderParallelConvBnReluPool"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool">[docs]</a>class XYDEncoderParallelConvBnReluPool(XYDEncoderParallel):
     """
     This class only reimplemented constructor of parent class

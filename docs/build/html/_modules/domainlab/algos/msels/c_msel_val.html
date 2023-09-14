@@ -324,7 +324,7 @@ from domainlab.utils.logger import Logger
         else:
             self.es_c += 1
             logger = Logger.get_logger()
-            logger.debug("early stop counter: ", self.es_c)
+            logger.debug(f"early stop counter: {self.es_c}")
             logger.debug(f"val acc:{self.tr_obs.metric_te['acc']}, "
                          f"best validation acc: {self.best_val_acc}")
             flag = False  # do not update best model

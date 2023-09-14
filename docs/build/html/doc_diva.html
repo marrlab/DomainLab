@@ -262,10 +262,24 @@
       
         
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#doc-diva--page-root" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#model-parameters" class="md-nav__link">Model parameters</a>
       
+    
+    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -294,7 +308,14 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#doc-diva--page-root" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -306,38 +327,45 @@
             
   <section class="tex2jax_ignore mathjax_ignore" id="diva-domain-invariant-variational-autoencoders">
 <h1 id="doc-diva--page-root">DIVA: Domain Invariant Variational Autoencoders<a class="headerlink" href="#doc-diva--page-root" title="Permalink to this heading">¶</a></h1>
-<p>DIVA approaches the domain generalization problem with a variational autoencoder
+<p>DIVA addresses the domain generalization problem with a variational autoencoder
 with three latent variables, using three independent encoders.</p>
-<p>By encouraging the network to store the domain,
-class and residual features in one of the latent space respectively the class specific information
-shall be disentangled.</p>
-<p>In order to obtain marginally independent latent variables, the density of the domain
-and class latent space is conditioned on the domain and class respectively. These densities are parameterized
-by learnable parameters. During training, all three latent variables are then fed into a single decoder
-reconstructing the image.</p>
+<p>By encouraging the network to store each the domain,
+class and residual features in one of the latent spaces, the class-specific information
+is disentangled.</p>
+<p>In order to obtain marginally independent latent variables, the densities of the domain
+and class latent spaces are conditioned on the domain and the class, respectively. These densities are then
+parameterized by learnable parameters. During training, all three latent variables are fed into a single decoder
+reconstructing the input image.</p>
 <p>Additionally, two classifiers are trained, predicting the domain and class label
-from the respective latent variable, emphasizing to capture these information in this variables.
+from the respective latent variable.
 This leads to an overall large network. However, during inference only the class encoder and classifier
-is used. The experiments are showing that it is indeed possible to disentangle the information in their
-test setting.</p>
-<p>Also in a semi-supervised setting, where class labels are missing for some data or domains,
-the classification accuracy can be further improved. This is an advantage in the sense that prediction
-accuracy turns out to be notably better if the training contained a domain close to the test domain.
-Therefore, this semi-supervised setup allows to prepare for new domains by some additional training
-needing only samples of the new domain, but no class labels. In the end however, DIVA always needs domain
-labels and does not support a fully unsupervised setting. Since it is not always clear what different domains
-actually exist, this can lead to problems and decreased performance.</p>
-<p><strong>Model parameters:</strong>
-the following model parameters can be specified:</p>
+are used.</p>
+<p>DIVA can improve the classification accuracy also in a semi-supervised setting, where class labels
+are missing for some data or domains. This is an advantage, as prediction
+accuracy turns out to be notably better if the training data contains a domain close to the test domain.
+Therefore, this semi-supervised setup allows to prepare for new domains by some additional training,
+needing only samples of the new domain, but no class labels.
+However, DIVA always needs domain labels and does not support a fully unsupervised setting.
+Since it is not always clear which different domains actually exist, this can lead to problems and a
+decreased performance.</p>
+<section id="model-parameters">
+<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this heading">¶</a></h2>
+<p>The following hyperparameters can be specified:</p>
 <ul class="simple">
-<li><p>Size of latent space for domain-specific information: zd_dim</p></li>
-<li><p>Size of latent space for residual variance: zx_dim</p></li>
-<li><p>Size of latent space for class-specific information: zy_dim</p></li>
-<li><p>Multiplier for y classifier (<span class="math notranslate nohighlight">\(\alpha_y\)</span> of eq. (2) in paper below): gamma_y</p></li>
-<li><p>Multiplier for d classifier (<span class="math notranslate nohighlight">\(\alpha_d\)</span> of eq. (2) in paper below): gamma_d</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zd_dim</span></code>: size of latent space for domain-specific information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zx_dim</span></code>: size of latent space for residual variance</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zy_dim</span></code>: size of latent space for class-specific information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamma_y</span></code>: multiplier for y classifier (<span class="math notranslate nohighlight">\(\alpha_y\)</span> of eq. (2) in paper below)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamma_d</span></code>: multiplier for d classifier (<span class="math notranslate nohighlight">\(\alpha_d\)</span> of eq. (2) in paper below)</p></li>
+</ul>
+<p>Furthermore, the user can specify the neural networks for the class and domain classifiers using</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nname</span></code>/<code class="docutils literal notranslate"><span class="pre">npath</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_dom</span></code>/<code class="docutils literal notranslate"><span class="pre">npath_dom</span></code></p></li>
 </ul>
 <p><em>Reference:</em>
 DIVA: Domain Invariant Variational Autoencoders, <a class="reference external" href="https://arxiv.org/pdf/1905.10427.pdf">https://arxiv.org/pdf/1905.10427.pdf</a>, Medical Imaging with Deep Learning. PMLR, 2020.</p>
+</section>
 </section>
 
 
