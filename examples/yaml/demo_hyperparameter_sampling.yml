@@ -2,6 +2,21 @@
 output_dir: "zoutput/benchmarks/hyperparameter_test"
 num_param_samples: 30
 
+
+Shared params:
+  num_shared_param_samples: 5
+  p1_shared:
+    distribution: uniform
+    min: -3
+    max: -1
+    step: 0
+
+  p2_shared:
+    distribution: normal
+    mean: 5
+    std: 10
+    step: 1
+
 # currently, everything which contains the aname property is considered as a task.
 Task1:  # name
   aname: Algo1
@@ -12,6 +27,9 @@ Task1:  # name
   # - values and datatype if categorical
   # OR
   # reference, use this for equality constraints.
+  shared:
+    - p1_shared
+    - p2_shared
   hyperparameters:
     p1:
       distribution: uniform    # uniform | loguniform | normal | lognormal | categorical
@@ -50,6 +68,7 @@ Task1:  # name
       # Otherwise, the sampling will abort with error in most cases.
       - "p1 < p2"
       - "p3 < p2"
+      - "p1_shared < p1"
 
 Task2:  # name
   aname: Algo2
@@ -73,11 +92,21 @@ Task2:  # name
     p4:
       distribution: categorical
       values:
-        - 30
-        - 31
-        - 100
+        - 30.0
+        - 31.0
+        - 100.0
       datatype: int
 
 Task3:
   aname: Algo3
+  zd_dim: 5
+
+  shared:
+    - p1_shared
+
+  constraints:
+    - "p1_shared < -2"
+
+Task4:
+  aname: Algo4
   zd_dim: 5

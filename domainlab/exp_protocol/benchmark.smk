@@ -30,13 +30,14 @@ def experiment_result_files(_):
         sample_gridsearch
 
     logger = Logger.get_logger()
-    if config['mode'] == 'grid':
-        # hyperparameters are sampled using gridsearch
-        # in this case we don't know how many samples we will get beforehand
-        # straigt oreward solution: do a grid sampling and count samples
-        samples = sample_gridsearch(config)
-        total_num_params = samples.shape[0]
-        logger.info(f"total_num_params={total_num_params} for gridsearch")
+    if 'mode' in config.keys():
+        if config['mode'] == 'grid':
+            # hyperparameters are sampled using gridsearch
+            # in this case we don't know how many samples we will get beforehand
+            # straigt oreward solution: do a grid sampling and count samples
+            samples = sample_gridsearch(config)
+            total_num_params = samples.shape[0]
+            logger.info(f"total_num_params={total_num_params} for gridsearch")
     else:
         # in case of random sampling it is possible to compute the number
         # of samples from the information in the yaml file
