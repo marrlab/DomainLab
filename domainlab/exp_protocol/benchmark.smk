@@ -1,8 +1,8 @@
 import os
 import sys
 from pathlib import Path
-
 import pandas as pd
+
 
 try:
     config_path = workflow.configfiles[0]
@@ -26,23 +26,34 @@ def experiment_result_files(_):
     """Lists all expected i.csv"""
     from domainlab.utils.hyperparameter_sampling import is_dict_with_key
     from domainlab.utils.logger import Logger
-    # count tasks
-    num_sample_tasks = 0
-    num_nonsample_tasks = 0
-    for key, val in config.items():
-        if is_dict_with_key(val, "aname"):
-            if 'hyperparameters' in val.keys():
-                num_sample_tasks += 1
-            else:
-                num_nonsample_tasks += 1
-    # total number of hyperparameter samples
+    from domainlab.utils.hyperparameter_gridsearch import \
+        sample_gridsearch
+
     logger = Logger.get_logger()
-    #TODO this needs to be known before the hyperparameters are sampled
-    hyperparam_df = pd.read_csv(f'{config["output_dir"]}/hyperparameters.csv')
-    total_num_params = hyperparam_df.shape[0]
-    #total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
-    logger.info(f"total_num_params={total_num_params}")
-    #logger.info(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
+    if config['mode'] == 'grid':
+        # hyperparameters are sampled using gridsearch
+        # in this case we don't know how many samples we will get beforehand
+        # straigt oreward solution: do a grid sampling and count samples
+        samples = sample_gridsearch(config)
+        total_num_params = samples.shape[0]
+        logger.info(f"total_num_params={total_num_params} for gridsearch")
+    else:
+        # in case of random sampling it is possible to compute the number
+        # of samples from the information in the yaml file
+
+        # count tasks
+        num_sample_tasks = 0
+        num_nonsample_tasks = 0
+        for key, val in config.items():
+            if is_dict_with_key(val, "aname"):
+                if 'hyperparameters' in val.keys():
+                    num_sample_tasks += 1
+                else:
+                    num_nonsample_tasks += 1
+        # total number of hyperparameter samples
+        total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
+        logger.info(f"total_num_params={total_num_params} for random sampling")
+        logger.info(f"={config['num_param_samples']} * {num_sample_tasks} + {num_nonsample_tasks}")
 
     return [f"{config['output_dir']}/rule_results/{i}.csv" for i in range(total_num_params)]
 
