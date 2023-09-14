@@ -37,6 +37,15 @@ class XYDEncoderParallel(nn.Module):
         return zy_loc
 
 
+class XYDEncoderParallelUser(XYDEncoderParallel):
+    """
+    This class only reimplemented constructor of parent class
+    """
+    @store_args
+    def __init__(self, net_class_d, net_x, net_class_y):
+        super().__init__(net_class_d, net_x, net_class_y)
+
+
 class XYDEncoderParallelConvBnReluPool(XYDEncoderParallel):
     """
     This class only reimplemented constructor of parent class
