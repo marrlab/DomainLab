@@ -23,6 +23,7 @@ class HyperSchedulerFeedback():
         self.ploss_new_theta_new_mu = None
         self.delta_mu = trainer.aconf.delta_mu
         self.init_mu = trainer.aconf.init_mu4beta
+        # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta = None
         self.budget_mu_per_step = trainer.aconf.budget_mu_per_step
@@ -30,33 +31,34 @@ class HyperSchedulerFeedback():
         self.count_found_operator = 0
         self.count_search_mu = 0
 
-    def search_mu(self, dict_theta, iter_start=0):
+    def search_mu(self, dict_theta, iter_start):
         """
-        start from parameter dict_theta,
-        enlarge mmu to see if the criteria is met
+        start from parameter dictionary dict_theta: {"layer":tensor},
+        enlarge mu w.r.t. its current value
+        to see if the criteria is met
         """
         self.count_search_mu += 1
-        self.dict_theta = dict_theta
+        self.dict_theta = copy.deepcopy(dict_theta)
+        # I am not sure if necessary here to deepcopy, but safer
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         mmu = None
         # self.mmu is not updated until a reg-descent operator is found
         self.ploss_old_theta_old_mu = self.trainer.eval_p_loss(self.mmu, self.dict_theta)
         for miter in range(iter_start, self.budget_mu_per_step):
-            mmu = self.dict_iter(miter)
-            print(f"trying mu={mmu} at mu iteration {miter}")
+            mmu = self.dict_mu_iter(miter)
+            print(f"trying mu={mmu} at mu iteration {miter} of {self.budget_mu_per_step}")
             if self.search_theta(mmu):
                 self.count_found_operator += 1
                 logger.info(f"!!!found reg-pareto operator with mu={mmu}")
                 logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
-                self.mmu = mmu
                 return True
         logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
         logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
         return False
 
-    def dict_iter(self, miter):
+    def dict_mu_iter(self, miter):
         """
-        update a dictionary according to iteration
+        update the dictionary of mu w.r.t. its current value, and its iteration, and its iteration
         """
         if miter == 0:
             return self.mmu
@@ -118,7 +120,3 @@ class HyperSchedulerFeedback():
         flag_improve = self.ploss_new_theta_new_mu < self.ploss_old_theta_new_mu
         flag_deteriorate = self.ploss_new_theta_old_mu > self.ploss_old_theta_old_mu
         return flag_improve & flag_deteriorate
-
-    def __call__(self, epoch):
-        """
-        """
