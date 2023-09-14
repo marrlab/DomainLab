@@ -1,6 +1,6 @@
 #!/bin/bash
 # sphinx-quickstart
-git checkout doc2
+git checkout doc
 git merge master -m "merge master"
 
 cd docs
