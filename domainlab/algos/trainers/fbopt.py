@@ -26,7 +26,7 @@ class HyperSchedulerFeedback():
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta_bar = None
-        self.dict_theta = None
+        self.dict_theta = copy.deepcopy(self.trainer.model.named_parameters())
         # theta_ref should be equal to either theta or theta bar as reference
         # since theta_ref will be used to judge if criteria is met
         self.dict_theta_ref = None
@@ -42,8 +42,11 @@ class HyperSchedulerFeedback():
         to see if the criteria is met
         """
         self.count_search_mu += 1
-        self.dict_theta = copy.deepcopy(dict_theta)
-        self.dict_theta_ref = self.dict_theta
+        self.dict_theta_bar = copy.deepcopy(dict_theta)
+        self.dict_theta_ref = self.dict_theta_bar
+        # theta_ref should be equal to either theta or theta bar as reference
+        # since theta_ref will be used to judge if criteria is met
+
         # I am not sure if necessary here to deepcopy, but safer
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         mmu = None
