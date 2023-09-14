@@ -39,9 +39,9 @@ Test1:
       distribution: uniform
 
     beta_mu:
-      min: 1
+      min: 1.2
       max: 2
-      num: 3
+      num: 4
       step: 0.1
       distribution: uniform
 
