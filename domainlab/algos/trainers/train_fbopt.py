@@ -56,6 +56,7 @@ class TrainerFbOpt(AbstractTrainer):
         # mock the model hyper-parameter to be from dict4mu
         self.inner_trainer.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
         # hide implementation details of inner_trainer
+        self.inner_trainer.model.train()
         for _, (tensor_x, vec_y, vec_d, *others) in enumerate(self.inner_trainer.loader_tr):
             self.inner_trainer.train_batch(tensor_x, vec_y, vec_d, others)  # update inner_net
         dict_par = dict(self.inner_trainer.model.named_parameters())
@@ -108,50 +109,59 @@ class TrainerFbOpt(AbstractTrainer):
         the model will tunnel/jump/shoot into the found pivot parameter $\\theta^{(k+1)}$,
         otherwise,
         """
-        # FIXME: check if reg is decreasing by logging
+        # FIXME: check if reg is decreasing by logging and plot
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"at epoch {epoch}, epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
 
+        # double check if loss evaluation is the same when executed two times
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"at epoch {epoch}, epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
 
+        # self.model.train()  # FIXME: i guess no need to put into train mode?
 
-
-        self.model.train()
         flag_success = self.hyper_scheduler.search_mu(
             dict(self.model.named_parameters()),
-            iter_start=self.mu_iter_start)
+            iter_start=1)  # FIXME: iter_start=0 or 1?
+
         if flag_success:
             # only in success case, mu will be updated
             logger.info("pivot parameter found, jumping/shooting there now!")
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(
-                f"at epoch {epoch}, before shooting: epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
+                f"at epoch {epoch}, before shooting: epo_reg_loss={epo_reg_loss},  \
+                epo_task_loss={epo_task_loss}")
+
             self.model.set_params(self.hyper_scheduler.dict_theta)
+
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(
-                f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
+                f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
+                epo_task_loss={epo_task_loss}")
         else:
             # if failed to find reg-pareto descent operator, continue training
-            logger.info("failed to find pivot, move forward \\bar{\\theta}, this will deteriorate reg loss!")
+            logger.info("failed to find pivot, move forward \\bar{\\theta}, \
+                        this will deteriorate reg loss!")
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(
-                f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
+                f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
+                epo_task_loss={epo_task_loss}")
+
             theta = dict(self.model.named_parameters())
             dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
             self.model.set_params(dict_par)
+
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(
-                f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
-
-        flag_stop = self.observer.update(epoch)  # FIXME: should count how many epochs were used
+                f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
+                epo_task_loss={epo_task_loss}")
+        self.observer.update(epoch)
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return False  # total number of epochs controled in args
