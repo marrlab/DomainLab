@@ -26,7 +26,7 @@ class HyperSchedulerFeedback():
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta_bar = None
-        self.dict_theta = copy.deepcopy(self.trainer.model.named_parameters())
+        self.dict_theta = copy.deepcopy(dict(self.trainer.model.named_parameters()))
         # theta_ref should be equal to either theta or theta bar as reference
         # since theta_ref will be used to judge if criteria is met
         self.dict_theta_ref = None
@@ -43,7 +43,7 @@ class HyperSchedulerFeedback():
         """
         self.count_search_mu += 1
         self.dict_theta_bar = copy.deepcopy(dict_theta)
-        self.dict_theta_ref = self.dict_theta_bar
+        self.dict_theta_ref = copy.deepcopy(self.dict_theta)
         # theta_ref should be equal to either theta or theta bar as reference
         # since theta_ref will be used to judge if criteria is met
 
@@ -72,7 +72,7 @@ class HyperSchedulerFeedback():
         the execution will set the value for mu and theta as well
         """
         self.ploss_old_theta_new_mu = self.trainer.eval_p_loss(mmu_new, self.dict_theta_ref)
-        theta4mu_new = copy.deepcopy(self.dict_theta)
+        theta4mu_new = copy.deepcopy(self.dict_theta_bar)
         for i in range(self.budget_theta_update_per_mu):
             print(f"search theta at iteration {i} with mu={mmu_new}")
             theta4mu_new = self.trainer.opt_theta(mmu_new, theta4mu_new)
@@ -80,6 +80,7 @@ class HyperSchedulerFeedback():
             self.ploss_new_theta_old_mu = self.trainer.eval_p_loss(self.mmu, theta4mu_new)
             if self.is_criteria_met():
                 self.mmu = mmu_new
+                # theta_bar is set at search_mu, no need to update
                 self.dict_theta = theta4mu_new
                 return True
         return False
@@ -91,6 +92,8 @@ class HyperSchedulerFeedback():
         flag_improve = self.ploss_new_theta_new_mu < self.ploss_old_theta_new_mu
         flag_deteriorate = self.ploss_new_theta_old_mu > self.ploss_old_theta_old_mu
         return flag_improve & flag_deteriorate
+
+    # below are just auxilliary code
 
     def dict_mu_iter(self, miter):
         """
