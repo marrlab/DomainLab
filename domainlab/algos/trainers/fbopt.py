@@ -54,10 +54,10 @@ class HyperSchedulerFeedback():
             print(f"trying mu={mmu} at mu iteration {miter} of {self.budget_mu_per_step}")
             if self.search_theta(mmu):
                 self.count_found_operator += 1
-                logger.info(f"!!!found reg-pareto operator with mu={mmu}")
+                logger.info(f"!!!!!!!!!!!!!found reg-pareto operator with mu={mmu}")
                 logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
                 return True
-        logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
+        logger.warn(f"!failed to find mu within budget, mu={mmu}")
         logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
         return False
 
