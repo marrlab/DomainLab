@@ -25,6 +25,7 @@ class HyperSchedulerFeedback():
         self.init_mu = trainer.aconf.init_mu4beta
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
+        self.dict_bar_theta = None
         self.dict_theta = None
         self.budget_mu_per_step = trainer.aconf.budget_mu_per_step
         self.budget_theta_update_per_mu = trainer.aconf.budget_theta_update_per_mu
@@ -65,12 +66,24 @@ class HyperSchedulerFeedback():
         if self.delta_mu is not None:
             mmu = self.dict_addition(self.mmu, miter * self.delta_mu)
         elif self.beta_mu is not None:
+            if self.dict_is_zero(self.mmu):
+                base = self.dict_addition(self.mmu, self.init_mu)
+            else:
+                base = self.mmu
             multiplier = np.power(self.beta_mu, miter)
-            base = self.dict_addition(self.mmu, self.init_mu)
             mmu = self.dict_multiply(base, multiplier)
         else:
             raise RuntimeError("delta_mu and beta_mu can not be simultaneously None!")
         return mmu
+
+    def dict_is_zero(self, dict_mu):
+        """
+        check if hyper-parameter start from zero
+        """
+        for key in dict_mu.keys():
+            if dict_mu[key] == 0.0:
+                return True
+
 
     def dict_multiply(self, dict_base, multiplier):
         """
