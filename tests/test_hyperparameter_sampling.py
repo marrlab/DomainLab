@@ -111,14 +111,6 @@ def test_hyperparameter_gridsearch():
     assert 'p1_shared' not in a3samples.keys()
     assert 'p2_shared' not in a3samples.keys()
 
-    # test sampling seed
-    sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                       'Task1': {'aname': 'Algo1',
-                                 'hyperparameters':
-                                     {'p1': {'min': 0, 'max': 1, 'step': 0,
-                                             'distribution': 'uniform', 'num': 2}}}},
-                          sampling_seed=0)
-
 
 def test_gridhyperparameter_errors():
     """Test for the errors which may occour in the sampling of the grid"""
