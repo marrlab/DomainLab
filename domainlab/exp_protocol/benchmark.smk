@@ -49,7 +49,10 @@ def experiment_result_files(_):
                 if 'hyperparameters' in val.keys():
                     num_sample_tasks += 1
                 else:
-                    num_nonsample_tasks += 1
+                    if 'shared' in val.keys():
+                        num_sample_tasks += 1
+                    else:
+                        num_nonsample_tasks += 1
         # total number of hyperparameter samples
         total_num_params = config['num_param_samples'] * num_sample_tasks + num_nonsample_tasks
         logger.info(f"total_num_params={total_num_params} for random sampling")
