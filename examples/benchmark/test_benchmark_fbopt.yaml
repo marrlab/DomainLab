@@ -17,7 +17,7 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 50
+  epos: 3
   es: 5
   bs: 64
   nname: conv_bn_pool_2
@@ -26,7 +26,7 @@ domainlab_args:
 
 # Test fbopt with different hyperparameter configurations
 
-Test1:
+TestFbopt:
   aname: dann
   trainer: fbopt
 
@@ -55,13 +55,15 @@ Test1:
     budget_mu_per_step:
       min: 4
       max: 10
-      num: 7
+      num: 2
       step: 1
+      datatype: int
       distribution: uniform
 
     budget_theta_update_per_mu:
       min: 4
       max: 10
-      num: 7
+      num: 2
       step: 1
+      datatype: int
       distribution: uniform
