@@ -57,10 +57,10 @@ class HyperSchedulerFeedback():
             print(f"trying mu={mmu} at mu iteration {miter} of {self.budget_mu_per_step}")
             if self.search_theta(mmu):
                 self.count_found_operator += 1
-                logger.info(f"!!!found reg-pareto operator with mu={mmu}")
+                logger.info(f"!!!!!!!!!!!!!found reg-pareto operator with mu={mmu}")
                 logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
                 return True
-        logger.warn(f"!!!!!!failed to find mu within budget, mu={mmu}")
+        logger.warn(f"!failed to find mu within budget, mu={mmu}")
         logger.info(f"success rate: {self.count_found_operator}/{self.count_search_mu}")
         return False
 
@@ -94,6 +94,20 @@ class HyperSchedulerFeedback():
         return flag_improve & flag_deteriorate
 
     # below are just auxilliary code
+    def observe_state(self, mmu_new, theta4mu_new):
+        """
+        FIXME: the function maybe not be needed anymore
+        depreatecated:
+        it can happen, the GD operator on the penalized function reduces both R and L
+        in this case, we get a descent operator for free.
+
+        the state variable for high level control is the loss, we query them here
+        we only update the controller theta, the neural network theta is done by the trainer
+        """
+        self.ploss_old_theta_old_mu = self.trainer.eval_p_loss(self.mmu, self.dict_theta_ref)
+        self.ploss_old_theta_new_mu = self.trainer.eval_p_loss(mmu_new, self.dict_theta_ref)
+        self.ploss_new_theta_new_mu = self.trainer.eval_p_loss(mmu_new, theta4mu_new)
+        self.ploss_new_theta_old_mu = self.trainer.eval_p_loss(self.mmu, theta4mu_new)
 
     def dict_mu_iter(self, miter):
         """

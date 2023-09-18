@@ -149,11 +149,11 @@ class TrainerFbOpt(AbstractTrainer):
             # if failed to find reg-pareto descent operator, continue training
             logger.info("failed to find pivot, move forward \\bar{\\theta}, \
                         this will deteriorate reg loss!")
-            epo_reg_loss, epo_task_loss = self.eval_r_loss()
+            epo_reg_loss_before, epo_task_loss_before = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(
-                f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
-                epo_task_loss={epo_task_loss}")
+                f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss_before}, \
+                epo_task_loss={epo_task_loss_before}")
 
             theta = dict(self.model.named_parameters())
             dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
@@ -164,6 +164,8 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
+            if epo_reg_loss < epo_reg_loss_before:
+                logger.info("!!!!found free descent operator")
         self.observer.update(epoch)
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return False  # total number of epochs controled in args
