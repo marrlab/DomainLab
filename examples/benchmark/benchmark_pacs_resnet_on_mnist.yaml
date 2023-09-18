@@ -27,14 +27,21 @@ domainlab_args:
   epos: 200
   es: 1
   bs: 32
-  npath: examples/nets/resnet50domainbed.py
-  npath_dom: examples/nets/resnet50domainbed.py
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: True
 
 Shared params:
   num_shared_param_samples: 8
+
+  lr:
+    distribution: categorical
+    values:
+      - 1e-3
+      - 5e-5
+
   gamma_y:
     min: 1e4
     max: 1e6
@@ -82,6 +89,7 @@ diva:  # name
     - zx_dim
     - zy_dim
     - zd_dim
+    - lr
 
 
 hduva:  # name
@@ -91,12 +99,14 @@ hduva:  # name
     - gamma_y
     - zy_dim
     - zd_dim
+    - lr
 
 
 matchdg:  # name
   aname: matchdg
   shared:
     - gamma_reg
+    - lr
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -124,6 +134,7 @@ jigen:  # name
   grid_len: 3
   shared:
     - gamma_reg
+    - lr
 
   hyperparameters:
     # number of permutations
@@ -146,10 +157,13 @@ dann:  # name
   aname: dann
   shared:
     - gamma_reg
+    - lr
 
 
 erm:  # name
   aname: deepall
+  shared:
+    - lr
 
 
 dial: # name
@@ -157,6 +171,7 @@ dial: # name
   trainer: dial
   shared:
     - gamma_reg
+    - lr
 
   hyperparameters:
     dial_steps_perturb:
@@ -181,6 +196,7 @@ mldg:  # name
   trainer: mldg
   shared:
     - gamma_reg
+    - lr
 
 
 hduva_matchdg:  # name
@@ -192,6 +208,7 @@ hduva_matchdg:  # name
     - zy_dim
     - zd_dim
     - gamma_reg
+    - lr
 
   hyperparameters:
     # Same config as diva.
@@ -228,6 +245,7 @@ diva_dial:
     - zy_dim
     - zd_dim
     - gamma_reg
+    - lr
 
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
@@ -269,6 +287,7 @@ diva_mldg:  # name
     - gamma_y
     - gamma_d
     - gamma_reg
+    - lr
 
 
 hduva_mldg:  # name
@@ -278,3 +297,4 @@ hduva_mldg:  # name
     - gamma_y
     - zy_dim
     - gamma_reg
+    - lr
