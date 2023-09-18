@@ -17,4 +17,6 @@ def add_args2parser_fbopt(parser):
                         help='number of mu iterations to try')
     parser.add_argument('--budget_theta_update_per_mu', type=int, default=5,
                         help='number of theta update for each fixed mu')
+    parser.add_argument('--anchor_bar', action='store_true', default=False,
+                        help='use theta bar as anchor point')
     return parser

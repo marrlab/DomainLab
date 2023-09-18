@@ -146,7 +146,8 @@ class TrainerFbOpt(AbstractTrainer):
                 f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
         else:
-            # if failed to find reg-pareto descent operator, continue training
+            # if failed to find reg-pareto descent operator, continue training without
+            # mu being updated
             logger.info("failed to find pivot, move forward \\bar{\\theta}, \
                         this will deteriorate reg loss!")
             epo_reg_loss_before, epo_task_loss_before = self.eval_r_loss()
@@ -165,6 +166,7 @@ class TrainerFbOpt(AbstractTrainer):
                 f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
             if epo_reg_loss < epo_reg_loss_before:
+                # FIXME: update reference parameter in mu controller
                 logger.info("!!!!found free descent operator")
         self.observer.update(epoch)
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
