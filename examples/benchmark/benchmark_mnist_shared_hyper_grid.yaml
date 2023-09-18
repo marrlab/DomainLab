@@ -4,7 +4,7 @@ test_domains:
   - 3
   - 0
 
-output_dir: zoutput/benchmarks/mnist_benchmark
+output_dir: zoutput/benchmarks/mnist_benchmark_grid
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
@@ -63,14 +63,6 @@ method_diva:  # name
       step: 10_000
       distribution: loguniform
       num: 2
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-      datatype: int
-
 
 method_hduva:  # name
   aname: hduva
