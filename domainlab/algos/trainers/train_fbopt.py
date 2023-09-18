@@ -7,6 +7,7 @@ import torch
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
+from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
 
 
@@ -38,6 +39,7 @@ class TrainerFbOpt(AbstractTrainer):
         """
         before training begins, construct helper objects
         """
+        self.observer.msel = MSelBang(max_es=None)
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.model.evaluate(self.loader_te, self.device)
         self.inner_trainer = TrainerBasic()  # look ahead
