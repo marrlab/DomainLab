@@ -35,6 +35,12 @@ class HyperSchedulerFeedback():
         self.count_found_operator = 0
         self.count_search_mu = 0
 
+    def update_anchor(self, dict_par):
+        """
+        update the last ensured value of theta^{(k)}
+        """
+        self.dict_theta = copy.deepcopy(dict_par)
+
     def set_theta_ref(self):
         """
         # theta_ref should be equal to either theta or theta bar as reference

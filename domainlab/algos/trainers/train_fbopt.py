@@ -138,6 +138,7 @@ class TrainerFbOpt(AbstractTrainer):
                 f"at epoch {epoch}, before shooting: epo_reg_loss={epo_reg_loss},  \
                 epo_task_loss={epo_task_loss}")
 
+            # shoot/tunnel to new found parameter configuration
             self.model.set_params(self.hyper_scheduler.dict_theta)
 
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
@@ -158,6 +159,7 @@ class TrainerFbOpt(AbstractTrainer):
 
             theta = dict(self.model.named_parameters())
             dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
+            # move according to gradient to update theta_bar
             self.model.set_params(dict_par)
 
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
@@ -166,8 +168,9 @@ class TrainerFbOpt(AbstractTrainer):
                 f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
             if epo_reg_loss < epo_reg_loss_before:
-                # FIXME: update reference parameter in mu controller
                 logger.info("!!!!found free descent operator")
+                if self.aconf.myoptic_pareto:
+                    self.hyper_scheduler.update_anchor(dict_par)
         self.observer.update(epoch)
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return False  # total number of epochs controled in args
