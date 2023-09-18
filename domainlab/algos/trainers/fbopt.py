@@ -35,6 +35,16 @@ class HyperSchedulerFeedback():
         self.count_found_operator = 0
         self.count_search_mu = 0
 
+    def set_theta_ref(self):
+        """
+        # theta_ref should be equal to either theta or theta bar as reference
+        # since theta_ref will be used to judge if criteria is met
+        """
+        if self.trainer.aconf.anchor_bar:
+            self.dict_theta_ref = copy.deepcopy(self.dict_theta_bar)
+        else:
+            self.dict_theta_ref = copy.deepcopy(self.dict_theta)
+
     def search_mu(self, dict_theta, iter_start):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
@@ -42,8 +52,10 @@ class HyperSchedulerFeedback():
         to see if the criteria is met
         """
         self.count_search_mu += 1
+        # FIXME: theta_bar always be overwriten by theta, to keep both at the same shoulder index
+        # Search always start from the model parameter
         self.dict_theta_bar = copy.deepcopy(dict_theta)
-        self.dict_theta_ref = copy.deepcopy(self.dict_theta)
+        self.set_theta_ref()
         # theta_ref should be equal to either theta or theta bar as reference
         # since theta_ref will be used to judge if criteria is met
 
@@ -72,6 +84,8 @@ class HyperSchedulerFeedback():
         the execution will set the value for mu and theta as well
         """
         self.ploss_old_theta_new_mu = self.trainer.eval_p_loss(mmu_new, self.dict_theta_ref)
+        # FIXME: where the search should start? theta_bar is the gradient descent result of old mu,
+        # it makes sense to start the search there?
         theta4mu_new = copy.deepcopy(self.dict_theta_bar)
         for i in range(self.budget_theta_update_per_mu):
             print(f"search theta at iteration {i} with mu={mmu_new}")
