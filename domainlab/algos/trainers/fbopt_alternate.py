@@ -35,6 +35,7 @@ class HyperSchedulerFeedbackAlternave():
         self.count_found_operator = 0
         self.count_search_mu = 0
         ########################################
+        # FIXME: make the following a vector, (or  dictionary)
         self.rate_exp_shoulder = 0.0001
         self.epsilon_r = 20
 
@@ -62,6 +63,7 @@ class HyperSchedulerFeedbackAlternave():
         $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-epsilon_R])$$
         """
         epo_reg_loss, _ = self.trainer.eval_r_loss()
+        # FIXME: use dictionary to replace scalar representation
         multiplier = np.exp(self.rate_exp_shoulder * (epo_reg_loss - self.epsilon_r))
         target = self.dict_multiply(self.mmu, multiplier)
         self.mmu = target
@@ -80,5 +82,6 @@ class HyperSchedulerFeedbackAlternave():
         """
         multiply a float to each element of a dictionary
         """
+        # FIXME: make multipler also a dictionary
         assert multiplier > 1
         return {key: val*multiplier for key, val in dict_base.items()}
