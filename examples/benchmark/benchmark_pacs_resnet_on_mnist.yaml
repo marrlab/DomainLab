@@ -40,6 +40,7 @@ Shared params:
     values:
       - 1e-3
       - 5e-5
+    datatype: float
 
   gamma_y:
     min: 1e4
