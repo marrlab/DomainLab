@@ -81,12 +81,15 @@ class HyperSchedulerFeedbackAlternave():
             self.delta_epsilon_r = (1 - self.ma) * self.delta_epsilon_r + self.ma * delta_epsilon_r
         multiplier = np.exp(self.rate_exp_shoulder * (self.delta_epsilon_r))
         target = self.dict_multiply(self.mmu, multiplier)
-        self.mmu = np.clip(target, a_min=0.0, a_max=self.mu_clip)
+        self.mmu = self.dict_clip(self.mmu)
         val = list(target.values())[0]
         self.writer.add_scalar('mmu', val, miter)
         self.writer.add_scalar('reg', epo_reg_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
+
+    def dict_clip(self, dict_base):
+        return {key: np.clip(val, a_min=0.0, a_max=self.mu_clip) for key, val in dict_base.items()}
 
     def dict_is_zero(self, dict_mu):
         """
