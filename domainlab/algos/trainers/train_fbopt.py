@@ -50,6 +50,9 @@ class TrainerFbOpt(AbstractTrainer):
             copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
 
+        epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        self.hyper_scheduler.reg_lower_bound_as_setpoint = epo_reg_loss * 0.999   # FIXME: set 0.999 as hyperparameter
+
     def opt_theta(self, dict4mu, dict_theta0):
         """
         operator for theta, move gradient for one epoch, then check if criteria is met
