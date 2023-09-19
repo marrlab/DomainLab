@@ -131,7 +131,7 @@ class TrainerFbOpt(AbstractTrainer):
 
         flag_success = self.hyper_scheduler.search_mu(
             dict(self.model.named_parameters()),
-            iter_start=1)  # FIXME: iter_start=0 or 1?
+            miter=epoch)  # FIXME: iter_start=0 or 1?
 
         if flag_success:
             # only in success case, mu will be updated

@@ -4,6 +4,7 @@ update hyper-parameters during training
 import copy
 import numpy as np
 from domainlab.utils.logger import Logger
+from torch.utils.tensorboard import SummaryWriter
 
 
 class HyperSchedulerFeedbackAlternave():
@@ -38,6 +39,7 @@ class HyperSchedulerFeedbackAlternave():
         # FIXME: make the following a vector, (or  dictionary)
         self.rate_exp_shoulder = 0.0001
         self.epsilon_r = 20
+        self.writer = SummaryWriter()
 
     def update_anchor(self, dict_par):
         """
@@ -55,7 +57,7 @@ class HyperSchedulerFeedbackAlternave():
         else:
             self.dict_theta_ref = copy.deepcopy(self.dict_theta)
 
-    def search_mu(self, dict_theta=None, iter_start=None):
+    def search_mu(self, dict_theta=None, miter=None):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value
@@ -67,6 +69,9 @@ class HyperSchedulerFeedbackAlternave():
         multiplier = np.exp(self.rate_exp_shoulder * (epo_reg_loss - self.epsilon_r))
         target = self.dict_multiply(self.mmu, multiplier)
         self.mmu = target
+        val = list(target.values())[0]
+        self.writer.add_scalar('mmu', val, miter)
+        self.writer.add_scalar('reg', epo_reg_loss, miter)
         return False
 
     def dict_is_zero(self, dict_mu):
@@ -83,5 +88,5 @@ class HyperSchedulerFeedbackAlternave():
         multiply a float to each element of a dictionary
         """
         # FIXME: make multipler also a dictionary
-        assert multiplier > 1
+        # NOTE: allow multipler be bigger than 1
         return {key: val*multiplier for key, val in dict_base.items()}
