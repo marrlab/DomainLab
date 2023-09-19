@@ -40,7 +40,7 @@ class HyperSchedulerFeedbackAlternave():
         self.rate_exp_shoulder = 0.0001
         self.delta_epsilon_r  = False  # False here just used to decide if value first use or not
         self.reg_lower_bound = 20
-        self.mu_clip = 100_000
+        self.mu_clip = 10000
         self.writer = SummaryWriter()
         self.ma = 0.5
         self.epsilon_r = False
@@ -81,7 +81,7 @@ class HyperSchedulerFeedbackAlternave():
             self.delta_epsilon_r = (1 - self.ma) * self.delta_epsilon_r + self.ma * delta_epsilon_r
         multiplier = np.exp(self.rate_exp_shoulder * (self.delta_epsilon_r))
         target = self.dict_multiply(self.mmu, multiplier)
-        self.mmu = target
+        self.mmu = np.clip(target, a_min=0.0, a_max=self.mu_clip)
         val = list(target.values())[0]
         self.writer.add_scalar('mmu', val, miter)
         self.writer.add_scalar('reg', epo_reg_loss, miter)
