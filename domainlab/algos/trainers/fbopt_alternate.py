@@ -39,7 +39,7 @@ class HyperSchedulerFeedbackAlternave():
         # FIXME: make the following a vector, (or  dictionary)
         self.k_p_control = 0.001
         self.delta_epsilon_r  = False  # False here just used to decide if value first use or not
-        self.reg_lower_bound_as_setpoint = 117  # FIXME: set this value according to initial evaluation of neural network
+        self.reg_lower_bound_as_setpoint = 117.5  # FIXME: set this value according to initial evaluation of neural network
         self.mu_clip = 10000
         self.writer = SummaryWriter()
         self.ma = 0.5
