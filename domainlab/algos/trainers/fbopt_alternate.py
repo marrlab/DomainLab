@@ -38,7 +38,9 @@ class HyperSchedulerFeedbackAlternave():
         ########################################
         # FIXME: make the following a vector, (or  dictionary)
         self.rate_exp_shoulder = 0.0001
+        self.delta_epsilon_r  = False  # False here just used to decide if value first use or not
         self.reg_lower_bound = 20
+        self.mu_clip = 100_000
         self.writer = SummaryWriter()
         self.ma = 0.5
         self.epsilon_r = False
@@ -73,8 +75,8 @@ class HyperSchedulerFeedbackAlternave():
         if self.delta_epsilon_r is False:
             self.delta_epsilon_r = delta_epsilon_r
         else:
-            # PI control. 
-            # self.delta_epsilon_r is the previous time step. 
+            # PI control.
+            # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
             self.delta_epsilon_r = (1 - self.ma) * self.delta_epsilon_r + self.ma * delta_epsilon_r
         multiplier = np.exp(self.rate_exp_shoulder * (self.delta_epsilon_r))
@@ -83,6 +85,7 @@ class HyperSchedulerFeedbackAlternave():
         val = list(target.values())[0]
         self.writer.add_scalar('mmu', val, miter)
         self.writer.add_scalar('reg', epo_reg_loss, miter)
+        self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
     def dict_is_zero(self, dict_mu):
