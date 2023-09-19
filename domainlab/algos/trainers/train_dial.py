@@ -36,6 +36,21 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+        """
+        Let trainer behave like a model, so that other trainer could use it
+        """
+        tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
+        tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
+        loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, tensor_y, tensor_d)
+        # FIXME: dial is different from other regularizer,
+        # no matter if self.model is a trainer or complex model like diva?
+        # self.model should return cal_loss, and loss_dial is the same function evaluated
+        # on the augmented data
+        # However, if we want to tune all the multipliers, we should return all reg losses in the decorator chain,
+        # but the current implementation is enough to be used for deepall/ERM
+        return [loss_dial.sum()], [self.aconf.gamma_reg]
+
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0

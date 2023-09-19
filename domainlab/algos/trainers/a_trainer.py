@@ -136,3 +136,37 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param request: string
         """
         return request == self.name
+
+    def hyper_init(self):
+        """
+        safe API as model
+        """
+
+    def get_model(self):
+        """
+        treat trainer as a model
+        """
+        if "trainer" not in str(type(self.model)).lower():
+            return self.model
+        return self.model.model
+
+    def as_model(self):
+        """
+        used for decorator pattern
+
+        It is not necessary to write any function that just copies the pattern
+        self.get_model().do_something()
+        """
+
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+        """
+        use trainer as a model, this is the default behavior, if we want to have decorated
+        behavior of regularization loss, then this default behavior has to be changed.
+        """
+        return self.get_model().cal_reg_loss(tensor_x, tensor_y, tensor_d)
+
+    def cal_task_loss(self, tensor_x, tensor_y):
+        """
+        depute to the inner most trainer's model
+        """
+        return self.get_model().cal_task_loss(tensor_x, tensor_y)
