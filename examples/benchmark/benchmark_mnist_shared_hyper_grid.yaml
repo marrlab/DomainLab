@@ -21,7 +21,7 @@ Shared params:
       max: 1e5
       step: 100
       distribution: loguniform
-      num: 2
+      num: 1
 
     zy_dim:
       min: 32
