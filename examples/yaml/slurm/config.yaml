@@ -15,7 +15,7 @@ cluster:
 default-resources:
   - partition=gpu_p 
   - qos=gpu_normal 
-  - mem_mb=160000 
+  - mem_mb=100000 
 restart-times: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
