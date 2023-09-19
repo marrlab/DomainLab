@@ -38,8 +38,10 @@ class HyperSchedulerFeedbackAlternave():
         ########################################
         # FIXME: make the following a vector, (or  dictionary)
         self.rate_exp_shoulder = 0.0001
-        self.epsilon_r = 20
+        self.reg_lower_bound = 20
         self.writer = SummaryWriter()
+        self.ma = 0.5
+        self.epsilon_r = False
 
     def update_anchor(self, dict_par):
         """
@@ -66,7 +68,16 @@ class HyperSchedulerFeedbackAlternave():
         """
         epo_reg_loss, _ = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
-        multiplier = np.exp(self.rate_exp_shoulder * (epo_reg_loss - self.epsilon_r))
+        delta_epsilon_r = epo_reg_loss - self.reg_lower_bound
+        # TODO: can be replaced by a controller
+        if self.delta_epsilon_r is False:
+            self.delta_epsilon_r = delta_epsilon_r
+        else:
+            # PI control. 
+            # self.delta_epsilon_r is the previous time step. 
+            # delta_epsilon_r is the current time step
+            self.delta_epsilon_r = (1 - self.ma) * self.delta_epsilon_r + self.ma * delta_epsilon_r
+        multiplier = np.exp(self.rate_exp_shoulder * (self.delta_epsilon_r))
         target = self.dict_multiply(self.mmu, multiplier)
         self.mmu = target
         val = list(target.values())[0]
