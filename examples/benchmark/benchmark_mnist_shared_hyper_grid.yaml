@@ -40,7 +40,7 @@ domainlab_args:
   tr_d: [1, 2, 4]
   dmem: False
   lr: 0.001
-  epos: 50
+  epos: 2
   es: 5
   bs: 64
   nname: conv_bn_pool_2
