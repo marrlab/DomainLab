@@ -72,7 +72,7 @@ class HyperSchedulerFeedbackAlternave():
         val = list(target.values())[0]
         self.writer.add_scalar('mmu', val, miter)
         self.writer.add_scalar('reg', epo_reg_loss, miter)
-        return False
+        return True
 
     def dict_is_zero(self, dict_mu):
         """
