@@ -39,7 +39,7 @@ class HyperSchedulerFeedbackAlternave():
         # FIXME: make the following a vector, (or  dictionary)
         self.rate_exp_shoulder = 0.001
         self.delta_epsilon_r  = False  # False here just used to decide if value first use or not
-        self.reg_lower_bound = 100  # FIXME: set this value according to initial evaluation of neural network
+        self.reg_lower_bound_as_setpoint = 100  # FIXME: set this value according to initial evaluation of neural network
         self.mu_clip = 10000
         self.writer = SummaryWriter()
         self.ma = 0.5
@@ -70,7 +70,7 @@ class HyperSchedulerFeedbackAlternave():
         """
         epo_reg_loss, _ = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
-        delta_epsilon_r = epo_reg_loss - self.reg_lower_bound
+        delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
             self.delta_epsilon_r = delta_epsilon_r
@@ -79,8 +79,8 @@ class HyperSchedulerFeedbackAlternave():
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
             self.delta_epsilon_r = (1 - self.ma) * self.delta_epsilon_r + self.ma * delta_epsilon_r
-        multiplier = np.exp(self.rate_exp_shoulder * (self.delta_epsilon_r))
-        target = self.dict_multiply(self.mmu, multiplier)
+        gain = np.exp(self.rate_exp_shoulder * (self.delta_epsilon_r))
+        target = self.dict_multiply(self.mmu, gain)
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
@@ -89,6 +89,9 @@ class HyperSchedulerFeedbackAlternave():
         return True
 
     def dict_clip(self, dict_base):
+        """
+        clip each entry of the mu according to pre-set self.mu_clip
+        """
         return {key: np.clip(val, a_min=0.0, a_max=self.mu_clip) for key, val in dict_base.items()}
 
     def dict_is_zero(self, dict_mu):

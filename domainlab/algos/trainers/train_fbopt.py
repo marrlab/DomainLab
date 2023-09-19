@@ -115,7 +115,6 @@ class TrainerFbOpt(AbstractTrainer):
         the model will tunnel/jump/shoot into the found pivot parameter $\\theta^{(k+1)}$,
         otherwise,
         """
-        # FIXME: check if reg is decreasing by logging and plot
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
@@ -175,6 +174,6 @@ class TrainerFbOpt(AbstractTrainer):
                 logger.info("!!!!found free descent operator")
                 if self.aconf.myoptic_pareto:
                     self.hyper_scheduler.update_anchor(dict_par)
-        self.observer.update(epoch)
+        self.observer.update(epoch)   # FIXME: model selection should be disabled
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return False  # total number of epochs controled in args
