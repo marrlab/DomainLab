@@ -16,7 +16,7 @@ def mk_dann(parent_class=AModelClassif):
         The model is trained to solve two tasks:
         1. Standard image classification.
         2. Domain classification.
-        Here for, a feature extractor is adversarially trained to minimize the loss of the image 
+        Here for, a feature extractor is adversarially trained to minimize the loss of the image
         classifier and maximize the loss of the domain classifier.
         For more details, see:
         Ganin, Yaroslav, et al. "Domain-adversarial training of neural networks."
@@ -84,5 +84,5 @@ def mk_dann(parent_class=AModelClassif):
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-            return self.alpha*lc_d
+            return [lc_d], [self.alpha]
     return ModelDAN

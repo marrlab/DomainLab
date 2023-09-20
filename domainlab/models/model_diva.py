@@ -131,10 +131,6 @@ def mk_diva(parent_class=VAEXYDClassif):
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
 
-            loss_reg = loss_recon_x \
-                - self.beta_d * zd_p_minus_zd_q \
-                - self.beta_x * zx_p_minus_zx_q \
-                - self.beta_y * zy_p_minus_zy_q \
-                + self.gamma_d * lc_d
-            return loss_reg
+            return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
+                [1.0, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
     return ModelDIVA
