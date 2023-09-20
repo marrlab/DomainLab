@@ -1,0 +1,300 @@
+# test benchmark config.
+
+test_domains:
+  - 1
+  - 2
+
+output_dir: zoutput/benchmarks/pacs_benchmark_reproduce
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 8
+sampling_seed: 0
+
+startseed: 0
+endseed: 5  # currently included
+
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  task: mnistcolor10
+  tr_d: [0, 3]
+  dmem: False
+  epos: 200
+  es: 1
+  bs: 32
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  san_check: True
+
+Shared params:
+  num_shared_param_samples: 8
+
+  lr:
+    distribution: categorical
+    values:
+      - 1e-3
+      - 5e-5
+    datatype: float
+
+  gamma_y:
+    min: 1e4
+    max: 1e6
+    step: 100
+    distribution: loguniform
+
+  gamma_d:
+    min: 1e4
+    max: 1e6
+    step: 100
+    distribution: loguniform
+
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zd_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
+
+
+diva:  # name
+  aname: diva
+  shared:
+    - gamma_y
+    - gamma_d
+    - zx_dim
+    - zy_dim
+    - zd_dim
+    - lr
+
+
+hduva:  # name
+  aname: hduva
+  zx_dim: 0
+  shared:
+    - gamma_y
+    - zy_dim
+    - zd_dim
+    - lr
+
+
+matchdg:  # name
+  aname: matchdg
+  shared:
+    - gamma_reg
+    - lr
+
+  hyperparameters:
+    # Total number of epochs for contrastive loss
+    epochs_ctr:
+      min: 2
+      max: 10
+      step: 1
+      distribution: uniform
+
+    # factor to magnify cosine similarity
+    tau:
+      min: 0.01
+      max: 1
+      distribution: loguniform
+
+    # Number of epochs before updating the match tensor
+    epos_per_match_update:
+      min: 1
+      max: 20
+      step: 1
+      distribution: uniform
+
+jigen:  # name
+  aname: jigen
+  grid_len: 3
+  shared:
+    - gamma_reg
+    - lr
+
+  hyperparameters:
+    # number of permutations
+    nperm:
+      distribution: categorical
+      values:
+        - 30
+        - 31
+        - 100
+      datatype: int
+
+    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
+    pperm:
+      min: 0.1
+      max: 0.5
+      distribution: uniform
+
+
+dann:  # name
+  aname: dann
+  shared:
+    - gamma_reg
+    - lr
+
+
+erm:  # name
+  aname: deepall
+  shared:
+    - lr
+
+
+dial: # name
+  aname: deepall
+  trainer: dial
+  shared:
+    - gamma_reg
+    - lr
+
+  hyperparameters:
+    dial_steps_perturb:
+      min: 1
+      max: 10
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.001
+      max: 0.01
+      distribution: loguniform
+
+
+mldg:  # name
+  aname: deepall
+  trainer: mldg
+  shared:
+    - gamma_reg
+    - lr
+
+
+hduva_matchdg:  # name
+  aname: matchhduva
+  zx_dim: 0
+
+  shared:
+    - gamma_y
+    - zy_dim
+    - zd_dim
+    - gamma_reg
+    - lr
+
+  hyperparameters:
+    # Same config as diva.
+
+    # Total number of epochs for contrastive loss
+    epochs_ctr:
+      min: 2
+      max: 10
+      step: 1
+      distribution: uniform
+
+    # factor to magnify cosine similarity
+    tau:
+      min: 0.01
+      max: 1
+      distribution: loguniform
+
+    # Number of epochs before updating the match tensor
+    epos_per_match_update:
+      min: 1
+      max: 20
+      step: 1
+      distribution: uniform
+
+
+diva_dial:
+  # Parameters that are fixed for all runs of this task.
+  aname: diva
+  trainer: dial
+  shared:
+    - gamma_y
+    - gamma_d
+    - zx_dim
+    - zy_dim
+    - zd_dim
+    - gamma_reg
+    - lr
+
+  # specification of parameters that shall vary
+  # between runs to analyze the sensitivity
+  # of this task w.r.t. these parameters.
+  hyperparameters:
+    # Each parameter must contain:
+    # - distribution (uniform | loguniform | normal | lognormal)
+    # - min and max if distribution is uniform or loguniform
+    # - mean and std if distribution is normal or lognormal
+
+    # step is optional and defines discrete parameters
+    # with the given step size.
+    # If min/mean and step are integer valued,
+    # the hyperparameter is ensured to be integer valued too.
+    # Otherwise, it is a float and rounding errors can occur.
+    dial_steps_perturb:
+      min: 1
+      max: 10
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.001
+      max: 0.01
+      distribution: loguniform
+
+
+# Each node containing the aname property is considered as a task.
+diva_mldg:  # name
+  # Parameters that are fixed for all runs of this task.
+  aname: diva
+  trainer: mldg
+  shared:
+    - gamma_y
+    - gamma_d
+    - gamma_reg
+    - lr
+
+
+hduva_mldg:  # name
+  aname: hduva
+  trainer: mldg
+  shared:
+    - gamma_y
+    - zy_dim
+    - gamma_reg
+    - lr
