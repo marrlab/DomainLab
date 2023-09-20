@@ -177,10 +177,11 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-            if epo_reg_loss < self.hyper_scheduler.:
-                logger.info("!!!!found free descent operator")
-                if self.aconf.myoptic_pareto:
-                    self.hyper_scheduler.update_anchor(dict_par)
+            if epo_reg_loss < self.hyper_scheduler.reg_lower_bound_as_setpoint:
+                logger.info(f"!!!!found free descent operator, update setpoint to {epo_reg_loss}")
+                self.hyper_scheduler.reg_lower_bound_as_setpoint = epo_reg_loss
+                #if self.aconf.myoptic_pareto:
+                #    self.hyper_scheduler.update_anchor(dict_par)
         self.observer.update(epoch)   # FIXME: model selection should be disabled
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return False  # total number of epochs controled in args
