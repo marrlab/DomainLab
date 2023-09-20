@@ -38,11 +38,12 @@ class HyperSchedulerFeedbackAlternave():
         ########################################
         # FIXME: make the following a vector, (or  dictionary)
         self.k_p_control = 0.001
-        self.delta_epsilon_r  = False  # False here just used to decide if value first use or not
-        self.reg_lower_bound_as_setpoint = 117.5  # FIXME: set this value according to initial evaluation of neural network
+        self.delta_epsilon_r = False  # False here just used to decide if value first use or not
+        self.reg_lower_bound_as_setpoint = None
+        # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = 10000
         self.writer = SummaryWriter()
-        self.ma = 0.5
+        self.coeff_ma = 0.5
         self.epsilon_r = False
 
     def update_anchor(self, dict_par):
@@ -78,7 +79,7 @@ class HyperSchedulerFeedbackAlternave():
             # PI control.
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
-            self.delta_epsilon_r = (1 - self.ma) * self.delta_epsilon_r + self.ma * delta_epsilon_r
+            self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
         gain = np.exp(self.k_p_control * (self.delta_epsilon_r))
         target = self.dict_multiply(self.mmu, gain)
         self.mmu = self.dict_clip(target)
