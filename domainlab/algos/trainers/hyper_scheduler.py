@@ -8,10 +8,11 @@ class HyperSchedulerWarmup():
     """
     HyperSchedulerWarmup
     """
-    def __init__(self, **kwargs):
+    def __init__(self, trainer, **kwargs):
         """
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
+        self.trainer = trainer
         self.dict_par_setpoint = kwargs
         self.total_steps = None
 

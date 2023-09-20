@@ -95,6 +95,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             :param functor_scheduler: the class name of the scheduler
             """
             return functor_scheduler(
+                trainer=None,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
 
         def get_list_str_y(self):

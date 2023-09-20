@@ -70,7 +70,7 @@ def mk_dann(parent_class=AModelClassif):
             """hyper_init.
             :param functor_scheduler:
             """
-            return functor_scheduler(alpha=self.alpha)
+            return functor_scheduler(trainer=None, alpha=self.alpha)
 
         def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
             """
