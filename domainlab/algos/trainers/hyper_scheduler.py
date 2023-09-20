@@ -1,0 +1,58 @@
+"""
+update hyper-parameters during training
+"""
+import numpy as np
+
+
+class HyperSchedulerWarmup():
+    """
+    HyperSchedulerWarmup
+    """
+    def __init__(self, **kwargs):
+        """
+        kwargs is a dictionary with key the hyper-parameter name and its value
+        """
+        self.dict_par_setpoint = kwargs
+        self.total_steps = None
+
+    def set_steps(self, total_steps):
+        """
+        set number of total_steps to gradually change optimization parameter
+        """
+        self.total_steps = total_steps
+
+    def warmup(self, par_setpoint, epoch):
+        """warmup.
+        start from a small value of par to ramp up the steady state value using
+        # total_steps
+        :param epoch:
+        """
+        ratio = ((epoch+1) * 1.) / self.total_steps
+        list_par = [par_setpoint, par_setpoint * ratio]
+        par = min(list_par)
+        return par
+
+    def __call__(self, epoch):
+        dict_rst = {}
+        for key, val_setpoint in self.dict_par_setpoint.items():
+            dict_rst[key] = self.warmup(val_setpoint, epoch)
+        return dict_rst
+
+
+class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
+    """
+    HyperScheduler Exponential
+    """
+    def aneal(self, par_setpoint, epoch):
+        """
+        start from a small value of par to ramp up the steady state value using
+        number of total_steps
+        :param epoch:
+        """
+        ratio = ((epoch+1) * 1.) / self.total_steps
+        denominator = (1. + np.exp(-10 * ratio))
+        # ratio is 0, denom is 2, 2/denom is 1, return is 0
+        # ratio is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, return is 1
+        # exp(-10)=4.5e-5 is approximately 0
+        # slowly increase the regularization weight from 0 to 1*alpha as epochs goes on
+        return float((2. / denominator - 1) * par_setpoint)
