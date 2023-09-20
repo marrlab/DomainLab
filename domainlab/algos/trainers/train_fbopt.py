@@ -10,7 +10,7 @@ from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
 from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
 from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
-from operators import add
+from operator import add
 
 
 class HyperSetter():
