@@ -113,3 +113,8 @@ class HyperSchedulerFeedbackAlternave():
         # FIXME: make multipler also a dictionary
         # NOTE: allow multipler be bigger than 1
         return {key: val*multiplier for key, val in dict_base.items()}
+
+    def update_setpoint(self, epo_reg_loss):
+        # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
+        if epo_reg_loss < self.hyper_scheduler.reg_lower_bound_as_setpoint:
+            self.reg_lower_bound_as_setpoint = self.hyper_scheduler.coeff_ma * epo_reg_loss + (1-self.hyper_scheduler.coeff_ma)* self.hyper_scheduler.reg_lower_bound_as_setpoint
