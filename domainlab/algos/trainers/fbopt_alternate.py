@@ -63,6 +63,12 @@ class HyperSchedulerFeedbackAlternave():
         else:
             self.dict_theta_ref = copy.deepcopy(self.dict_theta)
 
+    def cal_delta4control(self, list1, list_setpoint):
+        return [a - b for a, b in zip(list1, list_setpoint)]
+
+    def cal_delta_integration(self, list_old, list_new, coeff):
+        return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
+
     def search_mu(self, dict_theta=None, miter=None):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
@@ -72,7 +78,8 @@ class HyperSchedulerFeedbackAlternave():
         """
         epo_reg_loss, _ = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
-        delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
+        # delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
+        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.reg_lower_bound_as_setpoint)
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
             self.delta_epsilon_r = delta_epsilon_r
@@ -80,8 +87,11 @@ class HyperSchedulerFeedbackAlternave():
             # PI control.
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
-            self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
-        gain = np.exp(self.k_p_control * (self.delta_epsilon_r))
+            # self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
+            self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
+        # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
+        activation = self.k_p_control * (self.delta_epsilon_r)
+        gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, gain)
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
