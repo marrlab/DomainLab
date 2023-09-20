@@ -156,28 +156,28 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-        else:
+        if 1:
             # if failed to find reg-pareto descent operator, continue training without
             # mu being updated
-            logger.info("failed to find pivot, move forward \\bar{\\theta}, \
-                        this will deteriorate reg loss!")
-            epo_reg_loss_before, epo_task_loss_before = self.eval_r_loss()
-            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.info(
-                f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss_before}, \
-                epo_task_loss={epo_task_loss_before}")
+            #logger.info("failed to find pivot, move forward \\bar{\\theta}, \
+            #            this will deteriorate reg loss!")
+            #epo_reg_loss_before, epo_task_loss_before = self.eval_r_loss()
+            #logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+            #logger.info(
+            #    f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss_before}, \
+            #    epo_task_loss={epo_task_loss_before}")
 
-            theta = dict(self.model.named_parameters())
-            dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
+            #theta = dict(self.model.named_parameters())
+            # dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
             # move according to gradient to update theta_bar
-            self.model.set_params(dict_par)
+            #self.model.set_params(dict_par)
 
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(
                 f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-            if epo_reg_loss < epo_reg_loss_before:
+            if epo_reg_loss < self.hyper_scheduler.:
                 logger.info("!!!!found free descent operator")
                 if self.aconf.myoptic_pareto:
                     self.hyper_scheduler.update_anchor(dict_par)
