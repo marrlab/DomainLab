@@ -46,6 +46,13 @@ class HyperSchedulerFeedbackAlternave():
         self.writer = SummaryWriter()
         self.coeff_ma = 0.5
         self.epsilon_r = False
+        self.layout = {
+            "ABCDE": {
+                "loss": ["Multiline", ["reg/dyn", "reg/setpoint"]],
+                # "accuracy": ["Multiline", ["accuracy/train", "accuracy/validation"]],
+            },
+        }
+        self.writer.add_custom_scalars(self.layout)
 
     def update_anchor(self, dict_par):
         """
