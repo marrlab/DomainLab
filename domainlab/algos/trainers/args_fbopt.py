@@ -9,6 +9,9 @@ def add_args2parser_fbopt(parser):
     """
     parser.add_argument('--init_mu4beta', type=float, default=0.001,
                         help='initial beta for multiplication')
+    parser.add_argument('--ini_setpoint_ratio', type=float, default=0.9,
+                        help='before training start, evaluate reg loss, \
+                        setpoint will be 0.9 of this loss')
     parser.add_argument('--beta_mu', type=float, default=1.1,
                         help='how much to multiply mu each time')
     parser.add_argument('--delta_mu', type=float, default=None,
