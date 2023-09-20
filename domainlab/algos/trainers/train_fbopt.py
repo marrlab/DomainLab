@@ -105,7 +105,10 @@ class TrainerFbOpt(AbstractTrainer):
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 tuple_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d)
+                # NOTE: first [0] extract the loss, second [0] get the list
                 b_reg_loss = tuple_reg_loss[0][0]   # FIXME: this only works when scalar multiplier
+                # FIXME: change this to vector
+                # each component of vector is a mini batch loss
                 b_reg_loss = b_reg_loss.sum().item()
                 b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y).sum()
                 # sum will kill the dimension of the mini batch
