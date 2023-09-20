@@ -44,7 +44,7 @@ class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
     """
     HyperScheduler Exponential
     """
-    def aneal(self, par_setpoint, epoch):
+    def warmup(self, par_setpoint, epoch):
         """
         start from a small value of par to ramp up the steady state value using
         number of total_steps
