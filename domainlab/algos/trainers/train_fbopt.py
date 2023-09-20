@@ -7,6 +7,7 @@ import torch
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
+from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
 from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
 
@@ -40,13 +41,17 @@ class TrainerFbOpt(AbstractTrainer):
         before training begins, construct helper objects
         """
         self.observer.msel = MSelBang(max_es=None)
-        self.set_scheduler(scheduler=HyperSchedulerFeedback)
+        # self.set_scheduler(scheduler=HyperSchedulerFeedback)
+        self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
         self.model.evaluate(self.loader_te, self.device)
         self.inner_trainer = TrainerBasic()  # look ahead
         # here we need a mechanism to generate deep copy of the model
         self.inner_trainer.init_business(
             copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
+
+        epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        self.hyper_scheduler.reg_lower_bound_as_setpoint = epo_reg_loss * 0.999   # FIXME: set 0.999 as hyperparameter
 
     def opt_theta(self, dict4mu, dict_theta0):
         """
@@ -113,7 +118,6 @@ class TrainerFbOpt(AbstractTrainer):
         the model will tunnel/jump/shoot into the found pivot parameter $\\theta^{(k+1)}$,
         otherwise,
         """
-        # FIXME: check if reg is decreasing by logging and plot
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
@@ -129,7 +133,7 @@ class TrainerFbOpt(AbstractTrainer):
 
         flag_success = self.hyper_scheduler.search_mu(
             dict(self.model.named_parameters()),
-            iter_start=1)  # FIXME: iter_start=0 or 1?
+            miter=epoch)  # FIXME: iter_start=0 or 1?
 
         if flag_success:
             # only in success case, mu will be updated
@@ -173,6 +177,6 @@ class TrainerFbOpt(AbstractTrainer):
                 logger.info("!!!!found free descent operator")
                 if self.aconf.myoptic_pareto:
                     self.hyper_scheduler.update_anchor(dict_par)
-        self.observer.update(epoch)
+        self.observer.update(epoch)   # FIXME: model selection should be disabled
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return False  # total number of epochs controled in args
