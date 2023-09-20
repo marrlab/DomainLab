@@ -34,6 +34,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.observer = None
         self.device = None
         self.aconf = None
+        self.gamma_reg = None
         #
         self.loader_tr = None
         self.loader_tr_no_drop = None
@@ -66,6 +67,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.observer = observer
         self.device = device
         self.aconf = aconf
+        self.gamma_reg = self.aconf.gamma_reg
         #
         self.loader_tr = task.loader_tr
         self.loader_tr_no_drop = task._loader_tr_no_drop
@@ -74,21 +76,20 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if flag_accept:
             self.observer.accept(self)
 
-        self.model = self.model.to(device)
         #
         self.num_batches = len(self.loader_tr)
         self.flag_update_hyper_per_epoch = False
         self.flag_update_hyper_per_batch = False
         self.epo_loss_tr = None
         self.hyper_scheduler = None
-        self.optimizer = mk_opt(self.model, self.aconf)
+        self.optimizer = mk_opt(self.model.as_model(), self.aconf)
         self.flag_initialized = True
 
     def reset(self):
         """
         make a new optimizer to clear internal state
         """
-        self.optimizer = mk_opt(self.model, self.aconf)
+        self.optimizer = mk_opt(self.model.as_model(), self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
@@ -137,11 +138,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         return request == self.name
 
-    def hyper_init(self):
-        """
-        safe API as model
-        """
-
     def get_model(self):
         """
         treat trainer as a model
@@ -157,6 +153,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         It is not necessary to write any function that just copies the pattern
         self.get_model().do_something()
         """
+        return self.get_model()
+
+    def get_dict_model_params(self):
+        """
+        """
+        return dict(self.as_model().named_parameters())
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
         """

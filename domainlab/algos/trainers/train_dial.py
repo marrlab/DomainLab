@@ -40,6 +40,7 @@ class TrainerDIAL(TrainerBasic):
         """
         Let trainer behave like a model, so that other trainer could use it
         """
+        self.model.train()
         tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
         loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, tensor_y, tensor_d)
@@ -49,7 +50,7 @@ class TrainerDIAL(TrainerBasic):
         # on the augmented data
         # However, if we want to tune all the multipliers, we should return all reg losses in the decorator chain,
         # but the current implementation is enough to be used for deepall/ERM
-        return [loss_dial.sum()], [self.aconf.gamma_reg]
+        return [loss_dial], [self.gamma_reg]
 
     def tr_epoch(self, epoch):
         self.model.train()
@@ -62,10 +63,13 @@ class TrainerDIAL(TrainerBasic):
             tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
             tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
             loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
-            loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
+            loss = loss.sum() + self.gamma_reg * loss_dial.sum()
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
+
+    def hyper_init(self, functor_scheduler, trainer):
+        return functor_scheduler(trainer=trainer, gamma_reg=self.gamma_reg)

@@ -41,11 +41,11 @@ class TrainerFbOpt(AbstractTrainer):
         """
         self.observer.msel = MSelBang(max_es=None)
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
-        self.model.evaluate(self.loader_te, self.device)
+        self.model.as_model().evaluate(self.loader_te, self.device)
         self.inner_trainer = TrainerBasic()  # look ahead
         # here we need a mechanism to generate deep copy of the model
         self.inner_trainer.init_business(
-            copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
+            copy.deepcopy(self.model.as_model()), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
 
     def opt_theta(self, dict4mu, dict_theta0):
@@ -69,7 +69,7 @@ class TrainerFbOpt(AbstractTrainer):
         evaluate the penalty function value on all available training data
         # TODO: normalize loss via batchsize
         """
-        temp_model = copy.deepcopy(self.model)
+        temp_model = copy.deepcopy(self.model.as_model())
         # mock the model hyper-parameter to be from dict4mu
         temp_model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
         temp_model.set_params(dict_theta)
@@ -89,8 +89,8 @@ class TrainerFbOpt(AbstractTrainer):
         ERM loss on all available training data
         # TODO: normalize loss via batchsize
         """
-        temp_model = copy.deepcopy(self.model)
-        temp_model.eval()
+        temp_model = self.model
+        # temp_model.as_model().eval()
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = 0
         epo_task_loss = 0
@@ -128,7 +128,7 @@ class TrainerFbOpt(AbstractTrainer):
         # self.model.train()  # FIXME: i guess no need to put into train mode?
 
         flag_success = self.hyper_scheduler.search_mu(
-            dict(self.model.named_parameters()),
+            dict(self.model.as_model().named_parameters()),
             iter_start=1)  # FIXME: iter_start=0 or 1?
 
         if flag_success:
@@ -141,7 +141,7 @@ class TrainerFbOpt(AbstractTrainer):
                 epo_task_loss={epo_task_loss}")
 
             # shoot/tunnel to new found parameter configuration
-            self.model.set_params(self.hyper_scheduler.dict_theta)
+            self.model.as_model().set_params(self.hyper_scheduler.dict_theta)
 
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
@@ -159,10 +159,10 @@ class TrainerFbOpt(AbstractTrainer):
                 f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss_before}, \
                 epo_task_loss={epo_task_loss_before}")
 
-            theta = dict(self.model.named_parameters())
+            theta = dict(self.model.as_model().named_parameters())
             dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
             # move according to gradient to update theta_bar
-            self.model.set_params(dict_par)
+            self.model.as_model().set_params(dict_par)
 
             epo_reg_loss, epo_task_loss = self.eval_r_loss()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")

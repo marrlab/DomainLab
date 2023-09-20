@@ -26,7 +26,7 @@ class HyperSchedulerFeedback():
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta_bar = None
-        self.dict_theta = copy.deepcopy(dict(self.trainer.model.named_parameters()))
+        self.dict_theta = copy.deepcopy(self.trainer.get_dict_model_params())
         # theta_ref should be equal to either theta or theta bar as reference
         # since theta_ref will be used to judge if criteria is met
         self.dict_theta_ref = None
