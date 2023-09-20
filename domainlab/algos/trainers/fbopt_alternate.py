@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import copy
+import torch
 import numpy as np
 from domainlab.utils.logger import Logger
 from torch.utils.tensorboard import SummaryWriter
@@ -85,7 +86,8 @@ class HyperSchedulerFeedbackAlternave():
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
-        self.writer.add_scalar('reg', epo_reg_loss, miter)
+        self.writer.add_scalar('reg/dyn', epo_reg_loss, miter)
+        self.writer.add_scalar('reg/setpoint', self.reg_lower_bound_as_setpoint, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
