@@ -51,7 +51,7 @@ class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
         :param epoch:
         """
         ratio = ((epoch+1) * 1.) / self.total_steps
-        denominator = (1. + np.exp(-10 * ratio))
+        denominator = 1. + np.exp(-10 * ratio)
         # ratio is 0, denom is 2, 2/denom is 1, return is 0
         # ratio is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, return is 1
         # exp(-10)=4.5e-5 is approximately 0
