@@ -1,0 +1,69 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt
+
+num_param_samples: 8
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - 3
+  - 0
+
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [1, 2]
+  dmem: False
+  lr: 0.001
+  epos: 3
+  es: 5
+  bs: 64
+  nname: conv_bn_pool_2
+  san_check: True
+
+
+# Test fbopt with different hyperparameter configurations
+
+TestFbopt:
+  aname: dann
+  trainer: fbopt
+
+  hyperparameters:
+    init_mu4beta:
+      min: 0.0001
+      max: 0.01
+      num: 2
+      step: 0.0001
+      distribution: uniform
+
+    beta_mu:
+      min: 1.2
+      max: 2
+      num: 4
+      step: 0.1
+      distribution: uniform
+
+    delta_mu:
+      min: 0.001
+      max: 0.1
+      num: 5
+      step: 0.001
+      distribution: loguniform
+
+    budget_mu_per_step:
+      min: 4
+      max: 10
+      num: 2
+      step: 1
+      datatype: int
+      distribution: uniform
+
+    budget_theta_update_per_mu:
+      min: 4
+      max: 10
+      num: 2
+      step: 1
+      datatype: int
+      distribution: uniform
