@@ -43,8 +43,9 @@ Furthermore, the user can declare:
 - `startseed`: creates reproducible results (mandatory)
 - `endseed`: creates reproducible results (mandatory)
 - `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
-- `Shared params`: a list including `num_shared_param_samples` (number of samples for the shared
-hyperparameters) and the shared hyperparameters with respective sampling distribution (optional)
+- `Shared params`: an optional list including the shared hyperparameters with respective sampling distribution 
+(mandatory if Shared params should be used) and in case of random sampling `num_shared_param_samples` 
+(number of samples for the shared hyperparameters, mandatory for random sampling) 
 
 Depending on which hyperparameter sampling technique is used (see section below), the user must also
 respect/declare the following:
@@ -55,6 +56,8 @@ respect/declare the following:
   hyperparameter, for available distributions see section below (mandatory)
   - `step`: "step-size" (float) between samples. Only points being a multiple of the step-size apart
   can be sampled. `0` means that each real number can be sampled.
+  - `num_shared_param_samples`: number of samples for the shared hyperparameters. Must be defined 
+  inside the Shared params section (if this section is used)
 - grid search hyperparameter sampling (`mode`:`grid`):
   - `num`: number of hyperparameters to be sampled (int) must be specified for each hyperparameter
   (mandatory)
@@ -73,15 +76,17 @@ hyperparameter sampling. If grid search should be applied, the user must specify
 Each sampling technique offers the following distributions:
 - `categorical` distribution. For each parameter the user can specify:
   - `values`: a list of valid values 
-  - `datatype`: the datatype of the list values
+  - `datatype`: the datatype of the list values (int or float, default: float)
 - `uniform` and `loguniform` distribution. The user must define the following for each
 hyperparameter (mandatory):
   - `mean`: mean of normal distribution (float)
   - `std`: standard deviation of normal distribution (float $\geq 0$)
+  - `datatype`: the datatype of the list values (int or float, default: float)
 - `normal` and `lognormal`distribution. The user must define the following for each hyperparameter
   (mandatory):
   - `min`: lower bound for samples (int)
   - `max`: upper bound for samples (int)
+  - `datatype`: the datatype of the list values (int or float, default: float)
   
   
 
