@@ -47,25 +47,6 @@ class HyperSchedulerFeedbackAlternave():
         self.coeff_ma = 0.5
         self.epsilon_r = False
 
-        # Build the tensorboard plotting output
-        self.set_plotting_layouts(len(self.mmu))
-
-    def set_plotting_layouts(self, n_tasks):
-        """
-        Sets up layout for additional plots over multiple variables for tensorboard.
-        """
-        layout = {
-            #"reg/dyn & task": {
-            #    f"reg/dyn{i} & task": ["Multiline", [f"reg/dyn{i}", "task"]]
-            #    for i in range(n_tasks)
-            #},
-            "reg/dyn & reg/setpoint": {
-                f"reg/dyn{i} & reg/setpoint{i}": ["Multiline", [f"reg/dyn{i}", f"reg/setpoint{i}"]]
-                for i in range(n_tasks)
-            },
-        }
-        self.writer.add_custom_scalars(layout)
-
     def update_anchor(self, dict_par):
         """
         update the last ensured value of theta^{(k)}
@@ -115,10 +96,16 @@ class HyperSchedulerFeedbackAlternave():
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
-        for i, val in enumerate(epo_reg_loss):
-            self.writer.add_scalar(f'reg/dyn{i}', val, miter)
-        for i, val in enumerate(self.reg_lower_bound_as_setpoint):
-            self.writer.add_scalar(f'reg/setpoint{i}', val, miter)
+
+        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.reg_lower_bound_as_setpoint)):
+            self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
+            self.writer.add_scalar(f'reg/setpoint{i}', reg_set, miter)
+
+            self.writer.add_scalars(f'reg/dyn{i} & reg/setpoint{i}', {
+                f'reg/dyn{i}': reg_dyn,
+                f'reg/setpoint{i}': reg_set,
+            }, miter)
+
         self.writer.add_scalar(f'task', epos_task_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
