@@ -22,7 +22,7 @@ def mk_jigen(parent_class=AModelClassif):
         For more details, see:
         Carlucci, Fabio M., et al. "Domain generalization by solving jigsaw puzzles."
         Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.
-    
+
     Args:
         parent_class (AModel, optional): Class object determining the task
         type. Defaults to AModelClassif.
@@ -30,7 +30,7 @@ def mk_jigen(parent_class=AModelClassif):
     Returns:
         ModelJiGen: model inheriting from parent class
 
-    Input Parameters: 
+    Input Parameters:
         list_str_y: list of labels,
         list_str_d: list of domains,
         net_encoder: neural network (input: training data, standard and shuffled),
@@ -39,7 +39,12 @@ def mk_jigen(parent_class=AModelClassif):
         net_classifier_permutation: neural network (input: output of net_encoder;
         output: prediction of permutation index),
         coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_jigen.py
     """
+
     class_dann = mk_dann(parent_class)
 
     class ModelJiGen(class_dann):
@@ -78,5 +83,5 @@ def mk_jigen(parent_class=AModelClassif):
             batch_target_scalar = vec_perm_ind
             loss_perm = F.cross_entropy(
                 logits_which_permutation, batch_target_scalar, reduction="none")
-            return self.alpha*loss_perm
+            return [loss_perm], [self.alpha]
     return ModelJiGen

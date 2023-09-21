@@ -6,6 +6,11 @@ class RequestVAEBuilderCHW():
     def __init__(self, i_c, i_h, i_w, args):
         pass
 
+class RequestVAEBuilderNN():
+    """creates request when input does not come from command-line (args) but from test_exp file"""
+    @store_args
+    def __init__(self, net_class_d, net_x, net_class_y, i_c, i_h, i_w):
+        """net_class_d, net_x and net_class_y are neural networks defined by the user"""
 
 class RequestTask():
     """

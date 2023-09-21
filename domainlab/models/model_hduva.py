@@ -77,6 +77,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # class build a dictionary {"beta_d":self.beta_d, "beta_y":self.beta_y}
             # constructor signature is def __init__(self, **kwargs):
             return functor_scheduler(
+                trainer=None,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
                 beta_t=self.beta_t)
 
@@ -136,19 +137,21 @@ def mk_hduva(parent_class=VAEXYDClassif):
 
             p_topic = self.init_p_topic_batch(batch_size, device)
 
-            # zx KL divergence
-            zx_p_minus_q = 0
-            if self.zx_dim > 0:
-                p_zx = self.init_p_zx4batch(batch_size, device)
-                zx_p_minus_q = g_inst_component_loss_agg(
-                    p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
-
             # @FIXME: does monte-carlo KL makes the performance unstable?
             # from torch.distributions import kl_divergence
 
             # zy KL divergence
             p_zy = self.net_p_zy(tensor_y)
             zy_p_minus_zy_q = g_inst_component_loss_agg(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
+
+            # zx KL divergence
+            zx_p_minus_q = torch.zeros_like(zy_p_minus_zy_q)
+            if self.zx_dim > 0:
+                p_zx = self.init_p_zx4batch(batch_size, device)
+                zx_p_minus_q = g_inst_component_loss_agg(
+                    p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
+
+
 
             # zd KL diverence
             p_zd = self.net_p_zd(topic_q)
@@ -161,12 +164,8 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # reconstruction
             z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
-            batch_loss = loss_recon_x \
-                - self.beta_x * zx_p_minus_q \
-                - self.beta_y * zy_p_minus_zy_q \
-                - self.beta_d * zd_p_minus_q \
-                - self.beta_t * topic_p_minus_q
-            return batch_loss
+            return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
+                [1.0, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
         def extract_semantic_features(self, tensor_x):
             """
