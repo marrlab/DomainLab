@@ -109,7 +109,6 @@ class TrainerFbOpt(AbstractTrainer):
                 tuple_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d)
                 # NOTE: first [0] extract the loss, second [0] get the list
                 list_b_reg_loss = tuple_reg_loss[0]   # FIXME: this only works when scalar multiplier
-                breakpoint()
                 list_b_reg_loss_sumed = [ele.sum().item() for ele in list_b_reg_loss]
                 if len(epo_reg_loss) == 0:
                     epo_reg_loss = list_b_reg_loss_sumed

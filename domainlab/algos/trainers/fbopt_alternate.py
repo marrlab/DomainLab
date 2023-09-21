@@ -91,9 +91,8 @@ class HyperSchedulerFeedbackAlternave():
             self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
         # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
         activation = [self.k_p_control * val for val in self.delta_epsilon_r]
-        breakpoint()
-        gain = np.exp(activation)
-        target = self.dict_multiply(self.mmu, gain)
+        list_gain = np.exp(activation)
+        target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
@@ -117,10 +116,12 @@ class HyperSchedulerFeedbackAlternave():
                 return True
         return False
 
-    def dict_multiply(self, dict_base, multiplier):
+    def dict_multiply(self, dict_base, list_multiplier):
         """
         multiply a float to each element of a dictionary
         """
-        # FIXME: make multipler also a dictionary
+        list_keys = list(dict_base.keys())
+        list_zip = zip(list_keys, list_multiplier)
+        dict_multiplier = dict(list_zip)
         # NOTE: allow multipler be bigger than 1
-        return {key: val*multiplier for key, val in dict_base.items()}
+        return {key: val*dict_multiplier[key] for key, val in dict_base.items()}
