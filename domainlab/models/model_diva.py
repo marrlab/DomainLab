@@ -1,6 +1,7 @@
 """
 DIVA
 """
+import torch
 from torch.nn import functional as F
 
 from domainlab import g_inst_component_loss_agg
@@ -119,7 +120,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             zd_p_minus_zd_q = g_inst_component_loss_agg(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
             # without aggregation, shape is [batchsize, zd_dim]
-            zx_p_minus_zx_q = 0
+            zx_p_minus_zx_q = torch.zeros_like(zd_p_minus_zd_q)
             if self.zx_dim > 0:
                 # torch.sum will return 0 for empty tensor,
                 # torch.mean will return nan
