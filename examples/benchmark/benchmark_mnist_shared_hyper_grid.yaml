@@ -4,32 +4,20 @@ test_domains:
   - 3
   - 0
 
-output_dir: zoutput/benchmarks/mnist_benchmark
-# number of hyperparameter samples per task.
-# Thus, the total runs of each task are given
-# by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 8
-sampling_seed: 0
+output_dir: zoutput/benchmarks/mnist_benchmark_grid
 
 startseed: 0
 endseed: 2  # currently included
 
 
 Shared params:
-    gamma_y:
-      min: 1e4
-      max: 1e5
-      step: 100
-      distribution: loguniform
-      num: 2
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-      datatype: int
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    num: 2
+    datatype: int
 
 
 domainlab_args:
@@ -40,11 +28,12 @@ domainlab_args:
   tr_d: [1, 2, 4]
   dmem: False
   lr: 0.001
-  epos: 50
+  epos: 2
   es: 5
   bs: 64
   nname: conv_bn_pool_2
   san_check: True
+  gamma_y: 50000
 
 
 method_diva:  # name
@@ -52,7 +41,6 @@ method_diva:  # name
   zx_dim: 0
   zd_dim: 32
   shared:
-    - gamma_y
     - zy_dim
   nname_dom: conv_bn_pool_2
 
@@ -63,14 +51,6 @@ method_diva:  # name
       step: 10_000
       distribution: loguniform
       num: 2
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-      datatype: int
-
 
 method_hduva:  # name
   aname: hduva
@@ -78,7 +58,6 @@ method_hduva:  # name
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   shared:
-    - gamma_y
     - zy_dim
   zx_dim: 0
   zd_dim: 32
