@@ -5,31 +5,20 @@ test_domains:
   - 0
 
 output_dir: zoutput/benchmarks/mnist_benchmark_grid
-# number of hyperparameter samples per task.
-# Thus, the total runs of each task are given
-# by len(domains) * num_param_samples * num_seeds (see below)
-num_param_samples: 8
-sampling_seed: 0
 
 startseed: 0
 endseed: 2  # currently included
 
 
 Shared params:
-    gamma_y:
-      min: 1e4
-      max: 1e5
-      step: 100
-      distribution: loguniform
-      num: 1
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-      num: 2
-      datatype: int
+  num_shared_param_samples: 2
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    num: 2
+    datatype: int
 
 
 domainlab_args:
@@ -45,6 +34,7 @@ domainlab_args:
   bs: 64
   nname: conv_bn_pool_2
   san_check: True
+  gamma_y: 50000
 
 
 method_diva:  # name
