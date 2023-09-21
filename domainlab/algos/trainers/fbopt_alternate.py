@@ -76,7 +76,7 @@ class HyperSchedulerFeedbackAlternave():
         to see if the criteria is met
         $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-epsilon_R])$$
         """
-        epo_reg_loss, _ = self.trainer.eval_r_loss()
+        epo_reg_loss, epos_task_loss = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
         # delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
         delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.reg_lower_bound_as_setpoint)
@@ -100,6 +100,7 @@ class HyperSchedulerFeedbackAlternave():
             self.writer.add_scalar(f'reg/dyn{i}', val, miter)
         for i, val in enumerate(self.reg_lower_bound_as_setpoint):
             self.writer.add_scalar(f'reg/setpoint{i}', val, miter)
+        self.writer.add_scalar(f'task', epos_task_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
