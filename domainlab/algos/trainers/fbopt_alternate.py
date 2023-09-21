@@ -96,8 +96,10 @@ class HyperSchedulerFeedbackAlternave():
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
-        self.writer.add_scalar('reg/dyn', epo_reg_loss, miter)
-        self.writer.add_scalar('reg/setpoint', self.reg_lower_bound_as_setpoint, miter)
+        for i, val in enumerate(epo_reg_loss):
+            self.writer.add_scalar(f'reg/dyn{i}', val, miter)
+        for i, val in enumerate(self.reg_lower_bound_as_setpoint):
+            self.writer.add_scalar(f'reg/setpoint{i}', val, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
