@@ -82,11 +82,13 @@ domainlab_args:
 # Hyperparameters which appear in multiple tasks can e shared among these tasks.
 # Hence for each task the same random sampled hyperparameters are used
 Shared params:
+    #### For random sampling #####
     # number of shared samples to be created. 
     # The sampling procedure creates a set of randomly sampled shared samples,
     # each algorithm which uses one of the shared samples will randomly pick its
     # sample from this set.
     num_shared_param_samples: 8
+    # gridsearch will crash if num_shared_param_samples is set
     
     # shared hyperparameters:
     <<ADD SAMPLING DESCRIPTIONS HERE>>     
