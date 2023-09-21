@@ -90,7 +90,8 @@ class HyperSchedulerFeedbackAlternave():
             # self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
             self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
         # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
-        activation = self.k_p_control * (self.delta_epsilon_r)
+        activation = [self.k_p_control * val for val in self.delta_epsilon_r]
+        breakpoint()
         gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, gain)
         self.mmu = self.dict_clip(target)
