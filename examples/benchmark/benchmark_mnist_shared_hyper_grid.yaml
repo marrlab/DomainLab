@@ -16,13 +16,6 @@ endseed: 2  # currently included
 
 
 Shared params:
-    gamma_y:
-      min: 1e4
-      max: 1e5
-      step: 100
-      distribution: loguniform
-      num: 1
-
     zy_dim:
       min: 32
       max: 96
@@ -45,6 +38,7 @@ domainlab_args:
   bs: 64
   nname: conv_bn_pool_2
   san_check: True
+  gamma_y: 50000
 
 
 method_diva:  # name

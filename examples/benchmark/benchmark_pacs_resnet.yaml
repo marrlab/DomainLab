@@ -31,6 +31,7 @@ domainlab_args:
   san_check: True
 
 Shared params:
+  num_shared_param_samples: 8
   gamma_y:
     min: 1e4
     max: 1e6
