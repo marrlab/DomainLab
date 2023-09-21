@@ -66,11 +66,11 @@ def mk_dann(parent_class=AModelClassif):
             dict_rst = fun_scheduler(epoch)  # the __call__ method of hyperparameter scheduler
             self.alpha = dict_rst["alpha"]
 
-        def hyper_init(self, functor_scheduler):
+        def hyper_init(self, functor_scheduler, trainer=None):
             """hyper_init.
             :param functor_scheduler:
             """
-            return functor_scheduler(trainer=None, alpha=self.alpha)
+            return functor_scheduler(trainer=trainer, alpha=self.alpha)
 
         def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
             """

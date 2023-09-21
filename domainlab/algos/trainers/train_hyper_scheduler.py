@@ -25,6 +25,7 @@ class TrainerHyperScheduler(TrainerBasic):
             flag_update_batch: if hyper-parameters should be changed per batch
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
+        # let model register its hyper-parameters to the scheduler
         self.flag_update_hyper_per_epoch = flag_update_epoch
         self.flag_update_hyper_per_batch = flag_update_batch
         self.hyper_scheduler.set_steps(total_steps=total_steps)

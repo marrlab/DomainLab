@@ -43,6 +43,7 @@ class NodeTaskDict(NodeTaskDG):
             self.dict_dset_val.update({na_domain: ddset_val})
         ddset_mix = ConcatDataset(tuple(self.dict_dset_tr.values()))
         self._loader_tr = mk_loader(ddset_mix, args.bs)
+        self._loader_tr_no_drop = mk_loader(ddset_mix, args.bs, drop_last=False, shuffle=False)
 
         ddset_mix_val = ConcatDataset(tuple(self.dict_dset_val.values()))
         self._loader_val = mk_loader(ddset_mix_val, args.bs,

@@ -11,6 +11,15 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+    def set_params(self, dict_params):
+        """
+        set
+        """
+        # FIXME: net1.load_state_dict(net2.state_dict()) contains more information than model.named_parameters() like optimizer status
+        # but I dont know another method to set neural network weights without using load_state_dict
+        # FIXME: dict_params lack some keys compared to self.state_dict(), why?
+        self.load_state_dict(dict_params, strict=False)
+
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
@@ -19,10 +28,12 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         loss_reg = self.inner_product(list_loss, list_multiplier)
         return self.cal_task_loss(tensor_x, tensor_y) + loss_reg
 
-
     def inner_product(self, list_loss_scalar, list_multiplier):
         """
         compute inner product between list of scalar loss and multiplier
+        - the first dimension of the tensor v_reg_loss is mini-batch
+        the second dimension is the number of regularizers
+        - the vector mmu has dimension the number of regularizers
         """
         list_tuple = zip(list_loss_scalar, list_multiplier)
         rst = [mtuple[0]*mtuple[1] for mtuple in list_tuple]

@@ -6,6 +6,7 @@ from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
 from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
+from domainlab.algos.trainers.train_fbopt import TrainerFbOpt
 
 
 class TrainerChainNodeGetter(object):
@@ -38,6 +39,7 @@ class TrainerChainNodeGetter(object):
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
-        chain = TrainerHyperScheduler(chain)  # FIXME: change to warmup
+        chain = TrainerHyperScheduler(chain)
+        chain = TrainerFbOpt(chain)
         node = chain.handle(self.request)
         return node
