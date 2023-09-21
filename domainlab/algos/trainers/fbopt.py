@@ -26,7 +26,7 @@ class HyperSchedulerFeedback():
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta_bar = None
-        self.dict_theta = None
+        self.dict_theta = copy.deepcopy(dict(self.trainer.model.named_parameters()))
         # theta_ref should be equal to either theta or theta bar as reference
         # since theta_ref will be used to judge if criteria is met
         self.dict_theta_ref = None
@@ -35,6 +35,22 @@ class HyperSchedulerFeedback():
         self.count_found_operator = 0
         self.count_search_mu = 0
 
+    def update_anchor(self, dict_par):
+        """
+        update the last ensured value of theta^{(k)}
+        """
+        self.dict_theta = copy.deepcopy(dict_par)
+
+    def set_theta_ref(self):
+        """
+        # theta_ref should be equal to either theta or theta bar as reference
+        # since theta_ref will be used to judge if criteria is met
+        """
+        if self.trainer.aconf.anchor_bar:
+            self.dict_theta_ref = copy.deepcopy(self.dict_theta_bar)
+        else:
+            self.dict_theta_ref = copy.deepcopy(self.dict_theta)
+
     def search_mu(self, dict_theta, iter_start):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
@@ -42,8 +58,13 @@ class HyperSchedulerFeedback():
         to see if the criteria is met
         """
         self.count_search_mu += 1
-        self.dict_theta = copy.deepcopy(dict_theta)
-        self.dict_theta_ref = self.dict_theta
+        # FIXME: theta_bar always be overwriten by theta, to keep both at the same shoulder index
+        # Search always start from the model parameter
+        self.dict_theta_bar = copy.deepcopy(dict_theta)
+        self.set_theta_ref()
+        # theta_ref should be equal to either theta or theta bar as reference
+        # since theta_ref will be used to judge if criteria is met
+
         # I am not sure if necessary here to deepcopy, but safer
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         mmu = None
@@ -69,7 +90,9 @@ class HyperSchedulerFeedback():
         the execution will set the value for mu and theta as well
         """
         self.ploss_old_theta_new_mu = self.trainer.eval_p_loss(mmu_new, self.dict_theta_ref)
-        theta4mu_new = copy.deepcopy(self.dict_theta)
+        # FIXME: where the search should start? theta_bar is the gradient descent result of old mu,
+        # it makes sense to start the search there?
+        theta4mu_new = copy.deepcopy(self.dict_theta_bar)
         for i in range(self.budget_theta_update_per_mu):
             print(f"search theta at iteration {i} with mu={mmu_new}")
             theta4mu_new = self.trainer.opt_theta(mmu_new, theta4mu_new)
@@ -77,6 +100,7 @@ class HyperSchedulerFeedback():
             self.ploss_new_theta_old_mu = self.trainer.eval_p_loss(self.mmu, theta4mu_new)
             if self.is_criteria_met():
                 self.mmu = mmu_new
+                # theta_bar is set at search_mu, no need to update
                 self.dict_theta = theta4mu_new
                 return True
         return False
@@ -89,6 +113,7 @@ class HyperSchedulerFeedback():
         flag_deteriorate = self.ploss_new_theta_old_mu > self.ploss_old_theta_old_mu
         return flag_improve & flag_deteriorate
 
+    # below are just auxilliary code
     def observe_state(self, mmu_new, theta4mu_new):
         """
         FIXME: the function maybe not be needed anymore
