@@ -63,6 +63,12 @@ class HyperSchedulerFeedbackAlternave():
         else:
             self.dict_theta_ref = copy.deepcopy(self.dict_theta)
 
+    def cal_delta4control(self, list1, list_setpoint):
+        return [a - b for a, b in zip(list1, list_setpoint)]
+
+    def cal_delta_integration(self, list_old, list_new, coeff):
+        return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
+
     def search_mu(self, dict_theta=None, miter=None):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
@@ -70,9 +76,10 @@ class HyperSchedulerFeedbackAlternave():
         to see if the criteria is met
         $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-epsilon_R])$$
         """
-        epo_reg_loss, _ = self.trainer.eval_r_loss()
+        epo_reg_loss, epos_task_loss = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
-        delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
+        # delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
+        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.reg_lower_bound_as_setpoint)
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
             self.delta_epsilon_r = delta_epsilon_r
@@ -80,14 +87,20 @@ class HyperSchedulerFeedbackAlternave():
             # PI control.
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
-            self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
-        gain = np.exp(self.k_p_control * (self.delta_epsilon_r))
-        target = self.dict_multiply(self.mmu, gain)
+            # self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
+            self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
+        # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
+        activation = [self.k_p_control * val for val in self.delta_epsilon_r]
+        list_gain = np.exp(activation)
+        target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
-        self.writer.add_scalar('reg/dyn', epo_reg_loss, miter)
-        self.writer.add_scalar('reg/setpoint', self.reg_lower_bound_as_setpoint, miter)
+        for i, val in enumerate(epo_reg_loss):
+            self.writer.add_scalar(f'reg/dyn{i}', val, miter)
+        for i, val in enumerate(self.reg_lower_bound_as_setpoint):
+            self.writer.add_scalar(f'reg/setpoint{i}', val, miter)
+        self.writer.add_scalar(f'task', epos_task_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
@@ -106,10 +119,12 @@ class HyperSchedulerFeedbackAlternave():
                 return True
         return False
 
-    def dict_multiply(self, dict_base, multiplier):
+    def dict_multiply(self, dict_base, list_multiplier):
         """
         multiply a float to each element of a dictionary
         """
-        # FIXME: make multipler also a dictionary
+        list_keys = list(dict_base.keys())
+        list_zip = zip(list_keys, list_multiplier)
+        dict_multiplier = dict(list_zip)
         # NOTE: allow multipler be bigger than 1
-        return {key: val*multiplier for key, val in dict_base.items()}
+        return {key: val*dict_multiplier[key] for key, val in dict_base.items()}

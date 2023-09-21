@@ -1,3 +1,4 @@
+
 """
 feedback optimization
 """
@@ -10,6 +11,7 @@ from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
 from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
 from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
+from operator import add
 
 
 class HyperSetter():
@@ -52,7 +54,7 @@ class TrainerFbOpt(AbstractTrainer):
 
         epo_reg_loss, _ = self.eval_r_loss()
         self.hyper_scheduler.reg_lower_bound_as_setpoint = \
-            epo_reg_loss * self.aconf.ini_setpoint_ratio
+             [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss]
 
     def opt_theta(self, dict4mu, dict_theta0):
         """
@@ -98,7 +100,7 @@ class TrainerFbOpt(AbstractTrainer):
         temp_model = copy.deepcopy(self.model)
         temp_model.eval()
         # mock the model hyper-parameter to be from dict4mu
-        epo_reg_loss = 0
+        epo_reg_loss = []
         epo_task_loss = 0
         with torch.no_grad():
             for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
@@ -106,13 +108,16 @@ class TrainerFbOpt(AbstractTrainer):
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 tuple_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d)
                 # NOTE: first [0] extract the loss, second [0] get the list
-                b_reg_loss = tuple_reg_loss[0][0]   # FIXME: this only works when scalar multiplier
+                list_b_reg_loss = tuple_reg_loss[0]   # FIXME: this only works when scalar multiplier
+                list_b_reg_loss_sumed = [ele.sum().item() for ele in list_b_reg_loss]
+                if len(epo_reg_loss) == 0:
+                    epo_reg_loss = list_b_reg_loss_sumed
+                else:
+                    epo_reg_loss = list(map(add, epo_reg_loss, list_b_reg_loss_sumed))
                 # FIXME: change this to vector
                 # each component of vector is a mini batch loss
-                b_reg_loss = b_reg_loss.sum().item()
                 b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y).sum()
                 # sum will kill the dimension of the mini batch
-                epo_reg_loss += b_reg_loss
                 epo_task_loss += b_task_loss
         return epo_reg_loss, epo_task_loss
 
