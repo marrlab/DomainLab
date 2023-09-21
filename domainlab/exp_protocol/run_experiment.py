@@ -80,20 +80,22 @@ def run_experiment(
     args_domainlab_common = config.get("domainlab_args", {})
     # check if some of the hyperparameters are already specified
     # in args_domainlab_common or args_algo_as_task
-    if np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys())).shape[0] > 0:
+    if np.intersect1d(list(args_algo_as_task.keys()),
+                      list(hyperparameters.keys())).shape[0] > 0:
         logger.error(f"the hyperparameter "
-                     f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))} "
-                     f"has already been fixed to a value in the algorithm section.")
+                     f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                     f" has already been fixed to a value in the algorithm section.")
         raise RuntimeError(f"the hyperparameter "
-                           f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))} "
-                           f"has already been fixed to a value in the algorithm section.")
-    if np.intersect1d(list(args_domainlab_common.keys()), list(hyperparameters.keys())).shape[0] > 0:
+                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+    if np.intersect1d(list(args_domainlab_common.keys()),
+                      list(hyperparameters.keys())).shape[0] > 0:
         logger.error(f"the hyperparameter "
-                     f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))} "
-                     f"has already been fixed to a value in the domainlab_args section.")
+                     f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                     f" has already been fixed to a value in the domainlab_args section.")
         raise RuntimeError(f"the hyperparameter "
-                           f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))} "
-                           f"has already been fixed to a value in the domainlab_args section.")
+                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
     apply_dict_to_args(args, args_domainlab_common)
     apply_dict_to_args(args, args_algo_as_task, extend=True)
     apply_dict_to_args(args, hyperparameters)
