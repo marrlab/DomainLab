@@ -46,13 +46,25 @@ class HyperSchedulerFeedbackAlternave():
         self.writer = SummaryWriter()
         self.coeff_ma = 0.5
         self.epsilon_r = False
-        self.layout = {
-            "ABCDE": {
-                "loss": ["Multiline", ["reg/dyn", "reg/setpoint"]],
-                # "accuracy": ["Multiline", ["accuracy/train", "accuracy/validation"]],
+
+        # Build the tensorboard plotting output
+        self.set_plotting_layouts(len(self.mmu))
+
+    def set_plotting_layouts(self, n_tasks):
+        """
+        Sets up layout for additional plots over multiple variables for tensorboard.
+        """
+        layout = {
+            #"reg/dyn & task": {
+            #    f"reg/dyn{i} & task": ["Multiline", [f"reg/dyn{i}", "task"]]
+            #    for i in range(n_tasks)
+            #},
+            "reg/dyn & reg/setpoint": {
+                f"reg/dyn{i} & reg/setpoint{i}": ["Multiline", [f"reg/dyn{i}", f"reg/setpoint{i}"]]
+                for i in range(n_tasks)
             },
         }
-        self.writer.add_custom_scalars(self.layout)
+        self.writer.add_custom_scalars(layout)
 
     def update_anchor(self, dict_par):
         """
