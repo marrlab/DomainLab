@@ -43,7 +43,10 @@ class TrainerFbOpt(AbstractTrainer):
         """
         before training begins, construct helper objects
         """
-        self.observer.msel = MSelBang(max_es=None)
+        if self.aconf.msel == "last":
+            self.observer.model_sel = MSelBang(max_es=None)
+            # although validation distribution will be very difference from test distribution, it is still a better
+            # idea to not to use the last iteration of the model
         # self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
         self.model.evaluate(self.loader_te, self.device)
@@ -129,6 +132,18 @@ class TrainerFbOpt(AbstractTrainer):
         otherwise,
         """
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        if self.aconf.msel == "loss_tr":
+            if self.aconf.msel_tr_loss =="reg":
+                self.epo_loss_tr = epo_reg_loss
+            elif self.aconf.msel_tr_loss =="erm":
+                self.epo_loss_tr = epo_task_loss
+            elif self.aconf.msel_tr_loss == "p_loss":
+                epo_p_loss = self.eval_p_loss()
+                self.epo_loss_tr = epo_p_loss
+        elif self.aconf.msel == "last" or self.aconf.msel == "val":
+            self.epo_loss_tr = 1.0 # FIXME: check if this is not used at all
+        else:
+            raise RuntimeError("msel type not supported")
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"at epoch {epoch}, epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
@@ -165,6 +180,8 @@ class TrainerFbOpt(AbstractTrainer):
             self.hyper_scheduler.update_setpoint(epo_reg_loss)
                 #if self.aconf.myoptic_pareto:
                 #    self.hyper_scheduler.update_anchor(dict_par)
-        self.observer.update(epoch)   # FIXME: model selection should be disabled
+        flag_early_stop_observer = self.observer.update(epoch)
+        flag_msel_early_stop = self.observer.model_sel.if_stop()
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
-        return False  # total number of epochs controled in args
+        # FIXME: after a long seesion with Emilio, we could not resovle this, this is a hack at themoment
+        return flag_msel_early_stop

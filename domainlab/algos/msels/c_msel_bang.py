@@ -12,9 +12,11 @@ class MSelBang(AMSel):
     def __init__(self, max_es):
         self.best_val_acc = 0.0
 
+    def if_stop(self):
+        return False
+
     def update(self):
         """
         if the best model should be updated
         """
-        flag = True
-        return flag
+        return True
