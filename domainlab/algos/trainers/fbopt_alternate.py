@@ -43,6 +43,7 @@ class HyperSchedulerFeedbackAlternave():
         self.reg_lower_bound_as_setpoint = None
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = 10000
+        self.activation_clip = 10  # untested dummy value
         self.writer = SummaryWriter()
         self.coeff_ma = 0.5
         self.epsilon_r = False
@@ -91,15 +92,25 @@ class HyperSchedulerFeedbackAlternave():
             self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
         # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
         activation = [self.k_p_control * val for val in self.delta_epsilon_r]
+        if self.activation_clip is not None:
+            activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
+                          for val in activation]
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
-        for i, val in enumerate(epo_reg_loss):
-            self.writer.add_scalar(f'reg/dyn{i}', val, miter)
-        for i, val in enumerate(self.reg_lower_bound_as_setpoint):
-            self.writer.add_scalar(f'reg/setpoint{i}', val, miter)
+
+        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.reg_lower_bound_as_setpoint)):
+            self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
+            self.writer.add_scalar(f'reg/setpoint{i}', reg_set, miter)
+
+            self.writer.add_scalars(f'reg/dyn{i} & reg/setpoint{i}', {
+                f'reg/dyn{i}': reg_dyn,
+                f'reg/setpoint{i}': reg_set,
+            }, miter)
+            self.writer.add_scalar(f'task vs reg/dyn{i}', reg_dyn, epos_task_loss)
+
         self.writer.add_scalar(f'task', epos_task_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
