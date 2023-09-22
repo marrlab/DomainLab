@@ -109,8 +109,9 @@ class HyperSchedulerFeedbackAlternave():
                 f'reg/dyn{i}': reg_dyn,
                 f'reg/setpoint{i}': reg_set,
             }, miter)
-            self.writer.add_scalar(f'task vs reg/dyn{i}', reg_dyn, epos_task_loss)
+            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{i}', reg_dyn, epos_task_loss)
 
+        #self.writer.add_scalar('loss_penalized', epos_task_loss+, miter)
         self.writer.add_scalar(f'task', epos_task_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
