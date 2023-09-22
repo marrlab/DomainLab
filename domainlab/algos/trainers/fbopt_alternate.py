@@ -3,9 +3,11 @@ update hyper-parameters during training
 """
 import copy
 import torch
+
+from torch.utils.tensorboard import SummaryWriter
+
 import numpy as np
 from domainlab.utils.logger import Logger
-from torch.utils.tensorboard import SummaryWriter
 
 
 class HyperSchedulerFeedbackAlternave():
@@ -18,7 +20,7 @@ class HyperSchedulerFeedbackAlternave():
         """
         self.trainer = trainer
         self.mmu = kwargs
-        self.mmu = {key: 1.0 for key, val in self.mmu.items()}
+        self.mmu = {key: 1.0 for key, val in self.mmu.items()}   # FIXME: change this from user configuration
         self.ploss_old_theta_old_mu = None
         self.ploss_old_theta_new_mu = None
         self.ploss_new_theta_old_mu = None
@@ -37,15 +39,14 @@ class HyperSchedulerFeedbackAlternave():
         self.count_found_operator = 0
         self.count_search_mu = 0
         ########################################
-        # FIXME: make the following a vector, (or  dictionary)
-        self.k_p_control = 0.001
+        self.k_i_control = trainer.aconf.k_i_gain
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
         self.reg_lower_bound_as_setpoint = None
         # NOTE: this value will be set according to initial evaluation of neural network
-        self.mu_clip = 10000
-        self.activation_clip = 10  # untested dummy value
+        self.mu_clip = trainer.aconf.mu_clip
+        self.activation_clip = trainer.aconf.exp_shoulder_clip
         self.writer = SummaryWriter()
-        self.coeff_ma = 0.5
+        self.coeff_ma = trainer.aconf.coeff_ma
         self.epsilon_r = False
 
     def update_anchor(self, dict_par):
@@ -91,7 +92,7 @@ class HyperSchedulerFeedbackAlternave():
             # self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
             self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
         # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
-        activation = [self.k_p_control * val for val in self.delta_epsilon_r]
+        activation = [self.k_i_control * val for val in self.delta_epsilon_r]
         if self.activation_clip is not None:
             activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
                           for val in activation]
@@ -139,3 +140,17 @@ class HyperSchedulerFeedbackAlternave():
         dict_multiplier = dict(list_zip)
         # NOTE: allow multipler be bigger than 1
         return {key: val*dict_multiplier[key] for key, val in dict_base.items()}
+
+    def update_setpoint(self, epo_reg_loss):
+        """
+        FIXME: setpoint should also be able to be eliviated
+        """
+        # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
+        if epo_reg_loss < self.reg_lower_bound_as_setpoint:
+            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+            logger.info(f"!!!!found free descent operator, update setpoint to {epo_reg_loss}")
+            lower_bound = self.coeff_ma * torch.tensor(epo_reg_loss)
+            lower_bound += (1-self.coeff_ma) * torch.tensor(self.reg_lower_bound_as_setpoint)
+            lower_bound = lower_bound.tolist()
+            self.reg_lower_bound_as_setpoint = lower_bound
+            logger.info("set point updated!")
