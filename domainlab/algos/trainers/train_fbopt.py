@@ -43,7 +43,10 @@ class TrainerFbOpt(AbstractTrainer):
         """
         before training begins, construct helper objects
         """
-        self.observer.msel = MSelBang(max_es=None)
+        if self.aconf.msel == "last":
+            self.observer.msel = MSelBang(max_es=None)
+            # although validation distribution will be very difference from test distribution, it is still a better
+            # idea to not to use the last iteration of the model
         # self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
         self.model.evaluate(self.loader_te, self.device)
@@ -165,6 +168,6 @@ class TrainerFbOpt(AbstractTrainer):
             self.hyper_scheduler.update_setpoint(epo_reg_loss)
                 #if self.aconf.myoptic_pareto:
                 #    self.hyper_scheduler.update_anchor(dict_par)
-        self.observer.update(epoch)   # FIXME: model selection should be disabled
+        flag_early_stop = self.observer.update(epoch)
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
-        return False  # total number of epochs controled in args
+        return flag_early_stop
