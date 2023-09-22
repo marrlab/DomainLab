@@ -2,7 +2,6 @@ mode: grid
 
 output_dir: zoutput/benchmarks/benchmark_fbopt_pacs
 
-num_param_samples: 8
 sampling_seed: 0
 startseed: 0
 endseed: 2
@@ -17,7 +16,6 @@ domainlab_args:
   epos: 1
   es: 5
   bs: 64
-  nname: conv_bn_pool_2
   san_check: True
   npath: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
