@@ -43,6 +43,7 @@ class HyperSchedulerFeedbackAlternave():
         self.reg_lower_bound_as_setpoint = None
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = 10000
+        self.activation_clip = 10  # untested dummy value
         self.writer = SummaryWriter()
         self.coeff_ma = 0.5
         self.epsilon_r = False
@@ -91,6 +92,9 @@ class HyperSchedulerFeedbackAlternave():
             self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
         # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
         activation = [self.k_p_control * val for val in self.delta_epsilon_r]
+        if self.activation_clip is not None:
+            activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
+                          for val in activation]
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
