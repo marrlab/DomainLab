@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import copy
+import os
 import torch
 
 from torch.utils.tensorboard import SummaryWriter
@@ -55,7 +56,10 @@ class HyperSchedulerFeedbackAlternave():
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = trainer.aconf.mu_clip
         self.activation_clip = trainer.aconf.exp_shoulder_clip
-        self.writer = StubSummaryWriter() if trainer.aconf.no_tensorboard else SummaryWriter()
+        if trainer.aconf.no_tensorboard:
+            self.writer = StubSummaryWriter()
+        else:
+            self.writer = SummaryWriter(comment=os.environ.get('SLURM_JOB_ID', ''))
         self.coeff_ma = trainer.aconf.coeff_ma
         self.epsilon_r = False
 
