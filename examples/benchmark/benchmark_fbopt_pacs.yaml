@@ -14,7 +14,7 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
   lr: 5e-5
-  epos: 3
+  epos: 1
   es: 5
   bs: 64
   nname: conv_bn_pool_2
@@ -32,7 +32,7 @@ Shared params:
   ini_setpoint_ratio:
     min: 0.5
     max: 0.99
-    num: 5
+    num: 2
     step: 0.05
     distribution: uniform
 
