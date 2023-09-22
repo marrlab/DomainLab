@@ -10,6 +10,16 @@ import numpy as np
 from domainlab.utils.logger import Logger
 
 
+class StubSummaryWriter():
+    # stub writer for tensorboard that ignores all messages
+
+    def add_scalar(self, *args, **kwargs):
+        pass
+
+    def add_scalars(self, *args, **kwargs):
+        pass
+
+
 class HyperSchedulerFeedbackAlternave():
     """
     design $\\mu$$ sequence based on state of penalized loss
@@ -45,7 +55,7 @@ class HyperSchedulerFeedbackAlternave():
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = trainer.aconf.mu_clip
         self.activation_clip = trainer.aconf.exp_shoulder_clip
-        self.writer = SummaryWriter()
+        self.writer = StubSummaryWriter() if trainer.aconf.no_tensorboard else SummaryWriter()
         self.coeff_ma = trainer.aconf.coeff_ma
         self.epsilon_r = False
 
