@@ -23,7 +23,7 @@ domainlab_args:
   nname: conv_bn_pool_2
   san_check: True
   exp_shoulder_clip: 10
-  mu_clip: 1e4
+  mu_clip: 10_000
   coeff_ma: 0.5
 
 
