@@ -44,7 +44,7 @@ class TrainerFbOpt(AbstractTrainer):
         before training begins, construct helper objects
         """
         if self.aconf.msel == "last":
-            self.observer.msel = MSelBang(max_es=None)
+            self.observer.model_sel = MSelBang(max_es=None)
             # although validation distribution will be very difference from test distribution, it is still a better
             # idea to not to use the last iteration of the model
         # self.set_scheduler(scheduler=HyperSchedulerFeedback)
@@ -183,4 +183,4 @@ class TrainerFbOpt(AbstractTrainer):
         flag_early_stop_observer = self.observer.update(epoch)
         flag_early_stop = self.observer.msel.if_stop()
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
-        return flag_early_stop
+        return flag_early_stop_observer
