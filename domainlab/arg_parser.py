@@ -138,7 +138,7 @@ def mk_parser_main():
                              "False: parameter name is used."
                              "Default is True.")
 
-    parser.add_argument('--msel', choices=['val', 'loss_tr'], default="val",
+    parser.add_argument('--msel', choices=['val', 'loss_tr', 'last'], default="val",
                         help='model selection for early stop: val, loss_tr, recon, the \
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods')
