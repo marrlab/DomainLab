@@ -98,8 +98,9 @@ class HyperSchedulerFeedbackAlternave():
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
-        val = list(self.mmu.values())[0]
-        self.writer.add_scalar('mmu', val, miter)
+
+        for key, val in self.mmu.items():
+            self.writer.add_scalar(f'mmu/{key}', val, miter)
 
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.reg_lower_bound_as_setpoint)):
             self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
