@@ -1,0 +1,53 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt_pacs
+
+num_param_samples: 8
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_path_list.py
+  dmem: False
+  lr: 5e-5
+  epos: 3
+  es: 5
+  bs: 64
+  nname: conv_bn_pool_2
+  san_check: True
+  npath: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  exp_shoulder_clip: 10
+  mu_clip: 10_000
+  coeff_ma: 0.5
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.5
+    max: 0.99
+    num: 5
+    step: 0.05
+    distribution: uniform
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    step: 0.0001
+    distribution: uniform
+
+# Test fbopt with different hyperparameter configurations
+
+jigen_fbopt:
+  aname: jigen
+  trainer: fbopt
+
+  shared:
+    - ini_setpoint_raio
