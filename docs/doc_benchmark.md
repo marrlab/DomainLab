@@ -10,7 +10,7 @@ Within each benchmark, two aspects are considered:
 the performance with respect to different hyperparameter choices is investigated.
 
 ## Setting up a benchmark
-The benchmark is configured in a yaml file. We refer to [demo_benchmark.yaml](https://github.com/marrlab/DomainLab/blob/master/examples/benchmark/demo_benchmark.yaml) for a documented
+The benchmark is configured in a yaml file. We refer to [doc_benchmark_yaml.md](https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark_yaml.md) for a documented
 example. The user can create different custom experiments, which are to be benchmarked. Each
 experiment can have a custom name.
 
