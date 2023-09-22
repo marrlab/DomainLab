@@ -49,4 +49,5 @@ jigen_fbopt:
   trainer: fbopt
 
   shared:
-    - ini_setpoint_raio
+    - ini_setpoint_ratio
+    - k_i_gain
