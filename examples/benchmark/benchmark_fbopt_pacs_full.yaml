@@ -14,8 +14,7 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
   lr: 5e-5
-  epos: 100
-  es: 5
+  epos: 200
   bs: 64
   san_check: True
   npath: examples/nets/resnet50domainbed.py
@@ -46,6 +45,27 @@ Shared params:
     num: 20
     step: 0.0001
     distribution: uniform
+    
+  msel:
+    distribution: categorical   
+    values:                     
+    - last
+    - val
+    - loss_tr
+    
+  msel_tr_loss:
+    distribution: categorical   
+    values:                     
+    - reg
+    - task
+    - ploss
+    
+  es:
+    distribution: categorical   
+    values:                     
+    - 1
+    - 5
+
 
 # Test fbopt with different hyperparameter configurations
 
@@ -56,6 +76,9 @@ jigen_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
 
 
 diva_fbopt:
@@ -64,6 +87,9 @@ diva_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
 
 hduva_fbopt:
   aname: hduva
@@ -71,10 +97,16 @@ hduva_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
-
+    - msel_tr_loss
+    - msel
+    - es
+    
 dann_fbopt:
   aname: dann
   trainer: fbopt
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
