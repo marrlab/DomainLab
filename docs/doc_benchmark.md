@@ -41,6 +41,13 @@ repository, cd into the repository and execute the following command:
 Similar to the local version explained above, the user can also specify a random seed for 
 hyperparameter sampling and pytorch.
 
+#### Check errors for slurm runs
+The following script will help to find out which job has failed and the error message, so that you could direct to the 
+specific log file
+```cluster
+./run_benchmark_slurm.sh ./zoutput/slurm_logs
+```
+
 ## Obtained results
 All files created by this benchmark are saved in the given output directory
 (by default `./zoutput/benchmarks`). The sampled hyperparameters can be found in
