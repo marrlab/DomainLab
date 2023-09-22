@@ -132,7 +132,7 @@ class TrainerFbOpt(AbstractTrainer):
         otherwise,
         """
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
-        if self.aconf.msel == "tr_loss":
+        if self.aconf.msel == "loss_tr":
             if self.aconf.msel_tr_loss =="reg":
                 self.epo_loss_tr = epo_reg_loss
             elif self.aconf.msel_tr_loss =="erm":
