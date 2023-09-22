@@ -28,7 +28,10 @@ then
 Suppose you have cloned the repository and have changed directory to the cloned repository.
 
 ```shell
-pip install -r requirements.txt
+conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.6 -c pytorch -c conda-forge
+conda install torchmetric==0.10.3
+pip install -r requirements.txt 
+conda install tensorboard
 ```
 then 
 
