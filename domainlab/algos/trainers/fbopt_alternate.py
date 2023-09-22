@@ -116,11 +116,11 @@ class HyperSchedulerFeedbackAlternave():
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
-    def dict_clip(self, dict_base):
+    def dict_clip(self, dict_base, clip_min=0.0001):
         """
         clip each entry of the mu according to pre-set self.mu_clip
         """
-        return {key: np.clip(val, a_min=0.0, a_max=self.mu_clip) for key, val in dict_base.items()}
+        return {key: np.clip(val, a_min=clip_min, a_max=self.mu_clip) for key, val in dict_base.items()}
 
     def dict_is_zero(self, dict_mu):
         """

@@ -22,14 +22,17 @@ domainlab_args:
   bs: 64
   nname: conv_bn_pool_2
   san_check: True
+  exp_shoulder_clip: 10
+  mu_clip: 10_000
+  coeff_ma: 0.5
 
 
 Shared params:
   ini_setpoint_ratio:
     min: 0.5
     max: 0.99
-    num: 2
-    step: 0.001
+    num: 5
+    step: 0.05
     distribution: uniform
 
   k_i_gain:
@@ -37,27 +40,6 @@ Shared params:
     max: 0.01
     num: 2
     step: 0.0001
-    distribution: uniform
-
-  exp_shoulder_clip:
-    min: 5
-    max: 10
-    num: 2
-    step: 1
-    distribution: uniform
-
-  mu_clip:
-    min: 0.001
-    max: 1e4
-    num: 2
-    step: 10
-    distribution: loguniform
-
-  coeff_ma:
-    min: 0.001
-    max: 0.99
-    num: 2
-    step: 0.001
     distribution: uniform
 
 # Test fbopt with different hyperparameter configurations
