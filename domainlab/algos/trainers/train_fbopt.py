@@ -3,6 +3,8 @@
 feedback optimization
 """
 import copy
+from operator import add
+
 import torch
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
@@ -11,7 +13,6 @@ from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
 from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
 from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
-from operator import add
 
 
 class HyperSetter():
@@ -161,33 +162,7 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-        if 1:
-            # if failed to find reg-pareto descent operator, continue training without
-            # mu being updated
-            #logger.info("failed to find pivot, move forward \\bar{\\theta}, \
-            #            this will deteriorate reg loss!")
-            #epo_reg_loss_before, epo_task_loss_before = self.eval_r_loss()
-            #logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            #logger.info(
-            #    f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss_before}, \
-            #    epo_task_loss={epo_task_loss_before}")
-
-            #theta = dict(self.model.named_parameters())
-            # dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
-            # move according to gradient to update theta_bar
-            #self.model.set_params(dict_par)
-
-            epo_reg_loss, epo_task_loss = self.eval_r_loss()
-            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.info(
-                f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
-                epo_task_loss={epo_task_loss}")
-            if epo_reg_loss < self.hyper_scheduler.reg_lower_bound_as_setpoint:
-                logger.info(f"!!!!found free descent operator, update setpoint to {epo_reg_loss}")
-                lower_bound = self.hyper_scheduler.coeff_ma * torch.tensor(epo_reg_loss)
-                lower_bound += (1-self.hyper_scheduler.coeff_ma) * torch.tensor(self.hyper_scheduler.reg_lower_bound_as_setpoint)
-                lower_bound = lower_bound.tolist()
-                self.hyper_scheduler.reg_lower_bound_as_setpoint = lower_bound
+            self.hyper_scheduler.update_setpoint(epo_reg_loss)
                 #if self.aconf.myoptic_pareto:
                 #    self.hyper_scheduler.update_anchor(dict_par)
         self.observer.update(epoch)   # FIXME: model selection should be disabled

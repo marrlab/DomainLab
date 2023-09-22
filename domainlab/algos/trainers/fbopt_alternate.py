@@ -142,5 +142,10 @@ class HyperSchedulerFeedbackAlternave():
 
     def update_setpoint(self, epo_reg_loss):
         # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
-        if epo_reg_loss < self.hyper_scheduler.reg_lower_bound_as_setpoint:
-            self.reg_lower_bound_as_setpoint = self.hyper_scheduler.coeff_ma * epo_reg_loss + (1-self.hyper_scheduler.coeff_ma)* self.hyper_scheduler.reg_lower_bound_as_setpoint
+        if epo_reg_loss < self.reg_lower_bound_as_setpoint:
+            logger.info(f"!!!!found free descent operator, update setpoint to {epo_reg_loss}")
+            lower_bound = self.coeff_ma * torch.tensor(epo_reg_loss)
+            lower_bound += (1-self.coeff_ma) * torch.tensor(self.reg_lower_bound_as_setpoint)
+            lower_bound = lower_bound.tolist()
+            self.reg_lower_bound_as_setpoint = lower_bound
+            logger.info("set point updated!")
