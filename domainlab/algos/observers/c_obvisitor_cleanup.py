@@ -24,3 +24,7 @@ class ObVisitorCleanUp(AObVisitor):
     @property
     def model_sel(self):
         return self.observer.model_sel
+    
+    @model_sel.setter
+    def model_sel(self, model_sel):
+        self.observer.model_sel = model_sel
