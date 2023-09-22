@@ -26,8 +26,8 @@ domainlab_args:
   mu_clip: 10_000
   coeff_ma: 0.5
   zx_dim: 0
-  zy_dim: 32
-  zd_dim: 32
+  zy_dim: 64
+  zd_dim: 64
 
 
 
@@ -60,6 +60,20 @@ jigen_fbopt:
 
 diva_fbopt:
   aname: diva
+  trainer: fbopt
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+
+hduva_fbopt:
+  aname: hduva
+  trainer: fbopt
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+
+dann_fbopt:
+  aname: dann
   trainer: fbopt
   shared:
     - ini_setpoint_ratio
