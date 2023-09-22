@@ -132,6 +132,17 @@ class TrainerFbOpt(AbstractTrainer):
         otherwise,
         """
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        if self.aconf.msel=="reg":
+            self.epo_loss_tr = epo_reg_loss
+        elif: self.aconf.msel=="erm":
+            self.epo_loss_tr = epo_task_loss
+        elif self.aconf.msel== "tr_loss":
+            epo_p_loss = self.eval_p_loss()
+            self.epo_loss_tr = epo_p_loss
+        elif self.aconf.msel == "last" or self.aconf.msel == "val":
+            self.epo_loss_tr = 1.0 # FIXME: check if this is not used at all
+        else:
+            raise RuntimeError("msel type not supported")
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"at epoch {epoch}, epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
