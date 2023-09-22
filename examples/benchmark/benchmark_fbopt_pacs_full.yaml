@@ -1,8 +1,9 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt_pacs
+output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
 
 sampling_seed: 0
+
 startseed: 0
 endseed: 2
 
@@ -13,17 +14,21 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
   lr: 5e-5
-  epos: 1
+  epos: 100
   es: 5
   bs: 64
   san_check: True
   npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   exp_shoulder_clip: 10
   mu_clip: 10_000
   coeff_ma: 0.5
-  no_tensorboard: False
+  zx_dim: 0
+  zy_dim: 32
+  zd_dim: 32
+
 
 
 
@@ -31,14 +36,14 @@ Shared params:
   ini_setpoint_ratio:
     min: 0.5
     max: 0.99
-    num: 2
+    num: 20
     step: 0.05
     distribution: uniform
 
   k_i_gain:
     min: 0.0001
-    max: 0.01
-    num: 2
+    max: 0.1
+    num: 20
     step: 0.0001
     distribution: uniform
 
@@ -48,6 +53,14 @@ jigen_fbopt:
   aname: jigen
   trainer: fbopt
 
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+
+
+diva_fbopt:
+  aname: diva
+  trainer: fbopt
   shared:
     - ini_setpoint_ratio
     - k_i_gain

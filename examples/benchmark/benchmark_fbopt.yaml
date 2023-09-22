@@ -2,7 +2,6 @@ mode: grid
 
 output_dir: zoutput/benchmarks/benchmark_fbopt
 
-num_param_samples: 8
 sampling_seed: 0
 startseed: 0
 endseed: 2
