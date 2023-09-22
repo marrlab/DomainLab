@@ -181,6 +181,5 @@ class TrainerFbOpt(AbstractTrainer):
                 #if self.aconf.myoptic_pareto:
                 #    self.hyper_scheduler.update_anchor(dict_par)
         flag_early_stop_observer = self.observer.update(epoch)
-        flag_early_stop = self.observer.msel.if_stop()
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
         return flag_early_stop_observer
