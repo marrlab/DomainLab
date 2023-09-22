@@ -112,7 +112,7 @@ To run the benchmark with a specific configuration on a standalone machine, insi
 folder, one can execute (we assume you have a machine with 4 cores or more)
 ```shell
 # Note: this has only been tested on Linux based systems and may not work on Windows
-./run_benchmark_local_conf_seed2_gpus.sh ./examples/benchmark/demo_benchmark.yaml 0  0  2
+./run_benchmark_standalone.sh ./examples/benchmark/demo_benchmark.yaml 0  0  2
 ```
 where the first argument is the benchmark configuration file (mandatory), the second and the third 
 arguments are the starting seeds for cuda and the hyperparameter sampling (both optional) and the
