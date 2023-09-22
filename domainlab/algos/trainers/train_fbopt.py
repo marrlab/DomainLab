@@ -54,7 +54,7 @@ class TrainerFbOpt(AbstractTrainer):
             flag_accept=False)
 
         epo_reg_loss, _ = self.eval_r_loss()
-        self.hyper_scheduler.reg_lower_bound_as_setpoint = \
+        self.hyper_scheduler.setpoint4R = \
              [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss]
 
     def opt_theta(self, dict4mu, dict_theta0):

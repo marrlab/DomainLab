@@ -41,7 +41,7 @@ class HyperSchedulerFeedbackAlternave():
         ########################################
         self.k_i_control = trainer.aconf.k_i_gain
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
-        self.reg_lower_bound_as_setpoint = None
+        self.setpoint4R = None
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = trainer.aconf.mu_clip
         self.activation_clip = trainer.aconf.exp_shoulder_clip
@@ -80,8 +80,8 @@ class HyperSchedulerFeedbackAlternave():
         """
         epo_reg_loss, epos_task_loss = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
-        # delta_epsilon_r = epo_reg_loss - self.reg_lower_bound_as_setpoint
-        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.reg_lower_bound_as_setpoint)
+        # delta_epsilon_r = epo_reg_loss - self.setpoint4R
+        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.setpoint4R)
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
             self.delta_epsilon_r = delta_epsilon_r
@@ -102,7 +102,7 @@ class HyperSchedulerFeedbackAlternave():
         val = list(self.mmu.values())[0]
         self.writer.add_scalar('mmu', val, miter)
 
-        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.reg_lower_bound_as_setpoint)):
+        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.setpoint4R)):
             self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
             self.writer.add_scalar(f'reg/setpoint{i}', reg_set, miter)
 
@@ -146,11 +146,11 @@ class HyperSchedulerFeedbackAlternave():
         FIXME: setpoint should also be able to be eliviated
         """
         # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
-        if epo_reg_loss < self.reg_lower_bound_as_setpoint:
+        if epo_reg_loss < self.setpoint4R:
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(f"!!!!found free descent operator, update setpoint to {epo_reg_loss}")
             lower_bound = self.coeff_ma * torch.tensor(epo_reg_loss)
-            lower_bound += (1-self.coeff_ma) * torch.tensor(self.reg_lower_bound_as_setpoint)
+            lower_bound += (1-self.coeff_ma) * torch.tensor(self.setpoint4R)
             lower_bound = lower_bound.tolist()
-            self.reg_lower_bound_as_setpoint = lower_bound
+            self.setpoint4R = lower_bound
             logger.info("set point updated!")
