@@ -29,7 +29,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             self.beta_x = dict_rst["beta_x"]
             self.beta_t = dict_rst["beta_t"]
 
-        def hyper_init(self, functor_scheduler):
+        def hyper_init(self, functor_scheduler, trainer=None):
             """hyper_init.
             :param functor_scheduler:
             """
@@ -37,7 +37,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # class build a dictionary {"beta_d":self.beta_d, "beta_y":self.beta_y}
             # constructor signature is def __init__(self, **kwargs):
             return functor_scheduler(
-                trainer=None,
+                trainer=trainer,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
                 beta_t=self.beta_t)
 
