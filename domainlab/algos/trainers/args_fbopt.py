@@ -24,6 +24,10 @@ def add_args2parser_fbopt(parser):
                         help='before training start, evaluate reg loss, \
                         setpoint will be 0.9 of this loss')
 
+    parser.add_argument('--no_tensorboard', action='store_true', default=False,
+                        help='disable tensorboard')
+
+
     # the following hyperparamters do not need to be tuned
     parser.add_argument('--init_mu4beta', type=float, default=0.001,
                         help='initial beta for multiplication')
