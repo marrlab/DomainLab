@@ -60,7 +60,7 @@ Shared params:
     values:
     - reg
     - task
-    - ploss
+    - p_loss
 
   es:
     distribution: categorical
