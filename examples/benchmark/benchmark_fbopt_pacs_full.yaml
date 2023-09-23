@@ -117,6 +117,7 @@ hduva_fbopt:
     - msel_tr_loss
     - msel
     - es
+    - gamma_y
 
 dann_fbopt:
   aname: dann
