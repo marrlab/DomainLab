@@ -130,7 +130,7 @@ class HyperSchedulerFeedbackAlternave():
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
-    def dict_clip(self, dict_base, clip_min=0.0001):
+    def dict_clip(self, dict_base, clip_min=0.0001):   # FIXME: set thsi as hyperparameter
         """
         clip each entry of the mu according to pre-set self.mu_clip
         """
@@ -162,9 +162,8 @@ class HyperSchedulerFeedbackAlternave():
         # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
         if epo_reg_loss < self.setpoint4R:
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.info(f"!!!!found free descent operator, update setpoint to {epo_reg_loss}")
             lower_bound = self.coeff_ma * torch.tensor(epo_reg_loss)
             lower_bound += (1-self.coeff_ma) * torch.tensor(self.setpoint4R)
             lower_bound = lower_bound.tolist()
             self.setpoint4R = lower_bound
-            logger.info("set point updated!")
+            logger.info("!!!!!set point updated to {lower_bound}!")
