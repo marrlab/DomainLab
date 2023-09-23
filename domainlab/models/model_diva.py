@@ -68,6 +68,7 @@ def mk_diva(parent_class=VAEXYDClassif):
                              zd_dim, zy_dim, zx_dim,
                              list_str_y, list_d_tr)
             self.dim_d_tr = len(self.list_d_tr)
+            self.gamma_d = gamma_d
             if self.zd_dim > 0:
                 self.add_module(
                     "net_p_zd",
