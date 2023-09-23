@@ -55,6 +55,7 @@ def mk_diva(parent_class=VAEXYDClassif):
         """
         DIVA
         """
+
         @store_args
         def __init__(self, chain_node_builder,
                      zd_dim, zy_dim, zx_dim,
@@ -88,6 +89,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             self.beta_d = dict_rst["beta_d"]
             self.beta_y = dict_rst["beta_y"]
             self.beta_x = dict_rst["beta_x"]
+            self.gamma_d = dict_rst["gamma_d"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -97,7 +99,11 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             return functor_scheduler(
                 trainer=trainer,
-                beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
+                beta_d=self.beta_d,
+                beta_y=self.beta_y,
+                beta_x=self.beta_x,
+                gamma_d=self.gamma_d,
+            )
 
         def get_list_str_y(self):
             """get_list_str_y."""
