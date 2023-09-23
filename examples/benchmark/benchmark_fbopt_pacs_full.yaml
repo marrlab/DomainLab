@@ -14,7 +14,7 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
   lr: 5e-5
-  epos: 200
+  epos: 1
   bs: 64
   san_check: True
   npath: examples/nets/resnet50domainbed.py
