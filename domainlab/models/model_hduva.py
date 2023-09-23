@@ -38,6 +38,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # constructor signature is def __init__(self, **kwargs):
             return functor_scheduler(
                 trainer=trainer,
+                mu_recon=self.multiplier_recon,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
                 beta_t=self.beta_t)
 
