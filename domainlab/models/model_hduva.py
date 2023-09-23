@@ -11,8 +11,48 @@ from domainlab import g_inst_component_loss_agg
 
 def mk_hduva(parent_class=VAEXYDClassif):
     """
-    Hierarchical Domain Unsupervised VAE with arbitrary task loss
+    Instantiate a Hierarchical Domain Unsupervised VAE (HDUVA) with arbitrary task loss.
+
+    Details:
+        The created model builds on a generative approach within the framework of variational
+        autoencoders to facilitate generalization to new domains without supervision. HDUVA learns
+        representations that disentangle domain-specific information from class-label specific
+        information even in complex settings where domain structure is not observed during training.
+        Here for, latent variables are introduced, representing the information for the classes,
+        domains and the residual variance of the inputs, respectively. The domain structure is
+        modelled by a hierarchical level and another latent variable, denoted as topic.
+        Two encoder networks are trained. One for converting an image to be compatible with the
+        latent spaces of the domains and another one for converting an image to a topic
+        distribution. The overall objective is constructed by adding an additional weighted term to
+        the ELBO loss. One benefit of this model is that the domain information during training can
+        be incomplete.
+        For more details, see: Sun, Xudong, and Buettner, Florian.
+        "Hierarchical variational auto-encoding for unsupervised domain generalization."
+        arXiv preprint arXiv:2101.09436 (2021).
+
+    Args:
+        parent_class: Class object determining the task type. Defaults to VAEXYDClassif.
+
+    Returns:
+        ModelHDUVA: model inheriting from parent class.
+
+    Input Parameters:
+        zd_dim: size of latent space for domain-specific information (int),
+        zy_dim: size of latent space for class-specific information (int),
+        zx_dim: size of latent space for residual variance (int, defaults to 0),
+        chain_node_builder: TODO,
+        list_str_y: list of labels (list of strings),
+        list_d_tr: list of training domains (list of strings),
+        gamma_d: TODO,
+        gamma_y: weighting term for additional term in ELBO loss (float),
+        beta_d: weighting term for the domain component of ELBO loss (float),
+        beta_x: weighting term for residual variation component of ELBO loss (float),
+        beta_y: weighting term for class component of ELBO loss (float),
+        beta_t: weighting term for the topic component of ELBO loss (float),
+        device: device to which the model should be moved (cpu or gpu),
+        topic_dim: size of latent space for topics (int, defaults to 3)
     """
+
     class ModelHDUVA(parent_class):
         """
         Hierarchical Domain Unsupervised Variational Auto-Encoding
