@@ -201,4 +201,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return loss_adv_gen + loss_adv_gen_task.sum()
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        return 0
+        """
+        for ERM to adapt to the interface of other regularized learners
+        """
+        return [0], [0]

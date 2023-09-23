@@ -17,7 +17,7 @@ class LSEncoderConvBnReluPool(nn.Module):
     Batch Normalization, Relu and Pooling.
     Softplus for scale
     """
-    def __init__(self, z_dim, i_channel, i_h, i_w, conv_stride):
+    def __init__(self, z_dim: int, i_channel, i_h, i_w, conv_stride):
         """
         :param z_dim:
         nn.Sequential allows output dim to be zero.
