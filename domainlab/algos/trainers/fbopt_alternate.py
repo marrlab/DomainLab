@@ -113,8 +113,9 @@ class HyperSchedulerFeedbackAlternave():
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
-        val = list(self.mmu.values())[0]
-        self.writer.add_scalar('mmu', val, miter)
+
+        for key, val in self.mmu.items():
+            self.writer.add_scalar(f'mmu/{key}', val, miter)
 
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.setpoint4R)):
             self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
@@ -124,8 +125,10 @@ class HyperSchedulerFeedbackAlternave():
                 f'reg/dyn{i}': reg_dyn,
                 f'reg/setpoint{i}': reg_set,
             }, miter)
-            self.writer.add_scalar(f'task vs reg/dyn{i}', reg_dyn, epos_task_loss)
+            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{i}', reg_dyn, epos_task_loss)
 
+        loss_penalized = epos_task_loss + torch.inner(torch.Tensor(list(self.mmu.values())), torch.Tensor(epo_reg_loss))
+        self.writer.add_scalar('loss_penalized', loss_penalized, miter)
         self.writer.add_scalar(f'task', epos_task_loss, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True

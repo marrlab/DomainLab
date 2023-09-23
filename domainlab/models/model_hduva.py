@@ -38,6 +38,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # constructor signature is def __init__(self, **kwargs):
             return functor_scheduler(
                 trainer=trainer,
+                mu_recon=self.multiplier_recon,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
                 beta_t=self.beta_t)
 
@@ -50,7 +51,8 @@ def mk_hduva(parent_class=VAEXYDClassif):
                      beta_t,
                      device,
                      zx_dim=0,
-                     topic_dim=3):
+                     topic_dim=3,
+                     multiplier_recon=1.0):
             """
             """
             super().__init__(chain_node_builder,
@@ -111,8 +113,6 @@ def mk_hduva(parent_class=VAEXYDClassif):
                 zx_p_minus_q = g_inst_component_loss_agg(
                     p_zx.log_prob(zx_q) - qzx.log_prob(zx_q), 1)
 
-
-
             # zd KL diverence
             p_zd = self.net_p_zd(topic_q)
             zd_p_minus_q = g_inst_component_loss_agg(p_zd.log_prob(zd_q) - qzd.log_prob(zd_q), 1)
@@ -125,7 +125,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
             return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
-                [1.0, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
+                [self.multiplier_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
         def extract_semantic_features(self, tensor_x):
             """
