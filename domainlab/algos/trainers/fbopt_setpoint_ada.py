@@ -3,6 +3,8 @@ update hyper-parameters during training
 """
 import copy
 import numpy as np
+import torch
+
 from domainlab.utils.logger import Logger
 
 
@@ -22,8 +24,6 @@ def is_less_list_all(list1, list2):
     return all(list_comparison)
 
 
-
-
 class FbOptSetpointController():
     """
     design $\\mu$$ sequence based on state of penalized loss
@@ -34,24 +34,37 @@ class FbOptSetpointController():
         """
         self.ma_epo_reg_loss = None
         self.state_epo_reg_loss = None
+        self.coeff_ma = None
 
+    def update_setpoint_ma(self, target):
+        temp_ma = self.coeff_ma * torch.tensor(target)
+        temp_ma += (1 - self.coeff_ma) * torch.tensor(self.setpoint4R)
+        temp_ma = temp_ma.tolist()
+        self.setpoint4R = temp_ma
 
     def observe(self, epo_reg_loss):
         """
+        read current epo_reg_loss continuously
         FIXME: setpoint should also be able to be eliviated
         """
-        # FIXME: what does smaller than mean for a list?
-        # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
-        if epo_reg_loss < self.setpoint4R:
+        self.state_epo_reg_loss = epo_reg_loss
+        self.state_updater.update_setpoint()
+        if self.state_updater.update_setpoint():
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            lower_bound = self.coeff_ma * torch.tensor(epo_reg_loss)
-            lower_bound += (1-self.coeff_ma) * torch.tensor(self.setpoint4R)
-            lower_bound = lower_bound.tolist()
-            self.setpoint4R = lower_bound
-            logger.info("!!!!!set point updated to {lower_bound}!")
+            logger.info("!!!!!set point updated to {self.setpoint4R}!")
 
 
-class FbOptSetpointAdaRAllComponent(FbOptSetpointController):
+class RComponentAll(FbOptSetpointController):
     def update_setpoint(self):
         if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
             self.setpoint4R = self.state_epo_reg_loss
+            return True
+        return False
+
+
+class RComponentAny(FbOptSetpointController):
+    def update_setpoint(self):
+        if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
+            self.setpoint4R = self.state_epo_reg_loss
+            return True
+        return False
