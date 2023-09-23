@@ -9,7 +9,11 @@ We will start with the general setting of the yaml file and then continue with t
 
 One may start with a very general setup of the file, defining all fixed information like task description, test and training domains, used algorithms ...
 
-Een though we don't define the sampling of the hyperparameters yet, we need to deside wether the random sampling or grid search shall be used. For random samples we need to define the total number of hyperparameter samples in each task (`num_param_samples`) and a sampling seed for the hyperparameters (`sampling_seed`). For grid search the mode needs to be switched to grid using `mode: grid`, the specification on how many samples sould be created in gridsearch will be done in the next section when setting up the parameter ranges and distributions.
+At the top level, we need to decide whether the random sampling or grid search shall be used. 
+
+For random samples we need to define the total number of hyperparameter samples in each sampling task (`num_param_samples`) and a sampling seed for the hyperparameters (`sampling_seed`). 
+
+For grid search the mode needs to be switched to grid using `mode: grid`, the specification on how many samples sould be created in gridsearch will be done in the next section when setting up the parameter ranges and distributions.
 
 ```yaml
 # output_dir defines the output directory to be used to save the results
