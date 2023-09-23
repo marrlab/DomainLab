@@ -11,14 +11,19 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+    def multiplier4task_loss(self):
+        """
+        the multiplier for task loss is default to 1 except for vae family models
+        """
+        return 1.0
+
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
         """
         list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         loss_reg = self.inner_product(list_loss, list_multiplier)
-        return self.cal_task_loss(tensor_x, tensor_y) + loss_reg
-
+        return self.multiplier4task_loss * self.cal_task_loss(tensor_x, tensor_y) + loss_reg
 
     def inner_product(self, list_loss_scalar, list_multiplier):
         """
