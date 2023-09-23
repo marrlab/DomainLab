@@ -28,13 +28,16 @@ class FbOptSetpointController():
     """
     design $\\mu$$ sequence based on state of penalized loss
     """
-    def __init__(self, trainer, **kwargs):
+    def __init__(self):
         """
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
         self.ma_epo_reg_loss = None
         self.state_epo_reg_loss = None
         self.coeff_ma = None
+        self.state_updater = None
+        self.setpoint4R = None
+        self.setpoint4ell = None
 
     def update_setpoint_ma(self, target):
         temp_ma = self.coeff_ma * torch.tensor(target)
@@ -54,7 +57,7 @@ class FbOptSetpointController():
             logger.info("!!!!!set point updated to {self.setpoint4R}!")
 
 
-class RComponentAll(FbOptSetpointController):
+class SliderAll(FbOptSetpointController):
     def update_setpoint(self):
         if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
             self.setpoint4R = self.state_epo_reg_loss
@@ -62,7 +65,21 @@ class RComponentAll(FbOptSetpointController):
         return False
 
 
-class RComponentAny(FbOptSetpointController):
+class SliderAny(FbOptSetpointController):
+    def update_setpoint(self):
+        if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
+            self.setpoint4R = self.state_epo_reg_loss
+            return True
+        return False
+
+class DominateAny(FbOptSetpointController):
+    def update_setpoint(self):
+        flag1 = is_less_list_any(self.state_epo_reg_loss, self.setpoint4R)
+        flag2 = self.state_task_loss < self.setpoint4_ell
+        return flag1 & flag2
+        return False
+
+class DominateAll(FbOptSetpointController):
     def update_setpoint(self):
         if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
             self.setpoint4R = self.state_epo_reg_loss
