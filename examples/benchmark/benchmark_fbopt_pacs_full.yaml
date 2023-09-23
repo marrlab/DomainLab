@@ -106,6 +106,7 @@ diva_fbopt:
     - msel_tr_loss
     - msel
     - es
+    - gamma_y
     - gamma_d
 
 hduva_fbopt:
