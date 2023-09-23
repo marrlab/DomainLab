@@ -19,7 +19,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         # but I dont know another method to set neural network weights without using load_state_dict
         # FIXME: dict_params lack some keys compared to self.state_dict(), why?
         self.load_state_dict(dict_params, strict=False)
-
+        
     @property
     def multiplier4task_loss(self):
         """
