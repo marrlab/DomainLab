@@ -76,6 +76,12 @@ Shared params:
     num: 3
     distribution: loguniform
 
+  gamma_d:
+    min: 1e4
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
 
@@ -100,6 +106,7 @@ diva_fbopt:
     - msel_tr_loss
     - msel
     - es
+    - gamma_d
 
 hduva_fbopt:
   aname: hduva
@@ -110,6 +117,7 @@ hduva_fbopt:
     - msel_tr_loss
     - msel
     - es
+    - gamma_y
 
 dann_fbopt:
   aname: dann
