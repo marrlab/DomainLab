@@ -34,3 +34,5 @@ jobs:
         fail_ci_if_error: true
     - name: test if examples in markdown works
       run: bash -x -v ci_run_examples.sh
+    - name: test if benchmark works
+      run: bash -x -v run_benchmark_standalone.sh examples/benchmark/benchmark_mnist_shared_hyper_grid.yaml

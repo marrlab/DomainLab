@@ -8,7 +8,20 @@ from domainlab.models.model_dann import mk_dann
 
 
 def mk_jigen(parent_class=AModelClassif):
-    """Instantiate a JiGen model
+    """
+    Instantiate a JiGen model
+
+    Details:
+        The model is trained to solve two tasks:
+        1. Standard image classification;
+        2. Source images are decomposed into grids of patches, which are then permuted. The task
+        is recovering the original image by predicting the right permutation of the patches;
+
+        The (permuted) input data is first fed into a encoder neural network
+        and then into the two classification networks.
+        For more details, see:
+        Carlucci, Fabio M., et al. "Domain generalization by solving jigsaw puzzles."
+        Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.
 
     Args:
         parent_class (AModel, optional): Class object determining the task
@@ -16,7 +29,22 @@ def mk_jigen(parent_class=AModelClassif):
 
     Returns:
         ModelJiGen: model inheriting from parent class
+
+    Input Parameters:
+        list_str_y: list of labels,
+        list_str_d: list of domains,
+        net_encoder: neural network (input: training data, standard and shuffled),
+        net_classifier_class: neural network (input: output of net_encoder;
+        output: label prediction),
+        net_classifier_permutation: neural network (input: output of net_encoder;
+        output: prediction of permutation index),
+        coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss
+
+    Usage:
+        For a concrete example, see:
+        https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_jigen.py
     """
+
     class_dann = mk_dann(parent_class)
 
     class ModelJiGen(class_dann):
@@ -55,5 +83,5 @@ def mk_jigen(parent_class=AModelClassif):
             batch_target_scalar = vec_perm_ind
             loss_perm = F.cross_entropy(
                 logits_which_permutation, batch_target_scalar, reduction="none")
-            return self.alpha*loss_perm
+            return [loss_perm], [self.alpha]
     return ModelJiGen

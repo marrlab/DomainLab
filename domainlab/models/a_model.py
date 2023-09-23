@@ -11,12 +11,28 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+    @property
+    def multiplier4task_loss(self):
+        """
+        the multiplier for task loss is default to 1 except for vae family models
+        """
+        return 1.0
+
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
         """
-        return self.cal_task_loss(tensor_x, tensor_y) + \
-            self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        loss_reg = self.inner_product(list_loss, list_multiplier)
+        return self.multiplier4task_loss * self.cal_task_loss(tensor_x, tensor_y) + loss_reg
+
+    def inner_product(self, list_loss_scalar, list_multiplier):
+        """
+        compute inner product between list of scalar loss and multiplier
+        """
+        list_tuple = zip(list_loss_scalar, list_multiplier)
+        rst = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
+        return sum(rst)    # FIXME: is "sum" safe to pytorch?
 
     @abc.abstractmethod
     def cal_task_loss(self, tensor_x, tensor_y):

@@ -1,20 +1,20 @@
 # This yaml file has been adapted from https://github.com/jdblischak/smk-simple-slurm
 cluster:
-  mkdir -p logs/{rule} &&
+  mkdir -p zoutput/slurm_logs/{rule} &&
   sbatch
     --partition=gpu_p 
-    --qos=gpu 
+    --qos=gpu_normal 
     --gres=gpu:1 
     --nice=10000 
     -t 48:00:00
     -c 2 
-    --mem=100G 
+    --mem=160G 
     --job-name=smk-{rule}-{wildcards} 
-    --output=logs/{rule}/{rule}-{wildcards}-%j.out 
-    --error=logs/{rule}/{rule}-{wildcards}-%j.err
+    --output=zoutput/slurm_logs/{rule}/{rule}-{wildcards}-%j.out 
+    --error=zoutput/slurm_logs/{rule}/{rule}-{wildcards}-%j.err
 default-resources:
   - partition=gpu_p 
-  - qos=gpu 
+  - qos=gpu_normal 
   - mem_mb=100000 
 restart-times: 3
 max-jobs-per-second: 10
