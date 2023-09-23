@@ -75,13 +75,11 @@ class SliderAny(FbOptSetpointController):
 class DominateAny(FbOptSetpointController):
     def update_setpoint(self):
         flag1 = is_less_list_any(self.state_epo_reg_loss, self.setpoint4R)
-        flag2 = self.state_task_loss < self.setpoint4_ell
+        flag2 = self.state_task_loss < self.setpoint4ell
         return flag1 & flag2
-        return False
 
 class DominateAll(FbOptSetpointController):
     def update_setpoint(self):
-        if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
-            self.setpoint4R = self.state_epo_reg_loss
-            return True
-        return False
+        flag1 = is_less_list_all(self.state_epo_reg_loss, self.setpoint4R)
+        flag2 = self.state_task_loss < self.setpoint4ell
+        return flag1 & flag2
