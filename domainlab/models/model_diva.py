@@ -99,6 +99,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             return functor_scheduler(
                 trainer=trainer,
+                mu_recon=self.multiplier_recon,
                 beta_d=self.beta_d,
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
