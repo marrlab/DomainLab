@@ -1,0 +1,130 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_path_list.py
+  dmem: False
+  lr: 5e-5
+  epos: 200
+  bs: 64
+  san_check: True
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  exp_shoulder_clip: 10
+  mu_clip: 10_000
+  coeff_ma: 0.5
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.5
+    max: 0.99
+    num: 3
+    step: 0.05
+    distribution: uniform
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.1
+    num: 3
+    step: 0.0001
+    distribution: uniform
+
+  msel:
+    distribution: categorical
+    datatype: str
+    values:
+    - last
+    - val
+    - loss_tr
+
+  msel_tr_loss:
+    distribution: categorical
+    datatype: str
+    values:
+    - reg
+    - task
+    - p_loss
+
+  es:
+    distribution: categorical
+    datatype: int
+    values:
+    - 1
+    - 5
+
+  gamma_y:
+    min: 1e4
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1e4
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+# Test fbopt with different hyperparameter configurations
+
+jigen_fbopt:
+  aname: jigen
+  trainer: fbopt
+
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
+
+
+diva_fbopt:
+  aname: diva
+  trainer: fbopt
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
+    - gamma_d
+
+hduva_fbopt:
+  aname: hduva
+  trainer: fbopt
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
+    - gamma_y
+
+dann_fbopt:
+  aname: dann
+  trainer: fbopt
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+    - msel_tr_loss
+    - msel
+    - es
