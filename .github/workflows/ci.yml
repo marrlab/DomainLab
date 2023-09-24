@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: master
+    branches: fbopt
   pull_request:
     branches: fbopt
   workflow_dispatch:
