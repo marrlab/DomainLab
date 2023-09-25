@@ -129,7 +129,12 @@ class HyperSchedulerFeedbackAlternave():
 
         loss_penalized = epos_task_loss + torch.inner(torch.Tensor(list(self.mmu.values())), torch.Tensor(epo_reg_loss))
         self.writer.add_scalar('loss_penalized', loss_penalized, miter)
-        self.writer.add_scalar(f'task', epos_task_loss, miter)
+        self.writer.add_scalar('task', epos_task_loss, miter)
+        if miter == 1:
+            acc = 0
+        else:
+            acc = self.trainer.observer.metric_te["acc"]
+        self.writer.add_scalar("acc", acc, miter)
         self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
