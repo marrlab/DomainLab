@@ -46,22 +46,6 @@ Shared params:
     step: 0.0001
     distribution: uniform
 
-  msel:
-    distribution: categorical
-    datatype: str
-    values:
-    - last
-    - val
-    - loss_tr
-
-  msel_tr_loss:
-    distribution: categorical
-    datatype: str
-    values:
-    - reg
-    - task
-    - p_loss
-
   es:
     distribution: categorical
     datatype: int
