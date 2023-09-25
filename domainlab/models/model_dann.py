@@ -84,5 +84,5 @@ def mk_dann(parent_class=AModelClassif):
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-            return [lc_d], [self.alpha]
+            return [-lc_d], [self.alpha]
     return ModelDAN

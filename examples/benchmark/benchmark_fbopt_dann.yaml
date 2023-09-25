@@ -44,10 +44,10 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-jigen_fbopt:
-  aname: jigen
+dann_fbopt:
+  aname: dann
   trainer: fbopt
-
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - es
