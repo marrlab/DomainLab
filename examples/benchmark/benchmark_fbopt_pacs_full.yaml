@@ -91,7 +91,6 @@ diva_fbopt:
     - msel
     - es
     - gamma_y
-    - gamma_d
 
 hduva_fbopt:
   aname: hduva
