@@ -1,6 +1,7 @@
 """
 DIVA
 """
+import torch
 from torch.nn import functional as F
 
 from domainlab import g_inst_component_loss_agg
@@ -59,7 +60,7 @@ def mk_diva(parent_class=VAEXYDClassif):
                      zd_dim, zy_dim, zx_dim,
                      list_str_y, list_d_tr,
                      gamma_d, gamma_y,
-                     beta_d, beta_x, beta_y):
+                     beta_d, beta_x, beta_y, multiplier_recon=1.0):
             """
             gamma: classification loss coefficient
             """
@@ -95,6 +96,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             :param functor_scheduler: the class name of the scheduler
             """
             return functor_scheduler(
+                trainer=None,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
 
         def get_list_str_y(self):
@@ -118,7 +120,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             zd_p_minus_zd_q = g_inst_component_loss_agg(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
             # without aggregation, shape is [batchsize, zd_dim]
-            zx_p_minus_zx_q = 0
+            zx_p_minus_zx_q = torch.zeros_like(zd_p_minus_zd_q)
             if self.zx_dim > 0:
                 # torch.sum will return 0 for empty tensor,
                 # torch.mean will return nan
@@ -131,10 +133,6 @@ def mk_diva(parent_class=VAEXYDClassif):
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
 
-            loss_reg = loss_recon_x \
-                - self.beta_d * zd_p_minus_zd_q \
-                - self.beta_x * zx_p_minus_zx_q \
-                - self.beta_y * zy_p_minus_zy_q \
-                + self.gamma_d * lc_d
-            return loss_reg
+            return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
+                [self.multiplier_recon, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
     return ModelDIVA

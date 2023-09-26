@@ -10,12 +10,23 @@ import torch
 from torch import nn as nn
 from torch.nn import functional as F
 
+
+try:
+    from backpack import backpack, extend
+    from backpack.extensions import BatchGrad, Variance
+except:
+    backpack = None
+
+
+
 from domainlab.models.a_model import AModel
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.logger import Logger
+
+loss_cross_entropy_extended = extend(nn.CrossEntropyLoss())
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -113,7 +124,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             y_target = tensor_y
         else:
             _, y_target = tensor_y.max(dim=1)
-        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        lc_y = loss_cross_entropy_extended(logit_y, y_target)
         # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y
 
@@ -190,4 +201,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return loss_adv_gen + loss_adv_gen_task.sum()
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        return 0
+        """
+        for ERM to adapt to the interface of other regularized learners
+        """
+        return [0], [0]
