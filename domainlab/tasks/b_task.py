@@ -40,6 +40,7 @@ class NodeTaskDict(NodeTaskDG):
                 ddset_tr = node_algo_builder.dset_decoration_args_algo(args, ddset_tr)
                 ddset_val = node_algo_builder.dset_decoration_args_algo(args, ddset_val)
             self.dict_dset_tr.update({na_domain: ddset_tr})
+            self.dict_loader_tr.update({na_domain: mk_loader(ddset_tr, args.bs)})
             self.dict_dset_val.update({na_domain: ddset_val})
         ddset_mix = ConcatDataset(tuple(self.dict_dset_tr.values()))
         self._loader_tr = mk_loader(ddset_mix, args.bs)
