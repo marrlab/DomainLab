@@ -23,7 +23,7 @@ the Hessians being positive definite, it is possible to measure the inconsistenc
 $A$ and $B$ with the following inconsistency score:
 
 $$
-\mathcal{I}^\epsilon ( \theta^* ) = \text{max}_{(A,B)\in\mathcal{E}^2} \biggl( \mathcal{R}_B(\theta^* ) -  \mathcal{R}_A( \theta^* ) + \text{max}_{\frac{1}{2}\theta^T H_A \theta\leq\epsilon}\frac{1}{2}\theta^T H_B \theta \biggl) 
+\mathcal{I}^\epsilon ( \theta^* ) = \text{max}_{(A,B)\in\mathcal{E}^2} \biggl( \mathcal{R}_B (\theta^* ) - \mathcal{R}_A (\theta^* ) + \text{max}_{\frac{1}{2}\theta^T H_A \theta\leq\epsilon}\frac{1}{2}\theta^T H_B \theta \biggl) 
 $$
 
 , whereby $\theta^*$ denotes the minimizer, $\mathcal{E}$ denotes the set of training domains,
