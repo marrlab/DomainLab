@@ -23,10 +23,10 @@ the Hessians being positive definite, it is possible to measure the inconsistenc
 $A$ and $B$ with the following inconsistency score:
 
 $$
-\mathcal{I}^\epsilon ( \theta^* ) = \text{max}_{(A,B)\in\mathcal{E}^2} \biggl( \mathcal{R}_B (\theta^* ) -
+\mathcal{I}^\epsilon ( \theta^* ) = \text{max}_{(A,B)\in\mathcal{E}^2} \biggl( \mathcal{R}_B (\theta^* )
 $$
 $$
-\mathcal{R}_A ( \theta^* ) + \text{max}_{\frac{1}{2}\theta^T H_A \theta\leq\epsilon}\frac{1}{2}\theta^T H_B \theta \biggl) 
+\mathcal{R}_ {A} ( \theta^* ) + \text{max}_ {\frac{1}{2} \theta^T H_A \theta\leq\epsilon}\frac{1}{2}\theta^T H_B \theta \biggl) 
 $$
 
 , whereby $\theta^*$ denotes the minimizer, $\mathcal{E}$ denotes the set of training domains,
@@ -46,13 +46,13 @@ Let $\mathcal{E}$ be the space of all training domains, and let $\mathcal{R}_e(\
 objective. Fishr minimizes the following objective function during training:
 
 $$
-\mathcal{L} (\theta) = \frac{1}{|\mathcal{E}|} \sum_{e\in\mathcal{E}} \mathcal{R}_{\mathcal{E}} (\theta) + \lambda \mathcal{L}_{\text{Fishr}}(\theta)
+\mathcal{L} (\theta) = \frac{1}{|\mathcal{E}|} \sum_{e\in\mathcal{E}} \mathcal{R}_ {\mathcal{E}} (\theta) + \lambda \mathcal{L}_{\text{Fishr}}(\theta)
 $$
 
 , whereby
 
 $$
-\mathcal{L}_{\text{Fishr}} (\theta) = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} \| v_e -v \|^2_2
+\mathcal{L}_ {\text{Fishr}} (\theta) = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} \| v_e -v \|^2_2
 $$
 
 with $v_e$ denoting the variance between the gradients of domain $e\in\mathcal{E}$ and
