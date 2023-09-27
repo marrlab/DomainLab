@@ -23,22 +23,34 @@ def is_less_list_all(list1, list2):
 
 class FbOptSetpointController():
     """
-    design $\\mu$$ sequence based on state of penalized loss
+    update setpoint for mu
     """
-    def __init__(self):
+    def __init__(self, state=None):
         """
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
+        if state is None:
+            state = SliderAnyComponent()
+        self.transition_to(state)
         self.ma_epo_reg_loss = None
         self.state_epo_reg_loss = None
         self.coeff_ma = None
-        self.state_updater = None
         self.state_task_loss = None
         self.setpoint4R = None
         self.setpoint4ell = None
         self.host = None
 
+    def transition_to(self, state):
+        """
+        change internal state
+        """
+        self.state_updater = state
+        self.state_updater.accept(self)
+
     def update_setpoint_ma(self, target):
+        """
+        using moving average
+        """
         temp_ma = self.coeff_ma * torch.tensor(target)
         temp_ma += (1 - self.coeff_ma) * torch.tensor(self.setpoint4R)
         temp_ma = temp_ma.tolist()
@@ -50,7 +62,6 @@ class FbOptSetpointController():
         FIXME: setpoint should also be able to be eliviated
         """
         self.state_epo_reg_loss = epo_reg_loss
-        self.state_updater.update_setpoint()
         if self.state_updater.update_setpoint():
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             self.setpoint4R = self.state_epo_reg_loss

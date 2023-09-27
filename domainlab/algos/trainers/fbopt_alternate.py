@@ -9,6 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 
 import numpy as np
 from domainlab.utils.logger import Logger
+from domainlab.algos.trainers.fbopt_setpoint_ada import FbOptSetpointController
 
 
 class StubSummaryWriter():
@@ -50,6 +51,7 @@ class HyperSchedulerFeedbackAlternave():
         self.count_found_operator = 0
         self.count_search_mu = 0
         ########################################
+        self.set_point_controller = FbOptSetpointController()
         self.k_i_control = trainer.aconf.k_i_gain
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
         self.setpoint4R = None
@@ -167,11 +169,4 @@ class HyperSchedulerFeedbackAlternave():
         """
         FIXME: setpoint should also be able to be eliviated
         """
-        # FIXME: use pareto-reg-descent operator to decide if set point should be adjusted
-        if epo_reg_loss < self.setpoint4R:
-            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            lower_bound = self.coeff_ma * torch.tensor(epo_reg_loss)
-            lower_bound += (1-self.coeff_ma) * torch.tensor(self.setpoint4R)
-            lower_bound = lower_bound.tolist()
-            self.setpoint4R = lower_bound
-            logger.info("!!!!!set point updated to {lower_bound}!")
+        self.set_point_controller.observe(epo_reg_loss)
