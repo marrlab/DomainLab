@@ -1,10 +1,7 @@
 """
 update hyper-parameters during training
 """
-import copy
-import numpy as np
 import torch
-
 from domainlab.utils.logger import Logger
 
 
@@ -36,8 +33,10 @@ class FbOptSetpointController():
         self.state_epo_reg_loss = None
         self.coeff_ma = None
         self.state_updater = None
+        self.state_task_loss = None
         self.setpoint4R = None
         self.setpoint4ell = None
+        self.host = None
 
     def update_setpoint_ma(self, target):
         temp_ma = self.coeff_ma * torch.tensor(target)
@@ -54,32 +53,68 @@ class FbOptSetpointController():
         self.state_updater.update_setpoint()
         if self.state_updater.update_setpoint():
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+            self.setpoint4R = self.state_epo_reg_loss
             logger.info("!!!!!set point updated to {self.setpoint4R}!")
 
 
-class SliderAll(FbOptSetpointController):
+class FbOptSetpointControllerState(FbOptSetpointController):
+    """
+    abstract state pattern
+    """
+    def accept(self, controller):
+        """
+        set host for state
+        """
+        self.host = controller
+
+
+class SliderAllComponent(FbOptSetpointControllerState):
+    """
+    concrete state pattern
+    """
     def update_setpoint(self):
-        if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
-            self.setpoint4R = self.state_epo_reg_loss
+        """
+        all components of R descreases regardless if ell decreases or not
+        """
+        if is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R):
             return True
         return False
 
 
-class SliderAny(FbOptSetpointController):
+class SliderAnyComponent(FbOptSetpointControllerState):
+    """
+    concrete state pattern
+    """
     def update_setpoint(self):
-        if is_less_list_all(self.state_epo_reg_loss, self.setpoint4R):
-            self.setpoint4R = self.state_epo_reg_loss
+        """
+        if any component of R has decreased regardless if ell decreases
+        """
+        if is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R):
             return True
         return False
 
-class DominateAny(FbOptSetpointController):
+
+class DominateAnyComponent(FbOptSetpointControllerState):
+    """
+    concrete state pattern
+    """
     def update_setpoint(self):
-        flag1 = is_less_list_any(self.state_epo_reg_loss, self.setpoint4R)
-        flag2 = self.state_task_loss < self.setpoint4ell
+        """
+        if any of the component of R loss has decreased together with ell loss
+        """
+        flag1 = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
+        flag2 = self.host.state_task_loss < self.host.setpoint4ell
         return flag1 & flag2
 
-class DominateAll(FbOptSetpointController):
+
+class DominateAllComponent(FbOptSetpointControllerState):
+    """
+    concrete state pattern
+    """
     def update_setpoint(self):
-        flag1 = is_less_list_all(self.state_epo_reg_loss, self.setpoint4R)
-        flag2 = self.state_task_loss < self.setpoint4ell
+        """
+        if each component of R loss has decreased and ell loss also decreased
+        """
+        flag1 = is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R)
+        flag2 = self.host.state_task_loss < self.host.setpoint4ell
         return flag1 & flag2
