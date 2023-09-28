@@ -4,7 +4,7 @@ Command line arguments
 import argparse
 import warnings
 
-import yaml
+from ruamel.yaml import YAML
 
 from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
@@ -228,7 +228,8 @@ def parse_cmd_args():
     args = parser.parse_args()
     logger = Logger.get_logger(logger_name='main_out_logger', loglevel=args.loglevel)
     if args.config_file:
-        data = yaml.safe_load(args.config_file)
+        yaml = YAML(typ='safe')
+        data = yaml.load(args.config_file)
         delattr(args, 'config_file')
         apply_dict_to_args(args, data)
 

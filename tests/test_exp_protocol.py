@@ -7,7 +7,7 @@ from typing import List
 
 import pytest
 import torch
-import yaml
+from ruamel.yaml import YAML
 
 from domainlab.arg_parser import mk_parser_main
 from domainlab.exp_protocol.aggregate_results import agg_results, agg_main
@@ -17,7 +17,8 @@ from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_
 def test_run_experiment():
     """Checks the run_experiment function on a minimal basis"""
     with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
     if torch.cuda.is_available():
         torch.cuda.init()
     config['epos'] = 1

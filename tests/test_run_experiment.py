@@ -3,7 +3,7 @@ Tests run_experiment.py
 """
 import pytest
 import torch
-import yaml
+from ruamel.yaml import YAML
 
 from domainlab.exp_protocol.run_experiment import run_experiment
 
@@ -11,10 +11,11 @@ from domainlab.exp_protocol.run_experiment import run_experiment
 def test_run_experiment():
     """Checks the run_experiment function on a minimal basis"""
     with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
     if torch.cuda.is_available():
         torch.cuda.init()
-    config['epos'] = 1
+    #config['epos'] = 1
     config['startseed'] = 1
     config['endseed'] = 1
     config['test_domains'] = ['caltech']
@@ -34,7 +35,8 @@ def test_run_experiment_parameter_doubling_error():
     '''checks if a hyperparameter is specified multiple times,
     in the sympling section, in the common_args section and in the task section'''
     with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
     config['epos'] = 1
     config['startseed'] = 1
     config['endseed'] = 1
@@ -51,7 +53,8 @@ def test_run_experiment_parameter_doubling_error():
 
 
     with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
     config['epos'] = 1
     config['startseed'] = 1
     config['endseed'] = 1

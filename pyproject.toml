@@ -19,6 +19,8 @@ pandas = "^1.5.1"
 scikit-learn = "^1.2.1"
 pyyaml = "^6.0"
 gdown = "^4.7.1"
+ruamel-yaml = "^0.17.32"
+ruamel-yaml-clib = "^0.2.7"
 
 
 [tool.poetry.dev-dependencies]

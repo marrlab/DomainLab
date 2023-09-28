@@ -4,7 +4,7 @@ tests hyperparameter_sampling.py
 import numpy as np
 import pandas as pd
 import pytest
-import yaml
+from ruamel.yaml import YAML
 
 from domainlab.utils.hyperparameter_sampling import \
     sample_hyperparameters, sample_parameters, get_hyperparameter, \
@@ -17,7 +17,8 @@ from tests.utils_test import assert_frame_not_equal
 def test_hyperparameter_sampling():
     """Test sampling from yaml, including constraints"""
     with open("examples/yaml/demo_hyperparameter_sampling.yml", "r") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
 
     samples = sample_hyperparameters(config)
 
@@ -80,7 +81,8 @@ def test_hyperparameter_gridsearch():
     """Test sampling from yaml, including constraints"""
     with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r", encoding="utf-8") \
             as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
 
     samples = sample_gridsearch(config)
 
@@ -187,7 +189,8 @@ def test_sample_parameters_abort():
 def test_sampling_seed():
     """Tests if the same hyperparameters are sampled if sampling_seed is set"""
     with open("examples/yaml/demo_hyperparameter_sampling.yml", "r", encoding="utf8") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
 
     config['sampling_seed'] = 1
 
@@ -199,7 +202,8 @@ def test_sampling_seed():
 def test_sampling_seed_diff():
     """Tests if the same hyperparameters are sampled if sampling_seed is set"""
     with open("examples/yaml/demo_hyperparameter_sampling.yml", "r", encoding="utf8") as stream:
-        config = yaml.safe_load(stream)
+        yaml = YAML(typ='safe')
+        config = yaml.load(stream)
 
     config['sampling_seed'] = 1
     samples1 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
