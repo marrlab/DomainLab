@@ -54,7 +54,6 @@ class HyperSchedulerFeedbackAlternave():
         self.set_point_controller = FbOptSetpointController()
         self.k_i_control = trainer.aconf.k_i_gain
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
-        self.setpoint4R = None
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = trainer.aconf.mu_clip
         self.activation_clip = trainer.aconf.exp_shoulder_clip
@@ -64,6 +63,9 @@ class HyperSchedulerFeedbackAlternave():
             self.writer = SummaryWriter(comment=os.environ.get('SLURM_JOB_ID', ''))
         self.coeff_ma = trainer.aconf.coeff_ma
         self.epsilon_r = False
+
+    def get_setpoint4R(self):
+        return self.set_point_controller.setpoint4R
 
     def set_setpoint(self, list_setpoint4R, setpoint4ell):
         """
@@ -104,7 +106,7 @@ class HyperSchedulerFeedbackAlternave():
         epo_reg_loss, epos_task_loss = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
         # delta_epsilon_r = epo_reg_loss - self.setpoint4R
-        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.setpoint4R)
+        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoint4R())
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
             self.delta_epsilon_r = delta_epsilon_r
@@ -126,7 +128,7 @@ class HyperSchedulerFeedbackAlternave():
         for key, val in self.mmu.items():
             self.writer.add_scalar(f'mmu/{key}', val, miter)
 
-        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.setpoint4R)):
+        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoint4R())):
             self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
             self.writer.add_scalar(f'reg/setpoint{i}', reg_set, miter)
 
@@ -172,8 +174,8 @@ class HyperSchedulerFeedbackAlternave():
         # NOTE: allow multipler be bigger than 1
         return {key: val*dict_multiplier[key] for key, val in dict_base.items()}
 
-    def update_setpoint(self, epo_reg_loss):
+    def update_setpoint(self, epo_reg_loss, epo_task_loss):
         """
         FIXME: setpoint should also be able to be eliviated
         """
-        self.set_point_controller.observe(epo_reg_loss)
+        self.set_point_controller.observe(epo_reg_loss, epo_task_loss)

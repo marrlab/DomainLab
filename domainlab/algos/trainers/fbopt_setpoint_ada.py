@@ -70,10 +70,15 @@ class FbOptSetpointController():
             logger.info("!!!!!set point updated to {self.setpoint4R}!")
 
 
-class FbOptSetpointControllerState(FbOptSetpointController):
+class FbOptSetpointControllerState():
     """
     abstract state pattern
     """
+    def __init__(self):
+        """
+        """
+        self.host = None
+
     def accept(self, controller):
         """
         set host for state

@@ -179,7 +179,7 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-            self.hyper_scheduler.update_setpoint(epo_reg_loss)
+            self.hyper_scheduler.update_setpoint(epo_reg_loss, epo_task_loss)
                 #if self.aconf.myoptic_pareto:
                 #    self.hyper_scheduler.update_anchor(dict_par)
         flag_early_stop_observer = self.observer.update(epoch)
