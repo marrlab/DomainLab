@@ -127,7 +127,7 @@ Furthermore, the user can declare:
 - `endseed`: creates reproducible results (mandatory)
 - `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
 - `commonHyperpars2sample`: an optional list including the shared hyperparameters with respective sampling distribution 
-(mandatory if Shared parameters should be used) and in case of random sampling `num_shared_param_samples` 
+(mandatory if shared parameters should be used) and in case of random sampling `num_shared_param_samples` 
 (number of samples for the shared hyperparameters, mandatory for random sampling) 
 
 Depending on which hyperparameter sampling technique is used (see section below), the user must also
