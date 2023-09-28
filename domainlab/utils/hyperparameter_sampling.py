@@ -411,10 +411,10 @@ def sample_hyperparameters(config: dict,
 
     num_samples = config['num_param_samples']
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
-    shared_config_full = config['Shared params']
+    shared_config_full = config['commonHyperpars2sample']
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
-    if 'Shared params' in config.keys():
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+    if 'commonHyperpars2sample' in config.keys():
+        shared_val = {'aname': 'all', 'hyperparameters':  config['commonHyperpars2sample']}
         # fill up the dataframe shared samples
         shared_samples_full = sample_task(shared_config_full['num_shared_param_samples'],
                                           'all', (shared_val, shared_samples_full), (None, None))
