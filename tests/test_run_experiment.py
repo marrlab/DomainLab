@@ -15,7 +15,6 @@ def test_run_experiment():
         config = yaml.load(stream)
     if torch.cuda.is_available():
         torch.cuda.init()
-    #config['epos'] = 1
     config['startseed'] = 1
     config['endseed'] = 1
     config['test_domains'] = ['caltech']
