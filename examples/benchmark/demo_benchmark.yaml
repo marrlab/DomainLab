@@ -32,7 +32,7 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   tpath: examples/tasks/task_vlcs.py  # dataset
-  epos: 1e0
+  epos: 2
   bs: 2
 
 # Each node containing the aname property is considered as a task.
