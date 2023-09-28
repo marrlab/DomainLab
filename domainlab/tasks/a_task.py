@@ -24,7 +24,6 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._args = None
         self.dict_dset_all = {}  # persist
         self.dict_dset_tr = {}  # versatile variable: which domains to use as training
-        self.dict_loader_tr = {}
         self.dict_dset_te = {}  # versatile
         self.dict_dset_val = {}  # versatile
         self.dict_domain_class_count = {}
