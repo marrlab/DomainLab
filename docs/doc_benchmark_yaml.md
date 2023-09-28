@@ -85,7 +85,7 @@ domainlab_args:
 ###################################################################################
 # Hyperparameters which appear in multiple tasks can e shared among these tasks.
 # Hence for each task the same random sampled hyperparameters are used
-Shared params:
+commonHyperpars2sample:
     #### For random sampling #####
     # number of shared samples to be created. 
     # The sampling procedure creates a set of randomly sampled shared samples,
@@ -155,7 +155,7 @@ Task_Dann:
 
 There are two possible ways of choosing your hyperparameters for the benchmark in domainlab, rand sampling and grid search. The decision about which method to use was already done in the previous section be either setting `num_param_samples` (for random sampling) or `mode: grid` (for gridsearch).
 
-For filling in the sampling description for the into the `Shared params` and the `hyperparameter` section you have the following options:
+For filling in the sampling description for the into the `commonHyperpars2sample` and the `hyperparameter` section you have the following options:
 
 ### uniform and loguniform distribution
 1. uniform samples in the interval [min, max]
@@ -252,7 +252,7 @@ Task_Name:
     aname: ...   
     ...
 
-    # specify sections from the Shared params section 
+    # specify sections from the commonHyperpars2sample section 
     shared:
         - ...
     # specify task specific hyperparameter sampling
@@ -283,7 +283,7 @@ Task_Name:
     aname: ...   
     ...
 
-    # specify sections from the Shared params section 
+    # specify sections from the commonHyperpars2sample section 
     shared:
         - ...
     # add the constraints as a standalone section to the task
