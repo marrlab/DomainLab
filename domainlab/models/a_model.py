@@ -6,13 +6,6 @@ import abc
 
 from torch import nn
 
-try:
-    from backpack import extend
-except:
-    backpack = None
-
-
-
 
 class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
@@ -65,4 +58,3 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param d:
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
-
