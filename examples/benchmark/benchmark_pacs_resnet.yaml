@@ -30,7 +30,7 @@ domainlab_args:
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   san_check: True
 
-Shared params:
+commonHyperpars2sample:
   num_shared_param_samples: 8
   gamma_y:
     min: 1e4

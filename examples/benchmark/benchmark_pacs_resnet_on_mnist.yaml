@@ -32,7 +32,7 @@ domainlab_args:
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: True
 
-Shared params:
+commonHyperpars2sample:
   num_shared_param_samples: 8
 
   lr:

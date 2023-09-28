@@ -332,8 +332,8 @@ def sample_gridsearch(config: dict,
     samples = pd.DataFrame(columns=['task', 'algo', 'params'])
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
 
-    if 'Shared params' in config.keys():
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+    if 'commonHyperpars2sample' in config.keys():
+        shared_val = {'aname': 'all', 'hyperparameters':  config['commonHyperpars2sample']}
         # fill up the dataframe shared samples
         shared_samples_full = grid_task(shared_samples_full, 'all', shared_val, None)
     else:

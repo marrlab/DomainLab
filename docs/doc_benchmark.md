@@ -126,8 +126,8 @@ Furthermore, the user can declare:
 - `startseed`: creates reproducible results (mandatory)
 - `endseed`: creates reproducible results (mandatory)
 - `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
-- `Shared params`: an optional list including the shared hyperparameters with respective sampling distribution 
-(mandatory if Shared params should be used) and in case of random sampling `num_shared_param_samples` 
+- `commonHyperpars2sample`: an optional list including the shared hyperparameters with respective sampling distribution 
+(mandatory if shared parameters should be used) and in case of random sampling `num_shared_param_samples` 
 (number of samples for the shared hyperparameters, mandatory for random sampling) 
 
 Depending on which hyperparameter sampling technique is used (see section below), the user must also
@@ -140,7 +140,7 @@ respect/declare the following:
   - `step`: "step-size" (float) between samples. Only points being a multiple of the step-size apart
   can be sampled. `0` means that each real number can be sampled.
   - `num_shared_param_samples`: number of samples for the shared hyperparameters. Must be defined 
-  inside the Shared params section (if this section is used)
+  inside the commonHyperpars2sample section (if this section is used)
 - grid search hyperparameter sampling (`mode`:`grid`):
   - `num`: number of hyperparameters to be sampled (int) must be specified for each hyperparameter
   (mandatory)

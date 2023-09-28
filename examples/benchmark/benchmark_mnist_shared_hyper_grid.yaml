@@ -10,7 +10,7 @@ startseed: 0
 endseed: 2  # currently included
 
 
-Shared params:
+commonHyperpars2sample:
   zy_dim:
     min: 32
     max: 96

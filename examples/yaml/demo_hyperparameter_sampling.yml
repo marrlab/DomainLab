@@ -3,7 +3,7 @@ output_dir: "zoutput/benchmarks/hyperparameter_test"
 num_param_samples: 30
 
 
-Shared params:
+commonHyperpars2sample:
   num_shared_param_samples: 5
   p1_shared:
     distribution: uniform
