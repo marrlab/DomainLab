@@ -65,6 +65,13 @@ class HyperSchedulerFeedbackAlternave():
         self.coeff_ma = trainer.aconf.coeff_ma
         self.epsilon_r = False
 
+    def set_setpoint(self, list_setpoint4R, setpoint4ell):
+        """
+        set the setpoint
+        """
+        self.set_point_controller.setpoint4R = list_setpoint4R
+        self.set_point_controller.setpoint4ell = setpoint4ell
+
     def update_anchor(self, dict_par):
         """
         update the last ensured value of theta^{(k)}

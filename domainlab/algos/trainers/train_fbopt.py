@@ -56,9 +56,9 @@ class TrainerFbOpt(AbstractTrainer):
             copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
 
-        epo_reg_loss, _ = self.eval_r_loss()
-        self.hyper_scheduler.setpoint4R = \
-             [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss]
+        epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        self.hyper_scheduler.set_setpoint(
+            [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss], epo_task_loss)
 
     def opt_theta(self, dict4mu, dict_theta0):
         """

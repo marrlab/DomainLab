@@ -34,8 +34,9 @@ class FbOptSetpointController():
         self.transition_to(state)
         self.ma_epo_reg_loss = None
         self.state_epo_reg_loss = None
-        self.coeff_ma = None
+        self.coeff_ma = 0.5  # FIXME
         self.state_task_loss = None
+        # initial value will be set via trainer
         self.setpoint4R = None
         self.setpoint4ell = None
         self.host = None
@@ -56,12 +57,13 @@ class FbOptSetpointController():
         temp_ma = temp_ma.tolist()
         self.setpoint4R = temp_ma
 
-    def observe(self, epo_reg_loss):
+    def observe(self, epo_reg_loss, epo_task_loss):
         """
         read current epo_reg_loss continuously
         FIXME: setpoint should also be able to be eliviated
         """
         self.state_epo_reg_loss = epo_reg_loss
+        self.state_task_loss = epo_task_loss
         if self.state_updater.update_setpoint():
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             self.setpoint4R = self.state_epo_reg_loss
@@ -115,6 +117,8 @@ class DominateAnyComponent(FbOptSetpointControllerState):
         """
         flag1 = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
+        if flag2:
+            self.host.setpoint4ell = self.host.state_task_loss
         return flag1 & flag2
 
 
@@ -128,4 +132,6 @@ class DominateAllComponent(FbOptSetpointControllerState):
         """
         flag1 = is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R)
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
+        if flag2:
+            self.host.setpoint4ell = self.host.state_task_loss
         return flag1 & flag2
