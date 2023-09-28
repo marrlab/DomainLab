@@ -108,6 +108,7 @@ class SliderAnyComponent(FbOptSetpointControllerState):
         if any component of R has decreased regardless if ell decreases
         """
         if is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R):
+            self.host.transition_to(SliderAllComponent())
             return True
         return False
 
