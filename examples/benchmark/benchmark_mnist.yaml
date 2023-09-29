@@ -31,38 +31,53 @@ domainlab_args:
   san_check: True
 
 
+Shared params:
+  gamma_y:
+    min: 1e4
+    max: 2e5
+    step: 100
+    distribution: loguniform
+
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+
+  zd_dim:
+    reference: zy_dim
+
+  # penalty weight for matching loss (Lambda in paper)
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
+
+
+
 Task1:  # name
   aname: diva
   # set nname_dom = nname when changing nname
   nname_dom: conv_bn_pool_2
+  shared:
+    - gamma_y
+    - zx_dim
+    - zy_dim
+    - zd_dim
 
   hyperparameters:
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
-
     gamma_d:
       min: 1e4
       max: 1e6
       step: 10_000
       distribution: loguniform
 
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
 
 Task2:  # name
   aname: hduva
@@ -70,31 +85,17 @@ Task2:  # name
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
 
-  hyperparameters:
-    # Same config as diva.
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
+  shared:
+    - gamma_y
+    - zx_dim
+    - zy_dim
+    - zd_dim
 
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
 
 Task3:  # name
   aname: matchdg
+  shared:
+    - gamma_reg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -117,15 +118,11 @@ Task3:  # name
       step: 1
       distribution: uniform
 
-    # penalty weight for matching loss (Lambda in paper)
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 Task4:  # name
   aname: jigen
   grid_len: 3
+  shared: gamma_reg
 
   hyperparameters:
     # number of permutations
@@ -143,20 +140,12 @@ Task4:  # name
       max: 0.5
       distribution: uniform
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
 
 Task5:  # name
   aname: dann
+  shared:
+    - gamma_reg
 
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 Task6:  # name
   aname: deepall
@@ -164,6 +153,7 @@ Task6:  # name
 
 Task7: # name
   aname: deepall_dial
+  shared: gamma_reg
 
   hyperparameters:
     dial_steps_perturb:
@@ -182,7 +172,4 @@ Task7: # name
       max: 0.01
       distribution: loguniform
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
+

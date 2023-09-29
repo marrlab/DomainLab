@@ -35,6 +35,15 @@ domainlab_args:
   epos: 2
   bs: 2
 
+Shared params:
+  # Parameters shared by different algorithms
+  # need to be sampled only once here
+  gamma_y:
+    min: 10e4
+    max: 10e6
+    step: 1
+    distribution: loguniform
+
 # Each node containing the aname property is considered as a task.
 diva:  # name
   # Parameters that are fixed for all runs of this task.
@@ -44,6 +53,10 @@ diva:  # name
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.
+  shared:
+    # parameters which are sampled in the Shared params section
+    - gamma_y
+
   hyperparameters:
     # Each parameter must contain:
     # - distribution (uniform | loguniform | normal | lognormal)
@@ -55,31 +68,22 @@ diva:  # name
     # If min/mean and step are integer valued,
     # the hyperparameter is ensured to be integer valued too.
     # Otherwise, it is a float and rounding errors can occur.
-    gamma_y:
-      min: 10e4
-      max: 10e6
-      step: 1
-      distribution: loguniform
-
     gamma_d:
       min: 1e4
       max: 1e6
       step: 1
       distribution: loguniform
 
+
 hduva:  # name
   aname: hduva
   npath: examples/nets/resnet.py
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  shared:
+    - gamma_y
 
   hyperparameters:
-    gamma_y:
-      min: 7e4
-      max: 7e6
-      step: 1
-      distribution: loguniform
-
     zy_dim:
       min: 32
       max: 128
@@ -90,6 +94,7 @@ hduva:  # name
 deep_all:
   aname: deepall
   nname: alexnet
+
 
 # set constant hyper-parameters
 mldg:

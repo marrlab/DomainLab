@@ -28,39 +28,53 @@ domainlab_args:
   npath: examples/nets/resnet50domainbed.py
   san_check: True
 
+Shared params:
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+
+  zd_dim:
+    reference: zy_dim
+
+  gamma_y:
+    min: 1e4
+    max: 2e5
+    step: 100
+    distribution: loguniform
+
+  # penalty weight for matching loss (Lambda in paper)
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
+
 
 diva:  # name
   aname: diva
   # set nname_dom = nname when changing nname
   npath_dom: examples/nets/resnet50domainbed.py
+  shared:
+    - zx_dim
+    - zy_dim
+    - zd_dim
+    - gamma_y
 
   hyperparameters:
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
-
     gamma_d:
       min: 1e4
       max: 1e6
       step: 10_000
       distribution: loguniform
 
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
 
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
 
 hduva:  # name
   aname: hduva
@@ -68,31 +82,17 @@ hduva:  # name
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
 
-  hyperparameters:
-    # Same config as diva.
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
+  shared:
+    - zx_dim
+    - zy_dim
+    - zd_dim
+    - gamma_y
 
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
 
 matchdg:  # name
   aname: matchdg
+  shared:
+    - gamma_reg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -115,15 +115,12 @@ matchdg:  # name
       step: 1
       distribution: uniform
 
-    # penalty weight for matching loss (Lambda in paper)
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 jigen:  # name
   aname: jigen
   grid_len: 3
+  shared:
+    - gamma_reg
 
   hyperparameters:
     # number of permutations
@@ -141,20 +138,12 @@ jigen:  # name
       max: 0.5
       distribution: uniform
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
 
 dann:  # name
   aname: dann
+  shared:
+    - gamma_reg
 
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 erm:  # name
   aname: deepall
@@ -162,6 +151,8 @@ erm:  # name
 
 dial: # name
   aname: deepall_dial
+  shared:
+    - gamma_reg
 
   hyperparameters:
     dial_steps_perturb:
@@ -180,16 +171,9 @@ dial: # name
       max: 0.01
       distribution: loguniform
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 mldg:  # name
   aname: deepallmldg
+  shared:
+    - gamma_reg
 
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
