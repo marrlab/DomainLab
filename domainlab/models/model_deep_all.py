@@ -1,10 +1,3 @@
-
-try:
-    from backpack import extend
-except:
-    backpack = None
-
-
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 
@@ -59,9 +52,4 @@ def mk_deepall(parent_class=AModelClassif):
             lc_y = self.cal_task_loss(tensor_x, tensor_y)
             return lc_y
 
-        def convert4backpack(self):
-            """
-            convert the module to backpack for 2nd order gradients
-            """
-            self.net = extend(self.net, use_converter=True)
     return ModelDeepAll
