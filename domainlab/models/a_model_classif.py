@@ -24,6 +24,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     match_feat_fun_na = "cal_logit_y"
 
+    @property
+    def metric4msel(self):
+        return "acc"
+
     def create_perf_obj(self, task):
         """
         for classification, dimension of target can be quieried from task
