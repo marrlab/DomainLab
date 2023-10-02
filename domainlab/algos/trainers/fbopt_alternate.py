@@ -60,7 +60,7 @@ class HyperSchedulerFeedbackAlternave():
         if trainer.aconf.no_tensorboard:
             self.writer = StubSummaryWriter()
         else:
-            self.writer = SummaryWriter(comment=os.environ.get('SLURM_JOB_ID', ''))
+            self.writer = SummaryWriter(log_dir="zoutput/runs", comment=os.environ.get('SLURM_JOB_ID', ''))
         self.coeff_ma = trainer.aconf.coeff_ma
         self.epsilon_r = False
 
