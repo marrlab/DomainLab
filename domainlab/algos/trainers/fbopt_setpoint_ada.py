@@ -33,7 +33,7 @@ class FbOptSetpointController():
             if args is not None and args.no_setpoint_update:
                 state = FixedSetpoint()
             else:
-                state = SliderAnyComponent()
+                state = DominateAnyComponent()
         self.transition_to(state)
         self.ma_epo_reg_loss = None
         self.state_epo_reg_loss = None
