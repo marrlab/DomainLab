@@ -52,3 +52,12 @@ jigen_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - es
+
+dann_fbopt:
+  aname: dann
+  trainer: fbopt
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+    - es
