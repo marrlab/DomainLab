@@ -56,9 +56,9 @@ class TrainerFbOpt(AbstractTrainer):
             copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
 
-        epo_reg_loss, _ = self.eval_r_loss()
-        self.hyper_scheduler.setpoint4R = \
-             [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss]
+        epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        self.hyper_scheduler.set_setpoint(
+            [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss], epo_task_loss)
 
     def opt_theta(self, dict4mu, dict_theta0):
         """
@@ -137,9 +137,6 @@ class TrainerFbOpt(AbstractTrainer):
                 self.epo_loss_tr = epo_reg_loss
             elif self.aconf.msel_tr_loss =="task":
                 self.epo_loss_tr = epo_task_loss
-            elif self.aconf.msel_tr_loss == "p_loss":
-                epo_p_loss = self.eval_p_loss()
-                self.epo_loss_tr = epo_p_loss
             else:
                 raise RuntimeError("msel_tr_loss set to be the wrong value")
         elif self.aconf.msel == "last" or self.aconf.msel == "val":
@@ -179,7 +176,7 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-            self.hyper_scheduler.update_setpoint(epo_reg_loss)
+            self.hyper_scheduler.update_setpoint(epo_reg_loss, epo_task_loss)
                 #if self.aconf.myoptic_pareto:
                 #    self.hyper_scheduler.update_anchor(dict_par)
         flag_early_stop_observer = self.observer.update(epoch)
