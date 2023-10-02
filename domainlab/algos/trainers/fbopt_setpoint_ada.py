@@ -70,7 +70,7 @@ class FbOptSetpointController():
         if self.state_updater.update_setpoint():
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             self.setpoint4R = self.state_epo_reg_loss
-            logger.info("!!!!!set point updated to {self.setpoint4R}!")
+            logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
 
 
 class FbOptSetpointControllerState():
