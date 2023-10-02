@@ -51,7 +51,7 @@ class HyperSchedulerFeedbackAlternave():
         self.count_found_operator = 0
         self.count_search_mu = 0
         ########################################
-        self.set_point_controller = FbOptSetpointController()
+        self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
         self.k_i_control = trainer.aconf.k_i_gain
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
         # NOTE: this value will be set according to initial evaluation of neural network

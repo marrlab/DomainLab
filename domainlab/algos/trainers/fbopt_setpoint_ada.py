@@ -25,12 +25,15 @@ class FbOptSetpointController():
     """
     update setpoint for mu
     """
-    def __init__(self, state=None):
+    def __init__(self, state=None, args=None):
         """
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
         if state is None:
-            state = SliderAnyComponent()
+            if args is not None and args.no_setpoint_update:
+                state = FixedSetpoint()
+            else:
+                state = SliderAnyComponent()
         self.transition_to(state)
         self.ma_epo_reg_loss = None
         self.state_epo_reg_loss = None
@@ -84,6 +87,11 @@ class FbOptSetpointControllerState():
         set host for state
         """
         self.host = controller
+
+
+class FixedSetpoint(FbOptSetpointControllerState):
+    def update_setpoint(self):
+        return False
 
 
 class SliderAllComponent(FbOptSetpointControllerState):
