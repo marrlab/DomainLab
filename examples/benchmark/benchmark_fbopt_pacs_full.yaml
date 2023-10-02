@@ -5,7 +5,7 @@ output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
 sampling_seed: 0
 
 startseed: 0
-endseed: 2
+endseed: 1
 
 test_domains:
   - sketch
@@ -15,6 +15,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
+  es: 50
   bs: 64
   san_check: True
   npath: examples/nets/resnet50domainbed.py
@@ -34,33 +35,23 @@ domainlab_args:
 Shared params:
   ini_setpoint_ratio:
     min: 0.5
-    max: 0.99
-    num: 3
-    step: 0.05
+    max: 1.0
+    num: 2
+    step: 0.01
     distribution: uniform
 
   k_i_gain:
     min: 0.0001
     max: 0.1
-    num: 3
+    num: 2
     step: 0.0001
     distribution: uniform
-
-  es:
-    distribution: categorical
-    datatype: int
-    values:
-    - 1
-    - 5
-    - 10
 
 # Test fbopt with different hyperparameter configurations
 
 jigen_fbopt:
   aname: jigen
   trainer: fbopt
-
   shared:
     - ini_setpoint_ratio
     - k_i_gain
-    - es
