@@ -32,3 +32,7 @@ class ObVisitorCleanUp(AObVisitor):
     @property
     def metric_te(self):
         return self.observer.metric_te
+
+    @property
+    def metric_val(self):
+        return self.observer.metric_val
