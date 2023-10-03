@@ -16,11 +16,11 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 3
-  es: 5
+  epos: 100
+  es: 100
   bs: 64
   nname: conv_bn_pool_2
-  san_check: True
+  san_check: False
   exp_shoulder_clip: 10
   mu_clip: 10_000
   coeff_ma: 0.5
@@ -52,12 +52,3 @@ jigen_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
-    - es
-
-dann_fbopt:
-  aname: dann
-  trainer: fbopt
-  shared:
-    - ini_setpoint_ratio
-    - k_i_gain
-    - es
