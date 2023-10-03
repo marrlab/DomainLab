@@ -30,20 +30,6 @@ class ObVisitor(AObVisitor):
         if exp is not None:
             self.set_exp(exp)
 
-    def set_exp(self, exp):
-        """
-        couple observer with exp
-        """
-        self.exp = exp
-        self.task = self.exp.task
-        self.epo_te = self.exp.args.epo_te
-        self.str_msel = self.exp.args.msel  # FIXME: consistent with self.model_sel?
-        self.keep_model = self.exp.args.keep_model
-        self.loader_te = self.task.loader_te
-        self.loader_tr = self.task.loader_tr
-        # Note loader_tr behaves/inherit different properties than loader_te
-        self.loader_val = self.task.loader_val
-
     @property
     def str_metric4msel(self):
         """
