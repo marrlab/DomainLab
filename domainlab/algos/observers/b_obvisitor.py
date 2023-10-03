@@ -43,7 +43,7 @@ class ObVisitor(AObVisitor):
         if epoch % self.epo_te == 0:
             logger.debug("---- Training Domain: ")
             self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
-            if self.loader_val is not None and self.str_msel == "val":
+            if self.loader_val is not None:
                 logger.debug("---- Validation: ")
                 self.metric_val = self.host_trainer.model.cal_perf_metric(
                     self.loader_val, self.device)
