@@ -36,6 +36,13 @@ class ObVisitor(AObVisitor):
         self.keep_model = self.exp.args.keep_model
         self.perf_metric = None
 
+    @property
+    def str_metric4msel(self):
+        """
+        string representing the metric used for persisting models on the disk
+        """
+        return self.host_trainer.str_metric4msel
+
     def update(self, epoch):
         logger = Logger.get_logger()
         logger.info(f"epoch: {epoch}")
