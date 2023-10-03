@@ -14,6 +14,8 @@ from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlter
 from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
 
+def list_divide(list_val, scalar):
+    return [ele/scalar for ele in list_val]
 
 class HyperSetter():
     """
@@ -86,6 +88,7 @@ class TrainerFbOpt(AbstractTrainer):
         temp_model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
         temp_model.set_params(dict_theta)
         epo_p_loss = 0  # penalized loss
+        counter = 0.0
         with torch.no_grad():
             for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
@@ -93,7 +96,8 @@ class TrainerFbOpt(AbstractTrainer):
                 # sum will kill the dimension of the mini batch
                 b_p_loss = temp_model.cal_loss(tensor_x, vec_y, vec_d).sum()
                 epo_p_loss += b_p_loss
-        return epo_p_loss
+                counter += 1.0
+        return epo_p_loss/counter
 
     def eval_r_loss(self):
         """
@@ -106,6 +110,7 @@ class TrainerFbOpt(AbstractTrainer):
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = []
         epo_task_loss = 0
+        counter = 0.0
         with torch.no_grad():
             for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
@@ -123,7 +128,8 @@ class TrainerFbOpt(AbstractTrainer):
                 b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y).sum()
                 # sum will kill the dimension of the mini batch
                 epo_task_loss += b_task_loss
-        return epo_reg_loss, epo_task_loss
+                counter += 1.0
+        return list_divide(epo_reg_loss, counter), epo_task_loss/counter
 
     def tr_epoch(self, epoch):
         """
