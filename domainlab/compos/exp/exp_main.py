@@ -18,7 +18,7 @@ class Exp():
     """
     Exp is combination of Task, Algorithm, and Configuration (including random seed)
     """
-    def __init__(self, args, task=None, model=None, visitor=AggWriter):
+    def __init__(self, args, task=None, model=None, observer=None, visitor=AggWriter):
         """
         :param args:
         :param task: default None
@@ -36,14 +36,17 @@ class Exp():
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
         self.task.init_business(node_algo_builder=algo_builder, args=args)
-        # jigen algorithm builder has method dset_decoration_args_algo, which could AOP 
+        # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
-        self.trainer, self.model, observer, device = algo_builder.init_business(self)
+        self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
         if model is not None:
             self.model = model
         self.visitor = visitor(self)  # visitor depends on task initialization first
         self.epochs = self.args.epos
         self.epoch_counter = 1
+        if observer is None:
+            observer = observer_default
+        observer.set_exp(self)
         if not self.trainer.flag_initialized:
             # for matchdg
             self.trainer.init_business(self.model, self.task, observer, device, args)

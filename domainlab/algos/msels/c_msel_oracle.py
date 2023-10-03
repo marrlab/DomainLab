@@ -44,8 +44,11 @@ class MSelOracleVisitor(AMSel):
         oracle model selection does not intervene how models get selected
         by the innermost model selection
         """
-        return self.msel.if_stop()
+        if self.msel is not None:
+            return self.msel.if_stop()
+        return False
 
     def accept(self, trainer, tr_obs):
-        self.msel.accept(trainer, tr_obs)
+        if self.msel is not None:
+            self.msel.accept(trainer, tr_obs)
         super().accept(trainer, tr_obs)
