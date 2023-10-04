@@ -16,7 +16,7 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 100
+  epos: 500
   es: 100
   bs: 64
   nname: conv_bn_pool_2
@@ -30,9 +30,9 @@ domainlab_args:
 
 Shared params:
   ini_setpoint_ratio:
-    min: 0.5
+    min: 0.9
     max: 0.99
-    num: 5
+    num: 3
     step: 0.05
     distribution: uniform
 
@@ -41,6 +41,13 @@ Shared params:
     max: 0.01
     num: 2
     step: 0.0001
+    distribution: uniform
+
+  init_mu4beta:
+    min: 0.5
+    max: 1.0
+    num: 3
+    step: 0.1
     distribution: uniform
 
 # Test fbopt with different hyperparameter configurations
@@ -52,3 +59,7 @@ jigen_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - init_mu4beta
+
+erm:
+  aname: deepall
