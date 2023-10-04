@@ -41,8 +41,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 metric = self.perf_metric.cal_metrics(self, loader, device)
                 confmat = metric.pop("confmat")
                 logger = Logger.get_logger()
-                logger.debug("scalar performance:")
-                logger.debug(str(metric))
+                logger.info("scalar performance:")
+                logger.info(str(metric))
                 logger.debug("confusion matrix:")
                 logger.debug(pd.DataFrame(confmat))
                 metric["confmat"] = confmat
