@@ -50,10 +50,12 @@ class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
         number of total_steps
         :param epoch:
         """
-        ratio = ((epoch+1) * 1.) / self.total_steps
-        denominator = 1. + np.exp(-10 * ratio)
-        # ratio is 0, denom is 2, 2/denom is 1, return is 0
-        # ratio is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, return is 1
+        percent_steps = ((epoch+1) * 1.) / self.total_steps
+        denominator = 1. + np.exp(-10 * percent_steps)
+        ratio = (2. / denominator - 1)
+        # percent_steps is 0, denom is 2, 2/denom is 1, ratio is 0
+        # percent_steps is 1, denom is 1+exp(-10), 2/denom is 2/(1+exp(-10))=2, ratio is 1
         # exp(-10)=4.5e-5 is approximately 0
         # slowly increase the regularization weight from 0 to 1*alpha as epochs goes on
-        return float((2. / denominator - 1) * par_setpoint)
+        parval = float(ratio * par_setpoint)
+        return parval
