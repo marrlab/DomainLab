@@ -31,14 +31,14 @@ class HyperSchedulerFeedbackAlternave():
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
         self.trainer = trainer
+        self.init_mu = trainer.aconf.init_mu4beta
         self.mmu = kwargs
-        self.mmu = {key: 1.0 for key, val in self.mmu.items()}   # FIXME: change this from user configuration
+        self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
         self.ploss_old_theta_old_mu = None
         self.ploss_old_theta_new_mu = None
         self.ploss_new_theta_old_mu = None
         self.ploss_new_theta_new_mu = None
         self.delta_mu = trainer.aconf.delta_mu
-        self.init_mu = trainer.aconf.init_mu4beta
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta_bar = None
