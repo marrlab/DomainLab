@@ -29,7 +29,7 @@ class TrainerHyperScheduler(TrainerBasic):
         self.flag_update_hyper_per_batch = flag_update_batch
         self.hyper_scheduler.set_steps(total_steps=total_steps)
 
-    def after_batch(self, epoch, ind_batch):
+    def before_batch(self, epoch, ind_batch):
         """
         if hyper-parameters should be updated per batch, then step
         should be set to epoch*self.num_batches + ind_batch
