@@ -93,6 +93,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         raise NotImplementedError
 
+    def before_batch(self, epoch, ind_batch):
+        """
+        :param epoch:
+        :param ind_batch:
+        """
+        return
+
     def after_batch(self, epoch, ind_batch):
         """
         :param epoch:

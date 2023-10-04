@@ -45,11 +45,4 @@ def mk_deepall(parent_class=AModelClassif):
             logit_y = self.net(tensor_x)
             return logit_y
 
-        def forward(self, tensor_x, tensor_y, tensor_d, others=None):
-            return self.cal_loss(tensor_x, tensor_y, tensor_d)
-
-        def cal_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-            lc_y = self.cal_task_loss(tensor_x, tensor_y)
-            return lc_y
-
     return ModelDeepAll

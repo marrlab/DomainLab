@@ -21,7 +21,8 @@ class WrapDsetPatches(torchdata.Dataset):
                  ppath=None,
                  flag_do_not_weave_tiles=False):
         """
-        :param prob_no_perm: probability of no permutation
+        :param prob_no_perm: probability of no permutation: permutation will change the image, so
+        the class label classifier will behave very differently compared to no permutation
         """
         if ppath is None and grid_len != 3:
             raise RuntimeError("please provide npy file of numpy array with each row \
@@ -92,13 +93,17 @@ class WrapDsetPatches(torchdata.Dataset):
         # from self.arr1perm_per_row which is a matrix of 31*9
         # where 9=3*3 is the number of tiles the image is broken into
         if self.prob_no_perm:  # probability of no permutation of tiles
+            # note that this "if" block is not redundant: permutation will change the image
+            # thus change the behavior of the class label classifier, if self.prob_no_perm=1.0
+            # then the algorithm will behave similarly to deepall, though not completely same
+            # FIXME: what hyperparameters one could set to let jigen=deepall?
             if self.prob_no_perm > np.random.rand():
                 ind_which_perm = 0
         # ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
         list_reordered_tiles = None
         if ind_which_perm == 0:
-            list_reordered_tiles = list_tiles  # no permutation
+            list_reordered_tiles = list_tiles  # no permutation of images
         else:   # default
             perm_chosen = self.arr1perm_per_row[ind_which_perm - 1]
             list_reordered_tiles = [list_tiles[perm_chosen[ind_tile]]

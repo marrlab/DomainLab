@@ -31,7 +31,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         loss_reg = self.inner_product(list_loss, list_multiplier)
-        return self.multiplier4task_loss * self.cal_task_loss(tensor_x, tensor_y) + loss_reg
+        loss_task = self.multiplier4task_loss * self.cal_task_loss(tensor_x, tensor_y)
+        return loss_task + loss_reg
 
     def inner_product(self, list_loss_scalar, list_multiplier):
         """

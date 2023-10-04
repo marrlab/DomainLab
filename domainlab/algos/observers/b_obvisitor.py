@@ -42,14 +42,14 @@ class ObVisitor(AObVisitor):
         logger.info(f"epoch: {epoch}")
         self.epo = epoch
         if epoch % self.epo_te == 0:
-            logger.debug("---- Training Domain: ")
+            logger.info("---- Training Domain: ")
             self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
             if self.loader_val is not None:
-                logger.debug("---- Validation: ")
+                logger.info("---- Validation: ")
                 self.metric_val = self.host_trainer.model.cal_perf_metric(
                     self.loader_val, self.device)
             if self.loader_te is not None:
-                logger.debug("---- Test Domain (oracle): ")
+                logger.info("---- Test Domain (oracle): ")
                 metric_te = self.host_trainer.model.cal_perf_metric(self.loader_te, self.device)
                 self.metric_te = metric_te
         if self.model_sel.update():
