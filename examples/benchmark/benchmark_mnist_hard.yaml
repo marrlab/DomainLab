@@ -4,7 +4,7 @@ test_domains:
   - 1
   - 2
 
-output_dir: zoutput/benchmarks/pacs_benchmark_reproduce
+output_dir: zoutput/benchmarks/mnist_hard
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
