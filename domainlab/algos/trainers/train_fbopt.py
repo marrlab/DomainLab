@@ -9,6 +9,8 @@ import torch
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.algos.trainers.train_basic_clip import TrainerBasicClip
+
 from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
 from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
 from domainlab.algos.msels.c_msel_bang import MSelBang
@@ -52,7 +54,7 @@ class TrainerFbOpt(AbstractTrainer):
         # self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
         self.model.evaluate(self.loader_te, self.device)
-        self.inner_trainer = TrainerBasic()  # look ahead
+        self.inner_trainer = TrainerBasicClip()  # look ahead
         # here we need a mechanism to generate deep copy of the model
         self.inner_trainer.init_business(
             copy.deepcopy(self.model), self.task, self.observer, self.device, self.aconf,
