@@ -34,6 +34,13 @@ domainlab_args:
 
 
 Shared params:
+  init_mu4beta:
+    min: 0.5
+    max: 0.99
+    num: 3
+    step: 0.01
+    distribution: uniform
+
   ini_setpoint_ratio:
     min: 0.9
     max: 1.0
@@ -44,7 +51,7 @@ Shared params:
   k_i_gain:
     min: 0.0005
     max: 0.005
-    num: 3
+    num: 2
     step: 0.0005
     distribution: uniform
 
@@ -56,3 +63,4 @@ jigen_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - init_mu4beta
