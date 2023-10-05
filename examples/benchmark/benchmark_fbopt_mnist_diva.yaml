@@ -20,7 +20,10 @@ domainlab_args:
   es: 100
   bs: 64
   zx_dim: 0
+  zy_dim: 32
+  zd_dim: 32
   gamma_d: 1.0
+  gamma_y: 1.0
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
   nname_topic_distrib_img2topic: conv_bn_pool_2
@@ -38,44 +41,19 @@ Shared params:
     min: 0.9
     max: 0.99
     num: 3
-    step: 0.05
     distribution: uniform
 
   k_i_gain:
     min: 0.0001
     max: 0.01
     num: 2
-    step: 0.0001
-    distribution: uniform
-
-  init_mu4beta:
-    min: 0.01
-    max: 1.0
-    num: 5
-    distribution: uniform
-
-  gamma_y:
-    min: 1
-    max: 1e6
-    num: 3
-    step: 100
     distribution: loguniform
 
-  zy_dim:
-    min: 32
-    max: 96
-    num: 2
-    step: 32
-    distribution: uniform
-    datatype: int
-
-  zd_dim:
-    min: 32
-    max: 96
-    num: 2
-    step: 32
-    distribution: uniform
-    datatype: int
+  init_mu4beta:
+    min: 0.0001
+    max: 1.0
+    num: 5
+    distribution: loguniform
 
 
 
@@ -89,10 +67,6 @@ diva_fbopt:
     - ini_setpoint_ratio
     - k_i_gain
     - init_mu4beta
-    - gamma_y
-    - zx_dim
-    - zy_dim
-    - zd_dim
 
 erm:
   aname: deepall

@@ -90,6 +90,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             self.beta_y = dict_rst["beta_y"]
             self.beta_x = dict_rst["beta_x"]
             self.gamma_d = dict_rst["gamma_d"]
+            self.mu_recon = dict_rst["mu_recon"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
