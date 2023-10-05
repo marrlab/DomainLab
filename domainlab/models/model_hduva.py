@@ -68,6 +68,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             self.beta_y = dict_rst["beta_y"]
             self.beta_x = dict_rst["beta_x"]
             self.beta_t = dict_rst["beta_t"]
+            self.mu_recon = dict_rst["mu_recon"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """hyper_init.
@@ -78,8 +79,10 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # constructor signature is def __init__(self, **kwargs):
             return functor_scheduler(
                 trainer=trainer,
-                mu_recon=self.multiplier_recon,
-                beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x,
+                mu_recon=self.mu_recon,
+                beta_d=self.beta_d,
+                beta_y=self.beta_y,
+                beta_x=self.beta_x,
                 beta_t=self.beta_t)
 
         @store_args
@@ -92,7 +95,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
                      device,
                      zx_dim=0,
                      topic_dim=3,
-                     multiplier_recon=1.0):
+                     mu_recon=1.0):
             """
             """
             super().__init__(chain_node_builder,
@@ -165,7 +168,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
             return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
-                [self.multiplier_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
+                [self.mu_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
         def extract_semantic_features(self, tensor_x):
             """
