@@ -61,7 +61,7 @@ def mk_diva(parent_class=VAEXYDClassif):
                      zd_dim, zy_dim, zx_dim,
                      list_str_y, list_d_tr,
                      gamma_d, gamma_y,
-                     beta_d, beta_x, beta_y, multiplier_recon=1.0):
+                     beta_d, beta_x, beta_y, mu_recon=1.0):
             """
             gamma: classification loss coefficient
             """
@@ -90,6 +90,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             self.beta_y = dict_rst["beta_y"]
             self.beta_x = dict_rst["beta_x"]
             self.gamma_d = dict_rst["gamma_d"]
+            self.mu_recon = dict_rst["mu_recon"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -99,7 +100,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             return functor_scheduler(
                 trainer=trainer,
-                mu_recon=self.multiplier_recon,
+                mu_recon=self.mu_recon,
                 beta_d=self.beta_d,
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
@@ -139,7 +140,6 @@ def mk_diva(parent_class=VAEXYDClassif):
 
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-
             return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
-                   [self.multiplier_recon, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
+                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
     return ModelDIVA
