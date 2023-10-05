@@ -27,7 +27,7 @@ domainlab_args:
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: False
   exp_shoulder_clip: 10
-  mu_clip: 10
+  mu_clip: 1000_000
   coeff_ma: 0.5
   no_tensorboard: False
 
