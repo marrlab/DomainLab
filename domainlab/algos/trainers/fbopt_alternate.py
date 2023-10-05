@@ -150,7 +150,7 @@ class HyperSchedulerFeedbackAlternave():
             acc_val = self.trainer.observer.metric_val["acc"]
         self.writer.add_scalar("acc_te", acc_te, miter)
         self.writer.add_scalar("acc_val", acc_val, miter)
-        self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
+        # self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
         return True
 
     def dict_clip(self, dict_base, clip_min=0.0001):   # FIXME: set thsi as hyperparameter
