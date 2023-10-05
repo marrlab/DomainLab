@@ -3,11 +3,11 @@ operations that all claasification model should have
 """
 
 import abc
-import numpy as np
 import math
+import numpy as np
 import pandas as pd
 import torch
-from torch import nn as nn
+from torch import nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
@@ -197,4 +197,4 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         for ERM to adapt to the interface of other regularized learners
         """
-        return [0], [0]
+        return torch.Tensor([0]), torch.Tensor([0])
