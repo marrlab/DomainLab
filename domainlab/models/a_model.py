@@ -12,6 +12,13 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     operations that all models (classification, segmentation, seq2seq)
     """
     @property
+    def metric4msel(self):
+        """
+        metric for model selection
+        """
+        raise NotImplementedError
+
+    @property
     def multiplier4task_loss(self):
         """
         the multiplier for task loss is default to 1 except for vae family models

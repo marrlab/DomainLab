@@ -15,26 +15,27 @@ class ObVisitor(AObVisitor):
     """
     Observer + Visitor pattern for model selection
     """
-    def __init__(self, exp, model_sel, device):
+    def __init__(self, model_sel, device, exp=None):
         """
         observer trainer
         """
+        super().__init__()
         self.host_trainer = None
-        self.exp = exp
         self.model_sel = model_sel
         self.device = device
-        self.task = self.exp.task
-        self.loader_te = self.task.loader_te
-        self.loader_tr = self.task.loader_tr
-        self.loader_val = self.task.loader_val
-        # Note loader_tr behaves/inherit different properties than loader_te
-        self.epo_te = self.exp.args.epo_te
-        self.str_msel = self.exp.args.msel
         self.epo = None
         self.metric_te = None
         self.metric_val = None
-        self.keep_model = self.exp.args.keep_model
         self.perf_metric = None
+        if exp is not None:
+            self.set_exp(exp)
+
+    @property
+    def str_metric4msel(self):
+        """
+        string representing the metric used for persisting models on the disk
+        """
+        return self.host_trainer.str_metric4msel
 
     def update(self, epoch):
         logger = Logger.get_logger()

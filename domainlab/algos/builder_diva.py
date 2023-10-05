@@ -50,13 +50,13 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         if not args.gen:
             observer = ObVisitorCleanUp(
-                ObVisitor(exp,
-                          model_sel,
-                          device))
+                ObVisitor(model_sel,
+                          device,
+                          exp=exp))
         else:
             observer = ObVisitorCleanUp(
-                ObVisitorGen(exp,
-                             model_sel,
-                             device))
+                ObVisitorGen(model_sel,
+                             device,
+                             exp=exp))
         trainer = self.get_trainer(args)
         return trainer, model, observer, device
