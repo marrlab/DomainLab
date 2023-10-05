@@ -55,6 +55,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         # fbopt
         self.mu_iter_start = 0
 
+    @property
+    def str_metric4msel(self):
+        """
+        metric for model selection
+        """
+        return self.model.metric4msel
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """

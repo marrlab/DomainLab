@@ -6,6 +6,7 @@ class ObVisitorCleanUp(AObVisitor):
     decorator of observer
     """
     def __init__(self, observer):
+        super().__init__()
         self.observer = observer
 
     def after_all(self):

@@ -21,10 +21,10 @@ class MSelValPerf(MSelTrLoss):
         flag = True
         if self.tr_obs.metric_val is None or self.tr_obs.str_msel == "loss_tr":
             return super().update()
-        if self.tr_obs.metric_val["acc"] > self.best_val_acc:  # observer
+        metric = self.tr_obs.metric_val[self.tr_obs.str_metric4msel]
+        if metric > self.best_val_acc:  # observer
             # different from loss, accuracy should be improved: the bigger the better
-            self.best_val_acc = self.tr_obs.metric_val["acc"]
-            # FIXME: only works for classification
+            self.best_val_acc = metric
             self.es_c = 0  # restore counter
 
         else:

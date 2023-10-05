@@ -34,7 +34,7 @@ def test_trainer_diva():
     model_sel = MSelOracleVisitor(MSelTrLoss(max_es=margs.es))
     exp = Exp(margs)
     device = get_device(margs)
-    observer = ObVisitorCleanUp(ObVisitor(exp, model_sel, device))
+    observer = ObVisitorCleanUp(ObVisitor(model_sel, device, exp=exp))
     trainer = TrainerHyperScheduler()
     trainer.init_business(model, task=exp.task, observer=observer, device=device, aconf=margs)
     trainer.before_tr()

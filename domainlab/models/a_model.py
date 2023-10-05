@@ -21,6 +21,13 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         self.load_state_dict(dict_params, strict=False)
         
     @property
+    def metric4msel(self):
+        """
+        metric for model selection
+        """
+        raise NotImplementedError
+
+    @property
     def multiplier4task_loss(self):
         """
         the multiplier for task loss is default to 1 except for vae family models

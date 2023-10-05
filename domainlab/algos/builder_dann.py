@@ -27,7 +27,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args)
         msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(exp, msel, device)
+        observer = ObVisitor(msel, device, exp=exp)
         observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
