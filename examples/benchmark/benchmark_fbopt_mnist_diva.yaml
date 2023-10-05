@@ -7,7 +7,6 @@ startseed: 0
 endseed: 2
 
 test_domains:
-  - 3
   - 0
 
 
@@ -17,7 +16,7 @@ domainlab_args:
   dmem: False
   lr: 0.001
   epos: 500
-  es: 100
+  es: 5
   bs: 64
   zx_dim: 0
   zy_dim: 32
