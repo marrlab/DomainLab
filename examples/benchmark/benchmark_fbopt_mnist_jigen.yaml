@@ -7,7 +7,6 @@ startseed: 0
 endseed: 2
 
 test_domains:
-  - 3
   - 0
 
 
