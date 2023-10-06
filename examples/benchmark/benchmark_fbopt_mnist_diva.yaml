@@ -16,7 +16,7 @@ domainlab_args:
   dmem: False
   lr: 0.001
   epos: 500
-  es: 5
+  es: 50
   bs: 64
   zx_dim: 0
   zy_dim: 32
