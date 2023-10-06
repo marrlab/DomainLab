@@ -28,15 +28,13 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  init_setpoint_ratio: 0.99
-
 
 
 Shared params:
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 2
+    num: 3
     distribution: loguniform
 
   mu_init:
@@ -55,6 +53,7 @@ Shared params:
 
 jigen_fbopt:
   aname: jigen
+  init_setpoint_ratio: 0.99
   trainer: fbopt
   shared:
     - k_i_gain
