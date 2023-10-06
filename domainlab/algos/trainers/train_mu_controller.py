@@ -70,6 +70,7 @@ class TrainerFbOpt(TrainerBasic):
         should be set to epoch*self.num_batches + ind_batch
         """
         if self.flag_update_hyper_per_batch:
+            # NOTE: if not update per_batch, then not updated
             self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
         return super().after_batch(epoch, ind_batch)
 
