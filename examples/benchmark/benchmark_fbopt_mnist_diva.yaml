@@ -48,7 +48,7 @@ Shared params:
     num: 2
     distribution: loguniform
 
-  init_mu4beta:
+  mu_init:
     min: 0.0001
     max: 1.0
     num: 5
@@ -65,7 +65,7 @@ diva_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
-    - init_mu4beta
+    - mu_init
 
 erm:
   aname: deepall
