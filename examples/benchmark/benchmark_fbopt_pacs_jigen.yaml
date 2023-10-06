@@ -46,9 +46,9 @@ Shared params:
     distribution: loguniform
 
   mu_init:
-    min: 0.001
+    min: 0.00001
     max: 1.0
-    num: 3
+    num: 4
     distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
