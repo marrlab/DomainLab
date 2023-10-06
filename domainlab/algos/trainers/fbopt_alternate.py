@@ -31,7 +31,8 @@ class HyperSchedulerFeedbackAlternave():
         kwargs is a dictionary with key the hyper-parameter name and its value
         """
         self.trainer = trainer
-        self.init_mu = trainer.aconf.init_mu4beta
+        self.init_mu = trainer.aconf.mu_init
+        self.mu_min = trainer.aconf.mu_min
         self.mmu = kwargs
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
         self.ploss_old_theta_old_mu = None
@@ -97,16 +98,14 @@ class HyperSchedulerFeedbackAlternave():
     def cal_delta_integration(self, list_old, list_new, coeff):
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
-    def search_mu(self, dict_theta=None, miter=None):
+    def search_mu(self, epo_reg_loss, epo_task_loss, dict_theta=None, miter=None):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value
         to see if the criteria is met
         $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-epsilon_R])$$
         """
-        epo_reg_loss, epos_task_loss = self.trainer.eval_r_loss()
         # FIXME: use dictionary to replace scalar representation
-        # delta_epsilon_r = epo_reg_loss - self.setpoint4R
         delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoint4R())
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
@@ -115,8 +114,8 @@ class HyperSchedulerFeedbackAlternave():
             # PI control.
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
-            # self.delta_epsilon_r = (1 - self.coeff_ma) * self.delta_epsilon_r + self.coeff_ma * delta_epsilon_r
-            self.delta_epsilon_r = self.cal_delta_integration(self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
+            self.delta_epsilon_r = self.cal_delta_integration(
+                self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
         # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
         activation = [self.k_i_control * val for val in self.delta_epsilon_r]
         if self.activation_clip is not None:
@@ -137,27 +136,27 @@ class HyperSchedulerFeedbackAlternave():
                 f'reg/dyn{i}': reg_dyn,
                 f'reg/setpoint{i}': reg_set,
             }, miter)
-            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{i}', reg_dyn, epos_task_loss)
+            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{i}', reg_dyn, epo_task_loss)
 
-        loss_penalized = epos_task_loss + torch.inner(torch.Tensor(list(self.mmu.values())), torch.Tensor(epo_reg_loss))
-        self.writer.add_scalar('loss_penalized', loss_penalized, miter)
-        self.writer.add_scalar('task', epos_task_loss, miter)
+        epo_loss_tr = epo_task_loss + torch.inner(
+            torch.Tensor(list(self.mmu.values())), torch.Tensor(epo_reg_loss))
+        self.writer.add_scalar('loss_penalized', epo_loss_tr, miter)
+        self.writer.add_scalar('task', epo_task_loss, miter)
         acc_te = 0
         acc_val = 0
 
         if miter > 1:
             acc_te = self.trainer.observer.metric_te["acc"]
             acc_val = self.trainer.observer.metric_val["acc"]
-        self.writer.add_scalar("acc_te", acc_te, miter)
-        self.writer.add_scalar("acc_val", acc_val, miter)
-        self.dict_theta = self.trainer.opt_theta(self.mmu, dict(self.trainer.model.named_parameters()))
-        return True
+        self.writer.add_scalar("acc/te", acc_te, miter)
+        self.writer.add_scalar("acc/val", acc_val, miter)
 
-    def dict_clip(self, dict_base, clip_min=0.0001):   # FIXME: set thsi as hyperparameter
+    def dict_clip(self, dict_base):
         """
         clip each entry of the mu according to pre-set self.mu_clip
         """
-        return {key: np.clip(val, a_min=clip_min, a_max=self.mu_clip) for key, val in dict_base.items()}
+        return {key: np.clip(val, a_min=self.mu_min, a_max=self.mu_clip)
+                for key, val in dict_base.items()}
 
     def dict_is_zero(self, dict_mu):
         """
