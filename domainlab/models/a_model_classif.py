@@ -24,6 +24,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     match_feat_fun_na = "cal_logit_y"
 
+    @property
+    def metric4msel(self):
+        return "acc"
+
     def create_perf_obj(self, task):
         """
         for classification, dimension of target can be quieried from task
@@ -41,8 +45,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 metric = self.perf_metric.cal_metrics(self, loader, device)
                 confmat = metric.pop("confmat")
                 logger = Logger.get_logger()
-                logger.debug("scalar performance:")
-                logger.debug(str(metric))
+                logger.info("scalar performance:")
+                logger.info(str(metric))
                 logger.debug("confusion matrix:")
                 logger.debug(pd.DataFrame(confmat))
                 metric["confmat"] = confmat

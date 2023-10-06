@@ -27,7 +27,7 @@ then
 
 Suppose you have cloned the repository and have changed directory to the cloned repository.
 
-```shell
+```norun
 pip install -r requirements.txt
 ```
 then 
