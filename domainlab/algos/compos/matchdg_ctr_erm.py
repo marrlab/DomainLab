@@ -192,7 +192,7 @@ class MatchCtrErm(MatchAlgoBase):
             subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
             feat_same_cls = batch_feat_ref_domain2each[subset_same_cls]
             feat_diff_cls = batch_feat_ref_domain2each[subset_diff_cls]
-            logger.debug(f'class {y_c} with same class and different class: ',
+            logger.debug(f'class {y_c} with same class and different class: ' +
                          f'{feat_same_cls.shape[0]} {feat_diff_cls.shape[0]}')
 
             if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
