@@ -103,7 +103,7 @@ class MatchCtrErm(MatchAlgoBase):
         # these losses within one batch
 
         if self.flag_erm:
-            loss_erm_rnd_loader = self.phi.cal_loss(x_e, y_e, d_e)
+            loss_erm_rnd_loader, *_ = self.phi.cal_loss(x_e, y_e, d_e)
 
         num_batches = len(self.tuple_tensor_refdomain2each)
 
@@ -152,7 +152,7 @@ class MatchCtrErm(MatchAlgoBase):
             # @FIXME: check if batch_ref_domain2each_y is
             # continuous number which means it is at its initial value,
             # not yet filled
-            loss_erm_match_tensor = self.phi.cal_loss(
+            loss_erm_match_tensor, *_ = self.phi.cal_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
         # Creating tensor of shape (domain size, total domains, feat size )
