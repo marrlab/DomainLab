@@ -11,6 +11,16 @@ from domainlab.utils.logger import Logger
 def list_divide(list_val, scalar):
     return [ele/scalar for ele in list_val]
 
+class HyperSetter():
+    """
+    mock object to force hyper-parameter in the model
+    """
+    def __init__(self, dict_hyper):
+        self.dict_hyper = dict_hyper
+
+    def __call__(self, epoch=None):
+        return self.dict_hyper
+
 
 class TrainerFbOpt(TrainerBasic):
     """
@@ -69,6 +79,8 @@ class TrainerFbOpt(TrainerBasic):
         self.hyper_scheduler.set_setpoint(
             [ele * self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)
+
+        self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
 
     def tr_epoch(self, epoch):
         """
