@@ -48,7 +48,7 @@ Shared params:
     distribution: loguniform
 
   mu_init:
-    min: 0.0001
+    min: 0.01
     max: 1.0
     num: 5
     distribution: loguniform
