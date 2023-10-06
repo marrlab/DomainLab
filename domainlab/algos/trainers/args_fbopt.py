@@ -14,6 +14,12 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--mu_clip', type=float, default=1e4,
                         help='maximum value of mu')
 
+    parser.add_argument('--mu_min', type=float, default=1e-6,
+                        help='minimum value of mu')
+
+    parser.add_argument('--mu_init', type=float, default=0.001,
+                        help='initial beta for multiplication')
+
     parser.add_argument('--coeff_ma', type=float, default=0.5,
                         help='exponential moving average')
 
@@ -27,10 +33,10 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--no_tensorboard', action='store_true', default=False,
                         help='disable tensorboard')
 
+    parser.add_argument('--no_setpoint_update', action='store_true', default=False,
+                        help='disable setpoint update')
 
     # the following hyperparamters do not need to be tuned
-    parser.add_argument('--init_mu4beta', type=float, default=0.001,
-                        help='initial beta for multiplication')
     parser.add_argument('--beta_mu', type=float, default=1.1,
                         help='how much to multiply mu each time')
     parser.add_argument('--delta_mu', type=float, default=None,

@@ -7,7 +7,6 @@ startseed: 0
 endseed: 2
 
 test_domains:
-  - 3
   - 0
 
 
@@ -17,12 +16,19 @@ domainlab_args:
   dmem: False
   lr: 0.001
   epos: 500
-  es: 100
+  es: 50
   bs: 64
+  zx_dim: 0
+  zy_dim: 32
+  zd_dim: 32
+  gamma_y: 1.0
   nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: False
   exp_shoulder_clip: 10
-  mu_clip: 10
+  mu_clip: 1000_000
   coeff_ma: 0.5
   no_tensorboard: False
 
@@ -33,27 +39,26 @@ Shared params:
     min: 0.9
     max: 0.99
     num: 3
-    step: 0.05
     distribution: uniform
 
   k_i_gain:
     min: 0.0001
     max: 0.01
     num: 2
-    step: 0.0001
-    distribution: uniform
+    distribution: loguniform
 
   mu_init:
-    min: 0.01
+    min: 0.0001
     max: 1.0
-    num: 8
-    step: 0.1
-    distribution: uniform
+    num: 5
+    distribution: loguniform
+
+
 
 # Test fbopt with different hyperparameter configurations
 
-jigen_fbopt:
-  aname: jigen
+diva_fbopt:
+  aname: diva
   trainer: fbopt
 
   shared:

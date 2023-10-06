@@ -7,7 +7,6 @@ startseed: 0
 endseed: 2
 
 test_domains:
-  - 3
   - 0
 
 
@@ -15,14 +14,14 @@ domainlab_args:
   task: mnistcolor10
   tr_d: [1, 2]
   dmem: False
-  lr: 0.001
+  lr: 0.0001
   epos: 500
   es: 100
   bs: 64
   nname: conv_bn_pool_2
   san_check: False
   exp_shoulder_clip: 10
-  mu_clip: 10
+  mu_clip: 10_000
   coeff_ma: 0.5
   no_tensorboard: False
 
@@ -46,14 +45,14 @@ Shared params:
   mu_init:
     min: 0.01
     max: 1.0
-    num: 8
-    step: 0.1
+    num: 10
+    step: 0.01
     distribution: uniform
 
 # Test fbopt with different hyperparameter configurations
 
-jigen_fbopt:
-  aname: jigen
+dann_fbopt:
+  aname: dann
   trainer: fbopt
 
   shared:

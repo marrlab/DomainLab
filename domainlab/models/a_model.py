@@ -19,7 +19,14 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         # but I dont know another method to set neural network weights without using load_state_dict
         # FIXME: dict_params lack some keys compared to self.state_dict(), why?
         self.load_state_dict(dict_params, strict=False)
-        
+
+    @property
+    def metric4msel(self):
+        """
+        metric for model selection
+        """
+        raise NotImplementedError
+
     @property
     def multiplier4task_loss(self):
         """
@@ -33,7 +40,9 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         loss_reg = self.inner_product(list_loss, list_multiplier)
-        return self.multiplier4task_loss * self.cal_task_loss(tensor_x, tensor_y) + loss_reg
+        loss_task_alone = self.cal_task_loss(tensor_x, tensor_y)
+        loss_task = self.multiplier4task_loss * loss_task_alone
+        return loss_task + loss_reg, list_loss, loss_task_alone
 
     def inner_product(self, list_loss_scalar, list_multiplier):
         """
