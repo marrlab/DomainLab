@@ -5,6 +5,7 @@ import abc
 from torch import optim
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
+
 def mk_opt(model, aconf):
     """
     create optimizer
@@ -41,6 +42,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_update_hyper_per_epoch = None
         self.flag_update_hyper_per_batch = None
         self.epo_loss_tr = None
+        self.epo_reg_loss_tr = None
+        self.epo_task_loss_tr = None
+        self.counter_batch = None
         self.hyper_scheduler = None
         self.optimizer = None
         self.exp = None
@@ -52,6 +56,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.loader_tr_source_target = None
         self.flag_initialized = False
 
+    @property
+    def str_metric4msel(self):
+        """
+        metric for model selection
+        """
+        return self.model.metric4msel
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """
@@ -86,6 +96,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param epoch:
         """
         raise NotImplementedError
+
+    def before_batch(self, epoch, ind_batch):
+        """
+        :param epoch:
+        :param ind_batch:
+        """
+        return
 
     def after_batch(self, epoch, ind_batch):
         """

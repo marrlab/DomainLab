@@ -30,7 +30,11 @@ class ModelWrapMatchDGLogit(AModelClassif):
         return self.net.cal_loss(tensor_x, tensor_y, tensor_d)
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
-        return self.net.cal_loss(tensor_x, tensor_y, tensor_d)  # @FIXME: this is wrong
+        """
+        abstract method must be in place, but it will not be called since
+        cal_loss function is overriden
+        """
+        raise NotImplementedError
 
     def forward(self, tensor_x):
         """

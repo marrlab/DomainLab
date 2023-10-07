@@ -1,6 +1,6 @@
 # DomainLab: train robust neural networks using domain generalization algorithms on your data
 
-![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg)
+![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg)](https://app.codecov.io/gh/marrlab/DomainLab)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86)](https://www.codacy.com/gh/marrlab/DomainLab/dashboard)
 [![Documentation](https://img.shields.io/badge/Documentation-Here)](https://marrlab.github.io/DomainLab/)
@@ -11,11 +11,6 @@ Domain Generalization aims at learning domain invariant features by utilizing da
 
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.
 
-- To evaluate a domain generalization algorithm's performance on your custom data, the user only need to specify ways to access the data in the form of a standalone python file. See [Task Specification](./docs/doc_tasks.md).
-
-- To benchmark several algorithms on your dataset, a single line command along with a benchmark configuration files is sufficient. See [Benchmarks](./docs/doc_benchmark.md)
-
-
 
 ## Getting started
 
@@ -25,13 +20,14 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 `conda create --name domainlab_py39 python=3.9`
 
 then 
+
 `conda activate domainlab_py39`
 
 #### Install Development version (recommended)
 
 Suppose you have cloned the repository and have changed directory to the cloned repository.
 
-```shell
+```norun
 pip install -r requirements.txt
 ```
 then 
@@ -82,6 +78,8 @@ See also [Examples](./docs/doc_examples.md).
 [Output structure and Performance Measure](./docs/doc_output.md)
 
 ## Custom Usage
+
+To benchmark several algorithms on your dataset, a single line command along with a benchmark configuration files is sufficient. See [Benchmarks](./docs/doc_benchmark.md)
 
 ### Define your task
 Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See

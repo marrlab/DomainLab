@@ -1,9 +1,10 @@
 # test benchmark config.
 
 test_domains:
-  - sketch
+  - 1
+  - 2
 
-output_dir: zoutput/benchmarks/pacs_benchmark
+output_dir: zoutput/benchmarks/mnist_hard
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
@@ -19,19 +20,22 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   ## dataset
-  tpath: examples/tasks/task_pacs_path_list.py
+  task: mnistcolor10
+  tr_d: [0, 3]
   dmem: False
-  lr: 5e-5
-  epos: 500
+  epos: 200
   es: 1
   bs: 32
-  npath: examples/nets/resnet50domainbed.py
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  lr: 1e-3
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: True
 
 Shared params:
   num_shared_param_samples: 8
+
   gamma_y:
     min: 1e4
     max: 1e6
