@@ -42,7 +42,7 @@ class ModelCustom(AModelCustom):
             _, y_target = tensor_y.max(dim=1)
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
         # regularization loss is zero
-        return lc_y, torch.Tensor([0]), lc_y
+        return lc_y, [torch.Tensor([0])], lc_y
 
 
 def get_node_na():
