@@ -3,6 +3,7 @@ import external neural network implementation
 """
 
 from domainlab.utils.u_import import import_path
+from domainlab.utils.logger import Logger
 
 
 def build_external_obj_net_module_feat_extract(mpath, dim_y,
@@ -33,8 +34,9 @@ def build_external_obj_net_module_feat_extract(mpath, dim_y,
         try:
             net = getattr(net_module, name_fun)(dim_y, remove_last_layer)
         except Exception:
-            print("function %s should return a neural network (pytorch module) that \
-                   that extract features from an image" % (name_signature))
+            logger = Logger.get_logger()
+            logger.error(f"function {name_signature} should return a neural network "
+                         f"(pytorch module) that that extract features from an image")
             raise
         if net is None:
             raise RuntimeError("the pytorch module returned by %s is None"

@@ -3,6 +3,7 @@
 __author__ = "Xudong Sun"
 
 import abc
+from domainlab.utils.logger import Logger
 
 
 class Request4Chain(metaclass=abc.ABCMeta):
@@ -83,12 +84,14 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
         if self._success_node is not None:
             return self._success_node.handle(request)
         err_msg = str(request) + " does not exist"
-        print("available options are")
+        logger = Logger.get_logger()
+        logger.info("available options are")
         self.print_options()
         raise NotImplementedError(err_msg)
 
     def print_options(self):
-        print(self.__class__.__name__)
+        logger = Logger.get_logger()
+        logger.info(str(self.__class__.__name__))
         if self._parent_node is not None:
             self._parent_node.print_options()
 

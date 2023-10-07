@@ -4,6 +4,7 @@ https://arxiv.org/pdf/2007.01434.pdf appendix D
 '''
 from torch import nn
 from torchvision import models as torchvisionmodels
+from torchvision.models import ResNet50_Weights
 
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
@@ -13,12 +14,24 @@ class CostumResNet(nn.Module):
     '''
     this costum resnet includes the modification described in
     https://arxiv.org/pdf/2007.01434.pdf appendix D
+
+    For the architecture “Resnet-50”, we replace the final (softmax) layer of a ResNet50 pretrained
+    on ImageNet and fine-tune. Observing that batch normalization interferes with domain
+    generalization algorithms (as different minibatches follow different distributions),
+    we freeze all batch normalization
+    layers before fine-tuning. We insert a dropout layer before the final linear layer.
     '''
     def __init__(self, flag_pretrain):
-        super(CostumResNet, self).__init__()
-
+        super().__init__()
         self.flag_pretrain = flag_pretrain
-        resnet50 = torchvisionmodels.resnet.resnet50(pretrained=flag_pretrain)
+
+        if flag_pretrain:
+            resnet50 = torchvisionmodels.resnet.resnet50(
+                weights=ResNet50_Weights.IMAGENET1K_V2)
+        else:
+            resnet50 = torchvisionmodels.resnet.resnet50(
+                weights='None')
+
         # freez all batchnormalisation layers
         for module in resnet50.modules():
             if module._get_name() == 'BatchNorm2d':
@@ -37,6 +50,7 @@ class CostumResNet(nn.Module):
         return x_arg
 
 
+# NetTorchVisionBase is interface defined in DomainLab
 class ResNetBase(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision

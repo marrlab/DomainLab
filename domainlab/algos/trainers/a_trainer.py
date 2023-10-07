@@ -44,6 +44,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_update_hyper_per_epoch = None
         self.flag_update_hyper_per_batch = None
         self.epo_loss_tr = None
+        self.epo_reg_loss_tr = None
+        self.epo_task_loss_tr = None
+        self.counter_batch = None
         self.hyper_scheduler = None
         self.optimizer = None
         self.exp = None
@@ -53,7 +56,14 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         # mldg
         self.inner_trainer = None
         self.loader_tr_source_target = None
+        self.flag_initialized = False
 
+    @property
+    def str_metric4msel(self):
+        """
+        metric for model selection
+        """
+        return self.model.metric4msel
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """
@@ -80,6 +90,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.epo_loss_tr = None
         self.hyper_scheduler = None
         self.optimizer = mk_opt(self.model, self.aconf)
+        self.flag_initialized = True
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
@@ -87,6 +98,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param epoch:
         """
         raise NotImplementedError
+
+    def before_batch(self, epoch, ind_batch):
+        """
+        :param epoch:
+        :param ind_batch:
+        """
+        return
 
     def after_batch(self, epoch, ind_batch):
         """

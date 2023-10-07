@@ -9,7 +9,8 @@ from torchvision import transforms
 from domainlab.tasks.task_pathlist import mk_node_task_path_list
 from domainlab.tasks.utils_task import ImSize
 
-G_PACS_RAW_PATH = "/home/aih/xudong.sun/Documents/datasets/pacs/raw"  # change this to absolute directory where you have the raw images from PACS, 
+# change this to absolute directory where you have the raw images from PACS,
+G_PACS_RAW_PATH = "data/pacs/PACS"
 # domainlab repository contain already the file names in data/pacs_split folder of domainlab
 
 def get_task(na=None):
@@ -31,16 +32,16 @@ def get_task(na=None):
             "sketch": "data/pacs_split/sketch_train_kfold.txt"},
 
         dict_d2filepath_list_img_te={
-            "art_painting": "data/pacs_split/art_painting_train_kfold.txt",
-            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
-            "photo": "data/pacs_split/photo_train_kfold.txt",
-            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
+            "art_painting": "data/pacs_split/art_painting_test_kfold.txt",
+            "cartoon": "data/pacs_split/cartoon_test_kfold.txt",
+            "photo": "data/pacs_split/photo_test_kfold.txt",
+            "sketch": "data/pacs_split/sketch_test_kfold.txt"},
 
         dict_d2filepath_list_img_val={
             "art_painting": "data/pacs_split/art_painting_crossval_kfold.txt",
-            "cartoon": "data/pacs_split/cartoon_train_kfold.txt",
-            "photo": "data/pacs_split/photo_train_kfold.txt",
-            "sketch": "data/pacs_split/sketch_train_kfold.txt"},
+            "cartoon": "data/pacs_split/cartoon_crossval_kfold.txt",
+            "photo": "data/pacs_split/photo_crossval_kfold.txt",
+            "sketch": "data/pacs_split/sketch_crossval_kfold.txt"},
 
         dict_domain2imgroot={
             'art_painting': G_PACS_RAW_PATH,

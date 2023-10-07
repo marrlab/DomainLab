@@ -1,11 +1,12 @@
 """
-Abstract class for Task
+Base class for Task
 """
-import warnings
 from abc import abstractmethod
+import warnings
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.task_utils import parse_domain_id
+from domainlab.utils.logger import Logger
 
 
 class NodeTaskDG(AbstractChainNodeHandler):
@@ -18,14 +19,15 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._loader_te = None
         self._loader_val = None
         self._list_domains = None
-        self._list_domain_tr = None
+        self._list_domain_tr = None  # versatile
         self._name = None
         self._args = None
-        self.dict_dset = {}
-        self.dict_dset_te = {}
-        self.dict_dset_val = {}
+        self.dict_dset_all = {}  # persist
+        self.dict_dset_tr = {}  # versatile variable: which domains to use as training
+        self.dict_dset_te = {}  # versatile
+        self.dict_dset_val = {}  # versatile
         self.dict_domain_class_count = {}
-        self.dim_d_tr = None  # public
+        self.dim_d_tr = None  # public, only used for diva
         self._im_size = None
         self._dict_domains2imgroot = {}
         self._dict_domain_folder_name2class = {}  # {"domain1": {"class1":car, "class2":dog}}
@@ -37,9 +39,15 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self._dict_domain2filepath_list_im_val = {}
         self._dict_domain2filepath_list_im_te = {}
         self.dict_class_label_ind2name = None
+        self.conf_without_args()  # configuration without init_business
+
+    def conf_without_args(self):
+        """
+        configuration without init_business
+        """
 
     @abstractmethod
-    def init_business(self, args):
+    def init_business(self, args, node_algo_builder=None):
         """
         construct task
         """
@@ -146,9 +154,14 @@ class NodeTaskDG(AbstractChainNodeHandler):
                 subset of available domains {list_domains}")
 
         if set(list_domain_tr) & set(list_domain_te):
+            logger = Logger.get_logger()
+            logger.warn(
+                "The sets of training and test domains overlap -- "
+                "be aware of data leakage or training to the test!"
+            )
             warnings.warn(
-                "The sets of training and test domains overlap -- \
-                be aware of data leakage or training to the test!",
+                "The sets of training and test domains overlap -- "
+                "be aware of data leakage or training to the test!",
                 RuntimeWarning
             )
 

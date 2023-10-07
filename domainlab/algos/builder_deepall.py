@@ -2,7 +2,7 @@
 builder for deepall
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel import MSelTrLoss
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
@@ -22,8 +22,8 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        model_sel = MSelOracleVisitor(MSelTrLoss(max_es=args.es))
-        observer = ObVisitor(exp, model_sel, device)
+        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+        observer = ObVisitor(model_sel, device, exp=exp)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",
@@ -38,4 +38,4 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
         model = mk_deepall()(net, list_str_y=task.list_str_y)
         trainer = TrainerChainNodeGetter(args)(default="basic")
         trainer.init_business(model, task, observer, device, args)
-        return trainer
+        return trainer, model, observer, device

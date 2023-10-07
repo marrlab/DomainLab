@@ -10,6 +10,7 @@ import torch
 
 from sklearn.metrics import ConfusionMatrixDisplay
 from domainlab.utils.get_git_tag import get_git_tag
+from domainlab.utils.logger import Logger
 
 
 
@@ -62,7 +63,11 @@ class ExpModelPersistVisitor():
         model_name = "_".join(list4mname)
         if self.host.args.debug:
             model_name = "debug_" + model_name
-        print("model name:", model_name)
+        slurm = os.environ.get('SLURM_JOB_ID')
+        if slurm:
+            model_name = model_name + '_' + slurm
+        logger = Logger.get_logger()
+        logger.info(f"model name: {model_name}")
         return model_name
 
     def save(self, model, suffix=None):
@@ -178,7 +183,8 @@ class AggWriter(ExpModelPersistVisitor):
         """
         file_path = self.get_fpath()
         Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
-        print("results aggregation path:", file_path)
+        logger = Logger.get_logger()
+        logger.info(f"results aggregation path: {file_path}")
         with open(file_path, 'a', encoding="utf8") as f_h:
             print(str_line, file=f_h)
 
@@ -199,7 +205,8 @@ class AggWriter(ExpModelPersistVisitor):
         # configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
-        print("confusion matrix saved in file: ", file_path)
+        logger = Logger.get_logger()
+        logger.info(f"confusion matrix saved in file: {file_path}")
         disp.figure_.savefig(file_path)
 
 
@@ -213,7 +220,7 @@ class ExpProtocolAggWriter(AggWriter):
         epos_name = "epos"
         dict_cols = {
             "param_index": self.host.args.param_index,
-            "task": self.host.args.benchmark_task_name,
+            "method": self.host.args.benchmark_task_name,
             "algo": self.algo_name,
             epos_name: None,
             "te_d": self.host.args.te_d,

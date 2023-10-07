@@ -30,7 +30,7 @@ class TrainerMLDG(AbstractTrainer):
         """
         create virtual source and target domain
         """
-        list_dsets = list(self.task.dict_dset.values())
+        list_dsets = list(self.task.dict_dset_tr.values())
         num_domains = len(list_dsets)
         ind_target_domain = random.randrange(num_domains)
         tuple_dsets_source = tuple(
@@ -76,7 +76,7 @@ class TrainerMLDG(AbstractTrainer):
             #     if g_j is not None:
             #         p.grad.data.add_(
             #             self.hparams['mldg_beta'] * g_j.data / num_mb)
-            loss_source = self.model.cal_loss(tensor_x_s, vec_y_s, vec_d_s, others_s)
+            loss_source, *_ = self.model.cal_loss(tensor_x_s, vec_y_s, vec_d_s, others_s)
             loss = loss_source.sum() + self.aconf.gamma_reg * loss_look_forward.sum()
             loss.backward()
             self.optimizer.step()

@@ -1,0 +1,172 @@
+# only entries related to parameter sampling
+output_dir: "zoutput/benchmarks/hyperparameter_grid_test"
+mode: grid
+
+Shared params:
+  p1_shared:
+    distribution: uniform
+    min: 1
+    max: 3
+    step: 0
+    num: 3
+
+  p2_shared:
+    distribution: normal
+    mean: 5
+    std: 10
+    step: 1
+    num: 2
+
+# currently, everything which contains the aname property is considered as a task.
+Task1:  # name
+  aname: Algo1
+  # Each parameter must contain:
+  # - distribution
+  # - min and max if distribution is uniform or loguniform
+  # - mean and std if distribution is normal or lognormal
+  # - values and datatype if categorical
+  # OR
+  # reference, use this for equality constraints.
+  shared:
+    - p1_shared
+    - p2_shared
+
+  hyperparameters:
+    p1:
+      distribution: uniform    # uniform | loguniform | normal | lognormal | categorical
+      min: 1  # in case of uniform
+      max: 3  # in case of uniform
+      step: 0    # anything > 0 for discrete variables, 0 for continuous ones. Optional
+      num: 3
+
+    p2:
+      distribution: normal
+      mean: 1 # in case of normal
+      std: 2  # in case of normal
+      step: 1 # integer valued
+      num: 3
+      datatype: int
+
+    p3:
+      min: 1e-6
+      max: 1
+      distribution: loguniform
+      step: 0
+      num: 3
+
+    p4:
+      # Value of p4 will always equal p3.
+      # Note that references to references are not supported
+      # and result in undefined behaviour.
+      # Is with the constraints, Python code is allowed in the reference.
+      reference: p3
+
+    p5:
+      reference: 2 * p3 / p1
+
+    p6:
+      distribution: normal
+      mean: 1
+      std: 2
+      step: 0
+      num: 3
+
+    p7:
+      min: 0
+      max: 1
+      distribution: uniform
+      num: 1
+
+    p8:
+      min: 1e-6
+      max: 1
+      distribution: loguniform
+      num: 1
+
+    p9:
+      distribution: normal
+      mean: 0.5
+      std: 2
+      step: 1
+      num: 3
+      datatype: int
+
+    p10:
+      distribution: normal
+      mean: 0.5
+      std: 2
+      step: 1
+      num: 3
+
+    # Optional
+    constraints:
+      # In this list, any valid Python code evaluating to bool can be used.
+      # The parameters can be accessed by their name from above.
+      # Note that equality constraints should not be posed here,
+      # but enforced through references.
+      # Otherwise, the sampling will abort with error in most cases.
+      - "p1 < p2"
+      - "p3 < p2"
+      - "p1_shared == p1"
+
+Task2:  # name
+  aname: Algo2
+
+  hyperparameters:
+    p1:
+      mean: 1
+      std: 3
+      step: 2   # only odd numbers
+      distribution: lognormal
+      num: 3
+
+    p2:
+      min: -2
+      max: 2
+      step: 1
+      distribution: uniform
+      num: 5
+
+    p3:
+      reference: 2*p2
+
+    p4:
+      distribution: categorical
+      values:
+        - 30.0
+        - 31.0
+        - 100.0
+      datatype: int
+
+    p5:
+      mean: 1
+      std: 3
+      distribution: lognormal
+      num: 4
+
+    p6:
+      mean: 1
+      std: 3
+      distribution: normal
+      num: 1
+
+Task3:
+  aname: Algo3
+  zd_dim: 5
+
+  shared:
+    - p1_shared
+
+  constraints:
+    - 'p1_shared <= 2'
+
+Task4:
+  aname: Algo3
+  zd_dim: 5
+
+  shared:
+    - p1_shared
+
+Task5:
+  aname: Algo3
+  zd_dim: 5

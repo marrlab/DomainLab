@@ -5,6 +5,7 @@ and each random seed.
 import ast
 import gc
 
+import numpy as np
 import pandas as pd
 import torch
 
@@ -12,6 +13,7 @@ from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
 from domainlab.compos.exp.exp_cuda_seed import set_seed
 from domainlab.compos.exp.exp_main import Exp
 from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.utils.logger import Logger
 
 
 def load_parameters(file: str, index: int) -> tuple:
@@ -55,12 +57,14 @@ def run_experiment(
 
     # FIXME: we might want to run the experiment using commandline arguments
     """
+
     if misc is None:
         misc = {}
     str_algo_as_task, hyperparameters = load_parameters(param_file, param_index)
-    # print("\n*******************************************************************")
-    # print(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
-    # print("*******************************************************************\n")
+    logger = Logger.get_logger()
+    logger.debug("\n*******************************************************************")
+    logger.debug(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
+    logger.debug("*******************************************************************\n")
     misc['result_file'] = out_file
     misc['params'] = hyperparameters
     misc['benchmark_task_name'] = str_algo_as_task
@@ -74,8 +78,26 @@ def run_experiment(
     if 'hyperparameters' in args_algo_as_task:
         del args_algo_as_task['hyperparameters']
     args_domainlab_common = config.get("domainlab_args", {})
+    # check if some of the hyperparameters are already specified
+    # in args_domainlab_common or args_algo_as_task
+    if np.intersect1d(list(args_algo_as_task.keys()),
+                      list(hyperparameters.keys())).shape[0] > 0:
+        logger.error(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+        raise RuntimeError(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+    if np.intersect1d(list(args_domainlab_common.keys()),
+                      list(hyperparameters.keys())).shape[0] > 0:
+        logger.error(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
+        raise RuntimeError(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
     apply_dict_to_args(args, args_domainlab_common)
-    apply_dict_to_args(args, args_algo_as_task)
+    apply_dict_to_args(args, args_algo_as_task, extend=True)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
     gpu_ind = param_index % num_gpus
@@ -83,8 +105,8 @@ def run_experiment(
 
     if torch.cuda.is_available():
         torch.cuda.init()
-        print("before experiment loop: ")
-        print(torch.cuda.memory_summary())
+        logger.info("before experiment loop: ")
+        logger.info(str(torch.cuda.memory_summary()))
     if start_seed is None:
         start_seed = config['startseed']
         end_seed = config['endseed']
@@ -98,10 +120,10 @@ def run_experiment(
             args.seed = seed
             try:
                 if torch.cuda.is_available():
-                    print("before experiment starts")
-                    print(torch.cuda.memory_summary())
+                    logger.info("before experiment starts")
+                    logger.info(str(torch.cuda.memory_summary()))
             except KeyError as ex:
-                print(ex)
+                logger.error(str(ex))
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
@@ -109,16 +131,16 @@ def run_experiment(
                 exp.execute()
             try:
                 if torch.cuda.is_available():
-                    print("before torch memory clean up")
-                    print(torch.cuda.memory_summary())
+                    logger.info("before torch memory clean up")
+                    logger.info(str(torch.cuda.memory_summary()))
             except KeyError as ex:
-                print(ex)
+                logger.error(str(ex))
             del exp
             torch.cuda.empty_cache()
             gc.collect()
             try:
                 if torch.cuda.is_available():
-                    print("after torch memory clean up")
-                    print(torch.cuda.memory_summary())
+                    logger.info("after torch memory clean up")
+                    logger.info(str(torch.cuda.memory_summary()))
             except KeyError as ex:
-                print(ex)
+                logger.error(str(ex))

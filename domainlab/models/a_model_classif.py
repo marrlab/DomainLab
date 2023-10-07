@@ -3,10 +3,11 @@ operations that all claasification model should have
 """
 
 import abc
-import numpy as np
 import math
+import numpy as np
+import pandas as pd
 import torch
-from torch import nn as nn
+from torch import nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
@@ -14,8 +15,7 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
-from rich import print as rprint
-import pandas as pd
+from domainlab.utils.logger import Logger
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
@@ -24,6 +24,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     match_feat_fun_na = "cal_logit_y"
 
+    @property
+    def metric4msel(self):
+        return "acc"
+
     def create_perf_obj(self, task):
         """
         for classification, dimension of target can be quieried from task
@@ -31,36 +35,30 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         self.perf_metric = PerfMetricClassif(task.dim_y)
         return self.perf_metric
 
-    def cal_perf_metric(self, loader_tr, device, loader_te=None):
+    def cal_perf_metric(self, loader, device):
         """
-        classification performance matric
+        classification performance metric
         """
-        metric_te = None
+        metric = None
         with torch.no_grad():
-            metric_tr_pool = self.perf_metric.cal_metrics(self, loader_tr, device)
-            confmat = metric_tr_pool.pop("confmat")
-            print("pooled train domains performance:")
-            rprint(metric_tr_pool)
-            print("confusion matrix:")
-            print(pd.DataFrame(confmat))
-            metric_tr_pool["confmat"] = confmat
-            # test set has no domain label, so can be more custom
-            if loader_te is not None:
-                metric_te = self.perf_metric.cal_metrics(self, loader_te, device)
-                confmat = metric_te.pop("confmat")
-                print("out of domain test performance:")
-                rprint(metric_te)
-                print("confusion matrix:")
-                print(pd.DataFrame(confmat))
-                metric_te["confmat"] = confmat
-        return metric_te
+            if loader is not None:
+                metric = self.perf_metric.cal_metrics(self, loader, device)
+                confmat = metric.pop("confmat")
+                logger = Logger.get_logger()
+                logger.info("scalar performance:")
+                logger.info(str(metric))
+                logger.debug("confusion matrix:")
+                logger.debug(pd.DataFrame(confmat))
+                metric["confmat"] = confmat
+        return metric
 
     def evaluate(self, loader_te, device):
         """
         for classification task, use the current model to cal acc
         """
         acc = PerfClassif.cal_acc(self, loader_te, device)
-        print("before training, model accuracy:", acc)
+        logger = Logger.get_logger()
+        logger.info(f"before training, model accuracy: {acc}")
 
     @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
@@ -69,7 +67,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
 
     @store_args
-    def __init__(self, list_str_y, list_d_tr=None):
+    def __init__(self, list_str_y=None, list_d_tr=None):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
@@ -131,6 +129,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         self.eval()
         model_local = self.to(device)
+        logger = Logger.get_logger()
         for _, (x_s, y_s, *_, path4instance) in enumerate(loader_te):
             x_s, y_s = x_s.to(device), y_s.to(device)
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
@@ -147,7 +146,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
                     print(str_line, file=handle_file)
-        print("prediction saved in file ", filename)
+        logger.info(f"prediction saved in file {filename}")
         file_acc = self.read_prediction_file(filename, spliter)
         acc_metric_te = metric_te['acc']
         flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
@@ -156,11 +155,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
         flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
         if not (flag1 & flag2 & flag_raw_consistency):
-            str_info = f"inconsistent acc:  \
-                prediction file acc {file_acc} \
-                torchmetric acc {acc_metric_te} \
-                raw acc 1 {acc_raw1} \
-                raw acc 2 {acc_raw2}"
+            str_info = f"inconsistent acc:" \
+                       f"prediction file acc {file_acc}" \
+                       f"torchmetric acc {acc_metric_te}" \
+                       f"raw acc 1 {acc_raw1}" \
+                       f"raw acc 2 {acc_raw2}"
             raise RuntimeError(str_info)
         return file_acc
 
@@ -176,7 +175,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             if np.array(list_prob).argmax() == int(line[1]):
                 count_correct += 1
         acc = count_correct / len(list_lines)
-        print(f"accuracy from prediction file {acc}")
+        logger = Logger.get_logger()
+        logger.info(f"accuracy from prediction file {acc}")
         return acc
 
     def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
@@ -194,4 +194,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return loss_adv_gen + loss_adv_gen_task.sum()
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        return 0
+        """
+        for ERM to adapt to the interface of other regularized learners
+        """
+        return [torch.Tensor([0])], [0.0]

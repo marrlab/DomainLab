@@ -4,6 +4,7 @@ from domainlab.algos.compos.matchdg_base import MatchAlgoBase
 from domainlab.algos.compos.matchdg_utils import (dist_cosine_agg,
                                                   dist_pairwise_cosine)
 from domainlab.algos.trainers.a_trainer import mk_opt
+from domainlab.utils.logger import Logger
 
 
 class MatchCtrErm(MatchAlgoBase):
@@ -46,7 +47,8 @@ class MatchCtrErm(MatchAlgoBase):
         # the other part from match tensor
         """
         self.epo_loss_tr = 0
-        print(self.str_phase, "epoch", epoch)
+        logger = Logger.get_logger()
+        logger.info(f"self.str_phase {epoch} epoch")
         # update match tensor
         if (epoch + 1) % self.epos_per_match == 0:
             self.mk_match_tensor(epoch)
@@ -64,8 +66,8 @@ class MatchCtrErm(MatchAlgoBase):
         self.tuple_tensor_ref_domain2each_y = torch.split(
             self.tensor_ref_domain2each_domain_y[inds_shuffle],
             self.args.bs, dim=0)
-        print("number of batches in match tensor: ", len(self.tuple_tensor_refdomain2each))
-        print("single batch match tensor size: ", self.tuple_tensor_refdomain2each[0].shape)
+        logger.info(f"number of batches in match tensor: {len(self.tuple_tensor_refdomain2each)}")
+        logger.info(f"single batch match tensor size: {self.tuple_tensor_refdomain2each[0].shape}")
 
         for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
             # random loader with same batch size as the match tensor loader
@@ -73,8 +75,8 @@ class MatchCtrErm(MatchAlgoBase):
             # is only used for creating the match tensor
             self.update_batch(epoch, batch_idx, x_e, y_e, d_e)
             if self.flag_stop is True:
-                print("ref/base domain vs each domain match \
-                      traversed one sweep, starting new epoch")
+                logger.info("ref/base domain vs each domain match \
+                            traversed one sweep, starting new epoch")
                 break
         if not self.flag_erm:
             # Save ctr model's weights post each epoch
@@ -101,13 +103,14 @@ class MatchCtrErm(MatchAlgoBase):
         # these losses within one batch
 
         if self.flag_erm:
-            loss_erm_rnd_loader = self.phi.cal_loss(x_e, y_e, d_e)
+            loss_erm_rnd_loader, *_ = self.phi.cal_loss(x_e, y_e, d_e)
 
         num_batches = len(self.tuple_tensor_refdomain2each)
 
         if batch_idx >= num_batches:
-            print("ref/base domain vs each domain match \
-                    traversed one sweep, starting new epoch")
+            logger = Logger.get_logger()
+            logger.info("ref/base domain vs each domain match"
+                        "traversed one sweep, starting new epoch")
             self.flag_stop = True
             return
 
@@ -133,9 +136,10 @@ class MatchCtrErm(MatchAlgoBase):
         # assert not torch.sum(torch.isnan(batch_feat_ref_domain2each))
         flag_isnan = torch.any(torch.isnan(batch_feat_ref_domain2each))
         if flag_isnan:
-            print(batch_tensor_ref_domain2each)
-            raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big or \
-                               hyper-parameter tau not set appropriately?")
+            logger = Logger.get_logger()
+            logger.info(batch_tensor_ref_domain2each)
+            raise RuntimeError("batch_feat_ref_domain2each NAN! is learning rate too big or"
+                               "hyper-parameter tau not set appropriately?")
 
         # for contrastive training phase,
         # the last layer of the model is replaced with identity
@@ -148,7 +152,7 @@ class MatchCtrErm(MatchAlgoBase):
             # @FIXME: check if batch_ref_domain2each_y is
             # continuous number which means it is at its initial value,
             # not yet filled
-            loss_erm_match_tensor = self.phi.cal_loss(
+            loss_erm_match_tensor, *_ = self.phi.cal_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
         # Creating tensor of shape (domain size, total domains, feat size )
@@ -181,19 +185,19 @@ class MatchCtrErm(MatchAlgoBase):
 
         # Contrastive Loss: class \times domain \times domain
         counter_same_cls_diff_domain = 1
+        logger = Logger.get_logger()
         for y_c in range(self.dim_y):
 
             subset_same_cls = (batch_ref_domain2each_y[:, 0] == y_c)
             subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
             feat_same_cls = batch_feat_ref_domain2each[subset_same_cls]
             feat_diff_cls = batch_feat_ref_domain2each[subset_diff_cls]
-            # print('class', y_c, "with same class and different class: ",
-            #      feat_same_cls.shape[0], feat_diff_cls.shape[0])
+            logger.debug(f'class {y_c} with same class and different class: ' +
+                         f'{feat_same_cls.shape[0]} {feat_diff_cls.shape[0]}')
 
             if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
-                # print("no instances of label",
-                # y_c,
-                # "in the current batch, continue")
+                logger.debug(f"no instances of label {y_c}"
+                             f"in the current batch, continue")
                 continue
 
             if torch.sum(torch.isnan(feat_diff_cls)):

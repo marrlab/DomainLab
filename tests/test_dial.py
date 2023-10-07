@@ -15,7 +15,8 @@ def test_trainer_dial():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "0",
                                "--task", "mnistcolor10",
-                               "--aname", "deepall_dial", "--bs", "2",
+                               "--aname", "deepall", "--bs", "2",
+                               "--trainer", "dial",
                                "--nname", "conv_bn_pool_2"])
     exp = Exp(margs)
     exp.trainer.before_tr()

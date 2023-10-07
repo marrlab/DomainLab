@@ -16,7 +16,7 @@ from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_
 
 def test_run_experiment():
     """Checks the run_experiment function on a minimal basis"""
-    with open("examples/yaml/demo_benchmark.yaml", "r", encoding="utf8") as stream:
+    with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
     if torch.cuda.is_available():
         torch.cuda.init()
@@ -52,7 +52,7 @@ def create_agg_input_files() -> List[str]:
 
     with open(f_0, 'w') as stream:
         stream.write(
-            "param_index, task, algo, epos, te_d, seed, params, acc,"
+            "param_index, method, algo, epos, te_d, seed, params, acc,"
             " precision, recall, specificity, f1, aurocy\n"
             "0, diva, diva, 2, caltech, 1, \"{'gamma_y': 682408,"
             " 'gamma_d': 275835}\", 0.88461536, 0.852381,"
@@ -61,7 +61,7 @@ def create_agg_input_files() -> List[str]:
 
     with open(f_1, 'w') as stream:
         stream.write(
-            "param_index, task, algo, epos, te_d, seed, params, acc,"
+            "param_index, method, algo, epos, te_d, seed, params, acc,"
             " precision, recall, specificity, f1, aurocy\n"
             "1, hduva, hduva, 2, caltech, 1, \"{'gamma_y': 70037,"
             " 'zy_dim': 48}\", 0.7307692, 0.557971,"
@@ -96,7 +96,7 @@ def agg_output_file() -> str:
 @pytest.fixture
 def agg_expected_output() -> str:
     """Expected result file content for the agg tests."""
-    return "param_index, task, algo, epos, te_d, seed, params, acc," \
+    return "param_index, method, algo, epos, te_d, seed, params, acc," \
            " precision, recall, specificity, f1, aurocy\n" \
            "0, diva, diva, 2, caltech, 1, \"{'gamma_y': 682408," \
            " 'gamma_d': 275835}\", 0.88461536, 0.852381,"\

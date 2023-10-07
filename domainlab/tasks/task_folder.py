@@ -9,6 +9,7 @@ from domainlab.dsets.utils_data import (DsetInMemDecorator,
                                         mk_fun_label2onehot)
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 from domainlab.tasks.utils_task import DsetClassVecDecoratorImgPath
+from domainlab.utils.logger import Logger
 
 
 class NodeTaskFolder(NodeTaskDictClassif):
@@ -71,7 +72,8 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
         if float(args.split):
             raise RuntimeError(
                 "this task does not support spliting training domain yet")
-        print("reading domain:", na_domain)
+        logger = Logger.get_logger()
+        logger.info(f"reading domain: {na_domain}")
         domain_class_dirs = \
             self._dict_domain_folder_name2class[na_domain].keys()
         if self._dict_domain_img_trans:

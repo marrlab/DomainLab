@@ -36,13 +36,6 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 
-    def tr_batch(self, epoch, ind_batch):
-        """
-        anneal parameter for each batch
-        """
-        self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
-        return super().tr_epoch(epoch)
-
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
@@ -50,10 +43,10 @@ class TrainerDIAL(TrainerBasic):
             tensor_x, vec_y, vec_d = \
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             self.optimizer.zero_grad()
-            loss = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
+            loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
             tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
             tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
-            loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
+            loss_dial, *_ = self.model.cal_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
             loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
             loss.backward()
             self.optimizer.step()

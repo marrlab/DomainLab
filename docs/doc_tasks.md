@@ -1,12 +1,28 @@
 # Task Specification
 
-The package offers various ways to specify the domain generalization task according to user's need.
+The package offers various ways to specify a domain generalization task (where to find the data, which domain to use as training, which to test) according to user's need.
+
+For all thress ways covered below, the user has to prepare a python file to feed via argument `--tpath` (means task path) into DomainLab.  We provide example python files in our repository [see all examples here for specifying domain generalization task](https://github.com/marrlab/DomainLab/tree/master/examples/tasks) so that the user could follow the example to create their own domain generalization task specification.  We provide inline comment to explain what each line is doing, as well as below in this documentation. 
+
+## Specify train and test domain dataset directly
+The most straightforward way to specify a domain generalization task is, if you have already a [PyTorch Dataset](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html) class for each domain: you could define a dictionary with the key being name for domain, and the value being the PyTorch Dataset you created corresponding to that domain (train and validation or only training) 
+[See an example python file here](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py)
+
+To train a ERM (Emperical Risk Minimization) network on this task:
+```shell
+python main_out.py --te_d domain1 --tr_d domain2 domain3 --tpath=examples/tasks/task_dset_custom.py --bs=32 --aname=deepall --nname=conv_bn_pool_2
+```
+here in the example, 3 domains are defined to be named "domain1", "domain2", "domain3", `--tpath` specifies where the python file specifying the task is stored, `--bs=32` use 32 as batchsize, `deepall` is our nickname for ERM, `--nname` specifies a hard coded neural network in DomainLab, to use custom neural network, see related documentation.
 
 ## TaskPathList
 The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.
 
 An example python file can be found in the [examples directory of the repository](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/demo_task_path_list_small.py) with the corresponding data be found at [the data directory of the repository](https://github.com/marrlab/DomainLab/tree/master/data), where the text file indicating which file correspond to which class label (starting from 1) can be found at [example text file](https://github.com/marrlab/DomainLab/blob/master/data/pacs_split/art_painting_10.txt).
 The user should specify the location of the python file via command line arguments `--tpath`
+
+```shell
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --aname=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
+```
 
 ## TaskFolder
 In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.
@@ -53,7 +69,7 @@ Folder structure of the 3rd domain:
 
 ### Specify the task with domainlab API
 The user is expected to implement something similar to the following code in a separate python file with a function with signature `get_task(na=None)`.
-```
+```python
 import os
 from torchvision import transforms
 
@@ -104,9 +120,10 @@ def get_task(na=None):  # the package will call this function to get the task
     return chain
 ```
 The domainlab function to create task in this example is `domainlab.tasks.mk_task_folder`
-```
+```python
 from domainlab.tasks import mk_task_folder
 print(mk_task_folder.__doc__)
+```
 
 extensions: a python dictionary with key as the domain name
 and value as the file extensions of the image.
@@ -133,4 +150,3 @@ dict_domain2imgroot: a python dictionary with keys as user specified domain name
 as the absolute path to each domain's data.
 
 taskna: user defined task name
-```
