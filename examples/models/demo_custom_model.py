@@ -1,7 +1,7 @@
 """
 Template class to inherit from if user need custom neural network
 """
-
+import torch
 from torch.nn import functional as F
 
 from domainlab.models.model_custom import AModelCustom
@@ -17,7 +17,7 @@ class ModelCustom(AModelCustom):
         """
         we use this property to associate the module "net_predict" with commandline argument
         "my_custom_arg_name", so that one could use "net_predict" while being transparent to
-        what exact backbone is used. 
+        what exact backbone is used.
         """
         return {"net_predict": "my_custom_arg_name"}
 
@@ -41,7 +41,8 @@ class ModelCustom(AModelCustom):
         else:
             _, y_target = tensor_y.max(dim=1)
         lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
-        return lc_y
+        # regularization loss is zero
+        return lc_y, torch.Tensor([0]), lc_y
 
 
 def get_node_na():
