@@ -58,6 +58,7 @@ Shared params:
 diva_fbopt:
   aname: diva
   trainer: fbopt
+  gamma_y: 1.0
   shared:
     - ini_setpoint_ratio
     - k_i_gain
