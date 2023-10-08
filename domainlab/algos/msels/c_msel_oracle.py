@@ -18,7 +18,7 @@ class MSelOracleVisitor(AMSel):
         self.best_oracle_acc = 0
         self.msel = msel
 
-    def update(self):
+    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
@@ -35,7 +35,7 @@ class MSelOracleVisitor(AMSel):
             logger.info("new oracle model saved")
             flag = True
         if self.msel is not None:
-            return self.msel.update()
+            return self.msel.update(clear_counter)
         return flag
 
     def if_stop(self):
