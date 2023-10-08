@@ -39,11 +39,11 @@ class MSelValPerf(MSelTrLoss):
         else:
             self.es_c += 1
             logger = Logger.get_logger()
-            logger.debug(f"early stop counter: {self.es_c}")
-            logger.debug(f"val acc:{self.tr_obs.metric_val['acc']}, " +
-                         f"best validation acc: {self.best_val_acc}, " +
-                         f"corresponding to test acc: \
-                         {self.sel_model_te_acc} / {self.best_te_metric}")
+            logger.info(f"early stop counter: {self.es_c}")
+            logger.info(f"val acc:{self.tr_obs.metric_val['acc']}, " +
+                        f"best validation acc: {self.best_val_acc}, " +
+                        f"corresponding to test acc: \
+                        {self.sel_model_te_acc} / {self.best_te_metric}")
             flag = False  # do not update best model
 
         return flag
