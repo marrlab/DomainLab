@@ -44,7 +44,7 @@ class FbOptSetpointController():
         self.coeff_ma = 0.5  # FIXME
         self.state_task_loss = 0.0
         self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME
-        self.coeff_ma_output = 0.9 # FIXME
+        self.coeff_ma_output = args.coeff_ma_output_state
         # initial value will be set via trainer
         self.setpoint4R = None
         self.setpoint4ell = None
