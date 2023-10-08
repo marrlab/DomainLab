@@ -47,6 +47,12 @@ Shared params:
     num: 3
     distribution: loguniform
 
+  pperm:
+    min: 0.1
+    max: 0.9
+    num: 3
+    distribution: uniform
+
 # Test fbopt with different hyperparameter configurations
 
 jigen_feedback:
@@ -57,10 +63,13 @@ jigen_feedback:
     - ini_setpoint_ratio
     - k_i_gain
     - mu_init
+    - pperm
     
 jigen_feedforward:
   aname: jigen
   trainer: fbopt
+  shared:
+    - pperm
   
 erm:
   aname: deepall
