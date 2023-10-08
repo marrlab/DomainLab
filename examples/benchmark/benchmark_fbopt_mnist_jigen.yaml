@@ -29,10 +29,9 @@ domainlab_args:
 
 Shared params:
   ini_setpoint_ratio:
-    min: 0.9
+    min: 0.95
     max: 0.99
-    num: 3
-    step: 0.05
+    num: 2
     distribution: uniform
 
   k_i_gain:
@@ -43,15 +42,14 @@ Shared params:
     distribution: uniform
 
   mu_init:
-    min: 0.5
-    max: 0.7
-    num: 8
-    step: 0.1
-    distribution: uniform
+    min: 0.001
+    max: 0.1
+    num: 3
+    distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
 
-jigen_fbopt:
+jigen_feedback:
   aname: jigen
   trainer: fbopt
 
@@ -59,6 +57,10 @@ jigen_fbopt:
     - ini_setpoint_ratio
     - k_i_gain
     - mu_init
-
+    
+jigen_feedforward:
+  aname: jigen
+  trainer: fbopt
+  
 erm:
   aname: deepall
