@@ -83,6 +83,8 @@ diva_feedforward_full:
   aname: diva
   trainer: hyperscheduler
   str_mu: gammad_recon
+  shared:
+    - gamma_d
 
 diva_default:
   aname: diva
