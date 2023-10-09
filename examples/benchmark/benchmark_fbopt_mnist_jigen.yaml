@@ -53,6 +53,14 @@ Shared params:
     num: 3
     distribution: uniform
 
+  gamma_reg:
+    min: 0.01
+    max: 1000
+    num: 10
+    distribution: loguniform
+
+
+
 # Test fbopt with different hyperparameter configurations
 
 jigen_feedback:
@@ -67,9 +75,15 @@ jigen_feedback:
     
 jigen_feedforward:
   aname: jigen
-  trainer: fbopt
+  trainer: hyperscheduler
   shared:
-    - pperm
-  
+    - gamma_reg
+
+jigen_fixed_penalty:
+  aname: jigen
+  trainer: basic
+  shared:
+    - gamma_reg
+
 erm:
   aname: deepall

@@ -77,3 +77,6 @@ jigen_fixed_penalty:
   trainer: basic
   shared:
     - gamma_reg
+
+erm:
+  aname: deepall
