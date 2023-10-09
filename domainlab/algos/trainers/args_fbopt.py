@@ -23,7 +23,7 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--coeff_ma', type=float, default=0.5,
                         help='exponential moving average')
     
-    parser.add_argument('--coeff_ma_output_state', type=float, default=0.9,
+    parser.add_argument('--coeff_ma_output_state', type=float, default=0.5,
                         help='setpoint output as state exponential moving average')
    
 
