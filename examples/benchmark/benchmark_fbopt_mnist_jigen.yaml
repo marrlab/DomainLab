@@ -4,7 +4,7 @@ output_dir: zoutput/benchmarks/benchmark_fbopt
 
 sampling_seed: 0
 startseed: 0
-endseed: 2
+endseed: 4
 
 test_domains:
   - 0
@@ -50,7 +50,7 @@ Shared params:
 
   gamma_reg:
     min: 0.01
-    max: 1000
+    max: 10
     num: 10
     distribution: loguniform
 
@@ -61,12 +61,10 @@ Shared params:
 jigen_feedback:
   aname: jigen
   trainer: fbopt
-
+  ini_setpoint_ratio: 0.99
   shared:
-    - ini_setpoint_ratio
     - k_i_gain
     - mu_init
-    - pperm
     
 jigen_feedforward:
   aname: jigen
