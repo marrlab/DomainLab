@@ -5,7 +5,7 @@ output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
 sampling_seed: 0
 
 startseed: 0
-endseed: 1
+endseed: 2
 
 test_domains:
   - sketch
@@ -28,6 +28,7 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
+  pperm: 0.5
 
 
 Shared params:
@@ -39,7 +40,7 @@ Shared params:
 
   mu_init:
     min: 0.00001
-    max: 1.0
+    max: 0.001
     num: 4
     distribution: loguniform
 
@@ -48,6 +49,12 @@ Shared params:
     max: 0.9
     num: 3
     distribution: uniform
+
+  gamma_reg:
+    min: 0.01
+    max: 1000
+    num: 10
+    distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
 
@@ -58,4 +65,15 @@ jigen_fbopt:
   shared:
     - k_i_gain
     - mu_init
-    - pperm
+
+jigen_feedforward:
+  aname: jigen
+  trainer: hyperscheduler
+  shared:
+    - gamma_reg
+
+jigen_fixed_penalty:
+  aname: jigen
+  trainer: basic
+  shared:
+    - gamma_reg
