@@ -24,6 +24,7 @@ domainlab_args:
   mu_clip: 10
   coeff_ma: 0.5
   no_tensorboard: False
+  pperm: 0.5
 
 
 
@@ -42,16 +43,18 @@ Shared params:
     distribution: uniform
 
   mu_init:
-    min: 0.001
-    max: 0.1
+    min: 0.00001
+    max: 0.0001
     num: 3
     distribution: loguniform
 
-  pperm:
-    min: 0.1
-    max: 0.9
-    num: 3
-    distribution: uniform
+  gamma_reg:
+    min: 0.01
+    max: 1000
+    num: 10
+    distribution: loguniform
+
+
 
 # Test fbopt with different hyperparameter configurations
 
@@ -67,9 +70,15 @@ jigen_feedback:
     
 jigen_feedforward:
   aname: jigen
-  trainer: fbopt
+  trainer: hyperscheduler
   shared:
-    - pperm
-  
+    - gamma_reg
+
+jigen_fixed_penalty:
+  aname: jigen
+  trainer: basic
+  shared:
+    - gamma_reg
+
 erm:
   aname: deepall

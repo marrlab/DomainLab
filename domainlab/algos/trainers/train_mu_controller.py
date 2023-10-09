@@ -45,24 +45,27 @@ class TrainerFbOpt(TrainerBasic):
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = []
         epo_task_loss = 0
+        epo_p_loss = 0
         counter = 0.0
         with torch.no_grad():
             for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 tuple_reg_loss = self.model.cal_reg_loss(tensor_x, vec_y, vec_d)
+                p_loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)
                 # NOTE: first [0] extract the loss, second [0] get the list
                 list_b_reg_loss = tuple_reg_loss[0]
-                list_b_reg_loss_sumed = [ele.sum().item() for ele in list_b_reg_loss]
+                list_b_reg_loss_sumed = [ele.sum().detach().item() for ele in list_b_reg_loss]
                 if len(epo_reg_loss) == 0:
                     epo_reg_loss = list_b_reg_loss_sumed
                 else:
                     epo_reg_loss = list(map(add, epo_reg_loss, list_b_reg_loss_sumed))
-                b_task_loss = self.model.cal_task_loss(tensor_x, vec_y).sum()
+                b_task_loss = self.model.cal_task_loss(tensor_x, vec_y).sum().detach().item()
                 # sum will kill the dimension of the mini batch
                 epo_task_loss += b_task_loss
+                epo_p_loss += p_loss.sum().detach().item()
                 counter += 1.0
-        return list_divide(epo_reg_loss, counter), epo_task_loss/counter
+        return list_divide(epo_reg_loss, counter), epo_task_loss/counter, epo_p_loss / counter
 
     def before_batch(self, epoch, ind_batch):
         """
@@ -77,7 +80,7 @@ class TrainerFbOpt(TrainerBasic):
     def before_tr(self):
         self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
         self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
-        self.epo_reg_loss_tr, self.epo_task_loss_tr = self.eval_r_loss()
+        self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
         self.hyper_scheduler.set_setpoint(
             [ele * self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)
@@ -90,6 +93,7 @@ class TrainerFbOpt(TrainerBasic):
         self.hyper_scheduler.search_mu(
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
+            self.epo_loss_tr,
             dict(self.model.named_parameters()),
             miter=epoch)
         self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
