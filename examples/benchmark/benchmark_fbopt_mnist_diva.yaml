@@ -53,18 +53,52 @@ Shared params:
     num: 5
     distribution: loguniform
 
+  gamma_y:
+    min: 1e4
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
 
+  gamma_d:
+    min: 1e4
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
 
-diva_fbopt:
+diva_fbopt_full:
   aname: diva
   trainer: fbopt
+  str_mu: gammad_recon
 
   shared:
     - ini_setpoint_ratio
     - k_i_gain
     - mu_init
+
+diva_feedforward_full:
+  aname: diva
+  trainer: hyperscheduler
+  str_mu: gammad_recon
+
+diva_default:
+  aname: diva
+  trainer: hyperscheduler
+  str_mu: default
+  shared:
+    - gamma_d
+    - gamma_y
+
+diva_fixed_penalty:
+  aname: diva
+  trainer: basic
+  str_mu: default
+  shared:
+    - gamma_d
+    - gamma_y
 
 erm:
   aname: deepall
