@@ -21,7 +21,6 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 32
   zd_dim: 32
-  gamma_y: 1.0
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
   nname_topic_distrib_img2topic: conv_bn_pool_2
@@ -73,6 +72,7 @@ diva_fbopt_full:
   aname: diva
   trainer: fbopt
   str_mu: gammad_recon
+  gamma_y: 1.0
 
   shared:
     - ini_setpoint_ratio
@@ -83,6 +83,9 @@ diva_feedforward_full:
   aname: diva
   trainer: hyperscheduler
   str_mu: gammad_recon
+  gamma_y: 1.0
+  shared:
+    - gamma_d
 
 diva_default:
   aname: diva
