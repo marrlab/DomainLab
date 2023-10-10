@@ -36,14 +36,14 @@ Shared params:
     distribution: uniform
 
   mu_init:
-    min: 0.00001
-    max: 0.0001
+    min: 0.000001
+    max: 0.00001
     num: 3
     distribution: loguniform
 
   gamma_reg:
     min: 0.01
-    max: 10
+    max: 10_000
     num: 10
     distribution: loguniform
 
