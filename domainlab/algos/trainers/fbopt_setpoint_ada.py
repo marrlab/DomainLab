@@ -41,7 +41,7 @@ class FbOptSetpointController():
                 state = DominateAnyComponent()
         self.transition_to(state)
         self.ma_epo_reg_loss = None
-        self.coeff_ma = 0.5  # FIXME
+        self.coeff_ma = args.coeff_ma_setpoint 
         self.state_task_loss = 0.0
         self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME
         self.coeff_ma_output = args.coeff_ma_output_state
