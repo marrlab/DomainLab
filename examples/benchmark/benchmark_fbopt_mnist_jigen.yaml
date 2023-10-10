@@ -29,17 +29,10 @@ domainlab_args:
 
 
 Shared params:
-  ini_setpoint_ratio:
-    min: 0.95
-    max: 0.99
-    num: 2
-    distribution: uniform
-
   k_i_gain:
     min: 0.0001
     max: 0.01
     num: 2
-    step: 0.0001
     distribution: uniform
 
   mu_init:
