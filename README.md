@@ -7,7 +7,7 @@
 [![pages-build-deployment](https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment)
 ## Domain Generalization and DomainLab
 
-Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains. 
+Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains.
 
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.
 
@@ -19,20 +19,49 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 
 `conda create --name domainlab_py39 python=3.9`
 
-then 
+then
 
 `conda activate domainlab_py39`
 
 #### Install Development version (recommended)
 
 Suppose you have cloned the repository and have changed directory to the cloned repository.
+After creating a virtual environment (see above), run
 
 ```norun
 pip install -r requirements.txt
 ```
-then 
+then
 
 `python setup.py install`
+
+#### Guide for Helmholtz GPU cluster
+```
+conda create --name domainlab_py39 python=3.9
+conda activate domainlab_py39
+conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.6 -c pytorch -c conda-forge
+conda install torchmetric==0.10.3
+git checkout fbopt
+pip install -r requirements_notorch.txt 
+conda install tensorboard
+```
+
+#### Download PACS
+
+step 1:
+
+use the following script to download PACS to your local laptop and upload it to your cluster
+
+https://github.com/marrlab/DomainLab/blob/fbopt/data/script/download_pacs.py
+
+step 2:
+make a symbolic link following the example script in https://github.com/marrlab/DomainLab/blob/master/sh_pacs.sh
+
+where `mkdir -p data/pacs` is executed under the repository directory, 
+
+`ln -s /dir/to/yourdata/pacs/raw  ./data/pacs/PACS`
+will create a symbolic link under the repository directory
+
 
 #### Windows installation details
 
@@ -41,7 +70,7 @@ Benchmarking is currently not supported on Windows due to the dependency on Snak
 
 #### Dependencies management
 -   [python-poetry](https://python-poetry.org/) and use the configuration file `pyproject.toml` in this repository.
- 
+
 #### Release
 - Install via `pip install domainlab`
 
@@ -53,7 +82,7 @@ Suppose you have cloned the repository and have the dependencies ready, change d
 To train a domain invariant model on the vlcs_mini task
 
 ```shell
-python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --config=examples/yaml/demo_config_single_run_diva.yaml 
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --config=examples/yaml/demo_config_single_run_diva.yaml
 ```
 where `--tpath` specifies the path of a user specified python file which defines the domain generalization task [see here](./examples/tasks/task_vlcs.py), `--te_d` specifies the test domain name (or index starting from 0), `--config` specifies the configurations of the domain generalization algorithms, [see here](./examples/yaml/demo_config_single_run_diva.yaml)
 

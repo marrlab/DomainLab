@@ -39,6 +39,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.aconf = None
         #
         self.loader_tr = None
+        self.loader_tr_no_drop = None
         self.loader_te = None
         self.num_batches = None
         self.flag_update_hyper_per_epoch = None
@@ -57,6 +58,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.inner_trainer = None
         self.loader_tr_source_target = None
         self.flag_initialized = False
+        # fbopt
+        self.mu_iter_start = 0
 
     @property
     def str_metric4msel(self):
@@ -77,6 +80,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.aconf = aconf
         #
         self.loader_tr = task.loader_tr
+        self.loader_tr_no_drop = task._loader_tr_no_drop
         self.loader_te = task.loader_te
 
         if flag_accept:
@@ -91,6 +95,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.hyper_scheduler = None
         self.optimizer = mk_opt(self.model, self.aconf)
         self.flag_initialized = True
+
+    def reset(self):
+        """
+        make a new optimizer to clear internal state
+        """
+        self.optimizer = mk_opt(self.model, self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
