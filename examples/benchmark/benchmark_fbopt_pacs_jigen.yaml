@@ -52,7 +52,7 @@ Shared params:
 
   gamma_reg:
     min: 0.01
-    max: 10
+    max: 10_000
     num: 10
     distribution: loguniform
 
