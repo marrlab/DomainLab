@@ -12,8 +12,6 @@ done
 # bash -x -v -e sh_temp_example.sh
 echo "general examples done"
 
-rm -r zoutput
-
 echo "#!/bin/bash -x -v" > sh_temp_mnist.sh
 sed -n '/```shell/,/```/ p' docs/doc_MNIST_classification.md | sed '/^```/ d' >> ./sh_temp_mnist.sh
 bash -x -v -e sh_temp_mnist.sh
