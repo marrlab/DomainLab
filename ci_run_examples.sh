@@ -3,9 +3,13 @@ set -e  # exit upon first error
 # >> append content
 # > erase original content
 
-echo "#!/bin/bash -x -v" > sh_temp_example.sh
+# echo "#!/bin/bash -x -v" > sh_temp_example.sh
 sed -n '/```shell/,/```/ p' docs/doc_examples.md | sed '/^```/ d' >> ./sh_temp_example.sh
-bash -x -v -e sh_temp_example.sh
+split -l 5 sh_temp_example.sh sh_example_split
+for file in sh_example_split*; 
+do (echo "#!/bin/bash -x -v" > "$file"_exe && cat "$file" >> "$file"_exe && bash -x -v "$file"_exe && rm -r zoutput); 
+done
+# bash -x -v -e sh_temp_example.sh
 echo "general examples done"
 
 rm -r zoutput
