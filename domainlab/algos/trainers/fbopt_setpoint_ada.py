@@ -4,6 +4,11 @@ update hyper-parameters during training
 import torch
 from domainlab.utils.logger import Logger
 
+def list_add(list1, list2):
+    return [a + b for a, b in zip(list1, list2)]
+
+def list_multiply(list1, coeff):
+    return [ele * coeff for ele in list1]
 
 def is_less_list_any(list1, list2):
     """
@@ -36,9 +41,10 @@ class FbOptSetpointController():
                 state = DominateAnyComponent()
         self.transition_to(state)
         self.ma_epo_reg_loss = None
-        self.state_epo_reg_loss = None
-        self.coeff_ma = 0.5  # FIXME
-        self.state_task_loss = None
+        self.coeff_ma = args.coeff_ma_setpoint 
+        self.state_task_loss = 0.0
+        self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME
+        self.coeff_ma_output = args.coeff_ma_output_state
         # initial value will be set via trainer
         self.setpoint4R = None
         self.setpoint4ell = None
@@ -51,25 +57,25 @@ class FbOptSetpointController():
         self.state_updater = state
         self.state_updater.accept(self)
 
-    def update_setpoint_ma(self, target):
+    def update_setpoint_ma(self, list_target):
         """
         using moving average
         """
-        temp_ma = self.coeff_ma * torch.tensor(target)
-        temp_ma += (1 - self.coeff_ma) * torch.tensor(self.setpoint4R)
-        temp_ma = temp_ma.tolist()
-        self.setpoint4R = temp_ma
+        target_ma = [self.coeff_ma * a + (1 - self.coeff_ma) *b for a, b in zip(self.setpoint4R, list_target)]
+        self.setpoint4R = target_ma
 
     def observe(self, epo_reg_loss, epo_task_loss):
         """
         read current epo_reg_loss continuously
         FIXME: setpoint should also be able to be eliviated
         """
-        self.state_epo_reg_loss = epo_reg_loss
-        self.state_task_loss = epo_task_loss
+        self.state_epo_reg_loss = [self.coeff_ma_output*a + ( 1-self.coeff_ma_output )*b if a != 0.0 else b for a, b in zip(self.state_epo_reg_loss, epo_reg_loss)]
+        if self.state_task_loss == 0.0:
+            self.state_task_loss = epo_task_loss
+        self.state_task_loss = self.coeff_ma_output * self.state_task_loss + (1-self.coeff_ma_output) * epo_task_loss
         if self.state_updater.update_setpoint():
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            self.setpoint4R = self.state_epo_reg_loss
+            self.update_setpoint_ma(self.state_epo_reg_loss)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
 
 
