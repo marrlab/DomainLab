@@ -43,7 +43,7 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--no_setpoint_update', action='store_true', default=False,
                         help='disable setpoint update')
 
-    parser.add_argument('--str_mu', type=str, default="default", help='which penalty to tune')
+    parser.add_argument('--str_mu', type=str, default="gammad_recon", help='which penalty to tune')
 
 
     # the following hyperparamters do not need to be tuned
