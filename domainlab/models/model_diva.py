@@ -1,6 +1,7 @@
 """
 DIVA
 """
+import torch
 from torch.nn import functional as F
 
 from domainlab import g_inst_component_loss_agg
@@ -8,7 +9,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_diva(parent_class=VAEXYDClassif):
+def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -54,12 +55,13 @@ def mk_diva(parent_class=VAEXYDClassif):
         """
         DIVA
         """
+
         @store_args
         def __init__(self, chain_node_builder,
                      zd_dim, zy_dim, zx_dim,
                      list_str_y, list_d_tr,
                      gamma_d, gamma_y,
-                     beta_d, beta_x, beta_y):
+                     beta_d, beta_x, beta_y, mu_recon=1.0):
             """
             gamma: classification loss coefficient
             """
@@ -88,14 +90,18 @@ def mk_diva(parent_class=VAEXYDClassif):
             self.beta_y = dict_rst["beta_y"]
             self.beta_x = dict_rst["beta_x"]
 
-        def hyper_init(self, functor_scheduler):
+        def hyper_init(self, functor_scheduler, trainer=None):
             """
             initiate a scheduler object via class name and things inside this model
 
             :param functor_scheduler: the class name of the scheduler
             """
             return functor_scheduler(
-                beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
+                trainer=trainer,
+                beta_d=self.beta_d,
+                beta_y=self.beta_y,
+                beta_x=self.beta_x,
+            )
 
         def get_list_str_y(self):
             """get_list_str_y."""
@@ -118,7 +124,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             zd_p_minus_zd_q = g_inst_component_loss_agg(
                 p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
             # without aggregation, shape is [batchsize, zd_dim]
-            zx_p_minus_zx_q = 0
+            zx_p_minus_zx_q = torch.zeros_like(zd_p_minus_zd_q)
             if self.zx_dim > 0:
                 # torch.sum will return 0 for empty tensor,
                 # torch.mean will return nan
@@ -130,7 +136,73 @@ def mk_diva(parent_class=VAEXYDClassif):
 
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-
             return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
-                [1.0, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
-    return ModelDIVA
+                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
+
+    class ModelDIVAGammadRecon(ModelDIVA):
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
+
+            :param epoch:
+            :param fun_scheduler:
+            """
+            dict_rst = fun_scheduler(epoch)
+            self.beta_d = dict_rst["beta_d"]
+            self.beta_y = dict_rst["beta_y"]
+            self.beta_x = dict_rst["beta_x"]
+            self.gamma_d = dict_rst["gamma_d"]
+            self.mu_recon = dict_rst["mu_recon"]
+
+        def hyper_init(self, functor_scheduler, trainer=None):
+            """
+            initiate a scheduler object via class name and things inside this model
+
+            :param functor_scheduler: the class name of the scheduler
+            """
+            return functor_scheduler(
+                trainer=trainer,
+                mu_recon=self.mu_recon,
+                beta_d=self.beta_d,
+                beta_y=self.beta_y,
+                beta_x=self.beta_x,
+                gamma_d=self.gamma_d,
+            )
+
+
+    class ModelDIVAGammad(ModelDIVA):
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
+
+            :param epoch:
+            :param fun_scheduler:
+            """
+            dict_rst = fun_scheduler(epoch)
+            self.beta_d = dict_rst["beta_d"]
+            self.beta_y = dict_rst["beta_y"]
+            self.beta_x = dict_rst["beta_x"]
+            self.gamma_d = dict_rst["gamma_d"]
+
+        def hyper_init(self, functor_scheduler, trainer=None):
+            """
+            initiate a scheduler object via class name and things inside this model
+
+            :param functor_scheduler: the class name of the scheduler
+            """
+            return functor_scheduler(
+                trainer=trainer,
+                beta_d=self.beta_d,
+                beta_y=self.beta_y,
+                beta_x=self.beta_x,
+                gamma_d=self.gamma_d,
+            )
+
+    class ModelDIVADefault(ModelDIVA):
+        """
+        """
+    if str_mu == "gammad_recon":
+        return ModelDIVAGammadRecon
+    if str_mu == "gammad":
+        return ModelDIVAGammad
+    if str_mu == "default":
+        return ModelDIVADefault
+    raise RuntimeError("not support argument candiates for str_mu: allowed: default, gammad_recon, gammad")

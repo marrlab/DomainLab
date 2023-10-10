@@ -20,13 +20,29 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         # FIXME: dict_params lack some keys compared to self.state_dict(), why?
         self.load_state_dict(dict_params, strict=False)
 
+    @property
+    def metric4msel(self):
+        """
+        metric for model selection
+        """
+        raise NotImplementedError
+
+    @property
+    def multiplier4task_loss(self):
+        """
+        the multiplier for task loss is default to 1 except for vae family models
+        """
+        return 1.0
+
     def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
         """
         list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         loss_reg = self.inner_product(list_loss, list_multiplier)
-        return self.cal_task_loss(tensor_x, tensor_y) + loss_reg
+        loss_task_alone = self.cal_task_loss(tensor_x, tensor_y)
+        loss_task = self.multiplier4task_loss * loss_task_alone
+        return loss_task + loss_reg, list_loss, loss_task_alone
 
     def inner_product(self, list_loss_scalar, list_multiplier):
         """

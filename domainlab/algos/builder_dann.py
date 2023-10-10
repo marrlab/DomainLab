@@ -6,7 +6,7 @@ from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.trainers.train_hyper_scheduler import HyperSchedulerWarmupExponential
+from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupExponential
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
@@ -27,7 +27,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args)
         msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(exp, msel, device)
+        observer = ObVisitor(msel, device, exp=exp)
         observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(

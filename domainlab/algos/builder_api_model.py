@@ -20,6 +20,6 @@ class NodeAlgoBuilderAPIModel(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(exp, model_sel, device)
+        observer = ObVisitor(model_sel, device, exp=exp)
         trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
         return trainer, None, observer, device

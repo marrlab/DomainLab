@@ -1,15 +1,21 @@
+
 """
 feedback optimization
 """
 import copy
+from operator import add
+
 import torch
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt import HyperSchedulerFeedback
+from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
 from domainlab.algos.msels.c_msel_bang import MSelBang
 from domainlab.utils.logger import Logger
 
+def list_divide(list_val, scalar):
+    return [ele/scalar for ele in list_val]
 
 class HyperSetter():
     """
@@ -39,14 +45,23 @@ class TrainerFbOpt(AbstractTrainer):
         """
         before training begins, construct helper objects
         """
-        self.observer.msel = MSelBang(max_es=None)
-        self.set_scheduler(scheduler=HyperSchedulerFeedback)
-        self.model.as_model().evaluate(self.loader_te, self.device)
+
+        if self.aconf.msel == "last":
+            self.observer.model_sel = MSelBang(max_es=None)
+            # although validation distribution will be very difference from test distribution, it is still a better
+            # idea to not to use the last iteration of the model
+        # self.set_scheduler(scheduler=HyperSchedulerFeedback)
+        self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
+        self.model.evaluate(self.loader_te, self.device)
         self.inner_trainer = TrainerBasic()  # look ahead
         # here we need a mechanism to generate deep copy of the model
         self.inner_trainer.init_business(
             copy.deepcopy(self.model.as_model()), self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
+
+        epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        self.hyper_scheduler.set_setpoint(
+            [ele * self.aconf.ini_setpoint_ratio for ele in epo_reg_loss], epo_task_loss)
 
     def opt_theta(self, dict4mu, dict_theta0):
         """
@@ -74,6 +89,7 @@ class TrainerFbOpt(AbstractTrainer):
         temp_model.hyper_update(epoch=None, fun_scheduler=HyperSetter(dict4mu))
         temp_model.set_params(dict_theta)
         epo_p_loss = 0  # penalized loss
+        counter = 0.0
         with torch.no_grad():
             for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
@@ -81,7 +97,8 @@ class TrainerFbOpt(AbstractTrainer):
                 # sum will kill the dimension of the mini batch
                 b_p_loss = temp_model.cal_loss(tensor_x, vec_y, vec_d).sum()
                 epo_p_loss += b_p_loss
-        return epo_p_loss
+                counter += 1.0
+        return epo_p_loss/counter
 
     def eval_r_loss(self):
         """
@@ -92,20 +109,28 @@ class TrainerFbOpt(AbstractTrainer):
         temp_model = self.model
         # temp_model.as_model().eval()
         # mock the model hyper-parameter to be from dict4mu
-        epo_reg_loss = 0
+        epo_reg_loss = []
         epo_task_loss = 0
+        counter = 0.0
         with torch.no_grad():
             for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
                 tuple_reg_loss = temp_model.cal_reg_loss(tensor_x, vec_y, vec_d)
-                b_reg_loss = tuple_reg_loss[0][0]   # FIXME: this only works when scalar multiplier
-                b_reg_loss = b_reg_loss.sum().item()
+                # NOTE: first [0] extract the loss, second [0] get the list
+                list_b_reg_loss = tuple_reg_loss[0]   # FIXME: this only works when scalar multiplier
+                list_b_reg_loss_sumed = [ele.sum().item() for ele in list_b_reg_loss]
+                if len(epo_reg_loss) == 0:
+                    epo_reg_loss = list_b_reg_loss_sumed
+                else:
+                    epo_reg_loss = list(map(add, epo_reg_loss, list_b_reg_loss_sumed))
+                # FIXME: change this to vector
+                # each component of vector is a mini batch loss
                 b_task_loss = temp_model.cal_task_loss(tensor_x, vec_y).sum()
                 # sum will kill the dimension of the mini batch
-                epo_reg_loss += b_reg_loss
                 epo_task_loss += b_task_loss
-        return epo_reg_loss, epo_task_loss
+                counter += 1.0
+        return list_divide(epo_reg_loss, counter), epo_task_loss/counter
 
     def tr_epoch(self, epoch):
         """
@@ -113,8 +138,18 @@ class TrainerFbOpt(AbstractTrainer):
         the model will tunnel/jump/shoot into the found pivot parameter $\\theta^{(k+1)}$,
         otherwise,
         """
-        # FIXME: check if reg is decreasing by logging and plot
         epo_reg_loss, epo_task_loss = self.eval_r_loss()
+        if self.aconf.msel == "loss_tr":
+            if self.aconf.msel_tr_loss =="reg":
+                self.epo_loss_tr = epo_reg_loss
+            elif self.aconf.msel_tr_loss =="task":
+                self.epo_loss_tr = epo_task_loss
+            else:
+                raise RuntimeError("msel_tr_loss set to be the wrong value")
+        elif self.aconf.msel == "last" or self.aconf.msel == "val":
+            self.epo_loss_tr = 1.0 # FIXME: check if this is not used at all
+        else:
+            raise RuntimeError("msel type not supported")
 
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"at epoch {epoch}, epo_reg_loss={epo_reg_loss}, epo_task_loss={epo_task_loss}")
@@ -128,8 +163,8 @@ class TrainerFbOpt(AbstractTrainer):
         # self.model.train()  # FIXME: i guess no need to put into train mode?
 
         flag_success = self.hyper_scheduler.search_mu(
-            dict(self.model.as_model().named_parameters()),
-            iter_start=1)  # FIXME: iter_start=0 or 1?
+            dict(self.model.named_parameters()),
+            miter=epoch)  # FIXME: iter_start=0 or 1?
 
         if flag_success:
             # only in success case, mu will be updated
@@ -148,31 +183,12 @@ class TrainerFbOpt(AbstractTrainer):
             logger.info(
                 f"at epoch {epoch}, after shooting: epo_reg_loss={epo_reg_loss}, \
                 epo_task_loss={epo_task_loss}")
-        else:
-            # if failed to find reg-pareto descent operator, continue training without
-            # mu being updated
-            logger.info("failed to find pivot, move forward \\bar{\\theta}, \
-                        this will deteriorate reg loss!")
-            epo_reg_loss_before, epo_task_loss_before = self.eval_r_loss()
-            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.info(
-                f"at epoch {epoch}, before \\bar \\theta: epo_reg_loss={epo_reg_loss_before}, \
-                epo_task_loss={epo_task_loss_before}")
 
-            theta = dict(self.model.as_model().named_parameters())
-            dict_par = self.opt_theta(self.hyper_scheduler.mmu, copy.deepcopy(theta))
-            # move according to gradient to update theta_bar
-            self.model.as_model().set_params(dict_par)
-
-            epo_reg_loss, epo_task_loss = self.eval_r_loss()
-            logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-            logger.info(
-                f"at epoch {epoch}, after \\bar \\theta: epo_reg_loss={epo_reg_loss}, \
-                epo_task_loss={epo_task_loss}")
-            if epo_reg_loss < epo_reg_loss_before:
-                logger.info("!!!!found free descent operator")
-                if self.aconf.myoptic_pareto:
-                    self.hyper_scheduler.update_anchor(dict_par)
-        self.observer.update(epoch)
+            self.hyper_scheduler.update_setpoint(epo_reg_loss, epo_task_loss)
+                #if self.aconf.myoptic_pareto:
+                #    self.hyper_scheduler.update_anchor(dict_par)
+        flag_early_stop_observer = self.observer.update(epoch)
+        flag_msel_early_stop = self.observer.model_sel.if_stop()
         self.mu_iter_start = 1   # start from mu=0, due to arange(iter_start, budget)
-        return False  # total number of epochs controled in args
+        # FIXME: after a long seesion with Emilio, we could not resovle this, this is a hack at themoment
+        return flag_msel_early_stop

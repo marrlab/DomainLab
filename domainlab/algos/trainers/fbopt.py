@@ -22,7 +22,7 @@ class HyperSchedulerFeedback():
         self.ploss_new_theta_old_mu = None
         self.ploss_new_theta_new_mu = None
         self.delta_mu = trainer.aconf.delta_mu
-        self.init_mu = trainer.aconf.init_mu4beta
+        self.init_mu = trainer.aconf.mu_init
         # for exponential increase of mu, mu can not be starting from zero
         self.beta_mu = trainer.aconf.beta_mu
         self.dict_theta_bar = None

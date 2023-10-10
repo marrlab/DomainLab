@@ -53,6 +53,10 @@ def mk_parser_main():
 
     parser.add_argument('--epo_te', default=1, type=int,
                         help='test performance per {} epochs')
+    
+    parser.add_argument('-w', '--warmup', type=int, default=100,
+                        help='number of epochs for hyper-parameter warm-up. \
+                        Set to 0 to turn warmup off.')
 
     parser.add_argument('--debug', action='store_true', default=False)
     parser.add_argument('--dmem', action='store_true', default=False)
@@ -138,10 +142,13 @@ def mk_parser_main():
                              "False: parameter name is used."
                              "Default is True.")
 
-    parser.add_argument('--msel', choices=['val', 'loss_tr'], default="val",
+    parser.add_argument('--msel', choices=['val', 'loss_tr', 'last'], default="val",
                         help='model selection for early stop: val, loss_tr, recon, the \
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods')
+
+    parser.add_argument('--msel_tr_loss', choices=['reg', 'task'], default="task",
+                        help='model selection for tr loss')
 
     parser.add_argument('--aname', metavar="an", type=str,
                         default=None,
