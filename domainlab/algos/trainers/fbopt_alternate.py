@@ -122,9 +122,10 @@ class HyperSchedulerFeedbackAlternave():
             activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
                           for val in activation]
         # overshoot handling
-        list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b for i, (a, b) in enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
+        list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None for i, (a, b) in enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
         for ind in list_overshoot:
-            activation[ind] = 0.0 
+            if ind is not None:
+                activation[ind] = 0.0 
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
