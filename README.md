@@ -46,6 +46,23 @@ pip install -r requirements_notorch.txt
 conda install tensorboard
 ```
 
+#### Download PACS
+
+step 1:
+
+use the following script to download PACS to your local laptop and upload it to your cluster
+
+https://github.com/marrlab/DomainLab/blob/fbopt/data/script/download_pacs.py
+
+step 2:
+make a symbolic link following the example script in https://github.com/marrlab/DomainLab/blob/master/sh_pacs.sh
+
+where `mkdir -p data/pacs` is executed under the repository directory, 
+
+`ln -s /dir/to/yourdata/pacs/raw  ./data/pacs/PACS`
+will create a symbolic link under the repository directory
+
+
 #### Windows installation details
 
 To install DomainLab on Windows, please remove the `snakemake` dependency from the `requirements.txt` file.
