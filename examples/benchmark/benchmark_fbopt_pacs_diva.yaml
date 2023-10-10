@@ -23,7 +23,7 @@ domainlab_args:
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   exp_shoulder_clip: 10
-  mu_clip: 10_000
+  mu_clip: 1000_000
   coeff_ma: 0.5
   zx_dim: 0
   zy_dim: 64
@@ -41,13 +41,27 @@ Shared params:
 
   k_i_gain:
     min: 0.0001
-    max: 0.1
+    max: 0.01
     num: 3
     distribution: uniform
 
   mu_init:
-    min: 0.0001
-    max: 1.0
+    min: 0.000001
+    max: 0.00001
+    num: 3
+    distribution: loguniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
     num: 3
     distribution: loguniform
 
@@ -55,11 +69,39 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-diva_fbopt:
+diva_fbopt_full:
   aname: diva
   trainer: fbopt
+  str_mu: gammad_recon
   gamma_y: 1.0
+  ini_setpoint_ratio: 0.99
   shared:
-    - ini_setpoint_ratio
     - k_i_gain
     - mu_init
+
+diva_feedforward_full:
+  aname: diva
+  trainer: hyperscheduler
+  str_mu: gammad_recon
+  gamma_y: 1.0
+  shared:
+    - gamma_d
+
+diva_default:
+  aname: diva
+  trainer: hyperscheduler
+  str_mu: default
+  shared:
+    - gamma_d
+    - gamma_y
+
+diva_fixed_penalty:
+  aname: diva
+  trainer: basic
+  str_mu: default
+  shared:
+    - gamma_d
+    - gamma_y
+
+erm:
+  aname: deepall

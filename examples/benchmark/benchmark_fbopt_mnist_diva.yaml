@@ -4,7 +4,7 @@ output_dir: zoutput/benchmarks/benchmark_fbopt
 
 sampling_seed: 0
 startseed: 0
-endseed: 2
+endseed: 4
 
 test_domains:
   - 0
@@ -21,7 +21,6 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 32
   zd_dim: 32
-  gamma_y: 1.0
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
   nname_topic_distrib_img2topic: conv_bn_pool_2
@@ -48,23 +47,60 @@ Shared params:
     distribution: loguniform
 
   mu_init:
-    min: 0.01
-    max: 0.05
+    min: 0.000001
+    max: 0.00001
     num: 5
     distribution: loguniform
 
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    num: 3
+    distribution: loguniform
 
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
 
-diva_fbopt:
+diva_fbopt_a:
   aname: diva
   trainer: fbopt
+  str_mu: gammad_recon
+  gamma_y: 1.0
+  init_setpoint_ratio: 0.99
 
   shared:
-    - ini_setpoint_ratio
     - k_i_gain
     - mu_init
+
+diva_feedforward_a:
+  aname: diva
+  trainer: hyperscheduler
+  str_mu: gammad_recon
+  gamma_y: 1.0
+  shared:
+    - gamma_d
+
+diva_default:
+  aname: diva
+  trainer: hyperscheduler
+  str_mu: default
+  shared:
+    - gamma_d
+    - gamma_y
+
+diva_fixed_penalty:
+  aname: diva
+  trainer: basic
+  str_mu: default
+  shared:
+    - gamma_d
+    - gamma_y
 
 erm:
   aname: deepall

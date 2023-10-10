@@ -98,7 +98,7 @@ class HyperSchedulerFeedbackAlternave():
     def cal_delta_integration(self, list_old, list_new, coeff):
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
-    def search_mu(self, epo_reg_loss, epo_task_loss, dict_theta=None, miter=None):
+    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, dict_theta=None, miter=None):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value
@@ -137,9 +137,6 @@ class HyperSchedulerFeedbackAlternave():
                 f'reg/setpoint{i}': reg_set,
             }, miter)
             self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{i}', reg_dyn, epo_task_loss)
-
-        epo_loss_tr = epo_task_loss + torch.inner(
-            torch.Tensor(list(self.mmu.values())), torch.Tensor(epo_reg_loss))
         self.writer.add_scalar('loss_penalized', epo_loss_tr, miter)
         self.writer.add_scalar('task', epo_task_loss, miter)
         acc_te = 0
