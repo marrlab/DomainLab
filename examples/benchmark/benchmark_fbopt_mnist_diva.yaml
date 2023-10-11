@@ -26,7 +26,7 @@ domainlab_args:
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: False
-  exp_shoulder_clip: 10
+  exp_shoulder_clip: 5.0
   mu_clip: 1000_000
   coeff_ma: 0.5
   no_tensorboard: False
@@ -49,12 +49,13 @@ Shared params:
   mu_init:
     min: 0.000001
     max: 0.00001
-    num: 5
+    num: 3
     distribution: loguniform
 
   gamma_y:
     min: 1.0
     max: 1e6
+    step: 100
     num: 3
     distribution: loguniform
 
@@ -70,7 +71,7 @@ Shared params:
 diva_fbopt_a:
   aname: diva
   trainer: fbopt
-  str_mu: gammad_recon
+  str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   init_setpoint_ratio: 0.99
 
@@ -81,7 +82,7 @@ diva_fbopt_a:
 diva_feedforward_a:
   aname: diva
   trainer: hyperscheduler
-  str_mu: gammad_recon
+  str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   shared:
     - gamma_d
@@ -89,7 +90,7 @@ diva_feedforward_a:
 diva_default:
   aname: diva
   trainer: hyperscheduler
-  str_mu: default
+  str_diva_multiplier_type: default
   shared:
     - gamma_d
     - gamma_y
@@ -97,7 +98,7 @@ diva_default:
 diva_fixed_penalty:
   aname: diva
   trainer: basic
-  str_mu: default
+  str_diva_multiplier_type: default
   shared:
     - gamma_d
     - gamma_y
