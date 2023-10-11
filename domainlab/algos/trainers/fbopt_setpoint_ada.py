@@ -1,7 +1,16 @@
 """
 update hyper-parameters during training
 """
+import numpy as np
 from domainlab.utils.logger import Logger
+
+
+def list_true(list1):
+    """
+    find out position of a list which has element True
+    """
+    arr_pos = np.arange(len(list1))[list1]
+    return list(arr_pos)
 
 
 def list_add(list1, list2):
@@ -71,8 +80,12 @@ class SetpointRewinder():
         list_comparison_above_setpoint = [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
         flag_increase = any(list_comparison_increase)
         flag_above_setpoint = any(list_comparison_above_setpoint)
-        if flag_increase and flag_above_setpoint:
+        if flag_increase or flag_above_setpoint:
             print("\n\n\n!!!!!!!setpoint too low!\n\n\n")  # FIXME: rewind setpoing
+            list_pos = list_true(list_comparison_above_setpoint)
+            for pos in list_pos:
+                self.host.setpoint4R[pos] = self.epo_ma[pos]
+            self.host.transition_to(FixedSetpoint())
 
 
 class FbOptSetpointController():
