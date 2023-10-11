@@ -9,7 +9,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):
+def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   # FIXME: should not be default
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -112,7 +112,7 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):
             """
             list of multipliers name
             """
-            return ["mu_recon", "beta_d", "beta_y", "beta_x", "beta_y", "gamma_d"]
+            return ["mu_recon", "beta_d", "beta_x", "beta_y", "gamma_d"]
 
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
@@ -168,11 +168,11 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):
             """
             return functor_scheduler(
                 trainer=trainer,
-                mu_recon=self.mu_recon,
                 beta_d=self.beta_d,
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
                 gamma_d=self.gamma_d,
+                mu_recon=self.mu_recon
             )
 
 
