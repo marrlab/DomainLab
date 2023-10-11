@@ -3,7 +3,6 @@ update hyper-parameters during training
 """
 import copy
 import os
-import torch
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -13,13 +12,19 @@ from domainlab.algos.trainers.fbopt_setpoint_ada import FbOptSetpointController
 
 
 class StubSummaryWriter():
+    """
     # stub writer for tensorboard that ignores all messages
+    """
 
     def add_scalar(self, *args, **kwargs):
-        pass
+        """
+        stub, pass do nothing
+        """
 
     def add_scalars(self, *args, **kwargs):
-        pass
+        """
+        stub, pass, do nothing
+        """
 
 
 class HyperSchedulerFeedbackAlternave():
@@ -67,6 +72,9 @@ class HyperSchedulerFeedbackAlternave():
         self.epsilon_r = False
 
     def get_setpoint4R(self):
+        """
+        get setpoint list
+        """
         return self.set_point_controller.setpoint4R
 
     def set_setpoint(self, list_setpoint4R, setpoint4ell):
@@ -93,9 +101,15 @@ class HyperSchedulerFeedbackAlternave():
             self.dict_theta_ref = copy.deepcopy(self.dict_theta)
 
     def cal_delta4control(self, list1, list_setpoint):
+        """
+        list difference
+        """
         return [a - b for a, b in zip(list1, list_setpoint)]
 
     def cal_delta_integration(self, list_old, list_new, coeff):
+        """
+        ma of delta
+        """
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
     def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, dict_theta=None, miter=None):
@@ -135,10 +149,10 @@ class HyperSchedulerFeedbackAlternave():
             self.writer.add_scalar(f'mmu/{key}', val, miter)
 
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoint4R())):
-            self.writer.add_scalar(f'reg/dyn{i}', reg_dyn, miter)
-            self.writer.add_scalar(f'reg/setpoint{i}', reg_set, miter)
+            self.writer.add_scalar(f'regd/dyn{i}', reg_dyn, miter)
+            self.writer.add_scalar(f'regs/setpoint{i}', reg_set, miter)
 
-            self.writer.add_scalars(f'reg/dyn{i} & reg/setpoint{i}', {
+            self.writer.add_scalars(f'regds/dyn{i} & reg/setpoint{i}', {
                 f'reg/dyn{i}': reg_dyn,
                 f'reg/setpoint{i}': reg_set,
             }, miter)
@@ -182,6 +196,6 @@ class HyperSchedulerFeedbackAlternave():
 
     def update_setpoint(self, epo_reg_loss, epo_task_loss):
         """
-        FIXME: setpoint should also be able to be eliviated
+        update setpoint
         """
         self.set_point_controller.observe(epo_reg_loss, epo_task_loss)
