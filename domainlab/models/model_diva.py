@@ -9,7 +9,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
+def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -206,10 +206,10 @@ def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
     class ModelDIVADefault(ModelDIVA):
         """
         """
-    if str_mu == "gammad_recon":
+    if str_diva_multiplier_type == "gammad_recon":
         return ModelDIVAGammadRecon
-    if str_mu == "gammad":
+    if str_diva_multiplier_type == "gammad":
         return ModelDIVAGammad
-    if str_mu == "default":
+    if str_diva_multiplier_type == "default":
         return ModelDIVADefault
-    raise RuntimeError("not support argument candiates for str_mu: allowed: default, gammad_recon, gammad")
+    raise RuntimeError("not support argument candiates for str_diva_multiplier_type: allowed: default, gammad_recon, gammad")
