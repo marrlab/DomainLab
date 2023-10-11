@@ -57,6 +57,10 @@ def mk_dann(parent_class=AModelClassif):
             self.net_encoder = net_encoder
             self.net_classifier = net_classifier
             self.net_discriminator = net_discriminator
+                         
+        @property
+        def list_str_multiplier_na(self):
+            return ["alpha"]
 
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
