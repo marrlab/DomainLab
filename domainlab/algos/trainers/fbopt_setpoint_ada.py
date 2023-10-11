@@ -87,7 +87,7 @@ class SetpointRewinder():
             self.counter = 0
             self.reset(epo_reg_loss)
 
-        if self.counter > 1 and self.counter < 10:  # FIXME
+        if self.counter > 1 and self.counter < 10:  # FIXME: I use arbitray 10 to say that setpoint can only be alleviated twice
             list_pos = list_true(list_comparison_above_setpoint)
             print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")
             for pos in list_pos:
@@ -95,8 +95,9 @@ class SetpointRewinder():
                       from {self.host.setpoint4R[pos]} to {self.epo_ma[pos]}!\n\n\n")
                 self.host.setpoint4R[pos] = self.epo_ma[pos]
 
-        if self.counter > 10:
+        if self.counter > 2:
             self.host.transition_to(FixedSetpoint())
+            self.counter = np.inf  # FIXME
 
 
 
