@@ -3,7 +3,6 @@ update hyper-parameters during training
 """
 import copy
 import os
-import torch
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -13,13 +12,19 @@ from domainlab.algos.trainers.fbopt_setpoint_ada import FbOptSetpointController
 
 
 class StubSummaryWriter():
+    """
     # stub writer for tensorboard that ignores all messages
+    """
 
     def add_scalar(self, *args, **kwargs):
-        pass
+        """
+        stub, pass do nothing
+        """
 
     def add_scalars(self, *args, **kwargs):
-        pass
+        """
+        stub, pass, do nothing
+        """
 
 
 class HyperSchedulerFeedbackAlternave():
@@ -67,6 +72,9 @@ class HyperSchedulerFeedbackAlternave():
         self.epsilon_r = False
 
     def get_setpoint4R(self):
+        """
+        get setpoint list
+        """
         return self.set_point_controller.setpoint4R
 
     def set_setpoint(self, list_setpoint4R, setpoint4ell):
@@ -93,9 +101,15 @@ class HyperSchedulerFeedbackAlternave():
             self.dict_theta_ref = copy.deepcopy(self.dict_theta)
 
     def cal_delta4control(self, list1, list_setpoint):
+        """
+        list difference
+        """
         return [a - b for a, b in zip(list1, list_setpoint)]
 
     def cal_delta_integration(self, list_old, list_new, coeff):
+        """
+        ma of delta
+        """
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
     def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, dict_theta=None, miter=None):
