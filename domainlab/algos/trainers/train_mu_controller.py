@@ -90,7 +90,6 @@ class TrainerFbOpt(TrainerBasic):
         """
         update hyper-parameters only per epoch
         """
-        flag = super().tr_epoch(epoch)
         self.hyper_scheduler.search_mu(
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
@@ -99,4 +98,5 @@ class TrainerFbOpt(TrainerBasic):
             dict(self.model.named_parameters()),
             miter=epoch)
         self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
+        flag = super().tr_epoch(epoch)
         return flag
