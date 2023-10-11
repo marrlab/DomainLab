@@ -84,6 +84,7 @@ class TrainerFbOpt(TrainerBasic):
         self.hyper_scheduler.set_setpoint(
             [ele * self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)
+        self.list_str_multiplier_na = self.model.list_str_multiplier_na
 
     def tr_epoch(self, epoch):
         """
@@ -94,6 +95,7 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
             self.epo_loss_tr,
+            self.list_str_multiplier_na,
             dict(self.model.named_parameters()),
             miter=epoch)
         self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)

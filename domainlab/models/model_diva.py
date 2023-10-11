@@ -107,6 +107,13 @@ def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
             """get_list_str_y."""
             return self._list_str_y
 
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers name
+            """
+            return ["mu_recon", "beta_d", "beta_y", "beta_x", "beta_y", "gamma_d"]
+
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)

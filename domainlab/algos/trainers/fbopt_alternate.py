@@ -112,7 +112,7 @@ class HyperSchedulerFeedbackAlternave():
         """
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
-    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, dict_theta=None, miter=None):
+    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, dict_theta=None, miter=None):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value
@@ -143,14 +143,15 @@ class HyperSchedulerFeedbackAlternave():
             self.writer.add_scalar(f'mmu/{key}', val, miter)
 
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoint4R())):
-            self.writer.add_scalar(f'regd/dyn{i}', reg_dyn, miter)
-            self.writer.add_scalar(f'regs/setpoint{i}', reg_set, miter)
+            self.writer.add_scalar(f'regd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
+            self.writer.add_scalar(f'regs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
 
-            self.writer.add_scalars(f'regds/dyn{i} & reg/setpoint{i}', {
-                f'reg/dyn{i}': reg_dyn,
-                f'reg/setpoint{i}': reg_set,
-            }, miter)
-            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{i}', reg_dyn, epo_task_loss)
+            self.writer.add_scalars(
+                f'regds/dyn_{list_str_multiplier_na[i]} with setpoint',
+                {f'reg/dyn_{list_str_multiplier_na[i]}': reg_dyn,
+                 f'reg/setpoint_{list_str_multiplier_na[i]}': reg_set,
+                 }, miter)
+            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{list_str_multiplier_na[i]}', reg_dyn, epo_task_loss)
         self.writer.add_scalar('loss_penalized', epo_loss_tr, miter)
         self.writer.add_scalar('task', epo_task_loss, miter)
         acc_te = 0
