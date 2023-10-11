@@ -47,8 +47,9 @@ class SetpointRewinder():
     """
     def __init__(self, host):
         self.counter = 0
-        self.epo_ma = None
+        self.epo_ma = [0.0 for _ in range(10)]  # FIXME
         self.host = host
+        self.coeff_ma = 0.5
 
     def reset(self):
         """
@@ -61,10 +62,10 @@ class SetpointRewinder():
         """
         update moving average
         """
-        self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.host.coeff_ma_output)
+        self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma)
         list_comparison = [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
         if any(list_comparison):
-            raise RuntimeError("setpoint too low!")
+            print("setpoint too low!")  # FIXME: rewind setpoing
 
 
 class FbOptSetpointController():
