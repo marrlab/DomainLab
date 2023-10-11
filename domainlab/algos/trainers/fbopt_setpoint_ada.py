@@ -91,8 +91,9 @@ class SetpointRewinder():
             list_pos = list_true(list_comparison_above_setpoint)
             print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")
             for pos in list_pos:
+                print(f"\n\n\n!!!!!!!rewinding setpoint at pos {pos} \
+                      from {self.host.setpoint4R[pos]} to {self.epo_ma[pos]}!\n\n\n")
                 self.host.setpoint4R[pos] = self.epo_ma[pos]
-                print(f"\n\n\n!!!!!!!updating setpoint at pos {pos} to {self.epo_ma[pos]}!\n\n\n")
             self.reset(epo_reg_loss)
             self.host.transition_to(FixedSetpoint())
 
