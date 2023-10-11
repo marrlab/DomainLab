@@ -50,20 +50,24 @@ class SetpointRewinder():
         self.epo_ma = [0.0 for _ in range(10)]  # FIXME
         self.host = host
         self.coeff_ma = 0.5
+        self.ref = None
 
-    def reset(self):
+    def reset(self, epo_reg_loss):
         """
         when setpoint is adjusted
         """
         self.counter = 0
         self.epo_ma = 0.0
+        self.ref = epo_reg_loss
 
     def observe(self, epo_reg_loss):
         """
         update moving average
         """
+        if self.ref is None:
+            self.ref = epo_reg_loss
         self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma)
-        list_comparison = [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
+        list_comparison = [a < b for a, b in zip(self.ref, self.epo_ma)]
         if any(list_comparison):
             print("setpoint too low!")  # FIXME: rewind setpoing
 
@@ -121,7 +125,7 @@ class FbOptSetpointController():
             (1-self.coeff_ma_output) * epo_task_loss
         self.setpoint_rewinder.observe(epo_reg_loss)
         if self.state_updater.update_setpoint():
-            self.setpoint_rewinder.reset()
+            self.setpoint_rewinder.reset(epo_reg_loss)
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             self.update_setpoint_ma(self.state_epo_reg_loss)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
