@@ -87,12 +87,13 @@ class SetpointRewinder():
             self.counter = 0
             self.reset(epo_reg_loss)
 
-        if self.counter > 10:
+        if self.counter > 100:
             list_pos = list_true(list_comparison_above_setpoint)
             print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")  # FIXME: rewind setpoing
             for pos in list_pos:
-                self.reset()
+                self.reset(epo_reg_loss)
                 self.host.setpoint4R[pos] = self.epo_ma[pos]
+                print(f"\n\n\n!!!!!!!updating setpoint at pos {pos} to {self.epo_ma[pos]}!\n\n\n")
             self.host.transition_to(FixedSetpoint())
 
 
