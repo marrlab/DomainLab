@@ -71,7 +71,7 @@ Shared params:
 diva_fbopt_a:
   aname: diva
   trainer: fbopt
-  str_mu: gammad_recon
+  str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   init_setpoint_ratio: 0.99
 
@@ -82,7 +82,7 @@ diva_fbopt_a:
 diva_feedforward_a:
   aname: diva
   trainer: hyperscheduler
-  str_mu: gammad_recon
+  str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   shared:
     - gamma_d
@@ -90,7 +90,7 @@ diva_feedforward_a:
 diva_default:
   aname: diva
   trainer: hyperscheduler
-  str_mu: default
+  str_diva_multiplier_type: default
   shared:
     - gamma_d
     - gamma_y
@@ -98,7 +98,7 @@ diva_default:
 diva_fixed_penalty:
   aname: diva
   trainer: basic
-  str_mu: default
+  str_diva_multiplier_type: default
   shared:
     - gamma_d
     - gamma_y
