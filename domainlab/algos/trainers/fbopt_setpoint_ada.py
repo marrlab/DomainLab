@@ -1,14 +1,22 @@
 """
 update hyper-parameters during training
 """
-import torch
 from domainlab.utils.logger import Logger
 
+
 def list_add(list1, list2):
+    """
+    add two lists
+    """
     return [a + b for a, b in zip(list1, list2)]
 
+
 def list_multiply(list1, coeff):
+    """
+    multiply a scalar to a list
+    """
     return [ele * coeff for ele in list1]
+
 
 def is_less_list_any(list1, list2):
     """
@@ -26,6 +34,39 @@ def is_less_list_all(list1, list2):
     return all(list_comparison)
 
 
+def list_ma(list_state, list_input, coeff):
+    """
+    moving average of list
+    """
+    return [a * coeff + b * (1-coeff) for a, b in zip(list_state, list_input)]
+
+
+class SetpointRewinder():
+    """
+    rewind setpoint if current loss exponential moving average is bigger than setpoint
+    """
+    def __init__(self, host):
+        self.counter = 0
+        self.epo_ma = None
+        self.host = host
+
+    def reset(self):
+        """
+        when setpoint is adjusted
+        """
+        self.counter = 0
+        self.epo_ma = 0.0
+
+    def observe(self, epo_reg_loss):
+        """
+        update moving average
+        """
+        self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.host.coeff_ma_output)
+        list_comparison = [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
+        if any(list_comparison):
+            raise RuntimeError("setpoint too low!")
+
+
 class FbOptSetpointController():
     """
     update setpoint for mu
@@ -40,10 +81,10 @@ class FbOptSetpointController():
             else:
                 state = DominateAnyComponent()
         self.transition_to(state)
-        self.ma_epo_reg_loss = None
-        self.coeff_ma = args.coeff_ma_setpoint 
+        self.setpoint_rewinder = SetpointRewinder(self)
         self.state_task_loss = 0.0
-        self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME
+        self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME: 10 is the maximum number losses here
+        self.coeff_ma_setpoint = args.coeff_ma_setpoint
         self.coeff_ma_output = args.coeff_ma_output_state
         # initial value will be set via trainer
         self.setpoint4R = None
@@ -61,7 +102,8 @@ class FbOptSetpointController():
         """
         using moving average
         """
-        target_ma = [self.coeff_ma * a + (1 - self.coeff_ma) *b for a, b in zip(self.setpoint4R, list_target)]
+        target_ma = [self.coeff_ma_setpoint * a + (1 - self.coeff_ma_setpoint) * b
+                     for a, b in zip(self.setpoint4R, list_target)]
         self.setpoint4R = target_ma
 
     def observe(self, epo_reg_loss, epo_task_loss):
@@ -69,11 +111,16 @@ class FbOptSetpointController():
         read current epo_reg_loss continuously
         FIXME: setpoint should also be able to be eliviated
         """
-        self.state_epo_reg_loss = [self.coeff_ma_output*a + ( 1-self.coeff_ma_output )*b if a != 0.0 else b for a, b in zip(self.state_epo_reg_loss, epo_reg_loss)]
+        self.state_epo_reg_loss = [self.coeff_ma_output*a + (1-self.coeff_ma_output)*b
+                                   if a != 0.0 else b
+                                   for a, b in zip(self.state_epo_reg_loss, epo_reg_loss)]
         if self.state_task_loss == 0.0:
             self.state_task_loss = epo_task_loss
-        self.state_task_loss = self.coeff_ma_output * self.state_task_loss + (1-self.coeff_ma_output) * epo_task_loss
+        self.state_task_loss = self.coeff_ma_output * self.state_task_loss + \
+            (1-self.coeff_ma_output) * epo_task_loss
+        self.setpoint_rewinder.observe(epo_reg_loss)
         if self.state_updater.update_setpoint():
+            self.setpoint_rewinder.reset()
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             self.update_setpoint_ma(self.state_epo_reg_loss)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
@@ -96,7 +143,13 @@ class FbOptSetpointControllerState():
 
 
 class FixedSetpoint(FbOptSetpointControllerState):
+    """
+    do not update setpoint
+    """
     def update_setpoint(self):
+        """
+        always return False so setpoint no update
+        """
         return False
 
 
