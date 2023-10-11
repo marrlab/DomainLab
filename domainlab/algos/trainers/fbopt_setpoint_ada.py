@@ -55,18 +55,18 @@ class SetpointRewinder():
     rewind setpoint if current loss exponential moving average is bigger than setpoint
     """
     def __init__(self, host):
-        self.counter = 0
-        self.epo_ma = [0.0 for _ in range(10)]  # FIXME
         self.host = host
-        self.coeff_ma = 0.5
+        self.counter = None
+        self.epo_ma = None
         self.ref = None
+        self.coeff_ma = 0.5
 
     def reset(self, epo_reg_loss):
         """
         when setpoint is adjusted
         """
         self.counter = 0
-        self.epo_ma = 0.0
+        self.epo_ma = [0.0 for _ in range(10)]  # FIXME
         self.ref = epo_reg_loss
 
     def observe(self, epo_reg_loss):
@@ -74,16 +74,23 @@ class SetpointRewinder():
         update moving average
         """
         if self.ref is None:
-            self.ref = epo_reg_loss
+            self.reset(epo_reg_loss)
         self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma)
         list_comparison_increase = [a < b for a, b in zip(self.ref, self.epo_ma)]
         list_comparison_above_setpoint = [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
         flag_increase = any(list_comparison_increase)
         flag_above_setpoint = any(list_comparison_above_setpoint)
-        if flag_increase or flag_above_setpoint:
-            print("\n\n\n!!!!!!!setpoint too low!\n\n\n")  # FIXME: rewind setpoing
+        if flag_increase and flag_above_setpoint:
+            self.counter += 1
+
+        else:
+            self.counter = 0
+
+        if self.counter > 3:
             list_pos = list_true(list_comparison_above_setpoint)
+            print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")  # FIXME: rewind setpoing
             for pos in list_pos:
+                self.reset()
                 self.host.setpoint4R[pos] = self.epo_ma[pos]
             self.host.transition_to(FixedSetpoint())
 
