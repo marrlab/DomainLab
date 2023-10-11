@@ -182,7 +182,7 @@ class FixedSetpoint(FbOptSetpointControllerState):
         """
         always return False so setpoint no update
         """
-        return False
+        return False, None
 
 
 class SliderAllComponent(FbOptSetpointControllerState):
@@ -194,8 +194,8 @@ class SliderAllComponent(FbOptSetpointControllerState):
         all components of R descreases regardless if ell decreases or not
         """
         if is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R):
-            return True
-        return False
+            return True, list(range(len(self.host.setpoint4R)))
+        return False, None
 
 
 class SliderAnyComponent(FbOptSetpointControllerState):
@@ -240,4 +240,4 @@ class DominateAllComponent(FbOptSetpointControllerState):
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
             self.host.setpoint4ell = self.host.state_task_loss
-        return flag1 & flag2
+        return flag1 & flag2, list(range(len(self.host.setpoint4R)))
