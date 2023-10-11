@@ -67,9 +67,12 @@ class SetpointRewinder():
         if self.ref is None:
             self.ref = epo_reg_loss
         self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma)
-        list_comparison = [a < b for a, b in zip(self.ref, self.epo_ma)]
-        if any(list_comparison):
-            print("setpoint too low!")  # FIXME: rewind setpoing
+        list_comparison_increase = [a < b for a, b in zip(self.ref, self.epo_ma)]
+        list_comparison_above_setpoint = [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
+        flag_increase = any(list_comparison_increase)
+        flag_above_setpoint = any(list_comparison_above_setpoint)
+        if flag_increase and flag_above_setpoint:
+            print("\n\n\n!!!!!!!setpoint too low!\n\n\n")  # FIXME: rewind setpoing
 
 
 class FbOptSetpointController():
