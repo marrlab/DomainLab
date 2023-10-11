@@ -59,6 +59,7 @@ class HyperSchedulerFeedbackAlternave():
         ########################################
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
         self.k_i_control = trainer.aconf.k_i_gain
+        self.overshoot_rewind = True
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = trainer.aconf.mu_clip
@@ -119,7 +120,6 @@ class HyperSchedulerFeedbackAlternave():
         to see if the criteria is met
         $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-epsilon_R])$$
         """
-        # FIXME: use dictionary to replace scalar representation
         delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoint4R())
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is False:
@@ -139,8 +139,10 @@ class HyperSchedulerFeedbackAlternave():
         list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None for i, (a, b) in enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
         for ind in list_overshoot:
             if ind is not None:
-                print(f"overshooting at  pos {ind}, PID controller set to zero now")
-                activation[ind] = 0.0 
+                print(f"overshooting at  pos {ind} of {activation})
+                if self.overshoot_rewind:
+                    activation[ind] = 0.0 
+                    print(f"PID controller set to zero now {activation}")
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
