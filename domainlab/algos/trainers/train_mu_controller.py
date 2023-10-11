@@ -82,7 +82,7 @@ class TrainerFbOpt(TrainerBasic):
         self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
         self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
         self.hyper_scheduler.set_setpoint(
-            [ele * self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
+            [ele * self.aconf.ini_setpoint_ratio if ele > 0 else ele / self.aconf.ini_setpoint_ratio for ele  in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)
         self.list_str_multiplier_na = self.model.list_str_multiplier_na
 
