@@ -87,7 +87,7 @@ class SetpointRewinder():
             self.counter = 0
             self.reset(epo_reg_loss)
 
-        if self.counter > 1 and self.counter < 10:  # FIXME: I use arbitray 10 to say that setpoint can only be alleviated twice
+        if self.counter > 1 and self.counter <= 3:  # only allow self.counter = 2, 3 to rewind setpoing twice
             list_pos = list_true(list_comparison_above_setpoint)
             print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")
             for pos in list_pos:
