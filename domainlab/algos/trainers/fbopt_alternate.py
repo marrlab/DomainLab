@@ -141,7 +141,6 @@ class HyperSchedulerFeedbackAlternave():
 
         for key, val in self.mmu.items():
             self.writer.add_scalar(f'mmu/{key}', val, miter)
-        breakpoint()
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoint4R())):
             self.writer.add_scalar(f'regd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
             self.writer.add_scalar(f'regs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
