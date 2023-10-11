@@ -34,6 +34,9 @@ fourth argument is the number of GPUs to use (optional). The number of GPUs defa
 ### Benchmark on a HPC cluster with slurm
 If you have access to an HPC cluster with slurm support: In a submission node, clone the DomainLab
 repository, cd into the repository and execute the following command:
+
+**Make sure to use tool like nohup or tmux to keep the following command active!**
+
 ```cluster
 # Note: this has only been tested on Linux based systems and may not work on Windows
 ./run_benchmark_slurm.sh ./examples/benchmark/demo_benchmark.yaml
