@@ -134,7 +134,7 @@ class FbOptSetpointController():
         """
         target_ma = [self.coeff_ma_setpoint * a + (1 - self.coeff_ma_setpoint) * b
                      for a, b in zip(self.setpoint4R, list_target)]
-        self.setpoint4R = [target_ma[i] if i in list_pos else self.setpoint4R[i] for i in len(target_ma)]
+        self.setpoint4R = [target_ma[i] if i in list_pos else self.setpoint4R[i] for i in range(len(target_ma))]
 
     def observe(self, epo_reg_loss, epo_task_loss):
         """
