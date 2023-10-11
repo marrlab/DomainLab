@@ -59,7 +59,7 @@ class HyperSchedulerFeedbackAlternave():
         ########################################
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
         self.k_i_control = trainer.aconf.k_i_gain
-        self.overshoot_rewind = True
+        self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = False  # False here just used to decide if value first use or not
         # NOTE: this value will be set according to initial evaluation of neural network
         self.mu_clip = trainer.aconf.mu_clip
