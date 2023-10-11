@@ -32,7 +32,7 @@ def is_less_list_any(list1, list2):
     judge if one list is less than the other
     """
     list_comparison = [a < b for a, b in zip(list1, list2)]
-    return any(list_comparison)
+    return any(list_comparison), list_true(list_comparison)
 
 
 def is_less_list_all(list1, list2):
@@ -128,18 +128,17 @@ class FbOptSetpointController():
         self.state_updater = state
         self.state_updater.accept(self)
 
-    def update_setpoint_ma(self, list_target):
+    def update_setpoint_ma(self, list_target, list_pos):
         """
         using moving average
         """
         target_ma = [self.coeff_ma_setpoint * a + (1 - self.coeff_ma_setpoint) * b
                      for a, b in zip(self.setpoint4R, list_target)]
-        self.setpoint4R = target_ma
+        self.setpoint4R = [target_ma[i] for i in list_pos]
 
     def observe(self, epo_reg_loss, epo_task_loss):
         """
         read current epo_reg_loss continuously
-        FIXME: setpoint should also be able to be eliviated
         """
         self.state_epo_reg_loss = [self.coeff_ma_output*a + (1-self.coeff_ma_output)*b
                                    if a != 0.0 else b
@@ -149,11 +148,12 @@ class FbOptSetpointController():
         self.state_task_loss = self.coeff_ma_output * self.state_task_loss + \
             (1-self.coeff_ma_output) * epo_task_loss
         self.setpoint_rewinder.observe(epo_reg_loss)
-        if self.state_updater.update_setpoint():
+        flag_update, list_pos = self.state_updater.update_setpoint()
+        if flag_update:
             self.setpoint_rewinder.reset(epo_reg_loss)
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(f"!!!!!set point old value {self.setpoint4R}!")
-            self.update_setpoint_ma(self.state_epo_reg_loss)
+            self.update_setpoint_ma(self.state_epo_reg_loss, list_pos)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
 
 
@@ -205,10 +205,11 @@ class SliderAnyComponent(FbOptSetpointControllerState):
         """
         if any component of R has decreased regardless if ell decreases
         """
-        if is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R):
+        flag, list_pos = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
+        if flag:
             self.host.transition_to(SliderAllComponent())
-            return True
-        return False
+            return True, list_pos
+        return False, list_pos
 
 
 class DominateAnyComponent(FbOptSetpointControllerState):
@@ -219,11 +220,11 @@ class DominateAnyComponent(FbOptSetpointControllerState):
         """
         if any of the component of R loss has decreased together with ell loss
         """
-        flag1 = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
+        flag1, list_pos = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
             self.host.setpoint4ell = self.host.state_task_loss
-        return flag1 & flag2
+        return flag1 & flag2, list_pos
 
 
 class DominateAllComponent(FbOptSetpointControllerState):

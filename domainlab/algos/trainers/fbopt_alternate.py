@@ -190,6 +190,6 @@ class HyperSchedulerFeedbackAlternave():
 
     def update_setpoint(self, epo_reg_loss, epo_task_loss):
         """
-        FIXME: setpoint should also be able to be eliviated
+        update setpoint
         """
         self.set_point_controller.observe(epo_reg_loss, epo_task_loss)
