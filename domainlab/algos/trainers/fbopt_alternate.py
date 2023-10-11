@@ -139,7 +139,7 @@ class HyperSchedulerFeedbackAlternave():
         list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None for i, (a, b) in enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
         for ind in list_overshoot:
             if ind is not None:
-                print(f"overshooting at  pos {ind} of {activation})
+                print(f"overshooting at  pos {ind} of {activation}")
                 if self.overshoot_rewind:
                     activation[ind] = 0.0 
                     print(f"PID controller set to zero now {activation}")
