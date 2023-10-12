@@ -29,7 +29,7 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--coeff_ma_setpoint', type=float, default=0.0,
                         help='setpoint average')
 
-    parser.add_argument('--exp_shoulder_clip', type=float, default=10,
+    parser.add_argument('--exp_shoulder_clip', type=float, default=5,
                         help='clip before exponential operation')
 
     parser.add_argument('--ini_setpoint_ratio', type=float, default=0.99,
@@ -43,7 +43,7 @@ def add_args2parser_fbopt(parser):
                         help='disable setpoint update')
 
     parser.add_argument('--overshoot_rewind', type=str, default="yes",
-                        help='overshoot_rewind, for benchmark, use yes or no')   
+                        help='overshoot_rewind, for benchmark, use yes or no')
 
     parser.add_argument('--str_diva_multiplier_type', type=str, default="gammad_recon", help='which penalty to tune')
 
