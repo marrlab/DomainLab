@@ -35,7 +35,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
-        model = mk_diva(str_mu=args.str_mu)(node,
+        model = mk_diva(str_diva_multiplier_type=args.str_diva_multiplier_type)(node,
                           zd_dim=args.zd_dim,
                           zy_dim=args.zy_dim,
                           zx_dim=args.zx_dim,

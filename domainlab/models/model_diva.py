@@ -9,7 +9,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
+def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   # FIXME: should not be default
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -107,6 +107,13 @@ def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
             """get_list_str_y."""
             return self._list_str_y
 
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers name
+            """
+            return ["mu_recon", "beta_d", "beta_x", "beta_y", "gamma_d"]
+
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
@@ -161,11 +168,11 @@ def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
             """
             return functor_scheduler(
                 trainer=trainer,
-                mu_recon=self.mu_recon,
                 beta_d=self.beta_d,
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
                 gamma_d=self.gamma_d,
+                mu_recon=self.mu_recon
             )
 
 
@@ -199,10 +206,10 @@ def mk_diva(parent_class=VAEXYDClassif, str_mu="default"):
     class ModelDIVADefault(ModelDIVA):
         """
         """
-    if str_mu == "gammad_recon":
+    if str_diva_multiplier_type == "gammad_recon":
         return ModelDIVAGammadRecon
-    if str_mu == "gammad":
+    if str_diva_multiplier_type == "gammad":
         return ModelDIVAGammad
-    if str_mu == "default":
+    if str_diva_multiplier_type == "default":
         return ModelDIVADefault
-    raise RuntimeError("not support argument candiates for str_mu: allowed: default, gammad_recon, gammad")
+    raise RuntimeError("not support argument candiates for str_diva_multiplier_type: allowed: default, gammad_recon, gammad")

@@ -66,19 +66,6 @@ Shared params:
     distribution: loguniform
 
 
-
-# Test fbopt with different hyperparameter configurations
-
-diva_fbopt_full:
-  aname: diva
-  trainer: fbopt
-  str_diva_multiplier_type: gammad_recon
-  gamma_y: 1.0
-  ini_setpoint_ratio: 0.99
-  shared:
-    - k_i_gain
-    - mu_init
-
 diva_feedforward_full:
   aname: diva
   trainer: hyperscheduler
