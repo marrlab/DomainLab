@@ -7,6 +7,7 @@ in def grid_task
 '''
 import copy
 import os
+import json
 
 import numpy as np
 import pandas as pd
@@ -365,4 +366,6 @@ def sample_gridsearch(config: dict,
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')
     samples.to_csv(dest)
+    with open(config["output_dir"] + os.sep + 'config.txt', 'w', encoding="utf8") as file:
+        json.dump(config, file)
     return samples
