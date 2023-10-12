@@ -16,7 +16,7 @@ domainlab_args:
   dmem: False
   lr: 0.001
   epos: 500
-  es: 50
+  es: 100
   bs: 64
   nname: conv_bn_pool_2
   san_check: False
