@@ -91,6 +91,12 @@ class ObVisitor(AObVisitor):
         dict_2add = self.cal_oracle_perf()
         if dict_2add is not None:
             metric_te.update(dict_2add)
+        else:
+            metric_te.update({"acc_oracle": -1})
+        if hasattr(self.msel, "best_val_acc"):
+            metric_te.update({"acc_val":self.msel.best_val_acc}
+        else:
+            metric_te.update({"acc_val":-1}
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results
