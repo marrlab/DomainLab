@@ -88,6 +88,9 @@ class ObVisitor(AObVisitor):
         logger = Logger.get_logger()
         logger.info("persisted model performance metric: \n")
         metric_te = model_ld.cal_perf_metric(self.loader_te, self.device)
+        dict_2add = self.cal_oracle_perf()
+        if dict_2add is not None:
+            metric_te.update(dict_2add)
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results
