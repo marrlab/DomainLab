@@ -53,10 +53,15 @@ bash ./sh_list_error.sh ./zoutput/slurm_logs
 
 ## Obtained results
 All files created by this benchmark are saved in the given output directory
-(by default `./zoutput/benchmarks`). The sampled hyperparameters can be found in
-`hyperparameters.csv`. The performance of the different runs can be found aggregated in `results.csv`.
-Moreover, there is the `graphics` subdirectory, in which the values from `results.csv` are
+(by default `./zoutput/benchmarks/[name of the benchmark defined in YAML file]`). The sampled hyperparameters can be found in
+`hyperparameters.csv`. The yaml file is translated to config.txt, corresponding to each line in `hyperparameters.csv`, there will
+be a csv file in directory `rule_results`.
+
+**Please do not change anything in folder `rule_results` !**
+
+The performance of the different runs from directory `rule_results` will be aggregated after all jobs have been done, which can be found aggregated in `results.csv`, Moreover, there is the `graphics` subdirectory, in which the values from `results.csv` are
 visualized for interpretation.
+
 In case that the benchmark is not entirely completed, the user can obtain partial results as
 explained below.
 
@@ -69,7 +74,7 @@ the following after cd into the DomainLab directory:
 python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
 specifying the benchmark output directory containing the partially completed benchmark,
-e.g. `./zoutput/benchmarks/demo_benchmark`.
+e.g. `./zoutput/benchmarks/demo_benchmark`, where `demo_benchmark` is a name defined in the yaml file. 
 
 ### Generate plots from .csv file
 If the benchmark is not completed, the `graphics` subdirectory might not be created. The user can then manually
