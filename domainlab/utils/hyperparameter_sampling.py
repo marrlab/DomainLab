@@ -145,6 +145,8 @@ class CategoricalHyperparameter(Hyperparameter):
     def __init__(self, name: str, config: dict):
         super().__init__(name)
         self.allowed_values = config['values']
+        if 'datatype' not in config:
+            raise RuntimeError("Please specifiy datatype for all categorical hyper-parameters!, e.g. datatype=str")
         self.type = locate(config['datatype'])
         self.allowed_values = [self.type(v) for v in self.allowed_values]
 
