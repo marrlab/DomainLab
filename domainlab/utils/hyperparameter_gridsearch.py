@@ -12,6 +12,7 @@ import json
 import numpy as np
 import pandas as pd
 import domainlab.utils.hyperparameter_sampling as sampling
+from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
 
@@ -366,6 +367,11 @@ def sample_gridsearch(config: dict,
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')
     samples.to_csv(dest)
+        # create a txt file with the commit information
+    with open(config["output_dir"] + os.sep + 'commit.txt', 'w', encoding="utf8") as file:
+        file.writelines("use git log |grep \n")
+        file.writelines("consider remove leading b in the line below \n")
+        file.write(get_git_tag())  
     with open(config["output_dir"] + os.sep + 'config.txt', 'w', encoding="utf8") as file:
         json.dump(config, file)
     return samples
