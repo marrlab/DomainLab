@@ -1,0 +1,84 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt
+
+sampling_seed: 0
+startseed: 0
+endseed: 4
+
+test_domains:
+  - 0
+
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [1, 2]
+  dmem: False
+  lr: 0.001
+  epos: 500
+  es: 50
+  bs: 64
+  nname: conv_bn_pool_2
+  san_check: False
+  exp_shoulder_clip: 10
+  mu_clip: 10
+  coeff_ma: 0.5
+  no_tensorboard: False
+  pperm: 0.5
+
+
+
+Shared params:
+  coeff_ma_output_state:
+    distribution: uniform
+    min: 0.0
+    max: 0.9
+    num: 3
+  coeff_ma_setpoint:
+    distribution: uniform
+    min: 0.0
+    max: 0.9
+    num: 3
+  setpoint_rewind:
+    distribution: categorical
+    datatype: str
+    values:
+      - "yes"
+      - "no"
+  overshoot_rewind:
+    distribution: categorical
+    datatype: str
+    values:
+      - "yes"
+      - "no"
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    distribution: uniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    num: 3
+    distribution: loguniform
+
+  gamma_reg:
+    min: 0.01
+    max: 10_000
+    num: 10
+    distribution: loguniform
+
+
+
+# Test fbopt with different hyperparameter configurations
+
+jigen_feedback:
+  aname: jigen
+  trainer: fbopt
+  ini_setpoint_ratio: 0.99
+  shared:
+    - k_i_gain
+    - mu_init
+    - setpoint_rewind
+    - overshoot_rewind
