@@ -33,12 +33,12 @@ Shared params:
     distribution: uniform
     min: 0.0
     max: 0.9
-    num: 3
+    num: 2
   coeff_ma_setpoint:
     distribution: uniform
     min: 0.0
     max: 0.9
-    num: 3
+    num: 2
   setpoint_rewind:
     distribution: categorical
     datatype: str
@@ -77,6 +77,8 @@ jigen_feedback:
   aname: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
+  coeff_ma_output_state: 0.5
+  coeff_ma_setpoint: 0.5
   shared:
     - k_i_gain
     - mu_init
