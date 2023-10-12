@@ -145,7 +145,9 @@ class HyperSchedulerFeedbackAlternave():
                     activation[ind] = 0.0
                     logger.info(f"PID controller set to zero now {activation}")
         list_gain = np.exp(activation)
-        target = self.dict_multiply(self.mmu, list_gain)
+        dict_gain = {na: val for na, val in zip(list_str_multiplier_na, list_gain)}
+        target = self.dict_multiply(self.mmu, dict_gain)
+        breakpoint()
         self.mmu = self.dict_clip(target)
 
         for key, val in self.mmu.items():
@@ -188,14 +190,10 @@ class HyperSchedulerFeedbackAlternave():
                 return True
         return False
 
-    def dict_multiply(self, dict_base, list_multiplier):
+    def dict_multiply(self, dict_base, dict_multiplier):
         """
         multiply a float to each element of a dictionary
         """
-        list_keys = list(dict_base.keys())
-        list_zip = zip(list_keys, list_multiplier)
-        dict_multiplier = dict(list_zip)
-        # NOTE: allow multipler be bigger than 1
         return {key: val*dict_multiplier[key] for key, val in dict_base.items()}
 
     def update_setpoint(self, epo_reg_loss, epo_task_loss):
