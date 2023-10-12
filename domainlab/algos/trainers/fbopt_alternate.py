@@ -130,7 +130,7 @@ class HyperSchedulerFeedbackAlternave():
             # delta_epsilon_r is the current time step
             self.delta_epsilon_r = self.cal_delta_integration(
                 self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
-        # FIXME: here we can not sum up selta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
+        # FIXME: here we can not sum up delta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
         activation = [self.k_i_control * val for val in self.delta_epsilon_r]
         if self.activation_clip is not None:
             activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
@@ -139,10 +139,11 @@ class HyperSchedulerFeedbackAlternave():
         list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None for i, (a, b) in enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
         for ind in list_overshoot:
             if ind is not None:
-                print(f"overshooting at  pos {ind} of {activation}")
+                logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+                logger.info(f"overshooting at  pos {ind} of {activation}")
                 if self.overshoot_rewind:
-                    activation[ind] = 0.0 
-                    print(f"PID controller set to zero now {activation}")
+                    activation[ind] = 0.0
+                    logger.info(f"PID controller set to zero now {activation}")
         list_gain = np.exp(activation)
         target = self.dict_multiply(self.mmu, list_gain)
         self.mmu = self.dict_clip(target)
@@ -158,7 +159,8 @@ class HyperSchedulerFeedbackAlternave():
                 {f'reg/dyn_{list_str_multiplier_na[i]}': reg_dyn,
                  f'reg/setpoint_{list_str_multiplier_na[i]}': reg_set,
                  }, miter)
-            self.writer.add_scalar(f'x-axis=task vs y-axis=reg/dyn{list_str_multiplier_na[i]}', reg_dyn, epo_task_loss)
+            self.writer.add_scalar(
+                f'x-axis=task vs y-axis=reg/dyn{list_str_multiplier_na[i]}', reg_dyn, epo_task_loss)
         self.writer.add_scalar('loss_penalized', epo_loss_tr, miter)
         self.writer.add_scalar('task', epo_task_loss, miter)
         acc_te = 0
