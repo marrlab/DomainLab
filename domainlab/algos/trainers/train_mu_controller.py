@@ -105,6 +105,8 @@ class TrainerFbOpt(TrainerBasic):
         """
         update multipliers only per epoch
         """
+        if not self.flag_update_hyper_per_batch:
+            return super().tr_epoch(epoch)
         self.hyper_scheduler.search_mu(
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
