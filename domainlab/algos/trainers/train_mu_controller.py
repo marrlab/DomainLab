@@ -87,6 +87,9 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_task_loss_tr)
         self.list_str_multiplier_na = self.model.list_str_multiplier_na
 
+    def set_mu(self):
+        self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
+
     def tr_epoch(self, epoch):
         """
         update hyper-parameters only per epoch
@@ -99,5 +102,6 @@ class TrainerFbOpt(TrainerBasic):
             dict(self.model.named_parameters()),
             miter=epoch)
         self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
+        self.set_mu()
         flag = super().tr_epoch(epoch)
         return flag
