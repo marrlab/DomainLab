@@ -104,6 +104,7 @@ class ObVisitor(AObVisitor):
         metric_te = model_or.cal_perf_metric(self.loader_te, self.device)
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
+        return {"acc_oracle": metric_te["acc"]}
 
     def dump_prediction(self, model_ld, metric_te):
         """
