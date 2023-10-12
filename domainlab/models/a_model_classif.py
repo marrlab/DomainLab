@@ -197,4 +197,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         for ERM to adapt to the interface of other regularized learners
         """
-        return torch.Tensor([0]), torch.Tensor([0])
+        device = tensor_x.device
+        bsize = tensor_x.shape[0]
+        return [torch.zeros(bsize, 1).to(device)], [0.0]

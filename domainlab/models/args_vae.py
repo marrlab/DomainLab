@@ -46,9 +46,4 @@ def add_args2parser_vae(parser):
                         help='multiplier for KL x')
     parser.add_argument('--beta_y', type=float, default=1.,
                         help='multiplier for KL y')
-    #
-
-    parser.add_argument('-w', '--warmup', type=int, default=100,
-                        help='number of epochs for hyper-parameter warm-up. \
-                        Set to 0 to turn warmup off.')
     return parser

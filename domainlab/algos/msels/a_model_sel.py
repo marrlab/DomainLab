@@ -25,7 +25,7 @@ class AMSel(metaclass=abc.ABCMeta):
         self.tr_obs = tr_obs
 
     @abc.abstractmethod
-    def update(self):
+    def update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
         if the best model should be updated

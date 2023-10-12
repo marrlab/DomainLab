@@ -36,7 +36,7 @@ class TrainerHyperScheduler(TrainerBasic):
         """
         if self.flag_update_hyper_per_batch:
             self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
-        return super().after_batch(epoch, ind_batch)
+        return super().before_batch(epoch, ind_batch)
 
     def before_tr(self):
         if self.hyper_scheduler is None:

@@ -205,10 +205,11 @@ choose the values of the hyperparameter from a predefined list. If one uses grid
 ```yaml
 nperm:                          # name of the hyperparameter
     distribution: categorical   # name of the distribution
+    datatype: int  
     values:                     # concrete values to choose from
-    - 30
-    - 31
-    - 100
+      - 30
+      - 31
+      - 100
 ```
 
 ### Referenced hperparameters

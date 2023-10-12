@@ -17,7 +17,7 @@ class MSelTrLoss(AMSel):
         self.max_es = max_es
         super().__init__()
 
-    def update(self):
+    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
@@ -34,6 +34,9 @@ class MSelTrLoss(AMSel):
             logger.info(f"early stop counter: {self.es_c}")
             logger.info(f"loss:{loss}, best loss: {self.best_loss}")
             flag = False  # do not update best model
+            if clear_counter:
+                logger.info("clearing counter")
+                self.es_c = 0
         return flag
 
     def if_stop(self):
