@@ -147,7 +147,6 @@ class HyperSchedulerFeedbackAlternave():
         list_gain = np.exp(activation)
         dict_gain = {na: val for na, val in zip(list_str_multiplier_na, list_gain)}
         target = self.dict_multiply(self.mmu, dict_gain)
-        breakpoint()
         self.mmu = self.dict_clip(target)
 
         for key, val in self.mmu.items():
