@@ -59,7 +59,7 @@ bash ./sh_list_error.sh ./zoutput/slurm_logs
 ## Obtained results
 All files created by this benchmark are saved in the given output directory
 (by default `./zoutput/benchmarks/[name of the benchmark defined in YAML file]`). The sampled hyperparameters can be found in
-`hyperparameters.csv`. The yaml file is translated to config.txt, corresponding to each line in `hyperparameters.csv`, there will
+`hyperparameters.csv`. The yaml file is translated to `config.txt` with corresponding to commit in formation in `commit.txt` (**do not update code during benchmark process so results can be reproducible with this commit information**), corresponding to each line in `hyperparameters.csv`, there will
 be a csv file in directory `rule_results`.
 
 **Please do not change anything in folder `rule_results` !**
