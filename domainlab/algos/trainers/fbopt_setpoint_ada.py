@@ -115,7 +115,7 @@ class FbOptSetpointController():
             if args is not None and args.no_setpoint_update:
                 state = FixedSetpoint()
             else:
-                state = DominateAnyComponent()
+                state = DominateAllComponent()
         self.transition_to(state)
         self.flag_setpoint_rewind = args.setpoint_rewind == "yes"
         self.setpoint_rewinder = SetpointRewinder(self)
