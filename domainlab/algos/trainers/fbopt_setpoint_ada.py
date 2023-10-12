@@ -60,7 +60,7 @@ class SetpointRewinder():
         self.epo_ma = None
         self.ref = None
         self.coeff_ma = 0.5
-        self.setpoint_rewind = False
+        self.setpoint_rewind = host.flag_setpoint_rewind
 
     def reset(self, epo_reg_loss):
         """
@@ -117,6 +117,7 @@ class FbOptSetpointController():
             else:
                 state = DominateAnyComponent()
         self.transition_to(state)
+        self.flag_setpoint_rewind = args.setpoint_rewind == "yes"
         self.setpoint_rewinder = SetpointRewinder(self)
         self.state_task_loss = 0.0
         self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME: 10 is the maximum number losses here

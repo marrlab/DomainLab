@@ -40,23 +40,6 @@ class HyperSchedulerFeedbackAlternave():
         self.mu_min = trainer.aconf.mu_min
         self.mmu = kwargs
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
-        self.ploss_old_theta_old_mu = None
-        self.ploss_old_theta_new_mu = None
-        self.ploss_new_theta_old_mu = None
-        self.ploss_new_theta_new_mu = None
-        self.delta_mu = trainer.aconf.delta_mu
-        # for exponential increase of mu, mu can not be starting from zero
-        self.beta_mu = trainer.aconf.beta_mu
-        self.dict_theta_bar = None
-        self.dict_theta = copy.deepcopy(dict(self.trainer.model.named_parameters()))
-        # theta_ref should be equal to either theta or theta bar as reference
-        # since theta_ref will be used to judge if criteria is met
-        self.dict_theta_ref = None
-        self.budget_mu_per_step = trainer.aconf.budget_mu_per_step
-        self.budget_theta_update_per_mu = trainer.aconf.budget_theta_update_per_mu
-        self.count_found_operator = 0
-        self.count_search_mu = 0
-        ########################################
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
         self.k_i_control = trainer.aconf.k_i_gain
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
