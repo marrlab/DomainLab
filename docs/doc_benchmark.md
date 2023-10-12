@@ -31,11 +31,16 @@ arguments are the starting seeds for cuda and the hyperparameter sampling (both 
 fourth argument is the number of GPUs to use (optional). The number of GPUs defaults to one 
 (if your machine does not have GPU, the last argument defaults to one as well and CPU is used).
 
+In case of snakemake error, try
+`rm -r .snakemake/`
+
 ### Benchmark on a HPC cluster with slurm
 If you have access to an HPC cluster with slurm support: In a submission node, clone the DomainLab
 repository, cd into the repository and execute the following command:
 
 **Make sure to use tool like nohup or tmux to keep the following command active!**
+
+It is a good idea to use standalone script to test if the yaml file work or not before submit to slurm cluster. 
 
 ```cluster
 # Note: this has only been tested on Linux based systems and may not work on Windows
