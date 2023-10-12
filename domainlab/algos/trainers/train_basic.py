@@ -58,7 +58,8 @@ class TrainerBasic(AbstractTrainer):
         self.handle_r_loss(list_loss_reg)
         loss = loss.sum()
         loss.backward()
-        torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
+        if self.grad_clip:
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.grad_clip)
         self.optimizer.step()
         self.epo_loss_tr += loss.detach().item()
         self.epo_task_loss_tr += loss_task.sum().detach().item()

@@ -78,6 +78,7 @@ class TrainerFbOpt(TrainerBasic):
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
+        self.grad_clip = self.aconf.grad_clip
         self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
         self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
         # self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()

@@ -7,6 +7,8 @@ def add_args2parser_fbopt(parser):
     """
     append hyper-parameters to the main argparser
     """
+    parser.add_argument('--grad_clip', type=float, default=None,
+                        help='gradient clip value')
 
     parser.add_argument('--k_i_gain', type=float, default=0.001,
                         help='PID control gain for integrator')
@@ -43,7 +45,7 @@ def add_args2parser_fbopt(parser):
                         help='disable setpoint update')
 
     parser.add_argument('--overshoot_rewind', type=str, default="yes",
-                        help='overshoot_rewind, for benchmark, use yes or no')   
+                        help='overshoot_rewind, for benchmark, use yes or no')
 
     parser.add_argument('--str_diva_multiplier_type', type=str, default="gammad_recon", help='which penalty to tune')
 
