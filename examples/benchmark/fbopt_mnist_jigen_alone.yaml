@@ -16,7 +16,7 @@ domainlab_args:
   dmem: False
   lr: 0.001
   epos: 500
-  es: 100
+  es: 50
   bs: 64
   nname: conv_bn_pool_2
   san_check: False
@@ -29,6 +29,16 @@ domainlab_args:
 
 
 Shared params:
+  coeff_ma_output_state:
+    distribution: uniform
+    min: 0.0
+    max: 0.9
+    num: 3
+  coeff_ma_setpoint:
+    distribution: uniform
+    min: 0.0
+    max: 0.9
+    num: 3
   setpoint_rewind:
     distribution: categorical
     datatype: str
