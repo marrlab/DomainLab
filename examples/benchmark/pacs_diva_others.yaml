@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
+output_dir: zoutput/benchmarks/pacs_diva_others
 
 sampling_seed: 0
 
