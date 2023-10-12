@@ -48,7 +48,7 @@ hyperparameter sampling and pytorch.
 The following script will help to find out which job has failed and the error message, so that you could direct to the 
 specific log file
 ```cluster
-./run_benchmark_slurm.sh ./zoutput/slurm_logs
+bash ./sh_list_error.sh ./zoutput/slurm_logs
 ```
 
 ## Obtained results
