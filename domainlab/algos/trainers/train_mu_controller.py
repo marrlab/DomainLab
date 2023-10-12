@@ -79,20 +79,25 @@ class TrainerFbOpt(TrainerBasic):
 
     def before_tr(self):
         self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
-        self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
-        # self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
-        super().tr_epoch(-1)
+        self.set_model_with_mu()  # very small value 
+        self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
         self.hyper_scheduler.set_setpoint(
             [ele * self.aconf.ini_setpoint_ratio if ele > 0 else ele / self.aconf.ini_setpoint_ratio for ele  in self.epo_reg_loss_tr],
-            self.epo_task_loss_tr)
-        self.list_str_multiplier_na = self.model.list_str_multiplier_na
+            self.epo_task_loss_tr)  # setpoing w.r.t. random initialization of neural network
 
-    def set_mu(self):
+    @property
+    def list_str_multiplier_na(self):
+        return self.model.list_str_multiplier_na
+
+    def erm(self):
+        super().tr_epoch(-1)
+
+    def set_model_with_mu(self):
         self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
 
     def tr_epoch(self, epoch):
         """
-        update hyper-parameters only per epoch
+        update multipliers only per epoch
         """
         self.hyper_scheduler.search_mu(
             self.epo_reg_loss_tr,
@@ -101,7 +106,9 @@ class TrainerFbOpt(TrainerBasic):
             self.list_str_multiplier_na,
             dict(self.model.named_parameters()),
             miter=epoch)
-        self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
-        self.set_mu()
+        self.set_model_with_mu()
+        
         flag = super().tr_epoch(epoch)
+        # is it good to update setpoint after we know the new value of each loss?
+        self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
         return flag
