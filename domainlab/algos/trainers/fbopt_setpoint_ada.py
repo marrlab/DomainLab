@@ -60,6 +60,7 @@ class SetpointRewinder():
         self.epo_ma = None
         self.ref = None
         self.coeff_ma = 0.5
+        self.setpoint_rewind = False
 
     def reset(self, epo_reg_loss):
         """
@@ -87,17 +88,18 @@ class SetpointRewinder():
             self.counter = 0
             self.reset(epo_reg_loss)
 
-        if self.counter > 1 and self.counter <= 3:  # only allow self.counter = 2, 3 to rewind setpoing twice
-            list_pos = list_true(list_comparison_above_setpoint)
-            print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")
-            for pos in list_pos:
-                print(f"\n\n\n!!!!!!!rewinding setpoint at pos {pos} \
-                      from {self.host.setpoint4R[pos]} to {self.epo_ma[pos]}!\n\n\n")
-                self.host.setpoint4R[pos] = self.epo_ma[pos]
+        if self.setpoint_rewind:
+            if self.counter > 2 and self.counter <= 3:  # only allow self.counter = 2, 3 to rewind setpoing twice
+                list_pos = list_true(list_comparison_above_setpoint)
+                print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")
+                for pos in list_pos:
+                    print(f"\n\n\n!!!!!!!rewinding setpoint at pos {pos} \
+                        from {self.host.setpoint4R[pos]} to {self.epo_ma[pos]}!\n\n\n")
+                    self.host.setpoint4R[pos] = self.epo_ma[pos]
 
-        if self.counter > 2:
-            self.host.transition_to(FixedSetpoint())
-            self.counter = np.inf  # FIXME
+            if self.counter > 3:
+                self.host.transition_to(FixedSetpoint())
+                self.counter = np.inf  # FIXME
 
 
 
