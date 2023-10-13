@@ -144,7 +144,7 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
             return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
-                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
+                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, self.gamma_d]
 
     class ModelDIVAGammadRecon(ModelDIVA):
         def hyper_update(self, epoch, fun_scheduler):

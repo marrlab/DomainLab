@@ -9,6 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 from domainlab.utils.logger import Logger
 from domainlab.algos.trainers.fbopt_setpoint_ada import FbOptSetpointController
+from domainlab.algos.trainers.fbopt_setpoint_ada import if_list_sign_agree
 
 
 class StubSummaryWriter():
@@ -88,7 +89,8 @@ class HyperSchedulerFeedback():
         """
         list difference
         """
-        return [a - b for a, b in zip(list1, list_setpoint)]
+        if_list_sign_agree(list1, list_setpoint)
+        return [a - b if a >= 0 and b >= 0 else b - a for a, b in zip(list1, list_setpoint)]
 
     def cal_delta_integration(self, list_old, list_new, coeff):
         """
@@ -96,7 +98,7 @@ class HyperSchedulerFeedback():
         """
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
-    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, dict_theta=None, miter=None):
+    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, miter):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value
@@ -182,4 +184,4 @@ class HyperSchedulerFeedback():
         """
         update setpoint
         """
-        self.set_point_controller.observe(epo_reg_loss, epo_task_loss)
+        return self.set_point_controller.observe(epo_reg_loss, epo_task_loss)

@@ -1,53 +1,60 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt
+output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
 
 sampling_seed: 0
+
 startseed: 0
 endseed: 4
 
 test_domains:
-  - 0
-
+  - sketch
 
 domainlab_args:
-  task: mnistcolor10
-  tr_d: [1, 2]
+  tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
-  lr: 0.001
-  epos: 500
-  es: 100
+  lr: 5e-5
+  epos: 200
+  es: 10
   bs: 64
-  nname: conv_bn_pool_2
   san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
   exp_shoulder_clip: 10
-  mu_clip: 10
+  mu_clip: 10_000
   coeff_ma: 0.5
-  no_tensorboard: False
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
   pperm: 0.5
-
 
 
 Shared params:
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 2
-    distribution: uniform
+    num: 3
+    distribution: loguniform
 
   mu_init:
     min: 0.000001
-    max: 0.00001
+    max: 0.00005
     num: 3
     distribution: loguniform
+
+  pperm:
+    min: 0.1
+    max: 0.9
+    num: 3
+    distribution: uniform
 
   gamma_reg:
     min: 0.01
     max: 10_000
     num: 10
     distribution: loguniform
-
-
 
 # Test fbopt with different hyperparameter configurations
 

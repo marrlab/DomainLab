@@ -18,6 +18,16 @@ class MSelOracleVisitor(AMSel):
         self.best_oracle_acc = 0
         self.msel = msel
 
+    @property
+    def oracle_last_setpoint_sel_te_acc(self):
+        """
+        last setpoint acc
+        """
+        if self.msel is not None and \
+                hasattr(self.msel, "oracle_last_setpoint_sel_te_acc"):
+            return self.msel.oracle_last_setpoint_sel_te_acc
+        return -1
+
     def update(self, clear_counter=False):
         """
         if the best model should be updated

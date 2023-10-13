@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_jigen_fbopt_alone
+output_dir: zoutput/benchmarks/pacs_jigen_fbopt_baselines
 
 sampling_seed: 0
 
@@ -58,10 +58,18 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-jigen_feedback:
+    
+jigen_feedforward:
   aname: jigen
-  trainer: fbopt
-  ini_setpoint_ratio: 0.99
+  trainer: hyperscheduler
   shared:
-    - k_i_gain
-    - mu_init
+    - gamma_reg
+
+jigen_fixed_penalty:
+  aname: jigen
+  trainer: basic
+  shared:
+    - gamma_reg
+
+erm:
+  aname: deepall

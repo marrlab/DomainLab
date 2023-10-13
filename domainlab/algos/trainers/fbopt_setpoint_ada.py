@@ -27,11 +27,21 @@ def list_multiply(list1, coeff):
     return [ele * coeff for ele in list1]
 
 
+def if_list_sign_agree(list1, list2):
+    """
+    each pair must have the same sign
+    """
+    list_agree = [a*b >= 0 for a, b in zip(list1, list2)]
+    if not all(list_agree):
+        raise RuntimeError(f"{list1} and {list2} can not be compared!")
+
+
 def is_less_list_any(list1, list2):
     """
     judge if one list is less than the other
     """
-    list_comparison = [a < b for a, b in zip(list1, list2)]
+    if_list_sign_agree(list1, list2)
+    list_comparison = [a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
     return any(list_comparison), list_true(list_comparison)
 
 
@@ -39,7 +49,8 @@ def is_less_list_all(list1, list2):
     """
     judge if one list is less than the other
     """
-    list_comparison = [a < b for a, b in zip(list1, list2)]
+    if_list_sign_agree(list1, list2)
+    list_comparison = [a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
     return all(list_comparison)
 
 
@@ -115,7 +126,7 @@ class FbOptSetpointController():
             if args is not None and args.no_setpoint_update:
                 state = FixedSetpoint()
             else:
-                state = DominateAllComponent()
+                state = DominateAnyComponent()
         self.transition_to(state)
         self.flag_setpoint_rewind = args.setpoint_rewind == "yes"
         self.setpoint_rewinder = SetpointRewinder(self)
@@ -154,14 +165,16 @@ class FbOptSetpointController():
             self.state_task_loss = epo_task_loss
         self.state_task_loss = self.coeff_ma_output * self.state_task_loss + \
             (1-self.coeff_ma_output) * epo_task_loss
-        self.setpoint_rewinder.observe(epo_reg_loss)
+        self.setpoint_rewinder.observe(self.state_epo_reg_loss)
         flag_update, list_pos = self.state_updater.update_setpoint()
         if flag_update:
-            self.setpoint_rewinder.reset(epo_reg_loss)
+            self.setpoint_rewinder.reset(self.state_epo_reg_loss)
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(f"!!!!!set point old value {self.setpoint4R}!")
             self.update_setpoint_ma(self.state_epo_reg_loss, list_pos)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
+            return True
+        return False
 
 
 class FbOptSetpointControllerState():
