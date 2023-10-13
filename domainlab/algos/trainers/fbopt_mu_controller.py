@@ -96,7 +96,7 @@ class HyperSchedulerFeedback():
         """
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
-    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, dict_theta=None, miter=None):
+    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, miter):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value

@@ -87,12 +87,21 @@ class TrainerFbOpt(TrainerBasic):
 
     @property
     def list_str_multiplier_na(self):
+        """
+        return the name of multipliers
+        """
         return self.model.list_str_multiplier_na
 
-    def erm(self):
+    def do_erm(self):
+        """
+        erm step with very small mu
+        """
         super().tr_epoch(-1)
 
     def set_model_with_mu(self):
+        """
+        set model multipliers
+        """
         self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
 
     def tr_epoch(self, epoch):
@@ -104,7 +113,6 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_task_loss_tr,
             self.epo_loss_tr,
             self.list_str_multiplier_na,
-            dict(self.model.named_parameters()),
             miter=epoch)
         self.set_model_with_mu()
 
