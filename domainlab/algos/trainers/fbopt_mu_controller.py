@@ -184,4 +184,4 @@ class HyperSchedulerFeedback():
         """
         update setpoint
         """
-        self.set_point_controller.observe(epo_reg_loss, epo_task_loss)
+        return self.set_point_controller.observe(epo_reg_loss, epo_task_loss)

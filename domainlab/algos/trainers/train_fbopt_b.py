@@ -6,6 +6,7 @@ import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt_mu_controller import HyperSchedulerFeedback
 from domainlab.utils.logger import Logger
+from domainlab.algos.msels.c_msel_setpoint_delay import MSelSetpointDelay
 
 
 def list_divide(list_val, scalar):
@@ -78,6 +79,7 @@ class TrainerFbOpt(TrainerBasic):
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
+        self.flag_setpoint_updated = False
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.set_model_with_mu()  # very small value
         self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
@@ -116,7 +118,7 @@ class TrainerFbOpt(TrainerBasic):
             miter=epoch)
         self.set_model_with_mu()
 
-        flag = super().tr_epoch(epoch)
+        flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?
-        self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
+        self.flag_setpoint_updated = self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
         return flag

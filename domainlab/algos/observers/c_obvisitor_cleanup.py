@@ -16,8 +16,8 @@ class ObVisitorCleanUp(AObVisitor):
     def accept(self, trainer):
         self.observer.accept(trainer)
 
-    def update(self, epoch):
-        return self.observer.update(epoch)
+    def update(self, epoch, flag_info=False):
+        return self.observer.update(epoch, flag_info)
 
     def clean_up(self):
         self.observer.clean_up()

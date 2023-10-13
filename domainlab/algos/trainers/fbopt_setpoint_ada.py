@@ -173,6 +173,8 @@ class FbOptSetpointController():
             logger.info(f"!!!!!set point old value {self.setpoint4R}!")
             self.update_setpoint_ma(self.state_epo_reg_loss, list_pos)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
+            return True
+        return False
 
 
 class FbOptSetpointControllerState():
