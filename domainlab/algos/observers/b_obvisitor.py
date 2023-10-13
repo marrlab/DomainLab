@@ -38,7 +38,7 @@ class ObVisitor(AObVisitor):
         """
         return self.host_trainer.str_metric4msel
 
-    def update(self, epoch):
+    def update(self, epoch, flag_info=False):
         logger = Logger.get_logger()
         logger.info(f"epoch: {epoch}")
         self.epo = epoch
@@ -55,7 +55,7 @@ class ObVisitor(AObVisitor):
                 metric_te = self.host_trainer.model.cal_perf_metric(
                     self.loader_te, self.device)
                 self.metric_te = metric_te
-        if self.model_sel.update():
+        if self.model_sel.update(flag_info):
             logger.info("better model found")
             self.exp.visitor.save(self.host_trainer.model)
             logger.info("persisted")
