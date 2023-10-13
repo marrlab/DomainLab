@@ -36,7 +36,7 @@ class MSelValPerf(MSelTrLoss):
         """
         flag = True
         breakpoint()
-        if self.tr_obs.metric_val is None or self.tr_obs.str_msel == "loss_tr":
+        if self.tr_obs.metric_val is None:
             return super().update(clear_counter)
         metric = self.tr_obs.metric_val[self.tr_obs.str_metric4msel]
         if self.tr_obs.metric_te is not None:
