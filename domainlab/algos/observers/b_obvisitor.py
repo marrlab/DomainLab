@@ -93,7 +93,7 @@ class ObVisitor(AObVisitor):
             metric_te.update(dict_2add)
         else:
             metric_te.update({"acc_oracle": -1})
-        if hasattr(self.msel, "best_val_acc"):
+        if hasattr(self, "msel") and hasattr(self.msel, "best_val_acc"):
             metric_te.update({"acc_val":self.msel.best_val_acc})
         else:
             metric_te.update({"acc_val":-1})
