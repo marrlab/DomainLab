@@ -9,6 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 from domainlab.utils.logger import Logger
 from domainlab.algos.trainers.fbopt_setpoint_ada import FbOptSetpointController
+from domainlab.algos.trainers.fbopt_setpoint_ada import if_list_sign_agree
 
 
 class StubSummaryWriter():
@@ -88,7 +89,8 @@ class HyperSchedulerFeedback():
         """
         list difference
         """
-        return [a - b for a, b in zip(list1, list_setpoint)]
+        if_list_sign_agree(list1, list_setpoint)
+        return [a - b if a >= 0 and b >= 0 else b - a for a, b in zip(list1, list_setpoint)]
 
     def cal_delta_integration(self, list_old, list_new, coeff):
         """
