@@ -105,7 +105,7 @@ class ObVisitor(AObVisitor):
             metric_te.update({"acc_val": -1})
 
         if hasattr(self, "model_sel") and hasattr(self.model_sel, "oracle_last_setpoint_sel_te_acc"):
-            metric_te.update({"acc_setpoing":self.model_sel.oracle_last_setpoint_sel_te_acc})
+            metric_te.update({"acc_setpoint":self.model_sel.oracle_last_setpoint_sel_te_acc})
         else:
             metric_te.update({"acc_setpoint": -1})
         self.dump_prediction(model_ld, metric_te)
