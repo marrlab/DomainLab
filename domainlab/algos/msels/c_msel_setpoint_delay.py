@@ -17,6 +17,9 @@ class MSelSetpointDelay(AMSel):
         
     @property
     def oracle_last_setpoint_sel_te_acc(self):
+        """
+        return the last setpoint best acc
+        """
         return self._oracle_last_setpoint_sel_te_acc
     
     def update(self, clear_counter=False):
@@ -26,5 +29,4 @@ class MSelSetpointDelay(AMSel):
         if clear_counter:
             self._oracle_last_setpoint_sel_te_acc = self.sel_model_te_acc
         flag = self.msel.update(clear_counter)
-        # FIXME: flag is to persist model, which is not possible anymore
         return flag
