@@ -14,9 +14,13 @@ class MSelTrLoss(AMSel):
     def __init__(self, max_es):
         self.best_loss = float("inf")
         self.es_c = 0
-        self.max_es = max_es
+        self._max_es = max_es
         super().__init__()
 
+    @property
+    def max_es(self):
+        return self._max_es
+        
     def update(self, clear_counter=False):
         """
         if the best model should be updated
