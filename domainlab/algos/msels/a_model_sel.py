@@ -36,7 +36,7 @@ class AMSel(metaclass=abc.ABCMeta):
         accept trainer and tr_observer
         """
         self.trainer = trainer
-        self.tr_obs = tr_obs
+        self._tr_obs = tr_obs
 
     @abc.abstractmethod
     def update(self, clear_counter=False):
