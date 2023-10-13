@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_and_others
 
 sampling_seed: 0
 
@@ -47,7 +47,7 @@ Shared params:
 
   mu_init:
     min: 0.000001
-    max: 0.00001
+    max: 1
     num: 3
     distribution: loguniform
 
