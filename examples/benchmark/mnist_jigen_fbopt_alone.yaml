@@ -76,5 +76,3 @@ jigen_feedback:
   shared:
     - k_i_gain
     - mu_init
-    - setpoint_rewind
-    - overshoot_rewind
