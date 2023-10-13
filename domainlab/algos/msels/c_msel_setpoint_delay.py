@@ -12,6 +12,7 @@ class MSelSetpointDelay(AMSel):
     """
     def __init__(self, msel):
         super().__init__()
+        # NOTE: super() has to come first always otherwise self.msel will be overwritten to be None
         self.msel = msel
         self._oracle_last_setpoint_sel_te_acc = 0.0
         
