@@ -20,7 +20,7 @@ class AMSel(metaclass=abc.ABCMeta):
 
     @property
     def tr_obs(self):
-        if self.msel is not None:
+        if self._tr_obs is None and self.msel is not None:
             return self.msel.tr_obs
         return self._tr_obs
 
