@@ -79,7 +79,8 @@ class TrainerFbOpt(TrainerBasic):
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
-        self.observer.model_sel.msel = MSelSetpointDelay(self.aconf.es)
+        new_msel = MSelSetpointDelay(self.observer.model_sel.msel)
+        self.observer.model_sel.msel = new_msel
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.set_model_with_mu()  # very small value
         self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
