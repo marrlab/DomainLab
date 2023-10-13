@@ -1,22 +1,24 @@
 """
-Model Selection should be decoupled from
+Multiobjective Model Selection
 """
-from domainlab.algos.msels.a_model_sel import AMSel
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 
 
-class MSelBang(AMSel):
+class MSelSetpointDelay(MSelValPerf):
     """
     1. Model selection using validation performance
-    2. Visitor pattern to trainer
+    2. Only update if setpoint has been decreased
     """
     def __init__(self, max_es):
-        self.best_val_acc = 0.0
+        self.oracle_last_setpoing_sel_te_acc = 0.0
+        super().__init__(max_es)
 
-    def if_stop(self):
-        return False
-
-    def update(self):
+    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
-        return True
+        if clear_counter:
+            self.oracle_last_setpoing_sel_te_acc = self.sel_model_te_acc
+        flag = super().update(clear_counter)
+        # FIXME: flag is to persist model, which is not possible anymore
+        return flag
