@@ -15,7 +15,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
-  es: 5
+  es: 10
   bs: 64
   san_check: False
   npath: examples/nets/resnet50domainbed.py
