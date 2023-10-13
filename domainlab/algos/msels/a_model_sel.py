@@ -39,6 +39,8 @@ class AMSel(metaclass=abc.ABCMeta):
         check if trainer should stop
         return boolean
         """
+        if self.msel is not None:
+            return self.msel.if_stop()
         raise NotImplementedError
 
     @property
