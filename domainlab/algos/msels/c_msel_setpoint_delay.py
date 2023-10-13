@@ -2,18 +2,18 @@
 Multiobjective Model Selection
 """
 import copy
-from domainlab.algos.msels.c_msel_val import MSelValPerf
+from domainlab.algos.msels.a_model_sel import AMSel
 
 
-class MSelSetpointDelay(MSelValPerf):
+class MSelSetpointDelay(AMsel):
     """
     1. Model selection using validation performance
     2. Only update if setpoint has been decreased
     """
     def __init__(self, msel):
+        super().__init__()
         self.msel = msel
         self._oracle_last_setpoint_sel_te_acc = 0.0
-        super().__init__(msel.max_es)
         
     @property
     def oracle_last_setpoint_sel_te_acc(self):
