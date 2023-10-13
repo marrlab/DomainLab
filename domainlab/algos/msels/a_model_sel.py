@@ -16,7 +16,13 @@ class AMSel(metaclass=abc.ABCMeta):
         self.trainer = None
         self.tr_obs = None
         self.msel = None
-        self.max_es = None
+        self._max_es = None
+
+    @property
+    def max_es(self):
+        if self.msel is not None:
+            return self.msel.max_es
+        return self._max_es
 
     def accept(self, trainer, tr_obs):
         """
