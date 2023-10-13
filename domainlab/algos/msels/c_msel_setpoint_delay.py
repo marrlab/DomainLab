@@ -11,7 +11,7 @@ class MSelSetpointDelay(MSelValPerf):
     2. Only update if setpoint has been decreased
     """
     def __init__(self, msel):
-        self.msel = copy.deepcopy(msel)
+        self.msel = msel
         self._oracle_last_setpoint_sel_te_acc = 0.0
         super().__init__(msel.max_es)
         
