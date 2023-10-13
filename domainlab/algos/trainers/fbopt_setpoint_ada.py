@@ -154,10 +154,10 @@ class FbOptSetpointController():
             self.state_task_loss = epo_task_loss
         self.state_task_loss = self.coeff_ma_output * self.state_task_loss + \
             (1-self.coeff_ma_output) * epo_task_loss
-        self.setpoint_rewinder.observe(epo_reg_loss)
+        self.setpoint_rewinder.observe(self.state_epo_reg_loss)
         flag_update, list_pos = self.state_updater.update_setpoint()
         if flag_update:
-            self.setpoint_rewinder.reset(epo_reg_loss)
+            self.setpoint_rewinder.reset(self.state_epo_reg_loss)
             logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
             logger.info(f"!!!!!set point old value {self.setpoint4R}!")
             self.update_setpoint_ma(self.state_epo_reg_loss, list_pos)
