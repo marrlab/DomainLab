@@ -25,11 +25,11 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--coeff_ma', type=float, default=0.5,
                         help='exponential moving average')
 
-    parser.add_argument('--coeff_ma_output_state', type=float, default=0.0,
-                        help='setpoint output as state exponential moving average')
+    parser.add_argument('--coeff_ma_output_state', type=float, default=0.9,
+                        help='state exponential moving average of reguarlization loss')
 
-    parser.add_argument('--coeff_ma_setpoint', type=float, default=0.0,
-                        help='setpoint average')
+    parser.add_argument('--coeff_ma_setpoint', type=float, default=0.9,
+                        help='setpoint average coeff for previous setpoint')
 
     parser.add_argument('--exp_shoulder_clip', type=float, default=5,
                         help='clip before exponential operation')
