@@ -120,7 +120,7 @@ class TrainerFbOpt(TrainerBasic):
             miter=epoch)
         self.set_model_with_mu()
 
-        flag = super().tr_epoch(epoch)
+        flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?
-        self.setpoint_updated = self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
+        self.flag_setpoint_updated = self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
         return flag
