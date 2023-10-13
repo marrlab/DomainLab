@@ -14,9 +14,15 @@ class AMSel(metaclass=abc.ABCMeta):
         trainer and tr_observer
         """
         self.trainer = None
-        self.tr_obs = None
+        self._tr_obs = None
         self.msel = None
         self._max_es = None
+
+    @property(self):
+    def tr_obs(self):
+        if self.msel is not None:
+            return self.msel.tr_obs
+        return self._tr_obs
 
     @property
     def max_es(self):
