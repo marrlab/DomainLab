@@ -1,0 +1,83 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt
+
+sampling_seed: 0
+startseed: 0
+endseed: 4
+
+test_domains:
+  - 0
+
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [1, 2]
+  dmem: False
+  lr: 0.001
+  epos: 500
+  es: 50
+  bs: 64
+  zx_dim: 0
+  zy_dim: 32
+  zd_dim: 32
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  san_check: False
+  exp_shoulder_clip: 5.0
+  mu_clip: 1000_000
+  coeff_ma: 0.5
+  no_tensorboard: False
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.9
+    max: 0.99
+    num: 3
+    distribution: uniform
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    distribution: loguniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    num: 3
+    distribution: loguniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+# Test fbopt with different hyperparameter configurations
+
+diva_fbopt_a:
+  aname: diva
+  trainer: fbopt
+  str_diva_multiplier_type: gammad_recon
+  gamma_y: 1.0
+  init_setpoint_ratio: 0.99
+
+  shared:
+    - k_i_gain
+    - mu_init
+
+erm:
+  aname: deepall
