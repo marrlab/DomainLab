@@ -37,6 +37,9 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         self.trainer = trainer
         self._tr_obs = tr_obs
+        if self.msel is not None:
+            self.msel.trainer=trainer
+            self.msel._tr_obs = tr_obs
 
     @abc.abstractmethod
     def update(self, clear_counter=False):
