@@ -79,6 +79,7 @@ class TrainerFbOpt(TrainerBasic):
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
+        self.flag_setpoint_updated = False
         new_msel = MSelSetpointDelay(self.observer.model_sel.msel)
         self.observer.model_sel.msel = new_msel
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
@@ -121,5 +122,5 @@ class TrainerFbOpt(TrainerBasic):
 
         flag = super().tr_epoch(epoch)
         # is it good to update setpoint after we know the new value of each loss?
-        self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
+        self.setpoint_updated = self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
         return flag
