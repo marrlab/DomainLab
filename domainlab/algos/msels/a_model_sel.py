@@ -24,6 +24,8 @@ class AMSel(metaclass=abc.ABCMeta):
 
     @property
     def max_es(self):
+        if self._max_es is not None:
+            return self._max_es
         if self.msel is not None:
             return self.msel.max_es
         return self._max_es
