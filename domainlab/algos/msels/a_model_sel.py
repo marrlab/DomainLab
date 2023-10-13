@@ -18,7 +18,7 @@ class AMSel(metaclass=abc.ABCMeta):
         self.msel = None
         self._max_es = None
 
-    @property(self):
+    @property
     def tr_obs(self):
         if self.msel is not None:
             return self.msel.tr_obs
