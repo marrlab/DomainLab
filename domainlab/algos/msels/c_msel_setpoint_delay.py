@@ -1,6 +1,7 @@
 """
 Multiobjective Model Selection
 """
+import copy
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 
 
@@ -10,7 +11,7 @@ class MSelSetpointDelay(MSelValPerf):
     2. Only update if setpoint has been decreased
     """
     def __init__(self, msel):
-        self.msel = msel
+        self.msel = copy.deepcopy(msel)
         self.oracle_last_setpoint_sel_te_acc = 0.0
         super().__init__(msel.max_es)
 
