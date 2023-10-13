@@ -27,7 +27,7 @@ class StubSummaryWriter():
         """
 
 
-class HyperSchedulerFeedbackAlternave():
+class HyperSchedulerFeedback():
     """
     design $\\mu$$ sequence based on state of penalized loss
     """
