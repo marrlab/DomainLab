@@ -15,8 +15,8 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 500
-  es: 50
+  epos: 2000
+  es: 500
   bs: 64
   zx_dim: 0
   zy_dim: 32
@@ -68,7 +68,15 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-
+diva_fbopt_a:
+  aname: diva
+  trainer: fbopt
+  str_diva_multiplier_type: gammad_recon
+  gamma_y: 1.0
+  init_setpoint_ratio: 0.99
+  shared:
+    - k_i_gain
+    - mu_init
 
 diva_feedforward_a:
   aname: diva
