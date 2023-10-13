@@ -94,7 +94,7 @@ class ObVisitor(AObVisitor):
         else:
             metric_te.update({"acc_oracle": -1})
         if hasattr(self.msel, "best_val_acc"):
-            metric_te.update({"acc_val":self.msel.best_val_acc}
+            metric_te.update({"acc_val":self.msel.best_val_acc})
         else:
             metric_te.update({"acc_val":-1})
         self.dump_prediction(model_ld, metric_te)
