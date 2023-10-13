@@ -20,8 +20,6 @@ class AMSel(metaclass=abc.ABCMeta):
 
     @property
     def tr_obs(self):
-        if self._tr_obs is None and self.msel is not None:
-            return self.msel.tr_obs
         return self._tr_obs
 
     @property
@@ -38,8 +36,7 @@ class AMSel(metaclass=abc.ABCMeta):
         self.trainer = trainer
         self._tr_obs = tr_obs
         if self.msel is not None:
-            self.msel.trainer=trainer
-            self.msel._tr_obs = tr_obs
+            self.msel.accept(trainer, tr_obs)
 
     @abc.abstractmethod
     def update(self, clear_counter=False):
