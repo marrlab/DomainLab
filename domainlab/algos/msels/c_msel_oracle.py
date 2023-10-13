@@ -17,12 +17,16 @@ class MSelOracleVisitor(AMSel):
         super().__init__()
         self.best_oracle_acc = 0
         self.msel = msel
+
     @property
     def best_val_acc(self):
+        """
+        decoratee best val acc
+        """
         if self.msel is not None and hasattr(self.msel, "best_val_acc"):
             return self.msel.best_val_acc
-        else:
-            return -1
+        return -1
+
     def update(self, clear_counter=False):
         """
         if the best model should be updated
