@@ -53,6 +53,10 @@ class AMSel(metaclass=abc.ABCMeta):
         check if trainer should stop
         return boolean
         """
+        # NOTE: since if_stop is not abstract, one has to
+        # be careful to always override it in child class
+        # only if the child class has a decorator which will
+        # dispatched. 
         if self.msel is not None:
             return self.msel.if_stop()
         raise NotImplementedError
