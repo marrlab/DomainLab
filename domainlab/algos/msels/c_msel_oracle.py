@@ -19,26 +19,12 @@ class MSelOracleVisitor(AMSel):
         self.msel = msel
 
     @property
-    def best_val_acc(self):
-        """
-        decoratee best val acc
-        """
-        if self.msel is not None and hasattr(self.msel, "best_val_acc"):
-            return self.msel.best_val_acc
-        return -1
-
-    @property
-    def best_te_metric(self):
-        """
-        decoratee best test metric
-        """
-        if self.msel is not None and hasattr(self.msel, "best_te_metric"):
-            return self.msel.best_te_metric
-        return -1
-
-    @property
     def oracle_last_setpoint_sel_te_acc(self):
-        if self.msel is not None and hasattr(self.msel, "oracle_last_setpoint_sel_te_acc"):
+        """
+        last setpoint acc
+        """
+        if self.msel is not None and \
+                hasattr(self.msel, "oracle_last_setpoint_sel_te_acc"):
             return self.msel.oracle_last_setpoint_sel_te_acc
         return -1
 
