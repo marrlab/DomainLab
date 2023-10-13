@@ -5,7 +5,7 @@ import copy
 from domainlab.algos.msels.a_model_sel import AMSel
 
 
-class MSelSetpointDelay(AMsel):
+class MSelSetpointDelay(AMSel):
     """
     1. Model selection using validation performance
     2. Only update if setpoint has been decreased
