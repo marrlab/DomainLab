@@ -41,6 +41,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args)
         msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerf(max_es=args.es)))
+        breakpoint()
         observer = ObVisitor(msel, device, exp=exp)
         observer = ObVisitorCleanUp(observer)
 
