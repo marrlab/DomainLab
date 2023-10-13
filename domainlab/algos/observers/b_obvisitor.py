@@ -106,10 +106,11 @@ class ObVisitor(AObVisitor):
         calculate oracle performance
         """
         try:
-            model_or = self.exp.visitor.load("oracle")  # @FIXME: name "oracle is a strong dependency
+            model_or = self.exp.visitor.load("oracle")
+            # @FIXME: name "oracle is a strong dependency
             model_or = model_or.to(self.device)
             model_or.eval()
-        except FileNotFoundError as err:
+        except FileNotFoundError:
             return {"acc_oracle": -1}
         logger = Logger.get_logger()
         logger.info("oracle model performance metric: \n")
