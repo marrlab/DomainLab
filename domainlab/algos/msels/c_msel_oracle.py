@@ -18,6 +18,24 @@ class MSelOracleVisitor(AMSel):
         self.best_oracle_acc = 0
         self.msel = msel
 
+    @property
+    def best_val_acc(self):
+        """
+        decoratee best val acc
+        """
+        if self.msel is not None and hasattr(self.msel, "best_val_acc"):
+            return self.msel.best_val_acc
+        return -1
+
+    @property
+    def best_te_metric(self):
+        """
+        decoratee best test metric
+        """
+        if self.msel is not None and hasattr(self.msel, "best_te_metric"):
+            return self.msel.best_te_metric
+        return -1
+
     def update(self, clear_counter=False):
         """
         if the best model should be updated
