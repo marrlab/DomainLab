@@ -68,16 +68,7 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-diva_fbopt_a:
-  aname: diva
-  trainer: fbopt
-  str_diva_multiplier_type: gammad_recon
-  gamma_y: 1.0
-  init_setpoint_ratio: 0.99
 
-  shared:
-    - k_i_gain
-    - mu_init
 
 diva_feedforward_a:
   aname: diva
