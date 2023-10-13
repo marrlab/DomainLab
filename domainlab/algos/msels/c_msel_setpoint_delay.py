@@ -14,6 +14,8 @@ class MSelSetpointDelay(AMSel):
         super().__init__()
         self.msel = msel
         self.max_es = msel.max_es
+        self.tr_obs = msel.tr_obs
+        self.trainer = msel.trainer
         self._oracle_last_setpoint_sel_te_acc = 0.0
         
     @property
