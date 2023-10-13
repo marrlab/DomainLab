@@ -14,7 +14,8 @@ class MSelSetpointDelay(MSelValPerf):
         self.msel = copy.deepcopy(msel)
         self._oracle_last_setpoint_sel_te_acc = 0.0
         super().__init__(msel.max_es)
-    
+        
+    @property
     def self.oracle_last_setpoing_sel_te_acc(self):
         return self._oracle_last_setpoint_sel_te_acc
     
