@@ -45,7 +45,7 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         decoratee best val acc
         """
-        if self.msel is not None and hasattr(self.msel, "best_val_acc"):
+        if self.msel is not None:
             return self.msel.best_val_acc
         return -1
 
@@ -54,6 +54,6 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         decoratee best test metric
         """
-        if self.msel is not None and hasattr(self.msel, "best_te_metric"):
+        if self.msel is not None:
             return self.msel.best_te_metric
         return -1
