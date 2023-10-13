@@ -93,21 +93,24 @@ class ObVisitor(AObVisitor):
             metric_te.update(dict_2add)
         else:
             metric_te.update({"acc_oracle": -1})
-        if hasattr(self, "msel") and hasattr(self.msel, "best_val_acc"):
-            metric_te.update({"acc_val":self.msel.best_val_acc})
+        if hasattr(self, "model_sel") and hasattr(self.model_sel, "best_val_acc"):
+            metric_te.update({"acc_val": self.model_sel.best_val_acc})
         else:
-            metric_te.update({"acc_val":-1})
+            metric_te.update({"acc_val": -1})
         self.dump_prediction(model_ld, metric_te)
         self.exp.visitor(metric_te)
         # prediction dump of test domain is essential to verify the prediction results
 
     def cal_oracle_perf(self):
+        """
+        calculate oracle performance
+        """
         try:
             model_or = self.exp.visitor.load("oracle")  # @FIXME: name "oracle is a strong dependency
             model_or = model_or.to(self.device)
             model_or.eval()
         except FileNotFoundError as err:
-            return None
+            return {"acc_oracle": -1}
         logger = Logger.get_logger()
         logger.info("oracle model performance metric: \n")
         metric_te = model_or.cal_perf_metric(self.loader_te, self.device)
