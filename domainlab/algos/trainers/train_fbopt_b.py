@@ -80,8 +80,7 @@ class TrainerFbOpt(TrainerBasic):
 
     def before_tr(self):
         self.flag_setpoint_updated = False
-        new_msel = MSelSetpointDelay(self.observer.model_sel)
-        self.observer.model_sel = new_msel
+        self.observer.model_sel = MSelSetpointDelay(self.observer.model_sel)
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
         self.set_model_with_mu()  # very small value
         self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
