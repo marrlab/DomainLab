@@ -40,7 +40,7 @@ then
 conda create --name domainlab_py39 python=3.9
 conda activate domainlab_py39
 conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.6 -c pytorch -c conda-forge
-conda install torchmetric==0.10.3
+conda install torchmetrics==0.10.3
 git checkout fbopt
 pip install -r requirements_notorch.txt 
 conda install tensorboard
