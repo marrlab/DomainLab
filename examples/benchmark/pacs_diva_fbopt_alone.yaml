@@ -17,7 +17,7 @@ domainlab_args:
   epos: 200
   es: 10
   bs: 64
-  san_check: True
+  san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
@@ -28,6 +28,7 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
+  tr_with_init_mu: True
 
 
 
@@ -47,7 +48,7 @@ Shared params:
 
   mu_init:
     min: 0.000001
-    max: 1
+    max: 0.00001
     step: 0.000001
     num: 3
     distribution: loguniform
