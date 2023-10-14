@@ -28,7 +28,7 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  tr_with_init_mu: True
+  tr_with_init_mu: False
 
 
 
