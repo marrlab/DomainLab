@@ -47,7 +47,8 @@ Shared params:
 
   mu_init:
     min: 0.000001
-    max: 0.00001
+    max: 1
+    step: 0.000001
     num: 3
     distribution: loguniform
 
