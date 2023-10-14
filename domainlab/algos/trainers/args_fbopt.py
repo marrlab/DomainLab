@@ -42,7 +42,7 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--no_setpoint_update', action='store_true', default=False,
                         help='disable setpoint update')
 
-    parser.add_argument('--start_with_erm', action='store_true', default=False,
+    parser.add_argument('--tr_with_init_mu', action='store_true', default=False,
                         help='disable setpoint update')
 
     parser.add_argument('--overshoot_rewind', type=str, default="yes",

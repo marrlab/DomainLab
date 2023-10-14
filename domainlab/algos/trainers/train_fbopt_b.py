@@ -81,14 +81,16 @@ class TrainerFbOpt(TrainerBasic):
     def before_tr(self):
         self.flag_setpoint_updated = False
         self.set_scheduler(scheduler=HyperSchedulerFeedback)
+
         self.set_model_with_mu()  # very small value
+        if self.aconf.tr_with_init_mu:
+            self.tr_with_init_mu()
+
         self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
         self.hyper_scheduler.set_setpoint(
             [ele * self.aconf.ini_setpoint_ratio if ele > 0 else
              ele / self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)  # setpoing w.r.t. random initialization of neural network
-        if self.aconf.start_with_erm:
-            self.do_erm()
 
     @property
     def list_str_multiplier_na(self):
@@ -97,7 +99,7 @@ class TrainerFbOpt(TrainerBasic):
         """
         return self.model.list_str_multiplier_na
 
-    def do_erm(self):
+    def tr_with_init_mu(self):
         """
         erm step with very small mu
         """
