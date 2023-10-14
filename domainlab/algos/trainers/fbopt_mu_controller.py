@@ -39,14 +39,18 @@ class HyperSchedulerFeedback():
         self.trainer = trainer
         self.init_mu = trainer.aconf.mu_init
         self.mu_min = trainer.aconf.mu_min
+        self.mu_clip = trainer.aconf.mu_clip
+
         self.mmu = kwargs
+        # force initial value of mu
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
+
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
+
         self.k_i_control = trainer.aconf.k_i_gain
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
-        self.delta_epsilon_r = False  # False here just used to decide if value first use or not
+        self.delta_epsilon_r = None
         # NOTE: this value will be set according to initial evaluation of neural network
-        self.mu_clip = trainer.aconf.mu_clip
         self.activation_clip = trainer.aconf.exp_shoulder_clip
         if trainer.aconf.no_tensorboard:
             self.writer = StubSummaryWriter()
@@ -54,36 +58,19 @@ class HyperSchedulerFeedback():
             str_job_id = os.environ.get('SLURM_JOB_ID', '')
             self.writer = SummaryWriter(comment=str_job_id)
         self.coeff_ma = trainer.aconf.coeff_ma
-        self.epsilon_r = False
 
-    def get_setpoint4R(self):
+    def get_setpoing4r(self):
         """
         get setpoint list
         """
         return self.set_point_controller.setpoint4R
 
-    def set_setpoint(self, list_setpoint4R, setpoint4ell):
+    def set_setpoint(self, list_setpoint4r, setpoint4ell):
         """
         set the setpoint
         """
-        self.set_point_controller.setpoint4R = list_setpoint4R
+        self.set_point_controller.setpoint4R = list_setpoint4r
         self.set_point_controller.setpoint4ell = setpoint4ell
-
-    def update_anchor(self, dict_par):
-        """
-        update the last ensured value of theta^{(k)}
-        """
-        self.dict_theta = copy.deepcopy(dict_par)
-
-    def set_theta_ref(self):
-        """
-        # theta_ref should be equal to either theta or theta bar as reference
-        # since theta_ref will be used to judge if criteria is met
-        """
-        if self.trainer.aconf.anchor_bar:
-            self.dict_theta_ref = copy.deepcopy(self.dict_theta_bar)
-        else:
-            self.dict_theta_ref = copy.deepcopy(self.dict_theta)
 
     def cal_delta4control(self, list1, list_setpoint):
         """
@@ -98,16 +85,17 @@ class HyperSchedulerFeedback():
         """
         return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
 
-    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, miter):
+    def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr,
+                  list_str_multiplier_na, miter):
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value
         to see if the criteria is met
-        $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-epsilon_R])$$
+        $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-ref_R])$$
         """
-        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoint4R())
+        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
         # TODO: can be replaced by a controller
-        if self.delta_epsilon_r is False:
+        if self.delta_epsilon_r is None:
             self.delta_epsilon_r = delta_epsilon_r
         else:
             # PI control.
@@ -121,22 +109,27 @@ class HyperSchedulerFeedback():
             activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
                           for val in activation]
         # overshoot handling
-        list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None for i, (a, b) in enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
+        list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None
+                          for i, (a, b) in
+                          enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
         for ind in list_overshoot:
             if ind is not None:
                 logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-                logger.info(f"overshooting at  pos {ind} of {activation}")
+                logger.info(f"error integration: {self.delta_epsilon_r}")
+                logger.info(f"overshooting at  pos {ind} of activation: {activation}")
                 if self.overshoot_rewind:
                     activation[ind] = 0.0
-                    logger.info(f"PID controller set to zero now {activation}")
+                    logger.info(f"PID controller set to zero now, new activation: {activation}")
         list_gain = np.exp(activation)
-        dict_gain = {na: val for na, val in zip(list_str_multiplier_na, list_gain)}
+        dict_gain = dict(zip(list_str_multiplier_na, list_gain))
         target = self.dict_multiply(self.mmu, dict_gain)
         self.mmu = self.dict_clip(target)
+        logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+        logger.info(f"current mu: {self.mmu}")
 
         for key, val in self.mmu.items():
             self.writer.add_scalar(f'mmu/{key}', val, miter)
-        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoint4R())):
+        for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoing4r())):
             self.writer.add_scalar(f'regd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
             self.writer.add_scalar(f'regs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
 
