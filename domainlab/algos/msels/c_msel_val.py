@@ -47,7 +47,7 @@ class MSelValPerf(MSelTrLoss):
                 self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
             self._best_te_metric = max(self._best_te_metric, metric_te_current)
 
-        if metric >= self._best_val_acc:  # update hat{model}
+        if metric > self._best_val_acc:  # update hat{model}
             # different from loss, accuracy should be improved:
             # the bigger the better
             self._best_val_acc = metric
