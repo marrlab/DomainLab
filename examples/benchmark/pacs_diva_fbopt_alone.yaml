@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt_pacs_full
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_alone
 
 sampling_seed: 0
 
@@ -17,7 +17,7 @@ domainlab_args:
   epos: 200
   es: 10
   bs: 64
-  san_check: True
+  san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
