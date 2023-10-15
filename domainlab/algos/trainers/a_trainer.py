@@ -59,6 +59,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         # fbopt
         self.mu_iter_start = 0
         self.grad_clip = None
+        self.flag_setpoint_updated = False
 
     @property
     def str_metric4msel(self):

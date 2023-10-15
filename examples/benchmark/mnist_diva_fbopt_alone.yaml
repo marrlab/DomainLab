@@ -48,8 +48,8 @@ Shared params:
 
   mu_init:
     min: 0.000001
-    max: 0.00001
-    num: 3
+    max: 1
+    num: 4
     distribution: loguniform
 
   gamma_y:

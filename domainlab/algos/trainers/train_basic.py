@@ -23,7 +23,7 @@ class TrainerBasic(AbstractTrainer):
         """
         self.model.evaluate(self.loader_te, self.device)
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         self.model.train()
         self.counter_batch = 0.0
         self.epo_loss_tr = 0
@@ -36,7 +36,7 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = list_divide(self.epo_reg_loss_tr, self.counter_batch)
         assert self.epo_loss_tr is not None
         assert not math.isnan(self.epo_loss_tr)
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         assert flag_stop is not None
         return flag_stop
 

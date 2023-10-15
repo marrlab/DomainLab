@@ -4,6 +4,7 @@ builder for JiGen
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
+from domainlab.algos.msels.c_msel_setpoint_delay import MSelSetpointDelay
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
@@ -39,7 +40,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+        msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerf(max_es=args.es)))
         observer = ObVisitor(msel, device, exp=exp)
         observer = ObVisitorCleanUp(observer)
 

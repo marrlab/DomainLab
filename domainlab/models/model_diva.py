@@ -144,7 +144,7 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
             return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
-                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, -self.gamma_d]
+                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, self.gamma_d]
 
     class ModelDIVAGammadRecon(ModelDIVA):
         def hyper_update(self, epoch, fun_scheduler):
@@ -159,6 +159,7 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             self.beta_x = dict_rst["beta_x"]
             self.gamma_d = dict_rst["gamma_d"]
             self.mu_recon = dict_rst["mu_recon"]
+
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -175,8 +176,17 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
                 mu_recon=self.mu_recon
             )
 
+    class ModelDIVAGammadReconPerPixel(ModelDIVAGammadRecon):
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+            [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], [mu_recon, beta_d, beta_x, beta_y, gamma_d] = super().cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+
+            return [torch.div(loss_recon_x, tensor_x.shape[2] * tensor_x.shape[3]), zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
+                   [mu_recon, -beta_d, -beta_x, -beta_y, gamma_d]
 
     class ModelDIVAGammad(ModelDIVA):
+        """
+        only adjust gammad and beta
+        """
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
 
@@ -205,11 +215,16 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
 
     class ModelDIVADefault(ModelDIVA):
         """
+        mock
         """
     if str_diva_multiplier_type == "gammad_recon":
         return ModelDIVAGammadRecon
+    if str_diva_multiplier_type == "gammad_recon_per_pixel":
+        return ModelDIVAGammadReconPerPixel
     if str_diva_multiplier_type == "gammad":
         return ModelDIVAGammad
     if str_diva_multiplier_type == "default":
         return ModelDIVADefault
-    raise RuntimeError("not support argument candiates for str_diva_multiplier_type: allowed: default, gammad_recon, gammad")
+    raise RuntimeError(
+        "not support argument candiates for str_diva_multiplier_type: \
+        allowed: default, gammad_recon, gammad_recon_per_pixel, gammad")

@@ -27,11 +27,21 @@ def list_multiply(list1, coeff):
     return [ele * coeff for ele in list1]
 
 
+def if_list_sign_agree(list1, list2):
+    """
+    each pair must have the same sign
+    """
+    list_agree = [a*b >= 0 for a, b in zip(list1, list2)]
+    if not all(list_agree):
+        raise RuntimeError(f"{list1} and {list2} can not be compared!")
+
+
 def is_less_list_any(list1, list2):
     """
     judge if one list is less than the other
     """
-    list_comparison = [a < b for a, b in zip(list1, list2)]
+    if_list_sign_agree(list1, list2)
+    list_comparison = [a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
     return any(list_comparison), list_true(list_comparison)
 
 
@@ -39,7 +49,8 @@ def is_less_list_all(list1, list2):
     """
     judge if one list is less than the other
     """
-    list_comparison = [a < b for a, b in zip(list1, list2)]
+    if_list_sign_agree(list1, list2)
+    list_comparison = [a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
     return all(list_comparison)
 
 
@@ -162,6 +173,8 @@ class FbOptSetpointController():
             logger.info(f"!!!!!set point old value {self.setpoint4R}!")
             self.update_setpoint_ma(self.state_epo_reg_loss, list_pos)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
+            return True
+        return False
 
 
 class FbOptSetpointControllerState():

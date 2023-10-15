@@ -1,35 +1,34 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_and_others
 
 sampling_seed: 0
+
 startseed: 0
-endseed: 4
+endseed: 2
 
 test_domains:
-  - 0
-
+  - sketch
 
 domainlab_args:
-  task: mnistcolor10
-  tr_d: [1, 2]
+  tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
-  lr: 0.001
-  epos: 500
-  es: 50
+  lr: 5e-5
+  epos: 200
+  es: 10
   bs: 64
-  zx_dim: 0
-  zy_dim: 32
-  zd_dim: 32
-  nname: conv_bn_pool_2
-  nname_dom: conv_bn_pool_2
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: False
-  exp_shoulder_clip: 5.0
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  exp_shoulder_clip: 10
   mu_clip: 1000_000
   coeff_ma: 0.5
-  no_tensorboard: False
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
 
 
 
@@ -43,12 +42,12 @@ Shared params:
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 2
-    distribution: loguniform
+    num: 3
+    distribution: uniform
 
   mu_init:
     min: 0.000001
-    max: 0.00001
+    max: 0.9
     num: 3
     distribution: loguniform
 
@@ -66,20 +65,21 @@ Shared params:
     num: 3
     distribution: loguniform
 
+
+
 # Test fbopt with different hyperparameter configurations
 
-diva_fbopt_a:
+diva_fbopt_full:
   aname: diva
   trainer: fbopt
   str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
-  init_setpoint_ratio: 0.99
-
+  ini_setpoint_ratio: 0.99
   shared:
     - k_i_gain
     - mu_init
 
-diva_feedforward_a:
+diva_feedforward_full:
   aname: diva
   trainer: hyperscheduler
   str_diva_multiplier_type: gammad_recon
