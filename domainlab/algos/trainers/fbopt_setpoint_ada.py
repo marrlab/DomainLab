@@ -214,7 +214,9 @@ class SliderAllComponent(FbOptSetpointControllerState):
         """
         all components of R descreases regardless if ell decreases or not
         """
+        print(f"comparing: {self.host.state_epo_reg_loss}, {self.host.setpoint4R}")
         if is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R, flag_eq=True):
+            print("!!!!!!!!! better than setpoint!")
             return True, list(range(len(self.host.setpoint4R)))
         return False, None
 
