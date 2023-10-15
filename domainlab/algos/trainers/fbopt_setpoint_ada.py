@@ -52,7 +52,7 @@ def is_less_list_all(list1, list2, flag_eq=False):
     if_list_sign_agree(list1, list2)
     list_comparison = [a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
     if flag_eq:
-        list_comparison = [a <= b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
+        list_comparison = [a <= b if a >= 0 and b >= 0 else a >= b for a, b in zip(list1, list2)]
     return all(list_comparison)
 
 
