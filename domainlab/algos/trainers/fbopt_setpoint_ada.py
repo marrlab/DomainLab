@@ -214,7 +214,7 @@ class SliderAllComponent(FbOptSetpointControllerState):
         """
         all components of R descreases regardless if ell decreases or not
         """
-        print(f"comparing: {self.host.state_epo_reg_loss}, {self.host.setpoint4R}")
+        print(f"comparing: \n {self.host.state_epo_reg_loss} \n {self.host.setpoint4R}")
         if is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R, flag_eq=True):
             print("!!!!!!!!! better than setpoint!")
             return True, list(range(len(self.host.setpoint4R)))
@@ -263,5 +263,6 @@ class DominateAllComponent(SliderAllComponent):
         flag1, list_pos = super().update_setpoint()
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
+            print("best ell loss: from {self.host.setpoint4ell} to {self.host.state_task_loss}")
             self.host.setpoint4ell = self.host.state_task_loss
-        return flag1 & flag2, list(range(len(self.host.setpoint4R)))
+        return flag1 & flag2, list_pos
