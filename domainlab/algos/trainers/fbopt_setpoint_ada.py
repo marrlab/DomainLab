@@ -230,14 +230,13 @@ class SliderAnyComponent(FbOptSetpointControllerState):
         if any component of R has decreased regardless if ell decreases
         """
         flag, list_pos = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
-        if flag:
-            # FIXME
-            self.host.transition_to(SliderAllComponent())
-            return True, list_pos
-        return False, list_pos
+        return flag, list_pos
+
+    def transit(self):
+        self.host.transition_to(SliderAllComponent())
 
 
-class DominateAnyComponent(FbOptSetpointControllerState):
+class DominateAnyComponent(SliderAnyComponent):
     """
     concrete state pattern
     """
@@ -245,7 +244,7 @@ class DominateAnyComponent(FbOptSetpointControllerState):
         """
         if any of the component of R loss has decreased together with ell loss
         """
-        flag1, list_pos = is_less_list_any(self.host.state_epo_reg_loss, self.host.setpoint4R)
+        flag1, list_pos = super.update_setpoint()
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
             self.host.setpoint4ell = self.host.state_task_loss
