@@ -22,9 +22,6 @@ domainlab_args:
   npath_dom: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-  exp_shoulder_clip: 10
-  mu_clip: 1000_000
-  coeff_ma: 0.5
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
