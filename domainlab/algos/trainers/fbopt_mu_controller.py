@@ -1,7 +1,6 @@
 """
 update hyper-parameters during training
 """
-import copy
 import os
 
 from torch.utils.tensorboard import SummaryWriter
@@ -77,13 +76,52 @@ class HyperSchedulerFeedback():
         list difference
         """
         if_list_sign_agree(list1, list_setpoint)
-        return [a - b if a >= 0 and b >= 0 else b - a for a, b in zip(list1, list_setpoint)]
+        delta_epsilon_r = [a - b for a, b in zip(list1, list_setpoint)]
+        if self.delta_epsilon_r is None:
+            self.delta_epsilon_r = delta_epsilon_r
+        else:
+            # PI control.
+            # self.delta_epsilon_r is the previous time step.
+            # delta_epsilon_r is the current time step
+            self.delta_epsilon_r = self.cal_delta_integration(
+                self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
 
     def cal_delta_integration(self, list_old, list_new, coeff):
         """
         ma of delta
         """
         return [(1 - coeff) * a + coeff * b for a, b in zip(list_old, list_new)]
+
+    def tackle_overshoot(self, activation, epo_reg_loss, list_str_multiplier_na):
+        """
+        tackle overshoot
+        """
+        list_overshoot = [i if (a - b) * (self.delta_epsilon_r[i]) < 0 else None
+                          for i, (a, b) in
+                          enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
+        for ind in list_overshoot:
+            if ind is not None:
+                logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+                logger.info(f"error integration: {self.delta_epsilon_r}")
+                logger.info(f"overshooting at  pos {ind} of activation: {activation}")
+                logger.info(f"name reg loss:{list_str_multiplier_na}")
+                if self.overshoot_rewind:
+                    activation[ind] = 0.0
+                    logger.info(f"PID controller set to zero now, new activation: {activation}")
+        return activation
+
+    def cal_activation(self):
+        """
+        calculate activation on exponential shoulder
+        """
+        setpoint = self.get_setpoing4r()
+        activation = [self.k_i_control * val if setpoint[i] > 0
+                      else self.k_i_control * (-val) for i, val in enumerate(self.delta_epsilon_r)]
+        if self.activation_clip is not None:
+            activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
+                          for val in activation]
+        return activation
+
 
     def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr,
                   list_str_multiplier_na, miter):
@@ -96,33 +134,11 @@ class HyperSchedulerFeedback():
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"before controller: current mu: {self.mmu}")
         logger.info(f"epo reg loss: {epo_reg_loss}")
-        delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
-        # TODO: can be replaced by a controller
-        if self.delta_epsilon_r is None:
-            self.delta_epsilon_r = delta_epsilon_r
-        else:
-            # PI control.
-            # self.delta_epsilon_r is the previous time step.
-            # delta_epsilon_r is the current time step
-            self.delta_epsilon_r = self.cal_delta_integration(
-                self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma)
-        # FIXME: here we can not sum up delta_epsilon_r directly, but normalization also makes no sense, the only way is to let gain as a dictionary
-        activation = [self.k_i_control * val for val in self.delta_epsilon_r]
-        if self.activation_clip is not None:
-            activation = [np.clip(val, a_min=-1 * self.activation_clip, a_max=self.activation_clip)
-                          for val in activation]
+        logger.info(f"name reg loss:{list_str_multiplier_na}")
+        self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
+        activation = self.cal_activation()
         # overshoot handling
-        list_overshoot = [i if a < b and self.delta_epsilon_r[i] > b else None
-                          for i, (a, b) in
-                          enumerate(zip(epo_reg_loss, self.set_point_controller.setpoint4R))]
-        for ind in list_overshoot:
-            if ind is not None:
-                logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-                logger.info(f"error integration: {self.delta_epsilon_r}")
-                logger.info(f"overshooting at  pos {ind} of activation: {activation}")
-                if self.overshoot_rewind:
-                    activation[ind] = 0.0
-                    logger.info(f"PID controller set to zero now, new activation: {activation}")
+        activation = self.tackle_overshoot(activation, epo_reg_loss, list_str_multiplier_na)
         list_gain = np.exp(activation)
         dict_gain = dict(zip(list_str_multiplier_na, list_gain))
         target = self.dict_multiply(self.mmu, dict_gain)
