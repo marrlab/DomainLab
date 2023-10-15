@@ -95,6 +95,7 @@ class HyperSchedulerFeedback():
         """
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
         logger.info(f"before controller: current mu: {self.mmu}")
+        logger.info(f"epo reg loss: {epo_reg_loss}")
         delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is None:
