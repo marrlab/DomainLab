@@ -29,9 +29,9 @@ domainlab_args:
 
 Shared params:
   ini_setpoint_ratio:
-    min: 0.9
-    max: 0.99
-    num: 3
+    min: 0.990
+    max: 0.999
+    num: 2
     distribution: uniform
 
   str_diva_multiplier_type:
@@ -92,3 +92,4 @@ diva_fbopt_full:
     - k_i_gain
     - mu_init
     - str_diva_multiplier_type
+    - mu_clip
