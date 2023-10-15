@@ -147,13 +147,13 @@ class HyperSchedulerFeedback():
         logger.info(f"after contoller: current mu: {self.mmu}")
 
         for key, val in self.mmu.items():
-            self.writer.add_scalar(f'mmu/{key}', val, miter)
+            self.writer.add_scalar(f'dyn_mu/{key}', val, miter)
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoing4r())):
             self.writer.add_scalar(f'lossrd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
             self.writer.add_scalar(f'lossrs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
 
             self.writer.add_scalars(
-                f'lossrds/dyn_{list_str_multiplier_na[i]} with setpoint',
+                f'loss_rds/dyn_{list_str_multiplier_na[i]} with setpoint',
                 {f'lossr/dyn_{list_str_multiplier_na[i]}': reg_dyn,
                  f'lossr/setpoint_{list_str_multiplier_na[i]}': reg_set,
                  }, miter)
