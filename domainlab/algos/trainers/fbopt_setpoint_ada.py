@@ -244,7 +244,7 @@ class DominateAnyComponent(SliderAnyComponent):
         """
         if any of the component of R loss has decreased together with ell loss
         """
-        flag1, list_pos = super.update_setpoint()
+        flag1, list_pos = super().update_setpoint()
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
             self.host.setpoint4ell = self.host.state_task_loss
