@@ -160,6 +160,14 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             self.gamma_d = dict_rst["gamma_d"]
             self.mu_recon = dict_rst["mu_recon"]
 
+        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+            [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], [mu_recon, beta_d, beta_x, beta_y, gamma_d] = super().cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+
+            return [torch.div(loss_recon_x, tensor_x.shape[1] * tensor_x.shape[2] * tensor_x.shape[3]), zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
+                   [mu_recon, -beta_d, -beta_x, -beta_y, gamma_d]
+
+
+
         def hyper_init(self, functor_scheduler, trainer=None):
             """
             initiate a scheduler object via class name and things inside this model
