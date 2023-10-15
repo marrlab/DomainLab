@@ -45,12 +45,14 @@ def is_less_list_any(list1, list2):
     return any(list_comparison), list_true(list_comparison)
 
 
-def is_less_list_all(list1, list2):
+def is_less_list_all(list1, list2, flag_eq=False):
     """
     judge if one list is less than the other
     """
     if_list_sign_agree(list1, list2)
     list_comparison = [a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
+    if flag_eq:
+        list_comparison = [a <= b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)]
     return all(list_comparison)
 
 
@@ -212,7 +214,7 @@ class SliderAllComponent(FbOptSetpointControllerState):
         """
         all components of R descreases regardless if ell decreases or not
         """
-        if is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R):
+        if is_less_list_all(self.host.state_epo_reg_loss, self.host.setpoint4R, flag_eq=True):
             return True, list(range(len(self.host.setpoint4R)))
         return False, None
 
