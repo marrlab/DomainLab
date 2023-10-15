@@ -1,4 +1,4 @@
-from domainlab.algos.trainers.fbopt_setpoing_ada import is_less_list_all
+from domainlab.algos.trainers.fbopt_setpoint_ada import is_less_list_all
 def test_less_than():
   a = [3, 4, -9, -8]
   b = [1, 0.5, -1, -0.5]
