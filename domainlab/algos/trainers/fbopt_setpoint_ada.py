@@ -263,6 +263,6 @@ class DominateAllComponent(SliderAllComponent):
         flag1, list_pos = super().update_setpoint()
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
-            print("best ell loss: from {self.host.setpoint4ell} to {self.host.state_task_loss}")
+            print(f"best ell loss: from {self.host.setpoint4ell} to {self.host.state_task_loss}")
             self.host.setpoint4ell = self.host.state_task_loss
         return flag1 & flag2, list_pos
