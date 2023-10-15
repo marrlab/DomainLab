@@ -15,22 +15,16 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
-  es: 10
+  es: 50
   bs: 64
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-  exp_shoulder_clip: 10
-  mu_clip: 1000_000
-  coeff_ma: 0.5
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  tr_with_init_mu: False
-
-
 
 
 Shared params:
@@ -39,6 +33,21 @@ Shared params:
     max: 0.99
     num: 3
     distribution: uniform
+
+  str_diva_multiplier_type:
+    distribution: categorical
+    datatype: str
+    values:
+      - gammad_recon
+      - gammad_recon_per_pixel
+
+  mu_clip:
+    distribution: categorical
+    datatype: int
+    values:
+      - 10
+      - 1000
+      - 1000_000
 
   k_i_gain:
     min: 0.0001
@@ -74,9 +83,12 @@ Shared params:
 diva_fbopt_full:
   aname: diva
   trainer: fbopt
-  str_diva_multiplier_type: gammad_recon
+  exp_shoulder_clip: 10
+  tr_with_init_mu: False
+  coeff_ma: 0.5
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   shared:
     - k_i_gain
     - mu_init
+    - str_diva_multiplier_type
