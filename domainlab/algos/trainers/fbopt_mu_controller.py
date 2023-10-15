@@ -83,7 +83,7 @@ class HyperSchedulerFeedback():
         """
         ma of delta
         """
-        return [(1-coeff)*a + coeff*b for a, b in zip(list_old, list_new)]
+        return [(1 - coeff) * a + coeff * b for a, b in zip(list_old, list_new)]
 
     def search_mu(self, epo_reg_loss, epo_task_loss, epo_loss_tr,
                   list_str_multiplier_na, miter):
@@ -93,6 +93,8 @@ class HyperSchedulerFeedback():
         to see if the criteria is met
         $$\\mu^{k+1}=mu^{k}exp(rate_mu*[R(\\theta^{k})-ref_R])$$
         """
+        logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
+        logger.info(f"before controller: current mu: {self.mmu}")
         delta_epsilon_r = self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
         # TODO: can be replaced by a controller
         if self.delta_epsilon_r is None:
@@ -125,7 +127,7 @@ class HyperSchedulerFeedback():
         target = self.dict_multiply(self.mmu, dict_gain)
         self.mmu = self.dict_clip(target)
         logger = Logger.get_logger(logger_name='main_out_logger', loglevel="INFO")
-        logger.info(f"current mu: {self.mmu}")
+        logger.info(f"after contoller: current mu: {self.mmu}")
 
         for key, val in self.mmu.items():
             self.writer.add_scalar(f'mmu/{key}', val, miter)
@@ -171,7 +173,7 @@ class HyperSchedulerFeedback():
         """
         multiply a float to each element of a dictionary
         """
-        return {key: val*dict_multiplier[key] for key, val in dict_base.items()}
+        return {key: val * dict_multiplier[key] for key, val in dict_base.items()}
 
     def update_setpoint(self, epo_reg_loss, epo_task_loss):
         """
