@@ -148,15 +148,15 @@ class HyperSchedulerFeedback():
 
         for key, val in self.mmu.items():
             self.writer.add_scalar(f'dyn_mu/{key}', val, miter)
-            self.writer.add_scalar(f'dyn_gain/{key}', dict_gain[key], miter)
+            self.writer.add_scalar(f'controller_gain/{key}', dict_gain[key], miter)
         for i, (reg_dyn, reg_set) in enumerate(zip(epo_reg_loss, self.get_setpoing4r())):
             self.writer.add_scalar(f'lossrd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
             self.writer.add_scalar(f'lossrs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
 
             self.writer.add_scalars(
-                f'loss_rds/dyn_{list_str_multiplier_na[i]} with setpoint',
-                {f'lossr/dyn_{list_str_multiplier_na[i]}': reg_dyn,
-                 f'lossr/setpoint_{list_str_multiplier_na[i]}': reg_set,
+                f'dyn_loss_rds/dyn_{list_str_multiplier_na[i]} with setpoint',
+                {f'dyn_lossr/dyn_{list_str_multiplier_na[i]}': reg_dyn,
+                 f'dyn_lossr/setpoint_{list_str_multiplier_na[i]}': reg_set,
                  }, miter)
             self.writer.add_scalar(
                 f'x-axis=loss_ell task vs y-axis=loss r/dyn{list_str_multiplier_na[i]}',
