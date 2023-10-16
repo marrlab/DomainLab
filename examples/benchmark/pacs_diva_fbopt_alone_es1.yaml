@@ -47,6 +47,7 @@ Shared params:
     values:
       - 0.1
       - 0.5
+      - 0.9
 
   mu_clip:
     distribution: categorical
