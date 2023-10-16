@@ -167,12 +167,15 @@ class HyperSchedulerFeedback():
         self.writer.add_scalar('loss_task/ell', epo_task_loss, miter)
         acc_te = 0
         acc_val = 0
+        acc_sel = 0
 
         if miter > 1:
             acc_te = self.trainer.observer.metric_te["acc"]
             acc_val = self.trainer.observer.metric_val["acc"]
+            acc_sel = self.trainer.observer.model_sel.sel_model_te_acc
         self.writer.add_scalar("acc/te", acc_te, miter)
         self.writer.add_scalar("acc/val", acc_val, miter)
+        self.writer.add_scalar("acc/sel", acc_sel, miter)
 
     def dict_clip(self, dict_base):
         """
