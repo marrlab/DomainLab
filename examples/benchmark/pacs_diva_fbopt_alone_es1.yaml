@@ -101,4 +101,4 @@ diva_fbopt_full:
   shared:
     - k_i_gain
     - mu_init
-    - output_state_ma
+    - coeff_ma_output_state
