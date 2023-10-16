@@ -3,4 +3,4 @@
 # although garbage collector has been explicitly called, sometimes there is still CUDA out of memory error
 # so it is better not to use GPU to do the pytest to ensure every time there is no CUDA out of memory error occuring
 # pytest -s tests/test_fbopt.py
-python main_out.py --te_d=sketch --tpath=examples/tasks/task_pacs_path_list.py --bs=16 --aname=jigen --trainer=fbopt --nname=alexnet --epos=100 --es=100
+python main_out.py --te_d=sketch --tpath=examples/tasks/task_pacs_path_list.py --aname=jigen --trainer=fbopt --bs=64 --epos=200 --es=200 --npath=examples/nets/resnet50domainbed.py --mu_init=1e-6 --lr=5e-5
