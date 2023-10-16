@@ -41,6 +41,13 @@ Shared params:
       - gammad_recon
       - gammad_recon_per_pixel
 
+  output_state_ma:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
+
   mu_clip:
     distribution: categorical
     datatype: int
@@ -93,3 +100,4 @@ diva_fbopt_full:
     - k_i_gain
     - mu_init
     - str_diva_multiplier_type
+    - output_state_ma
