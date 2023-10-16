@@ -349,6 +349,8 @@ def sample_gridsearch(config: dict,
                 for line_num in range(shared_samples.shape[0]):
                     hyper_p_dict = shared_samples.iloc[line_num]['params'].copy()
                     key_list = copy.deepcopy(list(hyper_p_dict.keys()))
+                    if not all(x in key_list for x in shared):
+                        raise RunTimeError(f"shared keys: {shared} not included in global shared keys {key_list}")
                     for key_ in key_list:
                         if key_ not in shared:
                             del hyper_p_dict[key_]
