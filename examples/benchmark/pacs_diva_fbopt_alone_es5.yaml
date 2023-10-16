@@ -41,7 +41,7 @@ Shared params:
       - gammad_recon
       - gammad_recon_per_pixel
 
-  output_state_ma:
+  coeff_ma_output_state:
     distribution: categorical
     datatype: float
     values:
