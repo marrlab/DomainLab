@@ -100,4 +100,4 @@ diva_fbopt_full:
     - k_i_gain
     - mu_init
     - str_diva_multiplier_type
-    - output_state_ma
+    - coeff_ma_output_state
