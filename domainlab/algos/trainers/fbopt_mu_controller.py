@@ -110,7 +110,7 @@ class HyperSchedulerFeedback():
             if ind is not None:
                 logger = Logger.get_logger(
                     logger_name='main_out_logger', loglevel="INFO")
-                logger.info(f"error integration: {self.delta_epsilon_r}")
+                logger.info(f"delta integration: {self.delta_epsilon_r}")
                 logger.info(f"overshooting at  pos \
                             {ind} of activation: {activation}")
                 logger.info(f"name reg loss:{list_str_multiplier_na}")
