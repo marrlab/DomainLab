@@ -45,6 +45,7 @@ Shared params:
     distribution: categorical
     datatype: float
     values:
+      - 0
       - 0.1
       - 0.5
       - 0.9
@@ -97,7 +98,7 @@ diva_fbopt_full:
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   mu_clip: 1000_000
-  gammad_recon_per_pixel
+  str_diva_multiplier_type: gammad_recon_per_pixel
   shared:
     - k_i_gain
     - mu_init
