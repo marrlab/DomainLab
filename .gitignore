@@ -4,5 +4,4 @@
 tests/__pycache__/
 *.pyc
 .vscode/
-.snakemake/
 data/pacs

@@ -15,7 +15,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
-  es: 10
+  es: 5
   bs: 64
   san_check: False
   npath: examples/nets/resnet50domainbed.py
@@ -40,6 +40,13 @@ Shared params:
     values:
       - gammad_recon
       - gammad_recon_per_pixel
+
+  coeff_ma_output_state:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
 
   mu_clip:
     distribution: categorical
@@ -93,3 +100,4 @@ diva_fbopt_full:
     - k_i_gain
     - mu_init
     - str_diva_multiplier_type
+    - output_state_ma
