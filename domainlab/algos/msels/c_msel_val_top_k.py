@@ -27,7 +27,7 @@ class MSelValPerfTopK(MSelValPerf):
             # overwrite
             logger = Logger.get_logger()
             logger.info(f"top k validation acc: {self.list_top_k_acc} \
-                        overwriting counter, selected test acc")
+                        overwriting/reset  counter")
             self.es_c = 0  # restore counter
             ind = self.list_top_k_acc.index(acc_min)
             # avoid having identical values
@@ -36,10 +36,12 @@ class MSelValPerfTopK(MSelValPerf):
                 logger.info(f"top k validation acc updated: \
                             {self.list_top_k_acc}")
             # overwrite to ensure consistency
-            self._best_val_acc = metric_val_current
+            logger.info(f"top-2 val sel: overwriting best val acc from {self._best_val_acc} to {metric_val_current} to ensure consistency")
+            self._best_val_acc = metric_val_current  # FIXME: shall we use max here to the top k list? 
             # overwrite
             metric_te_current = \
                 self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
+            logger.info(f"top-2 val sel: overwriting best test acc from {self._sel_model_te_acc} to {metric_te_current} to ensure consistency")
             self._sel_model_te_acc = metric_te_current
             return True
         return flag_super
