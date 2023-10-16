@@ -24,11 +24,17 @@ class MSelValPerfTopK(MSelValPerf):
             self.tr_obs.metric_val[self.tr_obs.str_metric4msel]
         acc_min = min(self.list_top_k_acc)
         if metric_val_current > acc_min:
+            # overwrite
+            self.es_c = 0  # restore counter
             ind = self.list_top_k_acc.index(acc_min)
             self.list_top_k_acc[ind] = metric_val_current
             # overwrite
             metric_te_current = \
                 self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
             self._sel_model_te_acc = metric_te_current
+            logger = Logger.get_logger()
+            logger.info(f"top k validation acc updated: \
+                        {self.list_top_k_acc}, \
+                        overwriting counter, selected test acc")
             return True
         return flag_super
