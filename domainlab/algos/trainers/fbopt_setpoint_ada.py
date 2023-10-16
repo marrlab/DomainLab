@@ -231,9 +231,10 @@ class SliderAllComponent(FbOptSetpointControllerState):
             logger_name='main_out_logger', loglevel="INFO")
         logger.info(
             f"comparing output vs setpoint: \n \
-            {self.host.state_epo_reg_loss} \n {self.host.setpoint4R}")
-        if is_less_list_all(
-            self.host.state_epo_reg_loss, self.host.setpoint4R, flag_eq=True):
+            {self.host.state_epo_reg_loss} \n \
+            {self.host.setpoint4R}")
+        if is_less_list_all(self.host.state_epo_reg_loss,
+                            self.host.setpoint4R, flag_eq=True):
             logger.info("!!!!!!!!! better than old setpoint!")
             return True, list(range(len(self.host.setpoint4R)))
         return False, None
