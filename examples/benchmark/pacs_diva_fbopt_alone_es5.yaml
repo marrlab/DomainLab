@@ -99,5 +99,4 @@ diva_fbopt_full:
   shared:
     - k_i_gain
     - mu_init
-    - str_diva_multiplier_type
     - coeff_ma_output_state
