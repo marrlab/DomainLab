@@ -3,6 +3,7 @@ Multiobjective Model Selection
 """
 import copy
 from domainlab.algos.msels.a_model_sel import AMSel
+from domainlab.utils.logger import Logger
 
 
 class MSelSetpointDelay(AMSel):
@@ -28,6 +29,8 @@ class MSelSetpointDelay(AMSel):
         if the best model should be updated
         """
         if clear_counter:
+            logger = Logger.get_logger()
+            logger.info("setpoint msel te acc updated from {self._oracle_last_setpoint_sel_te_acc} to {self.sel_model_te_acc}")
             self._oracle_last_setpoint_sel_te_acc = self.sel_model_te_acc
         flag = self.msel.update(clear_counter)
         return flag
