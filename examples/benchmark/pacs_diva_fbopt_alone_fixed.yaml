@@ -94,4 +94,4 @@ diva_fbopt_full:
   exp_shoulder_clip: 5
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  mu_init: 1e-6
+  mu_init: 0.000001
