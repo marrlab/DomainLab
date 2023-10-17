@@ -51,9 +51,12 @@ def mk_parser_main():
     parser.add_argument('--epos', default=2, type=int,
                         help='maximum number of epochs')
 
+    parser.add_argument('--epos_min', default=0, type=int,
+                        help='maximum number of epochs')
+
     parser.add_argument('--epo_te', default=1, type=int,
                         help='test performance per {} epochs')
-    
+
     parser.add_argument('-w', '--warmup', type=int, default=100,
                         help='number of epochs for hyper-parameter warm-up. \
                         Set to 0 to turn warmup off.')

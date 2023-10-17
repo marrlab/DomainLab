@@ -5,7 +5,7 @@ output_dir: zoutput/benchmarks/pacs_diva_fbopt_alone
 sampling_seed: 0
 
 startseed: 0
-endseed: 2
+endseed: 5
 
 test_domains:
   - sketch
@@ -94,8 +94,4 @@ diva_fbopt_full:
   exp_shoulder_clip: 5
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  str_diva_multiplier_type: gammad_recon_per_pixel
-  shared:
-    - k_i_gain
-    - mu_init
-    - coeff_ma_output_state
+  mu_init: 0.000001
