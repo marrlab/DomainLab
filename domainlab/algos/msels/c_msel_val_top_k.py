@@ -41,7 +41,7 @@ class MSelValPerfTopK(MSelValPerf):
             # overwrite test acc, this does not depend on if val top-k acc has been overwritten or not
             metric_te_current = \
                 self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
-            logger.info(f"top-2 val sel: overwriting best test acc from {self._sel_model_te_acc} to {metric_te_current} to ensure consistency")
+            logger.info(f"top-2 val sel: overwriting selected model test acc from {self._sel_model_te_acc} to {metric_te_current} to ensure consistency")
             self._sel_model_te_acc = metric_te_current
             return True
         return flag_super
