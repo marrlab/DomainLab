@@ -28,8 +28,9 @@ class MSelSetpointDelay(AMSel):
         """
         if the best model should be updated
         """
+        logger = Logger.get_logger()
+        logger.info(f"setpoint selected current acc {self._oracle_last_setpoint_sel_te_acc}")
         if clear_counter:
-            logger = Logger.get_logger()
             logger.info("setpoint msel te acc updated from {self._oracle_last_setpoint_sel_te_acc} to {self.sel_model_te_acc}")
             self._oracle_last_setpoint_sel_te_acc = self.sel_model_te_acc
         flag = self.msel.update(clear_counter)
