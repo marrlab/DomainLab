@@ -30,10 +30,11 @@ domainlab_args:
 
 Shared params:
   coeff_ma_output_state:
-    distribution: uniform
-    min: 0.0
-    max: 0.9
-    num: 2
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
   coeff_ma_setpoint:
     distribution: uniform
     min: 0.0
