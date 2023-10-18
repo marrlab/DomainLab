@@ -1,0 +1,115 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_alone
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_path_list.py
+  dmem: False
+  lr: 5e-5
+  epos: 200
+  epos_min: 20
+  es: 1
+  bs: 64
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.990
+    max: 0.999
+    num: 2
+    distribution: uniform
+
+  str_diva_multiplier_type:
+    distribution: categorical
+    datatype: str
+    values:
+      - gammad_recon
+      - gammad_recon_per_pixel
+
+  coeff_ma_output_state:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0
+      - 0.1
+      - 0.5
+      - 0.9
+
+  mu_clip:
+    distribution: categorical
+    datatype: int
+    values:
+      - 10
+      - 1000
+      - 1
+      - 100
+
+  exp_shoulder_clip:
+    distribution: categorical
+    datatype: int
+    values:
+      - 2
+      - 5
+      - 10
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 3
+    distribution: uniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    step: 0.000001
+    num: 3
+    distribution: loguniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+
+
+# Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small 
+
+diva_fbopt_full:
+  aname: diva
+  trainer: fbopt
+  tr_with_init_mu: False
+  coeff_ma: 0.5
+  gamma_y: 1.0
+  ini_setpoint_ratio: 0.99
+  coeff_ma_output_state: 0.1
+  k_i_gain: 0.00835
+  mu_init: 0.000011
+  shared:
+    - exp_shoulder_clip
+    - str_diva_multiplier_type
+    - mu_clip
