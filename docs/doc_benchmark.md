@@ -1,5 +1,7 @@
 # Benchmarking with DomainLab
 
+[Documentation for Benchmark in Markdown](https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md)
+
 The package offers the ability to benchmark different user-defined experiments against each other,
 as well as against different hyperparameter settings and random seeds.
 The results are collected in a csv file, but also prepared in charts.
@@ -85,7 +87,7 @@ Alternatively, one could use
 ```examples
 cat ./zoutput/benchmarks/[name of the benchmark]/rule_results/*.csv > result.csv
 ```
-and plot the csv using command below
+clean up the extra csv head generated and plot the csv using command below
 
 ### Generate plots from .csv file
 If the benchmark is not completed, the `graphics` subdirectory might not be created. The user can then manually
