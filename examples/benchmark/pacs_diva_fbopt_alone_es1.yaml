@@ -52,11 +52,12 @@ Shared params:
 
   mu_clip:
     distribution: categorical
-    datatype: int
+    datatype: float
     values:
       - 10
       - 1000
-      - 1000_000
+      - 1
+      - 100
 
   k_i_gain:
     min: 0.0001
@@ -103,3 +104,4 @@ diva_fbopt_full:
     - k_i_gain
     - mu_init
     - coeff_ma_output_state
+    - mu_clip
