@@ -63,6 +63,21 @@ def phase_portrain_combined(event_files, colors, str1, str2, output_dir="."):
                              'phase_portrain_combined.png'), dpi=300)
 
 
+def curve_combined(event_files, colors, str1, str2, output_dir="."):
+    plt.figure()
+    for event_i in range(len(event_files)):
+        x, y = get_xy_from_event_file(event_files[event_i],
+                                      str1=str1, str2=str2)
+        plt.plot(x)
+        plt.plot(y)
+        plt.xlabel("time")
+        plt.ylabel("loss")
+        plt.title("timecourse")
+
+    plt.savefig(os.path.join(output_dir,
+                             'timecourse.png'), dpi=300)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='plot')
     parser.add_argument('-str1', "--str1", default=None, type=str)
@@ -77,3 +92,4 @@ if __name__ == "__main__":
     # Different colors for the different runs
     phase_portrain_combined(event_files, colors,
                             str1=args.str1, str2=args.str2)
+    curve_combined(event_files, colors, str1=args.str1, str2=args.str2)
