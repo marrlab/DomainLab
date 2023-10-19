@@ -67,6 +67,7 @@ Shared params:
 
   exp_shoulder_clip:
     distribution: categorical
+    datatype: float
     values:
       - 5
       - 10
@@ -74,6 +75,7 @@ Shared params:
 
   mu_clip: 
     distribution: categorical
+    datatype: float
     values:
       - 1000
       - 100
