@@ -7,7 +7,9 @@ from tensorboard.backend.event_processing.event_accumulator \
     import EventAccumulator
 
 
-def get_xy_from_event_file(event_file, str1, str2, tf_size_guidance=None):
+def get_xy_from_event_file(event_file, str1, str2,
+                           tf_size_guidance=None,
+                           sanity_check=False):
     if tf_size_guidance is None:
         # settings for which/how much data is loaded from the
         # tensorboard event files
@@ -30,8 +32,9 @@ def get_xy_from_event_file(event_file, str1, str2, tf_size_guidance=None):
     x_event = event.Scalars(str2)
     x = [s.value for s in x_event]
     # sanity check:
-    for i in range(len(x)):
-        assert int(x[i]) == x_int[i]
+    if sanity_check:
+        for i in range(len(x)):
+            assert int(x[i]) == x_int[i]
     return x, y
 
 
