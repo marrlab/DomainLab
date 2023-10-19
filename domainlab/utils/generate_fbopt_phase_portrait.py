@@ -55,9 +55,9 @@ def phase_portrain_combined(event_files, colors, str1, str2, output_dir="."):
         plt.plot(x[0], y[0], 'ko')
         plt.scatter(x, y, s=1, c='black')
 
-        plt.xlabel("task")
-        plt.ylabel("reg/dyn0")
-        plt.title("x-axis=task vs y-axis=reg/dyn0")
+        plt.xlabel(str1)
+        plt.ylabel(str2)
+        plt.title("phase portrait")
 
     plt.savefig(os.path.join(output_dir,
                              'phase_portrain_combined.png'), dpi=300)
