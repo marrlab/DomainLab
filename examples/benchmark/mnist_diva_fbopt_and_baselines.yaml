@@ -4,7 +4,7 @@ output_dir: zoutput/benchmarks/mnist_diva_fbopt_and_baselines
 
 sampling_seed: 0
 startseed: 0
-endseed: 4
+endseed: 10
 
 test_domains:
   - 0
@@ -15,8 +15,9 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 2000
-  es: 500
+  epos: 500
+  epos_min: 20
+  es: 5
   bs: 64
   zx_dim: 0
   zy_dim: 32
@@ -26,8 +27,6 @@ domainlab_args:
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: False
-  exp_shoulder_clip: 5.0
-  mu_clip: 1000_000
   coeff_ma: 0.5
   no_tensorboard: False
 
@@ -66,6 +65,21 @@ Shared params:
     num: 3
     distribution: loguniform
 
+  exp_shoulder_clip:
+    distribution: categorical
+    values:
+      - 5
+      - 10
+      - 1
+
+  mu_clip: 
+    distribution: categorical
+    values:
+      - 1000
+      - 100
+      - 10
+      - 1
+
 # Test fbopt with different hyperparameter configurations
 
 diva_fbopt_a:
@@ -77,6 +91,8 @@ diva_fbopt_a:
   shared:
     - k_i_gain
     - mu_init
+    - exp_shoulder_clip
+    - mu_clip
 
 diva_feedforward_a:
   aname: diva
