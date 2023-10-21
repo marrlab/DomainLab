@@ -62,6 +62,14 @@ Shared params:
     step: 100
     num: 3
     distribution: loguniform
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1
+      - 10
+      - 100
+      - 1000
 
 
 
@@ -73,10 +81,11 @@ diva_fbopt_full:
   str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  mu_clip: 1.0
   mu_init: 1e-6
+  exp_shoulder_clip: 5
   shared:
     - k_i_gain
+    - mu_clip
 
 diva_feedforward_full:
   aname: diva
