@@ -65,14 +65,6 @@ Shared params:
     num: 3
     distribution: loguniform
 
-  exp_shoulder_clip:
-    distribution: categorical
-    datatype: float
-    values:
-      - 5
-      - 10
-      - 1
-
   mu_clip: 
     distribution: categorical
     datatype: float
@@ -90,10 +82,10 @@ diva_fbopt_a:
   str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   init_setpoint_ratio: 0.99
+  exp_shoulder_clip: 1
+  mu_init: 1e-6
   shared:
     - k_i_gain
-    - mu_init
-    - exp_shoulder_clip
     - mu_clip
 
 diva_feedforward_a:
