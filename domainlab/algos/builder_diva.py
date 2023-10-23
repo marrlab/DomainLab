@@ -37,23 +37,27 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
-        model = mk_diva(str_diva_multiplier_type=args.str_diva_multiplier_type)(node,
-                          zd_dim=args.zd_dim,
-                          zy_dim=args.zy_dim,
-                          zx_dim=args.zx_dim,
-                          list_str_y=task.list_str_y,
-                          list_d_tr=task.list_domain_tr,
-                          gamma_d=args.gamma_d,
-                          gamma_y=args.gamma_y,
-                          beta_x=args.beta_x,
-                          beta_y=args.beta_y,
-                          beta_d=args.beta_d)
+        model = mk_diva(
+            str_diva_multiplier_type=args.str_diva_multiplier_type)(
+            node,
+            zd_dim=args.zd_dim,
+            zy_dim=args.zy_dim,
+            zx_dim=args.zx_dim,
+            list_str_y=task.list_str_y,
+            list_d_tr=task.list_domain_tr,
+            gamma_d=args.gamma_d,
+            gamma_y=args.gamma_y,
+            beta_x=args.beta_x,
+            beta_y=args.beta_y,
+            beta_d=args.beta_d)
         device = get_device(args)
         if args.val_topk:
-            msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerfTopK(max_es=args.es)))
+            model_sel = MSelSetpointDelay(
+                MSelOracleVisitor(MSelValPerfTopK(max_es=args.es)))
         else:
-            msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerf(max_es=args.es)))
-            
+            model_sel = MSelSetpointDelay(
+                MSelOracleVisitor(MSelValPerf(max_es=args.es)))
+
         if not args.gen:
             observer = ObVisitorCleanUp(
                 ObVisitor(model_sel,
