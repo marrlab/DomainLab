@@ -222,9 +222,8 @@ def sample_grid(param_config):
         if param_config['datatype'] == 'int':
             param_grid = np.array(param_grid)
             param_grid = param_grid.astype(int)
-        if param_config['datatype'] == 'float':
-            param_grid = np.array(param_grid)
-            param_grid = param_grid.astype(float)
+        # NOTE: converting int to float will cause error for VAE, avoid do
+        # it here
         return param_grid
 
 def build_param_grid_of_shared_params(shared_df):
