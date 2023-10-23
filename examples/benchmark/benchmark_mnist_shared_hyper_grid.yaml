@@ -19,6 +19,12 @@ Shared params:
     num: 2
     datatype: int
 
+  lr:
+    distribution: categorical
+    values:
+      - 1e-3
+      - 1e-4
+    datatype: float
 
 domainlab_args:
   # Domainlab arguments passed to each task.
@@ -62,3 +68,8 @@ method_hduva:  # name
     - zy_dim
   zx_dim: 0
   zd_dim: 32
+
+erm:
+  aname: deepall
+  shared:
+    - lr
