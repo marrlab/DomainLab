@@ -61,7 +61,7 @@ Shared params:
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 3
+    num: 2
     distribution: uniform
 
   mu_init:
@@ -95,8 +95,8 @@ diva_fbopt_full:
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   str_diva_multiplier_type: gammad_recon
+  coeff_ma_output_state: 0.1
+  mu_init: 0.000001
   shared:
     - k_i_gain
-    - mu_init
-    - coeff_ma_output_state
     - mu_clip
