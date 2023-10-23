@@ -263,6 +263,7 @@ def add_shared_params_to_param_grids(shared_df, dict_param_grids, config):
     '''
     dict_shared_grid = build_param_grid_of_shared_params(shared_df)
     if 'shared' in config.keys():
+        list_names = config['shared']
         dict_shared_grid = {key: dict_shared_grid[key] for key in config['shared']}
         if dict_shared_grid is not None:
             for key in dict_shared_grid.keys():
@@ -351,6 +352,8 @@ def sample_gridsearch(config: dict,
                 for line_num in range(shared_samples.shape[0]):
                     hyper_p_dict = shared_samples.iloc[line_num]['params'].copy()
                     key_list = copy.deepcopy(list(hyper_p_dict.keys()))
+                    if not all(x in key_list for x in shared):
+                        raise RuntimeError(f"shared keys: {shared} not included in global shared keys {key_list}")
                     for key_ in key_list:
                         if key_ not in shared:
                             del hyper_p_dict[key_]
@@ -371,7 +374,7 @@ def sample_gridsearch(config: dict,
     with open(config["output_dir"] + os.sep + 'commit.txt', 'w', encoding="utf8") as file:
         file.writelines("use git log |grep \n")
         file.writelines("consider remove leading b in the line below \n")
-        file.write(get_git_tag())  
+        file.write(get_git_tag())
     with open(config["output_dir"] + os.sep + 'config.txt', 'w', encoding="utf8") as file:
         json.dump(config, file)
     return samples
