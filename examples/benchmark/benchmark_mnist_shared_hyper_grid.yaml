@@ -27,7 +27,7 @@ domainlab_args:
   task: mnistcolor10
   tr_d: [1, 2, 4]
   dmem: False
-  lr: 0.001
+  lr: 1e-3
   epos: 2
   es: 5
   bs: 64
