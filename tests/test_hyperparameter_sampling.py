@@ -8,7 +8,7 @@ import yaml
 
 from domainlab.utils.hyperparameter_sampling import \
     sample_hyperparameters, sample_parameters, get_hyperparameter, \
-    Hyperparameter, SampledHyperparameter
+    SampledHyperparameter
 from domainlab.utils.hyperparameter_gridsearch import \
     sample_gridsearch
 from tests.utils_test import assert_frame_not_equal
@@ -78,7 +78,8 @@ def test_fallback_solution_of_sample_parameters():
 
 def test_hyperparameter_gridsearch():
     """Test sampling from yaml, including constraints"""
-    with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r", encoding="utf-8") \
+    with open("examples/yaml/demo_hyperparameter_gridsearch.yml", "r",
+              encoding="utf-8") \
             as stream:
         config = yaml.safe_load(stream)
 
@@ -114,38 +115,52 @@ def test_hyperparameter_gridsearch():
 
 def test_gridhyperparameter_errors():
     """Test for the errors which may occour in the sampling of the grid"""
-    with pytest.raises(RuntimeError, match="distance between max and min to small"):
+    with pytest.raises(RuntimeError,
+                       match="distance between max and min to small"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                            'Task1': {'aname': 'Algo1',
                                      'hyperparameters':
-                                         {'p1':{'min': 0, 'max': 1, 'step': 5,
-                                                'distribution': 'uniform', 'num': 2}}}})
+                                         {'p1': {'min': 0, 'max': 1, 'step': 5,
+                                                 'distribution': 'uniform',
+                                                 'num': 2,
+                                                 'datatype': float}}}})
 
-    with pytest.raises(RuntimeError, match="distribution \"random\" not implemented"):
+    with pytest.raises(RuntimeError,
+                       match="distribution \"random\" not implemented"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                            'Task1': {'aname': 'Algo1',
                                      'hyperparameters':
-                                         {'p1':{'min': 0, 'max': 1, 'step': 0,
-                                                'distribution': 'random', 'num': 2}}}})
+                                         {'p1': {'min': 0, 'max': 1, 'step': 0,
+                                                 'distribution': 'random',
+                                                 'num': 2,
+                                                 'datatype': float}}}})
 
     with pytest.raises(RuntimeError, match="No valid value found"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                            'Task1': {'aname': 'Algo1',
                                      'hyperparameters':
-                                         {'p1':{'min': 2, 'max': 3.5, 'step': 1,
-                                                'distribution': 'uniform', 'num': 2},
-                                          'p2':{'min': 0, 'max': 1.5, 'step': 1,
-                                                'distribution': 'uniform', 'num': 2},
+                                         {'p1': {'min': 2, 'max': 3.5,
+                                                 'step': 1,
+                                                 'distribution': 'uniform',
+                                                 'num': 2,
+                                                 'dataype': float},
+                                          'p2': {'min': 0, 'max': 1.5,
+                                                 'step': 1,
+                                                 'distribution': 'uniform',
+                                                 'num': 2,
+                                                 'datatype': float},
                                           'constraints': ['p1 < p2']
                                           }}})
 
-    with pytest.raises(RuntimeError, match="the number of parameters in the grid "
-                                           "direction of p1 needs to be specified"):
+    with pytest.raises(RuntimeError,
+                       match="the number of parameters in the grid \
+                       direction of p1 needs to be specified"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
                            'Task1': {'aname': 'Algo1',
                                      'hyperparameters':
                                          {'p1': {'min': 0, 'max': 1, 'step': 0,
-                                                 'distribution': 'uniform'}}}})
+                                                 'distribution': 'uniform',
+                                                 'datatype': float}}}})
 
 
 def test_hyperparameter_errors():
@@ -160,7 +175,8 @@ def test_hyperparameter_errors():
     with pytest.raises(RuntimeError, match='Missing required key'):
         get_hyperparameter('name', {'distribution': 'uniform'})
 
-    par = get_hyperparameter('name', {'distribution': 'uniform', 'min': 0, 'max': 1})
+    par = get_hyperparameter('name',
+                             {'distribution': 'uniform', 'min': 0, 'max': 1})
     par.distribution = 'unknown'
     with pytest.raises(RuntimeError, match='Unsupported distribution'):
         par.sample()
@@ -169,7 +185,8 @@ def test_hyperparameter_errors():
 
 def test_constraint_error():
     """Check error on invalid syntax in constraints"""
-    par = get_hyperparameter('name', {'distribution': 'uniform', 'min': 0, 'max': 1})
+    par = get_hyperparameter('name',
+                             {'distribution': 'uniform', 'min': 0, 'max': 1})
     constraints = ["hello world"]
     with pytest.raises(SyntaxError, match='Invalid syntax in yaml config'):
         sample_parameters([par], constraints)
@@ -177,8 +194,10 @@ def test_constraint_error():
 
 def test_sample_parameters_abort():
     """Test for error on infeasible constraints"""
-    p_1 = get_hyperparameter('p1', {'distribution': 'uniform', 'min': 0, 'max': 1})
-    p_2 = get_hyperparameter('p2', {'distribution': 'uniform', 'min': 2, 'max': 3})
+    p_1 = get_hyperparameter('p1',
+                             {'distribution': 'uniform', 'min': 0, 'max': 1})
+    p_2 = get_hyperparameter('p2',
+                             {'distribution': 'uniform', 'min': 2, 'max': 3})
     constraints = ['p2 < p1']   # impossible due to the bounds
     with pytest.raises(RuntimeError, match='constraints reasonable'):
         sample_parameters([p_1, p_2], constraints)
@@ -186,24 +205,30 @@ def test_sample_parameters_abort():
 
 def test_sampling_seed():
     """Tests if the same hyperparameters are sampled if sampling_seed is set"""
-    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r", encoding="utf8") as stream:
+    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r",
+              encoding="utf8") as stream:
         config = yaml.safe_load(stream)
 
     config['sampling_seed'] = 1
 
-    samples1 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
-    samples2 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+    samples1 = sample_hyperparameters(config,
+                                      sampling_seed=config['sampling_seed'])
+    samples2 = sample_hyperparameters(config,
+                                      sampling_seed=config['sampling_seed'])
     pd.testing.assert_frame_equal(samples1, samples2)
 
 
 def test_sampling_seed_diff():
     """Tests if the same hyperparameters are sampled if sampling_seed is set"""
-    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r", encoding="utf8") as stream:
+    with open("examples/yaml/demo_hyperparameter_sampling.yml", "r",
+              encoding="utf8") as stream:
         config = yaml.safe_load(stream)
 
     config['sampling_seed'] = 1
-    samples1 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+    samples1 = sample_hyperparameters(config,
+                                      sampling_seed=config['sampling_seed'])
 
     config['sampling_seed'] = 2
-    samples2 = sample_hyperparameters(config, sampling_seed=config['sampling_seed'])
+    samples2 = sample_hyperparameters(config,
+                                      sampling_seed=config['sampling_seed'])
     assert_frame_not_equal(samples1, samples2)
