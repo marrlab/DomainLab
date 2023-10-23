@@ -33,7 +33,7 @@ domainlab_args:
   bs: 64
   nname: conv_bn_pool_2
   san_check: True
-  gamma_y: 50000
+  gamma_y: 5e4
 
 
 method_diva:  # name
