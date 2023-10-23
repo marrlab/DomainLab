@@ -33,13 +33,13 @@ Shared params:
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 3
+    num: 2
     distribution: loguniform
 
   mu_init:
     min: 0.000001
     max: 0.00005
-    num: 3
+    num: 2
     distribution: loguniform
 
   pperm:
@@ -51,7 +51,7 @@ Shared params:
   gamma_reg:
     min: 0.01
     max: 10_000
-    num: 10
+    num: 4
     distribution: loguniform
 
   mu_clip:
@@ -69,9 +69,9 @@ jigen_feedback:
   aname: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
+  mu_init: 0.000001
   shared:
     - k_i_gain
-    - mu_init
     - mu_clip
     
 jigen_feedforward:
