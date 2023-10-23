@@ -50,6 +50,7 @@ method_diva:  # name
       max: 1e6
       step: 10_000
       distribution: loguniform
+      datatype: float
       num: 2
 
 method_hduva:  # name

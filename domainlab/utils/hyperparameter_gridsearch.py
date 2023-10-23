@@ -222,7 +222,10 @@ def sample_grid(param_config):
         if param_config['datatype'] == 'int':
             param_grid = np.array(param_grid)
             param_grid = param_grid.astype(int)
-    return param_grid
+        if param_config['datatype'] == 'float':
+            param_grid = np.array(param_grid)
+            param_grid = param_grid.astype(float)
+        return param_grid
 
 def build_param_grid_of_shared_params(shared_df):
     '''
@@ -282,6 +285,9 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
             # constraints are not parameters
             if not param_name == 'constraints':
                 # remember all parameters which are reverenced
+                if 'datatype' not in param_config.keys():
+                    raise RuntimeError(f"please specify datatype in {param_config} for {param_name}")
+
                 if 'reference' in param_config.keys():
                     referenced_params.update({param_name: param_config['reference']})
                 # sample other parameter
