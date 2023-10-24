@@ -20,7 +20,7 @@ from domainlab.tasks.utils_task import ImSize
 
 
 def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int,
-           alone=True):
+           alone=True, force_best_val=False):
     """
     Creates a custom experiment. The user can specify the input parameters.
 
@@ -52,7 +52,8 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int,
         model_sel = MSelOracleVisitor()
     else:
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=0))
-        model_sel.msel._best_val_acc = 1.0
+        if force_best_val:
+            model_sel.msel._best_val_acc = 1.0
     observer = ObVisitor(model_sel, device)
     exp = Exp(conf, task, model=model, observer=observer)
     return exp
@@ -90,4 +91,8 @@ def test_msel_oracle():
 
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False)
+    exp.execute(num_epochs=2)
+
+    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
+                 batchsize=32, alone=False, force_best_val=True)
     exp.execute(num_epochs=2)
