@@ -3,6 +3,7 @@ experiment
 """
 import datetime
 import os
+import warnings
 
 
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
@@ -25,6 +26,7 @@ class Exp():
         :param model: default None
         """
         self.task = task
+        self.curr_dir = os.getcwd()
         if task is None:
             self.task = TaskChainNodeGetter(args)()
             if args.san_check:
@@ -67,11 +69,12 @@ class Exp():
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            logger.info(f"epoch: {epoch},"
+            logger.info(f"after epoch: {epoch},"
                         f"now: {str(t_c)},"
                         f"epoch time: {t_c - t_before_epoch},"
                         f"used: {t_c - t_0},"
                         f"model: {self.visitor.model_name}")
+            logger.info(f"working direcotry: {self.curr_dir}")
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
@@ -84,3 +87,36 @@ class Exp():
         logger.info(f"Experiment finished at epoch: {self.epoch_counter} "
                     f"with time: {t_c - t_0} at {t_c}")
         self.trainer.post_tr()
+
+    def clean_up(self):
+        """
+        to be called by a decorator
+        """
+        try:
+            # oracle means use out-of-domain test accuracy to select the model
+            self.visitor.remove("oracle")  # pylint: disable=E1101
+        except FileNotFoundError:
+            pass
+
+        try:
+            # the last epoch:
+            # have a model to evaluate in case the training stops in between
+            self.visitor.remove("epoch")  # pylint: disable=E1101
+        except FileNotFoundError:
+            logger = Logger.get_logger()
+            logger.warn("failed to remove model_epoch: file not found")
+            warnings.warn("failed to remove model_epoch: file not found")
+
+        try:
+            # without suffix: the selected model
+            self.visitor.remove()  # pylint: disable=E1101
+        except FileNotFoundError:
+            logger = Logger.get_logger()
+            logger.warn("failed to remove model")
+            warnings.warn("failed to remove model")
+
+        try:
+            # for matchdg
+            self.visitor.remove("ctr")  # pylint: disable=E1101
+        except FileNotFoundError:
+            pass

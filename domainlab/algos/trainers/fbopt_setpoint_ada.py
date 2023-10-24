@@ -235,7 +235,7 @@ class SliderAllComponent(FbOptSetpointControllerState):
             {self.host.setpoint4R}")
         if is_less_list_all(self.host.state_epo_reg_loss,
                             self.host.setpoint4R, flag_eq=True):
-            logger.info("!!!!!!!!! better than old setpoint!")
+            logger.info("!!!!!!!!!In SliderAllComponent: R current value better than current setpoint!")
             return True, list(range(len(self.host.setpoint4R)))
         return False, None
 

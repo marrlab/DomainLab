@@ -27,7 +27,7 @@ class MSelValPerfTopK(MSelValPerf):
             # overwrite
             logger = Logger.get_logger()
             logger.info(f"top k validation acc: {self.list_top_k_acc} \
-                        overwriting counter, selected test acc")
+                        overwriting/reset  counter")
             self.es_c = 0  # restore counter
             ind = self.list_top_k_acc.index(acc_min)
             # avoid having identical values
@@ -35,11 +35,17 @@ class MSelValPerfTopK(MSelValPerf):
                 self.list_top_k_acc[ind] = metric_val_current
                 logger.info(f"top k validation acc updated: \
                             {self.list_top_k_acc}")
-            # overwrite to ensure consistency
-            self._best_val_acc = metric_val_current
-            # overwrite
+                # overwrite to ensure consistency
+                # issue #569: initially self.list_top_k_acc will be [xx, 0] and it does not matter since 0 will be overwriten by second epoch validation acc. 
+                # actually, after epoch 1, most often, sefl._best_val_acc will be the higher value of self.list_top_k_acc will overwriten by min(self.list_top_k_acc)
+                logger.info(f"top-2 val sel: overwriting best val acc from {self._best_val_acc} to minium of {self.list_top_k_acc} which is {min(self.list_top_k_acc)} to ensure consistency")
+                self._best_val_acc = min(self.list_top_k_acc)
+            # overwrite test acc, this does not depend on if val top-k acc has been overwritten or not
             metric_te_current = \
                 self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
+            if self._sel_model_te_acc != metric_te_current:
+                # this can only happen if the validation acc has decreased and current val acc is only bigger than min(self.list_top_k_acc} but lower than max(self.list_top_k_acc)
+                logger.info(f"top-2 val sel: overwriting selected model test acc from {self._sel_model_te_acc} to {metric_te_current} to ensure consistency")
             self._sel_model_te_acc = metric_te_current
             return True
         return flag_super

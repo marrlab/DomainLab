@@ -5,7 +5,7 @@ output_dir: zoutput/benchmarks/pacs_diva_fbopt_alone
 sampling_seed: 0
 
 startseed: 0
-endseed: 2
+endseed: 5
 
 test_domains:
   - sketch
@@ -15,6 +15,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
+  epos_min: 20
   es: 5
   bs: 64
   san_check: False
@@ -90,14 +91,7 @@ Shared params:
 diva_fbopt_full:
   aname: diva
   trainer: fbopt
-  exp_shoulder_clip: 10
-  tr_with_init_mu: False
-  coeff_ma: 0.5
+  exp_shoulder_clip: 5
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  mu_clip: 1000_000
-  shared:
-    - k_i_gain
-    - mu_init
-    - str_diva_multiplier_type
-    - output_state_ma
+  mu_init: 0.000001
