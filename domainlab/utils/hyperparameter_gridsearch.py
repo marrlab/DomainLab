@@ -8,6 +8,7 @@ in def grid_task
 import copy
 import os
 import json
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -285,7 +286,9 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
             if not param_name == 'constraints':
                 # remember all parameters which are reverenced
                 if 'datatype' not in param_config.keys():
-                    raise RuntimeError(f"please specify datatype in {param_config} for {param_name}")
+                    warnings.warn(f"datatype not specified in {param_config} \
+                                  for {param_name}, take float as default")
+                    param_config['datatype'] = 'float'
 
                 if 'reference' in param_config.keys():
                     referenced_params.update({param_name: param_config['reference']})
