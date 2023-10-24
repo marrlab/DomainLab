@@ -52,6 +52,7 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int,
         model_sel = MSelOracleVisitor()
     else:
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=0))
+        model_sel.msel._best_val_acc = 1.0
     observer = ObVisitor(model_sel, device)
     exp = Exp(conf, task, model=model, observer=observer)
     return exp
