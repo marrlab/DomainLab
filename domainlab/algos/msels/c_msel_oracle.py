@@ -24,6 +24,8 @@ class MSelOracleVisitor(AMSel):
         """
         self.tr_obs.exp.visitor.save(self.trainer.model, "epoch")
         flag = False
+        if self.tr_obs.metric_val is None:
+            return super().update(clear_counter)
         metric = self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
         if metric > self.best_oracle_acc:
             self.best_oracle_acc = metric
