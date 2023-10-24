@@ -1,6 +1,8 @@
-JOB_NAME="fbopt_jigen"
-PATH_OUT_BASE="/lustre/groups/imm01/workspace/felix.drost/fbopt_jigen/job_logs"
-PATH_CODE="/lustre/groups/imm01/workspace/felix.drost/fbopt_jigen"
+JOB_NAME="fbopt"
+PATH_CODE="~/fbopt_jigen"
+PATH_OUT_BASE="${PATH_CODE}/job_logs"
+PATH_YAML=$2
+START_SEED=$3
 
 
 job_file="${PATH_OUT_BASE}/${JOB_NAME}.cmd"
@@ -17,11 +19,9 @@ echo "#!/bin/bash
 #SBATCH --nice=10000
 
 source ~/.bash_profile
+source ~/.bashrc
 conda activate fbopt
 
-${PATH_CODE}/run_benchmark_slurm.sh ${PATH_CODE}/examples/benchmark/pacs_jigen_fbopt_and_others.yaml 0
+${PATH_CODE}/run_benchmark_slurm.sh ${PATH_CODE}/${PATH_YAML} ${START_SEED}
 " > ${job_file}
 sbatch ${job_file}
-
-
-
