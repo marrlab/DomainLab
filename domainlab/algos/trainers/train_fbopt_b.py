@@ -76,8 +76,15 @@ class TrainerFbOpt(TrainerBasic):
         should be set to epoch*self.num_batches + ind_batch
         """
         if self.flag_update_hyper_per_batch:
+            self.hyper_scheduler.search_mu(
+                self.epo_reg_loss_tr,
+                self.epo_task_loss_tr,
+                self.epo_loss_tr,
+                self.list_str_multiplier_na,
+                miter=epoch)
+            self.set_model_with_mu()
             # NOTE: if not update per_batch, then not updated
-            self.model.hyper_update(epoch * self.num_batches + ind_batch, self.hyper_scheduler)
+            # self.model.hyper_update(epoch * self.num_batches + ind_batch, self.hyper_scheduler)
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
@@ -117,6 +124,8 @@ class TrainerFbOpt(TrainerBasic):
         """
         update multipliers only per epoch
         """
+        if not self.flag_update_hyper_per_batch:
+            return super().tr_epoch(epoch)
         self.hyper_scheduler.search_mu(
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
