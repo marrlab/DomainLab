@@ -32,6 +32,3 @@ build-backend = "poetry.core.masonry.api"
 disable=[
   'no-name-in-module'
 ]
-
-[tool.pytest.ini_options]
-addopts = "--cov --cov-report term-missing"
