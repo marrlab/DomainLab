@@ -18,12 +18,24 @@ class MSelOracleVisitor(AMSel):
         self.best_oracle_acc = 0
         self.msel = msel
 
+    @property
+    def oracle_last_setpoint_sel_te_acc(self):
+        """
+        last setpoint acc
+        """
+        if self.msel is not None and \
+                hasattr(self.msel, "oracle_last_setpoint_sel_te_acc"):
+            return self.msel.oracle_last_setpoint_sel_te_acc
+        return -1
+
     def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
         self.tr_obs.exp.visitor.save(self.trainer.model, "epoch")
         flag = False
+        if self.tr_obs.metric_val is None:
+            return super().update(clear_counter)
         metric = self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
         if metric > self.best_oracle_acc:
             self.best_oracle_acc = metric

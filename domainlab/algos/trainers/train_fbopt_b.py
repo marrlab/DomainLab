@@ -4,12 +4,15 @@ update hyper-parameters during training
 from operator import add
 import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
-from domainlab.algos.trainers.fbopt_alternate import HyperSchedulerFeedbackAlternave
-from domainlab.utils.logger import Logger
+from domainlab.algos.trainers.fbopt_mu_controller import HyperSchedulerFeedback
 
 
 def list_divide(list_val, scalar):
-    return [ele/scalar for ele in list_val]
+    """
+    divide a list by a scalar
+    """
+    return [ele / scalar for ele in list_val]
+
 
 class HyperSetter():
     """
@@ -65,7 +68,7 @@ class TrainerFbOpt(TrainerBasic):
                 epo_task_loss += b_task_loss
                 epo_p_loss += p_loss.sum().detach().item()
                 counter += 1.0
-        return list_divide(epo_reg_loss, counter), epo_task_loss/counter, epo_p_loss / counter
+        return list_divide(epo_reg_loss, counter), epo_task_loss / counter, epo_p_loss / counter
 
     def before_batch(self, epoch, ind_batch):
         """
@@ -74,34 +77,50 @@ class TrainerFbOpt(TrainerBasic):
         """
         if self.flag_update_hyper_per_batch:
             self.hyper_scheduler.search_mu(
-            self.batch_reg_loss_tr,
-            self.batch_task_loss_tr,
-            self.batch_loss_tr,
-            self.list_str_multiplier_na,
-            dict(self.model.named_parameters()),
-            miter=epoch)
-        self.set_model_with_mu()
+                self.epo_reg_loss_tr,
+                self.epo_task_loss_tr,
+                self.epo_loss_tr,
+                self.list_str_multiplier_na,
+                miter=epoch)
+            self.set_model_with_mu()
+            # NOTE: if not update per_batch, then not updated
+            # self.model.hyper_update(epoch * self.num_batches + ind_batch, self.hyper_scheduler)
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
-        self.set_scheduler(scheduler=HyperSchedulerFeedbackAlternave)
-        self.set_model_with_mu()  # very small value 
+        self.flag_setpoint_updated = False
+        self.set_scheduler(scheduler=HyperSchedulerFeedback)
+
+        self.set_model_with_mu()  # very small value
+        if self.aconf.tr_with_init_mu:
+            self.tr_with_init_mu()
+
         self.epo_reg_loss_tr, self.epo_task_loss_tr, self.epo_loss_tr = self.eval_r_loss()
         self.hyper_scheduler.set_setpoint(
-            [ele * self.aconf.ini_setpoint_ratio if ele > 0 else ele / self.aconf.ini_setpoint_ratio for ele  in self.epo_reg_loss_tr],
+            [ele * self.aconf.ini_setpoint_ratio if ele > 0 else
+             ele / self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)  # setpoing w.r.t. random initialization of neural network
 
     @property
     def list_str_multiplier_na(self):
+        """
+        return the name of multipliers
+        """
         return self.model.list_str_multiplier_na
 
-    def erm(self):
+    def tr_with_init_mu(self):
+        """
+        erm step with very small mu
+        """
         super().tr_epoch(-1)
 
     def set_model_with_mu(self):
+        """
+        set model multipliers
+        """
         self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         """
         update multipliers only per epoch
         """
@@ -112,11 +131,11 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_task_loss_tr,
             self.epo_loss_tr,
             self.list_str_multiplier_na,
-            dict(self.model.named_parameters()),
             miter=epoch)
         self.set_model_with_mu()
-        
-        flag = super().tr_epoch(epoch)
+
+        flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?
-        self.hyper_scheduler.update_setpoint(self.epo_reg_loss_tr, self.epo_task_loss_tr)
+        self.flag_setpoint_updated = self.hyper_scheduler.update_setpoint(
+            self.epo_reg_loss_tr, self.epo_task_loss_tr)
         return flag

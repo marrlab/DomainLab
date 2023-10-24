@@ -16,7 +16,7 @@ domainlab_args:
   dmem: False
   lr: 0.001
   epos: 1000
-  es: 200
+  es: 100
   bs: 64
   nname: conv_bn_pool_2
   san_check: False
@@ -30,22 +30,17 @@ domainlab_args:
 
 Shared params:
   coeff_ma_output_state:
-    distribution: uniform
-    min: 0.0
-    max: 0.9
-    num: 2
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
   coeff_ma_setpoint:
     distribution: uniform
     min: 0.0
     max: 0.9
     num: 2
   setpoint_rewind:
-    distribution: categorical
-    datatype: str
-    values:
-      - "yes"
-      - "no"
-  overshoot_rewind:
     distribution: categorical
     datatype: str
     values:
@@ -60,7 +55,7 @@ Shared params:
   mu_init:
     min: 0.000001
     max: 0.00001
-    num: 3
+    num: 2
     distribution: loguniform
 
   gamma_reg:
@@ -82,5 +77,3 @@ jigen_feedback:
   shared:
     - k_i_gain
     - mu_init
-    - setpoint_rewind
-    - overshoot_rewind
