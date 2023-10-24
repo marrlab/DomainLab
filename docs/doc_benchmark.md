@@ -1,5 +1,7 @@
 # Benchmarking with DomainLab
 
+[Documentation for Benchmark in Markdown](https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md)
+
 The package offers the ability to benchmark different user-defined experiments against each other,
 as well as against different hyperparameter settings and random seeds.
 The results are collected in a csv file, but also prepared in charts.
@@ -72,14 +74,20 @@ explained below.
 
 
 ### Obtain partial results
-If the benchmark is not completed, the `results.csv` file containing the aggregated results might not be created.
-The user can then obtain the aggregated partial results from the partially completed benchmark by running
+If the benchmark is not yet completed (still running or has some failed jobs), the `results.csv` file containing the aggregated results will not be created.
+The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:
 ```commandline
 python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
 specifying the benchmark output directory containing the partially completed benchmark,
 e.g. `./zoutput/benchmarks/demo_benchmark`, where `demo_benchmark` is a name defined in the yaml file. 
+
+Alternatively, one could use 
+```examples
+cat ./zoutput/benchmarks/[name of the benchmark]/rule_results/*.csv > result.csv
+```
+clean up the extra csv head generated and plot the csv using command below
 
 ### Generate plots from .csv file
 If the benchmark is not completed, the `graphics` subdirectory might not be created. The user can then manually
