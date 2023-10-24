@@ -39,6 +39,9 @@ def mk_parser_main():
     parser.add_argument('--nocu', action='store_true', default=False,
                         help='disables CUDA')
 
+    parser.add_argument('--val_topk', action='store_true', default=False,
+                        help='use topk validation as model selection')
+
     parser.add_argument('--device', type=str, default=None,
                         help='device name default None')
 
