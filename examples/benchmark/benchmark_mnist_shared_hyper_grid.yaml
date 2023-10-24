@@ -19,6 +19,11 @@ Shared params:
     num: 2
     datatype: int
 
+  lr:
+    distribution: categorical
+    values:
+      - 1e-3
+      - 1e-4
 
 domainlab_args:
   # Domainlab arguments passed to each task.
@@ -27,7 +32,6 @@ domainlab_args:
   task: mnistcolor10
   tr_d: [1, 2, 4]
   dmem: False
-  lr: 1e-3
   epos: 2
   es: 5
   bs: 64
@@ -43,13 +47,15 @@ method_diva:  # name
   shared:
     - zy_dim
   nname_dom: conv_bn_pool_2
+  gamma_y: 1e4
 
   hyperparameters:
     gamma_d:
       min: 1e4
       max: 1e6
-      step: 10_000
+      step: 1e5
       distribution: loguniform
+      datatype: float
       num: 2
 
 method_hduva:  # name
@@ -61,3 +67,8 @@ method_hduva:  # name
     - zy_dim
   zx_dim: 0
   zd_dim: 32
+
+erm:
+  aname: deepall
+  shared:
+    - lr

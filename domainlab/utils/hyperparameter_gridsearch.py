@@ -8,6 +8,7 @@ in def grid_task
 import copy
 import os
 import json
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -222,7 +223,9 @@ def sample_grid(param_config):
         if param_config['datatype'] == 'int':
             param_grid = np.array(param_grid)
             param_grid = param_grid.astype(int)
-    return param_grid
+        # NOTE: converting int to float will cause error for VAE, avoid do
+        # it here
+        return param_grid
 
 def build_param_grid_of_shared_params(shared_df):
     '''
@@ -282,6 +285,11 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
             # constraints are not parameters
             if not param_name == 'constraints':
                 # remember all parameters which are reverenced
+                if 'datatype' not in param_config.keys():
+                    warnings.warn(f"datatype not specified in {param_config} \
+                                  for {param_name}, take float as default")
+                    param_config['datatype'] = 'float'
+
                 if 'reference' in param_config.keys():
                     referenced_params.update({param_name: param_config['reference']})
                 # sample other parameter
