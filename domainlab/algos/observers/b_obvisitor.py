@@ -117,31 +117,4 @@ class ObVisitor(AObVisitor):
         to be called by a decorator
         """
         if not self.keep_model:
-            try:
-                # oracle means use out-of-domain test accuracy to select the model
-                self.exp.visitor.remove("oracle")  # pylint: disable=E1101
-            except FileNotFoundError:
-                pass
-
-            try:
-                # the last epoch:
-                # have a model to evaluate in case the training stops in between
-                self.exp.visitor.remove("epoch")  # pylint: disable=E1101
-            except FileNotFoundError:
-                logger = Logger.get_logger()
-                logger.warn("failed to remove model_epoch: file not found")
-                warnings.warn("failed to remove model_epoch: file not found")
-
-            try:
-                # without suffix: the selected model
-                self.exp.visitor.remove()  # pylint: disable=E1101
-            except FileNotFoundError:
-                logger = Logger.get_logger()
-                logger.warn("failed to remove model")
-                warnings.warn("failed to remove model")
-
-            try:
-                # for matchdg
-                self.exp.visitor.remove("ctr")  # pylint: disable=E1101
-            except FileNotFoundError:
-                pass
+            self.exp.clean_up()
