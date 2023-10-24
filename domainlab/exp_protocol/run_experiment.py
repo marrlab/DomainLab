@@ -4,7 +4,7 @@ and each random seed.
 """
 import ast
 import gc
-
+import copy
 import numpy as np
 import pandas as pd
 import torch
@@ -28,6 +28,21 @@ def load_parameters(file: str, index: int) -> tuple:
     # row.task has nothing to do with DomainLab task, it is
     # benchmark task which correspond to one algorithm
     return row.task, params
+
+
+def convert_dict2float(dict_in):
+    """
+    convert scientific notation from 1e5 to 10000
+    """
+    dict_out = copy.deepcopy(dict_in)
+    for key, val in dict_out.items():
+        if isinstance(val, str):
+            try:
+                val_float = float(val)
+                dict_out[key] = val_float
+            except:
+                pass
+    return dict_out
 
 
 def run_experiment(
@@ -77,7 +92,8 @@ def run_experiment(
     args_algo_as_task = config[str_algo_as_task].copy()
     if 'hyperparameters' in args_algo_as_task:
         del args_algo_as_task['hyperparameters']
-    args_domainlab_common = config.get("domainlab_args", {})
+    args_domainlab_common_raw = config.get("domainlab_args", {})
+    args_domainlab_common = convert_dict2float(args_domainlab_common_raw)
     # check if some of the hyperparameters are already specified
     # in args_domainlab_common or args_algo_as_task
     if np.intersect1d(list(args_algo_as_task.keys()),
