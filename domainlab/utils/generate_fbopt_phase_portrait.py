@@ -23,13 +23,13 @@ def get_xy_from_event_file(event_file, str1, str2,
     event = EventAccumulator(event_file, tf_size_guidance)
     event.Reload()
     # extract the reg/dyn0 values
-    y_event = event.Scalars(str1)
+    y_event = event.Scalars(str2)
     y = [s.value for s in y_event]
     x_int = [s.step for s in y_event]
     # the .step data are saved as ints in tensorboard,
     # so we will re-extact from 'task'
     # extract the corresponding 'task' values
-    x_event = event.Scalars(str2)
+    x_event = event.Scalars(str1)
     x = [s.value for s in x_event]
     # sanity check:
     if sanity_check:
@@ -74,9 +74,10 @@ def curve_combined(event_files, colors, str1, str2, output_dir="."):
         plt.ylabel("loss")
         plt.title("timecourse")
         plt.legend([str1, str2])
-
+    str11 = str1.replace(os.sep, "_")
+    str22 = str2.replace(os.sep, "_")
     plt.savefig(os.path.join(output_dir,
-                             f'timecourse_{str1}_{str2}.png'), dpi=300)
+                             f'timecourse_{str11}_{str22}.png'), dpi=300)
 
 
 if __name__ == "__main__":
