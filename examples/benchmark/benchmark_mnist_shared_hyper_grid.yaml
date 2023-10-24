@@ -24,7 +24,6 @@ Shared params:
     values:
       - 1e-3
       - 1e-4
-    datatype: float
 
 domainlab_args:
   # Domainlab arguments passed to each task.
@@ -33,7 +32,6 @@ domainlab_args:
   task: mnistcolor10
   tr_d: [1, 2, 4]
   dmem: False
-  lr: 1e-3
   epos: 2
   es: 5
   bs: 64
