@@ -47,6 +47,7 @@ method_diva:  # name
   shared:
     - zy_dim
   nname_dom: conv_bn_pool_2
+  gamma_y: 1e4
 
   hyperparameters:
     gamma_d:

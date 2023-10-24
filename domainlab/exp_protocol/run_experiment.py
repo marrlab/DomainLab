@@ -89,31 +89,32 @@ def run_experiment(
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    args_algo_as_task = config[str_algo_as_task].copy()
-    if 'hyperparameters' in args_algo_as_task:
-        del args_algo_as_task['hyperparameters']
+    args_algo_specific = config[str_algo_as_task].copy()
+    if 'hyperparameters' in args_algo_specific:
+        del args_algo_specific['hyperparameters']
     args_domainlab_common_raw = config.get("domainlab_args", {})
     args_domainlab_common = convert_dict2float(args_domainlab_common_raw)
     # check if some of the hyperparameters are already specified
-    # in args_domainlab_common or args_algo_as_task
-    if np.intersect1d(list(args_algo_as_task.keys()),
+    # in args_domainlab_common or args_algo_specific
+    if np.intersect1d(list(args_algo_specific.keys()),
                       list(hyperparameters.keys())).shape[0] > 0:
         logger.error(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
                   f" has already been fixed to a value in the algorithm section.")
         raise RuntimeError(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
                   f" has already been fixed to a value in the algorithm section.")
     if np.intersect1d(list(args_domainlab_common.keys()),
                       list(hyperparameters.keys())).shape[0] > 0:
         logger.error(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
                   f" has already been fixed to a value in the domainlab_args section.")
         raise RuntimeError(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_as_task.keys()), list(hyperparameters.keys()))}"
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
                   f" has already been fixed to a value in the domainlab_args section.")
     apply_dict_to_args(args, args_domainlab_common)
-    apply_dict_to_args(args, args_algo_as_task, extend=True)
+    args_algo_specific_scientific_notation = convert_dict2float(args_algo_specific)
+    apply_dict_to_args(args, args_algo_specific_scientific_notation, extend=True)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
     gpu_ind = param_index % num_gpus
