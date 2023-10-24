@@ -73,9 +73,10 @@ def curve_combined(event_files, colors, str1, str2, output_dir="."):
         plt.xlabel("time")
         plt.ylabel("loss")
         plt.title("timecourse")
+        plt.legend([str1, str2])
 
     plt.savefig(os.path.join(output_dir,
-                             'timecourse.png'), dpi=300)
+                             f'timecourse_{str1}_{str2}.png'), dpi=300)
 
 
 if __name__ == "__main__":
