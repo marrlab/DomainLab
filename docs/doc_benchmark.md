@@ -58,11 +58,44 @@ specific log file
 bash ./sh_list_error.sh ./zoutput/slurm_logs
 ```
 
+
+
 ## Obtained results
 All files created by this benchmark are saved in the given output directory
 (by default `./zoutput/benchmarks/[name of the benchmark defined in YAML file]`). The sampled hyperparameters can be found in
 `hyperparameters.csv`. The yaml file is translated to `config.txt` with corresponding to commit in formation in `commit.txt` (**do not update code during benchmark process so results can be reproducible with this commit information**), corresponding to each line in `hyperparameters.csv`, there will
 be a csv file in directory `rule_results`.
+
+#### Output folder structure
+
+via `tree -L 2` in `zoutput/benchmarks/[name of the benchmark defined in configuration yaml file]`, one can get something like below
+
+```                                                
+├── commit.txt
+├── config.txt
+├── graphics
+│   ├── diva_fbopt_full
+│   ├── radar_dist.png
+│   ├── radar.png
+│   ├── scatterpl
+│   ├── sp_matrix_dist.png
+│   ├── sp_matrix_dist_reg.png
+│   ├── sp_matrix.png
+│   ├── sp_matrix_reg.png
+│   └── variational_plots
+├── hyperparameters.csv
+├── results.csv
+└── rule_results
+    ├── 0.csv
+    ├── 1.csv
+    ├── 2.csv
+    ├── 3.csv
+    ├── 4.csv
+    ├── 5.csv
+    ├── 6.csv
+    └── 7.csv
+```
+where commit.txt contains commit information for reproducibility, config.txt is a json format of the configuration yaml file for reproducibility, graphics folder contains the visualization of benchmark results in various plots, specificly, we use `graphics/variational_plot/acc/stochastic_variation.png`, hyperparameters.csv contains all hyperparameters used for each method, results.csv is an aggregation of the csv files in `rule_results`, where the i.csv correspond to the parameter index in hyperparameters.csv
 
 **Please do not change anything in folder `rule_results` !**
 
