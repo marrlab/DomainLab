@@ -6,6 +6,7 @@ BASHRC="~/.bashrc"  # source ~/.bash_profile
 JOB_NAME="fbopt"
 PATH_CODE=$1
 PATH_OUT_BASE="${PATH_CODE}/job_logs"
+mkdir $PATH_OUT_BASE
 PATH_YAML=$2
 START_SEED=$3
 
