@@ -15,14 +15,12 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 500
-  es: 100
+  epos: 2000
+  epos_min: 100
+  es: 1
   bs: 64
   nname: conv_bn_pool_2
   san_check: False
-  exp_shoulder_clip: 10
-  mu_clip: 10
-  coeff_ma: 0.5
   no_tensorboard: False
   pperm: 0.5
 
@@ -30,8 +28,8 @@ domainlab_args:
 
 Shared params:
   k_i_gain:
-    min: 0.0001
-    max: 0.01
+    min: 1e-4
+    max: 1e-3
     num: 2
     distribution: uniform
 
@@ -43,8 +41,14 @@ Shared params:
 
   gamma_reg:
     min: 0.01
-    max: 10_000
-    num: 10
+    max: 1e4
+    num: 3
+    distribution: loguniform
+
+  mu_clip:
+    min: 0.01
+    max: 1e4
+    num: 3
     distribution: loguniform
 
 
@@ -55,9 +59,10 @@ jigen_feedback:
   aname: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
+  mu_init: 1e-6
   shared:
     - k_i_gain
-    - mu_init
+    - mu_clip
     
 jigen_feedforward:
   aname: jigen
