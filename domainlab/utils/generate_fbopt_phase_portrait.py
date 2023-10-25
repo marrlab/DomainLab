@@ -7,9 +7,9 @@ from tensorboard.backend.event_processing.event_accumulator \
     import EventAccumulator
 
 
-def get_xy_from_event_file(event_file, str1, str2,
+def get_xy_from_event_file(event_file, plot1, plot2=None,
                            tf_size_guidance=None,
-                           sanity_check=False):
+                           sanity_check=False, verbose=True):
     if tf_size_guidance is None:
         # settings for which/how much data is loaded from the
         # tensorboard event files
@@ -22,28 +22,41 @@ def get_xy_from_event_file(event_file, str1, str2,
     # load event file
     event = EventAccumulator(event_file, tf_size_guidance)
     event.Reload()
-    # extract the reg/dyn0 values
-    y_event = event.Scalars(str2)
-    y = [s.value for s in y_event]
-    x_int = [s.step for s in y_event]
-    # the .step data are saved as ints in tensorboard,
-    # so we will re-extact from 'task'
-    # extract the corresponding 'task' values
-    x_event = event.Scalars(str1)
+    # print names of available plots
+    if verbose:
+        print(f"Event file {event_file} -- available plots:")
+        print(event.Tags()['scalars'])
+    if plot2:
+        # extract the plot2 values (e.g., reg/dyn0)
+        y_event = event.Scalars(plot2)
+        y = [s.value for s in y_event]
+        x_int = [s.step for s in y_event]
+        # the .step data are saved as ints in tensorboard,
+        # (so, in case of phase portrait, we re-extact from 'task')
+    else:
+        y = None
+    # extract the corresponding plot1 values (e.g., 'task')
+    x_event = event.Scalars(plot1)
     x = [s.value for s in x_event]
-    # sanity check:
+    # sanity check (originally added for the reg/dyn0 vs. task phase portrait;
+    # shouldn't be needed if plot1 and plot2 represent something else):
     if sanity_check:
         for i in range(len(x)):
             assert int(x[i]) == x_int[i]
     return x, y
 
 
-def phase_portrain_combined(event_files, colors, str1, str2, output_dir="."):
+def phase_portrait_combined(event_files, colors, plot1, plot2,
+                            label1=None, label2=None, output_dir="."):
+    """
+    combined phase portait for multiple (at least one) Tensorboard
+    event files in the same plot
+    """
     plt.figure()
 
     for event_i in range(len(event_files)):
         x, y = get_xy_from_event_file(event_files[event_i],
-                                      str1=str1, str2=str2)
+                                      plot1=plot1, plot2=plot2)
 
         assert len(x) == len(y)
         for i in range(len(x) - 1):
@@ -55,43 +68,102 @@ def phase_portrain_combined(event_files, colors, str1, str2, output_dir="."):
         plt.plot(x[0], y[0], 'ko')
         plt.scatter(x, y, s=1, c='black')
 
-        plt.xlabel(str1)
-        plt.ylabel(str2)
+        if label1 is None: label1=plot1
+        if label2 is None: label2=plot2
+        plt.xlabel(label1)
+        plt.ylabel(label2)
         plt.title("phase portrait")
 
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    label22 = label2.split(os.sep)[-1]
     plt.savefig(os.path.join(output_dir,
-                             'phase_portrain_combined.png'), dpi=300)
+                             f'phase_portrait_combined_{label22}.png'), dpi=300)
 
 
-def curve_combined(event_files, colors, str1, str2, output_dir="."):
+def two_curves_combined(event_files, colors, plot1, plot2,
+                        label1=None, label2=None, output_dir="."):
+    """
+    FIXME: colors parameter is not used
+    """
     plt.figure()
     for event_i in range(len(event_files)):
         x, y = get_xy_from_event_file(event_files[event_i],
-                                      str1=str1, str2=str2)
+                                      plot1=plot1, plot2=plot2)
         plt.plot(x)
         plt.plot(y)
         plt.xlabel("time")
         plt.ylabel("loss")
         plt.title("timecourse")
-        plt.legend([str1, str2])
-    str11 = str1.replace(os.sep, "_")
-    str22 = str2.replace(os.sep, "_")
+        if label1 is None: label1=plot1
+        if label2 is None: label2=plot2
+        plt.legend([label1, label2])
+
+    label11 = label1.replace(os.sep, "_")
+    label22 = label2.replace(os.sep, "_")
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     plt.savefig(os.path.join(output_dir,
-                             f'timecourse_{str11}_{str22}.png'), dpi=300)
+                             f'timecourse_{label11}_{label22}.png'), dpi=300)
+
+
+def curves_combined(event_files, colors, plot1, label1=None, output_dir="."):
+    """
+    FIXME: colors parameter is not used
+    """
+    plt.figure()
+    for event_i in range(len(event_files)):
+        x, _ = get_xy_from_event_file(event_files[event_i], plot1=plot1)
+        plt.plot(x)
+        plt.xlabel("time")
+        if label1 is None: label1=plot1
+        plt.ylabel(label1)
+        plt.title("timecourse")
+
+    label11 = label1.replace(os.sep, "_")
+
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    plt.savefig(os.path.join(output_dir,
+                             f'timecourse_{label11}.png'), dpi=300)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='plot')
-    parser.add_argument('-str1', "--str1", default=None, type=str)
-    parser.add_argument('-str2', "--str2", default=None, type=str)
+    parser.add_argument('-plot1', "--plot1", default=None, type=str)
+    parser.add_argument('-plot2', "--plot2", default=None, type=str)
+    parser.add_argument('-label1', "--label1", default=None, type=str)
+    parser.add_argument('-label2', "--label2", default=None, type=str)
+    parser.add_argument('--output_dir', default='.', type=str)
+    parser.add_argument('--phase_portrait', action='store_true',
+                        help="if True plots a phase portrait,\
+                        otherwise a curve (default)")
     args = parser.parse_args()
 
+    # get event files from all available runs
     event_files = glob.glob("runs/*/events*")
     print("Using the following tensorboard event files:\n{}".format(
         "\n".join(event_files)))
+
+    # Different colors for the different runs
     cmap = plt.get_cmap('tab10')  # Choose a colormap
     colors = [cmap(i) for i in range(len(event_files))]
-    # Different colors for the different runs
-    phase_portrain_combined(event_files, colors,
-                            str1=args.str1, str2=args.str2)
-    curve_combined(event_files, colors, str1=args.str1, str2=args.str2)
+
+    if args.phase_portrait:
+        phase_portrait_combined(event_files, colors,
+                                plot1=args.plot1, plot2=args.plot2,
+                                label1=args.label1, label2=args.label2,
+                                output_dir=args.output_dir)
+    else:
+        if args.plot2:
+            # two curves per plot
+            two_curves_combined(event_files, colors,
+                                plot1=args.plot1, plot2=args.plot2,
+                                label1=args.label1, label2=args.label2,
+                                output_dir=args.output_dir)
+        else:
+            # one curve per plot
+            curves_combined(event_files, colors,
+                            plot1=args.plot1, label1=args.label1,
+                            output_dir=args.output_dir)

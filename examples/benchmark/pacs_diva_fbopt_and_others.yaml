@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_diva_fbopt_and_others
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_and_baselines
 
 sampling_seed: 0
 
@@ -63,20 +63,27 @@ Shared params:
     num: 3
     distribution: loguniform
 
-
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1
+      - 10
+      - 100
+      - 1000
 
 # Test fbopt with different hyperparameter configurations
-
-diva_fbopt_full:
+diva_fbopt_a:
   aname: diva
   trainer: fbopt
-  str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  mu_clip: 1.0
+  str_diva_multiplier_type: gammad_recon
+  coeff_ma_output_state: 0.1
   mu_init: 1e-6
   shared:
     - k_i_gain
+    - mu_clip
 
 diva_feedforward_full:
   aname: diva
