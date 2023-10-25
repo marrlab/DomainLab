@@ -1,5 +1,7 @@
 JOB_NAME="fbopt"
-PATH_CODE="~/fbopt_jigen"
+VENV="domainlab_py39"
+BASHRC="~/.bashrc"  # source ~/.bash_profile
+PATH_CODE=$1
 PATH_OUT_BASE="${PATH_CODE}/job_logs"
 PATH_YAML=$2
 START_SEED=$3
@@ -18,9 +20,8 @@ echo "#!/bin/bash
 #SBATCH --no-requeue
 #SBATCH --nice=10000
 
-source ~/.bash_profile
-source ~/.bashrc
-conda activate fbopt
+source ${BASHRC}
+conda activate ${VENV}
 
 ${PATH_CODE}/run_benchmark_slurm.sh ${PATH_CODE}/${PATH_YAML} ${START_SEED}
 " > ${job_file}
