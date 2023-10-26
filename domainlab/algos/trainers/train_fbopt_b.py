@@ -93,6 +93,7 @@ class TrainerFbOpt(TrainerBasic):
             [ele * self.aconf.ini_setpoint_ratio if ele > 0 else
              ele / self.aconf.ini_setpoint_ratio for ele in self.epo_reg_loss_tr],
             self.epo_task_loss_tr)  # setpoing w.r.t. random initialization of neural network
+        self.hyper_scheduler.set_k_i_gain()
 
     @property
     def list_str_multiplier_na(self):

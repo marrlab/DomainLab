@@ -48,6 +48,7 @@ class HyperSchedulerFeedback():
             args=self.trainer.aconf)
 
         self.k_i_control = trainer.aconf.k_i_gain
+        self.k_i_gain_ratio = None
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
         # NOTE: this value will be set according to initial evaluation of
@@ -59,6 +60,16 @@ class HyperSchedulerFeedback():
             str_job_id = os.environ.get('SLURM_JOB_ID', '')
             self.writer = SummaryWriter(comment=str_job_id)
         self.coeff_ma = trainer.aconf.coeff_ma
+
+    def set_k_i_gain(self):
+        if self.k_i_gain_ratio is None:
+            return
+        k_i_gain_saturate = [a/b \
+            for a, b in zip(self.activation_clip, self.delta_epsilon_r)]
+        k_i_gain_saturate_min = min(k_i_gain_saturate)
+        # NOTE: here we override the commandline arguments specification
+        # for k_i_control, so k_i_control is not a hyperparameter anymore
+        self.k_i_control = 0.5 * k_i_gain_saturate_min  # FIXME
 
     def get_setpoint4r(self):
         """
