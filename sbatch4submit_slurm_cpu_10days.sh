@@ -3,7 +3,7 @@ VENV="domainlab_py39"
 BASHRC="~/.bashrc"  # source ~/.bash_profile
 
 ## 
-JOB_NAME="fbopt"
+JOB_NAME="domainlab"
 PATH_CODE=$1
 PATH_OUT_BASE="${PATH_CODE}/job_logs"
 mkdir -p $PATH_OUT_BASE
@@ -17,10 +17,10 @@ echo "#!/bin/bash
 #SBATCH -o ${PATH_OUT_BASE}/${JOB_NAME}.out
 #SBATCH -e ${PATH_OUT_BASE}/${JOB_NAME}.err
 #SBATCH -p cpu_p 
-#SBATCH -t 3-00:00:00
+#SBATCH -t 10-00:00:00
 #SBATCH -c 20
 #SBATCH --mem=32G
-#SBATCH --qos=cpu_normal
+#SBATCH --qos=cpu_long
 #SBATCH --no-requeue
 #SBATCH --nice=10000
 
