@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import os
+import warnings
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -77,6 +78,8 @@ class HyperSchedulerFeedback():
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
         self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        warnings.warn(f"hyperparameter k_i_gain disabled! \
+                      replace with {self.k_i_control}")
         # FIXME: change this to 1-self.ini_setpoint_ratio, i.e. the more
         # difficult the initial setpoint is, the bigger the k_i_gain should be
 
