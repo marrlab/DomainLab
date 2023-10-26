@@ -66,6 +66,7 @@ def phase_portrait_combined(event_files, colors, plot1, plot2,
                       fc=colors[event_i], ec=colors[event_i], alpha=0.4)
 
         plt.plot(x[0], y[0], 'ko')
+        # FIXME: change c to vector of steps, range(len(x))
         plt.scatter(x, y, s=1, c='black')
 
         if legend1 is None: legend1=plot1
