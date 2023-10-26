@@ -92,8 +92,8 @@ def two_curves_combined(event_files, colors, plot1, plot2,
                                       plot1=plot1, plot2=plot2)
         plt.plot(x, color="blue")
         plt.plot(y, color="red")
-        plt.xlabel("time")
-        plt.ylabel("loss")
+        plt.xlabel("epoch")
+        # plt.ylabel("loss")
         if title is not None:
             plt.title(title)
         if legend1 is None: legend1=plot1
