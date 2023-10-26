@@ -90,8 +90,8 @@ def two_curves_combined(event_files, colors, plot1, plot2,
     for event_i in range(len(event_files)):
         x, y = get_xy_from_event_file(event_files[event_i],
                                       plot1=plot1, plot2=plot2)
-        plt.plot(x)
-        plt.plot(y)
+        plt.plot(x, color="blue")
+        plt.plot(y, color="red")
         plt.xlabel("time")
         plt.ylabel("loss")
         if title is not None:
