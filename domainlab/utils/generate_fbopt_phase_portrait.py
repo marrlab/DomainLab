@@ -94,7 +94,7 @@ def two_curves_combined(event_files, colors, plot1, plot2,
         plt.plot(y)
         plt.xlabel("time")
         plt.ylabel("loss")
-        plt.title("timecourse")
+        # plt.title("timecourse")
         if label1 is None: label1=plot1
         if label2 is None: label2=plot2
         plt.legend([label1, label2])
@@ -119,7 +119,7 @@ def curves_combined(event_files, colors, plot1, label1=None, output_dir="."):
         plt.xlabel("time")
         if label1 is None: label1=plot1
         plt.ylabel(label1)
-        plt.title("timecourse")
+        # plt.title("timecourse")
 
     label11 = label1.replace(os.sep, "_")
 
