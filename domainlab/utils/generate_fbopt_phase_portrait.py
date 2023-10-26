@@ -82,7 +82,7 @@ def phase_portrait_combined(event_files, colors, plot1, plot2,
 
 
 def two_curves_combined(event_files, colors, plot1, plot2,
-                        label1=None, label2=None, output_dir="."):
+                        label1=None, label2=None, output_dir=".", title=None):
     """
     FIXME: colors parameter is not used
     """
@@ -94,7 +94,8 @@ def two_curves_combined(event_files, colors, plot1, plot2,
         plt.plot(y)
         plt.xlabel("time")
         plt.ylabel("loss")
-        # plt.title("timecourse")
+        if title is not None:
+            plt.title(title)
         if label1 is None: label1=plot1
         if label2 is None: label2=plot2
         plt.legend([label1, label2])
@@ -108,7 +109,7 @@ def two_curves_combined(event_files, colors, plot1, plot2,
                              f'timecourse_{label11}_{label22}.png'), dpi=300)
 
 
-def curves_combined(event_files, colors, plot1, label1=None, output_dir="."):
+def plot_single_curve(event_files, colors, plot1, label1=None, output_dir="."):
     """
     FIXME: colors parameter is not used
     """
@@ -135,6 +136,7 @@ if __name__ == "__main__":
     parser.add_argument('-plot2', "--plot2", default=None, type=str)
     parser.add_argument('-label1', "--label1", default=None, type=str)
     parser.add_argument('-label2', "--label2", default=None, type=str)
+    parser.add_argument('-title', "--title", default=None, type=str)
     parser.add_argument('--output_dir', default='.', type=str)
     parser.add_argument('--phase_portrait', action='store_true',
                         help="if True plots a phase portrait,\
@@ -164,6 +166,6 @@ if __name__ == "__main__":
                                 output_dir=args.output_dir)
         else:
             # one curve per plot
-            curves_combined(event_files, colors,
-                            plot1=args.plot1, label1=args.label1,
-                            output_dir=args.output_dir)
+            plot_single_curve(event_files, colors,
+                              plot1=args.plot1, label1=args.label1,
+                              output_dir=args.output_dir)
