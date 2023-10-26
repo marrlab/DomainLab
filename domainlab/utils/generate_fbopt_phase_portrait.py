@@ -47,7 +47,7 @@ def get_xy_from_event_file(event_file, plot1, plot2=None,
 
 
 def phase_portrait_combined(event_files, colors, plot1, plot2,
-                            label1=None, label2=None, output_dir="."):
+                            legend1=None, legend2=None, output_dir="."):
     """
     combined phase portait for multiple (at least one) Tensorboard
     event files in the same plot
@@ -68,21 +68,21 @@ def phase_portrait_combined(event_files, colors, plot1, plot2,
         plt.plot(x[0], y[0], 'ko')
         plt.scatter(x, y, s=1, c='black')
 
-        if label1 is None: label1=plot1
-        if label2 is None: label2=plot2
-        plt.xlabel(label1)
-        plt.ylabel(label2)
+        if legend1 is None: legend1=plot1
+        if legend2 is None: legend2=plot2
+        plt.xlabel(legend1)
+        plt.ylabel(legend2)
         plt.title("phase portrait")
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    label22 = label2.split(os.sep)[-1]
+    legend22 = legend2.split(os.sep)[-1]
     plt.savefig(os.path.join(output_dir,
-                             f'phase_portrait_combined_{label22}.png'), dpi=300)
+                             f'phase_portrait_combined_{legend22}.png'), dpi=300)
 
 
 def two_curves_combined(event_files, colors, plot1, plot2,
-                        label1=None, label2=None, output_dir=".", title=None):
+                        legend1=None, legend2=None, output_dir=".", title=None):
     """
     FIXME: colors parameter is not used
     """
@@ -96,20 +96,20 @@ def two_curves_combined(event_files, colors, plot1, plot2,
         plt.ylabel("loss")
         if title is not None:
             plt.title(title)
-        if label1 is None: label1=plot1
-        if label2 is None: label2=plot2
-        plt.legend([label1, label2])
+        if legend1 is None: legend1=plot1
+        if legend2 is None: legend2=plot2
+        plt.legend([legend1, legend2])
 
-    label11 = label1.replace(os.sep, "_")
-    label22 = label2.replace(os.sep, "_")
+    legend11 = legend1.replace(os.sep, "_")
+    legend22 = legend2.replace(os.sep, "_")
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     plt.savefig(os.path.join(output_dir,
-                             f'timecourse_{label11}_{label22}.png'), dpi=300)
+                             f'timecourse_{legend11}_{legend22}.png'), dpi=300)
 
 
-def plot_single_curve(event_files, colors, plot1, label1=None, output_dir="."):
+def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
     """
     FIXME: colors parameter is not used
     """
@@ -118,24 +118,24 @@ def plot_single_curve(event_files, colors, plot1, label1=None, output_dir="."):
         x, _ = get_xy_from_event_file(event_files[event_i], plot1=plot1)
         plt.plot(x)
         plt.xlabel("time")
-        if label1 is None: label1=plot1
-        plt.ylabel(label1)
+        if legend1 is None: legend1=plot1
+        plt.ylabel(legend1)
         # plt.title("timecourse")
 
-    label11 = label1.replace(os.sep, "_")
+    legend11 = legend1.replace(os.sep, "_")
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     plt.savefig(os.path.join(output_dir,
-                             f'timecourse_{label11}.png'), dpi=300)
+                             f'timecourse_{legend11}.png'), dpi=300)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='plot')
     parser.add_argument('-plot1', "--plot1", default=None, type=str)
     parser.add_argument('-plot2', "--plot2", default=None, type=str)
-    parser.add_argument('-label1', "--label1", default=None, type=str)
-    parser.add_argument('-label2', "--label2", default=None, type=str)
+    parser.add_argument('-legend1', "--legend1", default=None, type=str)
+    parser.add_argument('-legend2', "--legend2", default=None, type=str)
     parser.add_argument('-title', "--title", default=None, type=str)
     parser.add_argument('--output_dir', default='.', type=str)
     parser.add_argument('--phase_portrait', action='store_true',
@@ -155,17 +155,17 @@ if __name__ == "__main__":
     if args.phase_portrait:
         phase_portrait_combined(event_files, colors,
                                 plot1=args.plot1, plot2=args.plot2,
-                                label1=args.label1, label2=args.label2,
+                                legend1=args.legend1, legend2=args.legend2,
                                 output_dir=args.output_dir)
     else:
         if args.plot2:
             # two curves per plot
             two_curves_combined(event_files, colors,
                                 plot1=args.plot1, plot2=args.plot2,
-                                label1=args.label1, label2=args.label2,
-                                output_dir=args.output_dir)
+                                legend1=args.legend1, legend2=args.legend2,
+                                output_dir=args.output_dir, title=args.title)
         else:
             # one curve per plot
             plot_single_curve(event_files, colors,
-                              plot1=args.plot1, label1=args.label1,
+                              plot1=args.plot1, legend1=args.legend1,
                               output_dir=args.output_dir)
