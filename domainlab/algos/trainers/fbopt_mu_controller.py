@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import os
+import warnings
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -48,6 +49,7 @@ class HyperSchedulerFeedback():
             args=self.trainer.aconf)
 
         self.k_i_control = trainer.aconf.k_i_gain
+        self.k_i_gain_ratio = None
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
         # NOTE: this value will be set according to initial evaluation of
@@ -59,6 +61,27 @@ class HyperSchedulerFeedback():
             str_job_id = os.environ.get('SLURM_JOB_ID', '')
             self.writer = SummaryWriter(comment=str_job_id)
         self.coeff_ma = trainer.aconf.coeff_ma
+
+    def set_k_i_gain(self, epo_reg_loss):
+        if self.k_i_gain_ratio is None:
+            return
+        # NOTE: do not use self.cal_delta4control!!!! which will change
+        # class member variables self.delta_epsilon_r!
+        list_setpoint = self.get_setpoint4r()
+        if_list_sign_agree(epo_reg_loss, list_setpoint)
+        delta_epsilon_r = [a - b for a, b in zip(epo_reg_loss, list_setpoint)]
+
+        # to calculate self.delta_epsilon_r
+        k_i_gain_saturate = [a / b for a, b in
+                             zip(self.activation_clip, delta_epsilon_r)]
+        k_i_gain_saturate_min = min(k_i_gain_saturate)
+        # NOTE: here we override the commandline arguments specification
+        # for k_i_control, so k_i_control is not a hyperparameter anymore
+        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        warnings.warn(f"hyperparameter k_i_gain disabled! \
+                      replace with {self.k_i_control}")
+        # FIXME: change this to 1-self.ini_setpoint_ratio, i.e. the more
+        # difficult the initial setpoint is, the bigger the k_i_gain should be
 
     def get_setpoint4r(self):
         """
