@@ -11,6 +11,10 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--k_i_gain', type=float, default=0.001,
                         help='PID control gain for integrator')
 
+    parser.add_argument('--k_i_gain_ratio', type=float, default=None,
+                        help='set k_i_gain to be ratio of \
+                        initial saturation k_i_gain')
+
     parser.add_argument('--mu_clip', type=float, default=1e4,
                         help='maximum value of mu')
 

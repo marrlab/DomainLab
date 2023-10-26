@@ -61,15 +61,24 @@ class HyperSchedulerFeedback():
             self.writer = SummaryWriter(comment=str_job_id)
         self.coeff_ma = trainer.aconf.coeff_ma
 
-    def set_k_i_gain(self):
+    def set_k_i_gain(self, epo_reg_loss):
         if self.k_i_gain_ratio is None:
             return
-        k_i_gain_saturate = [a/b \
-            for a, b in zip(self.activation_clip, self.delta_epsilon_r)]
+        # NOTE: do not use self.cal_delta4control!!!! which will change
+        # class member variables self.delta_epsilon_r!
+        list_setpoint = self.get_setpoint4r()
+        if_list_sign_agree(epo_reg_loss, list_setpoint)
+        delta_epsilon_r = [a - b for a, b in zip(epo_reg_loss, list_setpoint)]
+
+        # to calculate self.delta_epsilon_r
+        k_i_gain_saturate = [a / b for a, b in
+                             zip(self.activation_clip, delta_epsilon_r)]
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
-        self.k_i_control = 0.5 * k_i_gain_saturate_min  # FIXME
+        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        # FIXME: change this to 1-self.ini_setpoint_ratio, i.e. the more
+        # difficult the initial setpoint is, the bigger the k_i_gain should be
 
     def get_setpoint4r(self):
         """
