@@ -60,7 +60,7 @@ class HyperSchedulerFeedback():
             self.writer = SummaryWriter(comment=str_job_id)
         self.coeff_ma = trainer.aconf.coeff_ma
 
-    def get_setpoing4r(self):
+    def get_setpoint4r(self):
         """
         get setpoint list
         """
@@ -124,7 +124,7 @@ class HyperSchedulerFeedback():
         """
         calculate activation on exponential shoulder
         """
-        setpoint = self.get_setpoing4r()
+        setpoint = self.get_setpoint4r()
         activation = [self.k_i_control * val if setpoint[i] > 0
                       else self.k_i_control * (-val) for i, val
                       in enumerate(self.delta_epsilon_r)]
@@ -148,7 +148,7 @@ class HyperSchedulerFeedback():
         logger.info(f"before controller: current mu: {self.mmu}")
         logger.info(f"epo reg loss: {epo_reg_loss}")
         logger.info(f"name reg loss:{list_str_multiplier_na}")
-        self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
+        self.cal_delta4control(epo_reg_loss, self.get_setpoint4r())
         activation = self.cal_activation()
         # overshoot handling
         activation = self.tackle_overshoot(
@@ -169,7 +169,7 @@ class HyperSchedulerFeedback():
             self.writer.add_scalar(
                 f'delta/{key}', self.delta_epsilon_r[ind], miter)
         for i, (reg_dyn, reg_set) in \
-                enumerate(zip(epo_reg_loss, self.get_setpoing4r())):
+                enumerate(zip(epo_reg_loss, self.get_setpoint4r())):
             self.writer.add_scalar(
                 f'lossrd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
             self.writer.add_scalar(
