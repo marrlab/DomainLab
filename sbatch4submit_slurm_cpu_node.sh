@@ -17,7 +17,7 @@ echo "#!/bin/bash
 #SBATCH -o ${PATH_OUT_BASE}/${JOB_NAME}.out
 #SBATCH -e ${PATH_OUT_BASE}/${JOB_NAME}.err
 #SBATCH -p cpu_p 
-#SBATCH -t 2-00:00:00
+#SBATCH -t 3-00:00:00
 #SBATCH -c 20
 #SBATCH --mem=32G
 #SBATCH --qos=cpu_normal
