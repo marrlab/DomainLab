@@ -15,7 +15,8 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
-  es: 5
+  epos_min: 20
+  es: 1
   bs: 64
   san_check: False
   npath: examples/nets/resnet50domainbed.py
@@ -67,11 +68,8 @@ jigen_feedback:
   aname: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
-  exp_shoulder_clip: 10
-  mu_clip: 10_000
   coeff_ma: 0.5
-
+  mu_init: 1e-6
   shared:
     - k_i_gain
-    - mu_init
     - coeff_ma_output_state
