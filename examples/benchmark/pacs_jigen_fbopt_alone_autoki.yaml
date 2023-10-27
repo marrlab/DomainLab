@@ -74,6 +74,8 @@ jigen_feedback:
   aname: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
+  mu_init: 1e-6
 
   shared:
     - k_i_gain_ratio
+    - coeff_ma_output_state
