@@ -199,7 +199,7 @@ class HyperSchedulerFeedback():
                 f'lossrs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
 
             self.writer.add_scalars(
-                f'loss_rds/loss_{list_str_multiplier_na[i]} with setpoint',
+                f'loss_rds/loss_{list_str_multiplier_na[i]}_w_setpoint',
                 {f'lossr/loss_{list_str_multiplier_na[i]}': reg_dyn,
                  f'lossr/setpoint_{list_str_multiplier_na[i]}': reg_set,
                  }, miter)

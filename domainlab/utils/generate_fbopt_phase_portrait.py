@@ -1,5 +1,6 @@
 import glob
 import os
+import numpy as np
 import argparse
 
 import matplotlib.pyplot as plt
@@ -61,13 +62,18 @@ def phase_portrait_combined(event_files, colors, plot1, plot2,
         assert len(x) == len(y)
         for i in range(len(x) - 1):
             plt.arrow(x[i], y[i], (x[i + 1] - x[i]), (y[i + 1] - y[i]),
-                      head_width=0.2, head_length=0.2,
-                      length_includes_head=True,
+                      head_width=0.15, head_length=0.2,
+                      length_includes_head=False,
                       fc=colors[event_i], ec=colors[event_i], alpha=0.4)
-
+        # the combination of head_width and head_length make the arrow
+        # more visible
+        # length_includes_head=False will put arrow out of point, which let
+        # point more visible, otherwise arrow will cover point
+        colors = ['red', 'green', 'blue', 'yellow', 'purple']
         plt.plot(x[0], y[0], 'ko')
-        # FIXME: change c to vector of steps, range(len(x))
-        plt.scatter(x, y, s=1, c='black')
+
+        list_color = [colors[i % len(colors)] for i, h in enumerate(x)]
+        plt.scatter(x, y, s=1, c=np.array(list_color))
 
         if legend1 is None: legend1=plot1
         if legend2 is None: legend2=plot2
