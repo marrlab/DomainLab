@@ -204,8 +204,7 @@ class HyperSchedulerFeedback():
                  f'lossr/setpoint_{list_str_multiplier_na[i]}': reg_set,
                  }, miter)
             self.writer.add_scalar(
-                f'x-axis=loss_ell task vs y-axis=loss \
-                r/dyn{list_str_multiplier_na[i]}',
+                f'x_ell_y_r/loss_{list_str_multiplier_na[i]}',
                 reg_dyn, epo_task_loss)
         self.writer.add_scalar('loss_task/penalized', epo_loss_tr, miter)
         self.writer.add_scalar('loss_task/ell', epo_task_loss, miter)
