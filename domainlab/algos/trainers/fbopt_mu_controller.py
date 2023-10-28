@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import os
+import warnings
 
 from torch.utils.tensorboard import SummaryWriter
 
@@ -48,6 +49,7 @@ class HyperSchedulerFeedback():
             args=self.trainer.aconf)
 
         self.k_i_control = trainer.aconf.k_i_gain
+        self.k_i_gain_ratio = None
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
         # NOTE: this value will be set according to initial evaluation of
@@ -60,7 +62,28 @@ class HyperSchedulerFeedback():
             self.writer = SummaryWriter(comment=str_job_id)
         self.coeff_ma = trainer.aconf.coeff_ma
 
-    def get_setpoing4r(self):
+    def set_k_i_gain(self, epo_reg_loss):
+        if self.k_i_gain_ratio is None:
+            return
+        # NOTE: do not use self.cal_delta4control!!!! which will change
+        # class member variables self.delta_epsilon_r!
+        list_setpoint = self.get_setpoint4r()
+        if_list_sign_agree(epo_reg_loss, list_setpoint)
+        delta_epsilon_r = [a - b for a, b in zip(epo_reg_loss, list_setpoint)]
+
+        # to calculate self.delta_epsilon_r
+        k_i_gain_saturate = [a / b for a, b in
+                             zip(self.activation_clip, delta_epsilon_r)]
+        k_i_gain_saturate_min = min(k_i_gain_saturate)
+        # NOTE: here we override the commandline arguments specification
+        # for k_i_control, so k_i_control is not a hyperparameter anymore
+        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        warnings.warn(f"hyperparameter k_i_gain disabled! \
+                      replace with {self.k_i_control}")
+        # FIXME: change this to 1-self.ini_setpoint_ratio, i.e. the more
+        # difficult the initial setpoint is, the bigger the k_i_gain should be
+
+    def get_setpoint4r(self):
         """
         get setpoint list
         """
@@ -124,7 +147,7 @@ class HyperSchedulerFeedback():
         """
         calculate activation on exponential shoulder
         """
-        setpoint = self.get_setpoing4r()
+        setpoint = self.get_setpoint4r()
         activation = [self.k_i_control * val if setpoint[i] > 0
                       else self.k_i_control * (-val) for i, val
                       in enumerate(self.delta_epsilon_r)]
@@ -148,7 +171,7 @@ class HyperSchedulerFeedback():
         logger.info(f"before controller: current mu: {self.mmu}")
         logger.info(f"epo reg loss: {epo_reg_loss}")
         logger.info(f"name reg loss:{list_str_multiplier_na}")
-        self.cal_delta4control(epo_reg_loss, self.get_setpoing4r())
+        self.cal_delta4control(epo_reg_loss, self.get_setpoint4r())
         activation = self.cal_activation()
         # overshoot handling
         activation = self.tackle_overshoot(
@@ -169,20 +192,19 @@ class HyperSchedulerFeedback():
             self.writer.add_scalar(
                 f'delta/{key}', self.delta_epsilon_r[ind], miter)
         for i, (reg_dyn, reg_set) in \
-                enumerate(zip(epo_reg_loss, self.get_setpoing4r())):
+                enumerate(zip(epo_reg_loss, self.get_setpoint4r())):
             self.writer.add_scalar(
                 f'lossrd/dyn_{list_str_multiplier_na[i]}', reg_dyn, miter)
             self.writer.add_scalar(
                 f'lossrs/setpoint_{list_str_multiplier_na[i]}', reg_set, miter)
 
             self.writer.add_scalars(
-                f'loss_rds/loss_{list_str_multiplier_na[i]} with setpoint',
+                f'loss_rds/loss_{list_str_multiplier_na[i]}_w_setpoint',
                 {f'lossr/loss_{list_str_multiplier_na[i]}': reg_dyn,
                  f'lossr/setpoint_{list_str_multiplier_na[i]}': reg_set,
                  }, miter)
             self.writer.add_scalar(
-                f'x-axis=loss_ell task vs y-axis=loss \
-                r/dyn{list_str_multiplier_na[i]}',
+                f'x_ell_y_r/loss_{list_str_multiplier_na[i]}',
                 reg_dyn, epo_task_loss)
         self.writer.add_scalar('loss_task/penalized', epo_loss_tr, miter)
         self.writer.add_scalar('loss_task/ell', epo_task_loss, miter)

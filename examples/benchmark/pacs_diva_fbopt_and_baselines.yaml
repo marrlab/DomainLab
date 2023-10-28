@@ -1,34 +1,32 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/mnist_diva_fbopt_and_baselines
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_and_baselines
 
 sampling_seed: 0
+
 startseed: 0
-endseed: 10
+endseed: 6
 
 test_domains:
-  - 0
-
+  - sketch
 
 domainlab_args:
-  task: mnistcolor10
-  tr_d: [1, 2]
+  tpath: examples/tasks/task_pacs_path_list.py
   dmem: False
-  lr: 0.001
-  epos: 500
+  lr: 5e-5
+  epos: 200
   epos_min: 20
-  es: 5
+  es: 1
   bs: 64
-  zx_dim: 0
-  zy_dim: 32
-  zd_dim: 32
-  nname: conv_bn_pool_2
-  nname_dom: conv_bn_pool_2
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
   san_check: False
-  coeff_ma: 0.5
-  no_tensorboard: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
 
 
 
@@ -40,14 +38,14 @@ Shared params:
     distribution: uniform
 
   k_i_gain:
-    min: 1e-4
-    max: 1e-3
-    num: 2
-    distribution: loguniform
+    min: 0.0001
+    max: 0.01
+    num: 3
+    distribution: uniform
 
   mu_init:
     min: 0.000001
-    max: 0.00001
+    max: 0.9
     num: 3
     distribution: loguniform
 
@@ -65,30 +63,29 @@ Shared params:
     num: 3
     distribution: loguniform
 
-  mu_clip: 
+  mu_clip:
     distribution: categorical
     datatype: float
     values:
-      - 1000
-      - 100
-      - 10
       - 1
+      - 10
+      - 100
+      - 1000
 
 # Test fbopt with different hyperparameter configurations
-
 diva_fbopt_a:
   aname: diva
   trainer: fbopt
-  str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
-  init_setpoint_ratio: 0.99
-  exp_shoulder_clip: 1
+  ini_setpoint_ratio: 0.99
+  str_diva_multiplier_type: gammad_recon
+  coeff_ma_output_state: 0.1
   mu_init: 1e-6
   shared:
     - k_i_gain
     - mu_clip
 
-diva_feedforward_a:
+diva_feedforward_full:
   aname: diva
   trainer: hyperscheduler
   str_diva_multiplier_type: gammad_recon

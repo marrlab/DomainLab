@@ -5,7 +5,7 @@ output_dir: zoutput/benchmarks/pacs_jigen_fbopt_alone
 sampling_seed: 0
 
 startseed: 0
-endseed: 3
+endseed: 6
 
 test_domains:
   - sketch
@@ -35,6 +35,12 @@ Shared params:
     max: 0.01
     num: 3
     distribution: loguniform
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 10
+    distribution: uniform
 
   mu_init:
     min: 0.000001
@@ -68,8 +74,8 @@ jigen_feedback:
   aname: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
-  coeff_ma: 0.5
   mu_init: 1e-6
+
   shared:
-    - k_i_gain
+    - k_i_gain_ratio
     - coeff_ma_output_state

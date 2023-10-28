@@ -86,7 +86,7 @@ def loguniform_grid(param_config):
     mini = np.log10(float(param_config['min']))
     step = (maxi - mini) / num
     # linspace does exclude the end of the interval and include the beginning
-    grid = 10 ** np.linspace(mini + step / 2, maxi + step / 2, num)
+    grid = 10 ** np.linspace(mini + step / 2, maxi - step / 2, num)
     if 'step' in param_config.keys():
         return round_to_discreate_grid_uniform(grid, param_config)
     return grid
