@@ -1,5 +1,7 @@
 # Benchmarking with DomainLab
 
+[Documentation for Benchmark in Markdown](https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md)
+
 The package offers the ability to benchmark different user-defined experiments against each other,
 as well as against different hyperparameter settings and random seeds.
 The results are collected in a csv file, but also prepared in charts.
@@ -31,9 +33,17 @@ arguments are the starting seeds for cuda and the hyperparameter sampling (both 
 fourth argument is the number of GPUs to use (optional). The number of GPUs defaults to one 
 (if your machine does not have GPU, the last argument defaults to one as well and CPU is used).
 
+In case of snakemake error, try
+`rm -r .snakemake/`
+
 ### Benchmark on a HPC cluster with slurm
 If you have access to an HPC cluster with slurm support: In a submission node, clone the DomainLab
 repository, cd into the repository and execute the following command:
+
+**Make sure to use tool like nohup or tmux to keep the following command active!**
+
+It is a good idea to use standalone script to test if the yaml file work or not before submit to slurm cluster. 
+
 ```cluster
 # Note: this has only been tested on Linux based systems and may not work on Windows
 ./run_benchmark_slurm.sh ./examples/benchmark/demo_benchmark.yaml
@@ -45,28 +55,72 @@ hyperparameter sampling and pytorch.
 The following script will help to find out which job has failed and the error message, so that you could direct to the 
 specific log file
 ```cluster
-./run_benchmark_slurm.sh ./zoutput/slurm_logs
+bash ./sh_list_error.sh ./zoutput/slurm_logs
 ```
+
+
 
 ## Obtained results
 All files created by this benchmark are saved in the given output directory
-(by default `./zoutput/benchmarks`). The sampled hyperparameters can be found in
-`hyperparameters.csv`. The performance of the different runs can be found aggregated in `results.csv`.
-Moreover, there is the `graphics` subdirectory, in which the values from `results.csv` are
+(by default `./zoutput/benchmarks/[name of the benchmark defined in YAML file]`). The sampled hyperparameters can be found in
+`hyperparameters.csv`. The yaml file is translated to `config.txt` with corresponding to commit in formation in `commit.txt` (**do not update code during benchmark process so results can be reproducible with this commit information**), corresponding to each line in `hyperparameters.csv`, there will
+be a csv file in directory `rule_results`.
+
+#### Output folder structure
+
+via `tree -L 2` in `zoutput/benchmarks/[name of the benchmark defined in configuration yaml file]`, one can get something like below
+
+```                                                
+├── commit.txt
+├── config.txt
+├── graphics
+│   ├── diva_fbopt_full
+│   ├── radar_dist.png
+│   ├── radar.png
+│   ├── scatterpl
+│   ├── sp_matrix_dist.png
+│   ├── sp_matrix_dist_reg.png
+│   ├── sp_matrix.png
+│   ├── sp_matrix_reg.png
+│   └── variational_plots
+├── hyperparameters.csv
+├── results.csv
+└── rule_results
+    ├── 0.csv
+    ├── 1.csv
+    ├── 2.csv
+    ├── 3.csv
+    ├── 4.csv
+    ├── 5.csv
+    ├── 6.csv
+    └── 7.csv
+```
+where commit.txt contains commit information for reproducibility, config.txt is a json format of the configuration yaml file for reproducibility, graphics folder contains the visualization of benchmark results in various plots, specificly, we use `graphics/variational_plot/acc/stochastic_variation.png`, hyperparameters.csv contains all hyperparameters used for each method, results.csv is an aggregation of the csv files in `rule_results`, where the i.csv correspond to the parameter index in hyperparameters.csv
+
+**Please do not change anything in folder `rule_results` !**
+
+The performance of the different runs from directory `rule_results` will be aggregated after all jobs have been done, which can be found aggregated in `results.csv`, Moreover, there is the `graphics` subdirectory, in which the values from `results.csv` are
 visualized for interpretation.
+
 In case that the benchmark is not entirely completed, the user can obtain partial results as
 explained below.
 
 
 ### Obtain partial results
-If the benchmark is not completed, the `results.csv` file containing the aggregated results might not be created.
-The user can then obtain the aggregated partial results from the partially completed benchmark by running
+If the benchmark is not yet completed (still running or has some failed jobs), the `results.csv` file containing the aggregated results will not be created.
+The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:
 ```commandline
 python main_out.py --agg_partial_bm OUTPUT_DIR
 ```
 specifying the benchmark output directory containing the partially completed benchmark,
-e.g. `./zoutput/benchmarks/demo_benchmark`.
+e.g. `./zoutput/benchmarks/demo_benchmark`, where `demo_benchmark` is a name defined in the yaml file. 
+
+Alternatively, one could use 
+```examples
+cat ./zoutput/benchmarks/[name of the benchmark]/rule_results/*.csv > result.csv
+```
+clean up the extra csv head generated and plot the csv using command below
 
 ### Generate plots from .csv file
 If the benchmark is not completed, the `graphics` subdirectory might not be created. The user can then manually
@@ -89,96 +143,3 @@ Note that the cvs file must have the same form as the one generated by the fully
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 0 | ... | ... | ... | ... | ... | {'param1': p1, ...} | ... | ... | ... | ... | ... | ... |
 | 1 | ... | ... | ... | ... | ... | {'param1': p2, ...} | ... | ... | ... | ... | ... | ... |
-
-
-
-
-## Further explanations to Benchmark Setup
-The user can create different custom experiments, which are to be benchmarked. Each
-experiment can have a custom name.
-
-An experiment can specify following arguments:
-- `aname`: name of the model. An experiment with an incorrect `aname` is not considered in the
-benchmark (mandatory)
-- `hyperparameters`: model-specific hyperparameters (for more details on the hyperparameters we
-refer to the model-specific documentation). The hyperparameters can be randomly sampled, see
-next section (optional)
-- `shared`: a list of parameters, which the respective experiment shares with another experiment
-(optional)
-- `constraints`: a list of constraints for the hyperparameters, see section below (optional)
-- `trainer`: trainer to be used (optional, e.g. "dial" or "mldg")
-- model-specific arguments (for more details we refer to the model-specific documentation)
-
-Furthermore, the user can declare:
-- `domainlab_args`: common arguments for all benchmarking experiments, including:
-  - `tpath`/`task`: path to/name of the task which should be addressed (mandatory)
-  - `epos`: number of epochs (int, mandatory)
-  - `bs`: batch size for training (int, mandatory)
-  - `lr`: learning rate (float, mandatory)
-  - `es`: early stop steps (int, optional)
-  - `npath`/`nname`: path to/name of the neural network, which should be used for feature extraction
-    (mandatory, can also be specified within each experiment)
-  - `dmem`: `True` or `False` (optional)
-  - `san_check`: `True`or `False` (optional)
-  - `te_d`: list of test domains (mandatory)
-  - `tr_d`: list of training domains (mandatory)
-- `output_dir`: path to the custom output directory (mandatory)
-- `startseed`: creates reproducible results (mandatory)
-- `endseed`: creates reproducible results (mandatory)
-- `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
-- `Shared params`: an optional list including the shared hyperparameters with respective sampling distribution 
-(mandatory if Shared params should be used) and in case of random sampling `num_shared_param_samples` 
-(number of samples for the shared hyperparameters, mandatory for random sampling) 
-
-Depending on which hyperparameter sampling technique is used (see section below), the user must also
-respect/declare the following:
-- random hyperparameter sampling:
-  - `sampling_seed` (int) must be defined outside the experiments
-  - `num_param_samples`: number of hyperparameters to be sampled (int, mandatory), must be defined outside the experiments
-  - `distribution`: specifies the distribution used for sampling, must be specified for each
-  hyperparameter, for available distributions see section below (mandatory)
-  - `step`: "step-size" (float) between samples. Only points being a multiple of the step-size apart
-  can be sampled. `0` means that each real number can be sampled.
-  - `num_shared_param_samples`: number of samples for the shared hyperparameters. Must be defined 
-  inside the Shared params section (if this section is used)
-- grid search hyperparameter sampling (`mode`:`grid`):
-  - `num`: number of hyperparameters to be sampled (int) must be specified for each hyperparameter
-  (mandatory)
-  - `distribution`: specifies the distribution used for sampling, must be specified for each
-  hyperparameter (for available distributions see section below)
-  - `step`: "step-size" (float) of the grid points. Only points lying on the grid
-  can be sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
-  
-
-### Hyperparameter sampling
-The benchmark offers the option to randomly sample hyperparameters from different distributions.
-An example can be found in [demo_hyperparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml). We offer two sampling
-techniques, random hyperparameter sampling and grid search. The default sampling mode is random
-hyperparameter sampling. If grid search should be applied, the user must specify `mode`:`grid`.
-
-Each sampling technique offers the following distributions:
-- `categorical` distribution. For each parameter the user can specify:
-  - `values`: a list of valid values 
-  - `datatype`: the datatype of the list values (int or float, default: float)
-- `uniform` and `loguniform` distribution. The user must define the following for each
-hyperparameter (mandatory):
-  - `mean`: mean of normal distribution (float)
-  - `std`: standard deviation of normal distribution (float $\geq 0$)
-  - `datatype`: the datatype of the list values (int or float, default: float)
-- `normal` and `lognormal`distribution. The user must define the following for each hyperparameter
-  (mandatory):
-  - `min`: lower bound for samples (int)
-  - `max`: upper bound for samples (int)
-  - `datatype`: the datatype of the list values (int or float, default: float)
-  
-  
-
-### Constraints
-The user can specify a list of constraints for the hyperparameters. Please note the following:
-- We currently use rejection sampling, to prevent the case of contradictory constraints,
-amongst others. In concrete, the sampling aborts with an error if 10.000 samples are rejected in a
-row. 
-- Equality constraints are not supported in the constraints section. To enforce equality of two or 
-more hyperparameters use the `reference` key, see `p4` of `Task1` in
-[demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml). References are only supported to reference sampled hyperparameters, e.g.
-referencing a reference results in undefined behaviour.

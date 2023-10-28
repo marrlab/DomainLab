@@ -15,6 +15,7 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         self.trainer = None
         self.tr_obs = None
+        self.msel = None
 
     def accept(self, trainer, tr_obs):
         """
@@ -25,7 +26,7 @@ class AMSel(metaclass=abc.ABCMeta):
         self.tr_obs = tr_obs
 
     @abc.abstractmethod
-    def update(self):
+    def update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
         if the best model should be updated
@@ -38,3 +39,21 @@ class AMSel(metaclass=abc.ABCMeta):
         return boolean
         """
         raise NotImplementedError
+
+    @property
+    def best_val_acc(self):
+        """
+        decoratee best val acc
+        """
+        if self.msel is not None:
+            return self.msel.best_val_acc
+        return -1
+
+    @property
+    def best_te_metric(self):
+        """
+        decoratee best test metric
+        """
+        if self.msel is not None:
+            return self.msel.best_te_metric
+        return -1
