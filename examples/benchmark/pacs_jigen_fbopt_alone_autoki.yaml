@@ -15,7 +15,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 200
-  epos_min: 20
+  epos_min: 50
   es: 1
   bs: 64
   san_check: False
