@@ -66,15 +66,19 @@ def phase_portrait_combined(event_files, colors, plot1, plot2,
         # truncate x and y to the desired length:
         x, y = x[:plot_len], y[:plot_len]
 
+        head_w_glob = min((max(x) - min(x)) / 100.0, (max(y) - min(y)) / 100.0)
         for i in range(plot_len - 1):
+            xy_dist = np.sqrt((x[i + 1] - x[i])**2 + (y[i + 1] - y[i])**2)
+            head_l = xy_dist / 30.0
+            head_w = min(head_l, head_w_glob)
             plt.arrow(x[i], y[i], (x[i + 1] - x[i]), (y[i + 1] - y[i]),
-                      head_width=0.15, head_length=0.2,
-                      length_includes_head=False,
-                      fc=colors[event_i], ec=colors[event_i], alpha=0.4)
+                      head_width=head_w, head_length=head_l,
+                      length_includes_head=True,
+                      fc=colors[event_i], ec=colors[event_i], alpha=0.8)
         # the combination of head_width and head_length make the arrow
-        # more visible
-        # length_includes_head=False will put arrow out of point, which let
-        # point more visible, otherwise arrow will cover point
+        # more visible.
+        # length_includes_head=False makes the arrow stick too far out
+        # beyond of the point, which let; so, True is used.
         colors = ['red', 'green', 'blue', 'yellow', 'purple']
         plt.plot(x[0], y[0], 'ko')
 
