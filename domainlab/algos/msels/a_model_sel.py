@@ -14,8 +14,21 @@ class AMSel(metaclass=abc.ABCMeta):
         trainer and tr_observer
         """
         self.trainer = None
-        self.tr_obs = None
+        self._tr_obs = None
         self.msel = None
+        self._max_es = None
+
+    @property
+    def tr_obs(self):
+        return self._tr_obs
+
+    @property
+    def max_es(self):
+        if self._max_es is not None:
+            return self._max_es
+        if self.msel is not None:
+            return self.msel.max_es
+        return self._max_es
 
     def accept(self, trainer, tr_obs):
         """
@@ -23,7 +36,9 @@ class AMSel(metaclass=abc.ABCMeta):
         accept trainer and tr_observer
         """
         self.trainer = trainer
-        self.tr_obs = tr_obs
+        self._tr_obs = tr_obs
+        if self.msel is not None:
+            self.msel.accept(trainer, tr_obs)
 
     @abc.abstractmethod
     def update(self, clear_counter=False):
@@ -38,6 +53,12 @@ class AMSel(metaclass=abc.ABCMeta):
         check if trainer should stop
         return boolean
         """
+        # NOTE: since if_stop is not abstract, one has to
+        # be careful to always override it in child class
+        # only if the child class has a decorator which will
+        # dispatched. 
+        if self.msel is not None:
+            return self.msel.if_stop()
         raise NotImplementedError
 
     @property
@@ -56,4 +77,16 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         if self.msel is not None:
             return self.msel.best_te_metric
+        return -1
+        
+    @property
+    def sel_model_te_acc(self):
+        if self.msel is not None:
+            return self.msel.sel_model_te_acc
+        return -1
+        
+    @property
+    def oracle_last_setpoint_sel_te_acc(self):
+        if self.msel is not None:
+            return self.msel.oracle_last_setpoint_sel_te_acc
         return -1

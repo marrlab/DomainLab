@@ -12,10 +12,14 @@ class MSelValPerf(MSelTrLoss):
     """
     def __init__(self, max_es):
         self._best_val_acc = 0.0
-        self.sel_model_te_acc = 0.0
+        self._sel_model_te_acc = 0.0
         self._best_te_metric = 0.0
         super().__init__(max_es)  # construct self.tr_obs (observer)
 
+    @property
+    def sel_model_te_acc(self):
+        return self._sel_model_te_acc
+        
     @property
     def best_val_acc(self):
         """
@@ -35,7 +39,7 @@ class MSelValPerf(MSelTrLoss):
         if the best model should be updated
         """
         flag = True
-        if self.tr_obs.metric_val is None or self.tr_obs.str_msel == "loss_tr":
+        if self.tr_obs.metric_val is None:
             return super().update(clear_counter)
         metric = self.tr_obs.metric_val[self.tr_obs.str_metric4msel]
         if self.tr_obs.metric_te is not None:
@@ -51,7 +55,7 @@ class MSelValPerf(MSelTrLoss):
             if self.tr_obs.metric_te is not None:
                 metric_te_current = \
                     self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
-                self.sel_model_te_acc = metric_te_current
+                self._sel_model_te_acc = metric_te_current
 
         else:
             self.es_c += 1
