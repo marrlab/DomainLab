@@ -15,7 +15,7 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 1000
+  epos: 5000
   epos_min: 500
   es: 5
   bs: 64
