@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Phase portraits
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss (gamma_d)" --legend1="loss_task/ell" --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss (gamma_d)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="loss_task/ell" --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="loss_task/ell" --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="loss_task/ell" --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="loss_task/ell" --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
 
 
 # Plot R and the corresponding set point curves (both in the same figure)
