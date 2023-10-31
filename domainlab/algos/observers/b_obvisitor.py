@@ -62,9 +62,11 @@ class ObVisitor(AObVisitor):
             logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
         flag_enough = epoch > self.host_trainer.aconf.epos_min
+
         self.flag_setpoint_changed_once |= flag_info
         if self.host_trainer.aconf.force_setpoint_change_once:
             return flag_stop & flag_enough & self.flag_setpoint_changed_once
+
         return flag_stop & flag_enough
 
     def accept(self, trainer):
