@@ -26,6 +26,7 @@ class Exp():
         :param model: default None
         """
         self.task = task
+        self.curr_dir = os.getcwd()
         if task is None:
             self.task = TaskChainNodeGetter(args)()
             if args.san_check:
@@ -68,11 +69,12 @@ class Exp():
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            logger.info(f"epoch: {epoch},"
+            logger.info(f"after epoch: {epoch},"
                         f"now: {str(t_c)},"
                         f"epoch time: {t_c - t_before_epoch},"
                         f"used: {t_c - t_0},"
                         f"model: {self.visitor.model_name}")
+            logger.info(f"working direcotry: {self.curr_dir}")
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
