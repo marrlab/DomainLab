@@ -28,7 +28,8 @@ def add_args2parser_fbopt(parser):
                         help='exponential moving average')
 
     parser.add_argument('--coeff_ma_output_state', type=float, default=0.1,
-                        help='state exponential moving average of reguarlization loss')
+                        help='state exponential moving average of \
+                        reguarlization loss')
 
     parser.add_argument('--coeff_ma_setpoint', type=float, default=0.9,
                         help='setpoint average coeff for previous setpoint')
@@ -40,13 +41,20 @@ def add_args2parser_fbopt(parser):
                         help='before training start, evaluate reg loss, \
                         setpoint will be 0.9 of this loss')
 
+    parser.add_argument('--force_setpoint_change_once', action='store_true',
+                        default=False,
+                        help='train until the setpoint changed at least once \
+                        up to maximum epos specified')
+
     parser.add_argument('--no_tensorboard', action='store_true', default=False,
                         help='disable tensorboard')
 
-    parser.add_argument('--no_setpoint_update', action='store_true', default=False,
+    parser.add_argument('--no_setpoint_update', action='store_true',
+                        default=False,
                         help='disable setpoint update')
 
-    parser.add_argument('--tr_with_init_mu', action='store_true', default=False,
+    parser.add_argument('--tr_with_init_mu', action='store_true',
+                        default=False,
                         help='disable setpoint update')
 
     parser.add_argument('--overshoot_rewind', type=str, default="yes",
@@ -55,7 +63,8 @@ def add_args2parser_fbopt(parser):
     parser.add_argument('--setpoint_rewind', type=str, default="no",
                         help='setpoing_rewind, for benchmark, use yes or no')
 
-    parser.add_argument('--str_diva_multiplier_type', type=str, default="gammad_recon",
+    parser.add_argument('--str_diva_multiplier_type', type=str,
+                        default="gammad_recon",
                         help='which penalty to tune')
 
     return parser
