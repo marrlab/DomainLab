@@ -19,7 +19,7 @@ class MSelValPerf(MSelTrLoss):
     @property
     def sel_model_te_acc(self):
         return self._sel_model_te_acc
-        
+      
     @property
     def best_val_acc(self):
         """
