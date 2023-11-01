@@ -12,10 +12,16 @@ class MSelTrLoss(AMSel):
     2. Visitor pattern to trainer
     """
     def __init__(self, max_es):
+        super().__init__()
+        # NOTE: super() must come first otherwise it will overwrite existing
+        # values!
         self.best_loss = float("inf")
         self.es_c = 0
-        self.max_es = max_es
-        super().__init__()
+        self._max_es = max_es
+
+    @property
+    def max_es(self):
+        return self._max_es
 
     def update(self, clear_counter=False):
         """
