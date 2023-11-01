@@ -81,6 +81,7 @@ jigen_feedback:
   trainer: fbopt
   ini_setpoint_ratio: 0.99
   mu_init: 1e-6
+  force_setpoint_change_once: True
   shared:
     - k_i_gain_ratio
     - mu_clip
