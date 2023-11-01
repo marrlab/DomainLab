@@ -13,7 +13,6 @@ test_domains:
 domainlab_args:
   tpath: examples/tasks/task_pacs_aug.py
   dmem: False
-  lr: 5e-5
   epos: 500
   epos_min: 20
   es: 1
@@ -26,10 +25,16 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  pperm: 0.5
+  pperm: 0.1
 
 
 Shared params:
+  lr:
+    distribution: categorical
+    values:
+      - 5e-5
+      - 1e-3
+
   k_i_gain:
     min: 0.0001
     max: 0.01
@@ -56,7 +61,7 @@ Shared params:
 
   gamma_reg:
     min: 0.01
-    max: 10_000
+    max: 10
     num: 4
     distribution: loguniform
 
@@ -64,10 +69,10 @@ Shared params:
     distribution: categorical
     datatype: float
     values:
-      - 1
+      - 0.01
+      - 0.1
+      - 1.0
       - 10
-      - 100
-      - 1000
 
 # Test fbopt with different hyperparameter configurations
 
@@ -79,18 +84,21 @@ jigen_feedback:
   shared:
     - k_i_gain_ratio
     - mu_clip
+    - lr
     
 jigen_feedforward:
   aname: jigen
   trainer: hyperscheduler
   shared:
     - gamma_reg
+    - lr
 
 jigen_fixed_penalty:
   aname: jigen
   trainer: basic
   shared:
     - gamma_reg
+    - lr
 
 erm:
   aname: deepall

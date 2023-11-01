@@ -27,7 +27,8 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  pperm: 0.5
+  pperm: 0.1  
+  # pperm correspond to 1-bias_wholeimage in https://github.com/fmcarlucci/JigenDG
 
 
 Shared params:
