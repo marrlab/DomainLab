@@ -13,7 +13,8 @@ class MSelTrLoss(AMSel):
     """
     def __init__(self, max_es):
         super().__init__()
-        # NOTE: super() must come first otherwise it will overwrite existing values!
+        # NOTE: super() must come first otherwise it will overwrite existing
+        # values!
         self.best_loss = float("inf")
         self.es_c = 0
         self._max_es = max_es
@@ -21,7 +22,7 @@ class MSelTrLoss(AMSel):
     @property
     def max_es(self):
         return self._max_es
-        
+
     def update(self, clear_counter=False):
         """
         if the best model should be updated
