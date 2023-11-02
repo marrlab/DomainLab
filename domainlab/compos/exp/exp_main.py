@@ -29,9 +29,6 @@ class Exp():
         self.curr_dir = os.getcwd()
         if task is None:
             self.task = TaskChainNodeGetter(args)()
-            if args.san_check:
-                sancheck = SanityCheck(args, self.task)
-                sancheck.dataset_sanity_check()
 
         self.args = args
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
@@ -40,6 +37,10 @@ class Exp():
         self.task.init_business(node_algo_builder=algo_builder, args=args)
         # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
+        if args.san_check:
+            sancheck = SanityCheck(args, self.task)
+            sancheck.dataset_sanity_check()
+
         self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
         if model is not None:
             self.model = model
