@@ -11,7 +11,7 @@ test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
   epos: 200
@@ -26,7 +26,6 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  pperm: 0.5
 
 
 Shared params:
@@ -50,8 +49,8 @@ Shared params:
 
   gamma_reg:
     min: 0.01
-    max: 10_000
-    num: 10
+    max: 10
+    num: 5
     distribution: loguniform
 
 # Test fbopt with different hyperparameter configurations
@@ -62,12 +61,14 @@ jigen_feedforward:
   trainer: hyperscheduler
   shared:
     - gamma_reg
+    - pperm
 
 jigen_fixed_penalty:
   aname: jigen
   trainer: basic
   shared:
     - gamma_reg
+    - pperm
 
 erm:
   aname: deepall
