@@ -57,7 +57,9 @@ specific log file
 ```cluster
 bash ./sh_list_error.sh ./zoutput/slurm_logs
 ```
-
+#### Check log for a specific job
+suppose the slurm job id is 14144163, one could the corresponding log file in `./zoutput/slurm_logs` folder via
+`find . | grep -i "14144163"`
 
 
 ## Obtained results
