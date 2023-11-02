@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -306,12 +305,18 @@ from domainlab.utils.logger import Logger
     2. Visitor pattern to trainer
     """
     def __init__(self, max_es):
+        super().__init__()
+        # NOTE: super() must come first otherwise it will overwrite existing
+        # values!
         self.best_loss = float("inf")
         self.es_c = 0
-        self.max_es = max_es
-        super().__init__()
+        self._max_es = max_es
 
-<div class="viewcode-block" id="MSelTrLoss.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update">[docs]</a>    def update(self):
+    @property
+    def max_es(self):
+        return self._max_es
+
+<div class="viewcode-block" id="MSelTrLoss.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update">[docs]</a>    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
@@ -328,6 +333,9 @@ from domainlab.utils.logger import Logger
             logger.info(f"early stop counter: {self.es_c}")
             logger.info(f"loss:{loss}, best loss: {self.best_loss}")
             flag = False  # do not update best model
+            if clear_counter:
+                logger.info("clearing counter")
+                self.es_c = 0
         return flag</div>
 
 <div class="viewcode-block" id="MSelTrLoss.if_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop">[docs]</a>    def if_stop(self):
@@ -359,7 +367,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

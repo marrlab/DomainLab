@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -310,7 +309,7 @@ from domainlab.models.a_model_classif import AModelClassif
         The model is trained to solve two tasks:
         1. Standard image classification.
         2. Domain classification.
-        Here for, a feature extractor is adversarially trained to minimize the loss of the image 
+        Here for, a feature extractor is adversarially trained to minimize the loss of the image
         classifier and maximize the loss of the domain classifier.
         For more details, see:
         Ganin, Yaroslav, et al. "Domain-adversarial training of neural networks."
@@ -364,7 +363,7 @@ from domainlab.models.a_model_classif import AModelClassif
             """hyper_init.
             :param functor_scheduler:
             """
-            return functor_scheduler(alpha=self.alpha)
+            return functor_scheduler(trainer=None, alpha=self.alpha)
 
         def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
             """
@@ -378,7 +377,7 @@ from domainlab.models.a_model_classif import AModelClassif
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
-            return self.alpha*lc_d
+            return [lc_d], [self.alpha]
     return ModelDAN</div>
 </pre></div>
 
@@ -404,7 +403,7 @@ from domainlab.models.a_model_classif import AModelClassif
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

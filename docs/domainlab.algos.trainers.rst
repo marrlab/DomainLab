@@ -20,6 +20,14 @@ domainlab.algos.trainers.args\_dial module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.hyper\_scheduler module
+------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.hyper_scheduler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_basic module
 --------------------------------------------
 

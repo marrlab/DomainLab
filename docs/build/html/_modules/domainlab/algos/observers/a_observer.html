@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -302,6 +301,30 @@ import abc
     """
     Observer + Visitor pattern for model selection
     """
+    def __init__(self):
+        self.exp = None
+        self.task = None
+        self.epo_te = None
+        self.str_msel = None
+        self.keep_model = None
+        self.loader_te = None
+        self.loader_tr = None
+        self.loader_val = None
+
+<div class="viewcode-block" id="AObVisitor.set_exp"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.set_exp">[docs]</a>    def set_exp(self, exp):
+        """
+        couple observer with exp
+        """
+        self.exp = exp
+        self.task = self.exp.task
+        self.epo_te = self.exp.args.epo_te
+        self.str_msel = self.exp.args.msel  # FIXME: consistent with self.model_sel?
+        self.keep_model = self.exp.args.keep_model
+        self.loader_te = self.task.loader_te
+        self.loader_tr = self.task.loader_tr
+        # Note loader_tr behaves/inherit different properties than loader_te
+        self.loader_val = self.task.loader_val</div>
+
 <div class="viewcode-block" id="AObVisitor.update"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.update">[docs]</a>    @abc.abstractmethod
     def update(self, epoch) -&gt; bool:
         """
@@ -349,7 +372,7 @@ import abc
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

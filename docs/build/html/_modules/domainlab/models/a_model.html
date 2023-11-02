@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -305,12 +304,40 @@ from torch import nn
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+    @property
+    def metric4msel(self):
+        """
+        metric for model selection
+        """
+        raise NotImplementedError
+
+    @property
+    def multiplier4task_loss(self):
+        """
+        the multiplier for task loss is default to 1 except for vae family models
+        """
+        return 1.0
+
 <div class="viewcode-block" id="AModel.cal_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_loss">[docs]</a>    def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
         """
-        return self.cal_task_loss(tensor_x, tensor_y) + \
-            self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)</div>
+        list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        loss_reg = self.inner_product(list_loss, list_multiplier)
+        loss_task_alone = self.cal_task_loss(tensor_x, tensor_y)
+        loss_task = self.multiplier4task_loss * loss_task_alone
+        return loss_task + loss_reg, list_loss, loss_task_alone</div>
+
+<div class="viewcode-block" id="AModel.inner_product"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.inner_product">[docs]</a>    def inner_product(self, list_loss_scalar, list_multiplier):
+        """
+        compute inner product between list of scalar loss and multiplier
+        - the first dimension of the tensor v_reg_loss is mini-batch
+        the second dimension is the number of regularizers
+        - the vector mmu has dimension the number of regularizers
+        """
+        list_tuple = zip(list_loss_scalar, list_multiplier)
+        rst = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
+        return sum(rst)    # FIXME: is "sum" safe to pytorch?</div>
 
 <div class="viewcode-block" id="AModel.cal_task_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_task_loss">[docs]</a>    @abc.abstractmethod
     def cal_task_loss(self, tensor_x, tensor_y):
@@ -360,7 +387,7 @@ from torch import nn
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

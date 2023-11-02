@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -339,62 +338,58 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="introduction">
-<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this headline">¶</a></h1>
 <section class="tex2jax_ignore mathjax_ignore" id="domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data">
-<h2 id="domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data">DomainLab: train robust neural networks using domain generalization algorithms on your data<a class="headerlink" href="#domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data" title="Permalink to this heading">¶</a></h2>
-<p><img alt="GH Actions CI " src="https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg"/>
+<h2 id="domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data">DomainLab: train robust neural networks using domain generalization algorithms on your data<a class="headerlink" href="#domainlab-train-robust-neural-networks-using-domain-generalization-algorithms-on-your-data" title="Permalink to this headline">¶</a></h2>
+<p><img alt="GH Actions CI " src="https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg?branch=master"/>
 <a class="reference external" href="https://app.codecov.io/gh/marrlab/DomainLab"><img alt="codecov" src="https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg"/></a>
 <a class="reference external" href="https://www.codacy.com/gh/marrlab/DomainLab/dashboard"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86"/></a>
 <a class="reference external" href="https://marrlab.github.io/DomainLab/"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-Here"/></a>
 <a class="reference external" href="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment"><img alt="pages-build-deployment" src="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment/badge.svg"/></a></p>
 <section id="domain-generalization-and-domainlab">
-<h3 id="domain-generalization-and-domainlab">Domain Generalization and DomainLab<a class="headerlink" href="#domain-generalization-and-domainlab" title="Permalink to this heading">¶</a></h3>
+<h3 id="domain-generalization-and-domainlab">Domain Generalization and DomainLab<a class="headerlink" href="#domain-generalization-and-domainlab" title="Permalink to this headline">¶</a></h3>
 <p>Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains.</p>
 <p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.</p>
-<ul class="simple">
-<li><p>To evaluate a domain generalization algorithm’s performance on your custom data, the user only need to specify ways to access the data in the form of a standalone python file. See <span class="xref myst">Task Specification</span>.</p></li>
-<li><p>To benchmark several algorithms on your dataset, a single line command along with a benchmark configuration files is sufficient. See <span class="xref myst">Benchmarks</span></p></li>
-</ul>
 </section>
 <section id="getting-started">
-<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h3>
+<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
 <section id="installation">
-<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h4>
+<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
 <section id="create-a-virtual-environment-for-domainlab-strongly-recommended">
-<h5 id="create-a-virtual-environment-for-domainlab-strongly-recommended">Create a virtual environment for DomainLab (strongly recommended)<a class="headerlink" href="#create-a-virtual-environment-for-domainlab-strongly-recommended" title="Permalink to this heading">¶</a></h5>
+<h5 id="create-a-virtual-environment-for-domainlab-strongly-recommended">Create a virtual environment for DomainLab (strongly recommended)<a class="headerlink" href="#create-a-virtual-environment-for-domainlab-strongly-recommended" title="Permalink to this headline">¶</a></h5>
 <p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">domainlab_py39</span> <span class="pre">python=3.9</span></code></p>
-<p>then
-<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">domainlab_py39</span></code></p>
+<p>then</p>
+<p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">domainlab_py39</span></code></p>
 </section>
 <section id="install-development-version-recommended">
-<h5 id="install-development-version-recommended">Install Development version (recommended)<a class="headerlink" href="#install-development-version-recommended" title="Permalink to this heading">¶</a></h5>
+<h5 id="install-development-version-recommended">Install Development version (recommended)<a class="headerlink" href="#install-development-version-recommended" title="Permalink to this headline">¶</a></h5>
 <p>Suppose you have cloned the repository and have changed directory to the cloned repository.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<div class="highlight-norun notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
 </pre></div>
 </div>
 <p>then</p>
 <p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code></p>
 </section>
 <section id="windows-installation-details">
-<h5 id="windows-installation-details">Windows installation details<a class="headerlink" href="#windows-installation-details" title="Permalink to this heading">¶</a></h5>
+<h5 id="windows-installation-details">Windows installation details<a class="headerlink" href="#windows-installation-details" title="Permalink to this headline">¶</a></h5>
 <p>To install DomainLab on Windows, please remove the <code class="docutils literal notranslate"><span class="pre">snakemake</span></code> dependency from the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file.
 Benchmarking is currently not supported on Windows due to the dependency on Snakemake.</p>
 </section>
 <section id="dependencies-management">
-<h5 id="dependencies-management">Dependencies management<a class="headerlink" href="#dependencies-management" title="Permalink to this heading">¶</a></h5>
+<h5 id="dependencies-management">Dependencies management<a class="headerlink" href="#dependencies-management" title="Permalink to this headline">¶</a></h5>
 <ul class="simple">
 <li><p><a class="reference external" href="https://python-poetry.org/">python-poetry</a> and use the configuration file <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> in this repository.</p></li>
 </ul>
 </section>
 <section id="release">
-<h5 id="release">Release<a class="headerlink" href="#release" title="Permalink to this heading">¶</a></h5>
+<h5 id="release">Release<a class="headerlink" href="#release" title="Permalink to this headline">¶</a></h5>
 <ul class="simple">
 <li><p>Install via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">domainlab</span></code></p></li>
 </ul>
 </section>
 </section>
 <section id="basic-usage">
-<h4 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading">¶</a></h4>
+<h4 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h4>
 <p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <span class="xref myst">A minimal subsample of the VLCS dataset</span> and <span class="xref myst">an example configuration file for vlcs_mini</span></p>
 <p>Suppose you have cloned the repository and have the dependencies ready, change directory to this repository:</p>
 <p>To train a domain invariant model on the vlcs_mini task</p>
@@ -403,7 +398,7 @@ Benchmarking is currently not supported on Windows due to the dependency on Snak
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task <span class="xref myst">see here</span>, <code class="docutils literal notranslate"><span class="pre">--te_d</span></code> specifies the test domain name (or index starting from 0), <code class="docutils literal notranslate"><span class="pre">--config</span></code> specifies the configurations of the domain generalization algorithms, <span class="xref myst">see here</span></p>
 <section id="further-usage">
-<h5 id="further-usage">Further usage<a class="headerlink" href="#further-usage" title="Permalink to this heading">¶</a></h5>
+<h5 id="further-usage">Further usage<a class="headerlink" href="#further-usage" title="Permalink to this headline">¶</a></h5>
 <p>Alternatively, in a verbose mode without using the algorithm configuration file:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2
 </pre></div>
@@ -418,25 +413,26 @@ For usage of other arguments, check with</p>
 </section>
 </section>
 <section id="output-structure-results-storage-and-performance-measure">
-<h4 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this heading">¶</a></h4>
+<h4 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this headline">¶</a></h4>
 <p><span class="xref myst">Output structure and Performance Measure</span></p>
 </section>
 </section>
 <section id="custom-usage">
-<h3 id="custom-usage">Custom Usage<a class="headerlink" href="#custom-usage" title="Permalink to this heading">¶</a></h3>
+<h3 id="custom-usage">Custom Usage<a class="headerlink" href="#custom-usage" title="Permalink to this headline">¶</a></h3>
+<p>To benchmark several algorithms on your dataset, a single line command along with a benchmark configuration files is sufficient. See <span class="xref myst">Benchmarks</span></p>
 <section id="define-your-task">
-<h4 id="define-your-task">Define your task<a class="headerlink" href="#define-your-task" title="Permalink to this heading">¶</a></h4>
+<h4 id="define-your-task">Define your task<a class="headerlink" href="#define-your-task" title="Permalink to this headline">¶</a></h4>
 <p>Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See
 <span class="xref myst">Task Specification</span></p>
 </section>
 <section id="custom-neural-network">
-<h4 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this heading">¶</a></h4>
+<h4 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this headline">¶</a></h4>
 <p>This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
 <span class="xref myst">Specify Custom Neural Networks for an algorithm</span></p>
 </section>
 </section>
 <section id="software-design-pattern-extend-or-contribution">
-<h3 id="software-design-pattern-extend-or-contribution">Software Design Pattern, Extend or Contribution<a class="headerlink" href="#software-design-pattern-extend-or-contribution" title="Permalink to this heading">¶</a></h3>
+<h3 id="software-design-pattern-extend-or-contribution">Software Design Pattern, Extend or Contribution<a class="headerlink" href="#software-design-pattern-extend-or-contribution" title="Permalink to this headline">¶</a></h3>
 <p><span class="xref myst">Extend or Contibute</span></p>
 </section>
 </section>
@@ -465,7 +461,7 @@ For usage of other arguments, check with</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

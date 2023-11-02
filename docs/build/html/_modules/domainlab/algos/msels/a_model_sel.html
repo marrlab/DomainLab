@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -308,7 +307,27 @@ import abc
         trainer and tr_observer
         """
         self.trainer = None
-        self.tr_obs = None
+        self._tr_obs = None
+        self.msel = None
+        self._max_es = None
+
+    @property
+    def tr_obs(self):
+        """
+        the observer from trainer
+        """
+        return self._tr_obs
+
+    @property
+    def max_es(self):
+        """
+        maximum early stop
+        """
+        if self._max_es is not None:
+            return self._max_es
+        if self.msel is not None:
+            return self.msel.max_es
+        return self._max_es
 
 <div class="viewcode-block" id="AMSel.accept"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.accept">[docs]</a>    def accept(self, trainer, tr_obs):
         """
@@ -316,10 +335,12 @@ import abc
         accept trainer and tr_observer
         """
         self.trainer = trainer
-        self.tr_obs = tr_obs</div>
+        self._tr_obs = tr_obs
+        if self.msel is not None:
+            self.msel.accept(trainer, tr_obs)</div>
 
 <div class="viewcode-block" id="AMSel.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.update">[docs]</a>    @abc.abstractmethod
-    def update(self):
+    def update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
         if the best model should be updated
@@ -331,7 +352,40 @@ import abc
         check if trainer should stop
         return boolean
         """
-        raise NotImplementedError</div></div>
+        # NOTE: since if_stop is not abstract, one has to
+        # be careful to always override it in child class
+        # only if the child class has a decorator which will
+        # dispatched.
+        if self.msel is not None:
+            return self.msel.if_stop()
+        raise NotImplementedError</div>
+
+    @property
+    def best_val_acc(self):
+        """
+        decoratee best val acc
+        """
+        if self.msel is not None:
+            return self.msel.best_val_acc
+        return -1
+
+    @property
+    def best_te_metric(self):
+        """
+        decoratee best test metric
+        """
+        if self.msel is not None:
+            return self.msel.best_te_metric
+        return -1
+
+    @property
+    def sel_model_te_acc(self):
+        """
+        the selected model test accuaracy
+        """
+        if self.msel is not None:
+            return self.msel.sel_model_te_acc
+        return -1</div>
 </pre></div>
 
           </article>
@@ -356,7 +410,7 @@ import abc
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

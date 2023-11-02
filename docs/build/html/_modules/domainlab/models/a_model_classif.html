@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -297,11 +296,11 @@ operations that all claasification model should have
 """
 
 import abc
-import numpy as np
 import math
+import numpy as np
 import pandas as pd
 import torch
-from torch import nn as nn
+from torch import nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
@@ -317,6 +316,10 @@ from domainlab.utils.logger import Logger
     operations that all classification model should have
     """
     match_feat_fun_na = "cal_logit_y"
+
+    @property
+    def metric4msel(self):
+        return "acc"
 
 <div class="viewcode-block" id="AModelClassif.create_perf_obj"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.create_perf_obj">[docs]</a>    def create_perf_obj(self, task):
         """
@@ -335,8 +338,8 @@ from domainlab.utils.logger import Logger
                 metric = self.perf_metric.cal_metrics(self, loader, device)
                 confmat = metric.pop("confmat")
                 logger = Logger.get_logger()
-                logger.debug("scalar performance:")
-                logger.debug(str(metric))
+                logger.info("scalar performance:")
+                logger.info(str(metric))
                 logger.debug("confusion matrix:")
                 logger.debug(pd.DataFrame(confmat))
                 metric["confmat"] = confmat
@@ -484,7 +487,12 @@ from domainlab.utils.logger import Logger
         return loss_adv_gen + loss_adv_gen_task.sum()</div>
 
 <div class="viewcode-block" id="AModelClassif.cal_reg_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_reg_loss">[docs]</a>    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        return 0</div></div>
+        """
+        for ERM to adapt to the interface of other regularized learners
+        """
+        device = tensor_x.device
+        bsize = tensor_x.shape[0]
+        return [torch.zeros(bsize, 1).to(device)], [0.0]</div></div>
 </pre></div>
 
           </article>
@@ -509,7 +517,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

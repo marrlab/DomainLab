@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -339,13 +338,6 @@ from domainlab.utils.override_interface import override_interface
             logit_y = self.net(tensor_x)
             return logit_y
 
-        def forward(self, tensor_x, tensor_y, tensor_d, others=None):
-            return self.cal_loss(tensor_x, tensor_y, tensor_d)
-
-        def cal_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-            lc_y = self.cal_task_loss(tensor_x, tensor_y)
-            return lc_y
-
     return ModelDeepAll</div>
 </pre></div>
 
@@ -371,7 +363,7 @@ from domainlab.utils.override_interface import override_interface
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

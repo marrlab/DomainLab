@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -298,7 +297,8 @@ and each random seed.
 """
 import ast
 import gc
-
+import copy
+import numpy as np
 import pandas as pd
 import torch
 
@@ -321,6 +321,21 @@ from domainlab.utils.logger import Logger
     # row.task has nothing to do with DomainLab task, it is
     # benchmark task which correspond to one algorithm
     return row.task, params</div>
+
+
+<div class="viewcode-block" id="convert_dict2float"><a class="viewcode-back" href="../../../domainlab.exp_protocol.html#domainlab.exp_protocol.run_experiment.convert_dict2float">[docs]</a>def convert_dict2float(dict_in):
+    """
+    convert scientific notation from 1e5 to 10000
+    """
+    dict_out = copy.deepcopy(dict_in)
+    for key, val in dict_out.items():
+        if isinstance(val, str):
+            try:
+                val_float = float(val)
+                dict_out[key] = val_float
+            except:
+                pass
+    return dict_out</div>
 
 
 <div class="viewcode-block" id="run_experiment"><a class="viewcode-back" href="../../../domainlab.exp_protocol.html#domainlab.exp_protocol.run_experiment.run_experiment">[docs]</a>def run_experiment(
@@ -367,12 +382,32 @@ from domainlab.utils.logger import Logger
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    args_algo_as_task = config[str_algo_as_task].copy()
-    if 'hyperparameters' in args_algo_as_task:
-        del args_algo_as_task['hyperparameters']
-    args_domainlab_common = config.get("domainlab_args", {})
+    args_algo_specific = config[str_algo_as_task].copy()
+    if 'hyperparameters' in args_algo_specific:
+        del args_algo_specific['hyperparameters']
+    args_domainlab_common_raw = config.get("domainlab_args", {})
+    args_domainlab_common = convert_dict2float(args_domainlab_common_raw)
+    # check if some of the hyperparameters are already specified
+    # in args_domainlab_common or args_algo_specific
+    if np.intersect1d(list(args_algo_specific.keys()),
+                      list(hyperparameters.keys())).shape[0] &gt; 0:
+        logger.error(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+        raise RuntimeError(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+    if np.intersect1d(list(args_domainlab_common.keys()),
+                      list(hyperparameters.keys())).shape[0] &gt; 0:
+        logger.error(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
+        raise RuntimeError(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
     apply_dict_to_args(args, args_domainlab_common)
-    apply_dict_to_args(args, args_algo_as_task)
+    args_algo_specific_scientific_notation = convert_dict2float(args_algo_specific)
+    apply_dict_to_args(args, args_algo_specific_scientific_notation, extend=True)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
     gpu_ind = param_index % num_gpus
@@ -443,7 +478,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

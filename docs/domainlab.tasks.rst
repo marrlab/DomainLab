@@ -60,6 +60,14 @@ domainlab.tasks.task\_folder\_mk module
    :undoc-members:
    :show-inheritance:
 
+domainlab.tasks.task\_mini\_vlcs module
+---------------------------------------
+
+.. automodule:: domainlab.tasks.task_mini_vlcs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.tasks.task\_mnist\_color module
 -----------------------------------------
 

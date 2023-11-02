@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -347,10 +346,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="dial-domain-invariant-adversarial-learning">
-<h1 id="docdial--page-root">DIAL: Domain Invariant Adversarial Learning<a class="headerlink" href="#docdial--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="docdial--page-root">DIAL: Domain Invariant Adversarial Learning<a class="headerlink" href="#docdial--page-root" title="Permalink to this headline">¶</a></h1>
 <p>The algorithm introduced in <a class="reference external" href="https://arxiv.org/pdf/2104.00322.pdf">https://arxiv.org/pdf/2104.00322.pdf</a> uses adversarial learning to tackle the task of domain generalization. Therefore, the source domain is the natural dataset, while the target domain is generated using adversarial attack on the source domain.</p>
 <section id="generating-the-adversarial-domain">
-<h2 id="generating-the-adversarial-domain">generating the adversarial domain<a class="headerlink" href="#generating-the-adversarial-domain" title="Permalink to this heading">¶</a></h2>
+<h2 id="generating-the-adversarial-domain">generating the adversarial domain<a class="headerlink" href="#generating-the-adversarial-domain" title="Permalink to this headline">¶</a></h2>
 <p>The generation of adversary images is demonstrated in figure 1.
 The task is to find an adversary image <span class="math notranslate nohighlight">\(x'\)</span> to the natural image <span class="math notranslate nohighlight">\(x\)</span> with <span class="math notranslate nohighlight">\(||x- x'||\)</span> small, such that the output of a classification network <span class="math notranslate nohighlight">\(\phi\)</span> fulfills <span class="math notranslate nohighlight">\(||\phi(x) - \phi(x')||\)</span> big. In the example in figure 1 you can for example see, that the difference between the left and the right image of the panda is unobservable, but the classifier does still classify them differently.</p>
 <p>In Domainlab the adversary images are created starting from a random perturbation of the natural image <span class="math notranslate nohighlight">\(x'_0 = x + \sigma \tilde{x}~\)</span>, <span class="math notranslate nohighlight">\(\tilde{x} \sim \mathcal{N}(0, 1)\)</span> and using <span class="math notranslate nohighlight">\(n\)</span> steps in a gradient descend with step size <span class="math notranslate nohighlight">\(\tau\)</span> to maximize <span class="math notranslate nohighlight">\(||\phi(x) - \phi(x')||\)</span>. In general machine learning, the generation of adversary images is used during the training process to make networks more robust to adversarial attacks.</p>
@@ -360,7 +359,7 @@ The task is to find an adversary image <span class="math notranslate nohighlight
 </div>
 </section>
 <section id="network-structure">
-<h2 id="network-structure">network structure<a class="headerlink" href="#network-structure" title="Permalink to this heading">¶</a></h2>
+<h2 id="network-structure">network structure<a class="headerlink" href="#network-structure" title="Permalink to this headline">¶</a></h2>
 <p>The network consists of three parts. At first a feature extractor, which extracts the main characteristics of the images. This features are then used as the input to a label classifier and a domain classifier.
 During training the network is optimized to a have low error on the classification task, while ensuring that the internal representation (output of the feature extractor) cannot discriminate between the natural and adversarial domain. This goal can be archived by using a special loss function in combination with a gradient reversal layer.</p>
 <div style="align: center; text-align:center;">
@@ -369,7 +368,7 @@ During training the network is optimized to a have low error on the classificati
 </div>
 </section>
 <section id="loss-function-and-gradient-reversal-layer">
-<h2 id="loss-function-and-gradient-reversal-layer">loss function and gradient reversal layer<a class="headerlink" href="#loss-function-and-gradient-reversal-layer" title="Permalink to this heading">¶</a></h2>
+<h2 id="loss-function-and-gradient-reversal-layer">loss function and gradient reversal layer<a class="headerlink" href="#loss-function-and-gradient-reversal-layer" title="Permalink to this headline">¶</a></h2>
 <p>The loss function for in the DomainLab package is different to the one described in the paper. It consists of the standard cross entropy loss between the predicted label probabilities and the actual label for the natural domain (<span class="math notranslate nohighlight">\(CE_{nat}\)</span>) and for the adversarial domain (<span class="math notranslate nohighlight">\(CE_{adv}\)</span>).
 The adversarial domain is weighted by the parameter <span class="math notranslate nohighlight">\(\gamma_\text{reg}\)</span>.</p>
 <div class="math notranslate nohighlight">
@@ -425,7 +424,7 @@ The adversarial domain is weighted by the parameter <span class="math notranslat
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

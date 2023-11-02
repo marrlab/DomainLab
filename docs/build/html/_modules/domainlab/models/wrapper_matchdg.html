@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -324,7 +323,11 @@ from domainlab.models.a_model_classif import AModelClassif
         return self.net.cal_loss(tensor_x, tensor_y, tensor_d)</div>
 
 <div class="viewcode-block" id="ModelWrapMatchDGLogit.cal_reg_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.cal_reg_loss">[docs]</a>    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
-        return self.net.cal_loss(tensor_x, tensor_y, tensor_d)  # @FIXME: this is wrong</div>
+        """
+        abstract method must be in place, but it will not be called since
+        cal_loss function is overriden
+        """
+        raise NotImplementedError</div>
 
 <div class="viewcode-block" id="ModelWrapMatchDGLogit.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.wrapper_matchdg.ModelWrapMatchDGLogit.forward">[docs]</a>    def forward(self, tensor_x):
         """
@@ -362,7 +365,7 @@ from domainlab.models.a_model_classif import AModelClassif
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

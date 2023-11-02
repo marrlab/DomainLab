@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -397,7 +396,7 @@ from domainlab.utils.logger import Logger
         # these losses within one batch
 
         if self.flag_erm:
-            loss_erm_rnd_loader = self.phi.cal_loss(x_e, y_e, d_e)
+            loss_erm_rnd_loader, *_ = self.phi.cal_loss(x_e, y_e, d_e)
 
         num_batches = len(self.tuple_tensor_refdomain2each)
 
@@ -446,7 +445,7 @@ from domainlab.utils.logger import Logger
             # @FIXME: check if batch_ref_domain2each_y is
             # continuous number which means it is at its initial value,
             # not yet filled
-            loss_erm_match_tensor = self.phi.cal_loss(
+            loss_erm_match_tensor, *_ = self.phi.cal_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
         # Creating tensor of shape (domain size, total domains, feat size )
@@ -486,7 +485,7 @@ from domainlab.utils.logger import Logger
             subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
             feat_same_cls = batch_feat_ref_domain2each[subset_same_cls]
             feat_diff_cls = batch_feat_ref_domain2each[subset_diff_cls]
-            logger.debug(f'class {y_c} with same class and different class: ',
+            logger.debug(f'class {y_c} with same class and different class: ' +
                          f'{feat_same_cls.shape[0]} {feat_diff_cls.shape[0]}')
 
             if feat_same_cls.shape[0] == 0 or feat_diff_cls.shape[0] == 0:
@@ -589,7 +588,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

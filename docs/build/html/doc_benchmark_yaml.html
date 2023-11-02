@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="lang:clipboard.copy" content="Copy to clipboard">
+  <meta name="lang:clipboard.copied" content="Copied to clipboard">
+  <meta name="lang:search.language" content="en">
+  <meta name="lang:search.pipeline.stopwords" content="True">
+  <meta name="lang:search.pipeline.trimmer" content="True">
+  <meta name="lang:search.result.none" content="No matching documents">
+  <meta name="lang:search.result.one" content="1 matching document">
+  <meta name="lang:search.result.other" content="# matching documents">
+  <meta name="lang:search.tokenizer" content="[\s\-]+">
+
+  
+    <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel="stylesheet">
+
+    <style>
+      body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+    </style>
+  
+
+  <link rel="stylesheet" href="_static/stylesheets/application.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-palette.css"/>
+  <link rel="stylesheet" href="_static/stylesheets/application-fixes.css"/>
+  
+  <link rel="stylesheet" href="_static/fonts/material-icons.css"/>
+  
+  <meta name="theme-color" content="#2196f3">
+  <script src="_static/javascripts/modernizr.js"></script>
+  
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+  
+    <title>Benchmark yaml files &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  
+    <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
+  
+   
+
+  </head>
+  <body dir=ltr
+        data-md-color-primary=teal data-md-color-accent=cyan>
+  
+  <svg class="md-svg">
+    <defs data-children-count="0">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+      
+    </defs>
+  </svg>
+  
+  <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
+  <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
+  <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+  <a href="#doc_benchmark_yaml" tabindex="1" class="md-skip"> Skip to content </a>
+  <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="index.html" title="domainlab  documentation"
+           class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">school</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          <span class="md-header-nav__topic">DomainLab</span>
+          <span class="md-header-nav__topic"> Benchmark yaml files </span>
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+        
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" action="search.html" method="get" name="search">
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
+             autocapitalize="off" autocomplete="off" spellcheck="false"
+             data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+          </div>
+        </div>
+      
+      
+    </div>
+  </nav>
+</header>
+
+  
+  <div class="md-container">
+    
+    
+    
+  <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+      <ul class="md-tabs__list">
+            
+            <li class="md-tabs__item"><a href="readme_link.html" class="md-tabs__link">Introduction</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
+            
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+      </ul>
+    </div>
+  </nav>
+    <main class="md-main">
+      <div class="md-main__inner md-grid" data-md-component="container">
+        
+          <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="index.html" title="domainlab documentation" class="md-nav__button md-logo">
+      
+        <i class="md-icon">school</i>
+      
+    </a>
+    <a href="index.html"
+       title="domainlab documentation">DomainLab</a>
+  </label>
+    <div class="md-nav__source">
+      <a href="https://github.com/marrlab/DomainLab" title="Go to repository" class="md-source" data-md-source="github">
+
+    <div class="md-source__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width="28" height="28">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    DomainLab
+  </div>
+</a>
+    </div>
+  
+  
+
+  
+  <ul class="md-nav__list">
+    <li class="md-nav__item">
+    
+      <span class="md-nav__link caption"><span class="caption-text">Contents:</span></span>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="modules.html" class="md-nav__link">domainlab</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docMatchDG.html" class="md-nav__link">MatchDG: Domain Generalization using Causal Matching</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docDIAL.html" class="md-nav__link">DIAL: Domain Invariant Adversarial Learning</a>
+      
+    
+    </li>
+  </ul>
+  
+
+</nav>
+              </div>
+            </div>
+          </div>
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#doc-benchmark-yaml--page-root" class="md-nav__link">Benchmark yaml files</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#general-setup-of-the-yaml-file" class="md-nav__link">General setup of the yaml file</a>
+        </li>
+        <li class="md-nav__item"><a href="#sampling-description" class="md-nav__link">Sampling description</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#uniform-and-loguniform-distribution" class="md-nav__link">uniform and loguniform distribution</a>
+        </li>
+        <li class="md-nav__item"><a href="#normal-and-lognormal-distribution" class="md-nav__link">normal and lognormal distribution</a>
+        </li>
+        <li class="md-nav__item"><a href="#cathegorical-hyperparameters" class="md-nav__link">cathegorical hyperparameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#referenced-hperparameters" class="md-nav__link">Referenced hperparameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#special-arguments-in-the-sampling-description" class="md-nav__link">Special Arguments in the Sampling description</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#combination-of-shared-and-task-specific-hyperparameter-samples" class="md-nav__link">Combination of Shared and Task Specific Hyperparameter Samples</a>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+        
+        <div class="md-content">
+          <article class="md-content__inner md-typeset" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="benchmark-yaml-files">
+<h1 id="doc-benchmark-yaml--page-root">Benchmark yaml files<a class="headerlink" href="#doc-benchmark-yaml--page-root" title="Permalink to this headline">¶</a></h1>
+<p>yaml files are a powerful tool to specify the details of a benchmark.
+The following examples on how a yaml file could look like will lead you through constructing your own yaml file for a benchmark.</p>
+<p>We will start with the general setting of the yaml file and then continue with the description of how to define the sampling/gridsearch for the hyperparameters.</p>
+<section id="general-setup-of-the-yaml-file">
+<h2 id="general-setup-of-the-yaml-file">General setup of the yaml file<a class="headerlink" href="#general-setup-of-the-yaml-file" title="Permalink to this headline">¶</a></h2>
+<p>One may start with a very general setup of the file, defining all fixed information like task description, test and training domains, used algorithms …</p>
+<p>At the top level, we need to decide whether the random sampling or grid search shall be used.</p>
+<p>For random samples we need to define the total number of hyperparameter samples in each sampling task (<code class="docutils literal notranslate"><span class="pre">num_param_samples</span></code>) and a sampling seed for the hyperparameters (<code class="docutils literal notranslate"><span class="pre">sampling_seed</span></code>).</p>
+<p>For grid search the mode needs to be switched to grid using <code class="docutils literal notranslate"><span class="pre">mode:</span> <span class="pre">grid</span></code>, the specification on how many samples sould be created in gridsearch will be done in the next section when setting up the parameter ranges and distributions.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># output_dir defines the output directory to be used to save the results</span>
+<span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zoutput/benchmarks/mnist_benchmark</span>
+
+<span class="c1"># test domains all algorithms are tested on</span>
+<span class="nt">test_domains</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+
+<span class="c1">##### For random sampling #####</span>
+<span class="c1"># for random sampling you can exactly specify the number of samples you like to use</span>
+<span class="c1"># per algorithm (4 algorithms with 8 hyperparameter samples each -&gt; 4 * 8 combinations)</span>
+<span class="nt">num_param_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="c1"># setting a seed for the random sampling</span>
+<span class="nt">sampling_seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+
+<span class="c1">##### For grid search #####</span>
+<span class="c1"># define the mode to be grid search</span>
+<span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grid</span>
+
+
+<span class="c1"># in each run the network is initialised randomly, therefore it might happen, that </span>
+<span class="c1"># the results are different, even though the same hyperparameters were used</span>
+<span class="c1"># to test for this it is possible to run the same hyperparameter setting multiple times</span>
+<span class="c1"># with different random seeds used to initialise the network. </span>
+<span class="c1"># "endseed - startseed + 1" experiments are run with the same hyperparameter sample</span>
+<span class="nt">startseed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">endseed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w">  </span><span class="c1"># currently included</span>
+
+
+<span class="c1">###################################################################################</span>
+<span class="c1"># Arguments in the section domainlab_args are passed to all tasks. </span>
+<span class="c1"># Task specific tasks take precedence.</span>
+<span class="nt">domainlab_args</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># task specification, this could also be a task path </span>
+<span class="w">    </span><span class="c1"># (i.e. for pacs dataset tpath: examples/tasks/task_pacs_path_list.py)</span>
+<span class="w">    </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mnistcolor10</span>
+
+<span class="w">    </span><span class="c1"># training domain for all algorithms</span>
+<span class="w">    </span><span class="nt">tr_d</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+
+<span class="w">    </span><span class="c1"># learning rate </span>
+<span class="w">    </span><span class="nt">lr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
+
+<span class="w">    </span><span class="c1"># maximal number of epochs for each run</span>
+<span class="w">    </span><span class="nt">epos</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+
+<span class="w">    </span><span class="c1"># number of iterations without process before early stopping is applied</span>
+<span class="w">    </span><span class="nt">es</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+
+<span class="w">    </span><span class="c1"># batch size</span>
+<span class="w">    </span><span class="nt">bs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+
+<span class="w">    </span><span class="c1"># specification of the network to be used, this could also be a network path</span>
+<span class="w">    </span><span class="c1"># (i.e. for resnet50, npath: examples/nets/resnet50domainbed.py)</span>
+<span class="w">    </span><span class="nt">nname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conv_bn_pool_2</span>
+
+<span class="w">    </span><span class="c1"># some of the algorithms do need multiple networks, </span>
+<span class="w">    </span><span class="c1"># all of which can also be paths to a network</span>
+<span class="w">    </span><span class="c1"># (i.e. npath_... : examples/nets/resnet50domainbed.py)</span>
+<span class="w">    </span><span class="nt">nname_topic_distrib_img2topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conv_bn_pool_2</span>
+<span class="w">    </span><span class="nt">nname_encoder_sandwich_layer_img2h4zd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conv_bn_pool_2</span>
+<span class="w">    </span><span class="nt">nname_dom</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conv_bn_pool_2</span>
+
+
+<span class="c1">###################################################################################</span>
+<span class="c1"># Hyperparameters which appear in multiple tasks can e shared among these tasks.</span>
+<span class="c1"># Hence for each task the same random sampled hyperparameters are used</span>
+<span class="nt">Shared params</span><span class="p">:</span>
+<span class="w">    </span><span class="c1">#### For random sampling #####</span>
+<span class="w">    </span><span class="c1"># number of shared samples to be created. </span>
+<span class="w">    </span><span class="c1"># The sampling procedure creates a set of randomly sampled shared samples,</span>
+<span class="w">    </span><span class="c1"># each algorithm which uses one of the shared samples will randomly pick its</span>
+<span class="w">    </span><span class="c1"># sample from this set.</span>
+<span class="w">    </span><span class="nt">num_shared_param_samples</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">    </span><span class="c1"># gridsearch will crash if num_shared_param_samples is set</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1"># shared hyperparameters:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;&lt;ADD SAMPLING DESCRIPTIONS HERE&gt;&gt;</span><span class="w">     </span>
+
+<span class="w">    </span><span class="c1"># ... you may like to add more shared samples here like:</span>
+<span class="w">    </span><span class="c1"># gamma_y, gamma_d, zy_dim, zd_dim</span>
+
+
+<span class="c1">###################################################################################</span>
+<span class="c1">################################## TASKS ##########################################</span>
+<span class="c1">###################################################################################</span>
+<span class="c1"># From here on we start defining the different tasks, starting each section with</span>
+<span class="c1"># a unique task name</span>
+
+<span class="nt">Task_Diva_Dial</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># set the method to be used, if aname is skipped the Task will not be executed</span>
+<span class="w">    </span><span class="nt">aname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">diva</span><span class="w">   </span>
+
+<span class="w">    </span><span class="c1"># select a trainer to be used, if trainer is skipped adam is used</span>
+<span class="w">    </span><span class="c1"># options: "dial" or "mldg"</span>
+<span class="w">    </span><span class="nt">trainer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dial</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1"># Here we can also set task specific hyperparameters </span>
+<span class="w">    </span><span class="c1"># which shall be fixed among all experiments.</span>
+<span class="w">    </span><span class="c1"># f not set, the default values will be used.</span>
+<span class="w">    </span><span class="nt">zd_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32</span>
+<span class="w">    </span><span class="nt">zx_dim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">64</span>
+<span class="w">    </span><span class="nt">gamma_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e5</span>
+
+<span class="w">    </span><span class="c1"># define which hyperparameters from the shared section shall be used.</span>
+<span class="w">    </span><span class="c1"># In this task gamma_reg, zx_dim, zy_dim, zd_dim are used.</span>
+<span class="w">    </span><span class="nt">shared</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gamma_reg</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zx_dim</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zy_dim</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zd_dim</span>
+
+<span class="w">    </span><span class="c1"># define task specific hyperparameter sampling</span>
+<span class="w">    </span><span class="nt">hyperparameters</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">&lt;&lt;ADD SAMPLING DESCRIPTIONS HERE&gt;&gt;</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># add constraints for your sampled hyperparameters,</span><span class="w"> </span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># by using theire name in a python expression.</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># You can use all hyperparameters defined in the hyperparameter section of</span><span class="w"> </span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># the current task and the shared hyperparameters specified in the shared</span><span class="w"> </span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># section of the current task</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">constraints</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'zx_dim</span><span class="nv"> </span><span class="s">&lt;=</span><span class="nv"> </span><span class="s">zy_dim'</span>
+
+
+<span class="c1"># add more tasks</span>
+<span class="nt">Task_Jigen</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="nt">Task_Dann</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+</section>
+<section id="sampling-description">
+<h2 id="sampling-description">Sampling description<a class="headerlink" href="#sampling-description" title="Permalink to this headline">¶</a></h2>
+<p>There are two possible ways of choosing your hyperparameters for the benchmark in domainlab, rand sampling and grid search. The decision about which method to use was already done in the previous section be either setting <code class="docutils literal notranslate"><span class="pre">num_param_samples</span></code> (for random sampling) or <code class="docutils literal notranslate"><span class="pre">mode:</span> <span class="pre">grid</span></code> (for gridsearch).</p>
+<p>For filling in the sampling description for the into the <code class="docutils literal notranslate"><span class="pre">Shared</span> <span class="pre">params</span></code> and the <code class="docutils literal notranslate"><span class="pre">hyperparameter</span></code> section you have the following options:</p>
+<section id="uniform-and-loguniform-distribution">
+<h3 id="uniform-and-loguniform-distribution">uniform and loguniform distribution<a class="headerlink" href="#uniform-and-loguniform-distribution" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>uniform samples in the interval [min, max]</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tau</span><span class="p">:</span><span class="w">                            </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span><span class="w">                   </span>
+<span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uniform</span><span class="w">       </span><span class="c1"># name of the distribution</span>
+<span class="w">    </span><span class="c1">##### for grid search #####</span>
+<span class="w">    </span><span class="nt">num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">                      </span><span class="c1"># number of grid points created for this hyperparameter</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>loguniform samples in the interval [min, max]. This is usefull if the interval spans over multiple magnitudes.</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">gamma_y</span><span class="p">:</span><span class="w">                        </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e4</span>
+<span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e6</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w">    </span><span class="c1"># name of the distribution</span>
+<span class="w">    </span><span class="c1">##### for grid search #####</span>
+<span class="w">    </span><span class="nt">num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">                      </span><span class="c1"># number of grid points created for this hyperparameter</span>
+</pre></div>
+</div>
+</section>
+<section id="normal-and-lognormal-distribution">
+<h3 id="normal-and-lognormal-distribution">normal and lognormal distribution<a class="headerlink" href="#normal-and-lognormal-distribution" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>normal samples with mean and standard deviation</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pperm</span><span class="p">:</span><span class="w">                          </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">mean</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">                   </span>
+<span class="w">    </span><span class="nt">std</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">normal</span><span class="w">        </span><span class="c1"># name of the distribution</span>
+<span class="w">    </span><span class="c1">##### for grid search #####</span>
+<span class="w">    </span><span class="nt">num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">                      </span><span class="c1"># number of grid points created for this hyperparameter</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>lognormal samples with mean and standard deviation. This is usefull if the interval spans over multiple magnitudes.</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">gamma_y</span><span class="p">:</span><span class="w">                        </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">mean</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1e5</span>
+<span class="w">    </span><span class="nt">std</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2e4</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">loguniform</span><span class="w">    </span><span class="c1"># name of the distribution</span>
+<span class="w">    </span><span class="c1">##### for grid search #####</span>
+<span class="w">    </span><span class="nt">num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">                      </span><span class="c1"># number of grid points created for this hyperparameter</span>
+</pre></div>
+</div>
+</section>
+<section id="cathegorical-hyperparameters">
+<h3 id="cathegorical-hyperparameters">cathegorical hyperparameters<a class="headerlink" href="#cathegorical-hyperparameters" title="Permalink to this headline">¶</a></h3>
+<p>choose the values of the hyperparameter from a predefined list. If one uses grid search, then all values from the list are used as grid points</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nperm</span><span class="p">:</span><span class="w">                          </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">categorical</span><span class="w">   </span><span class="c1"># name of the distribution</span>
+<span class="w">    </span><span class="nt">datatype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span><span class="w">  </span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span><span class="w">                     </span><span class="c1"># concrete values to choose from</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">31</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</pre></div>
+</div>
+</section>
+<section id="referenced-hperparameters">
+<h3 id="referenced-hperparameters">Referenced hperparameters<a class="headerlink" href="#referenced-hperparameters" title="Permalink to this headline">¶</a></h3>
+<p>If one hyperparameter does directly depend on another hyperparameter you can add a reference to the other parameter. For gridsearch num will be taken from the reference, therefore it cannot be specified here.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">zy_dim</span><span class="p">:</span><span class="w">                         </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">reference</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2 * zx_dim</span><span class="w">       </span><span class="c1"># formular to be evaluated in python</span>
+</pre></div>
+</div>
+</section>
+<section id="special-arguments-in-the-sampling-description">
+<h3 id="special-arguments-in-the-sampling-description">Special Arguments in the Sampling description<a class="headerlink" href="#special-arguments-in-the-sampling-description" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p><strong>datatype:</strong> specify the datatype of the samples, if <code class="docutils literal notranslate"><span class="pre">int</span></code>, the values are rounded to the next integer. This works will all distributions mentioned above.</p>
+<ul class="simple">
+<li><p>datatypes can be set to be <code class="docutils literal notranslate"><span class="pre">int</span></code>, othervise they will be <code class="docutils literal notranslate"><span class="pre">float</span></code></p></li>
+</ul>
+</li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">zx_dim</span><span class="p">:</span><span class="w">                         </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">96</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uniform</span>
+<span class="w">    </span><span class="nt">datatype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span><span class="w">               </span><span class="c1"># dimesions must be integer values</span>
+<span class="w">    </span><span class="c1">##### for grid search #####</span>
+<span class="w">    </span><span class="nt">num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">                      </span><span class="c1"># number of grid points created for this hyperparameter</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>step:</strong> if thep is specified the values are only chosen from a grid with grid size <code class="docutils literal notranslate"><span class="pre">step</span></code>. for random sampling the algorithm will randomly sample from this grid. For gridsearch the algorithm will create a subgrid of the grid with grid size <code class="docutils literal notranslate"><span class="pre">step</span></code>.</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">zx_dim</span><span class="p">:</span><span class="w">                         </span><span class="c1"># name of the hyperparameter</span>
+<span class="w">    </span><span class="nt">min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">96</span>
+<span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uniform</span>
+<span class="w">    </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w">                    </span><span class="c1"># only choose from values {0, 16, 32, 84, 64, 80, 96}</span>
+<span class="w">    </span><span class="nt">datatype</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">int</span><span class="w">               </span><span class="c1"># dimesions must be integer values</span>
+<span class="w">    </span><span class="c1">##### for grid search #####</span>
+<span class="w">    </span><span class="nt">num</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">                      </span><span class="c1"># number of grid points created for this hyperparameter</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="combination-of-shared-and-task-specific-hyperparameter-samples">
+<h2 id="combination-of-shared-and-task-specific-hyperparameter-samples">Combination of Shared and Task Specific Hyperparameter Samples<a class="headerlink" href="#combination-of-shared-and-task-specific-hyperparameter-samples" title="Permalink to this headline">¶</a></h2>
+<p>it is possible to have all sorts of combinations:</p>
+<ol class="arabic simple">
+<li><p>a task which includes shared and task specific sampled hyperparameters</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Task_Name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">aname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w">   </span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="w">    </span><span class="c1"># specify sections from the Shared params section </span>
+<span class="w">    </span><span class="nt">shared</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># specify task specific hyperparameter sampling</span>
+<span class="w">    </span><span class="nt">hyperparameters</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># add the constraints to the hperparameters section</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">constraints</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'...'</span><span class="w">     </span><span class="c1"># constraints using params from the hyperparameters and the shared section</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Only task specific sampled hyperparameters</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Task_Name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">aname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w">   </span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="w">    </span><span class="c1"># specify task specific hyperparameter sampling</span>
+<span class="w">    </span><span class="nt">hyperparameters</span><span class="p">:</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># add the constraints to the hperparameters section</span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">constraints</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'...'</span><span class="w">     </span><span class="c1"># constraints using only hyperparameters from the hyperparameters section</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Only shared sampled hyperparamters</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Task_Name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">aname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w">   </span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+
+<span class="w">    </span><span class="c1"># specify sections from the Shared params section </span>
+<span class="w">    </span><span class="nt">shared</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="c1"># add the constraints as a standalone section to the task</span>
+<span class="w">    </span><span class="nt">constraints</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'...'</span><span class="w">         </span><span class="c1"># constraints using only hyperparameters from the shared section</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>No hyperparameter sampling. All Hyperparameters are either fixed to a user defined value or to the default value. No hyperparameter samples indicates no constraints.</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Task_Name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">aname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w">   </span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer class="md-footer">
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+          
+          
+        </a>
+        
+      </nav>
+    </div>
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+          <div class="md-footer-copyright__highlight">
+              &#169; Copyright 2021-2023, Marr Lab..
+              
+          </div>
+            Created using
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+             and
+            <a href="https://github.com/bashtage/sphinx-material/">Material for
+              Sphinx</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="_static/javascripts/application.js"></script>
+  <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+  </body>
+</html>

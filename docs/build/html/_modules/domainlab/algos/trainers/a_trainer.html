@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -299,6 +298,7 @@ import abc
 from torch import optim
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
+
 <div class="viewcode-block" id="mk_opt"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.mk_opt">[docs]</a>def mk_opt(model, aconf):
     """
     create optimizer
@@ -335,6 +335,9 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         self.flag_update_hyper_per_epoch = None
         self.flag_update_hyper_per_batch = None
         self.epo_loss_tr = None
+        self.epo_reg_loss_tr = None
+        self.epo_task_loss_tr = None
+        self.counter_batch = None
         self.hyper_scheduler = None
         self.optimizer = None
         self.exp = None
@@ -346,6 +349,12 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         self.loader_tr_source_target = None
         self.flag_initialized = False
 
+    @property
+    def str_metric4msel(self):
+        """
+        metric for model selection
+        """
+        return self.model.metric4msel
 
 <div class="viewcode-block" id="AbstractTrainer.init_business"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.init_business">[docs]</a>    def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """
@@ -380,6 +389,13 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         :param epoch:
         """
         raise NotImplementedError</div>
+
+<div class="viewcode-block" id="AbstractTrainer.before_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_batch">[docs]</a>    def before_batch(self, epoch, ind_batch):
+        """
+        :param epoch:
+        :param ind_batch:
+        """
+        return</div>
 
 <div class="viewcode-block" id="AbstractTrainer.after_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.after_batch">[docs]</a>    def after_batch(self, epoch, ind_batch):
         """
@@ -444,7 +460,7 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

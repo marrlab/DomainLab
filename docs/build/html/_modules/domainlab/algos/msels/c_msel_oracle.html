@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -304,7 +303,7 @@ from domainlab.utils.logger import Logger
     save best out-of-domain test acc model, but do not affect
     how the final model is selected
     """
-    def __init__(self, msel):
+    def __init__(self, msel=None):
         """
         Decorator pattern
         """
@@ -312,18 +311,37 @@ from domainlab.utils.logger import Logger
         self.best_oracle_acc = 0
         self.msel = msel
 
-<div class="viewcode-block" id="MSelOracleVisitor.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.update">[docs]</a>    def update(self):
+    @property
+    def oracle_last_setpoint_sel_te_acc(self):
+        """
+        last setpoint acc
+        """
+        if self.msel is not None and \
+                hasattr(self.msel, "oracle_last_setpoint_sel_te_acc"):
+            return self.msel.oracle_last_setpoint_sel_te_acc
+        return -1
+
+<div class="viewcode-block" id="MSelOracleVisitor.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.update">[docs]</a>    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
         self.tr_obs.exp.visitor.save(self.trainer.model, "epoch")
-        if self.tr_obs.metric_te["acc"] &gt; self.best_oracle_acc:
-            self.best_oracle_acc = self.tr_obs.metric_te["acc"]
-            # FIXME: only works for classification
-            self.tr_obs.exp.visitor.save(self.trainer.model, "oracle")
+        flag = False
+        if self.tr_obs.metric_val is None:
+            return super().update(clear_counter)
+        metric = self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
+        if metric &gt; self.best_oracle_acc:
+            self.best_oracle_acc = metric
+            if self.msel is not None:
+                self.tr_obs.exp.visitor.save(self.trainer.model, "oracle")
+            else:
+                self.tr_obs.exp.visitor.save(self.trainer.model)
             logger = Logger.get_logger()
-            logger.info("oracle model saved")
-        return self.msel.update()</div>
+            logger.info("new oracle model saved")
+            flag = True
+        if self.msel is not None:
+            return self.msel.update(clear_counter)
+        return flag</div>
 
 <div class="viewcode-block" id="MSelOracleVisitor.if_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.if_stop">[docs]</a>    def if_stop(self):
         """
@@ -331,10 +349,13 @@ from domainlab.utils.logger import Logger
         oracle model selection does not intervene how models get selected
         by the innermost model selection
         """
-        return self.msel.if_stop()</div>
+        if self.msel is not None:
+            return self.msel.if_stop()
+        return False</div>
 
 <div class="viewcode-block" id="MSelOracleVisitor.accept"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.accept">[docs]</a>    def accept(self, trainer, tr_obs):
-        self.msel.accept(trainer, tr_obs)
+        if self.msel is not None:
+            self.msel.accept(trainer, tr_obs)
         super().accept(trainer, tr_obs)</div></div>
 </pre></div>
 
@@ -360,7 +381,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,6 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -292,18 +291,14 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-tasks-zoo-tasks--page-root">Source code for domainlab.tasks.zoo_tasks</h1><div class="highlight"><pre>
-<span></span>import os
-
-from torchvision import transforms
-
+<span></span>"""
+all available tasks for domainlab
+"""
 from domainlab.compos.pcr.request import RequestTask
-from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
-from domainlab.tasks.utils_task import ImSize
 from domainlab.utils.u_import import import_path
 from domainlab.utils.logger import Logger
-
-path_this_file = os.path.dirname(os.path.realpath(__file__))
+from domainlab.tasks.task_mini_vlcs import addtask2chain
 
 
 <div class="viewcode-block" id="TaskChainNodeGetter"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.zoo_tasks.TaskChainNodeGetter">[docs]</a>class TaskChainNodeGetter(object):
@@ -325,44 +320,7 @@ path_this_file = os.path.dirname(os.path.realpath(__file__))
         2. hard code seems to be the best solution
         """
         chain = NodeTaskMNISTColor10(None)
-
-        chain = mk_task_folder(extensions={"caltech": "jpg", "sun": "jpg", "labelme": "jpg"},
-                               list_str_y=["chair", "car"],
-                               dict_domain_folder_name2class={
-                                   "caltech": {"auto": "car",
-                                               "stuhl": "chair"},
-                                   "sun": {"vehicle": "car",
-                                           "sofa": "chair"},
-                                   "labelme": {"drive": "car",
-                                               "sit": "chair"}
-                               },
-                               dict_domain_img_trans={
-                                   "caltech": transforms.Compose(
-                                       [transforms.Resize((224, 224)),
-                                        transforms.ToTensor()]),
-                                   "sun": transforms.Compose(
-                                       [transforms.Resize((224, 224)),
-                                        transforms.ToTensor()]),
-                                   "labelme": transforms.Compose(
-                                       [transforms.Resize((224, 224)),
-                                        transforms.ToTensor()]),
-                               },
-                               img_trans_te=transforms.Compose(
-                                   [transforms.Resize((224, 224)),
-                                    transforms.ToTensor()]),
-                               isize=ImSize(3, 224, 224),
-                               dict_domain2imgroot={
-                                   "caltech": os.path.join(
-                                       path_this_file,
-                                       "../../data/vlcs_mini/caltech/"),
-                                   "sun": os.path.join(
-                                       path_this_file,
-                                       "../../data/vlcs_mini/sun/"),
-                                   "labelme": os.path.join(
-                                       path_this_file,
-                                       "../../data/vlcs_mini/labelme/")},
-                               taskna="mini_vlcs",
-                               succ=chain)
+        chain = addtask2chain(chain)
 
         if self.tpath is not None:
             node = self.task_module.get_task(self.args.task)
@@ -401,7 +359,7 @@ path_this_file = os.path.dirname(os.path.realpath(__file__))
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

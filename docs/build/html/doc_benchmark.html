@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,11 +55,8 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   
@@ -287,24 +284,26 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-benchmark--page-root" class="md-nav__link">Benchmarking with DomainLab</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#setting-up-a-benchmark" class="md-nav__link">Setting up a benchmark</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#hyperparameter-sampling" class="md-nav__link">Hyperparameter sampling</a>
-        </li>
-        <li class="md-nav__item"><a href="#constraints" class="md-nav__link">Constraints</a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#setting-up-a-benchmark" class="md-nav__link">Setting up a benchmark</a>
         </li>
         <li class="md-nav__item"><a href="#running-a-benchmark" class="md-nav__link">Running a benchmark</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#benchmark-on-a-standalone-machine-with-or-without-gpu" class="md-nav__link">Benchmark on a standalone machine (with or without GPU)</a>
         </li>
-        <li class="md-nav__item"><a href="#benchmark-on-a-hpc-cluster-with-slurm" class="md-nav__link">Benchmark on a HPC cluster with slurm</a>
+        <li class="md-nav__item"><a href="#benchmark-on-a-hpc-cluster-with-slurm" class="md-nav__link">Benchmark on a HPC cluster with slurm</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#check-errors-for-slurm-runs" class="md-nav__link">Check errors for slurm runs</a>
+        </li>
+        <li class="md-nav__item"><a href="#map-between-slurm-job-id-and-sampled-hyperparameter-index" class="md-nav__link">Map between slurm job id and sampled hyperparameter index</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
         <li class="md-nav__item"><a href="#obtained-results" class="md-nav__link">Obtained results</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#output-folder-structure" class="md-nav__link">Output folder structure</a>
+        </li>
         <li class="md-nav__item"><a href="#obtain-partial-results" class="md-nav__link">Obtain partial results</a>
         </li>
         <li class="md-nav__item"><a href="#generate-plots-from-csv-file" class="md-nav__link">Generate plots from .csv file</a>
@@ -323,7 +322,8 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="benchmarking-with-domainlab">
-<h1 id="doc-benchmark--page-root">Benchmarking with DomainLab<a class="headerlink" href="#doc-benchmark--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-benchmark--page-root">Benchmarking with DomainLab<a class="headerlink" href="#doc-benchmark--page-root" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md">Documentation for Benchmark in Markdown</a></p>
 <p>The package offers the ability to benchmark different user-defined experiments against each other,
 as well as against different hyperparameter settings and random seeds.
 The results are collected in a csv file, but also prepared in charts.</p>
@@ -334,170 +334,122 @@ The results are collected in a csv file, but also prepared in charts.</p>
 the performance with respect to different hyperparameter choices is investigated.</p></li>
 </ol>
 <section id="setting-up-a-benchmark">
-<h2 id="setting-up-a-benchmark">Setting up a benchmark<a class="headerlink" href="#setting-up-a-benchmark" title="Permalink to this heading">¶</a></h2>
-<p>The benchmark is configured in a yaml file. We refer to <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/benchmark/demo_benchmark.yaml">demo_benchmark.yaml</a> for a documented
-example. The user can create different custom experiments, which are to be benchmarked. Each
-experiment can have a custom name.</p>
-<p>An experiment can specify following arguments:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">aname</span></code>: name of the model. An experiment with an incorrect <code class="docutils literal notranslate"><span class="pre">aname</span></code> is not considered in the
-benchmark (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hyperparameters</span></code>: model-specific hyperparameters (for more details on the hyperparameters we
-refer to the model-specific documentation). The hyperparameters can be randomly sampled, see
-next section (optional)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: a list of parameters, which the respective experiment shares with another experiment
-(optional)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">constraints</span></code>: a list of constraints for the hyperparameters, see section below (optional)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">trainer</span></code>: trainer to be used (optional, e.g. “dial” or “mldg”)</p></li>
-<li><p>model-specific arguments (for more details we refer to the model-specific documentation)</p></li>
-</ul>
-<p>Furthermore, the user can declare:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">domainlab_args</span></code>: common arguments for all benchmarking experiments, including:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">tpath</span></code>/<code class="docutils literal notranslate"><span class="pre">task</span></code>: path to/name of the task which should be addressed (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">epos</span></code>: number of epochs (int, mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">bs</span></code>: batch size for training (int, mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lr</span></code>: learning rate (float, mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">es</span></code>: early stop steps (int, optional)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">npath</span></code>/<code class="docutils literal notranslate"><span class="pre">nname</span></code>: path to/name of the neural network, which should be used for feature extraction
-(mandatory, can also be specified within each experiment)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dmem</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> (optional)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">san_check</span></code>: <code class="docutils literal notranslate"><span class="pre">True</span></code>or <code class="docutils literal notranslate"><span class="pre">False</span></code> (optional)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">te_d</span></code>: list of test domains (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tr_d</span></code>: list of training domains (mandatory)</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">output_dir</span></code>: path to the custom output directory (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">startseed</span></code>: creates reproducible results (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">endseed</span></code>: creates reproducible results (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: set to <code class="docutils literal notranslate"><span class="pre">grid</span></code> to apply grid search for hyperparameter sampling (optional, for details see next section)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Shared</span> <span class="pre">params</span></code>: a list including <code class="docutils literal notranslate"><span class="pre">num_shared_param_samples</span></code> (number of samples for the shared
-hyperparameters) and the shared hyperparameters with respective sampling distribution (optional)</p></li>
-</ul>
-<p>Depending on which hyperparameter sampling technique is used (see section below), the user must also
-respect/declare the following:</p>
-<ul class="simple">
-<li><p>random hyperparameter sampling:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">sampling_seed</span></code> (int) must be defined outside the experiments</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">num_param_samples</span></code>: number of hyperparameters to be sampled (int, mandatory), must be defined outside the experiments</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">distribution</span></code>: specifies the distribution used for sampling, must be specified for each
-hyperparameter, for available distributions see section below (mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">step</span></code>: “step-size” (float) between samples. Only points being a multiple of the step-size apart
-can be sampled. <code class="docutils literal notranslate"><span class="pre">0</span></code> means that each real number can be sampled.</p></li>
-</ul>
-</li>
-<li><p>grid search hyperparameter sampling (<code class="docutils literal notranslate"><span class="pre">mode</span></code>:<code class="docutils literal notranslate"><span class="pre">grid</span></code>):</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">num</span></code>: number of hyperparameters to be sampled (int) must be specified for each hyperparameter
-(mandatory)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">distribution</span></code>: specifies the distribution used for sampling, must be specified for each
-hyperparameter (for available distributions see section below)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">step</span></code>: “step-size” (float) of the grid points. Only points lying on the grid
-can be sampled. <code class="docutils literal notranslate"><span class="pre">0</span></code> means that each real number represents a grid point and thus, can be sampled.</p></li>
-</ul>
-</li>
-</ul>
-<section id="hyperparameter-sampling">
-<h3 id="hyperparameter-sampling">Hyperparameter sampling<a class="headerlink" href="#hyperparameter-sampling" title="Permalink to this heading">¶</a></h3>
-<p>The benchmark offers the option to randomly sample hyperparameters from different distributions.
-An example can be found in <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml">demo_hyperparameter_sampling.yml</a>. We offer two sampling
-techniques, random hyperparameter sampling and grid search. The default sampling mode is random
-hyperparameter sampling. If grid search should be applied, the user must specify <code class="docutils literal notranslate"><span class="pre">mode</span></code>:<code class="docutils literal notranslate"><span class="pre">grid</span></code>.</p>
-<p>Each sampling technique offers the following distributions:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">categorical</span></code> distribution. For each parameter the user can specify:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: a list of valid values</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">datatype</span></code>: the datatype of the list values</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">uniform</span></code> and <code class="docutils literal notranslate"><span class="pre">loguniform</span></code> distribution. The user must define the following for each
-hyperparameter (mandatory):</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>: mean of normal distribution (float)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">std</span></code>: standard deviation of normal distribution (float <span class="math notranslate nohighlight">\(\geq 0\)</span>)</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">normal</span></code> and <code class="docutils literal notranslate"><span class="pre">lognormal</span></code>distribution. The user must define the following for each hyperparameter
-(mandatory):</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">min</span></code>: lower bound for samples (int)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">max</span></code>: upper bound for samples (int)</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="constraints">
-<h3 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Permalink to this heading">¶</a></h3>
-<p>The user can specify a list of constraints for the hyperparameters. Please note the following:</p>
-<ul class="simple">
-<li><p>We currently use rejection sampling, to prevent the case of contradictory constraints,
-amongst others. In concrete, the sampling aborts with an error if 10.000 samples are rejected in a
-row.</p></li>
-<li><p>Equality constraints are not supported in the constraints section. To enforce equality of two or
-more hyperparameters use the <code class="docutils literal notranslate"><span class="pre">reference</span></code> key, see <code class="docutils literal notranslate"><span class="pre">p4</span></code> of <code class="docutils literal notranslate"><span class="pre">Task1</span></code> in
-<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml">demo_hypeparameter_sampling.yml</a>. References are only supported to reference sampled hyperparameters, e.g.
-referencing a reference results in undefined behaviour.</p></li>
-</ul>
-</section>
+<h2 id="setting-up-a-benchmark">Setting up a benchmark<a class="headerlink" href="#setting-up-a-benchmark" title="Permalink to this headline">¶</a></h2>
+<p>The benchmark is configured in a yaml file. We refer to <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark_yaml.md">doc_benchmark_yaml.md</a> for a documented
+example.</p>
 </section>
 <section id="running-a-benchmark">
-<h2 id="running-a-benchmark">Running a benchmark<a class="headerlink" href="#running-a-benchmark" title="Permalink to this heading">¶</a></h2>
+<h2 id="running-a-benchmark">Running a benchmark<a class="headerlink" href="#running-a-benchmark" title="Permalink to this headline">¶</a></h2>
 <p>For the execution of a benchmark we provide two scripts in our repository:</p>
 <ul class="simple">
 <li><p>local version for running the benchmark on a standalone machine:
-<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_local_conf_seed2_gpus.sh">run_benchmark_local_conf_seed2_gpus.sh</a></p></li>
+<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_standalone.sh">run_benchmark_standalone.sh</a></p></li>
 <li><p>cluster version for running the benchmark on a slurm cluster: <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm.sh">run_benchmark_slurm.sh</a></p></li>
 </ul>
 <section id="benchmark-on-a-standalone-machine-with-or-without-gpu">
-<h3 id="benchmark-on-a-standalone-machine-with-or-without-gpu">Benchmark on a standalone machine (with or without GPU)<a class="headerlink" href="#benchmark-on-a-standalone-machine-with-or-without-gpu" title="Permalink to this heading">¶</a></h3>
+<h3 id="benchmark-on-a-standalone-machine-with-or-without-gpu">Benchmark on a standalone machine (with or without GPU)<a class="headerlink" href="#benchmark-on-a-standalone-machine-with-or-without-gpu" title="Permalink to this headline">¶</a></h3>
 <p>To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab
 folder, one can execute (we assume you have a machine with 4 cores or more)</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: this has only been tested on Linux based systems and may not work on Windows</span>
-./run_benchmark_local_conf_seed2_gpus.sh<span class="w"> </span>./examples/benchmark/demo_benchmark.yaml<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">2</span>
+./run_benchmark_standalone.sh<span class="w"> </span>./examples/benchmark/demo_benchmark.yaml<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="m">0</span><span class="w">  </span><span class="m">2</span>
 </pre></div>
 </div>
 <p>where the first argument is the benchmark configuration file (mandatory), the second and the third
 arguments are the starting seeds for cuda and the hyperparameter sampling (both optional) and the
 fourth argument is the number of GPUs to use (optional). The number of GPUs defaults to one
 (if your machine does not have GPU, the last argument defaults to one as well and CPU is used).</p>
+<p>In case of snakemake error, try
+<code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span> <span class="pre">.snakemake/</span></code></p>
 </section>
 <section id="benchmark-on-a-hpc-cluster-with-slurm">
-<h3 id="benchmark-on-a-hpc-cluster-with-slurm">Benchmark on a HPC cluster with slurm<a class="headerlink" href="#benchmark-on-a-hpc-cluster-with-slurm" title="Permalink to this heading">¶</a></h3>
+<h3 id="benchmark-on-a-hpc-cluster-with-slurm">Benchmark on a HPC cluster with slurm<a class="headerlink" href="#benchmark-on-a-hpc-cluster-with-slurm" title="Permalink to this headline">¶</a></h3>
 <p>If you have access to an HPC cluster with slurm support: In a submission node, clone the DomainLab
 repository, cd into the repository and execute the following command:</p>
+<p><strong>Make sure to use tool like nohup or tmux to keep the following command active!</strong></p>
+<p>It is a good idea to use standalone script to test if the yaml file work or not before submit to slurm cluster.</p>
 <div class="highlight-cluster notranslate"><div class="highlight"><pre><span></span># Note: this has only been tested on Linux based systems and may not work on Windows
 ./run_benchmark_slurm.sh ./examples/benchmark/demo_benchmark.yaml
 </pre></div>
 </div>
 <p>Similar to the local version explained above, the user can also specify a random seed for
 hyperparameter sampling and pytorch.</p>
+<section id="check-errors-for-slurm-runs">
+<h4 id="check-errors-for-slurm-runs">Check errors for slurm runs<a class="headerlink" href="#check-errors-for-slurm-runs" title="Permalink to this headline">¶</a></h4>
+<p>The following script will help to find out which job has failed and the error message, so that you could direct to the
+specific log file</p>
+<div class="highlight-cluster notranslate"><div class="highlight"><pre><span></span>bash ./sh_list_error.sh ./zoutput/slurm_logs
+</pre></div>
+</div>
+</section>
+<section id="map-between-slurm-job-id-and-sampled-hyperparameter-index">
+<h4 id="map-between-slurm-job-id-and-sampled-hyperparameter-index">Map between slurm job id and sampled hyperparameter index<a class="headerlink" href="#map-between-slurm-job-id-and-sampled-hyperparameter-index" title="Permalink to this headline">¶</a></h4>
+<p>suppose the slurm job id is 14144163, one could the corresponding log file in <code class="docutils literal notranslate"><span class="pre">./zoutput/slurm_logs</span></code> folder via
+<code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">.</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">"14144163"</span></code></p>
+<p>the results can be
+<code class="docutils literal notranslate"><span class="pre">run_experiment-index=41-14144163.err</span></code>
+where <code class="docutils literal notranslate"><span class="pre">41</span></code> is the hyperparameter index in <code class="docutils literal notranslate"><span class="pre">zoutput/benchmarks/[name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">benchmark]/hyperparameters.csv</span></code>.</p>
+</section>
 </section>
 </section>
 <section id="obtained-results">
-<h2 id="obtained-results">Obtained results<a class="headerlink" href="#obtained-results" title="Permalink to this heading">¶</a></h2>
+<h2 id="obtained-results">Obtained results<a class="headerlink" href="#obtained-results" title="Permalink to this headline">¶</a></h2>
 <p>All files created by this benchmark are saved in the given output directory
-(by default <code class="docutils literal notranslate"><span class="pre">./zoutput/benchmarks</span></code>). The sampled hyperparameters can be found in
-<code class="docutils literal notranslate"><span class="pre">hyperparameters.csv</span></code>. The performance of the different runs can be found aggregated in <code class="docutils literal notranslate"><span class="pre">results.csv</span></code>.
-Moreover, there is the <code class="docutils literal notranslate"><span class="pre">graphics</span></code> subdirectory, in which the values from <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> are
-visualized for interpretation.
-In case that the benchmark is not entirely completed, the user can obtain partial results as
+(by default <code class="docutils literal notranslate"><span class="pre">./zoutput/benchmarks/[name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">benchmark</span> <span class="pre">defined</span> <span class="pre">in</span> <span class="pre">YAML</span> <span class="pre">file]</span></code>). The sampled hyperparameters can be found in
+<code class="docutils literal notranslate"><span class="pre">hyperparameters.csv</span></code>. The yaml file is translated to <code class="docutils literal notranslate"><span class="pre">config.txt</span></code> with corresponding to commit in formation in <code class="docutils literal notranslate"><span class="pre">commit.txt</span></code> (<strong>do not update code during benchmark process so results can be reproducible with this commit information</strong>), corresponding to each line in <code class="docutils literal notranslate"><span class="pre">hyperparameters.csv</span></code>, there will
+be a csv file in directory <code class="docutils literal notranslate"><span class="pre">rule_results</span></code>.</p>
+<section id="output-folder-structure">
+<h3 id="output-folder-structure">Output folder structure<a class="headerlink" href="#output-folder-structure" title="Permalink to this headline">¶</a></h3>
+<p>via <code class="docutils literal notranslate"><span class="pre">tree</span> <span class="pre">-L</span> <span class="pre">2</span></code> in <code class="docutils literal notranslate"><span class="pre">zoutput/benchmarks/[name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">benchmark</span> <span class="pre">defined</span> <span class="pre">in</span> <span class="pre">configuration</span> <span class="pre">yaml</span> <span class="pre">file]</span></code>, one can get something like below</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── commit.txt
+├── config.txt
+├── graphics
+│   ├── diva_fbopt_full
+│   ├── radar_dist.png
+│   ├── radar.png
+│   ├── scatterpl
+│   ├── sp_matrix_dist.png
+│   ├── sp_matrix_dist_reg.png
+│   ├── sp_matrix.png
+│   ├── sp_matrix_reg.png
+│   └── variational_plots
+├── hyperparameters.csv
+├── results.csv
+└── rule_results
+    ├── 0.csv
+    ├── 1.csv
+    ├── 2.csv
+    ├── 3.csv
+    ├── 4.csv
+    ├── 5.csv
+    ├── 6.csv
+    └── 7.csv
+</pre></div>
+</div>
+<p>where commit.txt contains commit information for reproducibility, config.txt is a json format of the configuration yaml file for reproducibility, graphics folder contains the visualization of benchmark results in various plots, specificly, we use <code class="docutils literal notranslate"><span class="pre">graphics/variational_plot/acc/stochastic_variation.png</span></code>, hyperparameters.csv contains all hyperparameters used for each method, results.csv is an aggregation of the csv files in <code class="docutils literal notranslate"><span class="pre">rule_results</span></code>, where the i.csv correspond to the parameter index in hyperparameters.csv</p>
+<p><strong>Please do not change anything in folder <code class="docutils literal notranslate"><span class="pre">rule_results</span></code> !</strong></p>
+<p>The performance of the different runs from directory <code class="docutils literal notranslate"><span class="pre">rule_results</span></code> will be aggregated after all jobs have been done, which can be found aggregated in <code class="docutils literal notranslate"><span class="pre">results.csv</span></code>, Moreover, there is the <code class="docutils literal notranslate"><span class="pre">graphics</span></code> subdirectory, in which the values from <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> are
+visualized for interpretation.</p>
+<p>In case that the benchmark is not entirely completed, the user can obtain partial results as
 explained below.</p>
+</section>
 <section id="obtain-partial-results">
-<h3 id="obtain-partial-results">Obtain partial results<a class="headerlink" href="#obtain-partial-results" title="Permalink to this heading">¶</a></h3>
-<p>If the benchmark is not completed, the <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> file containing the aggregated results might not be created.
-The user can then obtain the aggregated partial results from the partially completed benchmark by running
+<h3 id="obtain-partial-results">Obtain partial results<a class="headerlink" href="#obtain-partial-results" title="Permalink to this headline">¶</a></h3>
+<p>If the benchmark is not yet completed (still running or has some failed jobs), the <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> file containing the aggregated results will not be created.
+The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:</p>
 <div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>python main_out.py --agg_partial_bm OUTPUT_DIR
 </pre></div>
 </div>
 <p>specifying the benchmark output directory containing the partially completed benchmark,
-e.g. <code class="docutils literal notranslate"><span class="pre">./zoutput/benchmarks/demo_benchmark</span></code>.</p>
+e.g. <code class="docutils literal notranslate"><span class="pre">./zoutput/benchmarks/demo_benchmark</span></code>, where <code class="docutils literal notranslate"><span class="pre">demo_benchmark</span></code> is a name defined in the yaml file.</p>
+<p>Alternatively, one could use</p>
+<div class="highlight-examples notranslate"><div class="highlight"><pre><span></span>cat ./zoutput/benchmarks/[name of the benchmark]/rule_results/*.csv &gt; result.csv
+</pre></div>
+</div>
+<p>clean up the extra csv head generated and plot the csv using command below</p>
 </section>
 <section id="generate-plots-from-csv-file">
-<h3 id="generate-plots-from-csv-file">Generate plots from .csv file<a class="headerlink" href="#generate-plots-from-csv-file" title="Permalink to this heading">¶</a></h3>
+<h3 id="generate-plots-from-csv-file">Generate plots from .csv file<a class="headerlink" href="#generate-plots-from-csv-file" title="Permalink to this headline">¶</a></h3>
 <p>If the benchmark is not completed, the <code class="docutils literal notranslate"><span class="pre">graphics</span></code> subdirectory might not be created. The user can then manually
 create the graphics from the csv file of the aggregated partial results, which can be obtained as explained above.
 Here for, the user must cd into the DomainLab directory and run</p>
@@ -582,7 +534,7 @@ Note that the cvs file must have the same form as the one generated by the fully
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
