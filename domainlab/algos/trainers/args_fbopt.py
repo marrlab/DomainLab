@@ -41,6 +41,10 @@ def add_args2parser_fbopt(parser):
                         help='before training start, evaluate reg loss, \
                         setpoint will be 0.9 of this loss')
 
+    parser.add_argument('--force_feedforward', action='store_true',
+                        default=False,
+                        help='use feedforward scheduler')
+
     parser.add_argument('--force_setpoint_change_once', action='store_true',
                         default=False,
                         help='train until the setpoint changed at least once \

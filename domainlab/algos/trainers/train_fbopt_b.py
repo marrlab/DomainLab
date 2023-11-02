@@ -5,6 +5,7 @@ from operator import add
 import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt_mu_controller import HyperSchedulerFeedback
+from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmup
 
 
 def list_divide(list_val, scalar):
@@ -82,7 +83,10 @@ class TrainerFbOpt(TrainerBasic):
 
     def before_tr(self):
         self.flag_setpoint_updated = False
-        self.set_scheduler(scheduler=HyperSchedulerFeedback)
+        if self.aconf.force_feedforward:
+            self.set_scheduler(scheduler=HyperSchedulerWarmup)
+        else:
+            self.set_scheduler(scheduler=HyperSchedulerFeedback)
 
         self.set_model_with_mu()  # very small value
         if self.aconf.tr_with_init_mu:
