@@ -27,7 +27,7 @@ class SanityCheck():
         we want to check if the file we loaded are in accordance with our expectations
         This function dump a subsample of the dataset into hierarchical folder structure.
         """
-        self.task.init_business(self.args)
+        # self.task.init_business(self.args)
 
         list_domain_tr, list_domain_te = self.task.get_list_domains_tr_te(self.args.tr_d,
                                                                           self.args.te_d)
@@ -41,13 +41,19 @@ class SanityCheck():
 
         # for each training domain do...
         for domain in list_domain_tr:
-            d_dataset = self.task.get_dset_by_domain(self.args, domain)[0]
+            if domain in self.task.dict_dset_tr:
+                d_dataset = self.task.dict_dset_tr[domain]
+            else:
+                d_dataset = self.task.get_dset_by_domain(self.args, domain)[0]
             folder_name = f_name + '/train_domain/' + str(domain)
             self.save_san_check_for_domain(self.args.san_num, folder_name, d_dataset)
 
         # for each testing domain do...
         for domain in list_domain_te:
-            d_dataset = self.task.get_dset_by_domain(self.args, domain)[0]
+            if domain in self.task.dict_dset_te:
+                d_dataset = self.task.dict_dset_te[domain]
+            else:
+                d_dataset = self.task.get_dset_by_domain(self.args, domain)[0]
             folder_name = f_name + '/test_domain/' + str(domain)
             self.save_san_check_for_domain(self.args.san_num, folder_name, d_dataset)
 

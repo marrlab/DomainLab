@@ -3,6 +3,7 @@ experiment
 """
 import datetime
 import os
+import warnings
 
 
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
@@ -18,32 +19,37 @@ class Exp():
     """
     Exp is combination of Task, Algorithm, and Configuration (including random seed)
     """
-    def __init__(self, args, task=None, model=None, visitor=AggWriter):
+    def __init__(self, args, task=None, model=None, observer=None, visitor=AggWriter):
         """
         :param args:
         :param task: default None
         :param model: default None
         """
         self.task = task
+        self.curr_dir = os.getcwd()
         if task is None:
             self.task = TaskChainNodeGetter(args)()
-            if args.san_check:
-                sancheck = SanityCheck(args, self.task)
-                sancheck.dataset_sanity_check()
 
         self.args = args
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
         self.task.init_business(node_algo_builder=algo_builder, args=args)
-        # jigen algorithm builder has method dset_decoration_args_algo, which could AOP 
+        # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
-        self.trainer, self.model, observer, device = algo_builder.init_business(self)
+        if args.san_check:
+            sancheck = SanityCheck(args, self.task)
+            sancheck.dataset_sanity_check()
+
+        self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
         if model is not None:
             self.model = model
         self.visitor = visitor(self)  # visitor depends on task initialization first
         self.epochs = self.args.epos
         self.epoch_counter = 1
+        if observer is None:
+            observer = observer_default
+        observer.set_exp(self)
         if not self.trainer.flag_initialized:
             # for matchdg
             self.trainer.init_business(self.model, self.task, observer, device, args)
@@ -64,11 +70,12 @@ class Exp():
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            logger.info(f"epoch: {epoch},"
+            logger.info(f"after epoch: {epoch},"
                         f"now: {str(t_c)},"
                         f"epoch time: {t_c - t_before_epoch},"
                         f"used: {t_c - t_0},"
                         f"model: {self.visitor.model_name}")
+            logger.info(f"working direcotry: {self.curr_dir}")
             # current time, time since experiment start, epoch time
             if flag_stop:
                 self.epoch_counter = epoch
@@ -81,3 +88,36 @@ class Exp():
         logger.info(f"Experiment finished at epoch: {self.epoch_counter} "
                     f"with time: {t_c - t_0} at {t_c}")
         self.trainer.post_tr()
+
+    def clean_up(self):
+        """
+        to be called by a decorator
+        """
+        try:
+            # oracle means use out-of-domain test accuracy to select the model
+            self.visitor.remove("oracle")  # pylint: disable=E1101
+        except FileNotFoundError:
+            pass
+
+        try:
+            # the last epoch:
+            # have a model to evaluate in case the training stops in between
+            self.visitor.remove("epoch")  # pylint: disable=E1101
+        except FileNotFoundError:
+            logger = Logger.get_logger()
+            logger.warn("failed to remove model_epoch: file not found")
+            warnings.warn("failed to remove model_epoch: file not found")
+
+        try:
+            # without suffix: the selected model
+            self.visitor.remove()  # pylint: disable=E1101
+        except FileNotFoundError:
+            logger = Logger.get_logger()
+            logger.warn("failed to remove model")
+            warnings.warn("failed to remove model")
+
+        try:
+            # for matchdg
+            self.visitor.remove("ctr")  # pylint: disable=E1101
+        except FileNotFoundError:
+            pass

@@ -3,11 +3,11 @@ operations that all claasification model should have
 """
 
 import abc
-import numpy as np
 import math
+import numpy as np
 import pandas as pd
 import torch
-from torch import nn as nn
+from torch import nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
@@ -23,6 +23,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     operations that all classification model should have
     """
     match_feat_fun_na = "cal_logit_y"
+
+    @property
+    def metric4msel(self):
+        return "acc"
 
     def create_perf_obj(self, task):
         """
@@ -41,8 +45,8 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
                 metric = self.perf_metric.cal_metrics(self, loader, device)
                 confmat = metric.pop("confmat")
                 logger = Logger.get_logger()
-                logger.debug("scalar performance:")
-                logger.debug(str(metric))
+                logger.info("scalar performance:")
+                logger.info(str(metric))
                 logger.debug("confusion matrix:")
                 logger.debug(pd.DataFrame(confmat))
                 metric["confmat"] = confmat
@@ -190,4 +194,9 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return loss_adv_gen + loss_adv_gen_task.sum()
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        return 0
+        """
+        for ERM to adapt to the interface of other regularized learners
+        """
+        device = tensor_x.device
+        bsize = tensor_x.shape[0]
+        return [torch.zeros(bsize, 1).to(device)], [0.0]

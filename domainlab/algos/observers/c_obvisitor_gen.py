@@ -12,7 +12,8 @@ class ObVisitorGen(ObVisitor):
         logger = Logger.get_logger()
         logger.info("generating images for final model at last epoch")
         fun_gen(subfolder_na=self.exp.visitor.model_name+"final",
-                args=self.exp.args, node=self.exp.task, model=self.host_trainer.model, device=self.device)
+                args=self.exp.args, node=self.exp.task, model=self.host_trainer.model,
+                device=self.device)
 
         logger.info("generating images for oracle model")
         model_or = self.exp.visitor.load("oracle")  # @FIXME: name "oracle is a strong dependency

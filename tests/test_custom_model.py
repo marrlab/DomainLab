@@ -69,13 +69,14 @@ def test_amodelcustom():
         def dict_net_module_na2arg_na(self):
             pass
 
+    img = torch.rand(1, 3, 28, 28)
     mod = Custom(None)
     with pytest.raises(NotImplementedError):
         mod.cal_logit_y(None)
     with pytest.raises(NotImplementedError):
-        mod.forward(None, None, None)
+        mod.forward(img, None, None)
     with pytest.raises(NotImplementedError):
-        mod.cal_loss(None, None, None)
+        mod.cal_loss(img, None, None)
     del mod
     torch.cuda.empty_cache()
     gc.collect()
