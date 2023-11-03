@@ -14,8 +14,8 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
-  epos: 200
-  epos_min: 20
+  epos: 500
+  epos_min: 100
   es: 1
   bs: 64
   san_check: True
