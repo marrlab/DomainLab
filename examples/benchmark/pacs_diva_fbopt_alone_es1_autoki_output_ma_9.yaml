@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_diva_fbopt_autoki_oct27
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_autoki_aug
 
 sampling_seed: 0
 
@@ -11,7 +11,7 @@ test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
   epos: 500
