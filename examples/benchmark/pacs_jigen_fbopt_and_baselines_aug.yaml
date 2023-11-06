@@ -11,7 +11,7 @@ test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_aug.py
+  tpath: examples/tasks/task_pacs_aug_noflip.py
   dmem: False
   epos: 500
   epos_min: 200
