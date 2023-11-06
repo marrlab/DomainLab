@@ -80,3 +80,6 @@ jigen_feedback:
   shared:
     - k_i_gain_ratio
     - pperm
+
+erm:
+  aname: deepall
