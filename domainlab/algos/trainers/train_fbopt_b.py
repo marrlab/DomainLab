@@ -86,10 +86,12 @@ class TrainerFbOpt(TrainerBasic):
         self.flag_setpoint_updated = False
         if self.aconf.force_feedforward:
             self.set_scheduler(scheduler=HyperSchedulerWarmup)
+            self.flag_update_hyper_per_epoch = True
+            self.hyper_scheduler.set_steps(total_steps=self.aconf.warmup)
         else:
             self.set_scheduler(scheduler=HyperSchedulerFeedback)
 
-        self.set_model_with_mu()  # very small value
+        self.set_model_with_mu(0)  # very small value
         if self.aconf.tr_with_init_mu:
             self.tr_with_init_mu()
 
@@ -113,12 +115,12 @@ class TrainerFbOpt(TrainerBasic):
         """
         super().tr_epoch(-1)
 
-    def set_model_with_mu(self):
+    def set_model_with_mu(self, epoch):
         """
         set model multipliers
         """
         # self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
-        self.model.hyper_update(epoch=None, fun_scheduler=self.hyper_scheduler)
+        self.model.hyper_update(epoch=epoch, fun_scheduler=self.hyper_scheduler)
 
     def tr_epoch(self, epoch, flag_info=False):
         """
@@ -130,7 +132,7 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_loss_tr,
             self.list_str_multiplier_na,
             miter=epoch)
-        self.set_model_with_mu()
+        self.set_model_with_mu(epoch)
         if hasattr(self.model, "dict_multiplier"):
             logger = Logger.get_logger()
             logger.info(f"current multiplier: {self.model.dict_multiplier}")
