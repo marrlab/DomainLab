@@ -252,3 +252,6 @@ class HyperSchedulerFeedback():
         update setpoint
         """
         return self.set_point_controller.observe(epo_reg_loss, epo_task_loss)
+
+    def __call__(self, epoch):
+        return self.mmu
