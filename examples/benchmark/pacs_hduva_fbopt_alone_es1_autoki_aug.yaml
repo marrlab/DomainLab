@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_diva_fbopt_autoki_aug
+output_dir: zoutput/benchmarks/pacs_hduva_fbopt_alone_aug
 
 sampling_seed: 0
 
@@ -17,7 +17,7 @@ domainlab_args:
   epos: 500
   epos_min: 200
   es: 1
-  bs: 64
+  bs: 16
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
@@ -97,12 +97,10 @@ Shared params:
 # Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small 
 
 diva_fbopt_full:
-  aname: diva
+  aname: hduva
   trainer: fbopt
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  str_diva_multiplier_type: gammad_recon
   mu_init: 1e-6
   shared:
     - k_i_gain_ratio
-    - coeff_ma_output_state

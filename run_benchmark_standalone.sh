@@ -21,6 +21,7 @@ echo "argument 2=$2"
 if [ -z "$2" ]
 then
       echo "argument 2: DOMAINLAB_CUDA_START_SEED empty"
+      echo "empty string will be hashed into 0"
 fi
 
 export DOMAINLAB_CUDA_START_SEED=$2

@@ -6,6 +6,7 @@ import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt_mu_controller import HyperSchedulerFeedback
 from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmup
+from domainlab.utils.logger import Logger
 
 
 def list_divide(list_val, scalar):
@@ -130,6 +131,9 @@ class TrainerFbOpt(TrainerBasic):
             self.list_str_multiplier_na,
             miter=epoch)
         self.set_model_with_mu()
+        if hasattr(self.model, "dict_multiplier"):
+            logger = Logger.get_logger()
+            logger.info(f"current multiplier: {self.model.dict_multiplier}")
 
         flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?

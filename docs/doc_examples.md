@@ -64,6 +64,12 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=dann -
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3
 ```
 
+
+### sannity check with jigen tile shuffling
+```shell
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=8 --aname=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3 --san_check
+```
+
 ### model matchdg with implemented neural network
 ```shell
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
