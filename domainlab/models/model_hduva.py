@@ -170,6 +170,24 @@ def mk_hduva(parent_class=VAEXYDClassif):
             return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
                 [self.mu_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers name which matches the order from cal_reg_loss
+            """
+            return ["mu_recon", "beta_x", "beta_y", "beta_d", "beta_t"]
+
+        @property
+        def dict_multiplier(self):
+            """
+            dictionary of multipliers name
+            """
+            return {"mu_recon": self.mu_recon,
+                    "beta_d": self.beta_d,
+                    "beta_x": self.beta_x,
+                    "beta_y": self.beta_y,
+                    "beta_t": self.beta_t}
+
         def extract_semantic_features(self, tensor_x):
             """
             :param tensor_x:
