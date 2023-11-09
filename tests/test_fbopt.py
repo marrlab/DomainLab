@@ -33,3 +33,6 @@ def test_forcesetpoint_fbopt():
     args = "--te_d=0 --tr_d 1 2 --task=mnistcolor10 --bs=16 --aname=jigen --trainer=fbopt --nname=conv_bn_pool_2 --epos=10 --es=0 --mu_init=0.00001 --coeff_ma_setpoint=0.5 --coeff_ma_output_state=0.99 --force_setpoint_change_once"
     utils_test_algo(args)
 
+def test_forcefeedforward_fbopt():
+    args = "--te_d=0 --tr_d 1 2 --task=mnistcolor10 --bs=16 --aname=jigen --trainer=fbopt --nname=conv_bn_pool_2 --epos=2000 --epos_min=100 --es=1 --force_feedforward"
+    utils_test_algo(args)
