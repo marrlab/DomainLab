@@ -117,7 +117,7 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
         @property
         def dict_multiplier(self):
             """
-            list of multipliers name
+            list of multipliers name, which correspond to cal_reg_loss
             """
             return {"mu_recon": self.mu_recon,
                     "beta_d": self.beta_d,
