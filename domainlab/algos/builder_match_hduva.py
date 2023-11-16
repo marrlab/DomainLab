@@ -63,10 +63,10 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                                beta_y=args.beta_y,
                                beta_d=args.beta_d)
 
-        model = ModelWrapMatchDGVAE(model, list_str_y=task.list_str_y)
+        # model = ModelWrapMatchDGVAE(model, list_str_y=task.list_str_y)
         model = model.to(device)
 
-        ctr_model = ModelWrapMatchDGVAE(model_ctr, list_str_y=task.list_str_y)
+        # ctr_model = ModelWrapMatchDGVAE(model_ctr, list_str_y=task.list_str_y)
         ctr_model = ctr_model.to(device)
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))

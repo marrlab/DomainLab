@@ -27,3 +27,9 @@ class ModelWrapMatchDGVAE(AModelClassif):
         """
         feat = self.net.extract_semantic_features(tensor_x)
         return feat
+
+    def hyper_init(self, functor_scheduler, trainer=None):
+        self.net.hyper_init(functor_scheduler, trainer)
+
+    def hyper_update(self, epoch, fun_scheduler):
+        self.net.hyper_update(epoch, fun_scheduler)
