@@ -15,8 +15,8 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 200
-  es: 1
+  epos_min: 100
+  es: 10
   bs: 16
   san_check: False
   npath: examples/nets/resnet50domainbed.py
@@ -102,5 +102,6 @@ diva_fbopt_full:
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   mu_init: 1e-6
+  mu_clip: 10
   shared:
     - k_i_gain_ratio
