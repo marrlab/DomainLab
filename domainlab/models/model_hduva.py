@@ -205,7 +205,4 @@ def mk_hduva(parent_class=VAEXYDClassif):
             zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
             return zy_q_loc
 
-        def extract_semantic_feat(self, tensor_x):
-            return self.extract_semantic_features(tensor_x)
-
     return ModelHDUVA
