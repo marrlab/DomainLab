@@ -60,6 +60,13 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         logger = Logger.get_logger()
         logger.info(f"before training, model accuracy: {acc}")
 
+    def extract_semantic_feat(self, tensor_x):
+        """
+        by default, use the logit as extracted feature if the current method
+        is not being overriden by child class
+        """
+        return self.cal_logit_y(tensor_x)
+
     @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
