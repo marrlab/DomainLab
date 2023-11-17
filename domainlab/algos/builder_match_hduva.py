@@ -1,6 +1,8 @@
 """
 hduva with matchdg
 """
+import copy
+
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
@@ -47,27 +49,10 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            beta_x=args.beta_x,
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
+        model_ctr = copy.deepcopy(model)
 
-        model_ctr = mk_hduva()(node,
-                               zd_dim=args.zd_dim,
-                               zy_dim=args.zy_dim,
-                               zx_dim=args.zx_dim,
-                               device=device,
-                               topic_dim=args.topic_dim,
-                               list_str_y=task.list_str_y,
-                               list_d_tr=task.list_domain_tr,
-                               gamma_d=args.gamma_d,
-                               gamma_y=args.gamma_y,
-                               beta_t=args.beta_t,
-                               beta_x=args.beta_x,
-                               beta_y=args.beta_y,
-                               beta_d=args.beta_d)
-
-        # model = ModelWrapMatchDGVAE(model, list_str_y=task.list_str_y)
         model = model.to(device)
 
-        # ctr_model = ModelWrapMatchDGVAE(model_ctr, list_str_y=task.list_str_y)
-        # ctr_model = ctr_model.to(device)
         ctr_model = model_ctr.to(device)
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
