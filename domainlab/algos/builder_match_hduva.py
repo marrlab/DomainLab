@@ -14,7 +14,6 @@ from domainlab.models.model_hduva import mk_hduva
 from domainlab.utils.utils_cuda import get_device
 
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
-from domainlab.models.model_wrapper_matchdg4vae import ModelWrapMatchDGVAE
 
 
 class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
@@ -61,6 +60,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                              exp=exp)
 
         trainer = TrainerMatchDG()
-        trainer.init_business(exp, task, ctr_model, model, observer, args, device)
+        trainer.init_business(exp, task, ctr_model, model, observer,
+                              args, device)
 
         return trainer, model, observer, device
