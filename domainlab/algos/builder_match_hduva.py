@@ -14,7 +14,6 @@ from domainlab.models.model_hduva import mk_hduva
 from domainlab.utils.utils_cuda import get_device
 
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
-from domainlab.models.model_wrapper_matchdg4vae import ModelWrapMatchDGVAE
 
 
 class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
@@ -51,10 +50,8 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            beta_d=args.beta_d)
         model_ctr = copy.deepcopy(model)
 
-        # model = ModelWrapMatchDGVAE(model, list_str_y=task.list_str_y)
         model = model.to(device)
 
-        # ctr_model = ModelWrapMatchDGVAE(model_ctr, list_str_y=task.list_str_y)
         ctr_model = model_ctr.to(device)
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
@@ -63,6 +60,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                              exp=exp)
 
         trainer = TrainerMatchDG()
-        trainer.init_business(exp, task, ctr_model, model, observer, args, device)
+        trainer.init_business(exp, task, ctr_model, model, observer,
+                              args, device)
 
         return trainer, model, observer, device
