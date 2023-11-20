@@ -364,11 +364,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                         ax=axes[num], showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
             sns.swarmplot(data=dataframe[dataframe[COLNAME_METHOD] == algo],
-                          x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
-                          legend=False, ax=axes[num],
-                          palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_METHOD] == algo]
-                              [COLNAME_IDX_PARAM].unique())))
+                          x=COLNAME_IDX_PARAM, y=obj,
+                          legend=False, ax=axes[num])
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
             axes[num].set_ylim([-0.1, 1.1])
