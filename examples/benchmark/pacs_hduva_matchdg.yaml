@@ -106,6 +106,7 @@ Shared params:
 
 match_duva:
   aname: matchhduva
+  epochs_ctr: 10
   shared:
     - gamma_y
     - gamma_reg
