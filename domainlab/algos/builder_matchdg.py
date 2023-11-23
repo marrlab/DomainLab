@@ -62,6 +62,8 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
             i_c=task.isize.i_c,
             i_h=task.isize.i_h,
             i_w=task.isize.i_w)
+        # different than model, ctr_model has no classification so it has
+        # different wrapper
         ctr_model = ModelWrapMatchDGNet(ctr_net, list_str_y=task.list_str_y)
         ctr_model = ctr_model.to(device)
 
