@@ -183,6 +183,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         use trainer as a model, this is the default behavior, if we want to have decorated
         behavior of regularization loss, then this default behavior has to be changed.
         """
+        # FIXME: each trainer should implement this
         return self.get_model().cal_reg_loss(tensor_x, tensor_y, tensor_d)
 
     def cal_task_loss(self, tensor_x, tensor_y):
