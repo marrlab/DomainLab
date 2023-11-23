@@ -10,7 +10,7 @@ def mk_opt(model, aconf):
     """
     create optimizer
     """
-    optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+    optimizer = optim.Adam(model.as_model().parameters(), lr=aconf.lr)
     return optimizer
 
 
@@ -93,7 +93,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_update_hyper_per_batch = False
         self.epo_loss_tr = None
         self.hyper_scheduler = None
-        self.optimizer = mk_opt(self.model.as_model(), self.aconf)
+        self.reset()
         self.flag_initialized = True
 
     def reset(self):
