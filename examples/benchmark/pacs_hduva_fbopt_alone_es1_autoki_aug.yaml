@@ -1,11 +1,11 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_diva_fbopt_and_baselines_aug
+output_dir: zoutput/benchmarks/pacs_hduva_fbopt_alone_aug
 
 sampling_seed: 0
 
 startseed: 0
-endseed: 3
+endseed: 10
 
 test_domains:
   - sketch
@@ -15,9 +15,9 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 200
-  es: 1
-  bs: 32
+  epos_min: 100
+  es: 10
+  bs: 16
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
@@ -28,31 +28,53 @@ domainlab_args:
   zd_dim: 64
 
 
-
-
 Shared params:
   ini_setpoint_ratio:
-    min: 0.9
-    max: 0.99
-    num: 3
+    min: 0.990
+    max: 0.999
+    num: 2
     distribution: uniform
+
+  str_diva_multiplier_type:
+    distribution: categorical
+    datatype: str
+    values:
+      - gammad_recon
+      - gammad_recon_per_pixel
+
+  coeff_ma_output_state:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
+      - 0.8
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 10
+      - 1000
+      - 1
+      - 100
 
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 3
+    num: 2
     distribution: uniform
 
   k_i_gain_ratio:
     min: 0.1
-    max: 1
-    num: 3
-    distribution: uniform
-
+    max: 10
+    num: 10
+    distribution: loguniform
 
   mu_init:
     min: 0.000001
-    max: 0.9
+    max: 0.00001
+    step: 0.000001
     num: 3
     distribution: loguniform
 
@@ -70,51 +92,16 @@ Shared params:
     num: 3
     distribution: loguniform
 
-  mu_clip:
-    distribution: categorical
-    datatype: float
-    values:
-      - 1
-      - 10
-      - 100
-      - 1000
 
-# Test fbopt with different hyperparameter configurations
-diva_fbopt_a:
-  aname: diva
+
+# Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small 
+
+diva_fbopt_full:
+  aname: hduva
   trainer: fbopt
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
-  str_diva_multiplier_type: gammad_recon
-  coeff_ma_output_state: 0.1
   mu_init: 1e-6
+  mu_clip: 10
   shared:
     - k_i_gain_ratio
-    - mu_clip
-
-diva_feedforward_full:
-  aname: diva
-  trainer: hyperscheduler
-  str_diva_multiplier_type: gammad_recon
-  gamma_y: 1.0
-  shared:
-    - gamma_d
-
-diva_default:
-  aname: diva
-  trainer: hyperscheduler
-  str_diva_multiplier_type: default
-  shared:
-    - gamma_d
-    - gamma_y
-
-diva_fixed_penalty:
-  aname: diva
-  trainer: basic
-  str_diva_multiplier_type: default
-  shared:
-    - gamma_d
-    - gamma_y
-
-erm:
-  aname: deepall

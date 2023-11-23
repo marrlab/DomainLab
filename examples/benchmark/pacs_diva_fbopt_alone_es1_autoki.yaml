@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_diva_fbopt_alone
+output_dir: zoutput/benchmarks/pacs_diva_fbopt_alone_zx
 
 sampling_seed: 0
 
@@ -15,15 +15,15 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 20
+  epos_min: 200
   es: 1
-  bs: 64
+  bs: 32
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-  zx_dim: 0
+  zx_dim: 16
   zy_dim: 64
   zd_dim: 64
 
@@ -101,7 +101,8 @@ diva_fbopt_full:
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   str_diva_multiplier_type: gammad_recon
-  coeff_ma_output_state: 0.1
+  coeff_ma_output_state: 0
+  coeff_ma_setpoint: 0
   mu_init: 1e-6
   shared:
     - k_i_gain_ratio

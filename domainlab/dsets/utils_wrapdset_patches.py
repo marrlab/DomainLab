@@ -109,8 +109,9 @@ class WrapDsetPatches(torchdata.Dataset):
             list_reordered_tiles = [list_tiles[perm_chosen[ind_tile]]
                                     for ind_tile in range(num_grids)]
         stacked_tiles = torch.stack(list_reordered_tiles, 0)
-        # the 0th dim is the batch dimension
-        # ind_which_perm = 0 means no permutation, the classifier need to
+        # NOTE: stacked_tiles will be [9, 3, 30, 30], which will be weaved to
+        # be a whole image again by self.fun_weave_imgs
+        # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
         return self.fun_weave_imgs(stacked_tiles), label, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index

@@ -146,8 +146,18 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # from torch.distributions import kl_divergence
 
             # zy KL divergence
-            p_zy = self.net_p_zy(tensor_y)
-            zy_p_minus_zy_q = g_inst_component_loss_agg(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
+
+            if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape) == 1):
+                tensor_y_onehot = torch.nn.functional.one_hot(
+                    tensor_y,
+                    num_classes=len(self.list_str_y))
+                tensor_y_onehot = tensor_y_onehot.to(torch.float32)
+            else:
+                tensor_y_onehot = tensor_y
+
+            p_zy = self.net_p_zy(tensor_y_onehot)
+            zy_p_minus_zy_q = g_inst_component_loss_agg(
+                p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
 
             # zx KL divergence
             zx_p_minus_q = torch.zeros_like(zy_p_minus_zy_q)
@@ -170,7 +180,25 @@ def mk_hduva(parent_class=VAEXYDClassif):
             return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
                 [self.mu_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
-        def extract_semantic_features(self, tensor_x):
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers name which matches the order from cal_reg_loss
+            """
+            return ["mu_recon", "beta_x", "beta_y", "beta_d", "beta_t"]
+
+        @property
+        def dict_multiplier(self):
+            """
+            dictionary of multipliers name
+            """
+            return {"mu_recon": self.mu_recon,
+                    "beta_d": self.beta_d,
+                    "beta_x": self.beta_x,
+                    "beta_y": self.beta_y,
+                    "beta_t": self.beta_t}
+
+        def extract_semantic_feat(self, tensor_x):
             """
             :param tensor_x:
             """

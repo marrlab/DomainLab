@@ -48,7 +48,8 @@ def get_xy_from_event_file(event_file, plot1, plot2=None,
 
 
 def phase_portrait_combined(event_files, colors, plot1, plot2,
-                            legend1=None, legend2=None, output_dir="."):
+                            legend1=None, legend2=None, plot_len=None,
+                            output_dir="."):
     """
     combined phase portait for multiple (at least one) Tensorboard
     event files in the same plot
@@ -60,15 +61,24 @@ def phase_portrait_combined(event_files, colors, plot1, plot2,
                                       plot1=plot1, plot2=plot2)
 
         assert len(x) == len(y)
-        for i in range(len(x) - 1):
+        if plot_len is None:
+            plot_len = len(x)
+        # truncate x and y to the desired length:
+        x, y = x[:plot_len], y[:plot_len]
+
+        head_w_glob = min((max(x) - min(x)) / 100.0, (max(y) - min(y)) / 100.0)
+        for i in range(plot_len - 1):
+            xy_dist = np.sqrt((x[i + 1] - x[i])**2 + (y[i + 1] - y[i])**2)
+            head_l = xy_dist / 30.0
+            head_w = min(head_l, head_w_glob)
             plt.arrow(x[i], y[i], (x[i + 1] - x[i]), (y[i + 1] - y[i]),
-                      head_width=0.15, head_length=0.2,
-                      length_includes_head=False,
-                      fc=colors[event_i], ec=colors[event_i], alpha=0.4)
+                      head_width=head_w, head_length=head_l,
+                      length_includes_head=True,
+                      fc=colors[event_i], ec=colors[event_i], alpha=0.8)
         # the combination of head_width and head_length make the arrow
-        # more visible
-        # length_includes_head=False will put arrow out of point, which let
-        # point more visible, otherwise arrow will cover point
+        # more visible.
+        # length_includes_head=False makes the arrow stick too far out
+        # beyond of the point, which let; so, True is used.
         colors = ['red', 'green', 'blue', 'yellow', 'purple']
         plt.plot(x[0], y[0], 'ko')
 
@@ -143,6 +153,7 @@ if __name__ == "__main__":
     parser.add_argument('-plot2', "--plot2", default=None, type=str)
     parser.add_argument('-legend1', "--legend1", default=None, type=str)
     parser.add_argument('-legend2', "--legend2", default=None, type=str)
+    parser.add_argument('-plot_len', "--plot_len", default=None, type=int)
     parser.add_argument('-title', "--title", default=None, type=str)
     parser.add_argument('--output_dir', default='.', type=str)
     parser.add_argument('--phase_portrait', action='store_true',
@@ -163,7 +174,7 @@ if __name__ == "__main__":
         phase_portrait_combined(event_files, colors,
                                 plot1=args.plot1, plot2=args.plot2,
                                 legend1=args.legend1, legend2=args.legend2,
-                                output_dir=args.output_dir)
+                                plot_len=args.plot_len, output_dir=args.output_dir)
     else:
         if args.plot2:
             # two curves per plot

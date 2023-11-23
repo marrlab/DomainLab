@@ -20,10 +20,16 @@ class AMSel(metaclass=abc.ABCMeta):
 
     @property
     def tr_obs(self):
+        """
+        the observer from trainer
+        """
         return self._tr_obs
 
     @property
     def max_es(self):
+        """
+        maximum early stop
+        """
         if self._max_es is not None:
             return self._max_es
         if self.msel is not None:
@@ -56,7 +62,7 @@ class AMSel(metaclass=abc.ABCMeta):
         # NOTE: since if_stop is not abstract, one has to
         # be careful to always override it in child class
         # only if the child class has a decorator which will
-        # dispatched. 
+        # dispatched.
         if self.msel is not None:
             return self.msel.if_stop()
         raise NotImplementedError
@@ -81,6 +87,9 @@ class AMSel(metaclass=abc.ABCMeta):
         
     @property
     def sel_model_te_acc(self):
+        """
+        the selected model test accuaracy
+        """
         if self.msel is not None:
             return self.msel.sel_model_te_acc
         return -1

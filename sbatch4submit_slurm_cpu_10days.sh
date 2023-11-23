@@ -3,7 +3,7 @@ VENV="domainlab_py39"
 BASHRC="~/.bashrc"  # source ~/.bash_profile
 
 ## 
-JOB_NAME="domainlab"
+JOB_NAME="submit10d"
 PATH_CODE=$1
 PATH_OUT_BASE="${PATH_CODE}/job_logs"
 mkdir -p $PATH_OUT_BASE

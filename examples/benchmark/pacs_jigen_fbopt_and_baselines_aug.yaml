@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/pacs_jigen_fbopt_alone
+output_dir: zoutput/benchmarks/pacs_aug_jigen
 
 sampling_seed: 0
 
@@ -11,12 +11,10 @@ test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug_noflip.py
   dmem: False
-  lr: 5e-5
   epos: 500
-  epos_min: 50
-  force_setpoint_change_once: True
+  epos_min: 200
   es: 1
   bs: 64
   san_check: False
@@ -27,27 +25,32 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  pperm: 0.1  
-  # pperm correspond to 1-bias_wholeimage in https://github.com/fmcarlucci/JigenDG
+  pperm: 0.1
 
 
 Shared params:
+  lr:
+    distribution: categorical
+    values:
+      - 5e-5
+      - 1e-3
+
   k_i_gain:
     min: 0.0001
     max: 0.01
-    num: 3
+    num: 2
     distribution: loguniform
 
   k_i_gain_ratio:
     min: 0.1
     max: 1
-    num: 5
+    num: 4
     distribution: uniform
 
   mu_init:
     min: 0.000001
     max: 0.00005
-    num: 3
+    num: 2
     distribution: loguniform
 
   pperm:
@@ -58,25 +61,18 @@ Shared params:
 
   gamma_reg:
     min: 0.01
-    max: 10_000
-    num: 10
+    max: 10
+    num: 4
     distribution: loguniform
 
-  coeff_ma_setpoint:
+  mu_clip:
     distribution: categorical
     datatype: float
     values:
-      - 0.0
-      - 0.5
-      - 0.9
-
-  coeff_ma_output_state:
-    distribution: categorical
-    datatype: float
-    values:
-      - 0.0
-      - 0.5
-      - 0.9
+      - 0.01
+      - 0.1
+      - 1.0
+      - 10
 
 # Test fbopt with different hyperparameter configurations
 
@@ -85,8 +81,25 @@ jigen_feedback:
   trainer: fbopt
   ini_setpoint_ratio: 0.99
   mu_init: 1e-6
-
+  force_setpoint_change_once: True
   shared:
     - k_i_gain_ratio
-    - coeff_ma_output_state
-    - coeff_ma_setpoint
+    - mu_clip
+    - lr
+    
+jigen_feedforward:
+  aname: jigen
+  trainer: hyperscheduler
+  shared:
+    - gamma_reg
+    - lr
+
+jigen_fixed_penalty:
+  aname: jigen
+  trainer: basic
+  shared:
+    - gamma_reg
+    - lr
+
+erm:
+  aname: deepall

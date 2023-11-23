@@ -15,8 +15,8 @@ domainlab_args:
   tr_d: [1, 2]
   dmem: False
   lr: 0.001
-  epos: 500
-  epos_min: 20
+  epos: 5000
+  epos_min: 500
   es: 5
   bs: 64
   zx_dim: 0
@@ -44,6 +44,12 @@ Shared params:
     max: 1e-3
     num: 2
     distribution: loguniform
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 5
+    distribution: uniform
 
   mu_init:
     min: 0.000001
@@ -85,7 +91,7 @@ diva_fbopt_a:
   exp_shoulder_clip: 1
   mu_init: 1e-6
   shared:
-    - k_i_gain
+    - k_i_gain_ratio
     - mu_clip
 
 diva_feedforward_a:

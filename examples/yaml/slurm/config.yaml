@@ -20,7 +20,7 @@ restart-times: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
 latency-wait: 60
-jobs: 500
+jobs: 20
 keep-going: True
 printshellcmds: True
 scheduler: greedy

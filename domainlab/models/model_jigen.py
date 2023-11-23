@@ -67,7 +67,17 @@ def mk_jigen(parent_class=AModelClassif):
 
         @property
         def list_str_multiplier_na(self):
+            """
+            list of multipliers which match the order in cal_reg_loss
+            """
             return ["alpha"]
+
+        @property
+        def dict_multiplier(self):
+            """
+            dictionary of multipliers
+            """
+            return {"alpha": self.alpha}
 
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             """
