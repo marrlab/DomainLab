@@ -158,11 +158,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
 
     def get_model(self):
         """
-        treat trainer as a model
+        recursively get the "real" model from trainer
         """
         if "trainer" not in str(type(self.model)).lower():
             return self.model
-        return self.model.model
+        return self.model.get_model()
 
     def as_model(self):
         """
