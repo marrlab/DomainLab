@@ -46,7 +46,7 @@ class TrainerFbOpt(TrainerBasic):
         ERM loss on all available training data
         # TODO: normalize loss via batchsize
         """
-        self.model.eval()
+        self.model.as_model().eval()
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = []
         epo_task_loss = 0

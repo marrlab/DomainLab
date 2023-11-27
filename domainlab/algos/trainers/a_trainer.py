@@ -186,3 +186,17 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         depute to the inner most trainer's model
         """
         return self.get_model().cal_task_loss(tensor_x, tensor_y)
+
+    def hyper_update(self, epoch, fun_scheduler):
+        """
+        delegate hyper_update to model
+        :param epoch:
+        :param fun_scheduler:
+        """
+        self.as_model().hyper_update(epoch, fun_scheduler)
+
+    def hyper_init(self, functor_scheduler, trainer=None):
+        """
+        delegate hyper_init to model
+        """
+        return self.as_model().hyper_init(functor_scheduler, trainer)
