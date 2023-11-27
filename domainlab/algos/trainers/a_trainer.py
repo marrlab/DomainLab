@@ -173,11 +173,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         return self.get_model()
 
-    def get_dict_model_params(self):
-        """
-        """
-        return dict(self.as_model().named_parameters())
-
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
         """
         use trainer as a model, this is the default behavior, if we want to have decorated
