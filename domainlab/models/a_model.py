@@ -71,6 +71,12 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         task independent regularization loss for domain generalization
         """
 
+    def as_model(self):
+        """
+        redundant method to be consistent with trainer
+        """
+        return self
+
     def forward(self, tensor_x, tensor_y, tensor_d, others=None):
         """forward.
 

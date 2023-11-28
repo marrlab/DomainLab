@@ -36,6 +36,23 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+        """
+        Let trainer behave like a model, so that other trainer could use it
+        """
+        return super().cal_reg_loss(tensor_x, tensor_y, tensor_d)
+        self.model.train()
+        tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
+        tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
+        loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, tensor_y, tensor_d)
+        # FIXME: dial is different from other regularizer,
+        # no matter if self.model is a trainer or complex model like diva?
+        # self.model should return cal_loss, and loss_dial is the same function evaluated
+        # on the augmented data
+        # However, if we want to tune all the multipliers, we should return all reg losses in the decorator chain,
+        # but the current implementation is enough to be used for deepall/ERM
+        return [loss_dial], [self.gamma_reg]
+
     def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
@@ -46,7 +63,7 @@ class TrainerDIAL(TrainerBasic):
             loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
             tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
             tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
-            loss_dial, *_ = self.model.cal_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
+            loss_dial, *_ = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, vec_y, vec_d)  # @FIXME
             loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
             loss.backward()
             self.optimizer.step()
@@ -54,3 +71,11 @@ class TrainerDIAL(TrainerBasic):
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
+
+    def hyper_init(self, functor_scheduler, trainer):
+        """
+        initialize both trainer's multiplier and model's multiplier
+        """
+        fun_scheduler = super().hyper_init(functor_scheduler, trainer)
+        return fun_scheduler
+        # FIXME: register also the trainer hyperpars: return functor_scheduler(trainer=trainer, gamma_reg=self.gamma_reg)

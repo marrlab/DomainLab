@@ -46,7 +46,7 @@ class TrainerFbOpt(TrainerBasic):
         ERM loss on all available training data
         # TODO: normalize loss via batchsize
         """
-        self.model.eval()
+        self.model.as_model().eval()
         # mock the model hyper-parameter to be from dict4mu
         epo_reg_loss = []
         epo_task_loss = 0
@@ -117,7 +117,7 @@ class TrainerFbOpt(TrainerBasic):
         """
         set model multipliers
         """
-        self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
+        self.model.as_model().hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
 
     def tr_epoch(self, epoch, flag_info=False):
         """

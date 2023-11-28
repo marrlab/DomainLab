@@ -10,7 +10,7 @@ def mk_opt(model, aconf):
     """
     create optimizer
     """
-    optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+    optimizer = optim.Adam(model.as_model().parameters(), lr=aconf.lr)
     return optimizer
 
 
@@ -30,11 +30,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param successor_node:
         """
         super().__init__(successor_node)
-        self.model = None
+        self._model = None
         self.task = None
         self.observer = None
         self.device = None
         self.aconf = None
+        self.gamma_reg = None
         #
         self.loader_tr = None
         self.loader_tr_no_drop = None
@@ -61,6 +62,14 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_setpoint_updated = False
 
     @property
+    def model(self):
+        return self.get_model()
+
+    @model.setter
+    def model(self, model):
+        self._model = model
+
+    @property
     def str_metric4msel(self):
         """
         metric for model selection
@@ -72,11 +81,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         model, task, observer, device, aconf
         """
         # @FIXME: aconf and args should be separated
-        self.model = model
+        self._model = model
         self.task = task
         self.observer = observer
         self.device = device
         self.aconf = aconf
+        self.gamma_reg = self.aconf.gamma_reg
         #
         self.loader_tr = task.loader_tr
         self.loader_tr_no_drop = task._loader_tr_no_drop
@@ -85,14 +95,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if flag_accept:
             self.observer.accept(self)
 
-        self.model = self.model.to(device)
         #
         self.num_batches = len(self.loader_tr)
         self.flag_update_hyper_per_epoch = False
         self.flag_update_hyper_per_batch = False
         self.epo_loss_tr = None
         self.hyper_scheduler = None
-        self.optimizer = mk_opt(self.model, self.aconf)
+        self.reset()
         self.flag_initialized = True
 
     def reset(self):
@@ -154,3 +163,20 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param request: string
         """
         return request == self.name
+
+    def get_model(self):
+        """
+        recursively get the "real" model from trainer
+        """
+        if "trainer" not in str(type(self._model)).lower():
+            return self._model
+        return self._model.get_model()
+
+    def as_model(self):
+        """
+        used for decorator pattern
+
+        It is not necessary to write any function that just copies the pattern
+        self.get_model().do_something()
+        """
+        return self.get_model()
