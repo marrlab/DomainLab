@@ -74,7 +74,7 @@ class ObVisitor(AObVisitor):
         accept invitation as a visitor
         """
         self.host_trainer = trainer
-        self.perf_metric = self.host_trainer.model.as_model().create_perf_obj(self.task)
+        self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)
         self.model_sel.accept(trainer, self)
 
     def after_all(self):

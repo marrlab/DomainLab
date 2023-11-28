@@ -104,7 +104,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         make a new optimizer to clear internal state
         """
-        self.optimizer = mk_opt(self.model.as_model(), self.aconf)
+        self.optimizer = mk_opt(self.model, self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
