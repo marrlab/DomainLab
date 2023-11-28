@@ -30,7 +30,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param successor_node:
         """
         super().__init__(successor_node)
-        self.model = None
+        self._model = None
         self.task = None
         self.observer = None
         self.device = None
@@ -62,6 +62,10 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_setpoint_updated = False
 
     @property
+    def model(self):
+        return self.get_model()
+
+    @property
     def str_metric4msel(self):
         """
         metric for model selection
@@ -73,7 +77,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         model, task, observer, device, aconf
         """
         # @FIXME: aconf and args should be separated
-        self.model = model
+        self._model = model
         self.task = task
         self.observer = observer
         self.device = device
@@ -160,9 +164,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         recursively get the "real" model from trainer
         """
-        if "trainer" not in str(type(self.model)).lower():
-            return self.model
-        return self.model.get_model()
+        if "trainer" not in str(type(self._model)).lower():
+            return self._model
+        return self._model.get_model()
 
     def as_model(self):
         """
@@ -173,13 +177,18 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         return self.get_model()
 
+    def cal_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        # FIXME: other not used
+        return self.get_model().cal_loss(tensor_x, tensor_y, tensor_d)
+
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
         """
         use trainer as a model, this is the default behavior, if we want to have decorated
         behavior of regularization loss, then this default behavior has to be changed.
         """
         # FIXME: each trainer should implement this
-        return self.get_model().cal_reg_loss(tensor_x, tensor_y, tensor_d)
+        reg_loss_model = self.get_model().cal_reg_loss(tensor_x, tensor_y, tensor_d)
+        return reg_loss_model
 
     def cal_task_loss(self, tensor_x, tensor_y):
         """
@@ -200,3 +209,10 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         delegate hyper_init to model
         """
         return self.as_model().hyper_init(functor_scheduler, trainer)
+
+    @property
+    def list_str_multiplier_na(self):
+        return self.get_model().list_str_multiplier_na
+
+    def train(self):
+        self.get_model().train()
