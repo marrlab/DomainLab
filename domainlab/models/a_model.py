@@ -71,9 +71,9 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        loss_reg, *mu = self.extend_loss(
+        loss_reg, mu = self.extend_loss(
             tensor_x, tensor_y, tensor_d, others)
-        loss_reg_, *mu_ = self._cal_reg_loss(
+        loss_reg_, mu_ = self._cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others)
         if loss_reg is not None:
             return loss_reg_ + loss_reg, mu_ + mu
@@ -83,7 +83,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         if self._decoratee is not None:
             return self._decoratee.cal_reg_loss(
                 tensor_x, tensor_y, tensor_d, others)
-        return None
+        return None, None
 
     def forward(self, tensor_x, tensor_y, tensor_d, others=None):
         """forward.
