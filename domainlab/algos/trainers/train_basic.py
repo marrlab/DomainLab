@@ -44,6 +44,7 @@ class TrainerBasic(AbstractTrainer):
         """
         just for logging
         """
+        # FIXME: do we still need this function?
         list_b_reg_loss_sumed = [ele.sum().detach().item() for ele in list_b_reg_loss]
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr, list_b_reg_loss_sumed))
         return list_b_reg_loss_sumed
@@ -68,11 +69,11 @@ class TrainerBasic(AbstractTrainer):
         tensor_x, tensor_y, tensor_d = \
             tensor_x.to(self.device), tensor_y.to(self.device), tensor_d.to(self.device)
         self.optimizer.zero_grad()
-        loss, list_loss_reg, loss_task = self.model.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        loss_task = self.model.cal_loss(tensor_x, tensor_y)
         #
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         #
-        self.handle_r_loss(list_loss_reg)
+        self.handle_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
         loss = loss.sum() +  reg_tr.sum()
         loss.backward()
