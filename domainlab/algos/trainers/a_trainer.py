@@ -30,7 +30,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param successor_node:
         """
         super().__init__(successor_node)
-        self.model = None
+        self._model = None
         self.task = None
         self.observer = None
         self.device = None
@@ -57,6 +57,17 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_initialized = False
 
     @property
+    def model(self):
+        """
+        property model, which can be another trainer or model
+        """
+        return self.get_model()
+
+    @model.setter
+    def model(self, model):
+        self._model = model
+
+    @property
     def str_metric4msel(self):
         """
         metric for model selection
@@ -68,7 +79,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         model, task, observer, device, aconf
         """
         # @FIXME: aconf and args should be separated
-        self.model = model
+        self._model = model
         self.task = task
         self.observer = observer
         self.device = device
@@ -87,8 +98,14 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_update_hyper_per_batch = False
         self.epo_loss_tr = None
         self.hyper_scheduler = None
-        self.optimizer = mk_opt(self.model, self.aconf)
+        self.reset()
         self.flag_initialized = True
+
+    def reset(self):
+        """
+        make a new optimizer to clear internal state
+        """
+        self.optimizer = mk_opt(self.model, self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
@@ -143,3 +160,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param request: string
         """
         return request == self.name
+
+    def get_model(self):
+        """
+        recursively get the "real" model from trainer
+        """
+        if "trainer" not in str(type(self._model)).lower():
+            return self._model
+        return self._model.get_model()
