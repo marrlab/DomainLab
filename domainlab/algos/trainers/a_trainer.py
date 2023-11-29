@@ -58,6 +58,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
 
     @property
     def model(self):
+        """
+        property model, which can be another trainer or model
+        """
         return self.get_model()
 
     @model.setter
@@ -157,3 +160,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         :param request: string
         """
         return request == self.name
+
+    def get_model(self):
+        """
+        recursively get the "real" model from trainer
+        """
+        if "trainer" not in str(type(self._model)).lower():
+            return self._model
+        return self._model.get_model()
