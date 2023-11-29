@@ -95,6 +95,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if flag_accept:
             self.observer.accept(self)
 
+        self.model = self.model.to(device)
         #
         self.num_batches = len(self.loader_tr)
         self.flag_update_hyper_per_epoch = False
