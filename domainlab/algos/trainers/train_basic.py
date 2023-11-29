@@ -48,12 +48,6 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr, list_b_reg_loss_sumed))
         return list_b_reg_loss_sumed
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        """
-        decorate trainer regularization loss
-        """
-        return self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
-
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         trainer specific regularization loss, by default 0
