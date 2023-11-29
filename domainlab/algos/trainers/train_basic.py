@@ -48,7 +48,18 @@ class TrainerBasic(AbstractTrainer):
         return list_b_reg_loss_sumed
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        decorate trainer regularization loss
+        """
         return self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+
+    def _cal_reg_loss(tensor_x, tensor_y, tensor_d, others):
+        """
+        trainer specific regularization loss, by default 0
+        """
+        device = tensor_x.device
+        bsize = tensor_x.shape[0]
+        return [torch.zeros(bsize, 1).to(device)], [0.0]
 
     def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
         """

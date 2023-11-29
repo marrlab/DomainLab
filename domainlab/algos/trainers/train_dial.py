@@ -40,6 +40,7 @@ class TrainerDIAL(TrainerBasic):
         """
         Let trainer behave like a model, so that other trainer could use it
         """
+        _ = tensor_d
         tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
         loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
