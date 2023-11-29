@@ -78,7 +78,7 @@ def mk_dann(parent_class=AModelClassif):
             """
             return self.net_classifier(self.net_encoder(tensor_x))
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))

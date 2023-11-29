@@ -103,7 +103,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             """get_list_str_y."""
             return self._list_str_y
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
 
