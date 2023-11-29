@@ -54,10 +54,13 @@ class TrainerBasic(AbstractTrainer):
         """
         return self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
 
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         trainer specific regularization loss, by default 0
         """
+        _ = tensor_y
+        _ = tensor_d
+        _ = others
         device = tensor_x.device
         bsize = tensor_x.shape[0]
         return [torch.zeros(bsize, 1).to(device)], [0.0]
