@@ -36,21 +36,14 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
         """
         Let trainer behave like a model, so that other trainer could use it
         """
         return super().cal_reg_loss(tensor_x, tensor_y, tensor_d)
-        self.model.train()
         tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
-        loss_dial = self.model.cal_loss(tensor_x_batch_adv_no_grad, tensor_y, tensor_d)
-        # FIXME: dial is different from other regularizer,
-        # no matter if self.model is a trainer or complex model like diva?
-        # self.model should return cal_loss, and loss_dial is the same function evaluated
-        # on the augmented data
-        # However, if we want to tune all the multipliers, we should return all reg losses in the decorator chain,
-        # but the current implementation is enough to be used for deepall/ERM
+        loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
         return [loss_dial], [self.gamma_reg]
 
     def tr_epoch(self, epoch):
@@ -60,11 +53,9 @@ class TrainerDIAL(TrainerBasic):
             tensor_x, vec_y, vec_d = \
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             self.optimizer.zero_grad()
-            loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
-            tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
-            tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
-            loss_dial, *_ = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, vec_y)
-            loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
+            loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)
+            loss_dial, mu = self._cal_reg_loss(tensor_x, tensor_y, tensor_d)
+            loss = loss.sum() + mu * loss_dial.sum()
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
