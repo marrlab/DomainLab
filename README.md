@@ -65,7 +65,7 @@ will create a symbolic link under the repository directory
 
 #### Windows installation details
 
-To install DomainLab on Windows, please remove the `snakemake` dependency from the `requirements.txt` file.
+To install DomainLab on Windows, please remove the `snakemake` and `datrie` dependency from the `requirements.txt` file.
 Benchmarking is currently not supported on Windows due to the dependency on Snakemake.
 
 #### Dependencies management

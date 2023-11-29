@@ -70,6 +70,17 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self._model = model
 
     @property
+    def model(self):
+        """
+        property model, which can be another trainer or model
+        """
+        return self.get_model()
+
+    @model.setter
+    def model(self, model):
+        self._model = model
+
+    @property
     def str_metric4msel(self):
         """
         metric for model selection
@@ -172,7 +183,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if "trainer" not in str(type(self._model)).lower():
             return self._model
         return self._model.get_model()
-
+      
     def as_model(self):
         """
         used for decorator pattern
