@@ -3,6 +3,7 @@ basic trainer
 """
 import math
 from operator import add
+import torch
 
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.a_trainer import mk_opt
@@ -53,7 +54,7 @@ class TrainerBasic(AbstractTrainer):
         """
         return self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
 
-    def _cal_reg_loss(tensor_x, tensor_y, tensor_d, others):
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
         """
         trainer specific regularization loss, by default 0
         """
