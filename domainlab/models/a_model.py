@@ -15,8 +15,10 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         super().__init__()
         self._decoratee = None
 
-    @property
     def extend(self, model):
+        """
+        extend the loss of the decoratee
+        """
         self._decoratee = model
 
     @property
@@ -71,7 +73,10 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        loss_reg, mu = self.extend_loss(
+        """
+        task independent regularization loss for domain generalization
+        """
+        loss_reg, mu = self._extend_loss(
             tensor_x, tensor_y, tensor_d, others)
         loss_reg_, mu_ = self._cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others)
@@ -79,7 +84,10 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return loss_reg_ + loss_reg, mu_ + mu
         return loss_reg_, mu_
 
-    def extend_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+    def _extend_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        combine losses from two models
+        """
         if self._decoratee is not None:
             return self._decoratee.cal_reg_loss(
                 tensor_x, tensor_y, tensor_d, others)
