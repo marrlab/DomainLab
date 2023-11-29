@@ -46,8 +46,7 @@ class TrainerDIAL(TrainerBasic):
             loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
             tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
             tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
-            loss_dial, *_ = self.model.cal_task_loss(
-                tensor_x_batch_adv_no_grad, vec_y, vec_d)
+            loss_dial, *_ = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, vec_y)
             loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
             loss.backward()
             self.optimizer.step()
