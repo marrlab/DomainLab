@@ -127,7 +127,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             prior = Dirichlet(torch.ones(batch_size, self.topic_dim).to(device))
             return prior
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
             q_topic, topic_q, \
                 qzd, zd_q, \
                 qzx, zx_q, \

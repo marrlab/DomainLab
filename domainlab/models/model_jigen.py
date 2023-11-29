@@ -65,7 +65,7 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             """
             JiGen don't need domain label but a pre-defined permutation index
             to calculate regularization loss
