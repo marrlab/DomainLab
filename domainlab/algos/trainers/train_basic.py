@@ -69,7 +69,7 @@ class TrainerBasic(AbstractTrainer):
         tensor_x, tensor_y, tensor_d = \
             tensor_x.to(self.device), tensor_y.to(self.device), tensor_d.to(self.device)
         self.optimizer.zero_grad()
-        loss_task = self.model.cal_loss(tensor_x, tensor_y)
+        loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
         #
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         #
