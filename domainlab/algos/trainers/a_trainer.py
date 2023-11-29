@@ -174,7 +174,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         combine losses of current trainer with self._model.cal_reg_loss, which
         can be either a trainer or a model
         """
-        list_reg_model, list_mu_model = self._model.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        list_reg_model, list_mu_model = self._model.cal_reg_loss(
+            tensor_x, tensor_y, tensor_d, others)
         list_reg, list_mu = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         return list_reg_model + list_reg, list_mu_model + list_mu
 
@@ -182,3 +183,4 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         interface for each trainer to implement
         """
+        return [], []

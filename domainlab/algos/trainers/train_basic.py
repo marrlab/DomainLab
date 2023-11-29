@@ -75,7 +75,7 @@ class TrainerBasic(AbstractTrainer):
         #
         self.handle_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
-        loss = loss.sum() +  reg_tr.sum()
+        loss = loss_task.sum() +  reg_tr.sum()
         loss.backward()
         self.optimizer.step()
         self.epo_loss_tr += loss.detach().item()
