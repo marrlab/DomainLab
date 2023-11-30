@@ -13,13 +13,16 @@ def mk_opt(model, aconf):
     if model._decoratee is None:
         optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
     else:
-        # var1 = model.parameters()
-        # var2 = model._decoratee.parameters()
+        var1 = model.parameters()
+        var2 = model._decoratee.parameters()
+        set_param = set(list(var1) + list(var2))
+        list_par = list(set_param)
         # optimizer = optim.Adam([var1, var2], lr=aconf.lr)
-        optimizer = optim.Adam([
-            {'params': model.parameters()},
-            {'params': model._decoratee.parameters()}
-        ], lr=aconf.lr)
+        #optimizer = optim.Adam([
+        #    {'params': model.parameters()},
+        #    {'params': model._decoratee.parameters()}
+        #], lr=aconf.lr)
+        optimizer = optim.Adam(list_par, lr= aconf.lr)
     return optimizer
 
 
