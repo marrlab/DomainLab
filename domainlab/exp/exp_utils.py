@@ -196,7 +196,7 @@ class AggWriter(ExpModelPersistVisitor):
         """
         disp = ConfusionMatrixDisplay(confmat)
         disp = disp.plot(cmap="gray")
-        file_path = self.get_fpath()
+        file_path = self.get_fpath(dirname="aggrsts")
         # @FIXME: although removesuffix is safe when suffix does not exist,
         # we would like to have ".csv" live in some configuraiton file in the future.
         file_path = file_path.removesuffix(".csv")
@@ -204,6 +204,7 @@ class AggWriter(ExpModelPersistVisitor):
         # @FIXME: still we want to have mname_ as a variable defined in some
         # configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
+        os.makedirs(file_path, exist_ok=True)
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
         logger = Logger.get_logger()
         logger.info(f"confusion matrix saved in file: {file_path}")
@@ -221,6 +222,8 @@ class ExpProtocolAggWriter(AggWriter):
         dict_cols = {
             "param_index": self.host.args.param_index,
             "method": self.host.args.benchmark_task_name,
+            "mname": "mname_" + self.model_name,
+            "commit": "commit_" + self.git_tag,
             "algo": self.algo_name,
             epos_name: None,
             "te_d": self.host.args.te_d,
@@ -229,6 +232,8 @@ class ExpProtocolAggWriter(AggWriter):
         }
         return dict_cols, epos_name
 
-    def get_fpath(self, dirname="aggrsts"):
+    def get_fpath(self, dirname=None):
         """filepath"""
-        return self.host.args.result_file
+        if dirname is None:
+            return self.host.args.result_file
+        return super().get_fpath(dirname)

@@ -85,7 +85,6 @@ def run_experiment(
     misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
-    misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])

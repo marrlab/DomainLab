@@ -18,8 +18,8 @@ matplotlib.use('Agg')
 COLNAME_METHOD = "method"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
-G_DF_TASK_COL = 1   # column in which the task name is saved
-G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
+G_DF_TASK_COL = 1   # column in which the method name is saved
+G_DF_PLOT_COL_METRIC_START = 9   # first 0-6 columns are not metric
 
 
 
