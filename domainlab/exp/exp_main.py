@@ -7,7 +7,7 @@ import warnings
 
 
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
-from domainlab.compos.exp.exp_utils import AggWriter
+from domainlab.exp.exp_utils import AggWriter
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
 from domainlab.utils.sanity_check import SanityCheck
 from domainlab.utils.logger import Logger
