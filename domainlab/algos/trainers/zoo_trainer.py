@@ -45,7 +45,7 @@ class TrainerChainNodeGetter(object):
         chain = TrainerHyperScheduler(chain)
         node = chain.handle(self.request)
         head = node
-        if self._list_str_trainer:
+        while self._list_str_trainer:
             self.request = self._list_str_trainer.pop(0)
             node2decorate = self.__call__(lst_candidates, default, lst_excludes)
             head.extend(node2decorate)
