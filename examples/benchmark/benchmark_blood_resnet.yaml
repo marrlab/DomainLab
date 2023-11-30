@@ -149,21 +149,14 @@ jigen:  # name
       distribution: loguniform
 
 
-dann:  # name
-  aname: dann
-
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 deepall:  # name
   aname: deepall
 
 
 dial: # name
-  aname: deepall_dial
+  aname: deepall
+  trainer: dial
 
   hyperparameters:
     dial_steps_perturb:
@@ -188,12 +181,11 @@ dial: # name
       distribution: loguniform
 
 mldg:  # name
-  aname: deepallmldg
+  aname: deepall
+  trainer: mldg
 
   hyperparameters:
     gamma_reg:
       min: 0.01
       max: 10
       distribution: loguniform
-
-
