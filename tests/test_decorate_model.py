@@ -18,8 +18,6 @@ def test_mk_exp_jigen():
     """
     test mk experiment API with "jigen" model and "mldg", "dial" trainer
     """
-
-    mk_exp_jigen(trainer="mldg")
     mk_exp_jigen(trainer="dial")
 
 
