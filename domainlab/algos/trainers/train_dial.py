@@ -47,24 +47,6 @@ class TrainerDIAL(TrainerBasic):
         loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
         return [loss_dial], [self.aconf.gamma_reg]
 
-    def tr_epoch(self, epoch):
-        self.model.train()
-        self.epo_loss_tr = 0
-        for ind_batch, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr):
-            tensor_x, vec_y, vec_d = \
-                tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
-            self.optimizer.zero_grad()
-            loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)  # @FIXME
-            tensor_x_adv = self.gen_adversarial(self.device, tensor_x, vec_y)
-            tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
-            loss_dial, *_ = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, vec_y)
-            loss = loss.sum() + self.aconf.gamma_reg * loss_dial.sum()
-            loss.backward()
-            self.optimizer.step()
-            self.epo_loss_tr += loss.detach().item()
-            self.after_batch(epoch, ind_batch)
-        flag_stop = self.observer.update(epoch)  # notify observer
-        return flag_stop
 
     def hyper_init(self, functor_scheduler, trainer):
         """

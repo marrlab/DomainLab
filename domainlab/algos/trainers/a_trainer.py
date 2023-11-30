@@ -61,13 +61,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.mu_iter_start = 0
         self.flag_setpoint_updated = False
 
-    @property
-    def model(self):
-        return self.get_model()
-
-    @model.setter
-    def model(self, model):
-        self._model = model
 
     @property
     def model(self):
