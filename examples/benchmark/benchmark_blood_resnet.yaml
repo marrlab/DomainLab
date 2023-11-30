@@ -1,9 +1,9 @@
 # test benchmark config.
 
 test_domains:
-  - matek
   - acevedo
-  - mll
+#- mll
+#- matek
 
 output_dir: zoutput/benchmarks/blood
 # number of hyperparameter samples per task.
