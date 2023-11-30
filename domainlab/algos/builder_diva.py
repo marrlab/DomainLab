@@ -25,7 +25,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         chain of responsibility pattern for fetching trainer from dictionary
         """
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         return trainer
 
     def init_business(self, exp):

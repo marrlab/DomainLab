@@ -14,12 +14,11 @@ class TrainerChainNodeGetter(object):
     Chain of Responsibility: node is named in pattern Trainer[XXX] where the string
     after 'Trainer' is the name to be passed to args.trainer.
     """
-    def __init__(self, args):
+    def __init__(self, str_trainer):
         """__init__.
         :param args: command line arguments
         """
-        # NOTE: self.request.trainer is hard coded
-        self.request = args.trainer
+        self.request = str_trainer
 
     def __call__(self, lst_candidates=None, default=None, lst_excludes=None):
         """

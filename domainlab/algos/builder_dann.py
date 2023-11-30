@@ -56,7 +56,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
                           net_discriminator=net_discriminator)
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         if trainer.name == "hyperscheduler":
             trainer.set_scheduler(HyperSchedulerWarmupExponential,

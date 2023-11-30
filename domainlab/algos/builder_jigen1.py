@@ -73,7 +73,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
                            net_classifier_class=net_classifier,
                            net_classifier_permutation=net_classifier_perm)
 
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         if isinstance(trainer, TrainerHyperScheduler):
             trainer.set_scheduler(HyperSchedulerWarmupExponential,

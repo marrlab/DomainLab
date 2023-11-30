@@ -36,6 +36,6 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                                     i_w=task.isize.i_w)
 
         model = mk_deepall()(net, list_str_y=task.list_str_y)
-        trainer = TrainerChainNodeGetter(args)(default="basic")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device
