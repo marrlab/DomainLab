@@ -10,9 +10,9 @@ import pandas as pd
 import torch
 
 from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
-from domainlab.compos.exp.exp_cuda_seed import set_seed
-from domainlab.compos.exp.exp_main import Exp
-from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.exp.exp_cuda_seed import set_seed
+from domainlab.exp.exp_main import Exp
+from domainlab.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.utils.logger import Logger
 
 

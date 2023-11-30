@@ -11,7 +11,7 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.models.model_deep_all import mk_deepall
 from domainlab.utils.utils_cuda import get_device
 from domainlab.arg_parser import mk_parser_main
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 
 from domainlab.dsets.dset_mnist_color_solo_default import \
     DsetMNISTColorSoloDefault
