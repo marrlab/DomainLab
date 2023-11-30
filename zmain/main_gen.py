@@ -3,7 +3,7 @@ command line generate images
 """
 import os
 import torch
-from domainlab.compos.exp.exp_cuda_seed import set_seed
+from domainlab.exp.exp_cuda_seed import set_seed
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
 from domainlab.arg_parser import mk_parser_main
 from domainlab.utils.utils_cuda import get_device

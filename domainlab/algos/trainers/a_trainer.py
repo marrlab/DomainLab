@@ -25,12 +25,19 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         return "Trainer"
 
-    def __init__(self, successor_node=None):
+    def extend(self, trainer):
+        """
+        extend current trainer with another trainer
+        """
+        self._decoratee = trainer
+
+    def __init__(self, successor_node=None, extend=None):
         """__init__.
         :param successor_node:
         """
         super().__init__(successor_node)
         self._model = None
+        self._decoratee = extend
         self.task = None
         self.observer = None
         self.device = None
@@ -78,7 +85,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         model, task, observer, device, aconf
         """
-        self._model = model
+        if self._decoratee is not None:
+            self._decoratee.init_business(model, task, observer, device, aconf, flag_accept)
+            self._model = self._decoratee
+        else:
+            self._model = model
         self.task = task
         self.observer = observer
         self.device = device
