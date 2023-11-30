@@ -17,8 +17,11 @@ class TrainerChainNodeGetter(object):
         """__init__.
         :param args: command line arguments
         """
-        self._list_str_trainer = str_trainer.split(',')
-        self.request = self._list_str_trainer.pop(0)
+        if str_trainer is not None:
+            self._list_str_trainer = str_trainer.split(',')
+            self.request = self._list_str_trainer.pop(0)
+        else:
+            self.request = str_trainer
 
     def __call__(self, lst_candidates=None, default=None, lst_excludes=None):
         """
