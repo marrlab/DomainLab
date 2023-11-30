@@ -25,12 +25,19 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         return "Trainer"
 
-    def __init__(self, successor_node=None):
+    def extend(self, trainer):
+        """
+        extend current trainer with another trainer
+        """
+        self._decoratee = trainer
+
+    def __init__(self, successor_node=None, extend=None):
         """__init__.
         :param successor_node:
         """
         super().__init__(successor_node)
         self._model = None
+        self._decoratee = extend
         self.task = None
         self.observer = None
         self.device = None
@@ -78,8 +85,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         model, task, observer, device, aconf
         """
-        # @FIXME: aconf and args should be separated
-        self._model = model
+        if self._decoratee is not None:
+            self._decoratee.init_business(model, task, observer, device, aconf, flag_accept)
+            self._model = self._decoratee
+        else:
+            self._model = model
         self.task = task
         self.observer = observer
         self.device = device
@@ -168,3 +178,20 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if "trainer" not in str(type(self._model)).lower():
             return self._model
         return self._model.get_model()
+
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        decorate trainer regularization loss
+        combine losses of current trainer with self._model.cal_reg_loss, which
+        can be either a trainer or a model
+        """
+        list_reg_model, list_mu_model = self._model.cal_reg_loss(
+            tensor_x, tensor_y, tensor_d, others)
+        list_reg, list_mu = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        return list_reg_model + list_reg, list_mu_model + list_mu
+
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        interface for each trainer to implement
+        """
+        return [], []

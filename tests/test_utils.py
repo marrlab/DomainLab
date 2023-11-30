@@ -2,8 +2,8 @@
 Tests the ExpProtocolAggWriter
 """
 from domainlab.arg_parser import mk_parser_main
-from domainlab.compos.exp.exp_main import Exp
-from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.exp.exp_main import Exp
+from domainlab.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.exp_protocol.run_experiment import apply_dict_to_args
 from domainlab.utils.get_git_tag import get_git_tag
 

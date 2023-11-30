@@ -2,7 +2,7 @@
 make an experiment
 """
 from domainlab.arg_parser import mk_parser_main
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 
 
 def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int):
