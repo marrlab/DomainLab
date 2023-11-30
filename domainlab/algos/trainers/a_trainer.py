@@ -91,7 +91,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         model, task, observer, device, aconf
         """
-        # @FIXME: aconf and args should be separated
         self._model = model
         self.task = task
         self.observer = observer
@@ -192,3 +191,20 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.get_model().do_something()
         """
         return self.get_model()
+
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        decorate trainer regularization loss
+        combine losses of current trainer with self._model.cal_reg_loss, which
+        can be either a trainer or a model
+        """
+        list_reg_model, list_mu_model = self._model.cal_reg_loss(
+            tensor_x, tensor_y, tensor_d, others)
+        list_reg, list_mu = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        return list_reg_model + list_reg, list_mu_model + list_mu
+
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        interface for each trainer to implement
+        """
+        return [], []

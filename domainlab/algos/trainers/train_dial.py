@@ -36,11 +36,12 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d):
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         Let trainer behave like a model, so that other trainer could use it
         """
-        return super().cal_reg_loss(tensor_x, tensor_y, tensor_d)
+        _ = tensor_d
+        _ = others
         tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
         loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
