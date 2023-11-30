@@ -18,7 +18,7 @@ def make_basic_trainer(class_name_model):
             """
             chain of responsibility pattern for fetching trainer from commandline parsed arguments
             """
-            trainer = TrainerChainNodeGetter(args)(default="basic")
+            trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
             return trainer
 
         def _set_args(self, args, val_arg_na, prefix, argname):
