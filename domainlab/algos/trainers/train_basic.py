@@ -24,6 +24,10 @@ class TrainerBasic(AbstractTrainer):
         self.model.evaluate(self.loader_te, self.device)
 
     def before_epoch(self):
+        """
+        set model to train mode
+        initialize some member variables
+        """
         self.model.train()
         self.counter_batch = 0.0
         self.epo_loss_tr = 0
@@ -36,9 +40,12 @@ class TrainerBasic(AbstractTrainer):
                 enumerate(self.loader_tr):
             self.tr_batch(tensor_x, tensor_y, tensor_d, others,
                           ind_batch, epoch)
-        self.after_epoch(epoch)
+        return self.after_epoch(epoch)
 
     def after_epoch(self, epoch):
+        """
+        observer collect information
+        """
         self.epo_loss_tr /= self.counter_batch
         self.epo_task_loss_tr /= self.counter_batch
         self.epo_reg_loss_tr = list_divide(self.epo_reg_loss_tr,
