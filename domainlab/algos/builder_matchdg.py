@@ -49,15 +49,12 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
 
         # different than model, ctr_model has no classification loss
 
-        ctr_model = copy.deepcopy(model)
-        ctr_model = ctr_model.to(device)
-
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitor(model_sel,
                              device,
                              exp=exp)
 
         trainer = TrainerMatchDG()
-        trainer.init_business(exp, task, ctr_model, model, observer, args,
+        trainer.init_business(exp, task, model, observer, args,
                               device)
         return trainer, model, observer, device
