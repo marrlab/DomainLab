@@ -21,8 +21,10 @@ class TrainerMLDG(AbstractTrainer):
         """
         self.model.evaluate(self.loader_te, self.device)
         self.inner_trainer = TrainerBasic()
+        self.inner_trainer.extend(self._decoratee)
+        inner_model = copy.deepcopy(self.model)
         self.inner_trainer.init_business(
-            self.model, self.task, self.observer, self.device, self.aconf,
+            inner_model, self.task, self.observer, self.device, self.aconf,
             flag_accept=False)
         self.prepare_ziped_loader()
 
@@ -56,29 +58,21 @@ class TrainerMLDG(AbstractTrainer):
 
             self.optimizer.zero_grad()
 
-            inner_net = copy.deepcopy(self.model)
-            self.inner_trainer.model = inner_net   # FORCE replace model
-            self.inner_trainer.train_batch(
-                tensor_x_s, vec_y_s, vec_d_s, others_s)  # update inner_net
+            inner_model = copy.deepcopy(self.model)
+            self.inner_trainer.model = inner_model   # FORCE replace model
+            # update inner_model
+            self.inner_trainer.before_epoch()  # set model to train mode
+            self.inner_trainer.reset()  # force optimizer to re-initialize
+            self.inner_trainer.tr_batch(
+                tensor_x_s, vec_y_s, vec_d_s, others_s, ind_batch, epoch)
+            # inner_model has now accumulated gradients Gi
+            # with parameters theta_i - lr * G_i where i index batch
 
-            # DomainBed:
-            # The network has now accumulated gradients Gi
-            # The clone-network has now parameters P - lr * Gi
-            # for p_tgt, p_src in zip(self.model.parameters(),
-            #                         inner_net.parameters()):
-            #    if p_src.grad is not None:
-            #         p_tgt.grad.data.add_(p_src.grad.data / num_mb)
-            loss_look_forward = inner_net.cal_task_loss(tensor_x_t, vec_y_t)
-            # DomainBed: instead of backward, do explicit gradient update
-            # loss_inner_j = F.cross_entropy(inner_net(xj), yj)
-            # grad_inner_j = autograd.grad(loss_inner_j, inner_net.parameters(), allow_unused=True)
-            # for p, g_j in zip(self.model.parameters(), grad_inner_j):
-            #     if g_j is not None:
-            #         p.grad.data.add_(
-            #             self.hparams['mldg_beta'] * g_j.data / num_mb)
+            loss_look_forward = inner_model.cal_task_loss(tensor_x_t, vec_y_t)
             loss_source, *_ = self.model.cal_loss(tensor_x_s, vec_y_s, vec_d_s, others_s)
             loss = loss_source.sum() + self.aconf.gamma_reg * loss_look_forward.sum()
             loss.backward()
+            # optimizer only optimize parameters of self.model, not inner_model
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
