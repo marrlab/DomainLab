@@ -34,7 +34,7 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = [0.0 for _ in range(10)]
         self.epo_task_loss_tr = 0
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         self.before_epoch()
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in \
                 enumerate(self.loader_tr):
