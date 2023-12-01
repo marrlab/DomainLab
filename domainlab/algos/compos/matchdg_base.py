@@ -1,3 +1,7 @@
+"""
+interface class for matchdg by defining auxilliary operations
+"""
+
 import torch
 from domainlab.algos.compos.matchdg_match import MatchPair
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
@@ -5,14 +9,23 @@ from domainlab.utils.logger import Logger
 
 
 class MatchAlgoBase(AbstractTrainer):
+    """
+    interface class for matchdg by defining auxilliary operations
+    """
     @property
     def model_path_ctr(self):
+        """
+        property: model storage path for ctr phase model
+        """
         if self.exp is not None:
             return self.exp.visitor.model_path + "_ctr"
         return "ctr.model"
 
     @property
     def model_path(self):
+        """
+        property: model storage path for erm+ctr phase model
+        """
         if self.exp is not None:
             return self.exp.visitor.model_path
         return "matchdg.model"

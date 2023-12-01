@@ -12,6 +12,7 @@ class MatchCtrErm(MatchAlgoBase):
     """
     def init_business(self, model, task, observer, device, aconf, flag_erm=False):
         """
+        initialize member objects
         """
         super().init_business(model, task, observer, device, aconf)
         # use the same batch size for match tensor
