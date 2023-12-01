@@ -28,6 +28,10 @@ class MatchCtrErm(MatchAlgoBase):
         self.tuple_tensor_refdomain2each = None
 
     def init_erm(self):
+        """
+        different initialization depending on pure ctr training or
+        ctr + erm training
+        """
         if self.flag_erm:
             self.lambda_ctr = self.aconf.gamma_reg
             self.str_phase = "erm"
