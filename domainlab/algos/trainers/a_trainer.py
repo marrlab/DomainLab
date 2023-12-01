@@ -68,6 +68,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.optimizer = None
         self.exp = None
         # matchdg
+        self.lambda_ctr = None
         self.ctr_model = None
         self.tensor_ref_domain2each_domain_x = None
         self.tensor_ref_domain2each_domain_y = None
