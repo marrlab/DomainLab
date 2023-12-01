@@ -19,6 +19,9 @@ class AMSel(metaclass=abc.ABCMeta):
         self._max_es = None
 
     def reset(self):
+        """
+        reset observer via reset model selector
+        """
         if self.msel is not None:
             self.msel.reset()
 

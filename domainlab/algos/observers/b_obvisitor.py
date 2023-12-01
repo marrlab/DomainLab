@@ -38,6 +38,9 @@ class ObVisitor(AObVisitor):
         return self.host_trainer.str_metric4msel
 
     def reset(self):
+        """
+        reset observer via reset model selector
+        """
         self.model_sel.reset()
 
     def update(self, epoch):
