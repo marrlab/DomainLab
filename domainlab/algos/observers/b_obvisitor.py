@@ -4,7 +4,6 @@ dispatch performance evaluation to model,
 dispatch model selection to model selection object
 """
 import os
-import warnings
 
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
@@ -37,6 +36,9 @@ class ObVisitor(AObVisitor):
         string representing the metric used for persisting models on the disk
         """
         return self.host_trainer.str_metric4msel
+
+    def reset(self):
+        self.model_sel.reset()
 
     def update(self, epoch):
         logger = Logger.get_logger()

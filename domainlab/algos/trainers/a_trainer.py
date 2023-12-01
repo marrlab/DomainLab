@@ -68,8 +68,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.optimizer = None
         self.exp = None
         self.args = None
+        # matchdg
         self.ctr_model = None
         self.erm = None
+        self.tensor_ref_domain2each_domain_x = None
+        self.tensor_ref_domain2each_domain_y = None
+        self.base_domain_size = None
         # mldg
         self.inner_trainer = None
         self.loader_tr_source_target = None
@@ -92,6 +96,14 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         metric for model selection
         """
         return self.model.metric4msel
+
+    @property
+    def list_tr_domain_size(self):
+        """
+        get a list of training domain size
+        """
+        train_domains = self.task.list_domain_tr
+        return [len(self.task.dict_dset_tr[key]) for key in train_domains]
 
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """

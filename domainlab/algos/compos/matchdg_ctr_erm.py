@@ -1,9 +1,8 @@
 import torch
 
-from domainlab.algos.compos.matchdg_base import MatchAlgoBase
+from domainlab.algos.compos.matchdg_base import MatchAlgoBase, get_base_domain_size4match_dg
 from domainlab.algos.compos.matchdg_utils import (dist_cosine_agg,
                                                   dist_pairwise_cosine)
-from domainlab.algos.trainers.a_trainer import mk_opt
 from domainlab.utils.logger import Logger
 
 
@@ -11,28 +10,32 @@ class MatchCtrErm(MatchAlgoBase):
     """
     Contrastive Learning
     """
-    def __init__(self, task, phi, args, device, exp, flag_erm=False, opt=None):
+    def init_business(self, model, task, observer, device, aconf, flag_erm=False):
         """
         """
-        if opt is None:
-            opt = mk_opt(phi, args)
-        super().__init__(task, phi, args, device, exp, opt)
+        super().init_business(model, task, observer, device, aconf)
+        # use the same batch size for match tensor
+        # so that order is kept!
+        self.base_domain_size = get_base_domain_size4match_dg(self.task)
         self.epo_loss_tr = 0
         self.flag_erm = flag_erm
-        self.epos = self.args.epochs_ctr
-        self.epos_per_match = self.args.epos_per_match_update
+        self.epos = self.aconf.epochs_ctr
+        self.epos_per_match = self.aconf.epos_per_match_update
         self.str_phase = "ctr"
         self.lambda_ctr = 1.0
+        self.init_erm()
+        self.flag_stop = False
+        self.tuple_tensor_ref_domain2each_y = None
+        self.tuple_tensor_refdomain2each = None
+
+    def init_erm(self):
         if self.flag_erm:
-            self.lambda_ctr = self.args.gamma_reg
-            self.epos = self.args.epos - self.args.epochs_ctr
+            self.lambda_ctr = self.aconf.gamma_reg
+            self.epos = self.aconf.epos - self.aconf.epochs_ctr
             self.str_phase = "erm"
             self.init_erm_phase()
         else:
             self.mk_match_tensor(epoch=0)
-        self.flag_stop = False
-        self.tuple_tensor_ref_domain2each_y = None
-        self.tuple_tensor_refdomain2each = None
 
     def train(self):
         """
@@ -46,6 +49,7 @@ class MatchCtrErm(MatchAlgoBase):
         # data in one batch comes from two sources: one part from loader,
         # the other part from match tensor
         """
+        self.model.train()
         self.epo_loss_tr = 0
         logger = Logger.get_logger()
         logger.info(f"self.str_phase {epoch} epoch")
@@ -59,17 +63,17 @@ class MatchCtrErm(MatchAlgoBase):
         # shuffles the match tensor at the first dimension
         self.tuple_tensor_refdomain2each = torch.split(
             self.tensor_ref_domain2each_domain_x[inds_shuffle],
-            self.args.bs, dim=0)
+            self.aconf.bs, dim=0)
         # Splits the tensor into chunks.
-        # Each chunk is a view of the original tensor of batch size self.args.bs
+        # Each chunk is a view of the original tensor of batch size self.aconf.bs
         # return is a tuple of the splited chunks
         self.tuple_tensor_ref_domain2each_y = torch.split(
             self.tensor_ref_domain2each_domain_y[inds_shuffle],
-            self.args.bs, dim=0)
+            self.aconf.bs, dim=0)
         logger.info(f"number of batches in match tensor: {len(self.tuple_tensor_refdomain2each)}")
         logger.info(f"single batch match tensor size: {self.tuple_tensor_refdomain2each[0].shape}")
 
-        for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader):
+        for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader_tr):
             # random loader with same batch size as the match tensor loader
             # the 4th output of self.loader is not used at all,
             # is only used for creating the match tensor
@@ -86,7 +90,7 @@ class MatchCtrErm(MatchAlgoBase):
         """
         update network for each batch
         """
-        self.opt.zero_grad()
+        self.optimizer.zero_grad()
         x_e = x_e.to(self.device)  # 64 * 1 * 224 * 224
         # y_e_scalar = torch.argmax(y_e, dim=1).to(self.device)
         y_e = y_e.to(self.device)
@@ -103,7 +107,7 @@ class MatchCtrErm(MatchAlgoBase):
         # these losses within one batch
 
         if self.flag_erm:
-            loss_erm_rnd_loader, *_ = self.phi.cal_loss(x_e, y_e, d_e)
+            loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e)
 
         num_batches = len(self.tuple_tensor_refdomain2each)
 
@@ -120,7 +124,7 @@ class MatchCtrErm(MatchAlgoBase):
         # make order 5 tensor: (ref_domain, domain, channel, img_h, img_w)
         # with first dimension as batch size
 
-        # clamp the first two dimensions so the phi network could map image to feature
+        # clamp the first two dimensions so the model network could map image to feature
         batch_tensor_ref_domain2each = batch_tensor_ref_domain2each.view(
             batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
             batch_tensor_ref_domain2each.shape[2],   # channel
@@ -129,7 +133,7 @@ class MatchCtrErm(MatchAlgoBase):
         # now batch_tensor_ref_domain2each first dim will not be batch_size!
         # batch_tensor_ref_domain2each.shape torch.Size([40, channel, 224, 224])
 
-        batch_feat_ref_domain2each = self.phi.extract_semantic_feat(
+        batch_feat_ref_domain2each = self.model.extract_semantic_feat(
             batch_tensor_ref_domain2each)
         # batch_feat_ref_domain2each.shape torch.Size[40, 512]
         # torch.sum(torch.isnan(batch_tensor_ref_domain2each))
@@ -152,14 +156,14 @@ class MatchCtrErm(MatchAlgoBase):
             # @FIXME: check if batch_ref_domain2each_y is
             # continuous number which means it is at its initial value,
             # not yet filled
-            loss_erm_match_tensor, *_ = self.phi.cal_loss(
+            loss_erm_match_tensor, *_ = self.model.cal_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
         # Creating tensor of shape (domain size, total domains, feat size )
         # The match tensor's first two dimension
         # [(Ref domain size) * (# train domains)]
         # has been clamped together to get features extracted
-        # through self.phi
+        # through self.model
 
         # it has to be reshaped into the match tensor shape, the same
         # for the extracted feature here, it has to reshaped into
@@ -167,18 +171,19 @@ class MatchCtrErm(MatchAlgoBase):
         # to make sure that the reshape only happens at the
         # first two dimension, the feature dim has to be kept intact
         dim_feat = batch_feat_ref_domain2each.shape[1]
+        num_domain_tr = len(self.task.list_domain_tr)
         batch_feat_ref_domain2each = batch_feat_ref_domain2each.view(
-            curr_batch_size, self.num_domain_tr, dim_feat)
+            curr_batch_size, num_domain_tr, dim_feat)
 
         batch_ref_domain2each_y = batch_ref_domain2each_y.view(
-            curr_batch_size, self.num_domain_tr)
+            curr_batch_size, num_domain_tr)
 
         # The match tensor's first two dimension
         # [(Ref domain size) * (# train domains)] has been clamped
-        # together to get features extracted through self.phi
+        # together to get features extracted through self.model
         batch_tensor_ref_domain2each = \
             batch_tensor_ref_domain2each.view(curr_batch_size,
-                                              self.num_domain_tr,
+                                              num_domain_tr,
                                               batch_tensor_ref_domain2each.shape[1],   # channel
                                               batch_tensor_ref_domain2each.shape[2],   # img_h
                                               batch_tensor_ref_domain2each.shape[3])   # img_w
@@ -186,7 +191,7 @@ class MatchCtrErm(MatchAlgoBase):
         # Contrastive Loss: class \times domain \times domain
         counter_same_cls_diff_domain = 1
         logger = Logger.get_logger()
-        for y_c in range(self.dim_y):
+        for y_c in range(self.task.dim_y):
 
             subset_same_cls = (batch_ref_domain2each_y[:, 0] == y_c)
             subset_diff_cls = (batch_ref_domain2each_y[:, 0] != y_c)
@@ -232,7 +237,7 @@ class MatchCtrErm(MatchAlgoBase):
                     else:
                         i_dist_same_cls_diff_domain = 1.0 - dist_same_cls_diff_domain
                         i_dist_same_cls_diff_domain = \
-                            i_dist_same_cls_diff_domain / self.args.tau
+                            i_dist_same_cls_diff_domain / self.aconf.tau
                         partition = torch.log(torch.exp(i_dist_same_cls_diff_domain) +
                                               dist_diff_cls_same_domain)
                         list_batch_loss_ctr.append(
@@ -267,7 +272,9 @@ class MatchCtrErm(MatchAlgoBase):
         # error "'float' object has no attribute 'backward'"
 
         loss_e.backward(retain_graph=False)
-        self.opt.step()
+        self.optimizer.step()
         self.epo_loss_tr += loss_e.detach().item()
 
         torch.cuda.empty_cache()
+        flag_stop = self.observer.update(epoch)  # notify observer
+        return flag_stop

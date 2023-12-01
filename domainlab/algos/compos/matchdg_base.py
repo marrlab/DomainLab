@@ -1,34 +1,21 @@
 import torch
 from domainlab.algos.compos.matchdg_match import MatchPair
+from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.utils.logger import Logger
 
 
-class MatchAlgoBase():
-    def __init__(self, task, phi, args, device, exp, opt):
-        self.bs_match = args.bs  # use the same batch size for match tensor
-        self.exp = exp
-        self.task = task
-        self.num_domain_tr = len(self.task.list_domain_tr)
-        train_domains = self.task.list_domain_tr
-        self.list_tr_domain_size = [len(self.task.dict_dset_tr[key]) \
-            for key in train_domains]
-        # so that order is kept!
-        self.base_domain_size = get_base_domain_size4match_dg(self.task)
-        self.dim_y = task.dim_y
+class MatchAlgoBase(AbstractTrainer):
+    @property
+    def model_path_ctr(self):
+        if self.exp is not None:
+            return self.exp.visitor.model_path + "_ctr"
+        return "ctr.model"
 
-        self.args = args
-        # @FIXME: training loader always drop the last batch,
-        # so inside matchdg, for the data storage tensor,
-        # loader is re-initialized by disabling drop
-        self.loader = task.loader_tr
-        self.device = device
-        self.phi = phi.to(self.device)
-        #
-        self.opt = opt
-        self.ctr_mpath = self.exp.visitor.model_path + "_ctr"
-        #
-        self.tensor_ref_domain2each_domain_x = None
-        self.tensor_ref_domain2each_domain_y = None
+    @property
+    def model_path(self):
+        if self.exp is not None:
+            return self.exp.visitor.model_path
+        return "matchdg.model"
 
     def init_erm_phase(self):
         """
@@ -38,43 +25,44 @@ class MatchAlgoBase():
         # the keys of :attr:`state_dict` must exactly match the
         # keys returned by this module's
         # :meth:`~torch.nn.Module.state_dict` function
-        self.phi.load_state_dict(torch.load(self.ctr_mpath), strict=False)
-        # load the phi network trained during the
+        self.model.load_state_dict(
+            torch.load(self.model_path_ctr), strict=False)
+        # load the model network trained during the
         # ctr(contrastive learning) phase
-        self.phi = self.phi.to(self.device)
+        self.model = self.model.to(self.device)
         # len((ctr_phi.state_dict()).keys()): 122,
         # extra fields are fc.weight, fc.bias
-        self.phi.eval()  # @FIXME
+        self.model.eval()  # @FIXME
         self.mk_match_tensor(epoch=0)
 
     def save_model_ctr_phase(self):
         # Store the weights of the model
         # dirname = os.path.dirname(self.ctr_mpath)
         # Path(dirname).mkdir(parents=True, exist_ok=True)
-        torch.save(self.phi.state_dict(), self.ctr_mpath)
+        torch.save(self.model.state_dict(), self.model_path_ctr)
 
     def save_model_erm_phase(self):
-        torch.save(self.phi, self.exp.visitor.model_path)
+        torch.save(self.model, self.model_path)
 
     def mk_match_tensor(self, epoch):
         """
         initialize or update match tensor
         """
-        obj_match = MatchPair(self.dim_y,
+        obj_match = MatchPair(self.task.dim_y,
                               self.task.isize.i_c,
                               self.task.isize.i_h,
                               self.task.isize.i_w,
-                              self.bs_match,
+                              self.aconf.bs,
                               virtual_ref_dset_size=self.base_domain_size,
-                              num_domains_tr=self.num_domain_tr,
+                              num_domains_tr=len(self.task.list_domain_tr),
                               list_tr_domain_size=self.list_tr_domain_size)
 
         # @FIXME: what is the usefulness of (epoch > 0) as argument
         self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
         obj_match(
             self.device,
-            self.loader,
-            lambda x: self.phi.extract_semantic_feat(x),
+            self.task.loader_tr,
+            lambda x: self.model.extract_semantic_feat(x),
             (epoch > 0))
 
 
