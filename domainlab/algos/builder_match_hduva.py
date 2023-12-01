@@ -48,11 +48,9 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            beta_x=args.beta_x,
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
-        model_ctr = copy.deepcopy(model)
 
         model = model.to(device)
 
-        ctr_model = model_ctr.to(device)
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitor(model_sel,
@@ -60,7 +58,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                              exp=exp)
 
         trainer = TrainerMatchDG()
-        trainer.init_business(exp, task, ctr_model, model, observer,
+        trainer.init_business(exp, task, model, observer,
                               args, device)
 
         return trainer, model, observer, device

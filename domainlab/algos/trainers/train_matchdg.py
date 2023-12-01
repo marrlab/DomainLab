@@ -1,6 +1,8 @@
 """
 trainer for matchDG
 """
+import copy
+
 from domainlab.algos.compos.matchdg_ctr_erm import MatchCtrErm
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.utils.logger import Logger
@@ -10,11 +12,14 @@ class TrainerMatchDG(AbstractTrainer):
     """
     trainer for matchdg
     """
-    def init_business(self, exp, task, ctr_model, model, observer, args, device):
+    def init_business(self, exp, task, model, observer, args, device):
         super().init_business(model, task, observer, device, args)
         self.exp = exp
         self.epo_loss_tr = None
-        self.ctr_model = ctr_model
+
+        # different than model, ctr_model has no classification loss
+        self.ctr_model = copy.deepcopy(model)
+        self.ctr_model = self.ctr_model.to(device)
         self.erm = None
         self.args = self.aconf
 
