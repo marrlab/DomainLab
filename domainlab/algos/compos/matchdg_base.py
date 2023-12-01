@@ -19,16 +19,6 @@ class MatchAlgoBase(AbstractTrainer):
         """
         if self.exp is not None:
             return self.exp.visitor.model_path + "_ctr"
-        return "ctr.model"
-
-    @property
-    def model_path(self):
-        """
-        property: model storage path for erm+ctr phase model
-        """
-        if self.exp is not None:
-            return self.exp.visitor.model_path
-        return "matchdg.model"
 
     def init_erm_phase(self):
         """
@@ -53,9 +43,6 @@ class MatchAlgoBase(AbstractTrainer):
         # dirname = os.path.dirname(self.ctr_mpath)
         # Path(dirname).mkdir(parents=True, exist_ok=True)
         torch.save(self.model.state_dict(), self.model_path_ctr)
-
-    def save_model_erm_phase(self):
-        torch.save(self.model, self.model_path)
 
     def mk_match_tensor(self, epoch):
         """
