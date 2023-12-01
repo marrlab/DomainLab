@@ -19,7 +19,6 @@ class MatchCtrErm(MatchAlgoBase):
         self.base_domain_size = get_base_domain_size4match_dg(self.task)
         self.epo_loss_tr = 0
         self.flag_erm = flag_erm
-        self.epos_per_match = self.aconf.epos_per_match_update
         self.str_phase = "ctr"
         self.lambda_ctr = 1.0
         self.init_erm()
@@ -45,7 +44,7 @@ class MatchCtrErm(MatchAlgoBase):
         logger = Logger.get_logger()
         logger.info(f"self.str_phase {epoch} epoch")
         # update match tensor
-        if (epoch + 1) % self.epos_per_match == 0:
+        if (epoch + 1) % self.aconf.epos_per_match_update == 0:
             self.mk_match_tensor(epoch)
 
         inds_shuffle = torch.randperm(self.tensor_ref_domain2each_domain_x.size(0))
