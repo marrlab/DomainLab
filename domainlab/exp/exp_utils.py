@@ -1,17 +1,18 @@
 """
-This module contains 3 classes inheriting: ExpProtocolAggWriter(AggWriter(ExpModelPersistVisitor))
+This module contains 3 classes inheriting:
+    ExpProtocolAggWriter(AggWriter(ExpModelPersistVisitor))
 """
 import copy
 import datetime
 import os
+import numpy as np
 from pathlib import Path
 
 import torch
-
 from sklearn.metrics import ConfusionMatrixDisplay
+
 from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
-
 
 
 class ExpModelPersistVisitor():
@@ -237,3 +238,25 @@ class ExpProtocolAggWriter(AggWriter):
         if dirname is None:
             return self.host.args.result_file
         return super().get_fpath(dirname)
+
+    def confmat_to_file(self, confmat, confmat_filename):
+        """Save confusion matrix as a figure
+
+        Args:
+            confmat: confusion matrix.
+        """
+        path4file = self.get_fpath()
+        index = os.path.basename(path4file)
+        path4file = os.path.dirname(os.path.dirname(path4file))
+        # if prefix does not exist, string remain unchanged.
+        confmat_filename = confmat_filename.removeprefix("mname_")
+        path4file = os.path.join(path4file, "confusion_matrix")
+        os.makedirs(path4file, exist_ok=True)
+        file_path = os.path.join(path4file,
+                                 f"{index}.txt")
+        with open(file_path, 'a', encoding="utf8") as f_h:
+            for line in confmat:
+                # FIXME: put confmat_filename
+                np.savetxt(f_h, line, fmt='%.2f')
+        logger = Logger.get_logger()
+        logger.info(f"confusion matrix saved in file: {file_path}")
