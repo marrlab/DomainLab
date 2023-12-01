@@ -32,6 +32,8 @@ jobs:
         flags: unittests
         env_vars: OS,PYTHON
         fail_ci_if_error: true
+      env:
+        CODECOV_TOKEN: 02ecb3ac-b7ce-4ea4-90a2-961c3d1a1030
     - name: test if examples in markdown works
       run: bash -x -v ci_run_examples.sh
     - name: test if benchmark works
