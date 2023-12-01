@@ -55,6 +55,5 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
                              exp=exp)
 
         trainer = TrainerMatchDG()
-        trainer.init_business(exp, task, model, observer, args,
-                              device)
+        trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device
