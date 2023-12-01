@@ -68,7 +68,7 @@ class MatchAlgoBase(AbstractTrainer):
         obj_match(
             self.device,
             self.task.loader_tr,
-            lambda x: self.model.extract_semantic_feat(x),
+            self.model.extract_semantic_feat,
             (epoch > 0))
 
 
