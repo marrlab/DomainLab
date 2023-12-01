@@ -205,7 +205,6 @@ class AggWriter(ExpModelPersistVisitor):
         # @FIXME: still we want to have mname_ as a variable defined in some
         # configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
-        os.makedirs(file_path, exist_ok=True)
         file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
         logger = Logger.get_logger()
         logger.info(f"confusion matrix saved in file: {file_path}")
