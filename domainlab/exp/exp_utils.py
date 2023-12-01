@@ -255,8 +255,8 @@ class ExpProtocolAggWriter(AggWriter):
         file_path = os.path.join(path4file,
                                  f"{index}.txt")
         with open(file_path, 'a', encoding="utf8") as f_h:
-            for line in confmat:
-                # FIXME: put confmat_filename
+            print(confmat_filename, file=f_h)
+            for line in np.matrix(confmat):
                 np.savetxt(f_h, line, fmt='%.2f')
         logger = Logger.get_logger()
         logger.info(f"confusion matrix saved in file: {file_path}")
