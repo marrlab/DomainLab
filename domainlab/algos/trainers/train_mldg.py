@@ -21,6 +21,7 @@ class TrainerMLDG(AbstractTrainer):
         """
         self.model.evaluate(self.loader_te, self.device)
         self.inner_trainer = TrainerBasic()
+        self.inner_trainer.extend(self._decoratee)
         inner_model = copy.deepcopy(self.model)
         self.inner_trainer.init_business(
             inner_model, self.task, self.observer, self.device, self.aconf,
