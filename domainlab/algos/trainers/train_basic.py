@@ -40,9 +40,9 @@ class TrainerBasic(AbstractTrainer):
                 enumerate(self.loader_tr):
             self.tr_batch(tensor_x, tensor_y, tensor_d, others,
                           ind_batch, epoch)
-        return self.after_epoch(epoch)
+        return self.after_epoch(epoch, flag_info)
 
-    def after_epoch(self, epoch):
+    def after_epoch(self, epoch, flag_info):
         """
         observer collect information
         """
