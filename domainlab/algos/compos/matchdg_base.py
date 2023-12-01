@@ -19,6 +19,12 @@ class MatchAlgoBase(AbstractTrainer):
         """
         if self.exp is not None:
             return self.exp.visitor.model_path + "_ctr"
+        # import uuid
+        # filename = str(uuid.uuid4())
+        # import time
+        # timestr = time.strftime("%Y%m%d_%H%M%S")
+        # print timestr
+        return "model_ctr"
 
     def init_erm_phase(self):
         """
