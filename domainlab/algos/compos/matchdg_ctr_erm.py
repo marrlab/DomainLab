@@ -19,7 +19,6 @@ class MatchCtrErm(MatchAlgoBase):
         self.base_domain_size = get_base_domain_size4match_dg(self.task)
         self.epo_loss_tr = 0
         self.flag_erm = flag_erm
-        self.epos = self.aconf.epochs_ctr
         self.epos_per_match = self.aconf.epos_per_match_update
         self.str_phase = "ctr"
         self.lambda_ctr = 1.0
@@ -31,18 +30,10 @@ class MatchCtrErm(MatchAlgoBase):
     def init_erm(self):
         if self.flag_erm:
             self.lambda_ctr = self.aconf.gamma_reg
-            self.epos = self.aconf.epos - self.aconf.epochs_ctr
             self.str_phase = "erm"
             self.init_erm_phase()
         else:
             self.mk_match_tensor(epoch=0)
-
-    def train(self):
-        """
-        train self.epos number of epochs
-        """
-        for epoch in range(self.epos):
-            self.tr_epoch(epoch)
 
     def tr_epoch(self, epoch):
         """
@@ -247,7 +238,11 @@ class MatchCtrErm(MatchAlgoBase):
 
         loss_ctr = sum(list_batch_loss_ctr) / counter_same_cls_diff_domain
 
-        coeff = (epoch + 1)/(self.epos + 1)
+        if self.flag_erm:
+            epos = self.aconf.epos
+        else:
+            epos = self.aconf.epochs_ctr
+        coeff = (epoch + 1)/(epos + 1)
         # loss aggregation is over different domain
         # combinations of the same batch
         # https://discuss.pytorch.org/t/leaf-variable-was-used-in-an-inplace-operation/308

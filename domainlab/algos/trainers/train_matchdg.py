@@ -25,9 +25,12 @@ class TrainerMatchDG(MatchCtrErm):
         """
         # phase 1: contrastive learning
         # different than phase 2, ctr_model has no classification loss
-        self.train()
+        for epoch in range(self.aconf.epochs_ctr):
+            self.tr_epoch(epoch)
         logger = Logger.get_logger()
         logger.info(f"Phase 1 finished: {self.model_path_ctr}")
         # phase 2: ERM, initialize object
         self.observer.reset()
-        super().init_business(self.model, self.task, self.observer, self.device, self.aconf, flag_erm=True)
+        self.aconf.epos = self.aconf.epos - self.aconf.epochs_ctr
+        super().init_business(self.model, self.task, self.observer, self.device,
+                              self.aconf, flag_erm=True)
