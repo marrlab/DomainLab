@@ -18,7 +18,12 @@ class TrainerChainNodeGetter(object):
         """__init__.
         :param args: command line arguments
         """
-        self.request = str_trainer
+        self._list_str_trainer = None
+        if str_trainer is not None:
+            self._list_str_trainer = str_trainer.split(',')
+            self.request = self._list_str_trainer.pop(0)
+        else:
+            self.request = str_trainer
 
     def __call__(self, lst_candidates=None, default=None, lst_excludes=None):
         """
@@ -41,4 +46,10 @@ class TrainerChainNodeGetter(object):
         chain = TrainerHyperScheduler(chain)
         chain = TrainerFbOpt(chain)
         node = chain.handle(self.request)
+        head = node
+        while self._list_str_trainer:
+            self.request = self._list_str_trainer.pop(0)
+            node2decorate = self.__call__(lst_candidates, default, lst_excludes)
+            head.extend(node2decorate)
+            head = node2decorate
         return node
