@@ -11,8 +11,8 @@ class TrainerMatchDG(MatchCtrErm):
     """
     trainer for matchdg
     """
-    def init_business(self, exp, task, model, observer, args, device):
-        self.exp = exp
+    def init_business(self, model, task, observer, device, args):
+        self.exp = observer.exp
         # different than model, ctr_model has no classification loss
         self.ctr_model = copy.deepcopy(model)
         self.ctr_model = self.ctr_model.to(device)
