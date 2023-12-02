@@ -45,7 +45,6 @@ class Exp():
         if model is not None:
             self.model = model
         self.visitor = visitor(self)  # visitor depends on task initialization first
-        self.epochs = self.args.epos
         self.epoch_counter = 1
         if observer is None:
             observer = observer_default
@@ -59,6 +58,7 @@ class Exp():
         train model
         check performance by loading persisted model
         """
+        self.epochs = self.args.epos   # FIXME: for matchdg to reset number of epochs
         if num_epochs is None:
             num_epochs = self.epochs + 1
         t_0 = datetime.datetime.now()
