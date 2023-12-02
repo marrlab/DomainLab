@@ -69,8 +69,13 @@ class TrainerMLDG(AbstractTrainer):
             # with parameters theta_i - lr * G_i where i index batch
 
             loss_look_forward = inner_model.cal_task_loss(tensor_x_t, vec_y_t)
-            loss_source, *_ = self.model.cal_loss(tensor_x_s, vec_y_s, vec_d_s, others_s)
-            loss = loss_source.sum() + self.aconf.gamma_reg * loss_look_forward.sum()
+            loss_source_task = self.model.cal_task_loss(tensor_x, tensor_y)
+            list_source_reg_tr, list_source_mu_tr = self.cal_reg_loss(tensor_x_s, vec_y_s, vec_d_s, others) # call cal_reg_loss from decoratee
+            # super()._cal_reg_loss returns [],[], since mldg's reg loss is on target domain, no other trainer except hyperscheduler could decorate it.
+            source_reg_tr = self.model.inner_product(list_source_reg_tr, list_source_mu_tr)
+            # self.aconf.gamma_reg * loss_look_forward.sum()
+            loss = loss_source_task.sum() + source_reg_tr.sum() + self.aconf.gamma_reg * loss_look_forward.sum()
+            #
             loss.backward()
             # optimizer only optimize parameters of self.model, not inner_model
             self.optimizer.step()
@@ -78,12 +83,3 @@ class TrainerMLDG(AbstractTrainer):
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
-        
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        """
-        Let trainer behave like a model, so that other trainer could use it
-        """
-        _ = tensor_d
-        _ = others
-        loss_look_forward = self.inner_trainer.model.cal_task_loss(tensor_x, tensor_y)
-        return  [loss_look_forward.sum()], [self.aconf.gamma_reg]
