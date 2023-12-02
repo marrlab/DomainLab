@@ -39,14 +39,14 @@ class MatchAlgoBase(AbstractTrainer):
         # the keys of :attr:`state_dict` must exactly match the
         # keys returned by this module's
         # :meth:`~torch.nn.Module.state_dict` function
-        self.model.load_state_dict(
-            torch.load(self.model_path_ctr), strict=False)
+        #  self.model.load_state_dict(
+        #     torch.load(self.model_path_ctr), strict=False)
         # load the model network trained during the
         # ctr(contrastive learning) phase
-        self.model = self.model.to(self.device)
+        # self.model = self.model.to(self.device)
         # len((ctr_phi.state_dict()).keys()): 122,
         # extra fields are fc.weight, fc.bias
-        self.model.eval()  # @FIXME
+        # self.model.eval()  # @FIXME
         self.mk_match_tensor(epoch=0)
 
     def save_model_ctr_phase(self):
