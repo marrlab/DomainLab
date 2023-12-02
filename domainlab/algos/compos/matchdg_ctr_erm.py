@@ -277,5 +277,3 @@ class MatchCtrErm(MatchAlgoBase):
         self.epo_loss_tr += loss_e.detach().item()
 
         torch.cuda.empty_cache()
-        flag_stop = self.observer.update(epoch)  # notify observer
-        return flag_stop
