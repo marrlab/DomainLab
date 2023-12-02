@@ -10,11 +10,11 @@ class MatchCtrErm(MatchAlgoBase):
     """
     Contrastive Learning
     """
-    def init_business(self, model, task, observer, device, aconf, flag_erm=False):
+    def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
         """
         initialize member objects
         """
-        super().init_business(model, task, observer, device, aconf)
+        super().init_business(model, task, observer, device, aconf, flag_accept)
         # use the same batch size for match tensor
         # so that order is kept!
         self.base_domain_size = get_base_domain_size4match_dg(self.task)
