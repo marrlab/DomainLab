@@ -15,9 +15,12 @@ class MSelTrLoss(AMSel):
         super().__init__()
         # NOTE: super() must come first otherwise it will overwrite existing
         # values!
+        self.reset()
+        self._max_es = max_es
+
+    def reset(self):
         self.best_loss = float("inf")
         self.es_c = 0
-        self._max_es = max_es
 
     @property
     def max_es(self):

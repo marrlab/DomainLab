@@ -85,7 +85,19 @@ class TrainerBasic(AbstractTrainer):
             tensor_x.to(self.device), tensor_y.to(self.device), \
             tensor_d.to(self.device)
         self.optimizer.zero_grad()
+        loss = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        loss.backward()
+        self.optimizer.step()
+        self.epo_loss_tr += loss.detach().item()
+        self.after_batch(epoch, ind_batch)
+        self.counter_batch += 1
+
+    def cal_loss(self, tensor_x, tensor_y, tensor_d, others):
+        """
+        so that user api can use trainer.cal_loss to train
+        """
         loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
+        self.epo_task_loss_tr += loss_task.sum().detach().item()
         #
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
@@ -93,9 +105,4 @@ class TrainerBasic(AbstractTrainer):
         self.log_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
         loss = loss_task.sum() + reg_tr.sum()
-        loss.backward()
-        self.optimizer.step()
-        self.epo_loss_tr += loss.detach().item()
-        self.epo_task_loss_tr += loss_task.sum().detach().item()
-        self.after_batch(epoch, ind_batch)
-        self.counter_batch += 1
+        return loss
