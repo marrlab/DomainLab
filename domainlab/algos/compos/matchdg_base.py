@@ -16,7 +16,7 @@ class MatchAlgoBase(AbstractTrainer):
         """
         override abstract method
         """
-        
+
     @property
     def model_path_ctr(self):
         """
