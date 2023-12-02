@@ -70,8 +70,10 @@ class TrainerMLDG(AbstractTrainer):
 
             loss_look_forward = inner_model.cal_task_loss(tensor_x_t, vec_y_t)
             loss_source_task = self.model.cal_task_loss(tensor_x_s, vec_y_s)
-            list_source_reg_tr, list_source_mu_tr = self.cal_reg_loss(tensor_x_s, vec_y_s, vec_d_s, others) # call cal_reg_loss from decoratee
-            # super()._cal_reg_loss returns [],[], since mldg's reg loss is on target domain, no other trainer except hyperscheduler could decorate it.
+            list_source_reg_tr, list_source_mu_tr = self.cal_reg_loss(tensor_x_s, vec_y_s, vec_d_s) 
+            # call cal_reg_loss from decoratee
+            # super()._cal_reg_loss returns [],[], 
+            # since mldg's reg loss is on target domain, no other trainer except hyperscheduler could decorate it.
             source_reg_tr = self.model.inner_product(list_source_reg_tr, list_source_mu_tr)
             # self.aconf.gamma_reg * loss_look_forward.sum()
             loss = loss_source_task.sum() + source_reg_tr.sum() + self.aconf.gamma_reg * loss_look_forward.sum()
