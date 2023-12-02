@@ -19,10 +19,3 @@ class TrainerMatchDG(MatchCtrErm):
         logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")
         # phase 1: contrastive learning
         # different than phase 2, ctr_model has no classification loss
-        for epoch in range(self.aconf.epochs_ctr):
-            self.tr_epoch(epoch)
-        logger.info(f"\n\nPhase 1 finished: {self.model_path_ctr}\n\n")
-        # phase 2: ERM, initialize object
-        self.observer.reset()
-        self.aconf.epos = self.aconf.epos - self.aconf.epochs_ctr
-        self.flag_erm = True

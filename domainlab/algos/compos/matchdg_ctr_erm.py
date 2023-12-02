@@ -77,6 +77,10 @@ class MatchCtrErm(MatchAlgoBase):
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
                 break
+        if epoch < self.aconf.epochs_ctr:
+            logger.info("\n\nPhase 0 continue\n\n")
+            return False
+        self.flag_erm = True
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
 
