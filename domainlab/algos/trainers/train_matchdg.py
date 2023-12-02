@@ -17,7 +17,7 @@ class TrainerMatchDG(MatchCtrErm):
         self.ctr_model = copy.deepcopy(model)
         self.ctr_model = self.ctr_model.to(device)
         self.erm = None
-        super().init_business(self.ctr_model, task, observer, device, args, flag_erm=False)
+        super().init_business(self.ctr_model, task, observer, device, args, flag_accept=True, flag_erm=False)
 
     def before_tr(self):
         """
