@@ -80,6 +80,8 @@ class MatchCtrErm(MatchAlgoBase):
         if not self.flag_erm:
             # Save ctr model's weights post each epoch
             self.save_model_ctr_phase()
+        flag_stop = self.observer.update(epoch)  # notify observer
+        return flag_stop
 
     def update_batch(self, epoch, batch_idx, x_e, y_e, d_e):
         """
