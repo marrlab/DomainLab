@@ -167,7 +167,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         before training, probe model performance
         """
-        raise NotImplementedError
 
     def post_tr(self):
         """
