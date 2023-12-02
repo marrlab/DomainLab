@@ -11,13 +11,13 @@ class TrainerMatchDG(MatchCtrErm):
     """
     trainer for matchdg
     """
-    def init_business(self, model, task, observer, device, args):
+    def init_business(self, model, task, observer, device, args, flag_accept=True, flag_erm=False):
         self.exp = observer.exp
         # different than model, ctr_model has no classification loss
         self.ctr_model = copy.deepcopy(model)
         self.ctr_model = self.ctr_model.to(device)
         self.erm = None
-        super().init_business(self.ctr_model, task, observer, device, args, flag_accept=True, flag_erm=False)
+        super().init_business(self.ctr_model, task, observer, device, args, flag_accept, flag_erm)
 
     def before_tr(self):
         """
