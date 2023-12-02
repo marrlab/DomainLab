@@ -78,8 +78,8 @@ class TrainerMLDG(AbstractTrainer):
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
-
-        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         Let trainer behave like a model, so that other trainer could use it
         """
