@@ -56,16 +56,14 @@ class TrainerBasic(AbstractTrainer):
         assert flag_stop is not None
         return flag_stop
 
-    def handle_r_loss(self, list_b_reg_loss):
+    def log_r_loss(self, list_b_reg_loss):
         """
-        just for logging
+        just for logging the self.epo_reg_loss_tr
         """
-        # FIXME: do we still need this function?
         list_b_reg_loss_sumed = [ele.sum().detach().item()
                                  for ele in list_b_reg_loss]
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr,
                                         list_b_reg_loss_sumed))
-        return list_b_reg_loss_sumed
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
@@ -92,7 +90,7 @@ class TrainerBasic(AbstractTrainer):
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
         #
-        self.handle_r_loss(list_reg_tr)   # just for logging
+        self.log_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
         loss = loss_task.sum() + reg_tr.sum()
         loss.backward()
