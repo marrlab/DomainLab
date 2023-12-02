@@ -85,5 +85,5 @@ class TrainerMLDG(AbstractTrainer):
         """
         _ = tensor_d
         _ = others
-        loss_look_forward = self.inner_model.cal_task_loss(tensor_x, tensor_y)
+        loss_look_forward = self.inner_trainer.model.cal_task_loss(tensor_x, tensor_y)
         return  [loss_look_forward.sum()], [self.aconf.gamma_reg]
