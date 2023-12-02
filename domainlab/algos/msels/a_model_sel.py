@@ -18,6 +18,13 @@ class AMSel(metaclass=abc.ABCMeta):
         self.msel = None
         self._max_es = None
 
+    def reset(self):
+        """
+        reset observer via reset model selector
+        """
+        if self.msel is not None:
+            self.msel.reset()
+
     @property
     def tr_obs(self):
         """

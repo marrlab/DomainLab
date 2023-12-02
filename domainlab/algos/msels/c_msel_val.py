@@ -11,10 +11,14 @@ class MSelValPerf(MSelTrLoss):
     2. Visitor pattern to trainer
     """
     def __init__(self, max_es):
+        super().__init__(max_es)  # construct self.tr_obs (observer)
+        self.reset()
+
+    def reset(self):
+        super().reset()
         self._best_val_acc = 0.0
         self._sel_model_te_acc = 0.0
         self._best_te_metric = 0.0
-        super().__init__(max_es)  # construct self.tr_obs (observer)
 
     @property
     def sel_model_te_acc(self):
