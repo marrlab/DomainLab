@@ -89,7 +89,6 @@ class TrainerBasic(AbstractTrainer):
         loss.backward()
         self.optimizer.step()
         self.epo_loss_tr += loss.detach().item()
-        self.epo_task_loss_tr += loss_task.sum().detach().item()
         self.after_batch(epoch, ind_batch)
         self.counter_batch += 1
 
@@ -98,6 +97,7 @@ class TrainerBasic(AbstractTrainer):
         so that user api can use trainer.cal_loss to train
         """
         loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
+        self.epo_task_loss_tr += loss_task.sum().detach().item()
         #
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
