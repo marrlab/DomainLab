@@ -77,9 +77,6 @@ class MatchCtrErm(MatchAlgoBase):
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
                 break
-        if not self.flag_erm:
-            # Save ctr model's weights post each epoch
-            self.save_model_ctr_phase()
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
 
