@@ -16,45 +16,7 @@ class MatchAlgoBase(AbstractTrainer):
         """
         override abstract method
         """
-
-    @property
-    def model_path_ctr(self):
-        """
-        property: model storage path for ctr phase model
-        """
-        if self.exp is not None:
-            return self.exp.visitor.model_path + "_ctr"
-        # import uuid
-        # filename = str(uuid.uuid4())
-        # import time
-        # timestr = time.strftime("%Y%m%d_%H%M%S")
-        # print timestr
-        return "model_ctr"
-
-    def init_erm_phase(self):
-        """
-        loade model from disk after training
-        the ctr(contrastive learning) phase
-        """
-        # the keys of :attr:`state_dict` must exactly match the
-        # keys returned by this module's
-        # :meth:`~torch.nn.Module.state_dict` function
-        #  self.model.load_state_dict(
-        #     torch.load(self.model_path_ctr), strict=False)
-        # load the model network trained during the
-        # ctr(contrastive learning) phase
-        # self.model = self.model.to(self.device)
-        # len((ctr_phi.state_dict()).keys()): 122,
-        # extra fields are fc.weight, fc.bias
-        # self.model.eval()  # @FIXME
-        self.mk_match_tensor(epoch=0)
-
-    def save_model_ctr_phase(self):
-        # Store the weights of the model
-        # dirname = os.path.dirname(self.ctr_mpath)
-        # Path(dirname).mkdir(parents=True, exist_ok=True)
-        torch.save(self.model.state_dict(), self.model_path_ctr)
-
+        
     def mk_match_tensor(self, epoch):
         """
         initialize or update match tensor

@@ -20,24 +20,11 @@ class MatchCtrErm(MatchAlgoBase):
         self.base_domain_size = get_base_domain_size4match_dg(self.task)
         self.epo_loss_tr = 0
         self.flag_erm = flag_erm
-        self.str_phase = "ctr"
-        self.lambda_ctr = 1.0
-        self.init_erm()
+        self.lambda_ctr = self.aconf.gamma_reg
+        self.mk_match_tensor(epoch=0)
         self.flag_stop = False
         self.tuple_tensor_ref_domain2each_y = None
         self.tuple_tensor_refdomain2each = None
-
-    def init_erm(self):
-        """
-        different initialization depending on pure ctr training or
-        ctr + erm training
-        """
-        if self.flag_erm:
-            self.lambda_ctr = self.aconf.gamma_reg
-            self.str_phase = "erm"
-            self.init_erm_phase()
-        else:
-            self.mk_match_tensor(epoch=0)
 
     def tr_epoch(self, epoch):
         """
@@ -47,7 +34,6 @@ class MatchCtrErm(MatchAlgoBase):
         self.model.train()
         self.epo_loss_tr = 0
         logger = Logger.get_logger()
-        logger.info(f"self.str_phase {epoch} epoch")
         # update match tensor
         if (epoch + 1) % self.aconf.epos_per_match_update == 0:
             self.mk_match_tensor(epoch)
