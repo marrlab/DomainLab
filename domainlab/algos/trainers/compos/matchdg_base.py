@@ -3,7 +3,7 @@ interface class for matchdg by defining auxilliary operations
 """
 
 import torch
-from domainlab.algos.compos.matchdg_match import MatchPair
+from domainlab.algos.trainers.compos.matchdg_match import MatchPair
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.utils.logger import Logger
 
@@ -16,7 +16,11 @@ class MatchAlgoBase(AbstractTrainer):
         """
         override abstract method
         """
-        
+        logger = Logger.get_logger()
+        logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")
+        # phase 1: contrastive learning
+        # different than phase 2, ctr_model has no classification loss
+
     def mk_match_tensor(self, epoch):
         """
         initialize or update match tensor
