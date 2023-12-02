@@ -11,14 +11,6 @@ class TrainerMatchDG(MatchCtrErm):
     """
     trainer for matchdg
     """
-    def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
-        self.exp = observer.exp
-        # different than model, ctr_model has no classification loss
-        self.ctr_model = copy.deepcopy(model)
-        self.ctr_model = self.ctr_model.to(device)
-        self.erm = None
-        super().init_business(self.ctr_model, task, observer, device, aconf, flag_accept, flag_erm)
-
     def before_tr(self):
         """
         configure trainer accoding to properties of task as well according to algorithm configs
@@ -33,5 +25,4 @@ class TrainerMatchDG(MatchCtrErm):
         # phase 2: ERM, initialize object
         self.observer.reset()
         self.aconf.epos = self.aconf.epos - self.aconf.epochs_ctr
-        super().init_business(self.model, self.task, self.observer, self.device,
-                              self.aconf, flag_erm=True)
+        self.flag_erm = True
