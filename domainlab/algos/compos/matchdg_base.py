@@ -12,6 +12,11 @@ class MatchAlgoBase(AbstractTrainer):
     """
     interface class for matchdg by defining auxilliary operations
     """
+    def before_tr(self):
+        """
+        override abstract method
+        """
+        
     @property
     def model_path_ctr(self):
         """
