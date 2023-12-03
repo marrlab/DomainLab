@@ -16,8 +16,8 @@ def test_mk_exp_dann():
     """
     test mk experiment API with "dann" model and "mldg", "dial" trainers
     """
-    mk_exp_dann(trainer="basic")
-    # mk_exp_dann(trainer="mldg")
+    # mk_exp_dann(trainer="basic")
+    mk_exp_dann(trainer="mldg")
     # mk_exp_dann(trainer="dial")
 
 
@@ -58,5 +58,6 @@ def mk_exp_dann(trainer="mldg"):
     model = mk_dann()(list_str_y, alpha, net_encoder, net_classifier, net_discriminator)
 
     # make trainer for model
+    task.get_na(None, "domain1")
     exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
     exp.execute(num_epochs=2)

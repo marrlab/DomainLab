@@ -25,9 +25,10 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
+        task.cal_domain_tr_from_args(args)
         device = get_device(args)
         msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(msel, device, exp=exp)
+        observer = ObVisitor(msel)
         observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
@@ -51,7 +52,6 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
             dim_feat, len(task.list_domain_tr))
 
         model = mk_dann()(list_str_y=task.list_str_y,
-                          list_str_d=task.list_domain_tr,
                           alpha=args.gamma_reg,
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
