@@ -65,7 +65,6 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         net_classifier_perm = ClassifDropoutReluLinear(
             dim_feat, args.nperm+1)
         model = mk_jigen()(list_str_y=task.list_str_y,
-                           list_str_d=task.list_domain_tr,
                            coeff_reg=args.gamma_reg,
                            net_encoder=net_encoder,
                            net_classifier_class=net_classifier,

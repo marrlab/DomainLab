@@ -14,6 +14,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     def __init__(self):
         super().__init__()
         self._decoratee = None
+        self.list_d_tr = None
 
     def extend(self, model):
         """

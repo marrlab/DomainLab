@@ -52,12 +52,12 @@ def mk_jigen(parent_class=AModelClassif):
         """
         Jigen Model Similar to DANN model
         """
-        def __init__(self, list_str_y, list_str_d,
+        def __init__(self, list_str_y,
                      net_encoder,
                      net_classifier_class,
                      net_classifier_permutation,
                      coeff_reg):
-            super().__init__(list_str_y, list_str_d,
+            super().__init__(list_str_y,
                              alpha=coeff_reg,
                              net_encoder=net_encoder,
                              net_classifier=net_classifier_class,

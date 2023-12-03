@@ -47,12 +47,12 @@ def mk_dann(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, list_str_y, list_str_d,
+        def __init__(self, list_str_y,
                      alpha, net_encoder, net_classifier, net_discriminator):
             """
             See documentation above in mk_dann() function
             """
-            super().__init__(list_str_y, list_str_d)
+            super().__init__(list_str_y)
             self.alpha = alpha
             self.net_encoder = net_encoder
             self.net_classifier = net_classifier
