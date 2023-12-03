@@ -83,7 +83,7 @@ def mk_jigen(parent_class=AModelClassif):
                                         ppath=args.jigen_ppath)
             return ddset_new
 
-        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             """
             JiGen don't need domain label but a pre-defined permutation index
             to calculate regularization loss
@@ -95,7 +95,10 @@ def mk_jigen(parent_class=AModelClassif):
             """
             _ = tensor_y
             _ = tensor_d
-            vec_perm_ind = others[0]
+            if isinstance(others, list) or isinstance(others, tuple):
+                vec_perm_ind = others[0]
+            else:
+                vec_perm_ind = others
             # tensor_x can be either original image or tile-shuffled image
             feat = self.net_encoder(tensor_x)
             logits_which_permutation = self.net_classifier_permutation(feat)

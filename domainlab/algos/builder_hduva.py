@@ -23,6 +23,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args)
