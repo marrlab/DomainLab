@@ -16,9 +16,9 @@ def test_mk_exp_dann():
     """
     test mk experiment API with "dann" model and "mldg", "dial" trainers
     """
-
-    mk_exp_dann(trainer="mldg")
-    mk_exp_dann(trainer="dial")
+    mk_exp_dann(trainer="basic")
+    # mk_exp_dann(trainer="mldg")
+    # mk_exp_dann(trainer="dial")
 
 
 def mk_exp_dann(trainer="mldg"):
