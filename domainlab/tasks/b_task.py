@@ -23,7 +23,7 @@ class NodeTaskDict(NodeTaskDG):
         dispatch re-organization of data flow to model
         """
 
-    def init_business(self, args, trainer=None, model=None):
+    def init_business(self, args, trainer=None):
         """
         create a dictionary of datasets
         """
@@ -39,9 +39,9 @@ class NodeTaskDict(NodeTaskDG):
             if trainer is not None and hasattr(trainer, "dset_decoration_args_algo"):
                 ddset_tr = trainer.dset_decoration_args_algo(args, ddset_tr)
                 ddset_val = trainer.dset_decoration_args_algo(args, ddset_val)
-            if model is not None and hasattr(model, "dset_decoration_args_algo"):
-                ddset_tr = trainer.dset_decoration_args_algo(args, ddset_tr)
-                ddset_val = trainer.dset_decoration_args_algo(args, ddset_val)
+            if trainer is not None and trainer.model is not None and hasattr(trainer.model, "dset_decoration_args_algo"):
+                ddset_tr = trainer.model.dset_decoration_args_algo(args, ddset_tr)
+                ddset_val = trainer.model.dset_decoration_args_algo(args, ddset_val)
             self.dict_dset_tr.update({na_domain: ddset_tr})
             self.dict_dset_val.update({na_domain: ddset_val})
         ddset_mix = ConcatDataset(tuple(self.dict_dset_tr.values()))

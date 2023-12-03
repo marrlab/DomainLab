@@ -9,7 +9,6 @@ class AObVisitor(metaclass=abc.ABCMeta):
     Observer + Visitor pattern for model selection
     """
     def __init__(self):
-        self.exp = None
         self.task = None
         self.epo_te = None
         self.str_msel = None
@@ -18,15 +17,15 @@ class AObVisitor(metaclass=abc.ABCMeta):
         self.loader_tr = None
         self.loader_val = None
 
-    def set_exp(self, exp):
+    def set_task(self, task, args, device):
         """
-        couple observer with exp
+        couple observer with task
         """
-        self.exp = exp
-        self.task = self.exp.task
-        self.epo_te = self.exp.args.epo_te
-        self.str_msel = self.exp.args.msel  # FIXME: consistent with self.model_sel?
-        self.keep_model = self.exp.args.keep_model
+        self.task = task
+        self.device = device
+        self.epo_te = args.epo_te
+        self.str_msel = args.msel  # FIXME: consistent with self.model_sel?
+        self.keep_model = args.keep_model
         self.loader_te = self.task.loader_te
         self.loader_tr = self.task.loader_tr
         # Note loader_tr behaves/inherit different properties than loader_te
