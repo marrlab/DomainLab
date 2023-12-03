@@ -118,7 +118,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         load model from disk
         """
         if self.visitor is None:
-            return
+            return None
         return self.visitor.load(suffix)
     
     def set_saver(self, visitor):

@@ -10,6 +10,7 @@ class AObVisitor(metaclass=abc.ABCMeta):
     """
     def __init__(self):
         self.task = None
+        self.device = None
         self.epo_te = None
         self.str_msel = None
         self.keep_model = None
