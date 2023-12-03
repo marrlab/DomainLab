@@ -42,7 +42,6 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            device=device,
                            topic_dim=args.topic_dim,
                            list_str_y=task.list_str_y,
-                           list_d_tr=task.list_domain_tr,
                            gamma_d=args.gamma_d,
                            gamma_y=args.gamma_y,
                            beta_t=args.beta_t,
