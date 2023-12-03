@@ -5,6 +5,7 @@ from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_dann import mk_dann
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
 def mk_jigen(parent_class=AModelClassif):
@@ -64,6 +65,17 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_encoder = net_encoder
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
+
+   |    def dset_decoration_args_algo(self, args, ddset):
+            """
+            JiGen need to shuffle the tiles of the original image
+            """
+            ddset_new = WrapDsetPatches(ddset,
+                                        num_perms2classify=args.nperm,
+                                        prob_no_perm=1-args.pperm,
+                                        grid_len=args.grid_len,
+                                        ppath=args.jigen_ppath)
+            return ddset_new
 
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             """

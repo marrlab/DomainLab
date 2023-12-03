@@ -11,11 +11,11 @@ class NodeTaskDictClassif(NodeTaskDict, NodeTaskDGClassif):
     """
     Use dictionaries to create train and test domain split
     """
-    def init_business(self, args, node_algo_builder=None):
+    def init_business(self, args, trainer=None, model=None):
         """
         create a dictionary of datasets
         """
-        super().init_business(args=args, node_algo_builder=node_algo_builder)
+        super().init_business(args=args, trainer=trainer)
         self.count_domain_class()
 
     def count_domain_class(self):

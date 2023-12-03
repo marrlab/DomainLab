@@ -34,7 +34,7 @@ class Exp():
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
-        self.task.init_business(node_algo_builder=algo_builder, args=args)
+        
         # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
         if args.san_check:

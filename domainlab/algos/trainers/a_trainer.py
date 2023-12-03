@@ -117,6 +117,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         else:
             self._model = model
         self.task = task
+        self.task.init_business(model=model, trainer=self, args=aconf)
         self.observer = observer
         self.device = device
         self.aconf = aconf
