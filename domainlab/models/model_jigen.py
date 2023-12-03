@@ -66,7 +66,7 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
 
-   |    def dset_decoration_args_algo(self, args, ddset):
+        def dset_decoration_args_algo(self, args, ddset):
             """
             JiGen need to shuffle the tiles of the original image
             """
