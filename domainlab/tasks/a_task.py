@@ -47,10 +47,11 @@ class NodeTaskDG(AbstractChainNodeHandler):
         """
 
     @abstractmethod
-    def init_business(self, args, node_algo_builder=None):
+    def init_business(self, args, trainer=None):
         """
         construct task
         """
+
     def get_list_domains(self):
         """
         1. get list of domain names
