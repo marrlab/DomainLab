@@ -51,7 +51,6 @@ class Exp():
         if observer is None:
             observer = observer_default
         if not self.trainer.flag_initialized:
-            # for matchdg
             self.trainer.init_business(self.model, self.task, observer, device, args)
 
     def execute(self, num_epochs=None):

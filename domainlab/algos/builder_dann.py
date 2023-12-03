@@ -25,7 +25,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        task.cal_domain_tr_from_args(args)
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
         msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitor(msel)
@@ -50,8 +50,11 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
         net_discriminator = ClassifDropoutReluLinear(
             dim_feat, len(task.list_domain_tr))
+        
+        
 
         model = mk_dann()(list_str_y=task.list_str_y,
+                          list_d_tr=task.list_domain_tr,
                           alpha=args.gamma_reg,
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,

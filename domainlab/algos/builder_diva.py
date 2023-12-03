@@ -32,10 +32,10 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        task.cal_domain_tr_from_args(args)
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         model = mk_diva()(node,
                           zd_dim=args.zd_dim,
                           zy_dim=args.zy_dim,

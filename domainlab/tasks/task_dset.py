@@ -45,7 +45,6 @@ def mk_task_dset(isize,
             """
             create a dictionary of datasets
             """
-            self._args = args  # for debug
             self.set_list_domains(list(self.dict_dset_all.keys()))
             super().init_business(args, trainer)
 

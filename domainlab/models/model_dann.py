@@ -31,7 +31,7 @@ def mk_dann(parent_class=AModelClassif):
 
     Input Parameters:
         list_str_y: list of labels,
-        list_str_d: list of domains,
+        list_d_tr: list of training domains
         alpha: total_loss = task_loss + $$\\alpha$$ * domain_classification_loss,
         net_encoder: neural network to extract the features (input: training data),
         net_classifier: neural network (input: output of net_encoder; output: label prediction),
@@ -47,12 +47,13 @@ def mk_dann(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, list_str_y,
+        def __init__(self, list_str_y, list_d_tr,
                      alpha, net_encoder, net_classifier, net_discriminator):
             """
             See documentation above in mk_dann() function
             """
             super().__init__(list_str_y)
+            self.list_d_tr = list_d_tr
             self.alpha = alpha
             self.net_encoder = net_encoder
             self.net_classifier = net_classifier

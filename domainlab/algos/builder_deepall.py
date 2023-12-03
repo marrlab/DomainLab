@@ -21,7 +21,6 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        task.cal_domain_tr_from_args(args)
         device = get_device(args)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitor(model_sel, device, exp=exp)

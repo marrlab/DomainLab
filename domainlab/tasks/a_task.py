@@ -49,7 +49,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
     @abstractmethod
     def init_business(self, args, trainer=None):
         """
-        construct task
+        construct task data loader
         """
 
     def get_list_domains(self):
@@ -87,12 +87,6 @@ class NodeTaskDG(AbstractChainNodeHandler):
         if self._list_domain_tr is None:
             raise RuntimeError("task not intialized!")
         return self._list_domain_tr
-    
-    def cal_domain_tr_from_args(self, args):
-        """
-        args.tr_d can be None
-        """
-        self.get_na(args.tr_d, args.te_d)
 
     @property
     def loader_tr(self):
@@ -114,7 +108,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
         """
         The basic name of the task, without configurations
         """
-        # @FIXME: hardcoded position
+        # @FIXME: hardcoded position:NodeTaskXXX
         return type(self).__name__[8:].lower()
 
     def get_na(self, na_tr, na_te):
