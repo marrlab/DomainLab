@@ -46,6 +46,9 @@ class NodeTaskDGClassif(NodeTaskDG):
         """
         setter for dim_y, for classification task, the number of labels to predict
         """
+        if self.list_str_d is not None:
+            if len(self.list_str_y) is not dim_y:
+                raise RuntimeError(f"dim y={dim_y} not equal to self.list_str_y={self.list_str_y}")
         self._dim_y = dim_y
 
     def sample_sav(self, root, batches=5, subfolder_na="task_sample"):
