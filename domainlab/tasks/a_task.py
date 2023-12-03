@@ -86,6 +86,9 @@ class NodeTaskDG(AbstractChainNodeHandler):
         if self._list_domain_tr is None:
             raise RuntimeError("task not intialized!")
         return self._list_domain_tr
+    
+    def cal_domain_tr_from_args(self, args):
+        self.get_na(args.tr_d, args.te_d)
 
     @property
     def loader_tr(self):

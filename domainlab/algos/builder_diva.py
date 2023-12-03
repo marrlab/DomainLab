@@ -32,6 +32,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
+        task.cal_domain_tr_from_args(args)
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
@@ -49,14 +50,10 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         device = get_device(args)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         if not args.gen:
-            observer = ObVisitorCleanUp(
-                ObVisitor(model_sel,
-                          device,
-                          exp=exp))
+            observer = ObVisitor(model_sel)
         else:
-            observer = ObVisitorCleanUp(
-                ObVisitorGen(model_sel,
-                             device,
-                             exp=exp))
+            observer = ObVisitorGen(model_sel)
+
+        observer = ObVisitorCleanUp(observer)
         trainer = self.get_trainer(args)
         return trainer, model, observer, device
