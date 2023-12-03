@@ -32,6 +32,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
         args = exp.args
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
         node = VAEChainNodeGetter(request, args.topic_dim)()
         model = mk_hduva()(node,
