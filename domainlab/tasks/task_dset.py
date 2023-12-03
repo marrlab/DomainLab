@@ -54,5 +54,7 @@ def mk_task_dset(isize,
             add domain via, name, dataset and transformations
             """
             self.dict_dset_all[name] = (dset_tr, dset_val)
+            # when add a new domain, change self state
+            self.set_list_domains(list(self.dict_dset_all.keys()))
 
     return NodeTaskDset(succ=succ)
