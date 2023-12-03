@@ -58,6 +58,7 @@ def mk_jigen(parent_class=AModelClassif):
                      net_classifier_permutation,
                      coeff_reg):
             super().__init__(list_str_y,
+                             list_d_tr=None,
                              alpha=coeff_reg,
                              net_encoder=net_encoder,
                              net_classifier=net_classifier_class,

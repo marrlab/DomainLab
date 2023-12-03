@@ -53,9 +53,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
 
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(model_sel,
-                             device,
-                             exp=exp)
+        observer = ObVisitor(model_sel)
 
         trainer = TrainerMatchDG()
         trainer.init_business(model, task, observer, device, args)

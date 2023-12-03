@@ -41,7 +41,7 @@ def mk_exp_jigen(trainer="mldg"):
 
     # specify parameters
     num_output_net_classifier = task.dim_y
-    num_output_net_permutation = 2
+    num_output_net_permutation = 100
     list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
     coeff_reg = 1e-3
 
