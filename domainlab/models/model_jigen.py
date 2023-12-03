@@ -56,7 +56,7 @@ def mk_jigen(parent_class=AModelClassif):
                      net_encoder,
                      net_classifier_class,
                      net_classifier_permutation,
-                     coeff_reg):
+                     coeff_reg, meta_info=None):
             super().__init__(list_str_y,
                              list_d_tr=None,
                              alpha=coeff_reg,
@@ -66,11 +66,16 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_encoder = net_encoder
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
+            self.meta_info = meta_info
 
         def dset_decoration_args_algo(self, args, ddset):
             """
             JiGen need to shuffle the tiles of the original image
             """
+            if self.meta_info is not None:
+                args.nperm = self.meta_info["nperm"] -1  if "nperm" in self.meta_info else args.nperm
+                args.pperm = self.meta_info["pperm"] if "pperm" in self.meta_info else args.pperm
+
             ddset_new = WrapDsetPatches(ddset,
                                         num_perms2classify=args.nperm,
                                         prob_no_perm=1-args.pperm,
@@ -88,7 +93,10 @@ def mk_jigen(parent_class=AModelClassif):
             which permutation has been used or no permutation has been used at
             all (which also has to be classified)
             """
-            vec_perm_ind = tensor_d
+            if others:
+                vec_perm_ind = others
+            else:
+                vec_perm_ind = tensor_d
             # tensor_x can be either original image or tile-shuffled image
             feat = self.net_encoder(tensor_x)
             logits_which_permutation = self.net_classifier_permutation(feat)

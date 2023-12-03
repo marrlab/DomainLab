@@ -41,7 +41,7 @@ def mk_exp_jigen(trainer="mldg"):
 
     # specify parameters
     num_output_net_classifier = task.dim_y
-    num_output_net_permutation = 100
+    num_output_net_permutation = 32 # 31+1
     list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
     coeff_reg = 1e-3
 
@@ -57,7 +57,7 @@ def mk_exp_jigen(trainer="mldg"):
 
     # specify model to use
     model = mk_jigen()(list_str_y, net_encoder,
-                       net_classifier, net_permutation, coeff_reg)
+                       net_classifier, net_permutation, coeff_reg, meta_info={"nperm":num_output_net_permutation})
 
     # make trainer for model
     exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
