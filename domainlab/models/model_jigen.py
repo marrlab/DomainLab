@@ -93,10 +93,9 @@ def mk_jigen(parent_class=AModelClassif):
             which permutation has been used or no permutation has been used at
             all (which also has to be classified)
             """
-            if others:
-                vec_perm_ind = others
-            else:
-                vec_perm_ind = tensor_d
+            _ = tensor_y
+            _ = tensor_d
+            vec_perm_ind = others[0]
             # tensor_x can be either original image or tile-shuffled image
             feat = self.net_encoder(tensor_x)
             logits_which_permutation = self.net_classifier_permutation(feat)
