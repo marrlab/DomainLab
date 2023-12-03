@@ -1,6 +1,10 @@
+"""
+trainer matchdg
+"""
 import torch
 
-from domainlab.algos.trainers.compos.matchdg_base import MatchAlgoBase, get_base_domain_size4match_dg
+from domainlab.algos.trainers.compos.matchdg_base import MatchAlgoBase, \
+get_base_domain_size4match_dg
 from domainlab.algos.trainers.compos.matchdg_utils import (dist_cosine_agg,
                                                   dist_pairwise_cosine)
 from domainlab.utils.logger import Logger
@@ -58,7 +62,7 @@ class TrainerMatchDG(MatchAlgoBase):
             # random loader with same batch size as the match tensor loader
             # the 4th output of self.loader is not used at all,
             # is only used for creating the match tensor
-            self.update_batch(epoch, batch_idx, x_e, y_e, d_e)
+            self.tr_batch(epoch, batch_idx, x_e, y_e, d_e)
             if self.flag_stop is True:
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
@@ -70,7 +74,7 @@ class TrainerMatchDG(MatchAlgoBase):
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
 
-    def update_batch(self, epoch, batch_idx, x_e, y_e, d_e):
+    def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e):
         """
         update network for each batch
         """
