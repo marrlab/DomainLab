@@ -42,7 +42,6 @@ def mk_exp_dann(trainer="mldg"):
     num_output_net_classifier = task.dim_y
     num_output_net_discriminator = 2
     list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
-    list_str_d = ["domain1", "domain2", "domain3"]
     alpha = 1e-3
 
     # specify feature extractor as ResNet
@@ -56,7 +55,7 @@ def mk_exp_dann(trainer="mldg"):
     net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
 
     # specify model to use
-    model = mk_dann()(list_str_y, list_str_d, alpha, net_encoder, net_classifier, net_discriminator)
+    model = mk_dann()(list_str_y, alpha, net_encoder, net_classifier, net_discriminator)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
