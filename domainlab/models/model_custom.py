@@ -15,7 +15,7 @@ class AModelCustom(AModelClassif):
         :param list_str_y:
         :param list_str_d:
         """
-        super().__init__(list_str_y, list_str_d)
+        super().__init__(list_str_y)
 
     @property
     @abc.abstractmethod

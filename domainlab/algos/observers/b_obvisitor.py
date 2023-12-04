@@ -15,20 +15,17 @@ class ObVisitor(AObVisitor):
     """
     Observer + Visitor pattern for model selection
     """
-    def __init__(self, model_sel, device, exp=None):
+    def __init__(self, model_sel):
         """
         observer trainer
         """
         super().__init__()
         self.host_trainer = None
         self.model_sel = model_sel
-        self.device = device
         self.epo = None
         self.metric_te = None
         self.metric_val = None
         self.perf_metric = None
-        if exp is not None:
-            self.set_exp(exp)
 
     @property
     def str_metric4msel(self):
@@ -62,7 +59,7 @@ class ObVisitor(AObVisitor):
                 self.metric_te = metric_te
         if self.model_sel.update():
             logger.info("better model found")
-            self.exp.visitor.save(self.host_trainer.model)
+            self.host_trainer.model.save()
             logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
         flag_enough = epoch > self.host_trainer.aconf.epos_min
@@ -73,8 +70,9 @@ class ObVisitor(AObVisitor):
         accept invitation as a visitor
         """
         self.host_trainer = trainer
-        self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)
         self.model_sel.accept(trainer, self)
+        self.set_task(trainer.task, args=trainer.aconf,  device=trainer.device)
+        self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)
 
     def after_all(self):
         """
@@ -82,7 +80,7 @@ class ObVisitor(AObVisitor):
         """
         model_ld = None
         try:
-            model_ld = self.exp.visitor.load()
+            model_ld = self.host_trainer.model.visitor.load()
         except FileNotFoundError as err:
             # if other errors/exceptions occur, we do not catch them
             # other exceptions will terminate the python script
@@ -94,7 +92,6 @@ class ObVisitor(AObVisitor):
                            "model never get persisted, \
                            no performance metric is reported")
             return
-
         model_ld = model_ld.to(self.device)
         model_ld.eval()
         logger = Logger.get_logger()
@@ -110,7 +107,7 @@ class ObVisitor(AObVisitor):
         else:
             metric_te.update({"acc_val": -1})
         self.dump_prediction(model_ld, metric_te)
-        self.exp.visitor(metric_te)
+        self.host_trainer.model.visitor(metric_te)
         # prediction dump of test domain is essential
         # to verify the prediction results
 
@@ -119,7 +116,7 @@ class ObVisitor(AObVisitor):
         calculate oracle performance
         """
         try:
-            model_or = self.exp.visitor.load("oracle")
+            model_or = self.host_trainer.model.load("oracle")
             # @FIXME: name "oracle is a strong dependency
             model_or = model_or.to(self.device)
             model_or.eval()
@@ -136,13 +133,13 @@ class ObVisitor(AObVisitor):
             model_ld to predict each instance
         """
         flag_task_folder = isinstance(
-            self.exp.task, NodeTaskFolderClassNaMismatch)
+            self.host_trainer.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(
-            self.exp.task, NodeTaskPathListDummy)
+            self.host_trainer.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
+            fname4model = self.host_trainer.model.visitor.model_path  # pylint: disable=E1101
             file_prefix = os.path.splitext(fname4model)[0]  # remove ".model"
-            dir4preds = os.path.join(self.exp.args.out, "saved_predicts")
+            dir4preds = os.path.join(self.host_trainer.aconf.out, "saved_predicts")
             if not os.path.exists(dir4preds):
                 os.mkdir(dir4preds)
             file_prefix = os.path.join(dir4preds,
@@ -158,4 +155,4 @@ class ObVisitor(AObVisitor):
         to be called by a decorator
         """
         if not self.keep_model:
-            self.exp.clean_up()
+            self.host_trainer.model.visitor.clean_up()
