@@ -17,10 +17,6 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
     """
     algorithm builder for matchDG
     """
-    def dset_decoration_args_algo(self, args, ddset):
-        ddset = DsetIndDecorator4XYD(ddset)
-        return ddset
-
     def init_business(self, exp):
         """
         return trainer, model, observer
