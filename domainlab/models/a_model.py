@@ -19,7 +19,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         # but I dont know another method to set neural network weights without using load_state_dict
         # FIXME: dict_params lack some keys compared to self.state_dict(), why?
         self.load_state_dict(dict_params, strict=False)
-        
+
     def __init__(self):
         super().__init__()
         self._decoratee = None
@@ -104,12 +104,6 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
                 tensor_x, tensor_y, tensor_d, others)
         return None, None
 
-    def as_model(self):
-        """
-        redundant method to be consistent with trainer
-        """
-        return self
-
     def forward(self, tensor_x, tensor_y, tensor_d, others=None):
         """forward.
 
@@ -127,7 +121,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return
         self.visitor.save(self, suffix)
         return
-    
+
     def load(self, suffix=None):
         """
         load model from disk
@@ -135,6 +129,6 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         if self.visitor is None:
             return None
         return self.visitor.load(suffix)
-    
+
     def set_saver(self, visitor):
         self.visitor = visitor
