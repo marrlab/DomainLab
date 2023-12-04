@@ -21,17 +21,6 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
     """
     NodeAlgoBuilderJiGen
     """
-    def dset_decoration_args_algo(self, args, ddset):
-        """
-        JiGen need to shuffle the tiles of the original image
-        """
-        ddset_new = WrapDsetPatches(ddset,
-                                    num_perms2classify=args.nperm,
-                                    prob_no_perm=1-args.pperm,
-                                    grid_len=args.grid_len,
-                                    ppath=args.jigen_ppath)
-        return ddset_new
-
     def init_business(self, exp):
         """
         return trainer, model, observer
