@@ -118,6 +118,7 @@ def mk_jigen(parent_class=AModelClassif):
             logits_which_permutation = self.net_classifier_permutation(feat)
             # _, batch_target_scalar = vec_perm_ind.max(dim=1)
             batch_target_scalar = vec_perm_ind
+            batch_target_scalar = batch_target_scalar.to(tensor_x.device)
             loss_perm = F.cross_entropy(
                 logits_which_permutation, batch_target_scalar, reduction="none")
             return [loss_perm], [self.alpha]
