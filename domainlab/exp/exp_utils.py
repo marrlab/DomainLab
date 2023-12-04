@@ -43,6 +43,7 @@ class ExpModelPersistVisitor():
                                        ExpModelPersistVisitor.model_suffix)
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
+        self.model = copy.deepcopy(self.host.trainer.model)
 
     def mk_model_na(self, tag=None, dd_cut=19):
         """
@@ -100,9 +101,12 @@ class ExpModelPersistVisitor():
         path = self.model_path
         if suffix is not None:
             path = "_".join([self.model_path, suffix])
-        model = copy.deepcopy(self.host.trainer.model)
-        model.load_state_dict(torch.load(path, map_location="cpu"))
-        return model
+        # due to tensorboard writer in trainer.scheduler, 
+        # copy.deepcopy(self.host.trainer.model) will cause thread lock
+        # see https://github.com/marrlab/DomainLab/issues/673
+        self.model.load_state_dict(torch.load(path, map_location="cpu"))
+        #FIXME: without deep copy, it will cause accuracy inconsistent problems
+        return copy.deepcopy(self.model)
 
     def clean_up(self):
         self.host.clean_up()
