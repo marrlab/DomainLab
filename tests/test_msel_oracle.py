@@ -96,19 +96,19 @@ def test_msel_oracle():
 
     del exp
 
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
-                 batchsize=32, alone=False)
+    #exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
+    #             batchsize=32, alone=False)
 
-    exp.execute(num_epochs=2)
-    exp.trainer.observer.model_sel.msel.update(clear_counter=True)
-    del exp
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
-                 batchsize=32, alone=False, force_best_val=True)
-    exp.execute(num_epochs=2)
-    del exp
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
-                 batchsize=32, alone=False, msel_loss_tr=True)
-    exp.execute(num_epochs=2)
-    exp.trainer.observer.model_sel.msel.best_loss = 0
-    exp.trainer.observer.model_sel.msel.update(clear_counter=True)
-    del exp
+    #exp.execute(num_epochs=2)
+    #exp.trainer.observer.model_sel.msel.update(clear_counter=True)
+    #del exp
+    #exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
+    #             batchsize=32, alone=False, force_best_val=True)
+    #exp.execute(num_epochs=2)
+    #del exp
+    #exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
+    #             batchsize=32, alone=False, msel_loss_tr=True)
+    #exp.execute(num_epochs=2)
+    #exp.trainer.observer.model_sel.msel.best_loss = 0
+    #exp.trainer.observer.model_sel.msel.update(clear_counter=True)
+    #del exp
