@@ -67,7 +67,8 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             """
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
-                             list_str_y, list_d_tr)
+                             list_str_y)
+            self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:
                 self.add_module(
@@ -103,10 +104,6 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
                 beta_x=self.beta_x,
             )
 
-        def get_list_str_y(self):
-            """get_list_str_y."""
-            return self._list_str_y
-
         @property
         def list_str_multiplier_na(self):
             """
@@ -124,8 +121,8 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
                     "beta_x": self.beta_x,
                     "beta_y": self.beta_y,
                     "gamma_d": self.gamma_d}
-
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+          
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
 

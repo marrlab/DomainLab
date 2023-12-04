@@ -53,11 +53,11 @@ class TrainerFbOpt(TrainerBasic):
         epo_p_loss = 0
         counter = 0.0
         with torch.no_grad():
-            for _, (tensor_x, vec_y, vec_d, *_) in enumerate(self.loader_tr_no_drop):
+            for _, (tensor_x, vec_y, vec_d, *others) in enumerate(self.loader_tr_no_drop):
                 tensor_x, vec_y, vec_d = \
                     tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
-                tuple_reg_loss = self.model.cal_reg_loss(tensor_x, vec_y, vec_d)
-                p_loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)
+                tuple_reg_loss = self.model.cal_reg_loss(tensor_x, vec_y, vec_d, others)
+                p_loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
                 # NOTE: first [0] extract the loss, second [0] get the list
                 list_b_reg_loss = tuple_reg_loss[0]
                 list_b_reg_loss_sumed = [ele.sum().detach().item() for ele in list_b_reg_loss]
@@ -121,7 +121,7 @@ class TrainerFbOpt(TrainerBasic):
         """
         # self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
         self.model.hyper_update(epoch=epoch, fun_scheduler=self.hyper_scheduler)
-
+    
     def tr_epoch(self, epoch, flag_info=False):
         """
         update multipliers only per epoch

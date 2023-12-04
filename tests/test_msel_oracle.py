@@ -11,7 +11,7 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.models.model_deep_all import mk_deepall
 from domainlab.utils.utils_cuda import get_device
 from domainlab.arg_parser import mk_parser_main
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 
 from domainlab.dsets.dset_mnist_color_solo_default import \
     DsetMNISTColorSoloDefault
@@ -58,7 +58,7 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int,
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=0))
         if force_best_val:
             model_sel.msel._best_val_acc = 1.0
-    observer = ObVisitor(model_sel, device)
+    observer = ObVisitor(model_sel)
     exp = Exp(conf, task, model=model, observer=observer)
     model_sel.update(clear_counter=True)
     return exp

@@ -23,17 +23,6 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
     """
     NodeAlgoBuilderJiGen
     """
-    def dset_decoration_args_algo(self, args, ddset):
-        """
-        JiGen need to shuffle the tiles of the original image
-        """
-        ddset_new = WrapDsetPatches(ddset,
-                                    num_perms2classify=args.nperm,
-                                    prob_no_perm=1-args.pperm,
-                                    grid_len=args.grid_len,
-                                    ppath=args.jigen_ppath)
-        return ddset_new
-
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -42,7 +31,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args)
         msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerfTopK(max_es=args.es)))
-        observer = ObVisitor(msel, device, exp=exp)
+        observer = ObVisitor(msel)
         observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
@@ -67,13 +56,12 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         net_classifier_perm = ClassifDropoutReluLinear(
             dim_feat, args.nperm+1)
         model = mk_jigen()(list_str_y=task.list_str_y,
-                           list_str_d=task.list_domain_tr,
                            coeff_reg=args.gamma_reg,
                            net_encoder=net_encoder,
                            net_classifier_class=net_classifier,
                            net_classifier_permutation=net_classifier_perm)
 
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         if isinstance(trainer, TrainerHyperScheduler):
             trainer.set_scheduler(HyperSchedulerWarmupExponential,

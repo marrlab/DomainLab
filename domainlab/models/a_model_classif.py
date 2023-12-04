@@ -74,13 +74,12 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
 
     @store_args
-    def __init__(self, list_str_y=None, list_d_tr=None):
+    def __init__(self, list_str_y=None):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
         self.list_str_y = list_str_y
-        self.list_d_tr = list_d_tr
         self.perf_metric = None
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
 
@@ -200,7 +199,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
         return loss_adv_gen + loss_adv_gen_task.sum()
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         for ERM to adapt to the interface of other regularized learners
         """
