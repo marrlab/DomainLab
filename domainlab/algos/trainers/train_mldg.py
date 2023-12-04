@@ -24,7 +24,7 @@ class TrainerMLDG(AbstractTrainer):
         self.inner_trainer.extend(self._decoratee)
         inner_model = copy.deepcopy(self.model)
         self.inner_trainer.init_business(
-            inner_model, self.task, self.observer, self.device, self.aconf,
+            inner_model, copy.deepcopy(self.task), self.observer, self.device, self.aconf,
             flag_accept=False)
         self.prepare_ziped_loader()
 
@@ -58,8 +58,7 @@ class TrainerMLDG(AbstractTrainer):
 
             self.optimizer.zero_grad()
 
-            inner_model = copy.deepcopy(self.model)
-            self.inner_trainer.model = inner_model   # FORCE replace model
+            self.inner_trainer.model.load_state_dict(self.model.state_dict())
             # update inner_model
             self.inner_trainer.before_epoch()  # set model to train mode
             self.inner_trainer.reset()  # force optimizer to re-initialize
@@ -68,9 +67,9 @@ class TrainerMLDG(AbstractTrainer):
             # inner_model has now accumulated gradients Gi
             # with parameters theta_i - lr * G_i where i index batch
 
-            loss_look_forward = inner_model.cal_task_loss(tensor_x_t, vec_y_t)
+            loss_look_forward = self.inner_trainer.model.cal_task_loss(tensor_x_t, vec_y_t)
             loss_source_task = self.model.cal_task_loss(tensor_x_s, vec_y_s)
-            list_source_reg_tr, list_source_mu_tr = self.cal_reg_loss(tensor_x_s, vec_y_s, vec_d_s)
+            list_source_reg_tr, list_source_mu_tr = self.cal_reg_loss(tensor_x_s, vec_y_s, vec_d_s, others_s)
             # call cal_reg_loss from decoratee
             # super()._cal_reg_loss returns [],[],
             # since mldg's reg loss is on target domain,

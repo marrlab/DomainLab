@@ -10,12 +10,17 @@ from domainlab.algos.trainers.compos.matchdg_match import MatchPair
 from domainlab.algos.trainers.compos.matchdg_utils import (dist_cosine_agg,
                                                   dist_pairwise_cosine)
 from domainlab.utils.logger import Logger
+from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
 class TrainerMatchDG(AbstractTrainer):
     """
     Contrastive Learning
     """
+    def dset_decoration_args_algo(self, args, ddset):
+        ddset = DsetIndDecorator4XYD(ddset)
+        return ddset
+    
     def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
         """
         initialize member objects
