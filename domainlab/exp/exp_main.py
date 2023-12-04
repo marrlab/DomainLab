@@ -34,7 +34,7 @@ class Exp():
         algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
-        
+
         # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
         if args.san_check:
@@ -44,14 +44,15 @@ class Exp():
         self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
         if model is not None:
             self.model = model
-        self.visitor = visitor(self)  # visitor depends on task initialization first
-        self.model.set_saver(self.visitor)
         self.epochs = self.args.epos
         self.epoch_counter = 1
         if observer is None:
             observer = observer_default
         if not self.trainer.flag_initialized:
             self.trainer.init_business(self.model, self.task, observer, device, args)
+        self.visitor = visitor(self)  # visitor depends on task initialization first
+        # visitor must be initialized last after trainer is initialized
+        self.model.set_saver(self.visitor)
 
     def execute(self, num_epochs=None):
         """
