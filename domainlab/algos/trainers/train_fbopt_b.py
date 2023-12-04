@@ -117,7 +117,7 @@ class TrainerFbOpt(TrainerBasic):
         """
         set model multipliers
         """
-        self._model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
+        self.model.hyper_update(epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu))
 
     def tr_epoch(self, epoch, flag_info=False):
         """

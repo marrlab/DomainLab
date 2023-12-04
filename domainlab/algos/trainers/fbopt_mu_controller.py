@@ -44,7 +44,6 @@ class HyperSchedulerFeedback():
         self.mmu = kwargs
         # force initial value of mu
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
-
         self.set_point_controller = FbOptSetpointController(
             args=self.trainer.aconf)
 
@@ -52,15 +51,19 @@ class HyperSchedulerFeedback():
         self.k_i_gain_ratio = None
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
+
         # NOTE: this value will be set according to initial evaluation of
         # neural network
         self.activation_clip = trainer.aconf.exp_shoulder_clip
+        self.coeff_ma = trainer.aconf.coeff_ma
+        # NOTE:
+        # print(copy.deepcopy(self.model))
+        # TypeError: cannot pickle '_thread.lock' object
         if trainer.aconf.no_tensorboard:
             self.writer = StubSummaryWriter()
         else:
             str_job_id = os.environ.get('SLURM_JOB_ID', '')
             self.writer = SummaryWriter(comment=str_job_id)
-        self.coeff_ma = trainer.aconf.coeff_ma
 
     def set_k_i_gain(self, epo_reg_loss):
         if self.k_i_gain_ratio is None:
