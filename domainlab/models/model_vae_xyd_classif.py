@@ -13,11 +13,11 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
     @store_args
     def __init__(self, chain_node_builder,
                  zd_dim, zy_dim, zx_dim,
-                 list_str_y, list_str_d):
+                 list_str_y):
         """
         :param chain_node_builder: constructed object
         """
-        super().__init__(list_str_y, list_str_d)
+        super().__init__(list_str_y)
         self.init()
 
     def cal_logit_y(self, tensor_x):

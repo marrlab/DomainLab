@@ -69,11 +69,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.exp = None
         # matchdg
         self.lambda_ctr = None
-        self.str_phase = None
-        self.ctr_model = None
+        self.flag_stop = None
+        self.flag_erm = None
         self.tensor_ref_domain2each_domain_x = None
         self.tensor_ref_domain2each_domain_y = None
         self.base_domain_size = None
+        self.tuple_tensor_ref_domain2each_y = None
+        self.tuple_tensor_refdomain2each = None
         # mldg
         self.inner_trainer = None
         self.loader_tr_source_target = None
@@ -115,6 +117,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         else:
             self._model = model
         self.task = task
+        self.task.init_business(trainer=self, args=aconf)
+        self.model.list_d_tr = self.task.list_domain_tr
         self.observer = observer
         self.device = device
         self.aconf = aconf
@@ -146,7 +150,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         :param epoch:
         """
-        raise NotImplementedError
 
     def before_batch(self, epoch, ind_batch):
         """

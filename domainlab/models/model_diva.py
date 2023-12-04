@@ -66,7 +66,8 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
-                             list_str_y, list_d_tr)
+                             list_str_y)
+            self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:
                 self.add_module(

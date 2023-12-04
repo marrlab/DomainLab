@@ -16,7 +16,7 @@ def test_mk_exp_dann():
     """
     test mk experiment API with "dann" model and "mldg", "dial" trainers
     """
-
+    mk_exp_dann(trainer="basic")
     mk_exp_dann(trainer="mldg")
     mk_exp_dann(trainer="dial")
 
@@ -37,12 +37,11 @@ def mk_exp_dann(trainer="mldg"):
     task.add_domain(name="domain3",
                     dset_tr=DsetMNISTColorSoloDefault(4),
                     dset_val=DsetMNISTColorSoloDefault(5))
-
+    task.get_list_domains_tr_te(None, "domain1")
     # specify task-specific parameters
     num_output_net_classifier = task.dim_y
-    num_output_net_discriminator = 2
+    num_output_net_discriminator = len(task.list_domain_tr)
     list_str_y = [f"class{i}" for i in range(num_output_net_classifier)]
-    list_str_d = ["domain1", "domain2", "domain3"]
     alpha = 1e-3
 
     # specify feature extractor as ResNet
@@ -56,8 +55,9 @@ def mk_exp_dann(trainer="mldg"):
     net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
 
     # specify model to use
-    model = mk_dann()(list_str_y, list_str_d, alpha, net_encoder, net_classifier, net_discriminator)
+    model = mk_dann()(list_str_y, task.list_domain_tr, alpha, net_encoder, net_classifier, net_discriminator)
 
     # make trainer for model
+    
     exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
     exp.execute(num_epochs=2)
