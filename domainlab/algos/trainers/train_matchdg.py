@@ -1,15 +1,26 @@
+"""
+trainer matchdg
+"""
 import torch
 
-from domainlab.algos.trainers.compos.matchdg_base import MatchAlgoBase, get_base_domain_size4match_dg
+from domainlab.algos.trainers.a_trainer import AbstractTrainer
+from domainlab.algos.trainers.compos.matchdg_utils import \
+get_base_domain_size4match_dg
+from domainlab.algos.trainers.compos.matchdg_match import MatchPair
 from domainlab.algos.trainers.compos.matchdg_utils import (dist_cosine_agg,
                                                   dist_pairwise_cosine)
 from domainlab.utils.logger import Logger
+from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
-class TrainerMatchDG(MatchAlgoBase):
+class TrainerMatchDG(AbstractTrainer):
     """
     Contrastive Learning
     """
+    def dset_decoration_args_algo(self, args, ddset):
+        ddset = DsetIndDecorator4XYD(ddset)
+        return ddset
+    
     def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
         """
         initialize member objects
@@ -58,7 +69,7 @@ class TrainerMatchDG(MatchAlgoBase):
             # random loader with same batch size as the match tensor loader
             # the 4th output of self.loader is not used at all,
             # is only used for creating the match tensor
-            self.update_batch(epoch, batch_idx, x_e, y_e, d_e)
+            self.tr_batch(epoch, batch_idx, x_e, y_e, d_e)
             if self.flag_stop is True:
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
@@ -70,7 +81,7 @@ class TrainerMatchDG(MatchAlgoBase):
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
 
-    def update_batch(self, epoch, batch_idx, x_e, y_e, d_e):
+    def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e):
         """
         update network for each batch
         """
@@ -264,3 +275,33 @@ class TrainerMatchDG(MatchAlgoBase):
         self.epo_loss_tr += loss_e.detach().item()
 
         torch.cuda.empty_cache()
+
+    def mk_match_tensor(self, epoch):
+        """
+        initialize or update match tensor
+        """
+        obj_match = MatchPair(self.task.dim_y,
+                              self.task.isize.i_c,
+                              self.task.isize.i_h,
+                              self.task.isize.i_w,
+                              self.aconf.bs,
+                              virtual_ref_dset_size=self.base_domain_size,
+                              num_domains_tr=len(self.task.list_domain_tr),
+                              list_tr_domain_size=self.list_tr_domain_size)
+
+        # @FIXME: what is the usefulness of (epoch > 0) as argument
+        self.tensor_ref_domain2each_domain_x, self.tensor_ref_domain2each_domain_y = \
+        obj_match(
+            self.device,
+            self.task.loader_tr,
+            self.model.extract_semantic_feat,
+            (epoch > 0))
+        
+    def before_tr(self):
+        """
+        override abstract method
+        """
+        logger = Logger.get_logger()
+        logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")
+        # phase 1: contrastive learning
+        # different than phase 2, ctr_model has no classification loss

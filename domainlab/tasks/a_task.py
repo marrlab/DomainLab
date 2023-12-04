@@ -47,10 +47,11 @@ class NodeTaskDG(AbstractChainNodeHandler):
         """
 
     @abstractmethod
-    def init_business(self, args, node_algo_builder=None):
+    def init_business(self, args, trainer=None):
         """
-        construct task
+        construct task data loader
         """
+
     def get_list_domains(self):
         """
         1. get list of domain names
@@ -107,7 +108,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
         """
         The basic name of the task, without configurations
         """
-        # @FIXME: hardcoded position
+        # @FIXME: hardcoded position:NodeTaskXXX
         return type(self).__name__[8:].lower()
 
     def get_na(self, na_tr, na_te):

@@ -75,6 +75,11 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
 ```
 
+### model matchdg with mnist
+```shell
+ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
+```
+
 ### hduva with implemented neural network
 ```shell
 python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2

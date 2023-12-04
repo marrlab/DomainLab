@@ -20,10 +20,6 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
     """
     NodeAlgoBuilderMatchHDUVA
     """
-    def dset_decoration_args_algo(self, args, ddset):
-        ddset = DsetIndDecorator4XYD(ddset)
-        return ddset
-
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -32,6 +28,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
         args = exp.args
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
         node = VAEChainNodeGetter(request, args.topic_dim)()
         model = mk_hduva()(node,
@@ -41,7 +38,6 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            device=device,
                            topic_dim=args.topic_dim,
                            list_str_y=task.list_str_y,
-                           list_d_tr=task.list_domain_tr,
                            gamma_d=args.gamma_d,
                            gamma_y=args.gamma_y,
                            beta_t=args.beta_t,
@@ -53,9 +49,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
 
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(model_sel,
-                             device,
-                             exp=exp)
+        observer = ObVisitor(model_sel)
 
         trainer = TrainerMatchDG()
         trainer.init_business(model, task, observer, device, args)

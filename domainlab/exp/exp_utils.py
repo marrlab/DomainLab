@@ -104,6 +104,9 @@ class ExpModelPersistVisitor():
         model = copy.deepcopy(self.host.trainer.model)
         model.load_state_dict(torch.load(path, map_location="cpu"))
         return model
+    
+    def clean_up(self):
+        self.host.clean_up()
 
 
 class AggWriter(ExpModelPersistVisitor):
