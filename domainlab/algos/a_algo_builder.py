@@ -1,3 +1,7 @@
+"""
+parent class for combing model, trainer, task, observer
+"""
+import abc
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.utils.logger import Logger
 
