@@ -5,6 +5,7 @@ from torch.nn import functional as F
 
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_dann import mk_dann
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
 def mk_jigen(parent_class=AModelClassif):
@@ -51,12 +52,13 @@ def mk_jigen(parent_class=AModelClassif):
         """
         Jigen Model Similar to DANN model
         """
-        def __init__(self, list_str_y, list_str_d,
+        def __init__(self, list_str_y,
                      net_encoder,
                      net_classifier_class,
                      net_classifier_permutation,
-                     coeff_reg):
-            super().__init__(list_str_y, list_str_d,
+                     coeff_reg, meta_info=None):
+            super().__init__(list_str_y,
+                             list_d_tr=None,
                              alpha=coeff_reg,
                              net_encoder=net_encoder,
                              net_classifier=net_classifier_class,
@@ -64,6 +66,7 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_encoder = net_encoder
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
+            self.meta_info = meta_info
 
         @property
         def list_str_multiplier_na(self):
@@ -79,7 +82,22 @@ def mk_jigen(parent_class=AModelClassif):
             """
             return {"alpha": self.alpha}
 
-        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def dset_decoration_args_algo(self, args, ddset):
+            """
+            JiGen need to shuffle the tiles of the original image
+            """
+            if self.meta_info is not None:
+                args.nperm = self.meta_info["nperm"] -1  if "nperm" in self.meta_info else args.nperm
+                args.pperm = self.meta_info["pperm"] if "pperm" in self.meta_info else args.pperm
+
+            ddset_new = WrapDsetPatches(ddset,
+                                        num_perms2classify=args.nperm,
+                                        prob_no_perm=1-args.pperm,
+                                        grid_len=args.grid_len,
+                                        ppath=args.jigen_ppath)
+            return ddset_new
+
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             """
             JiGen don't need domain label but a pre-defined permutation index
             to calculate regularization loss
@@ -89,7 +107,12 @@ def mk_jigen(parent_class=AModelClassif):
             which permutation has been used or no permutation has been used at
             all (which also has to be classified)
             """
-            vec_perm_ind = tensor_d
+            _ = tensor_y
+            _ = tensor_d
+            if isinstance(others, list) or isinstance(others, tuple):
+                vec_perm_ind = others[0]
+            else:
+                vec_perm_ind = others
             # tensor_x can be either original image or tile-shuffled image
             feat = self.net_encoder(tensor_x)
             logits_which_permutation = self.net_classifier_permutation(feat)

@@ -40,10 +40,9 @@ def mk_hduva(parent_class=VAEXYDClassif):
         zd_dim: size of latent space for domain-specific information (int),
         zy_dim: size of latent space for class-specific information (int),
         zx_dim: size of latent space for residual variance (int, defaults to 0),
-        chain_node_builder: TODO,
+        chain_node_builder: an object which can build different maps via neural network,
         list_str_y: list of labels (list of strings),
-        list_d_tr: list of training domains (list of strings),
-        gamma_d: TODO,
+        gamma_d: weighting term for domain classificaiton loss
         gamma_y: weighting term for additional term in ELBO loss (float),
         beta_d: weighting term for the domain component of ELBO loss (float),
         beta_x: weighting term for residual variation component of ELBO loss (float),
@@ -88,7 +87,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
         @store_args
         def __init__(self, chain_node_builder,
                      zy_dim, zd_dim,
-                     list_str_y, list_d_tr,
+                     list_str_y,
                      gamma_d, gamma_y,
                      beta_d, beta_x, beta_y,
                      beta_t,
@@ -100,7 +99,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             """
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
-                             list_str_y, list_d_tr)
+                             list_str_y)
 
             # topic to zd follows Gaussian distribution
             self.add_module("net_p_zd",

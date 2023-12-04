@@ -23,6 +23,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     def __init__(self):
         super().__init__()
         self._decoratee = None
+        self.list_d_tr = None
+        self.visitor = None
 
     def extend(self, model):
         """
@@ -116,3 +118,23 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param d:
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+
+    def save(self, suffix=None):
+        """
+        persist model to disk
+        """
+        if self.visitor is None:
+            return
+        self.visitor.save(self, suffix)
+        return
+    
+    def load(self, suffix=None):
+        """
+        load model from disk
+        """
+        if self.visitor is None:
+            return None
+        return self.visitor.load(suffix)
+    
+    def set_saver(self, visitor):
+        self.visitor = visitor

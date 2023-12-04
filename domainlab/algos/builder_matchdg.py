@@ -17,10 +17,6 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
     """
     algorithm builder for matchDG
     """
-    def dset_decoration_args_algo(self, args, ddset):
-        ddset = DsetIndDecorator4XYD(ddset)
-        return ddset
-
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -50,9 +46,7 @@ class NodeAlgoBuilderMatchDG(NodeAlgoBuilder):
         # different than model, ctr_model has no classification loss
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(model_sel,
-                             device,
-                             exp=exp)
+        observer = ObVisitor(model_sel)
 
         trainer = TrainerMatchDG()
         trainer.init_business(model, task, observer, device, args)
