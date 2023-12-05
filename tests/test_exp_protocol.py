@@ -13,24 +13,31 @@ from domainlab.arg_parser import mk_parser_main
 from domainlab.exp_protocol.aggregate_results import agg_results, agg_main
 from domainlab.exp_protocol.run_experiment import run_experiment, apply_dict_to_args
 
-
 def test_run_experiment():
+    utils_run_experiment("examples/benchmark/demo_benchmark.yaml", list_test_domains=['caltech'])
+    utils_run_experiment("examples/benchmark/demo_benchmark_mnist4test.yaml", ['0'], no_run=False)
+
+def utils_run_experiment(yaml_name, list_test_domains, no_run=True):
     """Checks the run_experiment function on a minimal basis"""
-    with open("examples/benchmark/demo_benchmark.yaml", "r", encoding="utf8") as stream:
+    with open(yaml_name, "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
     if torch.cuda.is_available():
         torch.cuda.init()
     config['epos'] = 1
     config['startseed'] = 1
     config['endseed'] = 1
-    config['test_domains'] = ['caltech']
+    config['test_domains'] = list_test_domains
     param_file = "data/ztest_files/test_parameter_samples.csv"
     param_index = 0
     out_file = "zoutput/benchmarks/demo_benchmark/rule_results/0.csv"
 
+    # setting misc={'testing': True} will disable experiment being executed
     run_experiment(config, param_file, param_index, out_file, misc={'testing': True})
-    config['test_domains'] = []
+    # setting test_domain equals zero will also not execute the experiment
+    if no_run:
+        config['test_domains'] = []
     run_experiment(config, param_file, param_index, out_file)
+
 
 
 def test_apply_dict_to_args():
