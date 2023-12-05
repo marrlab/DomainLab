@@ -161,11 +161,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
         flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
         if not (flag1 & flag2 & flag_raw_consistency):
-            str_info = f"inconsistent acc:" \
-                       f"prediction file acc {file_acc}" \
-                       f"torchmetric acc {acc_metric_te}" \
-                       f"raw acc 1 {acc_raw1}" \
-                       f"raw acc 2 {acc_raw2}"
+            str_info = f"inconsistent acc: \n" \
+                       f"prediction file acc generated using the current model is {file_acc} \n" \
+                       f"input torchmetric acc to the current function: {acc_metric_te} \n" \
+                       f"raw acc 1 {acc_raw1} \n" \
+                       f"raw acc 2 {acc_raw2} \n"
             raise RuntimeError(str_info)
         return file_acc
 
