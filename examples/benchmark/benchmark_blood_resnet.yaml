@@ -35,13 +35,7 @@ Shared params:
   num_shared_param_samples: 8
   gamma_y:
     min: 1e4
-    max: 1e6
-    step: 100
-    distribution: loguniform
-
-  gamma_d:
-    min: 1e4
-    max: 1e6
+    max: 2e5
     step: 100
     distribution: loguniform
 
@@ -60,12 +54,8 @@ Shared params:
     datatype: int
 
   zd_dim:
-    min: 32
-    max: 96
-    step: 32
-    distribution: uniform
-    datatype: int
-
+    reference: zy_dim
+    
   gamma_reg:
     min: 0.01
     max: 10
