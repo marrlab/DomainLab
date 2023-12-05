@@ -45,8 +45,8 @@ class ExpModelPersistVisitor():
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
         self.model = copy.deepcopy(self.host.trainer.model)
         # although deepcopy in contructor is expensive, but
-        # execute copy.deepcopy(self.host.trainer.model) after training will cause thread lock 
-        # if self.host.trainer has tensorboard writer, see 
+        # execute copy.deepcopy(self.host.trainer.model) after training will cause thread lock
+        # if self.host.trainer has tensorboard writer, see
         # https://github.com/marrlab/DomainLab/issues/673
 
     def mk_model_na(self, tag=None, dd_cut=19):
@@ -105,18 +105,18 @@ class ExpModelPersistVisitor():
         path = self.model_path
         if suffix is not None:
             path = "_".join([self.model_path, suffix])
-        # due to tensorboard writer in trainer.scheduler, 
+        # due to tensorboard writer in trainer.scheduler,
         # copy.deepcopy(self.host.trainer.model) will cause thread lock
         # see https://github.com/marrlab/DomainLab/issues/673
         self.model.load_state_dict(torch.load(path, map_location="cpu"))
-        # without separate self.model and self.model_suffixed, 
-        # it will cause accuracy inconsistent problems since the content of self.model 
+        # without separate self.model and self.model_suffixed,
+        # it will cause accuracy inconsistent problems since the content of self.model
         # can be overwritten when the current function is called another time and self.model
-        # is not deepcopied 
+        # is not deepcopied
         # However, deepcopy is also problematic when it is executed too many times
         return copy.deepcopy(self.model)
-        # instead of deepcopy, one could also have multiple copies of model in constructor, but this 
-        # does not adhere the lazy principle. 
+        # instead of deepcopy, one could also have multiple copies of model in constructor, but this
+        # does not adhere the lazy principle.
 
     def clean_up(self):
         self.host.clean_up()
