@@ -1,4 +1,5 @@
 """
+executing mk_exp multiple times will cause deep copy to be called multiple times, pytest will show process got killed. 
 """
 from torch import nn
 from torchvision import models as torchvisionmodels
