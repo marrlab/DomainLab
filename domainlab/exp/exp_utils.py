@@ -44,7 +44,10 @@ class ExpModelPersistVisitor():
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
         self.model = copy.deepcopy(self.host.trainer.model)
-        self.model_suffixed = copy.deepcopy(self.host.trainer.model)
+        # although deepcopy in contructor is expensive, but
+        # execute copy.deepcopy(self.host.trainer.model) after training will cause thread lock 
+        # if self.host.trainer has tensorboard writer, see 
+        # https://github.com/marrlab/DomainLab/issues/673
 
     def mk_model_na(self, tag=None, dd_cut=19):
         """
@@ -102,8 +105,6 @@ class ExpModelPersistVisitor():
         path = self.model_path
         if suffix is not None:
             path = "_".join([self.model_path, suffix])
-            self.model_suffixed.load_state_dict(torch.load(path, map_location="cpu"))
-            return self.model_suffixed
         # due to tensorboard writer in trainer.scheduler, 
         # copy.deepcopy(self.host.trainer.model) will cause thread lock
         # see https://github.com/marrlab/DomainLab/issues/673
@@ -111,8 +112,11 @@ class ExpModelPersistVisitor():
         # without separate self.model and self.model_suffixed, 
         # it will cause accuracy inconsistent problems since the content of self.model 
         # can be overwritten when the current function is called another time and self.model
-        # is not deepcopied (if it is, also problematic when it is deep copied too many times)
-        return self.model
+        # is not deepcopied 
+        # However, deepcopy is also problematic when it is executed too many times
+        return copy.deepcopy(self.model)
+        # instead of deepcopy, one could also have multiple copies of model in constructor, but this 
+        # does not adhere the lazy principle. 
 
     def clean_up(self):
         self.host.clean_up()
