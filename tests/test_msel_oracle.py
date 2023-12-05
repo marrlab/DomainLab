@@ -164,11 +164,61 @@ def test_msel_oracle2():
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32)
     exp.execute(num_epochs=2)
+    
+def test_msel_oracle3():
+    """
+    return trainer, model, observer
+    """
+    task = mk_task_dset(
+        isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
+
+    # specify backbone to use
+    backbone = torchvisionmodels.resnet.resnet50(
+        weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
+
+    # specify model to use
+    model = mk_deepall()(backbone)
 
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False, force_best_val=True)
     exp.execute(num_epochs=2)
     del exp
+
+def test_msel_oracle4():
+    """
+    return trainer, model, observer
+    """
+    task = mk_task_dset(
+        isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
+
+    # specify backbone to use
+    backbone = torchvisionmodels.resnet.resnet50(
+        weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
+
+    # specify model to use
+    model = mk_deepall()(backbone)
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False, msel_loss_tr=True)
     exp.execute(num_epochs=2)
