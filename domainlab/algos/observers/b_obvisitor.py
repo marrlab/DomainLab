@@ -119,6 +119,7 @@ class ObVisitor(AObVisitor):
         else:
             metric_te.update({"acc_setpoint": -1})
         self.dump_prediction(model_ld, metric_te)
+        # save metric to one line in csv result file
         self.host_trainer.model.visitor(metric_te)
         # prediction dump of test domain is essential
         # to verify the prediction results

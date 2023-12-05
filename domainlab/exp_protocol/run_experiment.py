@@ -85,7 +85,6 @@ def run_experiment(
     misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
-    misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
@@ -134,7 +133,6 @@ def run_experiment(
         end_seed = config['endseed']
     else:
         end_seed = start_seed + (config['endseed'] - config['startseed'])
-
     for seed in range(start_seed, end_seed + 1):
         for te_d in config['test_domains']:
             args.te_d = te_d
@@ -149,6 +147,8 @@ def run_experiment(
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
+            # NOTE: if key "testing" is set in benchmark, then do not execute
+            # experiment
             if not misc.get('testing', False):
                 exp.execute()
             try:
