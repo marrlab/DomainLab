@@ -80,7 +80,7 @@ class ObVisitor(AObVisitor):
         """
         model_ld = None
         try:
-            model_ld = self.host_trainer.model.visitor.load()
+            model_ld = self.host_trainer.model.load()
         except FileNotFoundError as err:
             # if other errors/exceptions occur, we do not catch them
             # other exceptions will terminate the python script
