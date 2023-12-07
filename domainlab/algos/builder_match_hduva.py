@@ -1,6 +1,8 @@
 """
 hduva with matchdg
 """
+import copy
+
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
@@ -12,17 +14,12 @@ from domainlab.models.model_hduva import mk_hduva
 from domainlab.utils.utils_cuda import get_device
 
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
-from domainlab.models.model_wrapper_matchdg4vae import ModelWrapMatchDGVAE
 
 
 class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
     """
     NodeAlgoBuilderMatchHDUVA
     """
-    def dset_decoration_args_algo(self, args, ddset):
-        ddset = DsetIndDecorator4XYD(ddset)
-        return ddset
-
     def init_business(self, exp):
         """
         return trainer, model, observer
@@ -31,6 +28,7 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
         args = exp.args
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
         node = VAEChainNodeGetter(request, args.topic_dim)()
         model = mk_hduva()(node,
@@ -40,7 +38,6 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            device=device,
                            topic_dim=args.topic_dim,
                            list_str_y=task.list_str_y,
-                           list_d_tr=task.list_domain_tr,
                            gamma_d=args.gamma_d,
                            gamma_y=args.gamma_y,
                            beta_t=args.beta_t,
@@ -48,33 +45,13 @@ class NodeAlgoBuilderMatchHDUVA(NodeAlgoBuilder):
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
 
-        model_ctr = mk_hduva()(node,
-                               zd_dim=args.zd_dim,
-                               zy_dim=args.zy_dim,
-                               zx_dim=args.zx_dim,
-                               device=device,
-                               topic_dim=args.topic_dim,
-                               list_str_y=task.list_str_y,
-                               list_d_tr=task.list_domain_tr,
-                               gamma_d=args.gamma_d,
-                               gamma_y=args.gamma_y,
-                               beta_t=args.beta_t,
-                               beta_x=args.beta_x,
-                               beta_y=args.beta_y,
-                               beta_d=args.beta_d)
-
-        model = ModelWrapMatchDGVAE(model, list_str_y=task.list_str_y)
         model = model.to(device)
 
-        ctr_model = ModelWrapMatchDGVAE(model_ctr, list_str_y=task.list_str_y)
-        ctr_model = ctr_model.to(device)
 
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(model_sel,
-                             device,
-                             exp=exp)
+        observer = ObVisitor(model_sel)
 
         trainer = TrainerMatchDG()
-        trainer.init_business(exp, task, ctr_model, model, observer, args, device)
+        trainer.init_business(model, task, observer, device, args)
 
         return trainer, model, observer, device

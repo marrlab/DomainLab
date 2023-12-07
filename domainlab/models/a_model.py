@@ -11,6 +11,18 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
+    def __init__(self):
+        super().__init__()
+        self._decoratee = None
+        self.list_d_tr = None
+        self.visitor = None
+
+    def extend(self, model):
+        """
+        extend the loss of the decoratee
+        """
+        self._decoratee = model
+
     @property
     def metric4msel(self):
         """
@@ -57,10 +69,31 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
 
     @abc.abstractmethod
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        task independent regularization loss for domain generalization
+        """
+
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         task independent regularization loss for domain generalization
         """
+        loss_reg, mu = self._extend_loss(
+            tensor_x, tensor_y, tensor_d, others)
+        loss_reg_, mu_ = self._cal_reg_loss(
+            tensor_x, tensor_y, tensor_d, others)
+        if loss_reg is not None:
+            return loss_reg_ + loss_reg, mu_ + mu
+        return loss_reg_, mu_
+
+    def _extend_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        """
+        combine losses from two models
+        """
+        if self._decoratee is not None:
+            return self._decoratee.cal_reg_loss(
+                tensor_x, tensor_y, tensor_d, others)
+        return None, None
 
     def forward(self, tensor_x, tensor_y, tensor_d, others=None):
         """forward.
@@ -70,3 +103,23 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param d:
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+
+    def save(self, suffix=None):
+        """
+        persist model to disk
+        """
+        if self.visitor is None:
+            return
+        self.visitor.save(self, suffix)
+        return
+    
+    def load(self, suffix=None):
+        """
+        load model from disk
+        """
+        if self.visitor is None:
+            return None
+        return self.visitor.load(suffix)
+    
+    def set_saver(self, visitor):
+        self.visitor = visitor

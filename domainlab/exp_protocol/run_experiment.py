@@ -10,9 +10,9 @@ import pandas as pd
 import torch
 
 from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
-from domainlab.compos.exp.exp_cuda_seed import set_seed
-from domainlab.compos.exp.exp_main import Exp
-from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.exp.exp_cuda_seed import set_seed
+from domainlab.exp.exp_main import Exp
+from domainlab.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.utils.logger import Logger
 
 
@@ -85,7 +85,6 @@ def run_experiment(
     misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
-    misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
@@ -129,7 +128,6 @@ def run_experiment(
         end_seed = config['endseed']
     else:
         end_seed = start_seed + (config['endseed'] - config['startseed'])
-
     for seed in range(start_seed, end_seed + 1):
         for te_d in config['test_domains']:
             args.te_d = te_d
@@ -144,6 +142,8 @@ def run_experiment(
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
+            # NOTE: if key "testing" is set in benchmark, then do not execute
+            # experiment
             if not misc.get('testing', False):
                 exp.execute()
             try:

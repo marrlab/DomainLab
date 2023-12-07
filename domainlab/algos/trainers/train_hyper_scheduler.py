@@ -2,7 +2,7 @@
 update hyper-parameters during training
 """
 from domainlab.algos.trainers.train_basic import TrainerBasic
-from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmup
+from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupLinear
 from domainlab.utils.logger import Logger
 
 
@@ -25,6 +25,7 @@ class TrainerHyperScheduler(TrainerBasic):
             flag_update_batch: if hyper-parameters should be changed per batch
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
+        # let model register its hyper-parameters to the scheduler
         self.flag_update_hyper_per_epoch = flag_update_epoch
         self.flag_update_hyper_per_batch = flag_update_batch
         self.hyper_scheduler.set_steps(total_steps=total_steps)
@@ -43,9 +44,7 @@ class TrainerHyperScheduler(TrainerBasic):
             logger = Logger.get_logger()
             logger.warning("hyper-parameter scheduler not set,"
                            "going to use default Warmpup and epoch update")
-            logger.warning("hyper-parameter scheduler not set, "
-                           "going to use default Warmpup and epoch update")
-            self.set_scheduler(HyperSchedulerWarmup,
+            self.set_scheduler(HyperSchedulerWarmupLinear,
                                total_steps=self.aconf.warmup,
                                flag_update_epoch=True)
 

@@ -40,10 +40,9 @@ def mk_hduva(parent_class=VAEXYDClassif):
         zd_dim: size of latent space for domain-specific information (int),
         zy_dim: size of latent space for class-specific information (int),
         zx_dim: size of latent space for residual variance (int, defaults to 0),
-        chain_node_builder: TODO,
+        chain_node_builder: an object which can build different maps via neural network,
         list_str_y: list of labels (list of strings),
-        list_d_tr: list of training domains (list of strings),
-        gamma_d: TODO,
+        gamma_d: weighting term for domain classificaiton loss
         gamma_y: weighting term for additional term in ELBO loss (float),
         beta_d: weighting term for the domain component of ELBO loss (float),
         beta_x: weighting term for residual variation component of ELBO loss (float),
@@ -84,7 +83,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
         @store_args
         def __init__(self, chain_node_builder,
                      zy_dim, zd_dim,
-                     list_str_y, list_d_tr,
+                     list_str_y,
                      gamma_d, gamma_y,
                      beta_d, beta_x, beta_y,
                      beta_t,
@@ -96,7 +95,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             """
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
-                             list_str_y, list_d_tr)
+                             list_str_y)
 
             # topic to zd follows Gaussian distribution
             self.add_module("net_p_zd",
@@ -127,7 +126,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             prior = Dirichlet(torch.ones(batch_size, self.topic_dim).to(device))
             return prior
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
             q_topic, topic_q, \
                 qzd, zd_q, \
                 qzx, zx_q, \
@@ -142,8 +141,18 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # from torch.distributions import kl_divergence
 
             # zy KL divergence
-            p_zy = self.net_p_zy(tensor_y)
-            zy_p_minus_zy_q = g_inst_component_loss_agg(p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
+
+            if (tensor_y.shape[-1] == 1) | (len(tensor_y.shape) == 1):
+                tensor_y_onehot = torch.nn.functional.one_hot(
+                    tensor_y,
+                    num_classes=len(self.list_str_y))
+                tensor_y_onehot = tensor_y_onehot.to(torch.float32)
+            else:
+                tensor_y_onehot = tensor_y
+
+            p_zy = self.net_p_zy(tensor_y_onehot)
+            zy_p_minus_zy_q = g_inst_component_loss_agg(
+                p_zy.log_prob(zy_q) - qzy.log_prob(zy_q), 1)
 
             # zx KL divergence
             zx_p_minus_q = torch.zeros_like(zy_p_minus_zy_q)
@@ -166,7 +175,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
                 [self.multiplier_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
-        def extract_semantic_features(self, tensor_x):
+        def extract_semantic_feat(self, tensor_x):
             """
             :param tensor_x:
             """

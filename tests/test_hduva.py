@@ -4,8 +4,19 @@ end to end test
 
 import gc
 import torch
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
+from tests.utils_test import utils_test_algo
+
+def test_hduva_zx_nonzero():
+    """
+    the combination of dial and diva: use dial trainer to train diva model
+    """
+    utils_test_algo("--te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --zx_dim=8 \
+                    --aname=hduva --nname=conv_bn_pool_2 \
+                    --nname_topic_distrib_img2topic=conv_bn_pool_2 \
+                    --gamma_y=7e5 \
+                    --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2")
 
 
 def test_trainer_hduva():

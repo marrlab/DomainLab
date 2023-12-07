@@ -4,7 +4,7 @@ so it is easier to identify which algorithm has a problem
 """
 import gc
 import torch
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
 

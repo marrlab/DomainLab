@@ -4,7 +4,7 @@ from domainlab.utils.logger import Logger
 import numpy as np
 import torch
 
-from domainlab.algos.compos.matchdg_utils import (
+from domainlab.algos.trainers.compos.matchdg_utils import (
     MatchDictNumDomain2SizeDomain, MatchDictVirtualRefDset2EachDomain)
 from domainlab.tasks.utils_task import mk_loader
 from domainlab.utils.utils_class import store_args

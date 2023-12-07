@@ -76,7 +76,11 @@ class WrapDsetPatches(torchdata.Dataset):
         return tile
 
     def __getitem__(self, index):
-        img, label, *_ = self.dataset.__getitem__(index)
+        img, label, *domain = self.dataset.__getitem__(index)
+        if domain:
+            dlabel = domain[0]
+        else:
+            dlabel = None
         num_grids = self.grid_len ** 2
         # divide image into grid_len^2 tiles
         list_tiles = [None] * num_grids
@@ -113,7 +117,8 @@ class WrapDsetPatches(torchdata.Dataset):
         # be a whole image again by self.fun_weave_imgs
         # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
-        return self.fun_weave_imgs(stacked_tiles), label, int(ind_which_perm)
+
+        return self.fun_weave_imgs(stacked_tiles), label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):

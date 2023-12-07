@@ -6,7 +6,7 @@ import warnings
 
 import yaml
 
-from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae

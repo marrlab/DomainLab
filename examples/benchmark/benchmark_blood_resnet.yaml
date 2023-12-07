@@ -1,9 +1,9 @@
 # test benchmark config.
 
 test_domains:
-  - matek
   - acevedo
-  - mll
+#- mll
+#- matek
 
 output_dir: zoutput/benchmarks/blood
 # number of hyperparameter samples per task.
@@ -25,146 +25,92 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
+  epos_min: 20
   es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
   san_check: True
+
+Shared params:
+  num_shared_param_samples: 8
+  gamma_y:
+    min: 1e4
+    max: 2e5
+    step: 100
+    distribution: loguniform
+
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zd_dim:
+    reference: zy_dim
+    
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
+
 
 
 diva:  # name
   aname: diva
   # set nname_dom = nname when changing nname
   npath_dom: examples/nets/resnet50domainbed.py
+  shared:
+    - gamma_y
+    - zx_dim
+    - zy_dim
+    - zd_dim
 
   hyperparameters:
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
-
     gamma_d:
       min: 1e4
       max: 1e6
       step: 10_000
       distribution: loguniform
 
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
-
 hduva:  # name
   aname: hduva
 
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-
-  hyperparameters:
-    # Same config as diva.
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
-
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
-
-matchdg:  # name
-  aname: matchdg
-
-  hyperparameters:
-    # Total number of epochs for contrastive loss
-    epochs_ctr:
-      min: 2
-      max: 10
-      step: 1
-      distribution: uniform
-
-    # factor to magnify cosine similarity
-    tau:
-      min: 0.01
-      max: 1
-      distribution: loguniform
-
-    # Number of epochs before updating the match tensor
-    epos_per_match_update:
-      min: 1
-      max: 20
-      step: 1
-      distribution: uniform
-
-    # penalty weight for matching loss (Lambda in paper)
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
-jigen:  # name
-  aname: jigen
-  grid_len: 3
-
-  hyperparameters:
-    # number of permutations
-    nperm:
-      distribution: categorical
-      values:
-        - 30
-        - 31
-        - 100
-      datatype: int
-
-    # probability of permutating the tiles of an image, pperm = 0 -> pure classification
-    pperm:
-      min: 0.1
-      max: 0.5
-      distribution: uniform
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
-
-dann:  # name
-  aname: dann
-
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
+  shared:
+    - gamma_y
+    - zx_dim
+    - zy_dim
+    - zd_dim
 
 deepall:  # name
   aname: deepall
 
+mldg:
+  aname: deepall
+  trainer: mldg
+  shared:
+    - gamma_reg
+
+dann:
+  aname: dann
+  shared:
+    - gamma_reg
+
 
 dial: # name
-  aname: deepall_dial
-
+  aname: deepall
+  trainer: dial
+  shared:
+    - gamma_reg
   hyperparameters:
     dial_steps_perturb:
       min: 1
@@ -181,19 +127,3 @@ dial: # name
       min: 0.001
       max: 0.01
       distribution: loguniform
-
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
-mldg:  # name
-  aname: deepallmldg
-
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
-

@@ -1,17 +1,18 @@
 """
-This module contains 3 classes inheriting: ExpProtocolAggWriter(AggWriter(ExpModelPersistVisitor))
+This module contains 3 classes inheriting:
+    ExpProtocolAggWriter(AggWriter(ExpModelPersistVisitor))
 """
 import copy
 import datetime
 import os
+import numpy as np
 from pathlib import Path
 
 import torch
-
 from sklearn.metrics import ConfusionMatrixDisplay
+
 from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
-
 
 
 class ExpModelPersistVisitor():
@@ -43,6 +44,11 @@ class ExpModelPersistVisitor():
                                        ExpModelPersistVisitor.model_suffix)
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
+        self.model = copy.deepcopy(self.host.trainer.model)
+        # although deepcopy in contructor is expensive, but
+        # execute copy.deepcopy(self.host.trainer.model) after training will cause thread lock
+        # if self.host.trainer has tensorboard writer, see
+        # https://github.com/marrlab/DomainLab/issues/673
 
     def mk_model_na(self, tag=None, dd_cut=19):
         """
@@ -100,9 +106,21 @@ class ExpModelPersistVisitor():
         path = self.model_path
         if suffix is not None:
             path = "_".join([self.model_path, suffix])
-        model = copy.deepcopy(self.host.trainer.model)
-        model.load_state_dict(torch.load(path, map_location="cpu"))
-        return model
+        # due to tensorboard writer in trainer.scheduler,
+        # copy.deepcopy(self.host.trainer.model) will cause thread lock
+        # see https://github.com/marrlab/DomainLab/issues/673
+        self.model.load_state_dict(torch.load(path, map_location="cpu"))
+        # without separate self.model and self.model_suffixed,
+        # it will cause accuracy inconsistent problems since the content of self.model
+        # can be overwritten when the current function is called another time and self.model
+        # is not deepcopied
+        # However, deepcopy is also problematic when it is executed too many times
+        return copy.deepcopy(self.model)
+        # instead of deepcopy, one could also have multiple copies of model in constructor, but this
+        # does not adhere the lazy principle.
+
+    def clean_up(self):
+        self.host.clean_up()
 
 
 class AggWriter(ExpModelPersistVisitor):
@@ -221,6 +239,8 @@ class ExpProtocolAggWriter(AggWriter):
         dict_cols = {
             "param_index": self.host.args.param_index,
             "method": self.host.args.benchmark_task_name,
+            "mname": "mname_" + self.model_name,
+            "commit": "commit_" + self.git_tag,
             "algo": self.algo_name,
             epos_name: None,
             "te_d": self.host.args.te_d,
@@ -229,6 +249,30 @@ class ExpProtocolAggWriter(AggWriter):
         }
         return dict_cols, epos_name
 
-    def get_fpath(self, dirname="aggrsts"):
+    def get_fpath(self, dirname=None):
         """filepath"""
-        return self.host.args.result_file
+        if dirname is None:
+            return self.host.args.result_file
+        return super().get_fpath(dirname)
+
+    def confmat_to_file(self, confmat, confmat_filename):
+        """Save confusion matrix as a figure
+
+        Args:
+            confmat: confusion matrix.
+        """
+        path4file = self.get_fpath()
+        index = os.path.basename(path4file)
+        path4file = os.path.dirname(os.path.dirname(path4file))
+        # if prefix does not exist, string remain unchanged.
+        confmat_filename = confmat_filename.removeprefix("mname_")
+        path4file = os.path.join(path4file, "confusion_matrix")
+        os.makedirs(path4file, exist_ok=True)
+        file_path = os.path.join(path4file,
+                                 f"{index}.txt")
+        with open(file_path, 'a', encoding="utf8") as f_h:
+            print(confmat_filename, file=f_h)
+            for line in np.matrix(confmat):
+                np.savetxt(f_h, line, fmt='%.2f')
+        logger = Logger.get_logger()
+        logger.info(f"confusion matrix saved in file: {file_path}")

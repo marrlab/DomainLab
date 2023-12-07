@@ -1,4 +1,5 @@
 """
+executing mk_exp multiple times will cause deep copy to be called multiple times, pytest will show process got killed. 
 """
 from torch import nn
 from torchvision import models as torchvisionmodels
@@ -11,7 +12,7 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.models.model_deep_all import mk_deepall
 from domainlab.utils.utils_cuda import get_device
 from domainlab.arg_parser import mk_parser_main
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 
 from domainlab.dsets.dset_mnist_color_solo_default import \
     DsetMNISTColorSoloDefault
@@ -58,7 +59,7 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int,
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=0))
         if force_best_val:
             model_sel.msel._best_val_acc = 1.0
-    observer = ObVisitor(model_sel, device)
+    observer = ObVisitor(model_sel)
     exp = Exp(conf, task, model=model, observer=observer)
     model_sel.update(clear_counter=True)
     return exp
@@ -94,18 +95,133 @@ def test_msel_oracle():
                  batchsize=32)
     exp.execute(num_epochs=2)
 
+    del exp
+
+
+
+def test_msel_oracle1():
+    """
+    return trainer, model, observer
+    """
+    task = mk_task_dset(
+        isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
+
+    # specify backbone to use
+    backbone = torchvisionmodels.resnet.resnet50(
+        weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
+
+    # specify model to use
+    model = mk_deepall()(backbone)
+
+    # make trainer for model
+
+
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False)
 
     exp.execute(num_epochs=2)
     exp.trainer.observer.model_sel.msel.update(clear_counter=True)
+    del exp
+
+
+def test_msel_oracle2():
+    """
+    return trainer, model, observer
+    """
+    task = mk_task_dset(
+        isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
+
+    # specify backbone to use
+    backbone = torchvisionmodels.resnet.resnet50(
+        weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
+
+    # specify model to use
+    model = mk_deepall()(backbone)
+
+    # make trainer for model
+    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
+                 batchsize=32)
+    exp.execute(num_epochs=2)
+    
+def test_msel_oracle3():
+    """
+    return trainer, model, observer
+    """
+    task = mk_task_dset(
+        isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
+
+    # specify backbone to use
+    backbone = torchvisionmodels.resnet.resnet50(
+        weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
+
+    # specify model to use
+    model = mk_deepall()(backbone)
 
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False, force_best_val=True)
     exp.execute(num_epochs=2)
+    del exp
 
+def test_msel_oracle4():
+    """
+    return trainer, model, observer
+    """
+    task = mk_task_dset(
+        isize=ImSize(3, 28, 28),  dim_y=10, taskna="custom_task")
+    task.add_domain(name="domain1",
+                    dset_tr=DsetMNISTColorSoloDefault(0),
+                    dset_val=DsetMNISTColorSoloDefault(1))
+    task.add_domain(name="domain2",
+                    dset_tr=DsetMNISTColorSoloDefault(2),
+                    dset_val=DsetMNISTColorSoloDefault(3))
+    task.add_domain(name="domain3",
+                    dset_tr=DsetMNISTColorSoloDefault(4),
+                    dset_val=DsetMNISTColorSoloDefault(5))
+
+    # specify backbone to use
+    backbone = torchvisionmodels.resnet.resnet50(
+        weights=ResNet50_Weights.IMAGENET1K_V2)
+    num_final_in = backbone.fc.in_features
+    backbone.fc = nn.Linear(num_final_in, task.dim_y)
+
+    # specify model to use
+    model = mk_deepall()(backbone)
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False, msel_loss_tr=True)
     exp.execute(num_epochs=2)
     exp.trainer.observer.model_sel.msel.best_loss = 0
     exp.trainer.observer.model_sel.msel.update(clear_counter=True)
+    del exp

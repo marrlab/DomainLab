@@ -2,7 +2,7 @@ import os
 import pytest
 import torch
 import gc
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 from domainlab.models.model_custom import AModelCustom
 from domainlab.arg_parser import mk_parser_main
 

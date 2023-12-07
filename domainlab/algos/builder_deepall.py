@@ -23,7 +23,7 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
         args = exp.args
         device = get_device(args)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(model_sel, device, exp=exp)
+        observer = ObVisitor(model_sel)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
             args, arg_name_of_net="nname",
@@ -36,6 +36,6 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                                     i_w=task.isize.i_w)
 
         model = mk_deepall()(net, list_str_y=task.list_str_y)
-        trainer = TrainerChainNodeGetter(args)(default="basic")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device

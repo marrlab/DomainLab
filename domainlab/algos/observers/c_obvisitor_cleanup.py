@@ -3,7 +3,7 @@ from domainlab.algos.observers.a_observer import AObVisitor
 
 class ObVisitorCleanUp(AObVisitor):
     """
-    decorator of observer
+    decorator of observer, instead of using if and else to decide clean up or not, we use decorator
     """
     def __init__(self, observer):
         super().__init__()
