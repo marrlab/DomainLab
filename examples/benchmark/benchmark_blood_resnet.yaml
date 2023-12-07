@@ -35,13 +35,7 @@ Shared params:
   num_shared_param_samples: 8
   gamma_y:
     min: 1e4
-    max: 1e6
-    step: 100
-    distribution: loguniform
-
-  gamma_d:
-    min: 1e4
-    max: 1e6
+    max: 2e5
     step: 100
     distribution: loguniform
 
@@ -60,12 +54,8 @@ Shared params:
     datatype: int
 
   zd_dim:
-    min: 32
-    max: 96
-    step: 32
-    distribution: uniform
-    datatype: int
-
+    reference: zy_dim
+    
   gamma_reg:
     min: 0.01
     max: 10
@@ -104,11 +94,23 @@ hduva:  # name
 deepall:  # name
   aname: deepall
 
+mldg:
+  aname: deepall
+  trainer: mldg
+  shared:
+    - gamma_reg
+
+dann:
+  aname: dann
+  shared:
+    - gamma_reg
+
 
 dial: # name
   aname: deepall
   trainer: dial
-
+  shared:
+    - gamma_reg
   hyperparameters:
     dial_steps_perturb:
       min: 1
@@ -124,9 +126,4 @@ dial: # name
     dial_epsilon:
       min: 0.001
       max: 0.01
-      distribution: loguniform
-
-    gamma_reg:
-      min: 0.01
-      max: 10
       distribution: loguniform

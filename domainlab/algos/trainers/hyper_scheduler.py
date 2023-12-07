@@ -4,9 +4,9 @@ update hyper-parameters during training
 import numpy as np
 
 
-class HyperSchedulerWarmup():
+class HyperSchedulerWarmupLinear():
     """
-    HyperSchedulerWarmup
+    HyperSchedulerWarmupLinear
     """
     def __init__(self, trainer, **kwargs):
         """
@@ -40,7 +40,7 @@ class HyperSchedulerWarmup():
         return dict_rst
 
 
-class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
+class HyperSchedulerWarmupExponential(HyperSchedulerWarmupLinear):
     """
     HyperScheduler Exponential
     """
