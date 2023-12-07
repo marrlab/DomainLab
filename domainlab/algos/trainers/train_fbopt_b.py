@@ -5,7 +5,7 @@ from operator import add
 import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.fbopt_mu_controller import HyperSchedulerFeedback
-from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmup
+from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupLinear
 from domainlab.utils.logger import Logger
 
 
@@ -85,7 +85,7 @@ class TrainerFbOpt(TrainerBasic):
     def before_tr(self):
         self.flag_setpoint_updated = False
         if self.aconf.force_feedforward:
-            self.set_scheduler(scheduler=HyperSchedulerWarmup)
+            self.set_scheduler(scheduler=HyperSchedulerWarmupLinear)
         else:
             self.set_scheduler(scheduler=HyperSchedulerFeedback)
 
