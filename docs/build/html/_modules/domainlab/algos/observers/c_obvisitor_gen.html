@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -304,22 +305,22 @@ from domainlab.utils.logger import Logger
         super().after_all()
         logger = Logger.get_logger()
         logger.info("generating images for final model at last epoch")
-        fun_gen(subfolder_na=self.exp.visitor.model_name+"final",
-                args=self.exp.args, node=self.exp.task, model=self.host_trainer.model,
+        fun_gen(subfolder_na=self.host_trainer.model.visitor.model_name+"final",
+                args=self.host_trainer.aconf, node=self.host_trainer.task, model=self.host_trainer.model,
                 device=self.device)
 
         logger.info("generating images for oracle model")
-        model_or = self.exp.visitor.load("oracle")  # @FIXME: name "oracle is a strong dependency
+        model_or = self.host_trainer.model.load("oracle")  # @FIXME: name "oracle is a strong dependency
         model_or = model_or.to(self.device)
         model_or.eval()
-        fun_gen(subfolder_na=self.exp.visitor.model_name+"oracle",
-                args=self.exp.args, node=self.exp.task, model=model_or, device=self.device)
+        fun_gen(subfolder_na=self.host_trainer.model.visitor.model_name+"oracle",
+                args=self.host_trainer.aconf, node=self.host_trainer.task, model=model_or, device=self.device)
         logger.info("generating images for selected model")
-        model_ld = self.exp.visitor.load()
+        model_ld = self.host_trainer.model.load()
         model_ld = model_ld.to(self.device)
         model_ld.eval()
-        fun_gen(subfolder_na=self.exp.visitor.model_name+"selected",
-                args=self.exp.args, node=self.exp.task, model=model_ld, device=self.device)</div></div>
+        fun_gen(subfolder_na=self.host_trainer.model.visitor.model_name+"selected",
+                args=self.host_trainer.aconf, node=self.host_trainer.task, model=model_ld, device=self.device)</div></div>
 </pre></div>
 
           </article>
@@ -344,7 +345,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

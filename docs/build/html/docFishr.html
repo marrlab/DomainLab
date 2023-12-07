@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -304,7 +305,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="fishr-invariant-gradient-variances-for-out-of-distribution-generalization">
-<h1 id="docfishr--page-root">Fishr: Invariant Gradient Variances for Out-of-distribution Generalization<a class="headerlink" href="#docfishr--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="docfishr--page-root">Fishr: Invariant Gradient Variances for Out-of-distribution Generalization<a class="headerlink" href="#docfishr--page-root" title="Permalink to this heading">¶</a></h1>
 <p>The goal of the Fishr regularization technique is locally aligning the domain-level loss landscapes
 around the final weights, finding a minimizer around which the inconsistencies between
 the domain-level loss landscapes are as small as possible.
@@ -317,7 +318,7 @@ distributions across the training domains (Image source: Figure 1 of "Fishr:
 Invariant gradient variances for out-of-distribution generalization") </div>
 </div>
 <section id="quantifying-inconsistency-between-domains">
-<h2 id="quantifying-inconsistency-between-domains">Quantifying inconsistency between domains<a class="headerlink" href="#quantifying-inconsistency-between-domains" title="Permalink to this headline">¶</a></h2>
+<h2 id="quantifying-inconsistency-between-domains">Quantifying inconsistency between domains<a class="headerlink" href="#quantifying-inconsistency-between-domains" title="Permalink to this heading">¶</a></h2>
 <p>Intuitively, two domains are locally inconsistent around a minimizer, if a small
 perturbation of the minimizer highly affects its optimality in one domain, but only
 minimally affects its optimality in the other domain. Under certain assumptions, most importantly
@@ -337,7 +338,7 @@ the Fishr regularization. For the second term it suffices to align diagonal appr
 domain-level Hessians, matching the variances across domains.</p>
 </section>
 <section id="matching-the-variances-during-training">
-<h2 id="matching-the-variances-during-training">Matching the Variances during training<a class="headerlink" href="#matching-the-variances-during-training" title="Permalink to this headline">¶</a></h2>
+<h2 id="matching-the-variances-during-training">Matching the Variances during training<a class="headerlink" href="#matching-the-variances-during-training" title="Permalink to this heading">¶</a></h2>
 <p>Let $<span class="math notranslate nohighlight">\(\mathcal{E}\)</span><span class="math notranslate nohighlight">\( be the space of all training domains, and let \)</span>$\mathcal{R}_e(\theta) be the ERM
 objective. Fishr minimizes the following objective function during training:</p>
 <div class="math notranslate nohighlight">
@@ -354,7 +355,7 @@ objective. Fishr minimizes the following objective function during training:</p>
 \)</span><span class="math notranslate nohighlight">\(&lt;v = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} v_e\)</span>$.</p>
 </section>
 <section id="implementation">
-<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">¶</a></h2>
 <p>The variance of the gradients within each domain can be computed with the
 BACKPACK package (see: Dangel, Felix, Frederik Kunstner, and Philipp Hennig.
 “Backpack: Packing more into backprop.” <a class="reference external" href="https://arxiv.org/abs/1912.10985">https://arxiv.org/abs/1912.10985</a>).
@@ -392,7 +393,7 @@ International Conference on Machine Learning. PMLR, 2022.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

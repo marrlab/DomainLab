@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -359,7 +360,8 @@ from domainlab.utils.utils_class import store_args
             """
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
-                             list_str_y, list_d_tr)
+                             list_str_y)
+            self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim &gt; 0:
                 self.add_module(
@@ -392,11 +394,7 @@ from domainlab.utils.utils_class import store_args
                 trainer=None,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
 
-        def get_list_str_y(self):
-            """get_list_str_y."""
-            return self._list_str_y
-
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
 
@@ -453,7 +451,7 @@ from domainlab.utils.utils_class import store_args
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

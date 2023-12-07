@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -324,7 +325,7 @@ from domainlab.models.a_model_classif import AModelClassif
 
     Input Parameters:
         list_str_y: list of labels,
-        list_str_d: list of domains,
+        list_d_tr: list of training domains
         alpha: total_loss = task_loss + $$\\alpha$$ * domain_classification_loss,
         net_encoder: neural network to extract the features (input: training data),
         net_classifier: neural network (input: output of net_encoder; output: label prediction),
@@ -340,12 +341,13 @@ from domainlab.models.a_model_classif import AModelClassif
         """
         anonymous
         """
-        def __init__(self, list_str_y, list_str_d,
+        def __init__(self, list_str_y, list_d_tr,
                      alpha, net_encoder, net_classifier, net_discriminator):
             """
             See documentation above in mk_dann() function
             """
-            super().__init__(list_str_y, list_str_d)
+            super().__init__(list_str_y)
+            self.list_d_tr = list_d_tr
             self.alpha = alpha
             self.net_encoder = net_encoder
             self.net_classifier = net_classifier
@@ -371,7 +373,9 @@ from domainlab.models.a_model_classif import AModelClassif
             """
             return self.net_classifier(self.net_encoder(tensor_x))
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
+            _ = others
+            _ = tensor_y
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
@@ -403,7 +407,7 @@ from domainlab.models.a_model_classif import AModelClassif
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

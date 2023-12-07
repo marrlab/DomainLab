@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -316,7 +317,7 @@ from domainlab.utils.utils_cuda import get_device
         """
         chain of responsibility pattern for fetching trainer from dictionary
         """
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         return trainer</div>
 
 <div class="viewcode-block" id="NodeAlgoBuilderDIVA.init_business"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA.init_business">[docs]</a>    def init_business(self, exp):
@@ -328,6 +329,7 @@ from domainlab.utils.utils_cuda import get_device
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         model = mk_diva()(node,
                           zd_dim=args.zd_dim,
                           zy_dim=args.zy_dim,
@@ -342,15 +344,11 @@ from domainlab.utils.utils_cuda import get_device
         device = get_device(args)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         if not args.gen:
-            observer = ObVisitorCleanUp(
-                ObVisitor(model_sel,
-                          device,
-                          exp=exp))
+            observer = ObVisitor(model_sel)
         else:
-            observer = ObVisitorCleanUp(
-                ObVisitorGen(model_sel,
-                             device,
-                             exp=exp))
+            observer = ObVisitorGen(model_sel)
+
+        observer = ObVisitorCleanUp(observer)
         trainer = self.get_trainer(args)
         return trainer, model, observer, device</div></div>
 </pre></div>
@@ -377,7 +375,7 @@ from domainlab.utils.utils_cuda import get_device
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

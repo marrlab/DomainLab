@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -347,10 +348,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="matchdg-domain-generalization-using-causal-matching">
-<h1 id="docmatchdg--page-root">MatchDG: Domain Generalization using Causal Matching<a class="headerlink" href="#docmatchdg--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="docmatchdg--page-root">MatchDG: Domain Generalization using Causal Matching<a class="headerlink" href="#docmatchdg--page-root" title="Permalink to this heading">¶</a></h1>
 <p>This algorithm introduced in <a class="reference external" href="https://arxiv.org/pdf/2006.07500.pdf">https://arxiv.org/pdf/2006.07500.pdf</a> is motivated by causality theory. The authors try to enforce, that a model does classify an image only on the object information included in the image and not on the domain information.</p>
 <section id="motivation-causality-theory">
-<h2 id="motivation-causality-theory">Motivation: causality theory<a class="headerlink" href="#motivation-causality-theory" title="Permalink to this headline">¶</a></h2>
+<h2 id="motivation-causality-theory">Motivation: causality theory<a class="headerlink" href="#motivation-causality-theory" title="Permalink to this heading">¶</a></h2>
 <p>The authors of the paper motivate their approach by looking at the data-generation process. The underlying causal model (SCM) is given in figure 1. In the graphic one starts of from the object <span class="math notranslate nohighlight">\(O\)</span> and the domain D. The object is directly influenced by its true label <span class="math notranslate nohighlight">\(y_\text{true}\)</span> while label and domain do only correlate with each other. Additionally the object is correlated with the domain conditioned on <span class="math notranslate nohighlight">\(y_\text{true}\)</span>. The information from the object <span class="math notranslate nohighlight">\(O\)</span> and the domain <span class="math notranslate nohighlight">\(D\)</span> do together form the image <span class="math notranslate nohighlight">\(x\)</span> which shall be classified by the neuronal network. Doing so, the object does contribute to the image by providing high-level causal features <span class="math notranslate nohighlight">\(x_C\)</span> that are common to any image of the same object. This features are the key for classifying the object, as there is only subliminal influence of the domain, therefore the prediction <span class="math notranslate nohighlight">\(y\)</span> is only depending on this causal features. The second contribution to the image are domain-dependent high-level features of the object <span class="math notranslate nohighlight">\(x_A\)</span>, which depend on both, the object <span class="math notranslate nohighlight">\(O\)</span> and the domain <span class="math notranslate nohighlight">\(D\)</span>. This domain-dependent features shall not be respected in the classification as there is a high influence of the domain.</p>
 <div style="align: center; text-align:center;">
 <img src="figs/matchDG_causality.png" style="width:200px;"/>
@@ -358,7 +359,7 @@
 </div>
 </section>
 <section id="network">
-<h2 id="network">Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
+<h2 id="network">Network<a class="headerlink" href="#network" title="Permalink to this heading">¶</a></h2>
 <p>Before defining the network, one needs to define three sets:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathcal{X}\)</span>: image space with <span class="math notranslate nohighlight">\(x \in \mathcal{X}\)</span></p></li>
@@ -381,7 +382,7 @@
 <p>Together the networks form the desired classifier <span class="math notranslate nohighlight">\(f = h \circ \phi : \mathcal{X} \rightarrow \mathcal{Y}\)</span>.</p>
 </section>
 <section id="training">
-<h2 id="training">Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<h2 id="training">Training<a class="headerlink" href="#training" title="Permalink to this heading">¶</a></h2>
 <p><strong>Initialisation:</strong> first of all match pairs of same-class data points from different domains are constructed. Given a data point, another data point with the same label from a different domain is selected randomly. The matching across domains is done relative to a base domain, which is chosen as the domain with the highest number of samples for that class. This leads to a matched data matrix <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> of size <span class="math notranslate nohighlight">\((N', K)\)</span> with <span class="math notranslate nohighlight">\(N'\)</span> sum of the size of base domains over all classes and <span class="math notranslate nohighlight">\(K\)</span> number ob domains.</p>
 <p><strong>Phase 1:</strong> sample batches <span class="math notranslate nohighlight">\((B, K)\)</span> from <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>, with <span class="math notranslate nohighlight">\(B\)</span> is batch size and train a match function <span class="math notranslate nohighlight">\(\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}\)</span>, by adapting the network parameter in <span class="math notranslate nohighlight">\(\phi\)</span> to minimize the contrastive loss for every positive match pair <span class="math notranslate nohighlight">\((x_j, x_k)\)</span></p>
 <div class="math notranslate nohighlight">
@@ -454,7 +455,7 @@ l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right)
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

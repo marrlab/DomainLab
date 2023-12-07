@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -297,7 +298,6 @@ dispatch performance evaluation to model,
 dispatch model selection to model selection object
 """
 import os
-import warnings
 
 from domainlab.algos.observers.a_observer import AObVisitor
 from domainlab.tasks.task_folder_mk import NodeTaskFolderClassNaMismatch
@@ -309,20 +309,17 @@ from domainlab.utils.logger import Logger
     """
     Observer + Visitor pattern for model selection
     """
-    def __init__(self, model_sel, device, exp=None):
+    def __init__(self, model_sel):
         """
         observer trainer
         """
         super().__init__()
         self.host_trainer = None
         self.model_sel = model_sel
-        self.device = device
         self.epo = None
         self.metric_te = None
         self.metric_val = None
         self.perf_metric = None
-        if exp is not None:
-            self.set_exp(exp)
 
     @property
     def str_metric4msel(self):
@@ -330,6 +327,12 @@ from domainlab.utils.logger import Logger
         string representing the metric used for persisting models on the disk
         """
         return self.host_trainer.str_metric4msel
+
+<div class="viewcode-block" id="ObVisitor.reset"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.reset">[docs]</a>    def reset(self):
+        """
+        reset observer via reset model selector
+        """
+        self.model_sel.reset()</div>
 
 <div class="viewcode-block" id="ObVisitor.update"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.update">[docs]</a>    def update(self, epoch):
         logger = Logger.get_logger()
@@ -350,7 +353,7 @@ from domainlab.utils.logger import Logger
                 self.metric_te = metric_te
         if self.model_sel.update():
             logger.info("better model found")
-            self.exp.visitor.save(self.host_trainer.model)
+            self.host_trainer.model.save()
             logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
         flag_enough = epoch &gt; self.host_trainer.aconf.epos_min
@@ -361,8 +364,9 @@ from domainlab.utils.logger import Logger
         accept invitation as a visitor
         """
         self.host_trainer = trainer
-        self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)
-        self.model_sel.accept(trainer, self)</div>
+        self.model_sel.accept(trainer, self)
+        self.set_task(trainer.task, args=trainer.aconf,  device=trainer.device)
+        self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)</div>
 
 <div class="viewcode-block" id="ObVisitor.after_all"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.after_all">[docs]</a>    def after_all(self):
         """
@@ -370,7 +374,7 @@ from domainlab.utils.logger import Logger
         """
         model_ld = None
         try:
-            model_ld = self.exp.visitor.load()
+            model_ld = self.host_trainer.model.load()
         except FileNotFoundError as err:
             # if other errors/exceptions occur, we do not catch them
             # other exceptions will terminate the python script
@@ -382,7 +386,6 @@ from domainlab.utils.logger import Logger
                            "model never get persisted, \
                            no performance metric is reported")
             return
-
         model_ld = model_ld.to(self.device)
         model_ld.eval()
         logger = Logger.get_logger()
@@ -398,7 +401,8 @@ from domainlab.utils.logger import Logger
         else:
             metric_te.update({"acc_val": -1})
         self.dump_prediction(model_ld, metric_te)
-        self.exp.visitor(metric_te)</div>
+        # save metric to one line in csv result file
+        self.host_trainer.model.visitor(metric_te)</div>
         # prediction dump of test domain is essential
         # to verify the prediction results
 
@@ -407,7 +411,7 @@ from domainlab.utils.logger import Logger
         calculate oracle performance
         """
         try:
-            model_or = self.exp.visitor.load("oracle")
+            model_or = self.host_trainer.model.load("oracle")
             # @FIXME: name "oracle is a strong dependency
             model_or = model_or.to(self.device)
             model_or.eval()
@@ -424,13 +428,13 @@ from domainlab.utils.logger import Logger
             model_ld to predict each instance
         """
         flag_task_folder = isinstance(
-            self.exp.task, NodeTaskFolderClassNaMismatch)
+            self.host_trainer.task, NodeTaskFolderClassNaMismatch)
         flag_task_path_list = isinstance(
-            self.exp.task, NodeTaskPathListDummy)
+            self.host_trainer.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4model = self.exp.visitor.model_path  # pylint: disable=E1101
+            fname4model = self.host_trainer.model.visitor.model_path  # pylint: disable=E1101
             file_prefix = os.path.splitext(fname4model)[0]  # remove ".model"
-            dir4preds = os.path.join(self.exp.args.out, "saved_predicts")
+            dir4preds = os.path.join(self.host_trainer.aconf.out, "saved_predicts")
             if not os.path.exists(dir4preds):
                 os.mkdir(dir4preds)
             file_prefix = os.path.join(dir4preds,
@@ -446,7 +450,7 @@ from domainlab.utils.logger import Logger
         to be called by a decorator
         """
         if not self.keep_model:
-            self.exp.clean_up()</div></div>
+            self.host_trainer.model.visitor.clean_up()</div></div>
 </pre></div>
 
           </article>
@@ -471,7 +475,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

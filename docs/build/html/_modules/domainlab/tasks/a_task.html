@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -340,10 +341,11 @@ from domainlab.utils.logger import Logger
         """</div>
 
 <div class="viewcode-block" id="NodeTaskDG.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.init_business">[docs]</a>    @abstractmethod
-    def init_business(self, args, node_algo_builder=None):
+    def init_business(self, args, trainer=None):
         """
-        construct task
+        construct task data loader
         """</div>
+
 <div class="viewcode-block" id="NodeTaskDG.get_list_domains"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains">[docs]</a>    def get_list_domains(self):
         """
         1. get list of domain names
@@ -400,7 +402,7 @@ from domainlab.utils.logger import Logger
         """
         The basic name of the task, without configurations
         """
-        # @FIXME: hardcoded position
+        # @FIXME: hardcoded position:NodeTaskXXX
         return type(self).__name__[8:].lower()
 
 <div class="viewcode-block" id="NodeTaskDG.get_na"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_na">[docs]</a>    def get_na(self, na_tr, na_te):
@@ -485,7 +487,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

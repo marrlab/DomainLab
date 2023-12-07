@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -369,7 +370,11 @@ from torch.utils import data as torchdata
         return tile</div>
 
     def __getitem__(self, index):
-        img, label, *_ = self.dataset.__getitem__(index)
+        img, label, *domain = self.dataset.__getitem__(index)
+        if domain:
+            dlabel = domain[0]
+        else:
+            dlabel = None
         num_grids = self.grid_len ** 2
         # divide image into grid_len^2 tiles
         list_tiles = [None] * num_grids
@@ -406,7 +411,8 @@ from torch.utils import data as torchdata
         # be a whole image again by self.fun_weave_imgs
         # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
-        return self.fun_weave_imgs(stacked_tiles), label, int(ind_which_perm)
+
+        return self.fun_weave_imgs(stacked_tiles), label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):
@@ -452,7 +458,7 @@ from torch.utils import data as torchdata
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

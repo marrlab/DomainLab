@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -257,9 +258,9 @@
         </li>
         <li class="md-nav__item"><a href="#hyperparameters-loss-function" class="md-nav__link">Hyperparameters loss function</a>
         </li>
-        <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        <li class="md-nav__item"><a href="#model-hyperparameters" class="md-nav__link">Model hyperparameters</a>
         </li>
-        <li class="md-nav__item"><a href="#hyperparameter-warmup" class="md-nav__link">Hyperparameter warmup</a>
+        <li class="md-nav__item"><a href="#hyperparameter-for-warmup" class="md-nav__link">Hyperparameter for warmup</a>
         </li></ul>
             </nav>
         </li>
@@ -290,14 +291,14 @@
     <li class="md-nav__item">
     
     
-      <a href="#model-parameters" class="md-nav__link">Model parameters</a>
+      <a href="#model-hyperparameters" class="md-nav__link">Model hyperparameters</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#hyperparameter-warmup" class="md-nav__link">Hyperparameter warmup</a>
+      <a href="#hyperparameter-for-warmup" class="md-nav__link">Hyperparameter for warmup</a>
       
     
     </li></ul>
@@ -353,9 +354,9 @@
         </li>
         <li class="md-nav__item"><a href="#hyperparameters-loss-function" class="md-nav__link">Hyperparameters loss function</a>
         </li>
-        <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        <li class="md-nav__item"><a href="#model-hyperparameters" class="md-nav__link">Model hyperparameters</a>
         </li>
-        <li class="md-nav__item"><a href="#hyperparameter-warmup" class="md-nav__link">Hyperparameter warmup</a>
+        <li class="md-nav__item"><a href="#hyperparameter-for-warmup" class="md-nav__link">Hyperparameter for warmup</a>
         </li></ul>
             </nav>
         </li>
@@ -369,10 +370,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="hduva-hierarchical-variational-auto-encoding-for-unsupervised-domain-generalization">
-<h1 id="dochduva--page-root">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION<a class="headerlink" href="#dochduva--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="dochduva--page-root">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION<a class="headerlink" href="#dochduva--page-root" title="Permalink to this heading">¶</a></h1>
 <p>HDUVA builds on a generative approach within the framework of variational autoencoders to facilitate generalization to new domains without supervision. HDUVA learns representations that disentangle domain-specific information from class-label specific information even in complex settings where domain structure is not observed during training.</p>
 <section id="model-overview">
-<h2 id="model-overview">Model Overview<a class="headerlink" href="#model-overview" title="Permalink to this headline">¶</a></h2>
+<h2 id="model-overview">Model Overview<a class="headerlink" href="#model-overview" title="Permalink to this heading">¶</a></h2>
 <p>More specifically, HDUVA is based on three latent variables that are used to model distinct sources of variation and are denoted as <span class="math notranslate nohighlight">\(z_y\)</span>, <span class="math notranslate nohighlight">\(z_d\)</span> and <span class="math notranslate nohighlight">\(z_x\)</span>. <span class="math notranslate nohighlight">\(z_y\)</span> represents class specific information, <span class="math notranslate nohighlight">\(z_d\)</span> represents domain specific information and <span class="math notranslate nohighlight">\(z_x\)</span> models residual variance of the input. We introduce an additional hierarchical level and use a continuous latent representation s to model (potentially unobserved) domain structure. This means that we can encourage disentanglement of the latent variables through conditional priors without the need of conditioning on a one-hot-encoded, observed domain label. The model along with its parameters and hyperparameters is shown in Figure 1:</p>
 <div style="align: center; text-align:center;">
 <img alt="PGM for HDUVA" src="figs/tikz_hduva.svg" style="height: 300px; width:500px;"/>
@@ -381,7 +382,7 @@
 <p>Note that as part of the model a latent representation of <span class="math notranslate nohighlight">\(X\)</span> is concatentated with <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(z_d\)</span> (dashed arrows), requiring respecive encoder networks.</p>
 </section>
 <section id="evidence-lower-bound-and-overall-loss">
-<h2 id="evidence-lower-bound-and-overall-loss">Evidence lower bound and overall loss<a class="headerlink" href="#evidence-lower-bound-and-overall-loss" title="Permalink to this headline">¶</a></h2>
+<h2 id="evidence-lower-bound-and-overall-loss">Evidence lower bound and overall loss<a class="headerlink" href="#evidence-lower-bound-and-overall-loss" title="Permalink to this heading">¶</a></h2>
 <p>The ELBO of the model can be decomposed into 4 different terms:</p>
 <p>Likelihood: <span class="math notranslate nohighlight">\(E_{q(z_d, s|x), q(z_x|x), q(z_y|x)}\log p_{\theta}(x|s, z_d, z_x, z_y)\)</span></p>
 <p>KL divergence weighted as in the Beta-VAE: <span class="math notranslate nohighlight">\(-\beta_x KL(q_{\phi_x}(z_x|x)||p_{\theta_x}(z_x)) - \beta_y KL(q_{\phi_y}(z_y|x)||p_{\theta_y}(z_y|y))\)</span></p>
@@ -390,33 +391,38 @@
 <p>In addition, we construct the overall loss by adding an auxiliary classsifier, by adding an additional term to the ELBO loss, weighted with <span class="math notranslate nohighlight">\(\gamma_y\)</span>:</p>
 </section>
 <section id="hyperparameters-loss-function">
-<h2 id="hyperparameters-loss-function">Hyperparameters loss function<a class="headerlink" href="#hyperparameters-loss-function" title="Permalink to this headline">¶</a></h2>
+<h2 id="hyperparameters-loss-function">Hyperparameters loss function<a class="headerlink" href="#hyperparameters-loss-function" title="Permalink to this heading">¶</a></h2>
 <p>For fitting the model, we need to specify the 4 <span class="math notranslate nohighlight">\(\beta\)</span>-weights related to the the different terms of the ELBO ( <span class="math notranslate nohighlight">\(\beta_x\)</span> , <span class="math notranslate nohighlight">\(\beta_y\)</span>, <span class="math notranslate nohighlight">\(\beta_d\)</span>, <span class="math notranslate nohighlight">\(\beta_t\)</span>)  as well as <span class="math notranslate nohighlight">\(\gamma_y\)</span>.</p>
 </section>
-<section id="model-parameters">
-<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this headline">¶</a></h2>
+<section id="model-hyperparameters">
+<h2 id="model-hyperparameters">Model hyperparameters<a class="headerlink" href="#model-hyperparameters" title="Permalink to this heading">¶</a></h2>
 <p>In addition to these hyperparameters, the following model parameters can be specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">zd_dim</span></code>: size of latent space for domain-specific information</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">zx_dim</span></code>: size of latent space for residual variance</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">zy_dim</span></code>: size of latent space for class-specific information</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>: size of latent space for topics <span class="math notranslate nohighlight">\(s\)</span></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">topic_h_dim</span></code>: size of latent space for latent image representation for topic</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>: size of latent space for latent image representation for domain</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>: size of dirichlet distribution for topics <span class="math notranslate nohighlight">\(s\)</span></p></li>
 </ul>
-<p>Finally, 2 models need to be specified: A network converting an image to a topic distribution (of size topic_h_dim) and an encoder converting an image to a latent representation that can be concatenated to <span class="math notranslate nohighlight">\(z_d\)</span> (size img_h_dim). The names and paths of the networks are:</p>
+<p>The user need to specify at least two neural networks via</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">nname_topic_distrib_img2topic</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">npath_topic_distrib_img2topic</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">npath_topic_distrib_img2topic</span></code>:  the python file path of a neural network that maps the image (or other
+modal of data to a one dimensional (<code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>) hidden representation serving as input to Dirichlet encoder: <code class="docutils literal notranslate"><span class="pre">X-&gt;h_t(X)-&gt;alpha(h_t(X))</span></code> where <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_sandwich_layer_img2h4zd</span></code>: the python file path of a neural network that maps the
+image to a hidden representation (<code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>), which will be used to infere the posterior distribution of <code class="docutils literal notranslate"><span class="pre">z_d</span></code>: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_d(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code></p></li>
 </ul>
-<p>and</p>
+<p>For the path: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_dt(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code>, we need two output dimensions for neural network <code class="docutils literal notranslate"><span class="pre">h_dt</span></code> and <code class="docutils literal notranslate"><span class="pre">h_d</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">topic_h_dim</span></code>: output size of <code class="docutils literal notranslate"><span class="pre">h_dt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>: output size of <code class="docutils literal notranslate"><span class="pre">h_d</span></code></p></li>
+</ul>
+<p>Alternatively, one could use an existing neural network in DomainLab using <code class="docutils literal notranslate"><span class="pre">nname</span></code> instead of <code class="docutils literal notranslate"><span class="pre">npath</span></code>:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_layer_img2h4zd</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_sandwich_layer_img2h4zd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_layer_img2h4zd</span></code></p></li>
 </ul>
 </section>
-<section id="hyperparameter-warmup">
-<h2 id="hyperparameter-warmup">Hyperparameter warmup<a class="headerlink" href="#hyperparameter-warmup" title="Permalink to this headline">¶</a></h2>
+<section id="hyperparameter-for-warmup">
+<h2 id="hyperparameter-for-warmup">Hyperparameter for warmup<a class="headerlink" href="#hyperparameter-for-warmup" title="Permalink to this heading">¶</a></h2>
 <p>Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument <code class="docutils literal notranslate"><span class="pre">warmup</span></code>.</p>
 <p>Please cite our paper if you find it useful!</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@inproceedings{sun2021hierarchical,
@@ -477,7 +483,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

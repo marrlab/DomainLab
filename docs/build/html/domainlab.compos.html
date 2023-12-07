@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,12 +55,13 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="domainlab.compos.exp package" href="domainlab.compos.exp.html" />
-    <link rel="prev" title="domainlab.algos.trainers package" href="domainlab.algos.trainers.html" />
+    <link rel="next" title="domainlab.compos.nn_zoo package" href="domainlab.compos.nn_zoo.html" />
+    <link rel="prev" title="domainlab.algos.trainers.compos package" href="domainlab.algos.trainers.compos.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -325,19 +326,11 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-compos-package">
-<h1 id="domainlab-compos--page-root">domainlab.compos package<a class="headerlink" href="#domainlab-compos--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-compos--page-root">domainlab.compos package<a class="headerlink" href="#domainlab-compos--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="subpackages">
-<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="domainlab.compos.exp.html">domainlab.compos.exp package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.exp.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.exp.html#module-domainlab.compos.exp.exp_cuda_seed">domainlab.compos.exp.exp_cuda_seed module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.exp.html#module-domainlab.compos.exp.exp_main">domainlab.compos.exp.exp_main module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.exp.html#module-domainlab.compos.exp.exp_utils">domainlab.compos.exp.exp_utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.exp.html#module-domainlab.compos.exp">Module contents</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.compos.nn_zoo.html">domainlab.compos.nn_zoo package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.compos.nn_zoo.html#module-domainlab.compos.nn_zoo.net_adversarial">domainlab.compos.nn_zoo.net_adversarial module</a></li>
@@ -394,15 +387,15 @@
 </div>
 </section>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.compos.a_nn_builder">
-<span id="domainlab-compos-a-nn-builder-module"></span><h2 id="module-domainlab.compos.a_nn_builder">domainlab.compos.a_nn_builder module<a class="headerlink" href="#module-domainlab.compos.a_nn_builder" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-a-nn-builder-module"></span><h2 id="module-domainlab.compos.a_nn_builder">domainlab.compos.a_nn_builder module<a class="headerlink" href="#module-domainlab.compos.a_nn_builder" title="Permalink to this heading">¶</a></h2>
 <p>Integrate Chain-of-Responsibility and Builder Pattern for feature extract</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.a_nn_builder.</span></span><span class="sig-name descname"><span class="pre">AbstractFeatExtractNNBuilderChainNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/a_nn_builder.html#AbstractFeatExtractNNBuilderChainNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
 <p>to ensure chain of responsibility node AbstractChainNodeHandler always
 work even some node can not start their heavy weight business object,
 avoid override the initializer so that node construction is always
@@ -420,7 +413,7 @@ function
 <dt class="sig sig-object py" id="domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.is_myjob">
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/a_nn_builder.html#AbstractFeatExtractNNBuilderChainNode.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.a_nn_builder.AbstractFeatExtractNNBuilderChainNode.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>args_nname</strong> – command line arguments:
 “–nname”: name of the torchvision model
 “–npath”: path to the user specified python file with neural
@@ -431,14 +424,14 @@ network definition</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_alex">
-<span id="domainlab-compos-builder-nn-alex-module"></span><h2 id="module-domainlab.compos.builder_nn_alex">domainlab.compos.builder_nn_alex module<a class="headerlink" href="#module-domainlab.compos.builder_nn_alex" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-builder-nn-alex-module"></span><h2 id="module-domainlab.compos.builder_nn_alex">domainlab.compos.builder_nn_alex module<a class="headerlink" href="#module-domainlab.compos.builder_nn_alex" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_alex.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderNameAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name4net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_val</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_alex.html#mkNodeFeatExtractNNBuilderNameAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_alex.mkNodeFeatExtractNNBuilderNameAlex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_conv_bn_relu_2">
-<span id="domainlab-compos-builder-nn-conv-bn-relu-2-module"></span><h2 id="module-domainlab.compos.builder_nn_conv_bn_relu_2">domainlab.compos.builder_nn_conv_bn_relu_2 module<a class="headerlink" href="#module-domainlab.compos.builder_nn_conv_bn_relu_2" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-builder-nn-conv-bn-relu-2-module"></span><h2 id="module-domainlab.compos.builder_nn_conv_bn_relu_2">domainlab.compos.builder_nn_conv_bn_relu_2 module<a class="headerlink" href="#module-domainlab.compos.builder_nn_conv_bn_relu_2" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_conv_bn_relu_2.mkNodeFeatExtractNNBuilderNameConvBnRelu2">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_conv_bn_relu_2.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderNameConvBnRelu2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name4net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_conv_bn_relu_2.html#mkNodeFeatExtractNNBuilderNameConvBnRelu2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_conv_bn_relu_2.mkNodeFeatExtractNNBuilderNameConvBnRelu2" title="Permalink to this definition">¶</a></dt>
@@ -454,7 +447,7 @@ more possibilities of neural network of the same family.
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.builder_nn_external_from_file">
-<span id="domainlab-compos-builder-nn-external-from-file-module"></span><h2 id="module-domainlab.compos.builder_nn_external_from_file">domainlab.compos.builder_nn_external_from_file module<a class="headerlink" href="#module-domainlab.compos.builder_nn_external_from_file" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-builder-nn-external-from-file-module"></span><h2 id="module-domainlab.compos.builder_nn_external_from_file">domainlab.compos.builder_nn_external_from_file module<a class="headerlink" href="#module-domainlab.compos.builder_nn_external_from_file" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.builder_nn_external_from_file.</span></span><span class="sig-name descname"><span class="pre">mkNodeFeatExtractNNBuilderExternFromFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg_name_net_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/builder_nn_external_from_file.html#mkNodeFeatExtractNNBuilderExternFromFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.builder_nn_external_from_file.mkNodeFeatExtractNNBuilderExternFromFile" title="Permalink to this definition">¶</a></dt>
@@ -464,7 +457,7 @@ extractor</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.utils_conv_get_flat_dim">
-<span id="domainlab-compos-utils-conv-get-flat-dim-module"></span><h2 id="module-domainlab.compos.utils_conv_get_flat_dim">domainlab.compos.utils_conv_get_flat_dim module<a class="headerlink" href="#module-domainlab.compos.utils_conv_get_flat_dim" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-utils-conv-get-flat-dim-module"></span><h2 id="module-domainlab.compos.utils_conv_get_flat_dim">domainlab.compos.utils_conv_get_flat_dim module<a class="headerlink" href="#module-domainlab.compos.utils_conv_get_flat_dim" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.compos.utils_conv_get_flat_dim.get_flat_dim">
 <span class="sig-prename descclassname"><span class="pre">domainlab.compos.utils_conv_get_flat_dim.</span></span><span class="sig-name descname"><span class="pre">get_flat_dim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/utils_conv_get_flat_dim.html#get_flat_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.utils_conv_get_flat_dim.get_flat_dim" title="Permalink to this definition">¶</a></dt>
@@ -478,7 +471,7 @@ connected network
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.zoo_nn">
-<span id="domainlab-compos-zoo-nn-module"></span><h2 id="module-domainlab.compos.zoo_nn">domainlab.compos.zoo_nn module<a class="headerlink" href="#module-domainlab.compos.zoo_nn" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-zoo-nn-module"></span><h2 id="module-domainlab.compos.zoo_nn">domainlab.compos.zoo_nn module<a class="headerlink" href="#module-domainlab.compos.zoo_nn" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.zoo_nn.FeatExtractNNBuilderChainNodeGetter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.zoo_nn.</span></span><span class="sig-name descname"><span class="pre">FeatExtractNNBuilderChainNodeGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_name_of_net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_path_of_net</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/zoo_nn.html#FeatExtractNNBuilderChainNodeGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.zoo_nn.FeatExtractNNBuilderChainNodeGetter" title="Permalink to this definition">¶</a></dt>
@@ -488,7 +481,7 @@ connected network
 </dd></dl>
 </section>
 <section id="module-domainlab.compos">
-<span id="module-contents"></span><h2 id="module-domainlab.compos">Module contents<a class="headerlink" href="#module-domainlab.compos" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.compos">Module contents<a class="headerlink" href="#module-domainlab.compos" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -502,7 +495,7 @@ connected network
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="domainlab.algos.trainers.html" title="domainlab.algos.trainers package"
+            <a href="domainlab.algos.trainers.compos.html" title="domainlab.algos.trainers.compos package"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -511,17 +504,17 @@ connected network
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> domainlab.algos.trainers package </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab.algos.trainers.compos package </span>
               </div>
             </a>
           
           
-            <a href="domainlab.compos.exp.html" title="domainlab.compos.exp package"
+            <a href="domainlab.compos.nn_zoo.html" title="domainlab.compos.nn_zoo package"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> domainlab.compos.exp package </span>
+                class="md-footer-nav__direction"> Next </span> domainlab.compos.nn_zoo package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -539,7 +532,7 @@ connected network
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

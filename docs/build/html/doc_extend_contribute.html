@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -302,9 +303,9 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">
-<h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization algorithm<a class="headerlink" href="#doc-extend-contribute--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization algorithm<a class="headerlink" href="#doc-extend-contribute--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="external-extension-by-implementing-your-custom-models">
-<h2 id="external-extension-by-implementing-your-custom-models">External extension by implementing your custom models<a class="headerlink" href="#external-extension-by-implementing-your-custom-models" title="Permalink to this headline">¶</a></h2>
+<h2 id="external-extension-by-implementing-your-custom-models">External extension by implementing your custom models<a class="headerlink" href="#external-extension-by-implementing-your-custom-models" title="Permalink to this heading">¶</a></h2>
 <p>Look at this example</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--apath<span class="o">=</span>examples/models/demo_custom_model.py<span class="w"> </span>--aname<span class="o">=</span>custom<span class="w"> </span>--nname_argna2val<span class="w"> </span>my_custom_arg_name<span class="w"> </span>--nname_argna2val<span class="w"> </span>alexnet
 
@@ -314,7 +315,7 @@ python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span cla
 <p>where the example python file corresponding to <code class="docutils literal notranslate"><span class="pre">--apath</span></code> defines a model which contains several modules that can be customized to different neural networks via <code class="docutils literal notranslate"><span class="pre">--npath_argna2val</span></code> if the neural network is specified in a python file
 or <code class="docutils literal notranslate"><span class="pre">nname_argna2val</span></code> if the neural network is already implemented.</p>
 <section id="design">
-<h3 id="design">Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h3>
+<h3 id="design">Design<a class="headerlink" href="#design" title="Permalink to this heading">¶</a></h3>
 <p><img alt="Design Diagram" src="_images/libDG.svg"/></p>
 </section>
 </section>
@@ -343,7 +344,7 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

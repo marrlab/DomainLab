@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -308,9 +309,12 @@ from domainlab.utils.logger import Logger
         super().__init__()
         # NOTE: super() must come first otherwise it will overwrite existing
         # values!
-        self.best_loss = float("inf")
-        self.es_c = 0
+        self.reset()
         self._max_es = max_es
+
+<div class="viewcode-block" id="MSelTrLoss.reset"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.reset">[docs]</a>    def reset(self):
+        self.best_loss = float("inf")
+        self.es_c = 0</div>
 
     @property
     def max_es(self):
@@ -367,7 +371,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -311,8 +312,8 @@ matplotlib.use('Agg')
 COLNAME_METHOD = "method"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
-G_DF_TASK_COL = 1   # column in which the task name is saved
-G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
+G_DF_TASK_COL = 1   # column in which the method name is saved
+G_DF_PLOT_COL_METRIC_START = 9   # first 0-6 columns are not metric
 
 
 
@@ -657,11 +658,8 @@ G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
                         ax=axes[num], showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
             sns.swarmplot(data=dataframe[dataframe[COLNAME_METHOD] == algo],
-                          x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
-                          legend=False, ax=axes[num],
-                          palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_METHOD] == algo]
-                              [COLNAME_IDX_PARAM].unique())))
+                          x=COLNAME_IDX_PARAM, y=obj,
+                          legend=False, ax=axes[num])
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
             axes[num].set_ylim([-0.1, 1.1])
@@ -765,7 +763,7 @@ G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

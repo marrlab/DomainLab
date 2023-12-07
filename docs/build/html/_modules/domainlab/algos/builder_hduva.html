@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -316,6 +317,7 @@ from domainlab.utils.utils_cuda import get_device
         """
         task = exp.task
         args = exp.args
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args)
@@ -327,7 +329,6 @@ from domainlab.utils.utils_cuda import get_device
                            device=device,
                            topic_dim=args.topic_dim,
                            list_str_y=task.list_str_y,
-                           list_d_tr=task.list_domain_tr,
                            gamma_d=args.gamma_d,
                            gamma_y=args.gamma_y,
                            beta_t=args.beta_t,
@@ -336,8 +337,8 @@ from domainlab.utils.utils_cuda import get_device
                            beta_d=args.beta_d)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitorCleanUp(
-            ObVisitor(model_sel, device, exp=exp))
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+            ObVisitor(model_sel))
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device</div></div>
 </pre></div>
@@ -364,7 +365,7 @@ from domainlab.utils.utils_cuda import get_device
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

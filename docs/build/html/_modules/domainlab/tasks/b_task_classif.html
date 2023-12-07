@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -304,11 +305,11 @@ from domainlab.tasks.b_task import NodeTaskDict
     """
     Use dictionaries to create train and test domain split
     """
-<div class="viewcode-block" id="NodeTaskDictClassif.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">[docs]</a>    def init_business(self, args, node_algo_builder=None):
+<div class="viewcode-block" id="NodeTaskDictClassif.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">[docs]</a>    def init_business(self, args, trainer=None):
         """
         create a dictionary of datasets
         """
-        super().init_business(args=args, node_algo_builder=node_algo_builder)
+        super().init_business(args=args, trainer=trainer)
         self.count_domain_class()</div>
 
 <div class="viewcode-block" id="NodeTaskDictClassif.count_domain_class"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class">[docs]</a>    def count_domain_class(self):
@@ -357,7 +358,7 @@ from domainlab.tasks.b_task import NodeTaskDict
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

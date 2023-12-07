@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -297,9 +298,9 @@ update hyper-parameters during training
 import numpy as np
 
 
-<div class="viewcode-block" id="HyperSchedulerWarmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmup">[docs]</a>class HyperSchedulerWarmup():
+<div class="viewcode-block" id="HyperSchedulerWarmupLinear"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear">[docs]</a>class HyperSchedulerWarmupLinear():
     """
-    HyperSchedulerWarmup
+    HyperSchedulerWarmupLinear
     """
     def __init__(self, trainer, **kwargs):
         """
@@ -309,13 +310,13 @@ import numpy as np
         self.dict_par_setpoint = kwargs
         self.total_steps = None
 
-<div class="viewcode-block" id="HyperSchedulerWarmup.set_steps"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmup.set_steps">[docs]</a>    def set_steps(self, total_steps):
+<div class="viewcode-block" id="HyperSchedulerWarmupLinear.set_steps"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear.set_steps">[docs]</a>    def set_steps(self, total_steps):
         """
         set number of total_steps to gradually change optimization parameter
         """
         self.total_steps = total_steps</div>
 
-<div class="viewcode-block" id="HyperSchedulerWarmup.warmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmup.warmup">[docs]</a>    def warmup(self, par_setpoint, epoch):
+<div class="viewcode-block" id="HyperSchedulerWarmupLinear.warmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear.warmup">[docs]</a>    def warmup(self, par_setpoint, epoch):
         """warmup.
         start from a small value of par to ramp up the steady state value using
         # total_steps
@@ -333,7 +334,7 @@ import numpy as np
         return dict_rst</div>
 
 
-<div class="viewcode-block" id="HyperSchedulerWarmupExponential"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential">[docs]</a>class HyperSchedulerWarmupExponential(HyperSchedulerWarmup):
+<div class="viewcode-block" id="HyperSchedulerWarmupExponential"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential">[docs]</a>class HyperSchedulerWarmupExponential(HyperSchedulerWarmupLinear):
     """
     HyperScheduler Exponential
     """
@@ -376,7 +377,7 @@ import numpy as np
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

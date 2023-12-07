@@ -1,6 +1,14 @@
 domainlab.algos.trainers package
 ================================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   domainlab.algos.trainers.compos
+
 Submodules
 ----------
 

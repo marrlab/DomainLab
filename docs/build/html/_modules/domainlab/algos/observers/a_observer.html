@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -302,8 +303,8 @@ import abc
     Observer + Visitor pattern for model selection
     """
     def __init__(self):
-        self.exp = None
         self.task = None
+        self.device = None
         self.epo_te = None
         self.str_msel = None
         self.keep_model = None
@@ -311,15 +312,15 @@ import abc
         self.loader_tr = None
         self.loader_val = None
 
-<div class="viewcode-block" id="AObVisitor.set_exp"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.set_exp">[docs]</a>    def set_exp(self, exp):
+<div class="viewcode-block" id="AObVisitor.set_task"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.set_task">[docs]</a>    def set_task(self, task, args, device):
         """
-        couple observer with exp
+        couple observer with task
         """
-        self.exp = exp
-        self.task = self.exp.task
-        self.epo_te = self.exp.args.epo_te
-        self.str_msel = self.exp.args.msel  # FIXME: consistent with self.model_sel?
-        self.keep_model = self.exp.args.keep_model
+        self.task = task
+        self.device = device
+        self.epo_te = args.epo_te
+        self.str_msel = args.msel  # FIXME: consistent with self.model_sel?
+        self.keep_model = args.keep_model
         self.loader_te = self.task.loader_te
         self.loader_tr = self.task.loader_tr
         # Note loader_tr behaves/inherit different properties than loader_te
@@ -372,7 +373,7 @@ import abc
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

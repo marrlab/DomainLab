@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -314,7 +315,11 @@
         </li>
         <li class="md-nav__item"><a href="#model-jigen-with-implemented-neural-network" class="md-nav__link">model jigen with implemented neural network</a>
         </li>
+        <li class="md-nav__item"><a href="#sannity-check-with-jigen-tile-shuffling" class="md-nav__link">sannity check with jigen tile shuffling</a>
+        </li>
         <li class="md-nav__item"><a href="#model-matchdg-with-implemented-neural-network" class="md-nav__link">model matchdg with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#model-matchdg-with-mnist" class="md-nav__link">model matchdg with mnist</a>
         </li>
         <li class="md-nav__item"><a href="#hduva-with-implemented-neural-network" class="md-nav__link">hduva with implemented neural network</a>
         </li>
@@ -327,6 +332,8 @@
         <li class="md-nav__item"><a href="#model-deepall-with-custom-neural-network" class="md-nav__link">model deepall with custom neural network</a>
         </li>
         <li class="md-nav__item"><a href="#model-matchdg-with-custom-neural-network" class="md-nav__link">model matchdg with custom neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#model-matchdg-with-hduva" class="md-nav__link">model matchdg with hduva</a>
         </li>
         <li class="md-nav__item"><a href="#hduva-use-custom-net-for-sandwich-encoder" class="md-nav__link">hduva use custom net for sandwich encoder</a>
         </li>
@@ -380,163 +387,181 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="examples">
-<h1 id="doc-examples--page-root">Examples<a class="headerlink" href="#doc-examples--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-examples--page-root">Examples<a class="headerlink" href="#doc-examples--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="colored-version-of-mnist">
-<h2 id="colored-version-of-mnist">Colored version of MNIST<a class="headerlink" href="#colored-version-of-mnist" title="Permalink to this headline">¶</a></h2>
+<h2 id="colored-version-of-mnist">Colored version of MNIST<a class="headerlink" href="#colored-version-of-mnist" title="Permalink to this heading">¶</a></h2>
 <section id="leave-one-domain-out">
-<h3 id="leave-one-domain-out">leave one domain out<a class="headerlink" href="#leave-one-domain-out" title="Permalink to this headline">¶</a></h3>
+<h3 id="leave-one-domain-out">leave one domain out<a class="headerlink" href="#leave-one-domain-out" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>10e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="choose-train-and-test">
-<h3 id="choose-train-and-test">choose train and test<a class="headerlink" href="#choose-train-and-test" title="Permalink to this headline">¶</a></h3>
+<h3 id="choose-train-and-test">choose train and test<a class="headerlink" href="#choose-train-and-test" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">
-<h3 id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">make a sanity check for the dataset using 8 instances from each domain and from each class<a class="headerlink" href="#make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class" title="Permalink to this headline">¶</a></h3>
+<h3 id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">make a sanity check for the dataset using 8 instances from each domain and from each class<a class="headerlink" href="#make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">4</span>
 </pre></div>
 </div>
 </section>
 <section id="sanity-check-on-only-2-train-domains-and-2-test-domain2">
-<h3 id="sanity-check-on-only-2-train-domains-and-2-test-domain2">sanity check on only 2 train domains and 2 test domain2<a class="headerlink" href="#sanity-check-on-only-2-train-domains-and-2-test-domain2" title="Permalink to this headline">¶</a></h3>
+<h3 id="sanity-check-on-only-2-train-domains-and-2-test-domain2">sanity check on only 2 train domains and 2 test domain2<a class="headerlink" href="#sanity-check-on-only-2-train-domains-and-2-test-domain2" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">4</span>
 </pre></div>
 </div>
 </section>
 <section id="generation-of-images">
-<h3 id="generation-of-images">generation of images<a class="headerlink" href="#generation-of-images" title="Permalink to this headline">¶</a></h3>
+<h3 id="generation-of-images">generation of images<a class="headerlink" href="#generation-of-images" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>10e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--gen
 </pre></div>
 </div>
 </section>
 <section id="use-hduva-on-color-mnist-train-on-2-domains">
-<h3 id="use-hduva-on-color-mnist-train-on-2-domains">use hduva on color mnist, train on 2 domains<a class="headerlink" href="#use-hduva-on-color-mnist-train-on-2-domains" title="Permalink to this headline">¶</a></h3>
+<h3 id="use-hduva-on-color-mnist-train-on-2-domains">use hduva on color mnist, train on 2 domains<a class="headerlink" href="#use-hduva-on-color-mnist-train-on-2-domains" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--te_d<span class="w"> </span><span class="m">3</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w">  </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 </section>
 <section id="hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain">
-<h3 id="hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain">hduva is domain-unsupervised, so it works also with a single domain<a class="headerlink" href="#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain" title="Permalink to this headline">¶</a></h3>
+<h3 id="hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain">hduva is domain-unsupervised, so it works also with a single domain<a class="headerlink" href="#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w">  </span>--te_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 </section>
 </section>
 <section id="larger-images">
-<h2 id="larger-images">Larger images:<a class="headerlink" href="#larger-images" title="Permalink to this headline">¶</a></h2>
+<h2 id="larger-images">Larger images:<a class="headerlink" href="#larger-images" title="Permalink to this heading">¶</a></h2>
 <section id="model-diva-with-implemented-neural-network">
-<h3 id="model-diva-with-implemented-neural-network">model diva with implemented neural network<a class="headerlink" href="#model-diva-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-diva-with-implemented-neural-network">model diva with implemented neural network<a class="headerlink" href="#model-diva-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="model-diva-with-custom-neural-network">
-<h3 id="model-diva-with-custom-neural-network">model diva with custom neural network<a class="headerlink" href="#model-diva-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-diva-with-custom-neural-network">model diva with custom neural network<a class="headerlink" href="#model-diva-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="model-deepall-with-implemented-neural-network">
-<h3 id="model-deepall-with-implemented-neural-network">model deepall with implemented neural network<a class="headerlink" href="#model-deepall-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-deepall-with-implemented-neural-network">model deepall with implemented neural network<a class="headerlink" href="#model-deepall-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
 </section>
 <section id="model-dann-with-implemented-neural-network">
-<h3 id="model-dann-with-implemented-neural-network">model dann with implemented neural network<a class="headerlink" href="#model-dann-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-dann-with-implemented-neural-network">model dann with implemented neural network<a class="headerlink" href="#model-dann-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--aname<span class="o">=</span>dann<span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
 </section>
 <section id="model-jigen-with-implemented-neural-network">
-<h3 id="model-jigen-with-implemented-neural-network">model jigen with implemented neural network<a class="headerlink" href="#model-jigen-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-jigen-with-implemented-neural-network">model jigen with implemented neural network<a class="headerlink" href="#model-jigen-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--aname<span class="o">=</span>jigen<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--pperm<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nperm<span class="o">=</span><span class="m">100</span><span class="w"> </span>--grid_len<span class="o">=</span><span class="m">3</span>
 </pre></div>
 </div>
 </section>
+<section id="sannity-check-with-jigen-tile-shuffling">
+<h3 id="sannity-check-with-jigen-tile-shuffling">sannity check with jigen tile shuffling<a class="headerlink" href="#sannity-check-with-jigen-tile-shuffling" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--aname<span class="o">=</span>jigen<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--pperm<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nperm<span class="o">=</span><span class="m">100</span><span class="w"> </span>--grid_len<span class="o">=</span><span class="m">3</span><span class="w"> </span>--san_check
+</pre></div>
+</div>
+</section>
 <section id="model-matchdg-with-implemented-neural-network">
-<h3 id="model-matchdg-with-implemented-neural-network">model matchdg with implemented neural network<a class="headerlink" href="#model-matchdg-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-matchdg-with-implemented-neural-network">model matchdg with implemented neural network<a class="headerlink" href="#model-matchdg-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
 </section>
+<section id="model-matchdg-with-mnist">
+<h3 id="model-matchdg-with-mnist">model matchdg with mnist<a class="headerlink" href="#model-matchdg-with-mnist" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--aname<span class="o">=</span>matchdg<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">2</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span>
+</pre></div>
+</div>
+</section>
 <section id="hduva-with-implemented-neural-network">
-<h3 id="hduva-with-implemented-neural-network">hduva with implemented neural network<a class="headerlink" href="#hduva-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="hduva-with-implemented-neural-network">hduva with implemented neural network<a class="headerlink" href="#hduva-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 </section>
 <section id="hduva-use-alex-net">
-<h3 id="hduva-use-alex-net">hduva use alex net<a class="headerlink" href="#hduva-use-alex-net" title="Permalink to this headline">¶</a></h3>
+<h3 id="hduva-use-alex-net">hduva use alex net<a class="headerlink" href="#hduva-use-alex-net" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>alexnet
 </pre></div>
 </div>
 </section>
 </section>
 <section id="custom-neural-network">
-<h2 id="custom-neural-network">Custom Neural Network<a class="headerlink" href="#custom-neural-network" title="Permalink to this headline">¶</a></h2>
+<h2 id="custom-neural-network">Custom Neural Network<a class="headerlink" href="#custom-neural-network" title="Permalink to this heading">¶</a></h2>
 <section id="model-deepall-with-custom-neural-network">
-<h3 id="model-deepall-with-custom-neural-network">model deepall with custom neural network<a class="headerlink" href="#model-deepall-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-deepall-with-custom-neural-network">model deepall with custom neural network<a class="headerlink" href="#model-deepall-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="model-matchdg-with-custom-neural-network">
-<h3 id="model-matchdg-with-custom-neural-network">model matchdg with custom neural network<a class="headerlink" href="#model-matchdg-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
+<h3 id="model-matchdg-with-custom-neural-network">model matchdg with custom neural network<a class="headerlink" href="#model-matchdg-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
+<section id="model-matchdg-with-hduva">
+<h3 id="model-matchdg-with-hduva">model matchdg with hduva<a class="headerlink" href="#model-matchdg-with-hduva" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>matchhduva<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
 <section id="hduva-use-custom-net-for-sandwich-encoder">
-<h3 id="hduva-use-custom-net-for-sandwich-encoder">hduva use custom net for sandwich encoder<a class="headerlink" href="#hduva-use-custom-net-for-sandwich-encoder" title="Permalink to this headline">¶</a></h3>
+<h3 id="hduva-use-custom-net-for-sandwich-encoder">hduva use custom net for sandwich encoder<a class="headerlink" href="#hduva-use-custom-net-for-sandwich-encoder" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--npath_encoder_sandwich_layer_img2h4zd<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="hduva-use-custom-net-for-topic-encoder">
-<h3 id="hduva-use-custom-net-for-topic-encoder">hduva use custom net for topic encoder<a class="headerlink" href="#hduva-use-custom-net-for-topic-encoder" title="Permalink to this headline">¶</a></h3>
+<h3 id="hduva-use-custom-net-for-topic-encoder">hduva use custom net for topic encoder<a class="headerlink" href="#hduva-use-custom-net-for-topic-encoder" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--npath_topic_distrib_img2topic<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 </section>
 <section id="hduva-use-custom-net-for-classification-encoder">
-<h3 id="hduva-use-custom-net-for-classification-encoder">hduva use custom net for classification encoder<a class="headerlink" href="#hduva-use-custom-net-for-classification-encoder" title="Permalink to this headline">¶</a></h3>
+<h3 id="hduva-use-custom-net-for-classification-encoder">hduva use custom net for classification encoder<a class="headerlink" href="#hduva-use-custom-net-for-classification-encoder" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--aname<span class="o">=</span>hduva<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_topic_distrib_img2topic<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_layer_img2h4zd<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 </section>
 </section>
 <section id="user-defined-tasks">
-<h2 id="user-defined-tasks">User defined tasks<a class="headerlink" href="#user-defined-tasks" title="Permalink to this headline">¶</a></h2>
+<h2 id="user-defined-tasks">User defined tasks<a class="headerlink" href="#user-defined-tasks" title="Permalink to this heading">¶</a></h2>
 <section id="folder-task">
-<h3 id="folder-task">Folder Task<a class="headerlink" href="#folder-task" title="Permalink to this headline">¶</a></h3>
+<h3 id="folder-task">Folder Task<a class="headerlink" href="#folder-task" title="Permalink to this heading">¶</a></h3>
 <section id="folder-task-with-implemented-neural-network">
-<h4 id="folder-task-with-implemented-neural-network">Folder Task with implemented neural network<a class="headerlink" href="#folder-task-with-implemented-neural-network" title="Permalink to this headline">¶</a></h4>
+<h4 id="folder-task-with-implemented-neural-network">Folder Task with implemented neural network<a class="headerlink" href="#folder-task-with-implemented-neural-network" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname_dom<span class="o">=</span>alexnet<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="folder-task-with-externally-user-defined-neural-network">
-<h4 id="folder-task-with-externally-user-defined-neural-network">Folder Task with externally user defined neural network<a class="headerlink" href="#folder-task-with-externally-user-defined-neural-network" title="Permalink to this headline">¶</a></h4>
+<h4 id="folder-task-with-externally-user-defined-neural-network">Folder Task with externally user defined neural network<a class="headerlink" href="#folder-task-with-externally-user-defined-neural-network" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 </section>
 <section id="imagepath-task">
-<h3 id="imagepath-task">ImagePath Task<a class="headerlink" href="#imagepath-task" title="Permalink to this headline">¶</a></h3>
+<h3 id="imagepath-task">ImagePath Task<a class="headerlink" href="#imagepath-task" title="Permalink to this heading">¶</a></h3>
 <section id="imagepath-task-with-implemented-algorithm">
-<h4 id="imagepath-task-with-implemented-algorithm">ImagePath Task with implemented algorithm<a class="headerlink" href="#imagepath-task-with-implemented-algorithm" title="Permalink to this headline">¶</a></h4>
+<h4 id="imagepath-task-with-implemented-algorithm">ImagePath Task with implemented algorithm<a class="headerlink" href="#imagepath-task-with-implemented-algorithm" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname_dom<span class="o">=</span>alexnet<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="imagepath-task-with-externally-user-defined-neural-network">
-<h4 id="imagepath-task-with-externally-user-defined-neural-network">ImagePath Task with externally user defined neural network<a class="headerlink" href="#imagepath-task-with-externally-user-defined-neural-network" title="Permalink to this headline">¶</a></h4>
+<h4 id="imagepath-task-with-externally-user-defined-neural-network">ImagePath Task with externally user defined neural network<a class="headerlink" href="#imagepath-task-with-externally-user-defined-neural-network" title="Permalink to this heading">¶</a></h4>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
@@ -544,7 +569,7 @@
 </section>
 </section>
 <section id="custom-algorithm-defined-in-external-python-file">
-<h2 id="custom-algorithm-defined-in-external-python-file">Custom algorithm defined in external python file<a class="headerlink" href="#custom-algorithm-defined-in-external-python-file" title="Permalink to this headline">¶</a></h2>
+<h2 id="custom-algorithm-defined-in-external-python-file">Custom algorithm defined in external python file<a class="headerlink" href="#custom-algorithm-defined-in-external-python-file" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">3</span><span class="w"> </span>--apath<span class="o">=</span>examples/models/demo_custom_model.py<span class="w"> </span>--aname<span class="o">=</span>custom<span class="w"> </span>--nname_argna2val<span class="w"> </span>my_custom_arg_name<span class="w"> </span>--nname_argna2val<span class="w"> </span>alexnet
 </pre></div>
 </div>
@@ -553,25 +578,25 @@
 </div>
 </section>
 <section id="adversarial-images-training">
-<h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this headline">¶</a></h2>
+<h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--trainer<span class="o">=</span>dial<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 <section id="train-diva-model-with-dial-trainer">
-<h3 id="train-diva-model-with-dial-trainer">Train DIVA model with DIAL trainer<a class="headerlink" href="#train-diva-model-with-dial-trainer" title="Permalink to this headline">¶</a></h3>
+<h3 id="train-diva-model-with-dial-trainer">Train DIVA model with DIAL trainer<a class="headerlink" href="#train-diva-model-with-dial-trainer" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--trainer<span class="o">=</span>dial
 </pre></div>
 </div>
 </section>
 <section id="set-hyper-parameters-for-trainer-as-well">
-<h3 id="set-hyper-parameters-for-trainer-as-well">Set hyper-parameters for trainer as well<a class="headerlink" href="#set-hyper-parameters-for-trainer-as-well" title="Permalink to this headline">¶</a></h3>
+<h3 id="set-hyper-parameters-for-trainer-as-well">Set hyper-parameters for trainer as well<a class="headerlink" href="#set-hyper-parameters-for-trainer-as-well" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--trainer<span class="o">=</span>dial<span class="w"> </span>--dial_steps_perturb<span class="o">=</span><span class="m">1</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="meta-learning-domain-generalization">
-<h2 id="meta-learning-domain-generalization">Meta Learning Domain Generalization<a class="headerlink" href="#meta-learning-domain-generalization" title="Permalink to this headline">¶</a></h2>
+<h2 id="meta-learning-domain-generalization">Meta Learning Domain Generalization<a class="headerlink" href="#meta-learning-domain-generalization" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--trainer<span class="o">=</span>mldg<span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
@@ -601,7 +626,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

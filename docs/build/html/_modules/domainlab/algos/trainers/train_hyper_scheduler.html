@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -295,7 +296,7 @@
 update hyper-parameters during training
 """
 from domainlab.algos.trainers.train_basic import TrainerBasic
-from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmup
+from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupLinear
 from domainlab.utils.logger import Logger
 
 
@@ -318,6 +319,7 @@ from domainlab.utils.logger import Logger
             flag_update_batch: if hyper-parameters should be changed per batch
         """
         self.hyper_scheduler = self.model.hyper_init(scheduler)
+        # let model register its hyper-parameters to the scheduler
         self.flag_update_hyper_per_epoch = flag_update_epoch
         self.flag_update_hyper_per_batch = flag_update_batch
         self.hyper_scheduler.set_steps(total_steps=total_steps)</div>
@@ -336,9 +338,7 @@ from domainlab.utils.logger import Logger
             logger = Logger.get_logger()
             logger.warning("hyper-parameter scheduler not set,"
                            "going to use default Warmpup and epoch update")
-            logger.warning("hyper-parameter scheduler not set, "
-                           "going to use default Warmpup and epoch update")
-            self.set_scheduler(HyperSchedulerWarmup,
+            self.set_scheduler(HyperSchedulerWarmupLinear,
                                total_steps=self.aconf.warmup,
                                flag_update_epoch=True)</div>
 
@@ -373,7 +373,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

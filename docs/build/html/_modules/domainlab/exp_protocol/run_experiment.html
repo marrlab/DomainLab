@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -303,9 +304,9 @@ import pandas as pd
 import torch
 
 from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
-from domainlab.compos.exp.exp_cuda_seed import set_seed
-from domainlab.compos.exp.exp_main import Exp
-from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.exp.exp_cuda_seed import set_seed
+from domainlab.exp.exp_main import Exp
+from domainlab.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.utils.logger import Logger
 
 
@@ -378,7 +379,6 @@ from domainlab.utils.logger import Logger
     misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
-    misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
@@ -422,7 +422,6 @@ from domainlab.utils.logger import Logger
         end_seed = config['endseed']
     else:
         end_seed = start_seed + (config['endseed'] - config['startseed'])
-
     for seed in range(start_seed, end_seed + 1):
         for te_d in config['test_domains']:
             args.te_d = te_d
@@ -437,6 +436,8 @@ from domainlab.utils.logger import Logger
             args.lr = float(args.lr)
             # &lt;=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
+            # NOTE: if key "testing" is set in benchmark, then do not execute
+            # experiment
             if not misc.get('testing', False):
                 exp.execute()
             try:
@@ -478,7 +479,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
