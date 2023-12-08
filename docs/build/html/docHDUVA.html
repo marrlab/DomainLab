@@ -62,8 +62,8 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="JiGen" href="docJiGen.html" />
-    <link rel="prev" title="Overview of implemented models and algorithms" href="doc_algos.html" />
+    <link rel="next" title="Model “dann”:" href="doc_dann.html" />
+    <link rel="prev" title="domainlab.utils package" href="domainlab.utils.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -234,13 +234,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION </label>
     
@@ -307,28 +300,35 @@
     <li class="md-nav__item">
     
     
-      <a href="docJiGen.html" class="md-nav__link">JiGen</a>
+      <a href="doc_dann.html" class="md-nav__link">Model “dann”:</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="docJiGen.html" class="md-nav__link">Model JiGen</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
       
     
     </li>
@@ -403,7 +403,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">zy_dim</span></code>: size of latent space for class-specific information</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>: size of dirichlet distribution for topics <span class="math notranslate nohighlight">\(s\)</span></p></li>
 </ul>
-<p>The user need to specify at least two neural networks via</p>
+<p>The user need to specify at least two neural networks for the <strong>encoder</strong> part via</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">npath_topic_distrib_img2topic</span></code>:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (<code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>) hidden representation serving as input to Dirichlet encoder: <code class="docutils literal notranslate"><span class="pre">X-&gt;h_t(X)-&gt;alpha(h_t(X))</span></code> where <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.</p></li>
@@ -417,7 +417,7 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
 </ul>
 <p>Alternatively, one could use an existing neural network in DomainLab using <code class="docutils literal notranslate"><span class="pre">nname</span></code> instead of <code class="docutils literal notranslate"><span class="pre">npath</span></code>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_layer_img2h4zd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_topic_distrib_img2topic</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_layer_img2h4zd</span></code></p></li>
 </ul>
 </section>
@@ -446,7 +446,7 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="doc_algos.html" title="Overview of implemented models and algorithms"
+            <a href="domainlab.utils.html" title="domainlab.utils package"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -455,17 +455,17 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Overview of implemented models and algorithms </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab.utils package </span>
               </div>
             </a>
           
           
-            <a href="docJiGen.html" title="JiGen"
+            <a href="doc_dann.html" title="Model “dann”:"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> JiGen </span>
+                class="md-footer-nav__direction"> Next </span> Model “dann”: </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

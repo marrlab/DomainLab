@@ -49,7 +49,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>JiGen &#8212; domainlab  documentation</title>
+    <title>Model JiGen &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -62,8 +62,8 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DIVA: Domain Invariant Variational Autoencoders" href="doc_diva.html" />
-    <link rel="prev" title="HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION" href="docHDUVA.html" />
+    <link rel="next" title="Model DIVA: Domain Invariant Variational Autoencoders" href="doc_diva.html" />
+    <link rel="prev" title="Model “dann”:" href="doc_dann.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -102,7 +102,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> JiGen </span>
+          <span class="md-header-nav__topic"> Model JiGen </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -234,13 +234,6 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_algos.html" class="md-nav__link">Overview of implemented models and algorithms</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
       
     
@@ -248,16 +241,23 @@
     <li class="md-nav__item">
     
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> JiGen </label>
+      <a href="doc_dann.html" class="md-nav__link">Model “dann”:</a>
+      
     
-      <a href="#" class="md-nav__link md-nav__link--active">JiGen</a>
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Model JiGen </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Model JiGen</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">JiGen</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">Model JiGen</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
         </li></ul>
@@ -278,21 +278,21 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
       
     
     </li>
@@ -310,7 +310,7 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">JiGen</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">Model JiGen</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
         </li></ul>
@@ -325,8 +325,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="jigen">
-<h1 id="docjigen--page-root">JiGen<a class="headerlink" href="#docjigen--page-root" title="Permalink to this heading">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="model-jigen">
+<h1 id="docjigen--page-root">Model JiGen<a class="headerlink" href="#docjigen--page-root" title="Permalink to this heading">¶</a></h1>
 <p>The JiGen method extends the understanding of the concept of spatial correlation in the
 neural network by training the network not only on a classification task, but also on solving jigsaw puzzles.</p>
 <p>To create a jigsaw puzzle, an image is split into <span class="math notranslate nohighlight">\(n \times n\)</span> patches, which are then permuted.
@@ -365,7 +365,7 @@ Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognitio
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="docHDUVA.html" title="HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION"
+            <a href="doc_dann.html" title="Model “dann”:"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -374,17 +374,17 @@ Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognitio
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION </span>
+                      class="md-footer-nav__direction"> Previous </span> Model “dann”: </span>
               </div>
             </a>
           
           
-            <a href="doc_diva.html" title="DIVA: Domain Invariant Variational Autoencoders"
+            <a href="doc_diva.html" title="Model DIVA: Domain Invariant Variational Autoencoders"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> DIVA: Domain Invariant Variational Autoencoders </span>
+                class="md-footer-nav__direction"> Next </span> Model DIVA: Domain Invariant Variational Autoencoders </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
