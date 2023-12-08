@@ -11,8 +11,8 @@ Welcome to domainlab's documentation!
    :caption: Contents:
 
    modules
-   doc_algos
    docHDUVA
+   doc_dann
    docJiGen
    doc_diva
    docMatchDG
