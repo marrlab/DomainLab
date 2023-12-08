@@ -1,0 +1,34 @@
+# test benchmark config.
+
+test_domains:
+  - acevedo
+  - mll
+  - matek
+
+output_dir: zoutput/benchmarks/blood
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(domains) * num_param_samples * num_seeds (see below)
+sampling_seed: 0
+
+startseed: 0
+endseed: 0  # currently included
+
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  tpath: examples/tasks/task_blood2.py
+  dmem: False
+  lr: 5e-5
+  epos: 500
+  epos_min: 20
+  es: 1
+  bs: 32
+  npath: examples/nets/resnet50domainbed.py
+  san_check: True
+
+deepall:  # name
+  aname: deepall
