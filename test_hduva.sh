@@ -1,0 +1,1 @@
+python main_out.py --te_d=acevedo --bs=32 --tpath=examples/tasks/task_blood2.py --aname=hduva --npath=examples/nets/resnet50domainbed.py --gamma_y=7e5 --npath_topic_distrib_img2topic=examples/nets/resnet50domainbed.py  --npath_encoder_sandwich_layer_img2h4zd=examples/nets/resnet50domainbed.py  --zx_dim=16 --zd_dim=64 --zy_dim=64  --epos=500 --epos_min=500
