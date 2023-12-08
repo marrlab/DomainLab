@@ -20,7 +20,7 @@ class TrainerMatchDG(AbstractTrainer):
     def dset_decoration_args_algo(self, args, ddset):
         ddset = DsetIndDecorator4XYD(ddset)
         return ddset
-    
+
     def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
         """
         initialize member objects
@@ -151,7 +151,7 @@ class TrainerMatchDG(AbstractTrainer):
             # @FIXME: check if batch_ref_domain2each_y is
             # continuous number which means it is at its initial value,
             # not yet filled
-            loss_erm_match_tensor, *_ = self.model.cal_loss(
+            loss_erm_match_tensor, *_ = self.model.cal_task_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
         # Creating tensor of shape (domain size, total domains, feat size )
@@ -296,7 +296,7 @@ class TrainerMatchDG(AbstractTrainer):
             self.task.loader_tr,
             self.model.extract_semantic_feat,
             (epoch > 0))
-        
+
     def before_tr(self):
         """
         override abstract method
