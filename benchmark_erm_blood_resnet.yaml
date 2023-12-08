@@ -5,6 +5,8 @@ test_domains:
   - mll
   - matek
 
+num_param_samples: 0
+
 output_dir: zoutput/benchmarks/blood
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
