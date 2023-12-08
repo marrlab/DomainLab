@@ -46,6 +46,7 @@ class TrainerMLDG(AbstractTrainer):
         self.model.train()
         self.epo_loss_tr = 0
         self.prepare_ziped_loader()
+        # s means source, t means target
         for ind_batch, (tensor_x_s, vec_y_s, vec_d_s, others_s,
                         tensor_x_t, vec_y_t, vec_d_t, *_) \
                 in enumerate(self.loader_tr_source_target):
