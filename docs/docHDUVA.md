@@ -39,7 +39,7 @@ In addition to these hyperparameters, the following model parameters can be spec
 -   `zy_dim`: size of latent space for class-specific information
 -   `topic_dim`: size of dirichlet distribution for topics $s$
 
-The user need to specify at least two neural networks via 
+The user need to specify at least two neural networks for the **encoder** part via 
 
 - `npath_topic_distrib_img2topic`:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (`topic_dim`) hidden representation serving as input to Dirichlet encoder: `X->h_t(X)->alpha(h_t(X))` where `alpha` is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.
@@ -51,7 +51,7 @@ For the path: `topic(X), X -> [h_dt(topic(X)), h_d(X)] -> zd_mean, zd_scale`, we
 -   `img_h_dim`: output size of `h_d`
 
 Alternatively, one could use an existing neural network in DomainLab using `nname` instead of `npath`:
--   `nname_encoder_sandwich_layer_img2h4zd`
+-   `nname_topic_distrib_img2topic`
 -   `nname_encoder_sandwich_layer_img2h4zd`
 
 
