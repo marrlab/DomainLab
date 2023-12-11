@@ -47,6 +47,9 @@ class TaskChainNodeGetter(object):
 
 
 def get_task(name=None):
+    """
+    get build in task from DomainLab
+    """
     args = mk_parser_main
     parser = mk_parser_main()
     args = parser.parse_args("")

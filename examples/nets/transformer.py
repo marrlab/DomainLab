@@ -3,12 +3,12 @@ make an experiment
 """
 
 from torch import nn
+from torchvision.models import vit_b_16
+from torchvision.models.feature_extraction import get_graph_node_names, create_feature_extractor
+
 from domainlab.mk_exp import mk_exp
 from domainlab.tasks import get_task
 from domainlab.models.model_deep_all import mk_deepall
-
-from torchvision.models import vit_b_16
-from torchvision.models.feature_extraction import get_graph_node_names, create_feature_extractor
 
 class FCLayer(nn.Module):
     def __init__(self, model, num_classes):
@@ -41,10 +41,8 @@ class PTVIT(nn.Module):
         self.features_fc = create_feature_extractor(self.model, return_nodes=['heads'])
         self.model_final = FCLayer(self.features_vit_flatten, num_cls)
 
-    def forward(self, input):
-        #out1 = self.features_vit_flatten(input)
-        #print('out1:', out1['getitem_5'].shape)
-        out = self.model_final(input)
+    def forward(self, tensor_x):
+        out = self.model_final(tensor_x)
         return out
 
 def test_mk_exp():
