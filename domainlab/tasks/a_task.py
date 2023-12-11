@@ -169,3 +169,11 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self.dim_d_tr = len(list_domain_tr)
         self._list_domain_tr = list_domain_tr
         return list_domain_tr, list_domain_te
+
+    def __str__(self):
+        """
+        print the attribute of the task
+        """
+        print("list of domains:")
+        self.get_list_domains()
+        print(f"tensor size: {self.isize}")
