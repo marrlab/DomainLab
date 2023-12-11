@@ -34,13 +34,6 @@ then
 
 `python setup.py install`
 
-#### Windows installation details
-
-To install DomainLab on Windows, please remove the `snakemake` and `datrie` dependency from the `requirements.txt` file.
-Benchmarking is currently not supported on Windows due to the dependency on Snakemake.
-One could, however, try install minimal Snakemake via
-`mamba create -c bioconda -c conda-forge -n snakemake snakemake-minimal`
-
 #### Dependencies management
 -   [python-poetry](https://python-poetry.org/) and use the configuration file `pyproject.toml` in this repository.
  
