@@ -1,6 +1,8 @@
 """
 all available tasks for domainlab
 """
+
+from domainlab.arg_parser import mk_parser_main
 from domainlab.compos.pcr.request import RequestTask
 from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
 from domainlab.utils.u_import import import_path
@@ -42,3 +44,15 @@ class TaskChainNodeGetter(object):
                 self.request = node.task_name  # @FIXME
         node = chain.handle(self.request)
         return node
+
+
+def get_task(name=None):
+    """
+    get build in task from DomainLab
+    """
+    args = mk_parser_main
+    parser = mk_parser_main()
+    args = parser.parse_args("")
+    args.task = name
+    task_getter = TaskChainNodeGetter(args)
+    return task_getter()
