@@ -44,7 +44,7 @@ def addtask2chain(chain):
                                    "caltech": os.path.join(
                                        path_this_file,
                                        os.path.normpath("../../"),
-                                       os.path.normpath("data/vlcs_mini/caltech/"),
+                                       os.path.normpath("data/vlcs_mini/caltech/")),
                                    "sun": os.path.join(
                                        path_this_file,
                                        os.path.normpath("../../"),
