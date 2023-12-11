@@ -45,7 +45,7 @@ def test_transformer():
     model = mk_deepall()(backbone)
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg,dial",
-                 test_domain="caltech", batchsize=2)
+                 test_domain="caltech", batchsize=2, nocu=True)
     exp.execute(num_epochs=2)
 
 
