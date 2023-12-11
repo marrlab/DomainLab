@@ -113,15 +113,19 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         train_domains = self.task.list_domain_tr
         return [len(self.task.dict_dset_tr[key]) for key in train_domains]
 
+    @property
+    def decoratee(self):
+        if self._decoratee is None:
+            return self.model
+        return self._decoratee
+
     def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """
         model, task, observer, device, aconf
         """
         if self._decoratee is not None:
             self._decoratee.init_business(model, task, observer, device, aconf, flag_accept)
-            self._model = self._decoratee
-        else:
-            self._model = model
+        self.model = model
         self.task = task
         self.task.init_business(trainer=self, args=aconf)
         self.model.list_d_tr = self.task.list_domain_tr
@@ -228,7 +232,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         combine losses of current trainer with self._model.cal_reg_loss, which
         can be either a trainer or a model
         """
-        list_reg_model, list_mu_model = self._model.cal_reg_loss(
+        list_reg_model, list_mu_model = self.decoratee.cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others)
         list_reg, list_mu = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         return list_reg_model + list_reg, list_mu_model + list_mu

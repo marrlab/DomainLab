@@ -20,7 +20,7 @@ class TrainerMatchDG(AbstractTrainer):
     def dset_decoration_args_algo(self, args, ddset):
         ddset = DsetIndDecorator4XYD(ddset)
         return ddset
-    
+
     def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
         """
         initialize member objects
@@ -65,11 +65,11 @@ class TrainerMatchDG(AbstractTrainer):
         logger.info(f"number of batches in match tensor: {len(self.tuple_tensor_refdomain2each)}")
         logger.info(f"single batch match tensor size: {self.tuple_tensor_refdomain2each[0].shape}")
 
-        for batch_idx, (x_e, y_e, d_e, *_) in enumerate(self.loader_tr):
+        for batch_idx, (x_e, y_e, d_e, *others) in enumerate(self.loader_tr):
             # random loader with same batch size as the match tensor loader
             # the 4th output of self.loader is not used at all,
             # is only used for creating the match tensor
-            self.tr_batch(epoch, batch_idx, x_e, y_e, d_e)
+            self.tr_batch(epoch, batch_idx, x_e, y_e, d_e, others)
             if self.flag_stop is True:
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
@@ -81,7 +81,7 @@ class TrainerMatchDG(AbstractTrainer):
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
 
-    def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e):
+    def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e, others=None):
         """
         update network for each batch
         """
@@ -102,7 +102,11 @@ class TrainerMatchDG(AbstractTrainer):
         # these losses within one batch
 
         if self.flag_erm:
-            loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e)
+            list_loss_reg_rand, list_mu_reg = self.decoratee.cal_reg_loss(x_e, y_e, d_e, others)
+            loss_reg = self.model.inner_product(list_loss_reg_rand, list_mu_reg)
+            loss_task_rand = self.model.cal_task_loss(x_e, y_e)
+            # loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e, others)
+            loss_erm_rnd_loader = loss_reg + loss_task_rand
 
         num_batches = len(self.tuple_tensor_refdomain2each)
 
@@ -151,7 +155,7 @@ class TrainerMatchDG(AbstractTrainer):
             # @FIXME: check if batch_ref_domain2each_y is
             # continuous number which means it is at its initial value,
             # not yet filled
-            loss_erm_match_tensor, *_ = self.model.cal_loss(
+            loss_erm_match_tensor, *_ = self.model.cal_task_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
 
         # Creating tensor of shape (domain size, total domains, feat size )
@@ -296,7 +300,7 @@ class TrainerMatchDG(AbstractTrainer):
             self.task.loader_tr,
             self.model.extract_semantic_feat,
             (epoch > 0))
-        
+
     def before_tr(self):
         """
         override abstract method
