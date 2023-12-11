@@ -174,6 +174,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
         """
         print the attribute of the task
         """
-        print("list of domains:")
-        self.get_list_domains()
-        print(f"tensor size: {self.isize}")
+        strout = "list of domains: \n"
+        strout + = str(self.get_list_domains())
+        strout + = (f"\n input tensor size: {self.isize}")
+        return strout
