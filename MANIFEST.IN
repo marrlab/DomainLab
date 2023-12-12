@@ -1,2 +1,2 @@
 # include data
-recursive-include data *
+recursive-include zdata *
