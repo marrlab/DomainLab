@@ -5,8 +5,9 @@ import os
 from setuptools import find_packages, setup
 
 def copy_dir():
-    dir_path = 'data'
-    base_dir = os.path.join(os.path.normpath('.'), dir_path)
+    root = os.path.dirname(os.path.abspath(__file__))
+    dir_path = 'domainlab/data'
+    base_dir = os.path.join(root, dir_path)
     for (dirpath, dirnames, files) in os.walk(base_dir):
         for f in files:
             path = os.path.join(dirpath.split('/', 1)[1], f)
@@ -16,8 +17,15 @@ def copy_dir():
 setup(
     name='domainlab',
     packages=find_packages(),
-    data_files = {
-            '.' : [f for f in copy_dir()]
+    #include_package_data=True,
+    #data_files =   [
+    #        ('../data', 'data/*')
+    #        ],
+    # data_files =   [
+    #        ('../data', f) for f in copy_dir()
+    #        ],
+    package_data =   {
+            'data': [f for f in copy_dir()],
             },
     version='0.1.9',
     description='Library of Domain Generalization',
