@@ -28,6 +28,15 @@ In DomainLab, a task is a container for datasets from different domains. See det
 
 ### Example and usage
 
+#### Clone this repo and use command line 
+see
+[Commandline usage](./docs/doc_usage_cmd.md)
+
+#### Programm against DomainLab API
+
+
+
+
 First we define a transformer neural network in the following
 
 ```
@@ -72,8 +81,6 @@ exp = mk_exp(task, model, trainer="mldg,dial",
              test_domain="caltech", batchsize=2, nocu=True)
 exp.execute(num_epochs=2)
 ```
-
-[Commandline usage](./docs/doc_usage_cmd.md)
 
 
 ### Benchmark different methods
