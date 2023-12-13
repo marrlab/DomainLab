@@ -1,0 +1,10 @@
+cartoon/person/pic_180.jpg 7
+cartoon/dog/pic_112.jpg 1
+cartoon/giraffe/pic_377.jpg 3
+cartoon/person/pic_111.jpg 7
+cartoon/giraffe/pic_382.jpg 3
+cartoon/horse/pic_064.jpg 5
+cartoon/dog/pic_137.jpg 1
+cartoon/house/pic_040.jpg 6
+cartoon/dog/pic_219.jpg 1
+cartoon/elephant/pic_332.jpg 2

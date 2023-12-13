@@ -1,0 +1,10 @@
+art_painting/person/pic_199.jpg 7
+art_painting/person/pic_497.jpg 7
+art_painting/guitar/pic_020.jpg 4
+art_painting/dog/pic_195.jpg 1
+art_painting/guitar/pic_182.jpg 4
+art_painting/giraffe/pic_243.jpg 3
+art_painting/elephant/pic_026.jpg 2
+art_painting/dog/pic_304.jpg 1
+art_painting/horse/pic_142.jpg 5
+art_painting/person/pic_165.jpg 7

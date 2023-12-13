@@ -1,0 +1,10 @@
+sketch/house/8873.png 6
+sketch/guitar/n03467517_6423-3.png 4
+sketch/elephant/5981.png 2
+sketch/dog/n02103406_3255-6.png 1
+sketch/horse/n02374451_779-1.png 5
+sketch/guitar/n02676566_8618-2.png 4
+sketch/elephant/n02503517_12688-4.png 2
+sketch/dog/5302.png 1
+sketch/giraffe/n02439033_13384-2.png 3
+sketch/dog/5317.png 1

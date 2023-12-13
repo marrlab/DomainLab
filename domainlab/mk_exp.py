@@ -5,7 +5,7 @@ from domainlab.arg_parser import mk_parser_main
 from domainlab.exp.exp_main import Exp
 
 
-def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int):
+def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int, nocu=False):
     """
     Creates a custom experiment. The user can specify the input parameters.
 
@@ -22,8 +22,9 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int):
 
     Returns: experiment
     """
-
     str_arg = f"--aname=apimodel --trainer={trainer} --te_d={test_domain} --bs={batchsize}"
+    if nocu:
+        str_arg += " --nocu"
     parser = mk_parser_main()
     conf = parser.parse_args(str_arg.split())
     exp = Exp(conf, task, model=model)
