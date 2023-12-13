@@ -1,4 +1,4 @@
-# Examples
+# Command line examples
 
 ## Colored version of MNIST
 
