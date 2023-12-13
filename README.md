@@ -26,7 +26,8 @@ DomainLab makes it possible to combine models with models, trainers with models,
 ## Getting started
 
 ### Installation
-[Installation and Dependencies handling](./docs/doc_intall.md)
+For development version in Github, see [Installation and Dependencies handling](./docs/doc_intall.md)
+
 We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it. 
 
 ### Task specification
