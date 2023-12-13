@@ -8,19 +8,26 @@
 
 ## Distribution shifts, domain generalization and DomainLab
 
-Neural networks trained using data from a specific distribution (domain) usually failes to generalization to novel distributions (domains). Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
+Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
 
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.
 
-DomainLab decouples the following concepts:
+As an input to the software, the user need to provide 
+- the neural network to be trained for the task (e.g. classification)
+- task specification which contains dataset(s) from domain(s). 
+
+DomainLab decouples the following concepts or objects:
 - neural network: a map from the input data to the feature space and output.
 - model: structural risk in the form of $\ell() + \mu R()$  where $\ell()$ is the task specific empirical loss (e.g. cross entropy for classification task) and $R()$ is the penalty loss for inter-domain alignment (domain invariant regularization).
 - trainer:  an object that guides the data flow to model and append further domain invariant losses.
+
+DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like `Trainer A(Trainer B(Model C(Model D(network E), network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$ 
 
 ## Getting started
 
 ### Installation
 [Installation and Dependencies handling](./docs/doc_intall.md)
+We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it. 
 
 ### Task specification
 In DomainLab, a task is a container for datasets from different domains. See detail in
@@ -28,17 +35,12 @@ In DomainLab, a task is a container for datasets from different domains. See det
 
 ### Example and usage
 
-#### Clone this repo and use command line 
-see
-[Commandline usage](./docs/doc_usage_cmd.md)
+#### Either clone this repo and use command line 
+See [Commandline usage](./docs/doc_usage_cmd.md)
 
-#### Programm against DomainLab API
+#### or Programm against DomainLab API
 
-
-
-
-First we define a transformer neural network in the following
-
+As a user, you need to define neural networks you want to train in order to achieve domain invariance, as an example, here we define a transformer neural network for classification in the following code. 
 ```
 from torch import nn                                                                                     
 from torchvision.models import vit_b_16                                                                  
@@ -50,12 +52,10 @@ class VIT(nn.Module):
                  len_last_layer=768):                                                                    
         super().__init__()                                                                               
         self.nets = vit_b_16(pretrained=True)                                                            
-        if freeze:                                                                                       
-            # freeze all the network except the final layer                                              
+        if freeze:                                                                                                                                    
             for param in self.nets.parameters():                                                         
                 param.requires_grad = False                                                              
-        self.features_vit_flatten = create_feature_extractor(self.nets,                                  
-                                                             return_nodes=list_str_last_layer)           
+        self.features_vit_flatten = create_feature_extractor(self.nets, return_nodes=list_str_last_layer)           
         self.fc = nn.Linear(len_last_layer, num_cls)                                                     
                                                                                                          
     def forward(self, tensor_x):                                                                         
@@ -67,7 +67,6 @@ class VIT(nn.Module):
         return out
 ```
 Then we plug this neural network in our model:
-
 ```
 from domainlab.mk_exp import mk_exp                                                                      
 from domainlab.tasks import get_task                                                                     
@@ -77,7 +76,7 @@ task = get_task("mini_vlcs")
 nn = VIT(num_cls=task.dim_y, freeze=True)
 model = mk_deepall()(nn)
 # use trainer MLDG, DIAL
-exp = mk_exp(task, model, trainer="mldg,dial",
+exp = mk_exp(task, model, trainer="mldg,dial",   # combine two trainers
              test_domain="caltech", batchsize=2, nocu=True)
 exp.execute(num_epochs=2)
 ```
@@ -85,4 +84,4 @@ exp.execute(num_epochs=2)
 
 ### Benchmark different methods
 DomainLab provides a powerful benchmark functionality. 
-To benchmark several algorithms, a single line command along with a benchmark configuration files is sufficient. See [Benchmarks](./docs/doc_benchmark.md)
+To benchmark several algorithms, a single line command along with a benchmark configuration files is sufficient. See details in [Benchmarks](./docs/doc_benchmark.md)
