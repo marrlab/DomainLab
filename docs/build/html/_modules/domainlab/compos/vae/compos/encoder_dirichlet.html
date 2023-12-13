@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.compos.vae.compos.encoder_dirichlet &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css" />
-    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
-    <script src="../../../../../_static/jquery.js"></script>
-    <script src="../../../../../_static/underscore.js"></script>
-    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
@@ -107,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -230,14 +227,14 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      <a href="../../../../../docHDUVA.html" class="md-nav__link">Model HDUVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../../doc_dann.html" class="md-nav__link">Model “dann”:</a>
+      <a href="../../../../../doc_dann.html" class="md-nav__link">Model DANN:</a>
       
     
     </li>
@@ -296,7 +293,9 @@
 from torch.distributions import Dirichlet
 
 
-<div class="viewcode-block" id="EncoderH2Dirichlet"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet">[docs]</a>class EncoderH2Dirichlet(nn.Module):
+<div class="viewcode-block" id="EncoderH2Dirichlet">
+<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet">[docs]</a>
+class EncoderH2Dirichlet(nn.Module):
     """
     hidden representation to Dirichlet Distribution
     """
@@ -309,14 +308,18 @@ from torch.distributions import Dirichlet
         self.layer_bn = nn.BatchNorm1d(dim_topic)
         self.device = device
 
-<div class="viewcode-block" id="EncoderH2Dirichlet.forward"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward">[docs]</a>    def forward(self, hidden):
+<div class="viewcode-block" id="EncoderH2Dirichlet.forward">
+<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward">[docs]</a>
+    def forward(self, hidden):
         """
         :param hidden:
         """
         alphas_batch = self.layer_bn(self.net_fc(hidden)).exp()
         q_topic = Dirichlet(alphas_batch)
         topic_q = q_topic.rsample().to(self.device)
-        return q_topic, topic_q</div></div>
+        return q_topic, topic_q</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -341,7 +344,7 @@ from torch.distributions import Dirichlet
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

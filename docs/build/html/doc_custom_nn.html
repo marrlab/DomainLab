@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,13 +49,11 @@
   
   
     <title>Custom Neural Network &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -108,7 +105,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -230,14 +227,14 @@
     <li class="md-nav__item">
     
     
-      <a href="docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      <a href="docHDUVA.html" class="md-nav__link">Model HDUVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model “dann”:</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN:</a>
       
     
     </li>
@@ -281,7 +278,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-custom-nn--page-root" class="md-nav__link">Custom Neural Network</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -305,23 +302,23 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="custom-neural-network">
-<h1 id="doc-custom-nn--page-root">Custom Neural Network<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-custom-nn--page-root">Custom Neural Network<a class="headerlink" href="#doc-custom-nn--page-root" title="Link to this heading">¶</a></h1>
 <p>To use a custom neural network, the user has to implement the following signature in a python file and feed into this library via <code class="docutils literal notranslate"><span class="pre">--npath</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_feat_extract_net</span><span class="p">(</span><span class="n">dim_y</span><span class="p">,</span> <span class="n">remove_last_layer</span><span class="p">):</span>
 </pre></div>
 </div>
 <p>See examples below from <code class="docutils literal notranslate"><span class="pre">--npath=examples/nets/resnet.py</span></code> where the examples can be found in the examples folder of the code repository.</p>
 <section id="custom-neural-network-examples">
-<h2 id="custom-neural-network-examples">Custom Neural Network Examples<a class="headerlink" href="#custom-neural-network-examples" title="Permalink to this heading">¶</a></h2>
+<h2 id="custom-neural-network-examples">Custom Neural Network Examples<a class="headerlink" href="#custom-neural-network-examples" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py">https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py</a></p>
 <section id="algorithm-deepall-with-custom-neural-network">
-<h3 id="algorithm-deepall-with-custom-neural-network">algorithm ‘deepall’ with custom neural network<a class="headerlink" href="#algorithm-deepall-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="algorithm-deepall-with-custom-neural-network">algorithm ‘deepall’ with custom neural network<a class="headerlink" href="#algorithm-deepall-with-custom-neural-network" title="Link to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="algorithm-matchdg-with-custom-neural-network">
-<h3 id="algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network<a class="headerlink" href="#algorithm-matchdg-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="algorithm-matchdg-with-custom-neural-network">algorithm ‘matchdg’ with custom neural network<a class="headerlink" href="#algorithm-matchdg-with-custom-neural-network" title="Link to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--aname<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
@@ -352,7 +349,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

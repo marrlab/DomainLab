@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.algos.trainers.train_basic &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -107,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -230,14 +227,14 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../docHDUVA.html" class="md-nav__link">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION</a>
+      <a href="../../../../docHDUVA.html" class="md-nav__link">Model HDUVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_dann.html" class="md-nav__link">Model “dann”:</a>
+      <a href="../../../../doc_dann.html" class="md-nav__link">Model DANN:</a>
       
     
     </li>
@@ -303,21 +300,31 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.a_trainer import mk_opt
 
 
-<div class="viewcode-block" id="list_divide"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.list_divide">[docs]</a>def list_divide(list_val, scalar):
+<div class="viewcode-block" id="list_divide">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.list_divide">[docs]</a>
+def list_divide(list_val, scalar):
     return [ele / scalar for ele in list_val]</div>
 
 
-<div class="viewcode-block" id="TrainerBasic"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic">[docs]</a>class TrainerBasic(AbstractTrainer):
+
+<div class="viewcode-block" id="TrainerBasic">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic">[docs]</a>
+class TrainerBasic(AbstractTrainer):
     """
     basic trainer
     """
-<div class="viewcode-block" id="TrainerBasic.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_tr">[docs]</a>    def before_tr(self):
+<div class="viewcode-block" id="TrainerBasic.before_tr">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_tr">[docs]</a>
+    def before_tr(self):
         """
         check the performance of randomly initialized weight
         """
         self.model.evaluate(self.loader_te, self.device)</div>
 
-<div class="viewcode-block" id="TrainerBasic.before_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_epoch">[docs]</a>    def before_epoch(self):
+
+<div class="viewcode-block" id="TrainerBasic.before_epoch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_epoch">[docs]</a>
+    def before_epoch(self):
         """
         set model to train mode
         initialize some member variables
@@ -328,7 +335,10 @@ from domainlab.algos.trainers.a_trainer import mk_opt
         self.epo_reg_loss_tr = [0.0 for _ in range(10)]
         self.epo_task_loss_tr = 0</div>
 
-<div class="viewcode-block" id="TrainerBasic.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
+
+<div class="viewcode-block" id="TrainerBasic.tr_epoch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_epoch">[docs]</a>
+    def tr_epoch(self, epoch):
         self.before_epoch()
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in \
                 enumerate(self.loader_tr):
@@ -336,7 +346,10 @@ from domainlab.algos.trainers.a_trainer import mk_opt
                           ind_batch, epoch)
         return self.after_epoch(epoch)</div>
 
-<div class="viewcode-block" id="TrainerBasic.after_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.after_epoch">[docs]</a>    def after_epoch(self, epoch):
+
+<div class="viewcode-block" id="TrainerBasic.after_epoch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.after_epoch">[docs]</a>
+    def after_epoch(self, epoch):
         """
         observer collect information
         """
@@ -350,7 +363,10 @@ from domainlab.algos.trainers.a_trainer import mk_opt
         assert flag_stop is not None
         return flag_stop</div>
 
-<div class="viewcode-block" id="TrainerBasic.log_r_loss"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss">[docs]</a>    def log_r_loss(self, list_b_reg_loss):
+
+<div class="viewcode-block" id="TrainerBasic.log_r_loss">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss">[docs]</a>
+    def log_r_loss(self, list_b_reg_loss):
         """
         just for logging the self.epo_reg_loss_tr
         """
@@ -358,6 +374,7 @@ from domainlab.algos.trainers.a_trainer import mk_opt
                                  for ele in list_b_reg_loss]
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr,
                                         list_b_reg_loss_sumed))</div>
+
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
@@ -370,7 +387,9 @@ from domainlab.algos.trainers.a_trainer import mk_opt
         bsize = tensor_x.shape[0]
         return [torch.zeros(bsize, 1).to(device)], [0.0]
 
-<div class="viewcode-block" id="TrainerBasic.tr_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_batch">[docs]</a>    def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
+<div class="viewcode-block" id="TrainerBasic.tr_batch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_batch">[docs]</a>
+    def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
         """
         optimize neural network one step upon a mini-batch of data
         """
@@ -386,7 +405,10 @@ from domainlab.algos.trainers.a_trainer import mk_opt
         self.after_batch(epoch, ind_batch)
         self.counter_batch += 1</div>
 
-<div class="viewcode-block" id="TrainerBasic.cal_loss"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.cal_loss">[docs]</a>    def cal_loss(self, tensor_x, tensor_y, tensor_d, others):
+
+<div class="viewcode-block" id="TrainerBasic.cal_loss">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.cal_loss">[docs]</a>
+    def cal_loss(self, tensor_x, tensor_y, tensor_d, others):
         """
         so that user api can use trainer.cal_loss to train
         """
@@ -399,7 +421,9 @@ from domainlab.algos.trainers.a_trainer import mk_opt
         self.log_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
         loss = loss_task.sum() + reg_tr.sum()
-        return loss</div></div>
+        return loss</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -424,7 +448,7 @@ from domainlab.algos.trainers.a_trainer import mk_opt
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
