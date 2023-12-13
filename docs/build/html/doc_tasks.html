@@ -234,7 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN:</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
       
     
     </li>
@@ -282,11 +282,11 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-tasks--page-root" class="md-nav__link">Task Specification</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#specify-train-and-test-domain-dataset-directly" class="md-nav__link">Specify train and test domain dataset directly</a>
+        <li class="md-nav__item"><a href="#possibility-1-specify-train-and-test-domain-dataset-directly" class="md-nav__link">Possibility 1: Specify train and test domain dataset directly</a>
         </li>
-        <li class="md-nav__item"><a href="#taskpathlist" class="md-nav__link">TaskPathList</a>
+        <li class="md-nav__item"><a href="#possibility-2-taskpathlist" class="md-nav__link">Possibility 2: TaskPathList</a>
         </li>
-        <li class="md-nav__item"><a href="#taskfolder" class="md-nav__link">TaskFolder</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#possibility-3-taskfolder" class="md-nav__link">Possibility 3: TaskFolder</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#data-organization" class="md-nav__link">Data organization</a>
         </li>
@@ -309,8 +309,8 @@
 <h1 id="doc-tasks--page-root">Task Specification<a class="headerlink" href="#doc-tasks--page-root" title="Link to this heading">¶</a></h1>
 <p>The package offers various ways to specify a domain generalization task (where to find the data, which domain to use as training, which to test) according to user’s need.</p>
 <p>For all thress ways covered below, the user has to prepare a python file to feed via argument <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> (means task path) into DomainLab.  We provide example python files in our repository <a class="reference external" href="https://github.com/marrlab/DomainLab/tree/master/examples/tasks">see all examples here for specifying domain generalization task</a> so that the user could follow the example to create their own domain generalization task specification.  We provide inline comment to explain what each line is doing, as well as below in this documentation.</p>
-<section id="specify-train-and-test-domain-dataset-directly">
-<h2 id="specify-train-and-test-domain-dataset-directly">Specify train and test domain dataset directly<a class="headerlink" href="#specify-train-and-test-domain-dataset-directly" title="Link to this heading">¶</a></h2>
+<section id="possibility-1-specify-train-and-test-domain-dataset-directly">
+<h2 id="possibility-1-specify-train-and-test-domain-dataset-directly">Possibility 1: Specify train and test domain dataset directly<a class="headerlink" href="#possibility-1-specify-train-and-test-domain-dataset-directly" title="Link to this heading">¶</a></h2>
 <p>The most straightforward way to specify a domain generalization task is, if you have already a <a class="reference external" href="https://pytorch.org/tutorials/beginner/basics/data_tutorial.html">PyTorch Dataset</a> class for each domain: you could define a dictionary with the key being name for domain, and the value being the PyTorch Dataset you created corresponding to that domain (train and validation or only training)
 <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py">See an example python file here</a></p>
 <p>To train a ERM (Emperical Risk Minimization) network on this task:</p>
@@ -319,8 +319,8 @@
 </div>
 <p>here in the example, 3 domains are defined to be named “domain1”, “domain2”, “domain3”, <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies where the python file specifying the task is stored, <code class="docutils literal notranslate"><span class="pre">--bs=32</span></code> use 32 as batchsize, <code class="docutils literal notranslate"><span class="pre">deepall</span></code> is our nickname for ERM, <code class="docutils literal notranslate"><span class="pre">--nname</span></code> specifies a hard coded neural network in DomainLab, to use custom neural network, see related documentation.</p>
 </section>
-<section id="taskpathlist">
-<h2 id="taskpathlist">TaskPathList<a class="headerlink" href="#taskpathlist" title="Link to this heading">¶</a></h2>
+<section id="possibility-2-taskpathlist">
+<h2 id="possibility-2-taskpathlist">Possibility 2: TaskPathList<a class="headerlink" href="#possibility-2-taskpathlist" title="Link to this heading">¶</a></h2>
 <p>The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.</p>
 <p>An example python file can be found in the <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/tasks/demo_task_path_list_small.py">examples directory of the repository</a> with the corresponding data be found at <a class="reference external" href="https://github.com/marrlab/DomainLab/tree/master/data">the data directory of the repository</a>, where the text file indicating which file correspond to which class label (starting from 1) can be found at <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/data/pacs_split/art_painting_10.txt">example text file</a>.
 The user should specify the location of the python file via command line arguments <code class="docutils literal notranslate"><span class="pre">--tpath</span></code></p>
@@ -328,8 +328,8 @@ The user should specify the location of the python file via command line argumen
 </pre></div>
 </div>
 </section>
-<section id="taskfolder">
-<h2 id="taskfolder">TaskFolder<a class="headerlink" href="#taskfolder" title="Link to this heading">¶</a></h2>
+<section id="possibility-3-taskfolder">
+<h2 id="possibility-3-taskfolder">Possibility 3: TaskFolder<a class="headerlink" href="#possibility-3-taskfolder" title="Link to this heading">¶</a></h2>
 <p>In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.</p>
 <section id="data-organization">
 <h3 id="data-organization">Data organization<a class="headerlink" href="#data-organization" title="Link to this heading">¶</a></h3>

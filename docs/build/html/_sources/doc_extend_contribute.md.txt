@@ -1,4 +1,4 @@
-# Extend or contribute with a custom domain generalization algorithm
+# Extend or contribute with a custom domain generalization model
 
 ## External extension by implementing your custom models
 
@@ -14,5 +14,5 @@ where the example python file corresponding to `--apath` defines a model which c
 or `nname_argna2val` if the neural network is already implemented.
 
 
-### Design
+# Software Architecture and Design
 ![Design Diagram](libDG.svg)

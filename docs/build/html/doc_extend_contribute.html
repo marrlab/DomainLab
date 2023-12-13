@@ -48,7 +48,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Extend or contribute with a custom domain generalization algorithm &#8212; domainlab  documentation</title>
+    <title>Extend or contribute with a custom domain generalization model &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
@@ -95,7 +95,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Extend or contribute with a custom domain generalization algorithm </span>
+          <span class="md-header-nav__topic"> Extend or contribute with a custom domain generalization model </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -234,7 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN:</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
       
     
     </li>
@@ -280,15 +280,13 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-extend-contribute--page-root" class="md-nav__link">Extend or contribute with a custom domain generalization algorithm</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#doc-extend-contribute--page-root" class="md-nav__link">Extend or contribute with a custom domain generalization model</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-models" class="md-nav__link">External extension by implementing your custom models</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#design" class="md-nav__link">Design</a>
+        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-models" class="md-nav__link">External extension by implementing your custom models</a>
         </li></ul>
             </nav>
-        </li></ul>
-            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#software-architecture-and-design" class="md-nav__link">Software Architecture and Design</a>
         </li>
   </ul>
 </nav>
@@ -299,8 +297,8 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="extend-or-contribute-with-a-custom-domain-generalization-algorithm">
-<h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization algorithm<a class="headerlink" href="#doc-extend-contribute--page-root" title="Link to this heading">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="extend-or-contribute-with-a-custom-domain-generalization-model">
+<h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization model<a class="headerlink" href="#doc-extend-contribute--page-root" title="Link to this heading">¶</a></h1>
 <section id="external-extension-by-implementing-your-custom-models">
 <h2 id="external-extension-by-implementing-your-custom-models">External extension by implementing your custom models<a class="headerlink" href="#external-extension-by-implementing-your-custom-models" title="Link to this heading">¶</a></h2>
 <p>Look at this example</p>
@@ -311,11 +309,11 @@ python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span cla
 </div>
 <p>where the example python file corresponding to <code class="docutils literal notranslate"><span class="pre">--apath</span></code> defines a model which contains several modules that can be customized to different neural networks via <code class="docutils literal notranslate"><span class="pre">--npath_argna2val</span></code> if the neural network is specified in a python file
 or <code class="docutils literal notranslate"><span class="pre">nname_argna2val</span></code> if the neural network is already implemented.</p>
-<section id="design">
-<h3 id="design">Design<a class="headerlink" href="#design" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="software-architecture-and-design">
+<h1 id="software-architecture-and-design">Software Architecture and Design<a class="headerlink" href="#software-architecture-and-design" title="Link to this heading">¶</a></h1>
 <p><img alt="Design Diagram" src="_images/libDG.svg"/></p>
-</section>
-</section>
 </section>
 
 
