@@ -37,11 +37,11 @@ In DomainLab, a task is a container for datasets from different domains. See det
 ### Example and usage
 
 #### Either clone this repo and use command line 
-See [Commandline usage](./docs/doc_usage_cmd.md)
+See details in [Command line usage](./docs/doc_usage_cmd.md)
 
 #### or Programm against DomainLab API
 
-As a user, you need to define neural networks you want to train in order to achieve domain invariance, as an example, here we define a transformer neural network for classification in the following code. 
+As a user, you need to define neural networks you want to train. As an example, here we define a transformer neural network for classification in the following code. 
 ```
 from torch import nn                                                                                     
 from torchvision.models import vit_b_16                                                                  
