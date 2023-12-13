@@ -38,3 +38,5 @@ jobs:
       run: bash -x -v ci_run_examples.sh
     - name: test if benchmark works
       run: pip install snakemake && bash -x -v run_benchmark_standalone.sh examples/benchmark/benchmark_mnist_shared_hyper_grid.yaml
+    - name: test if api works
+      run: python examples/nets/transformer.py
