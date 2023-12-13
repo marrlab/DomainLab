@@ -14,7 +14,7 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 
 DomainLab decouples the following concepts:
 - neural network: a map from the input data to the feature space and output.
-- model: structural risk in the form of $\ell() + \mu R()$  where $\ell()$ is the task specific empirical loss (e.g. classification) and $R()$ is the penalty loss for inter-domain alignment (domain invariant regularization).
+- model: structural risk in the form of $\ell() + \mu R()$  where $\ell()$ is the task specific empirical loss (e.g. cross entropy for classification task) and $R()$ is the penalty loss for inter-domain alignment (domain invariant regularization).
 - trainer:  an object that guides the data flow to model and append further domain invariant losses.
 
 ## Getting started
