@@ -47,13 +47,13 @@ chain = mk_task_folder(extensions={"caltech": "jpg", "sun":
                        dict_domain2imgroot={
                            "caltech": os.path.join(
                                path_this_file,
-                               "../../data/vlcs_mini/caltech/"),
+                               "../../domainlab/zdata/vlcs_mini/caltech/"),
                            "sun": os.path.join(
                                path_this_file,
-                               "../../data/vlcs_mini/sun/"),
+                               "../../domainlab/zdata/vlcs_mini/sun/"),
                            "labelme": os.path.join(
                                path_this_file,
-                               "../../data/vlcs_mini/labelme/")},
+                               "../../domainlab/zdata/vlcs_mini/labelme/")},
                        taskna="e_mini_vlcs")
 
 
