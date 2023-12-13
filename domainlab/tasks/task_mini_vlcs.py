@@ -43,16 +43,16 @@ def addtask2chain(chain):
                                dict_domain2imgroot={
                                    "caltech": os.path.join(
                                        path_this_file,
-                                       os.path.normpath("../../"),
-                                       os.path.normpath("data/vlcs_mini/caltech/")),
+                                       os.path.normpath("../"),
+                                       os.path.normpath("zdata/vlcs_mini/caltech/")),
                                    "sun": os.path.join(
                                        path_this_file,
-                                       os.path.normpath("../../"),
-                                       os.path.normpath("data/vlcs_mini/sun/")),
+                                       os.path.normpath("../"),
+                                       os.path.normpath("zdata/vlcs_mini/sun/")),
                                    "labelme": os.path.join(
                                        path_this_file,
-                                       os.path.normpath("../../"),
-                                       os.path.normpath("data/vlcs_mini/labelme/"))},
+                                       os.path.normpath("../"),
+                                       os.path.normpath("zdata/vlcs_mini/labelme/"))},
                                taskna="mini_vlcs",
                                succ=chain)
     return new_chain
