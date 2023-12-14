@@ -1,5 +1,5 @@
 """
-make an experiment
+DomainLab API CODING 
 """
 
 from torch import nn
@@ -11,13 +11,16 @@ from domainlab.models.model_dann import mk_dann
 
 
 class VIT(nn.Module):
+    """
+    Vision transformer as feature extractor
+    """
     def __init__(self, freeze=True,
                  list_str_last_layer=['getitem_5'],
                  len_last_layer=768):
         super().__init__()
         self.nets = vit_b_16(pretrained=True)
         if freeze:
-            # freeze all the network except the final layer
+            # freeze all the network except the final layer, for fast code execution
             for param in self.nets.parameters():
                 param.requires_grad = False
         self.features_vit_flatten = create_feature_extractor(self.nets,
@@ -37,7 +40,7 @@ def test_transformer():
     """
     # specify domain generalization task
     task = get_task("mini_vlcs")
-    # specify backbone to use
+    # specify neural network to use as feature extractor
     net_feature = VIT(freeze=True)
     model = mk_dann()(net_encoder=net_feature,
                       net_classifier=nn.Linear(768, task.dim_y),
@@ -45,7 +48,7 @@ def test_transformer():
                       list_str_y=task.list_str_y,
                       list_d_tr=["labelme", "sun"],
                       alpha=1.0)
-    # make trainer for model
+    # make trainer for model, here we decorate trainer mldg with dial
     exp = mk_exp(task, model, trainer="mldg,dial",
                  test_domain="caltech", batchsize=2, nocu=True)
     exp.execute(num_epochs=2)
