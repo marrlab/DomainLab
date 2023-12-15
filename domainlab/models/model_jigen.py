@@ -61,6 +61,7 @@ def mk_jigen(parent_class=AModelClassif):
                      net_classifier_permutation,
                      coeff_reg, n_perm=31,
                      prob_permutation=0.1,
+                     overwrite_args=False,
                      meta_info=None):
             super().__init__(list_str_y,
                              list_d_tr=None,
@@ -74,6 +75,7 @@ def mk_jigen(parent_class=AModelClassif):
             self.meta_info = meta_info
             self.n_perm = n_perm
             self.prob_perm = prob_permutation
+            self.flag_overwrite_args = overwrite_args
 
         def dset_decoration_args_algo(self, args, ddset):
             """
@@ -86,15 +88,18 @@ def mk_jigen(parent_class=AModelClassif):
                     if "pperm" in self.meta_info else args.pperm
 
             nperm = self.n_perm
-            if args.nperm != nperm:
+            if args.nperm != nperm and not self.flag_overwrite_args:
                 warnings.warn("number of permutations specified differently \
                               in model and args, \
-                              going to take model specification")
+                              going to take args specification")
+                nperm = args.nperm
+                
             pperm = self.prob_perm
-            if args.pperm != pperm:
+            if args.pperm != pperm and not self.flag_overwrite_args:
                 warnings.warn("probability of reshuffling specified differently \
                               in model and args, \
                               going to take model specification")
+                pperm = args.pperm
 
             ddset_new = WrapDsetPatches(ddset,
                                         num_perms2classify=nperm,
