@@ -70,12 +70,12 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=jigen 
 python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=8 --aname=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3 --san_check
 ```
 
-### model matchdg with implemented neural network
+### training implemented neural network with matchdg
 ```shell
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
 ```
 
-### model matchdg with mnist
+### trainer matchdg with mnist
 ```shell
  python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=deepall --trainer=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
 ```
@@ -98,7 +98,7 @@ python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --aname=hduva --nname=
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepall --npath=examples/nets/resnet.py
 ```
 
-### model matchdg with custom neural network
+### trainer matchdg with custom neural network
 ```shell
 python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --aname=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
