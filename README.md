@@ -28,7 +28,7 @@ We offer detailed documentation on how these models and trainers work in our doc
 ## Getting started
 
 ### Installation
-For development version in Github, see [Installation and Dependencies handling](./docs/doc_intall.md)
+For development version in Github, see [Installation and Dependencies handling](./docs/doc_install.md)
 
 We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it. 
 
