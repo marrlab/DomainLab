@@ -35,7 +35,7 @@ setup(
     package_data =   {
                 'zdata': [f for f in copy_dir()],
              },
-    version='0.1.9',
+    version='0.2.0',
     description='Library of Domain Generalization',
     url='https://github.com/marrlab/DomainLab',
     author='Xudong Sun, et.al.',
