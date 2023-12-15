@@ -67,5 +67,5 @@ def mk_exp_jigen(trainer="mldg"):
     model.extend(model2)
 
     # make trainer for model
-    exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
+    exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32, nocu=True)
     exp.execute(num_epochs=2)

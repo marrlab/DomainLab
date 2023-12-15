@@ -77,6 +77,7 @@ class WrapDsetPatches(torchdata.Dataset):
 
     def __getitem__(self, index):
         img, label, *domain = self.dataset.__getitem__(index)
+        original_size = img.shape[-2:]
         if domain:
             dlabel = domain[0]
         else:
@@ -119,7 +120,7 @@ class WrapDsetPatches(torchdata.Dataset):
         # judge if the image has not been permutated as well
         re_tiled_img = self.fun_weave_imgs(stacked_tiles)
         img_re_tiled_re_shaped = \
-            torchvision.transforms.RandomResizedCrop([224, 224])(re_tiled_img)
+            torchvision.transforms.RandomResizedCrop(original_size)(re_tiled_img)
         return img_re_tiled_re_shaped, label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
