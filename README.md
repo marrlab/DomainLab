@@ -87,23 +87,26 @@ net_feature = VIT(freeze=True)
 # linear classifier on top of extracted feature
 net_classifier=nn.Linear(768, task.dim_y)
 
+# First build a model DANN, see documentation of Model DANN for detail.
 model_dann = mk_dann()(net_encoder=net_feature,
-                  net_classifier=net_classifier,
-                  net_discriminator=nn.Linear(768,2),
-                  list_str_y=task.list_str_y,
-                  list_d_tr=["labelme", "sun"],
-                  alpha=1.0)
+                       net_classifier=net_classifier,
+                       net_discriminator=nn.Linear(768,2),
+                       list_str_y=task.list_str_y,
+                       list_d_tr=["labelme", "sun"],
+                       alpha=1.0)
 
-#  Let jigen share the feature extractor and class label classifier
-#  but use a separate linear classifier to predict permutation
+# Let jigen share the feature extractor and class label classifier from dann,
+# but use a separate linear classifier to predict permutation
+# See documentation of Model Jigen for detail.
 model_jigen = mk_jigen()(net_encoder=net_feature,
-                          net_classifier_class=net_classifier,
-                          net_classifier_permutation=nn.Linear(768,32),
-                          list_str_y=task.list_str_y,
-                          coeff_reg=1.0, nperm=31)
+                         net_classifier_class=net_classifier,
+                         net_classifier_permutation=nn.Linear(768,32),
+                         list_str_y=task.list_str_y,
+                         coeff_reg=1.0, nperm=31)
 model_jigen.extend(model_dann)  # decorate DANN with JIGEN
 model = model_jigen
-# make trainer for model, here we decorate trainer mldg with dial
+# make trainer for model, here we decorate trainer mldg with dial, see documentation
+# of mldg and dial for detail
 exp = mk_exp(task, model, trainer="mldg,dial",
              test_domain="caltech", batchsize=2, nocu=True)
 exp.execute(num_epochs=2)
