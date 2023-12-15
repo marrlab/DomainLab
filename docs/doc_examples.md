@@ -72,12 +72,12 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 
 ### model matchdg with implemented neural network
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --aname=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
 ```
 
 ### model matchdg with mnist
 ```shell
- python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
+ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --aname=deepall --trainer=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
 ```
 
 ### hduva with implemented neural network
@@ -100,14 +100,14 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --aname=deepal
 
 ### model matchdg with custom neural network
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --aname=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --aname=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
 
 
-### model matchdg with hduva
+### training hduva with matchdg
 
 ```shell
-python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --bs=2 --aname=matchhduva --epochs_ctr=3 --epos=6 --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --bs=2 --aname=hduva --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
 ```
 
 ### hduva use custom net for sandwich encoder
