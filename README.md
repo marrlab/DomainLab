@@ -98,7 +98,7 @@ model_dann = mk_dann()(net_encoder=net_feature,
 #  but use a separate linear classifier to predict permutation
 model_jigen = mk_jigen()(net_encoder=net_feature,
                           net_classifier_class=net_classifier,
-                          net_classifier_permutation=nn.Linear(768,2),
+                          net_classifier_permutation=nn.Linear(768,31),
                           list_str_y=task.list_str_y,
                           coeff_reg=1.0)
 model_jigen.extend(model_dann)  # decorate DANN with JIGEN
