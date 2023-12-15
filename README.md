@@ -100,7 +100,7 @@ model_jigen = mk_jigen()(net_encoder=net_feature,
                           net_classifier_class=net_classifier,
                           net_classifier_permutation=nn.Linear(768,32),
                           list_str_y=task.list_str_y,
-                          coeff_reg=1.0)
+                          coeff_reg=1.0, nperm=31)
 model_jigen.extend(model_dann)  # decorate DANN with JIGEN
 model = model_jigen
 # make trainer for model, here we decorate trainer mldg with dial
