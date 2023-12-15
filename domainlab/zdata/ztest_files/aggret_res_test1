@@ -1,0 +1,2 @@
+param_index, method, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc
+0, Task1, diva, 2, caltech, 1, "{'gamma_y': 1688039, 'gamma_d': 265711}", 0.75, 0.87068963, 0.5588235, 0.5588235, 0.53100574, 0.8098495

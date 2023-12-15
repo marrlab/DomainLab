@@ -133,8 +133,8 @@ class WrapDsetPatches(torchdata.Dataset):
         # @FIXME: this assumes always a relative path
         mdir = os.path.dirname(os.path.realpath(__file__))
         if ppath is None:
-            ppath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
-        mpath = os.path.join(mdir, "..", "..", ppath)
+            ppath = f'zdata/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        mpath = os.path.join(mdir, "..", ppath)
         arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:
