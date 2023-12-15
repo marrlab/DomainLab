@@ -117,8 +117,10 @@ class WrapDsetPatches(torchdata.Dataset):
         # be a whole image again by self.fun_weave_imgs
         # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
-
-        return self.fun_weave_imgs(stacked_tiles), label, dlabel, int(ind_which_perm)
+        re_tiled_img = self.fun_weave_imgs(stacked_tiles)
+        img_re_tiled_re_shaped = \
+            torchvision.transforms.RandomResizedCrop([224, 224])(re_tiled_img)
+        return img_re_tiled_re_shaped, label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):
