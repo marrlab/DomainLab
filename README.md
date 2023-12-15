@@ -17,11 +17,11 @@ As an input to the software, the user need to provide
 - task specification which contains dataset(s) from domain(s). 
 
 DomainLab decouples the following concepts or objects:
-- neural network: a map from the input data to the feature space and output.
+- neural network: a map from the input data to the feature space and output (e.g. decision variable).
 - model: structural risk in the form of $\ell() + \mu R()$  where $\ell()$ is the task specific empirical loss (e.g. cross entropy for classification task) and $R()$ is the penalty loss for inter-domain alignment (domain invariant regularization).
 - trainer:  an object that guides the data flow to model and append further domain invariant losses.
 
-DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like `Trainer A(Trainer B(Model C(Model D(network E), network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$ 
+DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. 
 
 We offer detailed documentation on how these models and trainers work in our documentation page: https://marrlab.github.io/DomainLab/
 
