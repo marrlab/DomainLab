@@ -77,6 +77,7 @@ class WrapDsetPatches(torchdata.Dataset):
 
     def __getitem__(self, index):
         img, label, *domain = self.dataset.__getitem__(index)
+        original_size = img.shape[-2:]
         if domain:
             dlabel = domain[0]
         else:
@@ -117,8 +118,10 @@ class WrapDsetPatches(torchdata.Dataset):
         # be a whole image again by self.fun_weave_imgs
         # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
-
-        return self.fun_weave_imgs(stacked_tiles), label, dlabel, int(ind_which_perm)
+        re_tiled_img = self.fun_weave_imgs(stacked_tiles)
+        img_re_tiled_re_shaped = \
+            torchvision.transforms.RandomResizedCrop(original_size)(re_tiled_img)
+        return img_re_tiled_re_shaped, label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):
@@ -133,8 +136,8 @@ class WrapDsetPatches(torchdata.Dataset):
         # @FIXME: this assumes always a relative path
         mdir = os.path.dirname(os.path.realpath(__file__))
         if ppath is None:
-            ppath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
-        mpath = os.path.join(mdir, "..", "..", ppath)
+            ppath = f'zdata/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        mpath = os.path.join(mdir, "..", ppath)
         arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:
