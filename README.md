@@ -23,6 +23,8 @@ DomainLab decouples the following concepts or objects:
 
 DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like `Trainer A(Trainer B(Model C(Model D(network E), network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$ 
 
+We offer detailed documentation on how these models and trainers work in our documentation page: https://marrlab.github.io/DomainLab/
+
 ## Getting started
 
 ### Installation
