@@ -76,7 +76,8 @@ Then we plug this neural network in our model as feature extraction
 ```
 from domainlab.mk_exp import mk_exp                                                                      
 from domainlab.tasks import get_task                                                                     
-from domainlab.models.model_deep_all import mk_deepall
+from domainlab.models.model_dann import mk_dann
+from domainlab.models.model_jigen import mk_jigen
 
 
 # specify domain generalization task
