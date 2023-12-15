@@ -43,43 +43,68 @@ See details in [Command line usage](./docs/doc_usage_cmd.md)
 
 #### or Programm against DomainLab API
 
-As a user, you need to define neural networks you want to train. As an example, here we define a transformer neural network for classification in the following code. 
+As a user, you need to define neural networks you want to train to extract domain invariant features. As an example, here we define a transformer for feature extraction. 
 ```
 from torch import nn                                                                                     
 from torchvision.models import vit_b_16                                                                  
 from torchvision.models.feature_extraction import create_feature_extractor
 
-class VIT(nn.Module):                                                                                    
-    def __init__(self, num_cls, freeze=True,                                                             
-                 list_str_last_layer=['getitem_5'],                                                      
-                 len_last_layer=768):                                                                    
-        super().__init__()                                                                               
-        self.nets = vit_b_16(pretrained=True)                                                            
-        if freeze:                                                                                                                                    
-            for param in self.nets.parameters():                                                         
-                param.requires_grad = False                                                              
-        self.features_vit_flatten = create_feature_extractor(self.nets, return_nodes=list_str_last_layer)           
-        self.fc = nn.Linear(len_last_layer, num_cls)                                                     
-                                                                                                         
-    def forward(self, tensor_x):                                                                         
+class VIT(nn.Module):
+    """
+    Vision transformer as feature extractor
+    """
+    def __init__(self, freeze=True,
+                 list_str_last_layer=['getitem_5'],
+                 len_last_layer=768):
+        super().__init__()
+        self.nets = vit_b_16(pretrained=True)
+        if freeze:
+            # freeze all the network except the final layer, for fast code execution
+            for param in self.nets.parameters():
+                param.requires_grad = False
+        self.features_vit_flatten = create_feature_extractor(self.nets,
+                                                             return_nodes=list_str_last_layer)
+
+    def forward(self, tensor_x):
         """
         compute logits predicts
         """
-        x = self.features_vit_flatten(tensor_x)['getitem_5']
-        out = self.fc(x)
+        out = self.features_vit_flatten(tensor_x)['getitem_5']
         return out
 ```
-Then we plug this neural network in our model:
+Then we plug this neural network in our model as feature extraction
 ```
 from domainlab.mk_exp import mk_exp                                                                      
 from domainlab.tasks import get_task                                                                     
 from domainlab.models.model_deep_all import mk_deepall
 
+
+# specify domain generalization task
 task = get_task("mini_vlcs")
-nn = VIT(num_cls=task.dim_y, freeze=True)
-model = mk_deepall()(nn)
-# use trainer MLDG, DIAL
-exp = mk_exp(task, model, trainer="mldg,dial",   # combine two trainers
+# specify neural network to use as feature extractor
+net_feature = VIT(freeze=True)
+
+# linear classifier on top of extracted feature
+net_classifier=nn.Linear(768, task.dim_y)
+
+model_dann = mk_dann()(net_encoder=net_feature,
+                  net_classifier=net_classifier,
+                  net_discriminator=nn.Linear(768,2),
+                  list_str_y=task.list_str_y,
+                  list_d_tr=["labelme", "sun"],
+                  alpha=1.0)
+
+#  Let jigen share the feature extractor and class label classifier
+#  but use a separate linear classifier to predict permutation
+model_jigen = mk_jigen()(net_encoder=net_feature,
+                          net_classifier_class=net_classifier,
+                          net_classifier_permutation=nn.Linear(768,2),
+                          list_str_y=task.list_str_y,
+                          coeff_reg=1.0)
+model_jigen.extend(model_dann)  # decorate DANN with JIGEN
+model = model_jigen
+# make trainer for model, here we decorate trainer mldg with dial
+exp = mk_exp(task, model, trainer="mldg,dial",
              test_domain="caltech", batchsize=2, nocu=True)
 exp.execute(num_epochs=2)
 ```
