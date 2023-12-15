@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,12 @@
   
   
     <title>domainlab.algos.builder_hduva &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -104,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -304,15 +306,11 @@ from domainlab.models.model_hduva import mk_hduva
 from domainlab.utils.utils_cuda import get_device
 
 
-<div class="viewcode-block" id="NodeAlgoBuilderHDUVA">
-<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA">[docs]</a>
-class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
+<div class="viewcode-block" id="NodeAlgoBuilderHDUVA"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA">[docs]</a>class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
     """
     NodeAlgoBuilderHDUVA
     """
-<div class="viewcode-block" id="NodeAlgoBuilderHDUVA.init_business">
-<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA.init_business">[docs]</a>
-    def init_business(self, exp):
+<div class="viewcode-block" id="NodeAlgoBuilderHDUVA.init_business"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA.init_business">[docs]</a>    def init_business(self, exp):
         """
         return trainer, model, observer
         """
@@ -341,9 +339,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
             ObVisitor(model_sel))
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
-        return trainer, model, observer, device</div>
-</div>
-
+        return trainer, model, observer, device</div></div>
 </pre></div>
 
           </article>
@@ -368,7 +364,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

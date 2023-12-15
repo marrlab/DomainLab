@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,12 @@
   
   
     <title>domainlab.algos.observers.a_observer &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -104,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -295,9 +297,7 @@ interface for observer + visitor
 import abc
 
 
-<div class="viewcode-block" id="AObVisitor">
-<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor">[docs]</a>
-class AObVisitor(metaclass=abc.ABCMeta):
+<div class="viewcode-block" id="AObVisitor"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor">[docs]</a>class AObVisitor(metaclass=abc.ABCMeta):
     """
     Observer + Visitor pattern for model selection
     """
@@ -311,9 +311,7 @@ class AObVisitor(metaclass=abc.ABCMeta):
         self.loader_tr = None
         self.loader_val = None
 
-<div class="viewcode-block" id="AObVisitor.set_task">
-<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.set_task">[docs]</a>
-    def set_task(self, task, args, device):
+<div class="viewcode-block" id="AObVisitor.set_task"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.set_task">[docs]</a>    def set_task(self, task, args, device):
         """
         couple observer with task
         """
@@ -327,43 +325,29 @@ class AObVisitor(metaclass=abc.ABCMeta):
         # Note loader_tr behaves/inherit different properties than loader_te
         self.loader_val = self.task.loader_val</div>
 
-
-<div class="viewcode-block" id="AObVisitor.update">
-<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.update">[docs]</a>
-    @abc.abstractmethod
+<div class="viewcode-block" id="AObVisitor.update"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.update">[docs]</a>    @abc.abstractmethod
     def update(self, epoch) -&gt; bool:
         """
         return True/False whether the trainer should stop training
         """</div>
 
-
-<div class="viewcode-block" id="AObVisitor.accept">
-<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.accept">[docs]</a>
-    @abc.abstractmethod
+<div class="viewcode-block" id="AObVisitor.accept"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.accept">[docs]</a>    @abc.abstractmethod
     def accept(self, trainer):
         """
         accept invitation as a visitor
         """</div>
 
-
-<div class="viewcode-block" id="AObVisitor.after_all">
-<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.after_all">[docs]</a>
-    @abc.abstractmethod
+<div class="viewcode-block" id="AObVisitor.after_all"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.after_all">[docs]</a>    @abc.abstractmethod
     def after_all(self):
         """
         After training is done
         """</div>
 
-
-<div class="viewcode-block" id="AObVisitor.clean_up">
-<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.clean_up">[docs]</a>
-    @abc.abstractmethod
+<div class="viewcode-block" id="AObVisitor.clean_up"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.clean_up">[docs]</a>    @abc.abstractmethod
     def clean_up(self):
         """
         to be called by a decorator
-        """</div>
-</div>
-
+        """</div></div>
 </pre></div>
 
           </article>
@@ -388,7 +372,7 @@ class AObVisitor(metaclass=abc.ABCMeta):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

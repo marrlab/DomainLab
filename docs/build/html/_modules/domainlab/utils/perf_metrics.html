@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,12 @@
   
   
     <title>domainlab.utils.perf_metrics &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -104,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -297,9 +299,7 @@ from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
                                          Specificity)
 
 
-<div class="viewcode-block" id="PerfMetricClassif">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfMetricClassif">[docs]</a>
-class PerfMetricClassif():
+<div class="viewcode-block" id="PerfMetricClassif"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfMetricClassif">[docs]</a>class PerfMetricClassif():
     """Classification Performance metrics"""
     def __init__(self, num_classes, agg_precision_recall_f1='macro'):
         super().__init__()
@@ -316,9 +316,7 @@ class PerfMetricClassif():
                                        average=agg_precision_recall_f1)
         self.confmat = ConfusionMatrix(num_classes=num_classes)
 
-<div class="viewcode-block" id="PerfMetricClassif.cal_metrics">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics">[docs]</a>
-    def cal_metrics(self, model, loader_te, device):
+<div class="viewcode-block" id="PerfMetricClassif.cal_metrics"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.perf_metrics.PerfMetricClassif.cal_metrics">[docs]</a>    def cal_metrics(self, model, loader_te, device):
         """
         :param model:
         :param loader_te:
@@ -375,9 +373,7 @@ class PerfMetricClassif():
         for key in keys:
             dict_metric[key] = dict_metric[key].cpu().numpy().sum()
         dict_metric["confmat"] = dict_metric["confmat"].cpu().numpy()
-        return dict_metric</div>
-</div>
-
+        return dict_metric</div></div>
 </pre></div>
 
           </article>
@@ -402,7 +398,7 @@ class PerfMetricClassif():
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

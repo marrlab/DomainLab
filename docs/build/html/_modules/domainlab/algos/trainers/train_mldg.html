@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,12 @@
   
   
     <title>domainlab.algos.trainers.train_mldg &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -104,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -302,15 +304,11 @@ from domainlab.tasks.utils_task import mk_loader
 from domainlab.tasks.utils_task_dset import DsetZip
 
 
-<div class="viewcode-block" id="TrainerMLDG">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG">[docs]</a>
-class TrainerMLDG(AbstractTrainer):
+<div class="viewcode-block" id="TrainerMLDG"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG">[docs]</a>class TrainerMLDG(AbstractTrainer):
     """
     basic trainer
     """
-<div class="viewcode-block" id="TrainerMLDG.before_tr">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.before_tr">[docs]</a>
-    def before_tr(self):
+<div class="viewcode-block" id="TrainerMLDG.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.before_tr">[docs]</a>    def before_tr(self):
         """
         check the performance of randomly initialized weight
         """
@@ -323,10 +321,7 @@ class TrainerMLDG(AbstractTrainer):
             flag_accept=False)
         self.prepare_ziped_loader()</div>
 
-
-<div class="viewcode-block" id="TrainerMLDG.prepare_ziped_loader">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.prepare_ziped_loader">[docs]</a>
-    def prepare_ziped_loader(self):
+<div class="viewcode-block" id="TrainerMLDG.prepare_ziped_loader"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.prepare_ziped_loader">[docs]</a>    def prepare_ziped_loader(self):
         """
         create virtual source and target domain
         """
@@ -340,10 +335,7 @@ class TrainerMLDG(AbstractTrainer):
         ddset_mix = DsetZip(ddset_source, ddset_target)
         self.loader_tr_source_target = mk_loader(ddset_mix, self.aconf.bs)</div>
 
-
-<div class="viewcode-block" id="TrainerMLDG.tr_epoch">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.tr_epoch">[docs]</a>
-    def tr_epoch(self, epoch):
+<div class="viewcode-block" id="TrainerMLDG.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
         self.model.train()
         self.epo_loss_tr = 0
         self.prepare_ziped_loader()
@@ -388,9 +380,7 @@ class TrainerMLDG(AbstractTrainer):
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
         flag_stop = self.observer.update(epoch)  # notify observer
-        return flag_stop</div>
-</div>
-
+        return flag_stop</div></div>
 </pre></div>
 
           </article>
@@ -415,7 +405,7 @@ class TrainerMLDG(AbstractTrainer):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

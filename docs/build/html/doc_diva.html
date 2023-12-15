@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,11 +50,12 @@
   
   
     <title>Model DIVA: Domain Invariant Variational Autoencoders &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -109,7 +111,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -259,7 +261,7 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-diva--page-root" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -305,7 +307,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-diva--page-root" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -323,7 +325,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="model-diva-domain-invariant-variational-autoencoders">
-<h1 id="doc-diva--page-root">Model DIVA: Domain Invariant Variational Autoencoders<a class="headerlink" href="#doc-diva--page-root" title="Link to this heading">¶</a></h1>
+<h1 id="doc-diva--page-root">Model DIVA: Domain Invariant Variational Autoencoders<a class="headerlink" href="#doc-diva--page-root" title="Permalink to this headline">¶</a></h1>
 <p>DIVA addresses the domain generalization problem with a variational autoencoder
 with three latent variables, using three independent encoders.</p>
 <p>By encouraging the network to store each the domain,
@@ -346,7 +348,7 @@ However, DIVA always needs domain labels and does not support a fully unsupervis
 Since it is not always clear which different domains actually exist, this can lead to problems and a
 decreased performance.</p>
 <section id="model-parameters">
-<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Link to this heading">¶</a></h2>
+<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this headline">¶</a></h2>
 <p>The following hyperparameters can be specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">zd_dim</span></code>: size of latent space for domain-specific information</p></li>
@@ -384,7 +386,7 @@ DIVA: Domain Invariant Variational Autoencoders, <a class="reference external" h
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> Model JiGen </span>
+                      class="md-footer-nav__direction"> Previous </span> Model JiGen </span>
               </div>
             </a>
           
@@ -394,7 +396,7 @@ DIVA: Domain Invariant Variational Autoencoders, <a class="reference external" h
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> Trainer MatchDG: Domain Generalization using Causal Matching </span>
+                class="md-footer-nav__direction"> Next </span> Trainer MatchDG: Domain Generalization using Causal Matching </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -412,7 +414,7 @@ DIVA: Domain Invariant Variational Autoencoders, <a class="reference external" h
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

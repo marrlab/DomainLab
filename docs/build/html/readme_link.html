@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,11 +50,12 @@
   
   
     <title>Introduction &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -107,7 +109,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -280,7 +282,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#readme-link--page-root" class="md-nav__link">Introduction</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -320,16 +322,16 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="introduction">
-<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Link to this heading">¶</a></h1>
+<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this headline">¶</a></h1>
 <section class="tex2jax_ignore mathjax_ignore" id="domainlab-modular-python-package-for-training-domain-invariant-neural-networks">
-<h2 id="domainlab-modular-python-package-for-training-domain-invariant-neural-networks">DomainLab: modular python package for training domain invariant neural networks<a class="headerlink" href="#domainlab-modular-python-package-for-training-domain-invariant-neural-networks" title="Link to this heading">¶</a></h2>
+<h2 id="domainlab-modular-python-package-for-training-domain-invariant-neural-networks">DomainLab: modular python package for training domain invariant neural networks<a class="headerlink" href="#domainlab-modular-python-package-for-training-domain-invariant-neural-networks" title="Permalink to this headline">¶</a></h2>
 <p><img alt="GH Actions CI " src="https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg?branch=master"/>
 <a class="reference external" href="https://app.codecov.io/gh/marrlab/DomainLab"><img alt="codecov" src="https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg"/></a>
 <a class="reference external" href="https://www.codacy.com/gh/marrlab/DomainLab/dashboard"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86"/></a>
 <a class="reference external" href="https://marrlab.github.io/DomainLab/"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-Here"/></a>
 <a class="reference external" href="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment"><img alt="pages-build-deployment" src="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment/badge.svg"/></a></p>
 <section id="distribution-shifts-domain-generalization-and-domainlab">
-<h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Link to this heading">¶</a></h3>
+<h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Permalink to this headline">¶</a></h3>
 <p>Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).</p>
 <p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.</p>
 <p>As an input to the software, the user need to provide</p>
@@ -339,68 +341,94 @@
 </ul>
 <p>DomainLab decouples the following concepts or objects:</p>
 <ul class="simple">
-<li><p>neural network: a map from the input data to the feature space and output.</p></li>
+<li><p>neural network: a map from the input data to the feature space and output (e.g. decision variable).</p></li>
 <li><p>model: structural risk in the form of <span class="math notranslate nohighlight">\(\ell() + \mu R()\)</span>  where <span class="math notranslate nohighlight">\(\ell()\)</span> is the task specific empirical loss (e.g. cross entropy for classification task) and <span class="math notranslate nohighlight">\(R()\)</span> is the penalty loss for inter-domain alignment (domain invariant regularization).</p></li>
 <li><p>trainer:  an object that guides the data flow to model and append further domain invariant losses.</p></li>
 </ul>
-<p>DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like <code class="docutils literal notranslate"><span class="pre">Trainer</span> <span class="pre">A(Trainer</span> <span class="pre">B(Model</span> <span class="pre">C(Model</span> <span class="pre">D(network</span> <span class="pre">E),</span> <span class="pre">network</span> <span class="pre">F)))</span></code> which correspond to <span class="math notranslate nohighlight">\(\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()\)</span></p>
+<p>DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code <code class="docutils literal notranslate"><span class="pre">Trainer</span> <span class="pre">A(Trainer</span> <span class="pre">B(Model</span> <span class="pre">C(Model</span> <span class="pre">D(network</span> <span class="pre">E),</span> <span class="pre">network</span> <span class="pre">E,</span> <span class="pre">network</span> <span class="pre">F)))</span></code> which correspond to <span class="math notranslate nohighlight">\(\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()\)</span>, where Model C and Model D share neural network E, but Model C has an extra neural network F.</p>
+<p>We offer detailed documentation on how these models and trainers work in our documentation page: <a class="reference external" href="https://marrlab.github.io/DomainLab/">https://marrlab.github.io/DomainLab/</a></p>
 </section>
 <section id="getting-started">
-<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h3>
+<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
 <section id="installation">
-<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h4>
-<p>For development version in Github, see <a class="reference internal" href="#./docs/doc_intall.md"><span class="xref myst">Installation and Dependencies handling</span></a></p>
+<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
+<p>For development version in Github, see <span class="xref myst">Installation and Dependencies handling</span></p>
 <p>We also offer a PyPI version here <a class="reference external" href="https://pypi.org/project/domainlab/">https://pypi.org/project/domainlab/</a>  which one could install via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">domainlab</span></code> and it is recommended to create a virtual environment for it.</p>
 </section>
 <section id="task-specification">
-<h4 id="task-specification">Task specification<a class="headerlink" href="#task-specification" title="Link to this heading">¶</a></h4>
+<h4 id="task-specification">Task specification<a class="headerlink" href="#task-specification" title="Permalink to this headline">¶</a></h4>
 <p>In DomainLab, a task is a container for datasets from different domains. See detail in
-<a class="reference internal" href="#./docs/doc_tasks.md"><span class="xref myst">Task Specification</span></a></p>
+<span class="xref myst">Task Specification</span></p>
 </section>
 <section id="example-and-usage">
-<h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Link to this heading">¶</a></h4>
+<h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Permalink to this headline">¶</a></h4>
 <section id="either-clone-this-repo-and-use-command-line">
-<h5 id="either-clone-this-repo-and-use-command-line">Either clone this repo and use command line<a class="headerlink" href="#either-clone-this-repo-and-use-command-line" title="Link to this heading">¶</a></h5>
-<p>See details in <a class="reference internal" href="#./docs/doc_usage_cmd.md"><span class="xref myst">Command line usage</span></a></p>
+<h5 id="either-clone-this-repo-and-use-command-line">Either clone this repo and use command line<a class="headerlink" href="#either-clone-this-repo-and-use-command-line" title="Permalink to this headline">¶</a></h5>
+<p>See details in <span class="xref myst">Command line usage</span></p>
 </section>
 <section id="or-programm-against-domainlab-api">
-<h5 id="or-programm-against-domainlab-api">or Programm against DomainLab API<a class="headerlink" href="#or-programm-against-domainlab-api" title="Link to this heading">¶</a></h5>
-<p>As a user, you need to define neural networks you want to train. As an example, here we define a transformer neural network for classification in the following code.</p>
+<h5 id="or-programm-against-domainlab-api">or Programm against DomainLab API<a class="headerlink" href="#or-programm-against-domainlab-api" title="Permalink to this headline">¶</a></h5>
+<p>As a user, you need to define neural networks you want to train to extract domain invariant features. As an example, here we define a transformer for feature extraction.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from torch import nn
 from torchvision.models import vit_b_16
 from torchvision.models.feature_extraction import create_feature_extractor
 
 class VIT(nn.Module):
-    def __init__(self, num_cls, freeze=True,
+    """
+    Vision transformer as feature extractor
+    """
+    def __init__(self, freeze=True,
                  list_str_last_layer=['getitem_5'],
                  len_last_layer=768):
         super().__init__()
         self.nets = vit_b_16(pretrained=True)
         if freeze:
+            # freeze all the network except the final layer, for fast code execution
             for param in self.nets.parameters():
                 param.requires_grad = False
-        self.features_vit_flatten = create_feature_extractor(self.nets, return_nodes=list_str_last_layer)
-        self.fc = nn.Linear(len_last_layer, num_cls)
+        self.features_vit_flatten = create_feature_extractor(self.nets,
+                                                             return_nodes=list_str_last_layer)
 
     def forward(self, tensor_x):
         """
         compute logits predicts
         """
-        x = self.features_vit_flatten(tensor_x)['getitem_5']
-        out = self.fc(x)
+        out = self.features_vit_flatten(tensor_x)['getitem_5']
         return out
 </pre></div>
 </div>
-<p>Then we plug this neural network in our model:</p>
+<p>Then we plug this neural network in our model as feature extraction</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from domainlab.mk_exp import mk_exp
 from domainlab.tasks import get_task
 from domainlab.models.model_deep_all import mk_deepall
 
+
+# specify domain generalization task
 task = get_task("mini_vlcs")
-nn = VIT(num_cls=task.dim_y, freeze=True)
-model = mk_deepall()(nn)
-# use trainer MLDG, DIAL
-exp = mk_exp(task, model, trainer="mldg,dial",   # combine two trainers
+# specify neural network to use as feature extractor
+net_feature = VIT(freeze=True)
+
+# linear classifier on top of extracted feature
+net_classifier=nn.Linear(768, task.dim_y)
+
+model_dann = mk_dann()(net_encoder=net_feature,
+                  net_classifier=net_classifier,
+                  net_discriminator=nn.Linear(768,2),
+                  list_str_y=task.list_str_y,
+                  list_d_tr=["labelme", "sun"],
+                  alpha=1.0)
+
+#  Let jigen share the feature extractor and class label classifier
+#  but use a separate linear classifier to predict permutation
+model_jigen = mk_jigen()(net_encoder=net_feature,
+                          net_classifier_class=net_classifier,
+                          net_classifier_permutation=nn.Linear(768,32),
+                          list_str_y=task.list_str_y,
+                          coeff_reg=1.0)
+model_jigen.extend(model_dann)  # decorate DANN with JIGEN
+model = model_jigen
+# make trainer for model, here we decorate trainer mldg with dial
+exp = mk_exp(task, model, trainer="mldg,dial",
              test_domain="caltech", batchsize=2, nocu=True)
 exp.execute(num_epochs=2)
 </pre></div>
@@ -408,9 +436,9 @@ exp.execute(num_epochs=2)
 </section>
 </section>
 <section id="benchmark-different-methods">
-<h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Link to this heading">¶</a></h4>
+<h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Permalink to this headline">¶</a></h4>
 <p>DomainLab provides a powerful benchmark functionality.
-To benchmark several algorithms, a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">Benchmarks</span></a></p>
+To benchmark several algorithms, a single line command along with a benchmark configuration files is sufficient. See details in <span class="xref myst">Benchmarks</span></p>
 </section>
 </section>
 </section>
@@ -439,7 +467,7 @@ To benchmark several algorithms, a single line command along with a benchmark co
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,12 @@
   
   
     <title>domainlab.models.a_model &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -104,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -298,9 +300,7 @@ import abc
 from torch import nn
 
 
-<div class="viewcode-block" id="AModel">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel">[docs]</a>
-class AModel(nn.Module, metaclass=abc.ABCMeta):
+<div class="viewcode-block" id="AModel"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel">[docs]</a>class AModel(nn.Module, metaclass=abc.ABCMeta):
     """
     operations that all models (classification, segmentation, seq2seq)
     """
@@ -310,14 +310,11 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         self.list_d_tr = None
         self.visitor = None
 
-<div class="viewcode-block" id="AModel.extend">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.extend">[docs]</a>
-    def extend(self, model):
+<div class="viewcode-block" id="AModel.extend"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.extend">[docs]</a>    def extend(self, model):
         """
         extend the loss of the decoratee
         """
         self._decoratee = model</div>
-
 
     @property
     def metric4msel(self):
@@ -333,9 +330,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         return 1.0
 
-<div class="viewcode-block" id="AModel.cal_loss">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_loss">[docs]</a>
-    def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
+<div class="viewcode-block" id="AModel.cal_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_loss">[docs]</a>    def cal_loss(self, tensor_x, tensor_y, tensor_d=None, others=None):
         """
         calculate the loss
         """
@@ -345,10 +340,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         loss_task = self.multiplier4task_loss * loss_task_alone
         return loss_task + loss_reg, list_loss, loss_task_alone</div>
 
-
-<div class="viewcode-block" id="AModel.inner_product">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.inner_product">[docs]</a>
-    def inner_product(self, list_loss_scalar, list_multiplier):
+<div class="viewcode-block" id="AModel.inner_product"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.inner_product">[docs]</a>    def inner_product(self, list_loss_scalar, list_multiplier):
         """
         compute inner product between list of scalar loss and multiplier
         - the first dimension of the tensor v_reg_loss is mini-batch
@@ -359,10 +351,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         rst = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
         return sum(rst)    # FIXME: is "sum" safe to pytorch?</div>
 
-
-<div class="viewcode-block" id="AModel.cal_task_loss">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_task_loss">[docs]</a>
-    @abc.abstractmethod
+<div class="viewcode-block" id="AModel.cal_task_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_task_loss">[docs]</a>    @abc.abstractmethod
     def cal_task_loss(self, tensor_x, tensor_y):
         """
         Calculate the task loss
@@ -372,16 +361,13 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :return: task loss
         """</div>
 
-
     @abc.abstractmethod
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         task independent regularization loss for domain generalization
         """
 
-<div class="viewcode-block" id="AModel.cal_reg_loss">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_reg_loss">[docs]</a>
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+<div class="viewcode-block" id="AModel.cal_reg_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.cal_reg_loss">[docs]</a>    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         task independent regularization loss for domain generalization
         """
@@ -393,7 +379,6 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return loss_reg_ + loss_reg, mu_ + mu
         return loss_reg_, mu_</div>
 
-
     def _extend_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         combine losses from two models
@@ -403,9 +388,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
                 tensor_x, tensor_y, tensor_d, others)
         return None, None
 
-<div class="viewcode-block" id="AModel.forward">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.forward">[docs]</a>
-    def forward(self, tensor_x, tensor_y, tensor_d, others=None):
+<div class="viewcode-block" id="AModel.forward"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.forward">[docs]</a>    def forward(self, tensor_x, tensor_y, tensor_d, others=None):
         """forward.
 
         :param x:
@@ -414,10 +397,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)</div>
 
-
-<div class="viewcode-block" id="AModel.save">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.save">[docs]</a>
-    def save(self, suffix=None):
+<div class="viewcode-block" id="AModel.save"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.save">[docs]</a>    def save(self, suffix=None):
         """
         persist model to disk
         """
@@ -425,25 +405,17 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return
         self.visitor.save(self, suffix)
         return</div>
-
     
-<div class="viewcode-block" id="AModel.load">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.load">[docs]</a>
-    def load(self, suffix=None):
+<div class="viewcode-block" id="AModel.load"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.load">[docs]</a>    def load(self, suffix=None):
         """
         load model from disk
         """
         if self.visitor is None:
             return None
         return self.visitor.load(suffix)</div>
-
     
-<div class="viewcode-block" id="AModel.set_saver">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.set_saver">[docs]</a>
-    def set_saver(self, visitor):
-        self.visitor = visitor</div>
-</div>
-
+<div class="viewcode-block" id="AModel.set_saver"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.set_saver">[docs]</a>    def set_saver(self, visitor):
+        self.visitor = visitor</div></div>
 </pre></div>
 
           </article>
@@ -468,7 +440,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

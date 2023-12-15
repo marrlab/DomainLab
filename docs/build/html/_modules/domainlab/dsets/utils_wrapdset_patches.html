@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,12 @@
   
   
     <title>domainlab.dsets.utils_wrapdset_patches &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -104,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -301,9 +303,7 @@ from torchvision import transforms
 from torch.utils import data as torchdata
 
 
-<div class="viewcode-block" id="WrapDsetPatches">
-<a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches">[docs]</a>
-class WrapDsetPatches(torchdata.Dataset):
+<div class="viewcode-block" id="WrapDsetPatches"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches">[docs]</a>class WrapDsetPatches(torchdata.Dataset):
     """
     given dataset of images, return permuations of tiles of images re-weaved
     """
@@ -343,9 +343,7 @@ class WrapDsetPatches(torchdata.Dataset):
                     img, nrow=self.grid_len, padding=0)
             self.fun_weave_imgs = make_grid
 
-<div class="viewcode-block" id="WrapDsetPatches.get_tile">
-<a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches.get_tile">[docs]</a>
-    def get_tile(self, img, ind_tile):
+<div class="viewcode-block" id="WrapDsetPatches.get_tile"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches.get_tile">[docs]</a>    def get_tile(self, img, ind_tile):
         """
         assume a square image?
         """
@@ -370,9 +368,9 @@ class WrapDsetPatches(torchdata.Dataset):
         tile = self._to_tensor(tile)
         return tile</div>
 
-
     def __getitem__(self, index):
         img, label, *domain = self.dataset.__getitem__(index)
+        original_size = img.shape[-2:]
         if domain:
             dlabel = domain[0]
         else:
@@ -413,8 +411,10 @@ class WrapDsetPatches(torchdata.Dataset):
         # be a whole image again by self.fun_weave_imgs
         # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
-
-        return self.fun_weave_imgs(stacked_tiles), label, dlabel, int(ind_which_perm)
+        re_tiled_img = self.fun_weave_imgs(stacked_tiles)
+        img_re_tiled_re_shaped = \
+            torchvision.transforms.RandomResizedCrop(original_size)(re_tiled_img)
+        return img_re_tiled_re_shaped, label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):
@@ -429,14 +429,13 @@ class WrapDsetPatches(torchdata.Dataset):
         # @FIXME: this assumes always a relative path
         mdir = os.path.dirname(os.path.realpath(__file__))
         if ppath is None:
-            ppath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
-        mpath = os.path.join(mdir, "..", "..", ppath)
+            ppath = f'zdata/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        mpath = os.path.join(mdir, "..", ppath)
         arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:
             arr_permutation_rows = arr_permutation_rows - 1
         return arr_permutation_rows</div>
-
 </pre></div>
 
           </article>
@@ -461,7 +460,7 @@ class WrapDsetPatches(torchdata.Dataset):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
