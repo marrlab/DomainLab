@@ -2,9 +2,11 @@
 DomainLab API CODING
 """
 
+import torch
 from torch import nn
 from torchvision.models import vit_b_16
 from torchvision.models.feature_extraction import create_feature_extractor
+
 from domainlab.mk_exp import mk_exp
 from domainlab.tasks import get_task
 from domainlab.models.model_dann import mk_dann
