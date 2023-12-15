@@ -57,7 +57,7 @@ def test_transformer():
 
     model_jigen = mk_jigen()(net_encoder=net_feature,
                              net_classifier_class=net_classifier,
-                             net_classifier_permutation=nn.Linear(768,2),
+                             net_classifier_permutation=nn.Linear(768,32),
                              list_str_y=task.list_str_y,
                              coeff_reg=1.0)
     # model_dann.extend(model_jigen)
