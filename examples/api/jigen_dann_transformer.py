@@ -24,7 +24,8 @@ class VIT(nn.Module):
         self.nets = vit_b_16(pretrained=True)
         if freeze:
             # freeze all the network except the final layer,
-            # for fast code execution
+            # for fast code execution, set freeze=False 
+            # in case of enough computation resources
             for param in self.nets.parameters():
                 param.requires_grad = False
         self.features_vit_flatten = \
@@ -47,23 +48,24 @@ def test_transformer():
     task = get_task("mini_vlcs")
     # specify neural network to use as feature extractor
     net_feature = VIT(freeze=True)
-
+    # since the size of feature is 768
     net_classifier = nn.Linear(768, task.dim_y)
-
+     
+    # see documentation for each arguments below
     model_dann = mk_dann()(net_encoder=net_feature,
                            net_classifier=net_classifier,
                            net_discriminator=nn.Linear(768,2),
                            list_str_y=task.list_str_y,
                            list_d_tr=["labelme", "sun"],
                            alpha=1.0)
-
+    # see documentation for each argument below
     model_jigen = mk_jigen()(net_encoder=net_feature,
                              net_classifier_class=net_classifier,
                              net_classifier_permutation=nn.Linear(768, 32),
                              list_str_y=task.list_str_y,
                              coeff_reg=1.0, nperm=31)
-    # model_dann.extend(model_jigen)
-    model_jigen.extend(model_dann)
+
+    model_jigen.extend(model_dann) # let Jigen decorate DANN
     model = model_jigen
     # make trainer for model, here we decorate trainer mldg with dial
     exp = mk_exp(task, model, trainer="mldg,dial",

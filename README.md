@@ -43,6 +43,8 @@ See details in [Command line usage](./docs/doc_usage_cmd.md)
 
 #### or Programm against DomainLab API
 
+The following code can be retrieved [here](https://github.com/marrlab/DomainLab/blob/master/examples/api/jigen_dann_transformer.py)
+
 As a user, you need to define neural networks you want to train to extract domain invariant features. As an example, here we define a transformer for feature extraction. 
 ```
 from torch import nn                                                                                     
