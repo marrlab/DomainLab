@@ -63,7 +63,7 @@ def test_transformer():
                              net_classifier_class=net_classifier,
                              net_classifier_permutation=nn.Linear(768, 32),
                              list_str_y=task.list_str_y,
-                             coeff_reg=1.0, nperm=31)
+                             coeff_reg=1.0, n_perm=31)
 
     model_dann.extend(model_jigen) # let Jigen decorate DANN
     model = model_dann
@@ -71,7 +71,3 @@ def test_transformer():
     exp = mk_exp(task, model, trainer="mldg,dial",
                  test_domain="caltech", batchsize=2, nocu=True)
     exp.execute(num_epochs=2)
-
-
-if __name__ == '__main__':
-    test_transformer()
