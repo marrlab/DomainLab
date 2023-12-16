@@ -31,7 +31,7 @@ class Exp():
             self.task = TaskChainNodeGetter(args)()
 
         self.args = args
-        algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
+        algo_builder = AlgoBuilderChainNodeGetter(self.args.model, self.args.apath)()  # request
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
 

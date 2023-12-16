@@ -149,7 +149,7 @@ def mk_parser_main():
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods')
 
-    parser.add_argument('--aname', metavar="an", type=str,
+    parser.add_argument('--model', metavar="an", type=str,
                         default=None,
                         help='algorithm name')
 
