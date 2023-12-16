@@ -44,10 +44,10 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int,
     Returns: experiment
     """
 
-    str_arg = f"--aname=apimodel --trainer={trainer} \
+    str_arg = f"--model=apimodel --trainer={trainer} \
         --te_d={test_domain} --bs={batchsize}"
     if msel_loss_tr:
-        str_arg = f"--aname=apimodel --trainer={trainer} \
+        str_arg = f"--model=apimodel --trainer={trainer} \
             --te_d={test_domain} --bs={batchsize} --msel=loss_tr"
 
     parser = mk_parser_main()

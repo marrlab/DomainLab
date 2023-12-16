@@ -44,10 +44,10 @@ def test_apply_dict_to_args():
     """Testing apply_dict_to_args"""
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    data = {'a': 1, 'b': [1, 2], 'aname': 'diva'}
+    data = {'a': 1, 'b': [1, 2], 'model': 'diva'}
     apply_dict_to_args(args, data, extend=True)
     assert args.a == 1
-    assert args.aname == 'diva'
+    assert args.model == 'diva'
 
 
 def create_agg_input_files() -> List[str]:
