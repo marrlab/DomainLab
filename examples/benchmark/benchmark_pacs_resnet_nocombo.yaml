@@ -30,7 +30,7 @@ domainlab_args:
 
 
 diva:  # name
-  aname: diva
+  model: diva
   # set nname_dom = nname when changing nname
   npath_dom: examples/nets/resnet50domainbed.py
 
@@ -63,7 +63,7 @@ diva:  # name
       reference: zy_dim
 
 hduva:  # name
-  aname: hduva
+  model: hduva
 
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
@@ -92,7 +92,7 @@ hduva:  # name
       reference: zy_dim
 
 matchdg:  # name
-  aname: matchdg
+  model: matchdg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -122,7 +122,7 @@ matchdg:  # name
       distribution: loguniform
 
 jigen:  # name
-  aname: jigen
+  model: jigen
   grid_len: 3
 
   hyperparameters:
@@ -148,7 +148,7 @@ jigen:  # name
 
 
 dann:  # name
-  aname: dann
+  model: dann
 
   hyperparameters:
     gamma_reg:
@@ -157,11 +157,11 @@ dann:  # name
       distribution: loguniform
 
 erm:  # name
-  aname: deepall
+  model: deepall
 
 
 dial: # name
-  aname: deepall_dial
+  model: deepall_dial
 
   hyperparameters:
     dial_steps_perturb:
@@ -186,7 +186,7 @@ dial: # name
       distribution: loguniform
 
 mldg:  # name
-  aname: deepallmldg
+  model: deepallmldg
 
   hyperparameters:
     gamma_reg:

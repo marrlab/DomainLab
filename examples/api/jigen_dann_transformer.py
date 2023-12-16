@@ -63,7 +63,7 @@ def test_transformer():
                              net_classifier_class=net_classifier,
                              net_classifier_permutation=nn.Linear(768, 32),
                              list_str_y=task.list_str_y,
-                             coeff_reg=1.0, nperm=31)
+                             coeff_reg=1.0, n_perm=31)
 
     model_jigen.extend(model_dann) # let Jigen decorate DANN
     model = model_jigen

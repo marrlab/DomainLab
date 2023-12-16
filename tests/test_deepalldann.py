@@ -16,7 +16,7 @@ def test_deepall():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "deepall", "--bs", "2",
                                "--nname", "conv_bn_pool_2"
                                ])
     exp = Exp(margs)
@@ -39,7 +39,7 @@ def test_deepall_res():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "deepall", "--bs", "2",
                                "--npath", f"{path}"
                                ])
     exp = Exp(margs)
@@ -62,7 +62,7 @@ def test_deepall_resdombed():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall",
+                               "--model", "deepall",
                                "--bs", "2",
                                "--npath", f"{path}"
                                ])
@@ -81,7 +81,7 @@ def test_dann():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "dann", "--bs", "2",
+                               "--model", "dann", "--bs", "2",
                                "--nname", "conv_bn_pool_2",
                                "--gamma_reg", "1.0"
                                ])
@@ -96,7 +96,7 @@ def test_dann_dial():
     """
     train DANN with DIAL
     """
-    args = "--te_d=caltech --task=mini_vlcs --aname=dann --bs=2 --nname=alexnet --gamma_reg=1.0 --trainer=dial"
+    args = "--te_d=caltech --task=mini_vlcs --model=dann --bs=2 --nname=alexnet --gamma_reg=1.0 --trainer=dial"
     utils_test_algo(args)
 
 
@@ -105,7 +105,7 @@ def test_sanity_check():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "dann", "--bs", "2",
+                               "--model", "dann", "--bs", "2",
                                "--nname", "conv_bn_pool_2",
                                "--gamma_reg", "1.0",
                                "--san_check",
