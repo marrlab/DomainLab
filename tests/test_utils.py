@@ -20,7 +20,7 @@ def test_exp_protocol_agg_writer():
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
     misc = {
-        'aname': 'diva',
+        'model': 'diva',
         'nname': 'conv_bn_pool_2',
         'nname_dom': 'conv_bn_pool_2',
         'task': 'mnistcolor10',

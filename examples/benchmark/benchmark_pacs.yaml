@@ -30,7 +30,7 @@ domainlab_args:
 
 
 Task1:  # name
-  aname: diva
+  model: diva
   # set nname_dom = nname when changing nname
   nname_dom: alexnet
 
@@ -63,7 +63,7 @@ Task1:  # name
       reference: zy_dim
 
 Task2:  # name
-  aname: hduva
+  model: hduva
 
   nname_topic_distrib_img2topic: alexnet
   nname_encoder_sandwich_layer_img2h4zd: alexnet
@@ -92,7 +92,7 @@ Task2:  # name
       reference: zy_dim
 
 Task3:  # name
-  aname: matchdg
+  model: matchdg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -122,7 +122,7 @@ Task3:  # name
       distribution: loguniform
 
 Task4:  # name
-  aname: jigen
+  model: jigen
   grid_len: 3
 
   hyperparameters:
@@ -148,7 +148,7 @@ Task4:  # name
 
 
 Task5:  # name
-  aname: dann
+  model: dann
 
   hyperparameters:
     gamma_reg:
@@ -157,11 +157,11 @@ Task5:  # name
       distribution: loguniform
 
 Task6:  # name
-  aname: deepall
+  model: deepall
 
 
 Task7: # name
-  aname: deepall_dial
+  model: deepall_dial
 
   hyperparameters:
     dial_steps_perturb:

@@ -100,7 +100,7 @@ class FlowGenImgs():
 
 def fun_gen(model, device, node, args, subfolder_na, output_folder_na="gen"):
     flow = FlowGenImgs(model, device)
-    path = os.path.join(args.out, output_folder_na, node.task_name, args.aname, subfolder_na)
+    path = os.path.join(args.out, output_folder_na, node.task_name, args.model, subfolder_na)
     flow.gen_img_loader(node.loader_te, device,
                         path=path,
                         domain="_".join(args.te_d))

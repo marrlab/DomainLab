@@ -18,8 +18,8 @@ class AlgoBuilderChainNodeGetter():
     1. Hardcoded chain
     3. Return selected node
     """
-    def __init__(self, aname, apath):
-        self.aname = aname
+    def __init__(self, model, apath):
+        self.model = aname
         self.apath = apath
 
     def register_external_node(self, chain):
@@ -47,5 +47,5 @@ class AlgoBuilderChainNodeGetter():
         chain = NodeAlgoBuilderMatchHDUVA(chain)
         chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
-        node = chain.handle(self.aname)
+        node = chain.handle(self.model)
         return node
