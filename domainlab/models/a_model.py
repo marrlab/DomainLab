@@ -112,7 +112,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return
         self.visitor.save(self, suffix)
         return
-    
+
     def load(self, suffix=None):
         """
         load model from disk
@@ -120,6 +120,15 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         if self.visitor is None:
             return None
         return self.visitor.load(suffix)
-    
+
     def set_saver(self, visitor):
         self.visitor = visitor
+
+    def dset_decoration_args_algo(self, args, ddset):
+        """
+        decorate dataset to get extra entries in load item, for instance, jigen need permutation index
+        this parent class function delegate decoration to its decoratee
+        """
+        if self._decoratee is not None:
+            return self._decoratee.dset_decoration_args_algo(args, ddset)
+        return ddset
