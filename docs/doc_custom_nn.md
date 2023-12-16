@@ -22,5 +22,5 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=deepal
 ### trainer 'matchdg' with custom neural network
 
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=deepall trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
