@@ -19,7 +19,7 @@ class AlgoBuilderChainNodeGetter():
     3. Return selected node
     """
     def __init__(self, model, apath):
-        self.model = aname
+        self.model = model
         self.apath = apath
 
     def register_external_node(self, chain):

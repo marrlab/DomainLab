@@ -311,7 +311,7 @@ def sample_task_only_shared(num_samples, task_name, sample_df, config, shared_co
                 s_dict[keys] = s_config[keys]
         if 'constraints' in config.keys():
             s_dict['constraints'] = config['constraints']
-        s_config['model'] = config['aname']
+        s_config['model'] = config['model']
         s_config['hyperparameters'] = s_dict
 
         # sample new shared hyperparameters
