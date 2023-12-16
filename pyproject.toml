@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "domainlab"
-version = "0.2.0"
+version = "0.2.1"
 description = "Library of Domain Generalization"
 authors = ["Xudong Sun <smilesun.east@gmail.com>", "Alexej Gossmann <alexej.gossmann@fda.hhs.gov>"]
 

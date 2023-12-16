@@ -17,18 +17,18 @@ As an input to the software, the user need to provide
 - task specification which contains dataset(s) from domain(s). 
 
 DomainLab decouples the following concepts or objects:
-- neural network: a map from the input data to the feature space and output.
+- neural network: a map from the input data to the feature space and output (e.g. decision variable).
 - model: structural risk in the form of $\ell() + \mu R()$  where $\ell()$ is the task specific empirical loss (e.g. cross entropy for classification task) and $R()$ is the penalty loss for inter-domain alignment (domain invariant regularization).
 - trainer:  an object that guides the data flow to model and append further domain invariant losses.
 
-DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like `Trainer A(Trainer B(Model C(Model D(network E), network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$ 
+DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. 
 
 We offer detailed documentation on how these models and trainers work in our documentation page: https://marrlab.github.io/DomainLab/
 
 ## Getting started
 
 ### Installation
-For development version in Github, see [Installation and Dependencies handling](./docs/doc_intall.md)
+For development version in Github, see [Installation and Dependencies handling](./docs/doc_install.md)
 
 We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it. 
 
@@ -43,48 +43,9 @@ See details in [Command line usage](./docs/doc_usage_cmd.md)
 
 #### or Programm against DomainLab API
 
-As a user, you need to define neural networks you want to train. As an example, here we define a transformer neural network for classification in the following code. 
-```
-from torch import nn                                                                                     
-from torchvision.models import vit_b_16                                                                  
-from torchvision.models.feature_extraction import create_feature_extractor
-
-class VIT(nn.Module):                                                                                    
-    def __init__(self, num_cls, freeze=True,                                                             
-                 list_str_last_layer=['getitem_5'],                                                      
-                 len_last_layer=768):                                                                    
-        super().__init__()                                                                               
-        self.nets = vit_b_16(pretrained=True)                                                            
-        if freeze:                                                                                                                                    
-            for param in self.nets.parameters():                                                         
-                param.requires_grad = False                                                              
-        self.features_vit_flatten = create_feature_extractor(self.nets, return_nodes=list_str_last_layer)           
-        self.fc = nn.Linear(len_last_layer, num_cls)                                                     
-                                                                                                         
-    def forward(self, tensor_x):                                                                         
-        """
-        compute logits predicts
-        """
-        x = self.features_vit_flatten(tensor_x)['getitem_5']
-        out = self.fc(x)
-        return out
-```
-Then we plug this neural network in our model:
-```
-from domainlab.mk_exp import mk_exp                                                                      
-from domainlab.tasks import get_task                                                                     
-from domainlab.models.model_deep_all import mk_deepall
-
-task = get_task("mini_vlcs")
-nn = VIT(num_cls=task.dim_y, freeze=True)
-model = mk_deepall()(nn)
-# use trainer MLDG, DIAL
-exp = mk_exp(task, model, trainer="mldg,dial",   # combine two trainers
-             test_domain="caltech", batchsize=2, nocu=True)
-exp.execute(num_epochs=2)
-```
+See example here: [Transformer as feature extractor, decorate JIGEN with DANN, training using MLDG decorated by DIAL](https://github.com/marrlab/DomainLab/blob/master/examples/api/jigen_dann_transformer.py)
 
 
 ### Benchmark different methods
 DomainLab provides a powerful benchmark functionality. 
-To benchmark several algorithms, a single line command along with a benchmark configuration files is sufficient. See details in [Benchmarks](./docs/doc_benchmark.md)
+To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in [Benchmarks](./docs/doc_benchmark.md)
