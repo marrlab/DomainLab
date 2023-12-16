@@ -32,11 +32,11 @@ domainlab_args:
   san_check: True
 
 erm:  # name
-  aname: deepall
+  model: deepall
 
 
 hduva_matchdg:  # name
-  aname: matchhduva
+  model: matchhduva
   zx_dim: 0
 
   hyperparameters:
@@ -85,7 +85,7 @@ hduva_matchdg:  # name
 
 hduva_dial:
   # Parameters that are fixed for all runs of this task.
-  aname: hduva
+  model: hduva
   trainer: dial
   npath: examples/nets/resnet50domainbed.py
   nname_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
@@ -157,7 +157,7 @@ hduva_dial:
 
 diva_dial:
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   trainer: dial
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
@@ -222,10 +222,10 @@ diva_dial:
       max: 10
       distribution: loguniform
 
-# Each node containing the aname property is considered as a task.
+# Each node containing the model property is considered as a task.
 diva_mldg:  # name
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   trainer: mldg
 
   # specification of parameters that shall vary
@@ -256,7 +256,7 @@ diva_mldg:  # name
 
 
 hduva_mldg:  # name
-  aname: hduva
+  model: hduva
   trainer: mldg
 
   hyperparameters:

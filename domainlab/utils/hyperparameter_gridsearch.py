@@ -188,9 +188,9 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
                 if not eval(constr):
                     accepted = False
             if accepted:
-                grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
+                grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]
         else:
-            grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
+            grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]
 
 def sample_grid(param_config):
     '''
@@ -307,12 +307,12 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         # add referenced params and check constraints
         add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
                                              config, task_name)
-        if grid_df[grid_df['algo'] == config['aname']].shape[0] == 0:
+        if grid_df[grid_df['algo'] == config['model']].shape[0] == 0:
             raise RuntimeError('No valid value found for this grid spacing, refine grid')
         return grid_df
     elif 'shared' in config.keys():
         shared_grid = shared_df.copy()
-        shared_grid['algo'] = config['aname']
+        shared_grid['algo'] = config['model']
         shared_grid['task'] = task_name
         if 'constraints' in config.keys():
             config['hyperparameters'] = {'constraints': config['constraints']}
@@ -320,7 +320,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         return grid_df
     else:
         # add single line if no varying hyperparameters are specified.
-        grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], {}]
+        grid_df.loc[len(grid_df.index)] = [task_name, config['model'], {}]
         return grid_df
 
 
@@ -344,13 +344,13 @@ def sample_gridsearch(config: dict,
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
 
     if 'Shared params' in config.keys():
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
         # fill up the dataframe shared samples
         shared_samples_full = grid_task(shared_samples_full, 'all', shared_val, None)
     else:
         shared_samples_full = None
     for key, val in config.items():
-        if sampling.is_dict_with_key(val, "aname"):
+        if sampling.is_dict_with_key(val, "model"):
             if shared_samples_full is not None:
                 shared_samples = shared_samples_full.copy(deep=True)
                 if 'shared' in val.keys():
@@ -373,7 +373,7 @@ def sample_gridsearch(config: dict,
 
             samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
-                        f'{samples[samples["algo"] == val["aname"]].shape[0]}')
+                        f'{samples[samples["algo"] == val["model"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')

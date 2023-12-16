@@ -14,7 +14,7 @@ def test_deepall():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "deepall", "--bs", "2",
                                "--nname", "conv_bn_pool_2"
                                ])
     exp = Exp(margs)
@@ -33,7 +33,7 @@ def test_deepall_trloss():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "deepall", "--bs", "2",
                                "--nname", "conv_bn_pool_2",
                                "--msel", "loss_tr"
                                ])

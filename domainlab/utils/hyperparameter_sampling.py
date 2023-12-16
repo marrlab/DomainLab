@@ -278,7 +278,7 @@ def create_samples_from_shared_samples(shared_samples: pd.DataFrame,
     task_name: name of the current task
     '''
     shared_samp = shared_samples.copy()
-    shared_samp['algo'] = config['aname']
+    shared_samp['algo'] = config['model']
     shared_samp['task'] = task_name
     # respect the constraints if specified in the task
     if 'constraints' in config.keys():
@@ -311,7 +311,7 @@ def sample_task_only_shared(num_samples, task_name, sample_df, config, shared_co
                 s_dict[keys] = s_config[keys]
         if 'constraints' in config.keys():
             s_dict['constraints'] = config['constraints']
-        s_config['aname'] = config['aname']
+        s_config['model'] = config['model']
         s_config['hyperparameters'] = s_dict
 
         # sample new shared hyperparameters
@@ -346,13 +346,13 @@ def sample_task(num_samples: int,
         constraints = config['hyperparameters'].get('constraints', None)
         for _ in range(num_samples):
             sample = sample_parameters(params, constraints, shared_config, shared_samples)
-            sample_df.loc[len(sample_df.index)] = [task_name, config['aname'], sample]
+            sample_df.loc[len(sample_df.index)] = [task_name, config['model'], sample]
     elif 'shared' in config.keys():
         sample_df = sample_task_only_shared(num_samples, task_name, sample_df,
                                             config, (shared_config, shared_samples))
     else:
         # add single line if no varying hyperparameters are specified.
-        sample_df.loc[len(sample_df.index)] = [task_name, config['aname'], {}]
+        sample_df.loc[len(sample_df.index)] = [task_name, config['model'], {}]
     return sample_df
 
 
@@ -416,14 +416,14 @@ def sample_hyperparameters(config: dict,
     if 'Shared params' in config.keys():
         shared_config_full = config['Shared params']
         shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
         # fill up the dataframe shared samples
         shared_samples_full = sample_task(shared_config_full['num_shared_param_samples'],
                                           'all', (shared_val, shared_samples_full), (None, None))
     else:
         shared_samples_full = None
     for key, val in config.items():
-        if is_dict_with_key(val, "aname"):
+        if is_dict_with_key(val, "model"):
             if shared_samples_full is not None:
                 shared_samples, shared_config = get_shared_samples(
                     shared_samples_full, shared_config_full, val)

@@ -34,10 +34,10 @@ domainlab_args:
   epos: 2
   bs: 2
 
-# Each node containing the aname property is considered as a task.
+# Each node containing the model property is considered as a task.
 diva:  # name
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
   # specification of parameters that shall vary
@@ -68,5 +68,5 @@ diva:  # name
 
 
 deep_all:
-  aname: deepall
+  model: deepall
   nname: conv_bn_pool_2
