@@ -56,4 +56,5 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
 
         observer = ObVisitorCleanUp(observer)
         trainer = self.get_trainer(args)
+        model = self.init_next_model(model, exp)
         return trainer, model, observer, device

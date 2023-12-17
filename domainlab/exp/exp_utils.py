@@ -36,7 +36,7 @@ class ExpModelPersistVisitor():
         self.git_tag = get_git_tag()
         self.task_name = self.host.task.get_na(self.host.args.tr_d,
                                                self.host.args.te_d)
-        self.algo_name = self.host.args.aname
+        self.algo_name = self.host.args.model
         self.seed = self.host.args.seed
         self.model_name = self.mk_model_na(self.git_tag)
         self.model_path = os.path.join(self.model_dir,

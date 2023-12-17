@@ -65,13 +65,9 @@ def test_transformer():
                              list_str_y=task.list_str_y,
                              coeff_reg=1.0, n_perm=31)
 
-    model_jigen.extend(model_dann) # let Jigen decorate DANN
-    model = model_jigen
+    model_dann.extend(model_jigen) # let Jigen decorate DANN
+    model = model_dann
     # make trainer for model, here we decorate trainer mldg with dial
     exp = mk_exp(task, model, trainer="mldg,dial",
                  test_domain="caltech", batchsize=2, nocu=True)
     exp.execute(num_epochs=2)
-
-
-if __name__ == '__main__':
-    test_transformer()

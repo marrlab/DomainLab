@@ -32,7 +32,7 @@ domainlab_args:
 
 
 diva:  # name
-  aname: diva
+  model: diva
   # set nname_dom = nname when changing nname
   nname_dom: conv_bn_pool_2
 
@@ -65,4 +65,4 @@ diva:  # name
       reference: zy_dim
 
 erm:  # name
-  aname: deepall
+  model: deepall
