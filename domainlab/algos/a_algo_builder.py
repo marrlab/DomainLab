@@ -37,3 +37,15 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         """
         combine model, trainer, observer, task
         """
+
+    def extend(self, node):
+        self.next_model = node
+
+    def init_next_model(self, model, exp):
+        """
+        initialize the next model and decorate with current model
+        """
+        if self.next_model is not None:
+            _, next_model, *_ = self.next_model.init_business(exp)
+            model.extend(next_model)
+        return model
