@@ -6,8 +6,6 @@ from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
-from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
-from domainlab.algos.builder_match_hduva import NodeAlgoBuilderMatchHDUVA
 from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
 
 from domainlab.utils.u_import import import_path
@@ -43,8 +41,6 @@ class AlgoBuilderChainNodeGetter():
         chain = NodeAlgoBuilderDANN(chain)
         chain = NodeAlgoBuilderJiGen(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
-        chain = NodeAlgoBuilderMatchDG(chain)
-        chain = NodeAlgoBuilderMatchHDUVA(chain)
         chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
         node = chain.handle(self.model)

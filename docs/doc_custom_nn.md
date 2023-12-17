@@ -13,14 +13,14 @@ See examples below from `--npath=examples/nets/resnet.py` where the examples can
 
 <https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py>
 
-### algorithm 'deepall' with custom neural network
+### model 'deepall' with custom neural network
 
 ```shell
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=deepall --npath=examples/nets/resnet.py
 ```
 
-### algorithm 'matchdg' with custom neural network
+### trainer 'matchdg' with custom neural network
 
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
