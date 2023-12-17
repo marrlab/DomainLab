@@ -34,7 +34,7 @@ Shared params:
 
 
 jigen:  # name
-  aname: jigen
+  model: jigen
   shared:
     - gamma_reg
 
@@ -49,4 +49,4 @@ jigen:  # name
 
 
 erm:
-  aname: deepall
+  model: deepall

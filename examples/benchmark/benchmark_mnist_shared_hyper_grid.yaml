@@ -41,7 +41,7 @@ domainlab_args:
 
 
 method_diva:  # name
-  aname: diva
+  model: diva
   zx_dim: 0
   zd_dim: 32
   shared:
@@ -59,7 +59,7 @@ method_diva:  # name
       num: 2
 
 method_hduva:  # name
-  aname: hduva
+  model: hduva
 
   nname_topic_distrib_img2topic: conv_bn_pool_2
   nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
@@ -69,6 +69,6 @@ method_hduva:  # name
   zd_dim: 32
 
 erm:
-  aname: deepall
+  model: deepall
   shared:
     - lr

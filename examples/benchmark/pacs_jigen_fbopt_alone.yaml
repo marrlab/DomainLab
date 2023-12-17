@@ -72,7 +72,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 jigen_feedback:
-  aname: jigen
+  model: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
   coeff_ma: 0.5
@@ -82,4 +82,4 @@ jigen_feedback:
     - pperm
 
 erm:
-  aname: deepall
+  model: deepall

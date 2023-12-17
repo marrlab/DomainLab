@@ -49,13 +49,13 @@ For our test we like to compare diva and deepall, this was done using the follow
 ### deepall (Emperical Risk Minimization)
 
 ```shell
-python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=deepall --nname=conv_bn_pool_2 --lr=1e-3 --seed=0 --san_check --san_num=8
+python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --model=deepall --nname=conv_bn_pool_2 --lr=1e-3 --seed=0 --san_check --san_num=8
 ```
 
 ### diva 
 
 ```shell
-python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --aname=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --lr=1e-3 --seed=0 --gamma_y=1e5 --gamma_d=1e5 --san_check --san_num=8
+python main_out.py --te_d 1 2 --tr_d 0 3 --task=mnistcolor10 --epos=500 --bs=16 --model=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --lr=1e-3 --seed=0 --gamma_y=1e5 --gamma_d=1e5 --san_check --san_num=8
 ```
 
 ### Results
@@ -74,7 +74,7 @@ For both algorithms the early stop criterion ended the training. The performance
 - `--task=mnistcolor10` points the program to a task description containing all information about how and where to the training and testing data is saved as well as about transformations which should be done before training. More about this can be found in *doc_task.md*.
 - `--epos=500` sets the maximal number of epos to 500. This value is set sufficiently high such that the training terminates, by using the early stopping criterion, to ensure full convergence for both algorithms.
 - `--bs=16` sets the batch size t0 16
-- `--aname=...` specifies the algorithm, in our case `deepall` and `diva`.
+- `--model=...` specifies the algorithm, in our case `deepall` and `diva`.
 - `--nname=conv_bn_pool_2` specifies which network structure should be used as an underlying basis for the algorithms. `conv_bn_pool_2` is is already implemented into Domainlab, its structure is given by
 ```
 nn.Sequential(

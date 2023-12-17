@@ -63,7 +63,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 jigen_fbopt:
-  aname: jigen
+  model: jigen
   trainer: fbopt
 
   shared:

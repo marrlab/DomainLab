@@ -97,7 +97,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small 
 
 diva_fbopt_full:
-  aname: diva
+  model: diva
   trainer: fbopt
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99

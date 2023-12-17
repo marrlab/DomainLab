@@ -34,4 +34,4 @@ class RequestArgs2ExpCmd():
         self.args = args
 
     def __call__(self):
-        return self.args.aname
+        return self.args.model

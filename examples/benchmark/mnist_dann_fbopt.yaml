@@ -51,7 +51,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 dann_fbopt:
-  aname: dann
+  model: dann
   trainer: fbopt
   ini_setpoint_ratio: 0.9
   shared:
@@ -59,4 +59,4 @@ dann_fbopt:
     - mu_init
 
 erm:
-  aname: deepall
+  model: deepall

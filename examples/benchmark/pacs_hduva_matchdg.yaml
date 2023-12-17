@@ -105,7 +105,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small 
 
 match_duva:
-  aname: matchhduva
+  model: matchhduva
   epochs_ctr: 10
   shared:
     - gamma_y

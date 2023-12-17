@@ -81,7 +81,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 jigen_feedback:
-  aname: jigen
+  model: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
   mu_init: 1e-6

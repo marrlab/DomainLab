@@ -83,7 +83,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 diva_fbopt_a:
-  aname: diva
+  model: diva
   trainer: fbopt
   str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
@@ -95,7 +95,7 @@ diva_fbopt_a:
     - mu_clip
 
 diva_feedforward_a:
-  aname: diva
+  model: diva
   trainer: hyperscheduler
   str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
@@ -103,7 +103,7 @@ diva_feedforward_a:
     - gamma_d
 
 diva_default:
-  aname: diva
+  model: diva
   trainer: hyperscheduler
   str_diva_multiplier_type: default
   shared:
@@ -111,7 +111,7 @@ diva_default:
     - gamma_y
 
 diva_fixed_penalty:
-  aname: diva
+  model: diva
   trainer: basic
   str_diva_multiplier_type: default
   shared:
@@ -119,4 +119,4 @@ diva_fixed_penalty:
     - gamma_y
 
 erm:
-  aname: deepall
+  model: deepall

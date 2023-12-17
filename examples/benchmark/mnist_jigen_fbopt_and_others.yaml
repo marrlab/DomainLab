@@ -56,7 +56,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 jigen_feedback:
-  aname: jigen
+  model: jigen
   trainer: fbopt
   ini_setpoint_ratio: 0.99
   mu_init: 1e-6
@@ -65,16 +65,16 @@ jigen_feedback:
     - mu_clip
     
 jigen_feedforward:
-  aname: jigen
+  model: jigen
   trainer: hyperscheduler
   shared:
     - gamma_reg
 
 jigen_fixed_penalty:
-  aname: jigen
+  model: jigen
   trainer: basic
   shared:
     - gamma_reg
 
 erm:
-  aname: deepall
+  model: deepall

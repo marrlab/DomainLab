@@ -153,7 +153,7 @@ def mk_parser_main():
     parser.add_argument('--msel_tr_loss', choices=['reg', 'task'], default="task",
                         help='model selection for tr loss')
 
-    parser.add_argument('--aname', metavar="an", type=str,
+    parser.add_argument('--model', metavar="an", type=str,
                         default=None,
                         help='algorithm name')
 

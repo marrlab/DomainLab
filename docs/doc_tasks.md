@@ -10,7 +10,7 @@ The most straightforward way to specify a domain generalization task is, if you 
 
 To train a ERM (Emperical Risk Minimization) network on this task:
 ```shell
-python main_out.py --te_d domain1 --tr_d domain2 domain3 --tpath=examples/tasks/task_dset_custom.py --bs=32 --aname=deepall --nname=conv_bn_pool_2
+python main_out.py --te_d domain1 --tr_d domain2 domain3 --tpath=examples/tasks/task_dset_custom.py --bs=32 --model=deepall --nname=conv_bn_pool_2
 ```
 here in the example, 3 domains are defined to be named "domain1", "domain2", "domain3", `--tpath` specifies where the python file specifying the task is stored, `--bs=32` use 32 as batchsize, `deepall` is our nickname for ERM, `--nname` specifies a hard coded neural network in DomainLab, to use custom neural network, see related documentation.
 
@@ -21,7 +21,7 @@ An example python file can be found in the [examples directory of the repository
 The user should specify the location of the python file via command line arguments `--tpath`
 
 ```shell
-python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --aname=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --model=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
 ```
 
 ## Possibility 3: TaskFolder

@@ -45,7 +45,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 dann_fbopt:
-  aname: dann
+  model: dann
   trainer: fbopt
   shared:
     - ini_setpoint_ratio

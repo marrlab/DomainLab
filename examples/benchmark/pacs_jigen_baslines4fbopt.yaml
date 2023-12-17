@@ -57,18 +57,18 @@ Shared params:
 
     
 jigen_feedforward:
-  aname: jigen
+  model: jigen
   trainer: hyperscheduler
   shared:
     - gamma_reg
     - pperm
 
 jigen_fixed_penalty:
-  aname: jigen
+  model: jigen
   trainer: basic
   shared:
     - gamma_reg
     - pperm
 
 erm:
-  aname: deepall
+  model: deepall

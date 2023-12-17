@@ -34,7 +34,7 @@ def make_basic_trainer(class_name_model):
 
             python main_out.py –te_d=caltech –task=mini_vlcs –debug –bs=3
             –apath=examples/algos/demo_custom_model.py
-            –aname=custom –nname_argna2val net1 –nname_argna2val alexnet
+            –model=custom –nname_argna2val net1 –nname_argna2val alexnet
 
             :param args: the namespace of command line arguemnts
             :param val_arg_na: the custom argument name the user specified
@@ -65,7 +65,7 @@ def make_basic_trainer(class_name_model):
             {"net1":"name1", "net2":"name2"}
             python main_out.py –te_d=caltech –task=mini_vlcs –debug –bs=3
             –apath=examples/algos/demo_custom_model.py
-            –aname=custom –nname_argna2val net1 –nname_argna2val alexnet
+            –model=custom –nname_argna2val net1 –nname_argna2val alexnet
             """
             for key_module_na, val_arg_na in \
                     model.dict_net_module_na2arg_na.items():

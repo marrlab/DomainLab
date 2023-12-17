@@ -77,7 +77,7 @@ Shared params:
 # Test fbopt with different hyperparameter configurations
 
 diva_fbopt_a:
-  aname: diva
+  model: diva
   trainer: fbopt
   str_diva_multiplier_type: gammad_recon
   gamma_y: 1.0
@@ -89,4 +89,4 @@ diva_fbopt_a:
     - mu_clip
 
 erm:
-  aname: deepall
+  model: deepall
