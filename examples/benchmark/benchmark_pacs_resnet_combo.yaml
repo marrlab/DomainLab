@@ -32,7 +32,7 @@ domainlab_args:
   san_check: True
 
 erm:  # name
-  model: deepall
+  model: erm
 
 
 hduva_matchdg:  # name

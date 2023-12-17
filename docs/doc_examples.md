@@ -18,7 +18,7 @@ python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --model=diva --nname
 ```
 ### sanity check on only 2 train domains and 2 test domain2
 ```shell
-python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --debug --bs=2 --model=deepall --nname=conv_bn_pool_2 --san_check --san_num=4
+python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --debug --bs=2 --model=erm --nname=conv_bn_pool_2 --san_check --san_num=4
 ```
 
 ### generation of images
@@ -49,9 +49,9 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=diva -
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=diva --npath=examples/nets/resnet.py --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
 ```
 
-### model deepall with implemented neural network
+### model erm with implemented neural network
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=deepall --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=erm --nname=alexnet
 ```
 
 ### model dann with implemented neural network
@@ -72,12 +72,12 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 
 ### training implemented neural network with matchdg
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
 ```
 
 ### trainer matchdg with mnist
 ```shell
- python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=deepall --trainer=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
+ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=erm --trainer=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
 ```
 
 ### hduva with implemented neural network
@@ -93,14 +93,14 @@ python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=
 
 ## Custom Neural Network
 
-### model deepall with custom neural network
+### model erm with custom neural network
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=deepall --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=erm --npath=examples/nets/resnet.py
 ```
 
 ### trainer matchdg with custom neural network
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --model=deepall --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
+python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --model=erm --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
 
 
@@ -161,7 +161,7 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=exampl
 
 ## Adversarial images training
 ```shell
-python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --model=deepall --trainer=dial --nname=conv_bn_pool_2
+python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --model=erm --trainer=dial --nname=conv_bn_pool_2
 ```
 ### Train DIVA model with DIAL trainer
 
@@ -175,5 +175,5 @@ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=diva --nn
 
 ## Meta Learning Domain Generalization
 ```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=deepall --trainer=mldg --nname=alexnet
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=erm --trainer=mldg --nname=alexnet
 ```

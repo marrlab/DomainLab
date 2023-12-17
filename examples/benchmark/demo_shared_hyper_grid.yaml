@@ -69,6 +69,6 @@ method_hduva:  # name
   zd_dim: 32
 
 erm:
-  model: deepall
+  model: erm
   shared:
     - lr

@@ -53,7 +53,7 @@ def test_no_network_exeption():
     '''
     parser = mk_parser_main()
     argsstr = "--te_d=caltech --task=mini_vlcs --debug \
-              --bs=8 --model=deepall --npath=tests/this_is_not_a_network.py"
+              --bs=8 --model=erm --npath=tests/this_is_not_a_network.py"
     margs = parser.parse_args(argsstr.split())
     with pytest.raises(RuntimeError, match='the pytorch module returned by'):
         Exp(margs)

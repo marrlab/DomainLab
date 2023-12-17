@@ -88,11 +88,11 @@ hduva:  # name
 
 
 deep_all:
-  model: deepall
+  model: erm
   nname: alexnet
 
 # set constant hyper-parameters
 mldg:
-    model: deepallmldg
+    model: ermmldg
     nname: alexnet
     gamma_reg: 0.03

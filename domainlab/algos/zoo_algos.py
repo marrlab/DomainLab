@@ -3,7 +3,7 @@ chain of responsibility pattern for algorithm selection
 """
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
 from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
-from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
+from domainlab.algos.builder_erm import NodeAlgoBuilderDeepAll
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel

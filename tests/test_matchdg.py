@@ -9,7 +9,7 @@ def test_trainer_matchdg():
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
                                "--trainer", "matchdg", "--bs", "2",
-                               "--model", "deepall", 
+                               "--model", "erm", 
                                "--nname", "conv_bn_pool_2",
                                "--epochs_ctr", "1",
                                "--epos", "3"])
