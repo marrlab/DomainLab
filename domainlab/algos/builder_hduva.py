@@ -41,6 +41,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
                            beta_x=args.beta_x,
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
+        model = self.init_next_model(model, exp)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitorCleanUp(
             ObVisitor(model_sel))
