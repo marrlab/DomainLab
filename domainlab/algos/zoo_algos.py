@@ -19,6 +19,11 @@ class AlgoBuilderChainNodeGetter():
     def __init__(self, model, apath):
         self.model = model
         self.apath = apath
+        # 
+        self._list_str_model = model.split(',')
+        self.model = self._list_str_model.pop(0)
+
+
 
     def register_external_node(self, chain):
         """
@@ -44,4 +49,10 @@ class AlgoBuilderChainNodeGetter():
         chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
         node = chain.handle(self.model)
+        head = node
+        while self._list_str_model:
+            self.model = self._list_str_model.pop(0)
+            node2decorate = self.__call__()
+            head.extend(node2decorate)
+            head = node2decorate
         return node
