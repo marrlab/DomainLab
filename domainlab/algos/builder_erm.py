@@ -11,7 +11,7 @@ from domainlab.models.model_deep_all import mk_erm
 from domainlab.utils.utils_cuda import get_device
 
 
-class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
+class NodeAlgoBuilderERM(NodeAlgoBuilder):
     """
     builder for erm
     """
