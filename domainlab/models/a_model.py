@@ -104,6 +104,18 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
 
+    @abc.abstractmethod
+    def extract_semantic_feat(self, tensor_x):
+        """
+        extract semantic feature (not domain feature)
+        """
+
+    def reset_feature_extractor(self, module):
+        """
+        for two models to share the same neural network, the feature extractor has to be reset
+        for classification, both feature extractor and classifier has to be reset
+        """
+
     def save(self, suffix=None):
         """
         persist model to disk
