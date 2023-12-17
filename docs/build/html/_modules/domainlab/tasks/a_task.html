@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.tasks.a_task &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -302,7 +300,9 @@ from domainlab.tasks.task_utils import parse_domain_id
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="NodeTaskDG"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG">[docs]</a>class NodeTaskDG(AbstractChainNodeHandler):
+<div class="viewcode-block" id="NodeTaskDG">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG">[docs]</a>
+class NodeTaskDG(AbstractChainNodeHandler):
     """
     Domain Generalization Classification Task
     """
@@ -334,29 +334,41 @@ from domainlab.utils.logger import Logger
         self.dict_class_label_ind2name = None
         self.conf_without_args()  # configuration without init_business
 
-<div class="viewcode-block" id="NodeTaskDG.conf_without_args"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.conf_without_args">[docs]</a>    def conf_without_args(self):
+<div class="viewcode-block" id="NodeTaskDG.conf_without_args">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.conf_without_args">[docs]</a>
+    def conf_without_args(self):
         """
         configuration without init_business
         """</div>
 
-<div class="viewcode-block" id="NodeTaskDG.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.init_business">[docs]</a>    @abstractmethod
+
+<div class="viewcode-block" id="NodeTaskDG.init_business">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.init_business">[docs]</a>
+    @abstractmethod
     def init_business(self, args, trainer=None):
         """
         construct task data loader
         """</div>
 
-<div class="viewcode-block" id="NodeTaskDG.get_list_domains"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains">[docs]</a>    def get_list_domains(self):
+
+<div class="viewcode-block" id="NodeTaskDG.get_list_domains">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains">[docs]</a>
+    def get_list_domains(self):
         """
         1. get list of domain names
         2. better use method than property so new domains can be added
         """
         return self._list_domains</div>
 
-<div class="viewcode-block" id="NodeTaskDG.set_list_domains"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.set_list_domains">[docs]</a>    def set_list_domains(self, list_domains):
+
+<div class="viewcode-block" id="NodeTaskDG.set_list_domains">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.set_list_domains">[docs]</a>
+    def set_list_domains(self, list_domains):
         """
         setter for self._list_domains
         """
         self._list_domains = list_domains</div>
+
 
     @property
     def isize(self):
@@ -404,7 +416,9 @@ from domainlab.utils.logger import Logger
         # @FIXME: hardcoded position:NodeTaskXXX
         return type(self).__name__[8:].lower()
 
-<div class="viewcode-block" id="NodeTaskDG.get_na"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_na">[docs]</a>    def get_na(self, na_tr, na_te):
+<div class="viewcode-block" id="NodeTaskDG.get_na">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_na">[docs]</a>
+    def get_na(self, na_tr, na_te):
         """
         task name appended with configurations
         :param na_tr: training domain names
@@ -415,13 +429,19 @@ from domainlab.utils.logger import Logger
         # train domain names are too long
         return "_".join([self.task_name, "te", str_te])</div>
 
-<div class="viewcode-block" id="NodeTaskDG.is_myjob"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.is_myjob">[docs]</a>    def is_myjob(self, request):
+
+<div class="viewcode-block" id="NodeTaskDG.is_myjob">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.is_myjob">[docs]</a>
+    def is_myjob(self, request):
         """
         :param request: string
         """
         return request == self.task_name</div>
 
-<div class="viewcode-block" id="NodeTaskDG.get_list_domains_tr_te"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains_tr_te">[docs]</a>    def get_list_domains_tr_te(self, tr_id, te_id):
+
+<div class="viewcode-block" id="NodeTaskDG.get_list_domains_tr_te">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains_tr_te">[docs]</a>
+    def get_list_domains_tr_te(self, tr_id, te_id):
         """
         For static DG task, get train and test domains list.
 
@@ -463,6 +483,7 @@ from domainlab.utils.logger import Logger
         self._list_domain_tr = list_domain_tr
         return list_domain_tr, list_domain_te</div>
 
+
     def __str__(self):
         """
         print the attribute of the task
@@ -471,6 +492,7 @@ from domainlab.utils.logger import Logger
         strout += str(self.get_list_domains())
         strout += (f"\n input tensor size: {self.isize}")
         return strout</div>
+
 </pre></div>
 
           </article>
@@ -495,7 +517,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

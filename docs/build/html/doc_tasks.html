@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,12 +49,11 @@
   
   
     <title>Task Specification &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -308,33 +306,33 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="task-specification">
-<h1 id="doc-tasks--page-root">Task Specification<a class="headerlink" href="#doc-tasks--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-tasks--page-root">Task Specification<a class="headerlink" href="#doc-tasks--page-root" title="Link to this heading">¶</a></h1>
 <p>The package offers various ways to specify a domain generalization task (where to find the data, which domain to use as training, which to test) according to user’s need.</p>
 <p>For all thress ways covered below, the user has to prepare a python file to feed via argument <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> (means task path) into DomainLab.  We provide example python files in our repository <a class="reference external" href="https://github.com/marrlab/DomainLab/tree/master/examples/tasks">see all examples here for specifying domain generalization task</a> so that the user could follow the example to create their own domain generalization task specification.  We provide inline comment to explain what each line is doing, as well as below in this documentation.</p>
 <section id="possibility-1-specify-train-and-test-domain-dataset-directly">
-<h2 id="possibility-1-specify-train-and-test-domain-dataset-directly">Possibility 1: Specify train and test domain dataset directly<a class="headerlink" href="#possibility-1-specify-train-and-test-domain-dataset-directly" title="Permalink to this headline">¶</a></h2>
+<h2 id="possibility-1-specify-train-and-test-domain-dataset-directly">Possibility 1: Specify train and test domain dataset directly<a class="headerlink" href="#possibility-1-specify-train-and-test-domain-dataset-directly" title="Link to this heading">¶</a></h2>
 <p>The most straightforward way to specify a domain generalization task is, if you have already a <a class="reference external" href="https://pytorch.org/tutorials/beginner/basics/data_tutorial.html">PyTorch Dataset</a> class for each domain: you could define a dictionary with the key being name for domain, and the value being the PyTorch Dataset you created corresponding to that domain (train and validation or only training)
 <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py">See an example python file here</a></p>
 <p>To train a ERM (Emperical Risk Minimization) network on this task:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span>domain1<span class="w"> </span>--tr_d<span class="w"> </span>domain2<span class="w"> </span>domain3<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_dset_custom.py<span class="w"> </span>--bs<span class="o">=</span><span class="m">32</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span>domain1<span class="w"> </span>--tr_d<span class="w"> </span>domain2<span class="w"> </span>domain3<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_dset_custom.py<span class="w"> </span>--bs<span class="o">=</span><span class="m">32</span><span class="w"> </span>--model<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 <p>here in the example, 3 domains are defined to be named “domain1”, “domain2”, “domain3”, <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies where the python file specifying the task is stored, <code class="docutils literal notranslate"><span class="pre">--bs=32</span></code> use 32 as batchsize, <code class="docutils literal notranslate"><span class="pre">deepall</span></code> is our nickname for ERM, <code class="docutils literal notranslate"><span class="pre">--nname</span></code> specifies a hard coded neural network in DomainLab, to use custom neural network, see related documentation.</p>
 </section>
 <section id="possibility-2-taskpathlist">
-<h2 id="possibility-2-taskpathlist">Possibility 2: TaskPathList<a class="headerlink" href="#possibility-2-taskpathlist" title="Permalink to this headline">¶</a></h2>
+<h2 id="possibility-2-taskpathlist">Possibility 2: TaskPathList<a class="headerlink" href="#possibility-2-taskpathlist" title="Link to this heading">¶</a></h2>
 <p>The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.</p>
 <p>An example python file can be found in the <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/tasks/demo_task_path_list_small.py">examples directory of the repository</a> with the corresponding data be found at <a class="reference external" href="https://github.com/marrlab/DomainLab/tree/master/data">the data directory of the repository</a>, where the text file indicating which file correspond to which class label (starting from 1) can be found at <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/data/pacs_split/art_painting_10.txt">example text file</a>.
 The user should specify the location of the python file via command line arguments <code class="docutils literal notranslate"><span class="pre">--tpath</span></code></p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="possibility-3-taskfolder">
-<h2 id="possibility-3-taskfolder">Possibility 3: TaskFolder<a class="headerlink" href="#possibility-3-taskfolder" title="Permalink to this headline">¶</a></h2>
+<h2 id="possibility-3-taskfolder">Possibility 3: TaskFolder<a class="headerlink" href="#possibility-3-taskfolder" title="Link to this heading">¶</a></h2>
 <p>In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.</p>
 <section id="data-organization">
-<h3 id="data-organization">Data organization<a class="headerlink" href="#data-organization" title="Permalink to this headline">¶</a></h3>
+<h3 id="data-organization">Data organization<a class="headerlink" href="#data-organization" title="Link to this heading">¶</a></h3>
 <p>To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name “folder_a”, “folder_b” and “folder_c” respectively as shown below.</p>
 <p>In each folder, the images are organized in sub-folders by their class. For example, “/path/to/3rd_domain/folder_c/dog” folder contains all the images of class “dog” from the 3rd domain.</p>
 <p>It might be the case that across the different data sources the same class is named differently. For example, in the 1st data source, the class dog is stored in sub-folder named
@@ -369,7 +367,7 @@ The user should specify the location of the python file via command line argumen
 </div>
 </section>
 <section id="specify-the-task-with-domainlab-api">
-<h3 id="specify-the-task-with-domainlab-api">Specify the task with domainlab API<a class="headerlink" href="#specify-the-task-with-domainlab-api" title="Permalink to this headline">¶</a></h3>
+<h3 id="specify-the-task-with-domainlab-api">Specify the task with domainlab API<a class="headerlink" href="#specify-the-task-with-domainlab-api" title="Link to this heading">¶</a></h3>
 <p>The user is expected to implement something similar to the following code in a separate python file with a function with signature <code class="docutils literal notranslate"><span class="pre">get_task(na=None)</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
@@ -471,7 +469,7 @@ as the absolute path to each domain’s data.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

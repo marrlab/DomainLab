@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,12 +49,11 @@
   
   
     <title>colored MNIST classification &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -310,10 +308,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="colored-mnist-classification">
-<h1 id="doc-mnist-classification--page-root">colored MNIST classification<a class="headerlink" href="#doc-mnist-classification--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-mnist-classification--page-root">colored MNIST classification<a class="headerlink" href="#doc-mnist-classification--page-root" title="Link to this heading">¶</a></h1>
 <p>We include in the DomainLab package colored verion of MNIST where the color corresponds to the domain and digit corresponds to the semantic concept that we want to classify.</p>
 <section id="colored-mnist-dataset">
-<h2 id="colored-mnist-dataset">colored MNIST dataset<a class="headerlink" href="#colored-mnist-dataset" title="Permalink to this headline">¶</a></h2>
+<h2 id="colored-mnist-dataset">colored MNIST dataset<a class="headerlink" href="#colored-mnist-dataset" title="Link to this heading">¶</a></h2>
 <p>We provide 10 different colored version of the MNIST dataset with numbers 0 to 9 as 10 different domains. The digit and background are colored differently, thus a domain correspond to a 2-color combination.
 An extraction of digit 0 to 9 from domain 0 is shown in Figure 1.</p>
 <div style="align: center; text-align:center;">
@@ -349,23 +347,23 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
 <br/>
 </section>
 <section id="domain-generalisation-on-colored-mnist">
-<h2 id="domain-generalisation-on-colored-mnist">domain generalisation on colored MNIST<a class="headerlink" href="#domain-generalisation-on-colored-mnist" title="Permalink to this headline">¶</a></h2>
+<h2 id="domain-generalisation-on-colored-mnist">domain generalisation on colored MNIST<a class="headerlink" href="#domain-generalisation-on-colored-mnist" title="Link to this heading">¶</a></h2>
 <p>A particular hard task for domain generalization is, if only a few training domains are available and the test domain differs a lot from the train domains. Here we use domain 0 and 3, from Figure 2, for the training, while choosing  domain 1 and 2 for testing as the colors appearing here are far different from the ones used in training.</p>
 <p>For our test we like to compare diva and deepall, this was done using the following command prompts:</p>
 <section id="deepall-emperical-risk-minimization">
-<h3 id="deepall-emperical-risk-minimization">deepall (Emperical Risk Minimization)<a class="headerlink" href="#deepall-emperical-risk-minimization" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
+<h3 id="deepall-emperical-risk-minimization">deepall (Emperical Risk Minimization)<a class="headerlink" href="#deepall-emperical-risk-minimization" title="Link to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--model<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
 </pre></div>
 </div>
 </section>
 <section id="diva">
-<h3 id="diva">diva<a class="headerlink" href="#diva" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--gamma_y<span class="o">=</span>1e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
+<h3 id="diva">diva<a class="headerlink" href="#diva" title="Link to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--gamma_y<span class="o">=</span>1e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
 </pre></div>
 </div>
 </section>
 <section id="results">
-<h3 id="results">Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h3>
+<h3 id="results">Results<a class="headerlink" href="#results" title="Link to this heading">¶</a></h3>
 <p>For both algorithms the early stop criterion ended the training. The performance of the trained models on the test domains are summarized in the following table:</p>
 <table>
 <thead>
@@ -402,14 +400,14 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
 </table>
 </section>
 <section id="detailed-prompt-explanation">
-<h3 id="detailed-prompt-explanation">Detailed prompt explanation<a class="headerlink" href="#detailed-prompt-explanation" title="Permalink to this headline">¶</a></h3>
+<h3 id="detailed-prompt-explanation">Detailed prompt explanation<a class="headerlink" href="#detailed-prompt-explanation" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">--te_d</span> <span class="pre">1</span> <span class="pre">2</span></code> sets the test domain to domain 1 and 2</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--tr_d</span> <span class="pre">0</span> <span class="pre">3</span></code> sets the train domain to domain 0 and 3</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--task=mnistcolor10</span></code> points the program to a task description containing all information about how and where to the training and testing data is saved as well as about transformations which should be done before training. More about this can be found in <em>doc_task.md</em>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--epos=500</span></code> sets the maximal number of epos to 500. This value is set sufficiently high such that the training terminates, by using the early stopping criterion, to ensure full convergence for both algorithms.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--bs=16</span></code> sets the batch size t0 16</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--aname=...</span></code> specifies the algorithm, in our case <code class="docutils literal notranslate"><span class="pre">deepall</span></code> and <code class="docutils literal notranslate"><span class="pre">diva</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--model=...</span></code> specifies the algorithm, in our case <code class="docutils literal notranslate"><span class="pre">deepall</span></code> and <code class="docutils literal notranslate"><span class="pre">diva</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--nname=conv_bn_pool_2</span></code> specifies which network structure should be used as an underlying basis for the algorithms. <code class="docutils literal notranslate"><span class="pre">conv_bn_pool_2</span></code> is is already implemented into Domainlab, its structure is given by</p></li>
 </ul>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>nn.Sequential(
@@ -458,7 +456,7 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

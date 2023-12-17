@@ -3,7 +3,7 @@ The user can create different custom experiments, which are to be benchmarked. E
 experiment can have a custom name.
 
 An experiment can specify following arguments:
-- `aname`: name of the model. An experiment with an incorrect `aname` is not considered in the
+- `model`: name of the model. An experiment with an incorrect `model` is not considered in the
 benchmark (mandatory)
 - `hyperparameters`: model-specific hyperparameters (for more details on the hyperparameters we
 refer to the model-specific documentation). The hyperparameters can be randomly sampled, see

@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,12 +49,11 @@
   
   
     <title>domainlab.compos.pcr package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -298,11 +296,65 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.pcr.p_chain_handler" class="md-nav__link">domainlab.compos.pcr.p_chain_handler module</a>
+        <li class="md-nav__item"><a href="#domainlab-compos-pcr-p-chain-handler-module" class="md-nav__link">domainlab.compos.pcr.p_chain_handler module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.handle" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractChainNodeHandler.handle()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.pcr.request" class="md-nav__link">domainlab.compos.pcr.request module</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractChainNodeHandler.init_business()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.pcr" class="md-nav__link">Module contents</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.is_myjob" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractChainNodeHandler.is_myjob()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.print_options" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractChainNodeHandler.print_options()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.set_parent" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractChainNodeHandler.set_parent()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyBusiness" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyBusiness</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyBusiness.message" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyBusiness.message</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyChainNodeHandlerBeaver</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyChainNodeHandlerBeaver.init_business()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.is_myjob" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyChainNodeHandlerBeaver.is_myjob()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyChainNodeHandlerLazy</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyChainNodeHandlerLazy.init_business()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.is_myjob" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DummyChainNodeHandlerLazy.is_myjob()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.Request4Chain" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Request4Chain</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.p_chain_handler.Request4Chain.convert" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Request4Chain.convert()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab-compos-pcr-request-module" class="md-nav__link">domainlab.compos.pcr.request module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.request.RequestArgs2ExpCmd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">RequestArgs2ExpCmd</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.request.RequestTask" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">RequestTask</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.request.RequestVAEBuilderCHW" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">RequestVAEBuilderCHW</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.pcr.request.RequestVAEBuilderNN" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">RequestVAEBuilderNN</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-contents" class="md-nav__link">Module contents</a>
         </li></ul>
             </nav>
         </li>
@@ -316,16 +368,16 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-compos-pcr-package">
-<h1 id="domainlab-compos-pcr--page-root">domainlab.compos.pcr package<a class="headerlink" href="#domainlab-compos-pcr--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-compos-pcr--page-root">domainlab.compos.pcr package<a class="headerlink" href="#domainlab-compos-pcr--page-root" title="Link to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-domainlab.compos.pcr.p_chain_handler">
-<span id="domainlab-compos-pcr-p-chain-handler-module"></span><h2 id="module-domainlab.compos.pcr.p_chain_handler">domainlab.compos.pcr.p_chain_handler module<a class="headerlink" href="#module-domainlab.compos.pcr.p_chain_handler" title="Permalink to this headline">¶</a></h2>
-<p>Chain of Responsibility</p>
+<section id="domainlab-compos-pcr-p-chain-handler-module">
+<h2 id="domainlab-compos-pcr-p-chain-handler-module">domainlab.compos.pcr.p_chain_handler module<a class="headerlink" href="#domainlab-compos-pcr-p-chain-handler-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.pcr.p_chain_handler">Chain of Responsibility</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">AbstractChainNodeHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">AbstractChainNodeHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Chain of Responsibility:
 1. Make sure the chain can be constructed successfully even one node fails to
@@ -350,7 +402,7 @@ once you change the parent class, some concrete factories has not implemented th
 which will break the initalization of the chain.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.handle">
-<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.handle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.handle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.handle" title="Link to this definition">¶</a></dt>
 <dd><p>This method invoke self.is_myjob() to check which node in the chain should handle the
 request
 :param request: subclass can override request object to be string or function
@@ -358,7 +410,7 @@ request
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.init_business">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.init_business" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.init_business" title="Link to this definition">¶</a></dt>
 <dd><p>init_business: initialize <strong>and</strong> return the heavy weight business object for
 doing the real job
 :param request: subclass can override request object to be string or function
@@ -366,37 +418,37 @@ doing the real job
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.is_myjob">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.is_myjob" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.is_myjob" title="Link to this definition">¶</a></dt>
 <dd><p>is_myjob.
 :param request: subclass can override request object to be string or function
 :return True/False</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.print_options">
-<span class="sig-name descname"><span class="pre">print_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.print_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.print_options" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">print_options</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.print_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.print_options" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.set_parent">
-<span class="sig-name descname"><span class="pre">set_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.set_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.set_parent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#AbstractChainNodeHandler.set_parent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler.set_parent" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyBusiness">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">DummyBusiness</span></span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyBusiness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyBusiness" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">DummyBusiness</span></span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyBusiness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyBusiness" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyBusiness.message">
-<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dummy</span> <span class="pre">business'</span></em><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyBusiness.message" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dummy</span> <span class="pre">business'</span></em><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyBusiness.message" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">DummyChainNodeHandlerBeaver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerBeaver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">DummyChainNodeHandlerBeaver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerBeaver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
 <p>Dummy class to show how to inherit from Chain of Responsibility</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kargs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerBeaver.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.init_business" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kargs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerBeaver.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.init_business" title="Link to this definition">¶</a></dt>
 <dd><p>init_business: initialize <strong>and</strong> return the heavy weight business object for
 doing the real job
 :param request: subclass can override request object to be string or function
@@ -404,7 +456,7 @@ doing the real job
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.is_myjob">
-<span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerBeaver.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.is_myjob" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerBeaver.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerBeaver.is_myjob" title="Link to this definition">¶</a></dt>
 <dd><p>is_myjob.
 :param request: subclass can override request object to be string or function
 :return True/False</p>
@@ -412,12 +464,12 @@ doing the real job
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">DummyChainNodeHandlerLazy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerLazy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">DummyChainNodeHandlerLazy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerLazy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
 <p>Dummy class to show how to inherit from Chain of Responsibility</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kargs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerLazy.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.init_business" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kargs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerLazy.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.init_business" title="Link to this definition">¶</a></dt>
 <dd><p>init_business: initialize <strong>and</strong> return the heavy weight business object for
 doing the real job
 :param request: subclass can override request object to be string or function
@@ -425,7 +477,7 @@ doing the real job
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.is_myjob">
-<span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerLazy.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.is_myjob" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#DummyChainNodeHandlerLazy.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.DummyChainNodeHandlerLazy.is_myjob" title="Link to this definition">¶</a></dt>
 <dd><p>is_myjob.
 :param request: subclass can override request object to be string or function
 :return True/False</p>
@@ -433,21 +485,21 @@ doing the real job
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.Request4Chain">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">Request4Chain</span></span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#Request4Chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.Request4Chain" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.p_chain_handler.</span></span><span class="sig-name descname"><span class="pre">Request4Chain</span></span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#Request4Chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.Request4Chain" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>define all available fields of request to ensure operation safety</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.p_chain_handler.Request4Chain.convert">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#Request4Chain.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.Request4Chain.convert" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/p_chain_handler.html#Request4Chain.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.p_chain_handler.Request4Chain.convert" title="Link to this definition">¶</a></dt>
 <dd><p>Convert an heavy weight object into request object with pre-defined behavior</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.pcr.request">
-<span id="domainlab-compos-pcr-request-module"></span><h2 id="module-domainlab.compos.pcr.request">domainlab.compos.pcr.request module<a class="headerlink" href="#module-domainlab.compos.pcr.request" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<section id="domainlab-compos-pcr-request-module">
+<h2 id="domainlab-compos-pcr-request-module">domainlab.compos.pcr.request module<a class="headerlink" href="#domainlab-compos-pcr-request-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-domainlab.compos.pcr.request">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.request.RequestArgs2ExpCmd">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestArgs2ExpCmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestArgs2ExpCmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestArgs2ExpCmd" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestArgs2ExpCmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestArgs2ExpCmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestArgs2ExpCmd" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Isolate args from Request object of chain of responsibility node for experiment
 For example, args has field names which will couple with experiment class, this
@@ -455,25 +507,25 @@ request class also serves as isolation class or adaptation class</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.request.RequestTask">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestTask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestTask" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestTask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestTask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestTask" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Isolate args from Request object of chain of responsibility node for task</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.request.RequestVAEBuilderCHW">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestVAEBuilderCHW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestVAEBuilderCHW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestVAEBuilderCHW" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestVAEBuilderCHW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestVAEBuilderCHW"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestVAEBuilderCHW" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.pcr.request.RequestVAEBuilderNN">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestVAEBuilderNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_class_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_class_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestVAEBuilderNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestVAEBuilderNN" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.pcr.request.</span></span><span class="sig-name descname"><span class="pre">RequestVAEBuilderNN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_class_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_class_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/pcr/request.html#RequestVAEBuilderNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.pcr.request.RequestVAEBuilderNN" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>creates request when input does not come from command-line (args) but from test_exp file</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.pcr">
-<span id="module-contents"></span><h2 id="module-domainlab.compos.pcr">Module contents<a class="headerlink" href="#module-domainlab.compos.pcr" title="Permalink to this headline">¶</a></h2>
-</section>
+<section id="module-contents">
+<h2 id="module-contents">Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<span class="target" id="module-domainlab.compos.pcr"></span></section>
 </section>
 
 
@@ -523,7 +575,7 @@ request class also serves as isolation class or adaptation class</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

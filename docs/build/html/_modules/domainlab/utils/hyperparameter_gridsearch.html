@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.utils.hyperparameter_gridsearch &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -310,7 +308,9 @@ from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="round_to_discreate_grid_uniform"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.round_to_discreate_grid_uniform">[docs]</a>def round_to_discreate_grid_uniform(grid, param_config):
+<div class="viewcode-block" id="round_to_discreate_grid_uniform">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.round_to_discreate_grid_uniform">[docs]</a>
+def round_to_discreate_grid_uniform(grid, param_config):
     '''
     round the values of the grid to the grid spacing specified in the config
     for uniform and loguniform grids
@@ -331,7 +331,10 @@ from domainlab.utils.logger import Logger
     grid_out = grid_unique
     return grid_out</div>
 
-<div class="viewcode-block" id="round_to_discreate_grid_normal"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.round_to_discreate_grid_normal">[docs]</a>def round_to_discreate_grid_normal(grid, param_config):
+
+<div class="viewcode-block" id="round_to_discreate_grid_normal">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.round_to_discreate_grid_normal">[docs]</a>
+def round_to_discreate_grid_normal(grid, param_config):
     '''
     round the values of the grid to the grid spacing specified in the config
     for normal and lognormal grids
@@ -352,7 +355,10 @@ from domainlab.utils.logger import Logger
         grid[num] = discreate_gird[(np.abs(discreate_gird - elem)).argmin()]
     return np.unique(grid)</div>
 
-<div class="viewcode-block" id="uniform_grid"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.uniform_grid">[docs]</a>def uniform_grid(param_config):
+
+<div class="viewcode-block" id="uniform_grid">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.uniform_grid">[docs]</a>
+def uniform_grid(param_config):
     '''
     get a uniform distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'max', 'min', 'step'
@@ -369,7 +375,10 @@ from domainlab.utils.logger import Logger
             grid, param_config)
     return grid</div>
 
-<div class="viewcode-block" id="loguniform_grid"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.loguniform_grid">[docs]</a>def loguniform_grid(param_config):
+
+<div class="viewcode-block" id="loguniform_grid">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.loguniform_grid">[docs]</a>
+def loguniform_grid(param_config):
     '''
     get a loguniform distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'max', 'min'
@@ -384,7 +393,10 @@ from domainlab.utils.logger import Logger
         return round_to_discreate_grid_uniform(grid, param_config)
     return grid</div>
 
-<div class="viewcode-block" id="normal_grid"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.normal_grid">[docs]</a>def normal_grid(param_config, lognormal=False):
+
+<div class="viewcode-block" id="normal_grid">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.normal_grid">[docs]</a>
+def normal_grid(param_config, lognormal=False):
     '''
     get a normal distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'mean', 'std'
@@ -416,7 +428,10 @@ from domainlab.utils.logger import Logger
         return round_to_discreate_grid_normal(stnormal_grid, param_config)
     return stnormal_grid</div>
 
-<div class="viewcode-block" id="lognormal_grid"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.lognormal_grid">[docs]</a>def lognormal_grid(param_config):
+
+<div class="viewcode-block" id="lognormal_grid">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.lognormal_grid">[docs]</a>
+def lognormal_grid(param_config):
     '''
     get a normal distributed grid given the specifications in the param_config
     param_config: config which needs to contain 'num', 'mean', 'std'
@@ -426,7 +441,10 @@ from domainlab.utils.logger import Logger
         return round_to_discreate_grid_normal(grid, param_config)
     return grid</div>
 
-<div class="viewcode-block" id="add_next_param_from_list"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.add_next_param_from_list">[docs]</a>def add_next_param_from_list(param_grid: dict, grid: dict,
+
+<div class="viewcode-block" id="add_next_param_from_list">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.add_next_param_from_list">[docs]</a>
+def add_next_param_from_list(param_grid: dict, grid: dict,
                              grid_df: pd.DataFrame):
     '''
     can be used in a recoursive fassion to add all combinations of the parameters in
@@ -456,7 +474,10 @@ from domainlab.utils.logger import Logger
         # add sample to grid_df
         grid_df.loc[len(grid_df.index)] = [grid]</div>
 
-<div class="viewcode-block" id="add_references_and_check_constraints"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.add_references_and_check_constraints">[docs]</a>def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
+
+<div class="viewcode-block" id="add_references_and_check_constraints">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.add_references_and_check_constraints">[docs]</a>
+def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
                                          config, task_name):
     '''
     in the last step all parameters which are referenced need to be add to the
@@ -481,11 +502,14 @@ from domainlab.utils.logger import Logger
                 if not eval(constr):
                     accepted = False
             if accepted:
-                grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
+                grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]
         else:
-            grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]</div>
+            grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]</div>
 
-<div class="viewcode-block" id="sample_grid"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.sample_grid">[docs]</a>def sample_grid(param_config):
+
+<div class="viewcode-block" id="sample_grid">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.sample_grid">[docs]</a>
+def sample_grid(param_config):
     '''
     given the parameter config, this function samples all parameters which are distributed
     according the the categorical, uniform, loguniform, normal or lognormal distribution.
@@ -520,7 +544,10 @@ from domainlab.utils.logger import Logger
         # it here
         return param_grid</div>
 
-<div class="viewcode-block" id="build_param_grid_of_shared_params"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.build_param_grid_of_shared_params">[docs]</a>def build_param_grid_of_shared_params(shared_df):
+
+<div class="viewcode-block" id="build_param_grid_of_shared_params">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.build_param_grid_of_shared_params">[docs]</a>
+def build_param_grid_of_shared_params(shared_df):
     '''
     go back from the data frame format of the shared hyperparamters to a list format
     '''
@@ -534,7 +561,10 @@ from domainlab.utils.logger import Logger
         shared_grid[key] = np.array(grid_points)
     return shared_grid</div>
 
-<div class="viewcode-block" id="rais_error_if_num_not_specified"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.rais_error_if_num_not_specified">[docs]</a>def rais_error_if_num_not_specified(param_name: str, param_config: dict):
+
+<div class="viewcode-block" id="rais_error_if_num_not_specified">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.rais_error_if_num_not_specified">[docs]</a>
+def rais_error_if_num_not_specified(param_name: str, param_config: dict):
     '''
     for each parameter a number of grid points needs to be specified
     This function raises an error if this is not the case
@@ -548,7 +578,10 @@ from domainlab.utils.logger import Logger
             raise RuntimeError(f"the number of parameters in the grid direction "
                                f"of {param_name} needs to be specified")</div>
 
-<div class="viewcode-block" id="add_shared_params_to_param_grids"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.add_shared_params_to_param_grids">[docs]</a>def add_shared_params_to_param_grids(shared_df, dict_param_grids, config):
+
+<div class="viewcode-block" id="add_shared_params_to_param_grids">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.add_shared_params_to_param_grids">[docs]</a>
+def add_shared_params_to_param_grids(shared_df, dict_param_grids, config):
     '''
     use the parameters in the dataframe of shared parameters and add them
     to the dictionary of parameters for the current task
@@ -566,7 +599,10 @@ from domainlab.utils.logger import Logger
                 dict_param_grids[key] = dict_shared_grid[key]
     return dict_param_grids</div>
 
-<div class="viewcode-block" id="grid_task"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.grid_task">[docs]</a>def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd.DataFrame):
+
+<div class="viewcode-block" id="grid_task">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.grid_task">[docs]</a>
+def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd.DataFrame):
     """create grid for one sampling task for a method and add it to the dataframe"""
     if 'hyperparameters' in config.keys():
         dict_param_grids = {}
@@ -600,12 +636,12 @@ from domainlab.utils.logger import Logger
         # add referenced params and check constraints
         add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
                                              config, task_name)
-        if grid_df[grid_df['algo'] == config['aname']].shape[0] == 0:
+        if grid_df[grid_df['algo'] == config['model']].shape[0] == 0:
             raise RuntimeError('No valid value found for this grid spacing, refine grid')
         return grid_df
     elif 'shared' in config.keys():
         shared_grid = shared_df.copy()
-        shared_grid['algo'] = config['aname']
+        shared_grid['algo'] = config['model']
         shared_grid['task'] = task_name
         if 'constraints' in config.keys():
             config['hyperparameters'] = {'constraints': config['constraints']}
@@ -613,11 +649,14 @@ from domainlab.utils.logger import Logger
         return grid_df
     else:
         # add single line if no varying hyperparameters are specified.
-        grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], {}]
+        grid_df.loc[len(grid_df.index)] = [task_name, config['model'], {}]
         return grid_df</div>
 
 
-<div class="viewcode-block" id="sample_gridsearch"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.sample_gridsearch">[docs]</a>def sample_gridsearch(config: dict,
+
+<div class="viewcode-block" id="sample_gridsearch">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_gridsearch.sample_gridsearch">[docs]</a>
+def sample_gridsearch(config: dict,
                       dest: str = None) -&gt; pd.DataFrame:
     """
     create the hyperparameters grid according to the given
@@ -637,13 +676,13 @@ from domainlab.utils.logger import Logger
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
 
     if 'Shared params' in config.keys():
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
         # fill up the dataframe shared samples
         shared_samples_full = grid_task(shared_samples_full, 'all', shared_val, None)
     else:
         shared_samples_full = None
     for key, val in config.items():
-        if sampling.is_dict_with_key(val, "aname"):
+        if sampling.is_dict_with_key(val, "model"):
             if shared_samples_full is not None:
                 shared_samples = shared_samples_full.copy(deep=True)
                 if 'shared' in val.keys():
@@ -666,7 +705,7 @@ from domainlab.utils.logger import Logger
 
             samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
-                        f'{samples[samples["algo"] == val["aname"]].shape[0]}')
+                        f'{samples[samples["algo"] == val["model"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')
@@ -679,6 +718,7 @@ from domainlab.utils.logger import Logger
     with open(config["output_dir"] + os.sep + 'config.txt', 'w', encoding="utf8") as file:
         json.dump(config, file)
     return samples</div>
+
 </pre></div>
 
           </article>
@@ -703,7 +743,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

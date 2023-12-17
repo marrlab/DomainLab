@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.algos.trainers.train_matchdg &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -306,15 +304,22 @@ from domainlab.utils.logger import Logger
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
 
-<div class="viewcode-block" id="TrainerMatchDG"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG">[docs]</a>class TrainerMatchDG(AbstractTrainer):
+<div class="viewcode-block" id="TrainerMatchDG">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG">[docs]</a>
+class TrainerMatchDG(AbstractTrainer):
     """
     Contrastive Learning
     """
-<div class="viewcode-block" id="TrainerMatchDG.dset_decoration_args_algo"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.dset_decoration_args_algo">[docs]</a>    def dset_decoration_args_algo(self, args, ddset):
+<div class="viewcode-block" id="TrainerMatchDG.dset_decoration_args_algo">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.dset_decoration_args_algo">[docs]</a>
+    def dset_decoration_args_algo(self, args, ddset):
         ddset = DsetIndDecorator4XYD(ddset)
         return ddset</div>
 
-<div class="viewcode-block" id="TrainerMatchDG.init_business"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.init_business">[docs]</a>    def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
+
+<div class="viewcode-block" id="TrainerMatchDG.init_business">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.init_business">[docs]</a>
+    def init_business(self, model, task, observer, device, aconf, flag_accept=True, flag_erm=False):
         """
         initialize member objects
         """
@@ -330,7 +335,10 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
         self.tuple_tensor_ref_domain2each_y = None
         self.tuple_tensor_refdomain2each = None</div>
 
-<div class="viewcode-block" id="TrainerMatchDG.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.tr_epoch">[docs]</a>    def tr_epoch(self, epoch):
+
+<div class="viewcode-block" id="TrainerMatchDG.tr_epoch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.tr_epoch">[docs]</a>
+    def tr_epoch(self, epoch):
         """
         # data in one batch comes from two sources: one part from loader,
         # the other part from match tensor
@@ -374,7 +382,10 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop</div>
 
-<div class="viewcode-block" id="TrainerMatchDG.tr_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.tr_batch">[docs]</a>    def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e, others=None):
+
+<div class="viewcode-block" id="TrainerMatchDG.tr_batch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.tr_batch">[docs]</a>
+    def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e, others=None):
         """
         update network for each batch
         """
@@ -573,7 +584,10 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 
         torch.cuda.empty_cache()</div>
 
-<div class="viewcode-block" id="TrainerMatchDG.mk_match_tensor"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.mk_match_tensor">[docs]</a>    def mk_match_tensor(self, epoch):
+
+<div class="viewcode-block" id="TrainerMatchDG.mk_match_tensor">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.mk_match_tensor">[docs]</a>
+    def mk_match_tensor(self, epoch):
         """
         initialize or update match tensor
         """
@@ -594,12 +608,17 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
             self.model.extract_semantic_feat,
             (epoch &gt; 0))</div>
 
-<div class="viewcode-block" id="TrainerMatchDG.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.before_tr">[docs]</a>    def before_tr(self):
+
+<div class="viewcode-block" id="TrainerMatchDG.before_tr">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.before_tr">[docs]</a>
+    def before_tr(self):
         """
         override abstract method
         """
         logger = Logger.get_logger()
-        logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")</div></div>
+        logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")</div>
+</div>
+
         # phase 1: contrastive learning
         # different than phase 2, ctr_model has no classification loss
 </pre></div>
@@ -626,7 +645,7 @@ from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
