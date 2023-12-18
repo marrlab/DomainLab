@@ -94,7 +94,8 @@ Task2:  # name
       reference: zy_dim
 
 Task3:  # name
-  model: matchdg
+  model: erm
+  trainer: matchdg
 
   hyperparameters:
     # Total number of epochs for contrastive loss

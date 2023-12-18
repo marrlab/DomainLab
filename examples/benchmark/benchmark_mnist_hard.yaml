@@ -95,7 +95,8 @@ hduva:  # name
 
 
 matchdg:  # name
-  model: matchdg
+  model: erm
+  trainer: matchdg
   shared:
     - gamma_reg
 

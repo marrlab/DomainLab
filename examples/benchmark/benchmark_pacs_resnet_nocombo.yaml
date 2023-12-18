@@ -92,7 +92,8 @@ hduva:  # name
       reference: zy_dim
 
 matchdg:  # name
-  model: matchdg
+  model: erm
+  trainer: matchdg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
