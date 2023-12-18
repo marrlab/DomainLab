@@ -39,6 +39,21 @@ In DomainLab, a task is a container for datasets from different domains. See det
 ### Example and usage
 
 #### Either clone this repo and use command line 
+
+`python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml`
+where the configuration file below can be downloaded [here](https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml)
+```
+te_d: caltech                       # domain name of test domain
+tpath: examples/tasks/task_vlcs.py  # python file path to specify the task 
+bs: 2                               # batch size
+model: diva                         # specify model
+epos: 1                             # number of epochs
+trainer: mldg,dial                  # combine trainer MLDG and DIAL
+gamma_y: 700000.0                   # hyperparameter of diva
+gamma_d: 100000.0                   # hyperparameter of diva
+npath: examples/nets/resnet.py      # neural network for class classification
+npath_dom: examples/nets/resnet.py  # neural network for domain classification
+```
 See details in [Command line usage](./docs/doc_usage_cmd.md)
 
 #### or Programm against DomainLab API
