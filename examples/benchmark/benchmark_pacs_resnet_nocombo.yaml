@@ -157,11 +157,11 @@ dann:  # name
       distribution: loguniform
 
 erm:  # name
-  model: deepall
+  model: erm
 
 
 dial: # name
-  model: deepall_dial
+  model: erm_dial
 
   hyperparameters:
     dial_steps_perturb:
@@ -186,7 +186,7 @@ dial: # name
       distribution: loguniform
 
 mldg:  # name
-  model: deepallmldg
+  model: ermmldg
 
   hyperparameters:
     gamma_reg:

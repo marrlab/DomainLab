@@ -91,7 +91,8 @@ hduva:  # name
 
 
 matchdg:  # name
-  model: matchdg
+  model: erm
+  trainer: matchdg
   shared:
     - gamma_reg
 
@@ -146,11 +147,11 @@ dann:  # name
 
 
 erm:  # name
-  model: deepall
+  model: erm
 
 
 dial: # name
-  model: deepall
+  model: erm
   trainer: dial
   shared:
     - gamma_reg
@@ -174,14 +175,15 @@ dial: # name
 
 
 mldg:  # name
-  model: deepall
+  model: erm
   trainer: mldg
   shared:
     - gamma_reg
 
 
 hduva_matchdg:  # name
-  model: matchhduva
+  model: hduva
+  trainer: matchdg
   zx_dim: 0
 
   shared:

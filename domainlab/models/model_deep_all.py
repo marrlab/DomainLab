@@ -2,7 +2,7 @@ from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 
 
-def mk_deepall(parent_class=AModelClassif):
+def mk_erm(parent_class=AModelClassif):
     """
     Instantiate a Deepall (ERM) model
 
@@ -23,7 +23,7 @@ def mk_deepall(parent_class=AModelClassif):
 
     Usage:
         For a concrete example, see:
-        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py
+        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py
     """
 
     class ModelDeepAll(parent_class):

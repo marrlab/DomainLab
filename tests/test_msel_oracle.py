@@ -9,7 +9,7 @@ from torchvision.models import ResNet50_Weights
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.models.model_deep_all import mk_deepall
+from domainlab.models.model_deep_all import mk_erm
 from domainlab.utils.utils_cuda import get_device
 from domainlab.arg_parser import mk_parser_main
 from domainlab.exp.exp_main import Exp
@@ -88,7 +88,7 @@ def test_msel_oracle():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
@@ -122,7 +122,7 @@ def test_msel_oracle1():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
 
     # make trainer for model
 
@@ -158,7 +158,7 @@ def test_msel_oracle2():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
@@ -188,7 +188,7 @@ def test_msel_oracle3():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
 
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False, force_best_val=True)
@@ -218,7 +218,7 @@ def test_msel_oracle4():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1",
                  batchsize=32, alone=False, msel_loss_tr=True)
     exp.execute(num_epochs=2)
