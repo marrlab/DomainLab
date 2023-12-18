@@ -68,5 +68,5 @@ diva:  # name
 
 
 deep_all:
-  model: deepall
+  model: erm
   nname: conv_bn_pool_2

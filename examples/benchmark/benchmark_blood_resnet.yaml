@@ -91,11 +91,11 @@ hduva:  # name
     - zy_dim
     - zd_dim
 
-deepall:  # name
-  model: deepall
+erm:  # name
+  model: erm
 
 mldg:
-  model: deepall
+  model: erm
   trainer: mldg
   shared:
     - gamma_reg
@@ -107,7 +107,7 @@ dann:
 
 
 dial: # name
-  model: deepall
+  model: erm
   trainer: dial
   shared:
     - gamma_reg
