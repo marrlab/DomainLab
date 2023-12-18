@@ -36,6 +36,7 @@ class NodeAlgoBuilderERM(NodeAlgoBuilder):
                                     i_w=task.isize.i_w)
 
         model = mk_erm()(net, list_str_y=task.list_str_y)
+        model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device
