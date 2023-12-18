@@ -67,6 +67,6 @@ diva:  # name
       distribution: loguniform
 
 
-deep_all:
+erm:
   model: erm
   nname: conv_bn_pool_2

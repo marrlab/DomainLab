@@ -87,7 +87,7 @@ hduva:  # name
       distribution: loguniform
 
 
-deep_all:
+erm:
   model: erm
   nname: alexnet
 
