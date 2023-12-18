@@ -69,9 +69,6 @@ One could simply run
 `bash run_benchmark_slurm.sh examples/benchmark/benchmark_pacs_resnet.yaml` to get the following result
 
 <div style="align: center; text-align:center;">
-<embed src="figs/stochastic_variation_two_rows.pdf" width="200px" height="500px" />
+<img src="figs/stochastic_variation_two_rows.png" style="width:200px;"/> 
 <div class="caption">Automatic visualization of benchmark results from DomainLab</div>
 </div>
-
-
-
