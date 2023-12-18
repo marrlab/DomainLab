@@ -102,4 +102,4 @@ jigen_fixed_penalty:
     - lr
 
 erm:
-  model: deepall
+  model: erm

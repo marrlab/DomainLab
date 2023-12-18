@@ -59,4 +59,4 @@ dann_fbopt:
     - mu_init
 
 erm:
-  model: deepall
+  model: erm

@@ -89,4 +89,4 @@ diva_fbopt_a:
     - mu_clip
 
 erm:
-  model: deepall
+  model: erm

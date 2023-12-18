@@ -82,4 +82,4 @@ jigen_feedback:
     - pperm
 
 erm:
-  model: deepall
+  model: erm

@@ -87,4 +87,4 @@ jigen_fixed_penalty:
     - gamma_reg
 
 erm:
-  model: deepall
+  model: erm

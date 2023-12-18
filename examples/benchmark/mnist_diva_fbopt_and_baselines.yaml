@@ -119,4 +119,4 @@ diva_fixed_penalty:
     - gamma_y
 
 erm:
-  model: deepall
+  model: erm

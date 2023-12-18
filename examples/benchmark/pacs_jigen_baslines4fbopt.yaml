@@ -71,4 +71,4 @@ jigen_fixed_penalty:
     - pperm
 
 erm:
-  model: deepall
+  model: erm
