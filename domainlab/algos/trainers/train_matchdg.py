@@ -250,7 +250,7 @@ class TrainerMatchDG(AbstractTrainer):
             epos = self.aconf.epos
         else:
             epos = self.aconf.epochs_ctr
-        coeff = (epoch + 1)/(epos + 1)
+        percentage_finished_epochs = (epoch + 1)/(epos + 1)
         # loss aggregation is over different domain
         # combinations of the same batch
         # https://discuss.pytorch.org/t/leaf-variable-was-used-in-an-inplace-operation/308
@@ -267,10 +267,10 @@ class TrainerMatchDG(AbstractTrainer):
             loss_e = torch.tensor(0.0, requires_grad=True) + \
                     torch.mean(loss_erm_rnd_loader) + \
                     torch.mean(loss_erm_match_tensor) + \
-                    self.lambda_ctr * coeff * loss_ctr
+                    self.lambda_ctr * percentage_finished_epochs * loss_ctr
         else:
             loss_e = torch.tensor(0.0, requires_grad=True) + \
-                self.lambda_ctr * coeff * loss_ctr
+                self.lambda_ctr * percentage_finished_epochs * loss_ctr
         # @FIXME: without torch.tensor(0.0), after a few epochs,
         # error "'float' object has no attribute 'backward'"
 
