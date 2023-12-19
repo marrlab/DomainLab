@@ -3,11 +3,13 @@
 test_domains:
   - sketch
 
-output_dir: zoutput/benchmarks/pacs_benchmark
+output_dir: zoutput/benchmarks/pacs_benchmark_resnet50_no_combo
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by #(test_domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 8
+# note that num_shared_param_samples is independent from num_param_samples (they are not cartesian
+# product) see details in https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md
 
 sampling_seed: 0
 
