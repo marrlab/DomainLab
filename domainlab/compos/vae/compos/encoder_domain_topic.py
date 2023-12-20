@@ -24,8 +24,10 @@ class EncoderImg2TopicDirZd(nn.Module):
         :param device:
         :param zd_dim:
         :param topic_h_dim:
-        :param img_h_dim: (img->h_img, topic->h_topic)-> q_zd
-        the dimension to concatenate with topic vector to infer z_d
+        :param img_h_dim: 
+            - (img->h_img, topic->h_topic)-> q_zd, 
+              the dimension to concatenate with topic vector to infer z_d
+            - img->img_h_dim->topic distribution
         """
         super().__init__()
         self.device = device
