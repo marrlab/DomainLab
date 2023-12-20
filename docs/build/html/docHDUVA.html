@@ -49,7 +49,7 @@
   
   
     <title>Model HDUVA &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -109,7 +109,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -238,7 +238,7 @@
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#dochduva--page-root" class="md-nav__link">Model HDUVA</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -350,7 +350,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#dochduva--page-root" class="md-nav__link">Model HDUVA</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -419,12 +419,12 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_x2topic_h</span></code>:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (<code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>) hidden representation serving as input to Dirichlet encoder: <code class="docutils literal notranslate"><span class="pre">X-&gt;h_t(X)-&gt;alpha(h_t(X))</span></code> where <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_sandwich_x2h4zd</span></code>: the python file path of a neural network that maps the
-image to a hidden representation (<code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>), which will be used to infere the posterior distribution of <code class="docutils literal notranslate"><span class="pre">z_d</span></code>: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_d(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code></p></li>
+image to a hidden representation (<code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>), which will be used to infere the posterior distribution of <code class="docutils literal notranslate"><span class="pre">z_d</span></code>: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_dt(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code></p></li>
 </ul>
 <p>For the path: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_dt(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code>, we need two output dimensions for neural network <code class="docutils literal notranslate"><span class="pre">h_dt</span></code> and <code class="docutils literal notranslate"><span class="pre">h_d</span></code>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">topic_h_dim</span></code>: output size of <code class="docutils literal notranslate"><span class="pre">h_dt</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>: output size of <code class="docutils literal notranslate"><span class="pre">h_d</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">topic_h_dim</span></code>: output size of <code class="docutils literal notranslate"><span class="pre">h_dt(topic)</span></code> as well as output size of <code class="docutils literal notranslate"><span class="pre">h_t(X)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>: output size of <code class="docutils literal notranslate"><span class="pre">h_d(X)</span></code></p></li>
 </ul>
 <p>Alternatively, one could use an existing neural network in DomainLab using <code class="docutils literal notranslate"><span class="pre">nname</span></code> instead of <code class="docutils literal notranslate"><span class="pre">npath</span></code>:</p>
 <ul class="simple">
@@ -466,7 +466,7 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> domainlab.utils package </span>
+                      class="md-footer-nav__direction"> "Previous" </span> domainlab.utils package </span>
               </div>
             </a>
           
@@ -476,7 +476,7 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Model DANN: Domain Adversarial Neural Network </span>
+                class="md-footer-nav__direction"> "Next" </span> Model DANN: Domain Adversarial Neural Network </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -494,7 +494,7 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
