@@ -70,8 +70,8 @@ diva:  # name
 hduva:  # name
   model: hduva
   npath: examples/nets/resnet.py
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  nname_encoder_x2topic_h: conv_bn_pool_2
+  nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
 
   hyperparameters:
     gamma_y:
