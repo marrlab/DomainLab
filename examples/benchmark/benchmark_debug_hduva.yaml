@@ -67,6 +67,13 @@ Shared params:
     distribution: uniform
     datatype: int
 
+  img_h_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
   gamma_reg:
     min: 0.01
     max: 10
@@ -81,3 +88,4 @@ hduva:  # name
     - gamma_y
     - zy_dim
     - zd_dim
+    - img_h_dim
