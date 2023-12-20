@@ -30,6 +30,7 @@ domainlab_args:
   npath: examples/nets/resnet50domainbed.py
   npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
   npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
 
 Shared params:
   num_shared_param_samples: 8
