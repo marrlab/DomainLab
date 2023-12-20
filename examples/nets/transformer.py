@@ -8,7 +8,7 @@ from torchvision.models.feature_extraction import create_feature_extractor
 
 from domainlab.mk_exp import mk_exp
 from domainlab.tasks import get_task
-from domainlab.models.model_deep_all import mk_deepall
+from domainlab.models.model_deep_all import mk_erm
 
 
 class VIT(nn.Module):
@@ -42,7 +42,7 @@ def test_transformer():
     task = get_task("mini_vlcs")
     # specify backbone to use
     backbone = VIT(num_cls=task.dim_y, freeze=True)
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg,dial",
                  test_domain="caltech", batchsize=2, nocu=True)

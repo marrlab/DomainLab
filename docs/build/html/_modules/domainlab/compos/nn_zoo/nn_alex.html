@@ -363,7 +363,7 @@ class Alex4DeepAll(AlexNetBase):
 class AlexNetNoLastLayer(AlexNetBase):
     """
     Change the last layer of AlexNet with identity layer,
-    the classifier from VAE can then have the same layer depth as deep_all
+    the classifier from VAE can then have the same layer depth as erm
     model so it is fair for comparison
     """
     def __init__(self, flag_pretrain):

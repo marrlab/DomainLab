@@ -416,9 +416,9 @@
 </ul>
 <p>The user need to specify at least two neural networks for the <strong>encoder</strong> part via</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">npath_topic_distrib_img2topic</span></code>:  the python file path of a neural network that maps the image (or other
+<li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_x2topic_h</span></code>:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (<code class="docutils literal notranslate"><span class="pre">topic_dim</span></code>) hidden representation serving as input to Dirichlet encoder: <code class="docutils literal notranslate"><span class="pre">X-&gt;h_t(X)-&gt;alpha(h_t(X))</span></code> where <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_sandwich_layer_img2h4zd</span></code>: the python file path of a neural network that maps the
+<li><p><code class="docutils literal notranslate"><span class="pre">npath_encoder_sandwich_x2h4zd</span></code>: the python file path of a neural network that maps the
 image to a hidden representation (<code class="docutils literal notranslate"><span class="pre">img_h_dim</span></code>), which will be used to infere the posterior distribution of <code class="docutils literal notranslate"><span class="pre">z_d</span></code>: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_d(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code></p></li>
 </ul>
 <p>For the path: <code class="docutils literal notranslate"><span class="pre">topic(X),</span> <span class="pre">X</span> <span class="pre">-&gt;</span> <span class="pre">[h_dt(topic(X)),</span> <span class="pre">h_d(X)]</span> <span class="pre">-&gt;</span> <span class="pre">zd_mean,</span> <span class="pre">zd_scale</span></code>, we need two output dimensions for neural network <code class="docutils literal notranslate"><span class="pre">h_dt</span></code> and <code class="docutils literal notranslate"><span class="pre">h_d</span></code>:</p>
@@ -428,8 +428,8 @@ image to a hidden representation (<code class="docutils literal notranslate"><sp
 </ul>
 <p>Alternatively, one could use an existing neural network in DomainLab using <code class="docutils literal notranslate"><span class="pre">nname</span></code> instead of <code class="docutils literal notranslate"><span class="pre">npath</span></code>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">nname_topic_distrib_img2topic</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_layer_img2h4zd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_x2topic_h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nname_encoder_sandwich_x2h4zd</span></code></p></li>
 </ul>
 </section>
 <section id="hyperparameter-for-warmup">

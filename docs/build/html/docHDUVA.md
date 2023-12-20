@@ -42,9 +42,9 @@ In addition to these hyperparameters, the following model parameters can be spec
 
 The user need to specify at least two neural networks for the **encoder** part via 
 
-- `npath_topic_distrib_img2topic`:  the python file path of a neural network that maps the image (or other
+- `npath_encoder_x2topic_h`:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (`topic_dim`) hidden representation serving as input to Dirichlet encoder: `X->h_t(X)->alpha(h_t(X))` where `alpha` is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.
-- `npath_encoder_sandwich_layer_img2h4zd`: the python file path of a neural network that maps the
+- `npath_encoder_sandwich_x2h4zd`: the python file path of a neural network that maps the
 image to a hidden representation (`img_h_dim`), which will be used to infere the posterior distribution of `z_d`: `topic(X), X -> [h_d(topic(X)), h_d(X)] -> zd_mean, zd_scale`
 
 For the path: `topic(X), X -> [h_dt(topic(X)), h_d(X)] -> zd_mean, zd_scale`, we need two output dimensions for neural network `h_dt` and `h_d`:
@@ -52,8 +52,8 @@ For the path: `topic(X), X -> [h_dt(topic(X)), h_d(X)] -> zd_mean, zd_scale`, we
 -   `img_h_dim`: output size of `h_d`
 
 Alternatively, one could use an existing neural network in DomainLab using `nname` instead of `npath`:
--   `nname_topic_distrib_img2topic`
--   `nname_encoder_sandwich_layer_img2h4zd`
+-   `nname_encoder_x2topic_h`
+-   `nname_encoder_sandwich_x2h4zd`
 
 
 ## Hyperparameter for warmup

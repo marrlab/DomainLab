@@ -65,8 +65,8 @@ Task1:  # name
 Task2:  # name
   model: hduva
 
-  nname_topic_distrib_img2topic: alexnet
-  nname_encoder_sandwich_layer_img2h4zd: alexnet
+  nname_encoder_x2topic_h: alexnet
+  nname_encoder_sandwich_x2h4zd: alexnet
 
   hyperparameters:
     # Same config as diva.
@@ -92,7 +92,8 @@ Task2:  # name
       reference: zy_dim
 
 Task3:  # name
-  model: matchdg
+  model: erm
+  trainer: matchdg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -157,11 +158,11 @@ Task5:  # name
       distribution: loguniform
 
 Task6:  # name
-  model: deepall
+  model: erm
 
 
 Task7: # name
-  model: deepall_dial
+  model: erm_dial
 
   hyperparameters:
     dial_steps_perturb:

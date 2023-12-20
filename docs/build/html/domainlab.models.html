@@ -407,7 +407,7 @@
         </li>
         <li class="md-nav__item"><a href="#domainlab-models-model-deep-all-module" class="md-nav__link">domainlab.models.model_deep_all module</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.models.model_deep_all.mk_deepall" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_deepall()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.model_deep_all.mk_erm" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_erm()</span></code></a>
         </li></ul>
             </nav>
         </li>
@@ -791,8 +791,8 @@ output: prediction of training domain)</p>
 <section id="domainlab-models-model-deep-all-module">
 <h2 id="domainlab-models-model-deep-all-module">domainlab.models.model_deep_all module<a class="headerlink" href="#domainlab-models-model-deep-all-module" title="Link to this heading">¶</a></h2>
 <dl class="py function" id="module-domainlab.models.model_deep_all">
-<dt class="sig sig-object py" id="domainlab.models.model_deep_all.mk_deepall">
-<span class="sig-prename descclassname"><span class="pre">domainlab.models.model_deep_all.</span></span><span class="sig-name descname"><span class="pre">mk_deepall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.a_model_classif.AModelClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_deep_all.html#mk_deepall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_deep_all.mk_deepall" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.models.model_deep_all.mk_erm">
+<span class="sig-prename descclassname"><span class="pre">domainlab.models.model_deep_all.</span></span><span class="sig-name descname"><span class="pre">mk_erm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.a_model_classif.AModelClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_deep_all.html#mk_erm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_deep_all.mk_erm" title="Link to this definition">¶</a></dt>
 <dd><p>Instantiate a Deepall (ERM) model</p>
 <dl class="simple">
 <dt>Details:</dt><dd><p>Creates a model, which trains a neural network via standard empirical risk minimization
@@ -815,7 +815,7 @@ domains are pooled together during training.</p>
 <dt>Input Parameters:</dt><dd><p>custom neural network, the output dimension must be the number of labels</p>
 </dd>
 <dt>Usage:</dt><dd><p>For a concrete example, see:
-<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py">https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py</a></p>
+<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py">https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py</a></p>
 </dd>
 </dl>
 </dd></dl>

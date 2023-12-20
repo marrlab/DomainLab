@@ -396,8 +396,8 @@ class WrapDsetPatches(torchdata.Dataset):
         if self.prob_no_perm:  # probability of no permutation of tiles
             # note that this "if" block is not redundant: permutation will change the image
             # thus change the behavior of the class label classifier, if self.prob_no_perm=1.0
-            # then the algorithm will behave similarly to deepall, though not completely same
-            # FIXME: what hyperparameters one could set to let jigen=deepall?
+            # then the algorithm will behave similarly to erm, though not completely same
+            # FIXME: what hyperparameters one could set to let jigen=erm?
             if self.prob_no_perm &gt; np.random.rand():
                 ind_which_perm = 0
         # ind_which_perm = 0 means no permutation, the classifier need to

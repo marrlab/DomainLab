@@ -1,5 +1,5 @@
 """
-builder for deepall
+builder for erm
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_val import MSelValPerf
@@ -7,13 +7,13 @@ from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-from domainlab.models.model_deep_all import mk_deepall
+from domainlab.models.model_deep_all import mk_erm
 from domainlab.utils.utils_cuda import get_device
 
 
-class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
+class NodeAlgoBuilderERM(NodeAlgoBuilder):
     """
-    builder for deepall
+    builder for erm
     """
     def init_business(self, exp):
         """
@@ -35,7 +35,8 @@ class NodeAlgoBuilderDeepAll(NodeAlgoBuilder):
                                     i_h=task.isize.i_h,
                                     i_w=task.isize.i_w)
 
-        model = mk_deepall()(net, list_str_y=task.list_str_y)
+        model = mk_erm()(net, list_str_y=task.list_str_y)
+        model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device

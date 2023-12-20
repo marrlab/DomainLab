@@ -331,7 +331,7 @@
 <section id="distribution-shifts-domain-generalization-and-domainlab">
 <h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Link to this heading">¶</a></h3>
 <p>Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).</p>
-<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.</p>
+<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.</p>
 <p>As an input to the software, the user need to provide</p>
 <ul class="simple">
 <li><p>the neural network to be trained for the task (e.g. classification)</p></li>
@@ -362,6 +362,20 @@
 <h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Link to this heading">¶</a></h4>
 <section id="either-clone-this-repo-and-use-command-line">
 <h5 id="either-clone-this-repo-and-use-command-line">Either clone this repo and use command line<a class="headerlink" href="#either-clone-this-repo-and-use-command-line" title="Link to this heading">¶</a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main_out.py</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code>
+where the configuration file below can be downloaded <a class="reference external" href="https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml">here</a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>te_d: caltech                       # domain name of test domain
+tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
+bs: 2                               # batch size
+model: diva                         # specify model
+epos: 1                             # number of epochs
+trainer: mldg,dial                  # combine trainer MLDG and DIAL
+gamma_y: 700000.0                   # hyperparameter of diva
+gamma_d: 100000.0                   # hyperparameter of diva
+npath: examples/nets/resnet.py      # neural network for class classification
+npath_dom: examples/nets/resnet.py  # neural network for domain classification
+</pre></div>
+</div>
 <p>See details in <a class="reference internal" href="#./docs/doc_usage_cmd.md"><span class="xref myst">Command line usage</span></a></p>
 </section>
 <section id="or-programm-against-domainlab-api">
@@ -373,7 +387,11 @@
 <h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Link to this heading">¶</a></h4>
 <p>DomainLab provides a powerful benchmark functionality.
 To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">Benchmarks</span></a></p>
-</section>
+<p>One could simply run
+<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">examples/benchmark/benchmark_pacs_resnet.yaml</span></code> to get the following result</p>
+<div style="align: center; text-align:center;">
+<img src="docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/>
+</div></section>
 </section>
 </section>
 </section>

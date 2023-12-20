@@ -23,8 +23,8 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
 
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
-            arg_name_of_net="nname_encoder_sandwich_layer_img2h4zd",
-            arg_path_of_net="npath_encoder_sandwich_layer_img2h4zd")()  # @FIXME
+            arg_name_of_net="nname_encoder_sandwich_x2h4zd",
+            arg_path_of_net="npath_encoder_sandwich_x2h4zd")()  # @FIXME
 
         # image->h_img
         self.add_module("layer_img2h4zd", net_builder.init_business(

@@ -46,18 +46,18 @@ domainlab.algos.builder\_dann module
    :undoc-members:
    :show-inheritance:
 
-domainlab.algos.builder\_deepall module
----------------------------------------
-
-.. automodule:: domainlab.algos.builder_deepall
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 domainlab.algos.builder\_diva module
 ------------------------------------
 
 .. automodule:: domainlab.algos.builder_diva
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.builder\_erm module
+-----------------------------------
+
+.. automodule:: domainlab.algos.builder_erm
    :members:
    :undoc-members:
    :show-inheritance:

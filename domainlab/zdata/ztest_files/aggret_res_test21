@@ -19,5 +19,5 @@ param_index, method, algo, epos, te_d, seed, params, acc, precision, recall, spe
 1, Task2, hduva, 2, caltech, 1, "{'gamma_y': 113475, 'zy_dim': 48}", 0.8551667, 0.204563385, 0.20817383, 0.80109926, 0.15242064, 0.559054
 1, Task2, hduva, 2, caltech, 2, "{'gamma_y': 113475, 'zy_dim': 48}", 0.57535366, 0.52569593, 0.41402904, 0.68618114, 0.57845683, 0.89118155
 1, Task2, hduva, 2, caltech, 3, "{'gamma_y': 113475, 'zy_dim': 48}", 0.72422227, 0.20658247, 0.2084048, 0.7009563, 0.18635866, 0.61927835
-1, Task2, deepall, 2, caltech, 1, "{}", 0.5, 0.5, 0.5, 0.5, 0.5, 0.5
-1, Task2, deepall, 2, caltech, 2, "{}", 0.4, 0.4, 0.4, 0.4, 0.4, 0.4
+1, Task2, erm, 2, caltech, 1, "{}", 0.5, 0.5, 0.5, 0.5, 0.5, 0.5
+1, Task2, erm, 2, caltech, 2, "{}", 0.4, 0.4, 0.4, 0.4, 0.4, 0.4

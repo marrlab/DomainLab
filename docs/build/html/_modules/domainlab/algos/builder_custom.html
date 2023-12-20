@@ -389,6 +389,7 @@ def make_basic_trainer(class_name_model):
             model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
             observer = ObVisitor(model_sel)
             model = class_name_model(list_str_y=task.list_str_y)
+            model = self.init_next_model(model, exp)
             self.set_nets_from_dictionary(args, task, model)
             trainer = self.get_trainer(args)
             trainer.init_business(model, task, observer, device, args)

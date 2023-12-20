@@ -22,8 +22,8 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_path_list.py
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   dmem: False
   lr: 5e-5
   epos: 500
@@ -32,7 +32,7 @@ domainlab_args:
   san_check: True
 
 erm:  # name
-  model: deepall
+  model: erm
 
 
 hduva_matchdg:  # name
@@ -88,8 +88,8 @@ hduva_dial:
   model: hduva
   trainer: dial
   npath: examples/nets/resnet50domainbed.py
-  nname_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  nname_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  nname_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  nname_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   # specification of parameters that shall vary
   # between runs to analyze the sensitivity
   # of this task w.r.t. these parameters.

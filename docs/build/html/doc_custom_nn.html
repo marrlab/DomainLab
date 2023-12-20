@@ -284,7 +284,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#custom-neural-network-examples" class="md-nav__link">Custom Neural Network Examples</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#model-deepall-with-custom-neural-network" class="md-nav__link">model ‘deepall’ with custom neural network</a>
+        <li class="md-nav__item"><a href="#model-erm-with-custom-neural-network" class="md-nav__link">model ‘erm’ with custom neural network</a>
         </li>
         <li class="md-nav__item"><a href="#trainer-matchdg-with-custom-neural-network" class="md-nav__link">trainer ‘matchdg’ with custom neural network</a>
         </li></ul>
@@ -311,15 +311,15 @@
 <section id="custom-neural-network-examples">
 <h2 id="custom-neural-network-examples">Custom Neural Network Examples<a class="headerlink" href="#custom-neural-network-examples" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py">https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py</a></p>
-<section id="model-deepall-with-custom-neural-network">
-<h3 id="model-deepall-with-custom-neural-network">model ‘deepall’ with custom neural network<a class="headerlink" href="#model-deepall-with-custom-neural-network" title="Link to this heading">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>deepall<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
+<section id="model-erm-with-custom-neural-network">
+<h3 id="model-erm-with-custom-neural-network">model ‘erm’ with custom neural network<a class="headerlink" href="#model-erm-with-custom-neural-network" title="Link to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="trainer-matchdg-with-custom-neural-network">
 <h3 id="trainer-matchdg-with-custom-neural-network">trainer ‘matchdg’ with custom neural network<a class="headerlink" href="#trainer-matchdg-with-custom-neural-network" title="Link to this heading">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>deepall<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>

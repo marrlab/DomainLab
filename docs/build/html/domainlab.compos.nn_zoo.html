@@ -581,7 +581,7 @@ registered hooks while the latter silently ignores them.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <ul class="simple">
 <li><p>For direct topic inference</p></li>
-<li><p>For custom deep_all, which is extracting the path of VAE from encoder
+<li><p>For custom erm, which is extracting the path of VAE from encoder
 until classifier. note in encoder, there is extra layer of hidden to mean
 and scale, in this component, it is replaced with another hidden layer.</p></li>
 </ul>
@@ -746,7 +746,7 @@ registered hooks while the latter silently ignores them.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.nn_zoo.nn_alex.</span></span><span class="sig-name descname"><span class="pre">AlexNetNoLastLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/nn_zoo/nn_alex.html#AlexNetNoLastLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetNoLastLayer" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.compos.nn_zoo.nn_alex.AlexNetBase" title="domainlab.compos.nn_zoo.nn_alex.AlexNetBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">AlexNetBase</span></code></a></p>
 <p>Change the last layer of AlexNet with identity layer,
-the classifier from VAE can then have the same layer depth as deep_all
+the classifier from VAE can then have the same layer depth as erm
 model so it is fair for comparison</p>
 </dd></dl>
 </section>

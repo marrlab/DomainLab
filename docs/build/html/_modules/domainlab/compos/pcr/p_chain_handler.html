@@ -394,8 +394,9 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
             return self
         if self._success_node is not None:
             return self._success_node.handle(request)
-        err_msg = str(request) + " does not exist"
+        err_msg = "option " + str(request) + " does not exist"
         logger = Logger.get_logger()
+        logger.info(err_msg)
         logger.info("available options are")
         self.print_options()
         raise NotImplementedError(err_msg)</div>
