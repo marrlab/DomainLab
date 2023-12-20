@@ -28,12 +28,12 @@ python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --model=diva --nnam
 
 ### use hduva on color mnist, train on 2 domains
 ```shell
-python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --model=hduva  --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --model=hduva  --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
 ```
 
 ### hduva is domain-unsupervised, so it works also with a single domain
 ```shell
-python main_out.py --tr_d 0  --te_d 3 4 --bs=2 --task=mnistcolor10 --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --tr_d 0  --te_d 3 4 --bs=2 --task=mnistcolor10 --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
 ```
 
 
@@ -82,12 +82,12 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --
 
 ### hduva with implemented neural network
 ```shell
-python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
 ```
 
 ### hduva use alex net
 ```shell
-python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=alexnet
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=alexnet
 ```
 
 
@@ -107,22 +107,22 @@ python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --model=erm --trainer=
 ### training hduva with matchdg
 
 ```shell
-python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --bs=2 --model=hduva --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --bs=2 --model=hduva --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
 ```
 
 ### hduva use custom net for sandwich encoder
 ```shell
-python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --npath_encoder_sandwich_layer_img2h4zd=examples/nets/resnet.py
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --npath_encoder_sandwich_x2h4zd=examples/nets/resnet.py
 ```
 
 ### hduva use custom net for topic encoder
 ```shell
-python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --npath_topic_distrib_img2topic=examples/nets/resnet.py --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --npath_encoder_x2topic_h=examples/nets/resnet.py --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
 ```
 
 ### hduva use custom net for classification encoder
 ```shell
-python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --npath=examples/nets/resnet.py --gamma_y=7e5 --nname_topic_distrib_img2topic=conv_bn_pool_2 --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --npath=examples/nets/resnet.py --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
 ```
 
 

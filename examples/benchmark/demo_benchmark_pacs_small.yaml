@@ -65,8 +65,8 @@ Task1:  # name
 Task2:  # name
   model: hduva
 
-  nname_topic_distrib_img2topic: alexnet
-  nname_encoder_sandwich_layer_img2h4zd: alexnet
+  nname_encoder_x2topic_h: alexnet
+  nname_encoder_sandwich_x2h4zd: alexnet
 
   hyperparameters:
     # Same config as diva.
