@@ -71,3 +71,4 @@ One could simply run
 <div style="align: center; text-align:center;">
 <img src="docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/> 
 </div>
+where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.
