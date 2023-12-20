@@ -77,8 +77,8 @@ domainlab_args:
     # some of the algorithms do need multiple networks, 
     # all of which can also be paths to a network
     # (i.e. npath_... : examples/nets/resnet50domainbed.py)
-    nname_topic_distrib_img2topic: conv_bn_pool_2
-    nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+    nname_encoder_x2topic_h: conv_bn_pool_2
+    nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
     nname_dom: conv_bn_pool_2
 
 
