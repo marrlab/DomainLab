@@ -60,6 +60,8 @@ class EncoderImg2TopicDistri(nn.Module):
         """
         # image->h_image
         h_img_dir = self.layer_img2hidden(x)
+        if torch.any(torch.isnan(h_img_dir)):
+            raise RuntimeError("NaN found in self.layer_img2hidden(x)!")
         # h_image->alpha
         q_topic, topic_q = self.layer_hidden2dirichlet(h_img_dir)
         return q_topic, topic_q

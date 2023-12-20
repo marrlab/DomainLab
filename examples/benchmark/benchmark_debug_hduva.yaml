@@ -1,0 +1,83 @@
+# PACS
+
+test_domains:
+  - sketch
+
+output_dir: zoutput/benchmarks/pacs_benchmark_resnet50_no_combo
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by #(test_domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 8
+# note that num_shared_param_samples is independent from num_param_samples (they are not cartesian
+# product) see details in https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 5  # currently included
+
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  tpath: examples/tasks/task_pacs_path_list.py
+  lr: 5e-5
+  epos: 500
+  es: 1
+  bs: 32
+  npath: examples/nets/resnet50domainbed.py
+  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+
+Shared params:
+  num_shared_param_samples: 8
+  gamma_y:
+    min: 1e4
+    max: 1e6
+    step: 100
+    distribution: loguniform
+
+  gamma_d:
+    min: 1e4
+    max: 1e6
+    step: 100
+    distribution: loguniform
+
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zd_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
+
+
+
+hduva:  # name
+  model: hduva
+  zx_dim: 0
+  shared:
+    - gamma_y
+    - zy_dim
+    - zd_dim
