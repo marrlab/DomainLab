@@ -186,7 +186,8 @@ mldg:  # name
 
 
 hduva_matchdg:  # name
-  model: matchhduva
+  model: hduva
+  trainer: matchdg
   zx_dim: 0
 
   shared:

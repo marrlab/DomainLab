@@ -165,13 +165,17 @@ diva_mldg:  # name
   shared:
     - gamma_y
     - gamma_d
+    - zx_dim
+    - zy_dim
+    - zd_dim
     - gamma_reg
-
 
 hduva_mldg:  # name
   model: hduva
   trainer: mldg
+  zx_dim: 0
   shared:
     - gamma_y
     - zy_dim
+    - zd_dim
     - gamma_reg
