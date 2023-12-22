@@ -3,6 +3,7 @@ trainer matchdg
 """
 import torch
 
+from domainlab import g_inst_component_loss_agg, g_list_loss_agg
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.compos.matchdg_utils import \
 get_base_domain_size4match_dg
@@ -76,6 +77,7 @@ class TrainerMatchDG(AbstractTrainer):
                 break
         if epoch < self.aconf.epochs_ctr:
             logger.info("\n\nPhase 0 continue\n\n")
+            self.observer.reset()
             return False
         self.flag_erm = True
         flag_stop = self.observer.update(epoch)  # notify observer
@@ -102,11 +104,12 @@ class TrainerMatchDG(AbstractTrainer):
         # these losses within one batch
 
         if self.flag_erm:
+            # decoratee can be both trainer or model
             list_loss_reg_rand, list_mu_reg = self.decoratee.cal_reg_loss(x_e, y_e, d_e, others)
             loss_reg = self.model.inner_product(list_loss_reg_rand, list_mu_reg)
             loss_task_rand = self.model.cal_task_loss(x_e, y_e)
             # loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e, others)
-            loss_erm_rnd_loader = loss_reg + loss_task_rand
+            loss_erm_rnd_loader = loss_reg + loss_task_rand * self.model.multiplier4task_loss
 
         num_batches = len(self.tuple_tensor_refdomain2each)
 
@@ -157,6 +160,7 @@ class TrainerMatchDG(AbstractTrainer):
             # not yet filled
             loss_erm_match_tensor, *_ = self.model.cal_task_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
+            loss_erm_match_tensor *= self.model.multiplier4task_loss
 
         # Creating tensor of shape (domain size, total domains, feat size )
         # The match tensor's first two dimension
@@ -244,7 +248,7 @@ class TrainerMatchDG(AbstractTrainer):
 
                     counter_same_cls_diff_domain += dist_same_cls_diff_domain.shape[0]
 
-        loss_ctr = sum(list_batch_loss_ctr) / counter_same_cls_diff_domain
+        loss_ctr = g_list_loss_agg(list_batch_loss_ctr) / counter_same_cls_diff_domain
 
         if self.flag_erm:
             epos = self.aconf.epos
@@ -265,8 +269,8 @@ class TrainerMatchDG(AbstractTrainer):
             # one is rnd (random) data loader
             # the other one is the data loader from the match tensor
             loss_e = torch.tensor(0.0, requires_grad=True) + \
-                    torch.mean(loss_erm_rnd_loader) + \
-                    torch.mean(loss_erm_match_tensor) + \
+                    g_inst_component_loss_agg(loss_erm_rnd_loader) + \
+                    g_inst_component_loss_agg(loss_erm_match_tensor) + \
                     self.lambda_ctr * percentage_finished_epochs * loss_ctr
         else:
             loss_e = torch.tensor(0.0, requires_grad=True) + \
