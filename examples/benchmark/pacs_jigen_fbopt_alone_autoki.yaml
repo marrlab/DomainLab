@@ -22,8 +22,8 @@ domainlab_args:
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64

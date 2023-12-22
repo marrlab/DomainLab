@@ -24,8 +24,8 @@ domainlab_args:
   zd_dim: 32
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  nname_encoder_x2topic_h: conv_bn_pool_2
+  nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
   san_check: False
   coeff_ma: 0.5
   no_tensorboard: False
