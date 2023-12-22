@@ -104,5 +104,5 @@ class TrainerBasic(AbstractTrainer):
         #
         self.log_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
-        loss = loss_task.sum() + reg_tr.sum()
+        loss = self.model.multiplier4task_loss * loss_task.sum() + reg_tr.sum()
         return loss

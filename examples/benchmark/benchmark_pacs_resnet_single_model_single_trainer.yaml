@@ -1,13 +1,16 @@
-# test benchmark config.
+# PACS
 
 test_domains:
   - sketch
 
-output_dir: zoutput/benchmarks/pacs_benchmark
+output_dir: zoutput/benchmarks/pacs_benchmark_resnet50_no_combo
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
-# by len(domains) * num_param_samples * num_seeds (see below)
+# by #(test_domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 8
+# note that num_shared_param_samples is independent from num_param_samples (they are not cartesian
+# product) see details in https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md
+
 sampling_seed: 0
 
 startseed: 0
@@ -20,80 +23,81 @@ domainlab_args:
   # task specific arguments take precedence.
   ## dataset
   tpath: examples/tasks/task_pacs_path_list.py
-  dmem: False
   lr: 5e-5
   epos: 500
+  epos_min: 20
   es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
-  san_check: True
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+
+Shared params:
+  num_shared_param_samples: 8
+  gamma_y:
+    min: 1e4
+    max: 1e6
+    step: 100
+    distribution: loguniform
+
+  gamma_d:
+    min: 1e4
+    max: 1e6
+    step: 100
+    distribution: loguniform
+
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zd_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
 
 
 diva:  # name
   model: diva
-  # set nname_dom = nname when changing nname
-  npath_dom: examples/nets/resnet50domainbed.py
+  shared:
+    - gamma_y
+    - gamma_d
+    - zx_dim
+    - zy_dim
+    - zd_dim
 
-  hyperparameters:
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
-
-    gamma_d:
-      min: 1e4
-      max: 1e6
-      step: 10_000
-      distribution: loguniform
-
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
 
 hduva:  # name
   model: hduva
+  zx_dim: 0
+  shared:
+    - gamma_y
+    - zy_dim
+    - zd_dim
 
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-
-  hyperparameters:
-    # Same config as diva.
-    gamma_y:
-      min: 1e4
-      max: 2e5
-      step: 100
-      distribution: loguniform
-
-    zx_dim:
-      min: 0
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zy_dim:
-      min: 32
-      max: 96
-      step: 32
-      distribution: uniform
-
-    zd_dim:
-      reference: zy_dim
 
 matchdg:  # name
   model: erm
   trainer: matchdg
+  shared:
+    - gamma_reg
 
   hyperparameters:
     # Total number of epochs for contrastive loss
@@ -116,15 +120,11 @@ matchdg:  # name
       step: 1
       distribution: uniform
 
-    # penalty weight for matching loss (Lambda in paper)
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
 jigen:  # name
   model: jigen
   grid_len: 3
+  shared:
+    - gamma_reg
 
   hyperparameters:
     # number of permutations
@@ -142,27 +142,22 @@ jigen:  # name
       max: 0.5
       distribution: uniform
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
-
 
 dann:  # name
   model: dann
+  shared:
+    - gamma_reg
 
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 erm:  # name
   model: erm
 
 
 dial: # name
-  model: erm_dial
+  model: erm
+  trainer: dial
+  shared:
+    - gamma_reg
 
   hyperparameters:
     dial_steps_perturb:
@@ -181,16 +176,9 @@ dial: # name
       max: 0.01
       distribution: loguniform
 
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
 
 mldg:  # name
-  model: ermmldg
-
-  hyperparameters:
-    gamma_reg:
-      min: 0.01
-      max: 10
-      distribution: loguniform
+  model: erm
+  trainer: mldg
+  shared:
+    - gamma_reg

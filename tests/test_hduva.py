@@ -14,9 +14,9 @@ def test_hduva_zx_nonzero():
     """
     utils_test_algo("--te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --zx_dim=8 \
                     --model=hduva --nname=conv_bn_pool_2 \
-                    --nname_topic_distrib_img2topic=conv_bn_pool_2 \
+                    --nname_encoder_x2topic_h=conv_bn_pool_2 \
                     --gamma_y=7e5 \
-                    --nname_encoder_sandwich_layer_img2h4zd=conv_bn_pool_2")
+                    --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2")
 
 
 def test_trainer_hduva():
@@ -29,8 +29,8 @@ def test_trainer_hduva():
                                "--model", "hduva", "--bs", "2",
                                "--nname", "alexnet",
                                "--gamma_y", "7e5",
-                               "--nname_topic_distrib_img2topic", "conv_bn_pool_2",
-                               "--nname_encoder_sandwich_layer_img2h4zd", "conv_bn_pool_2"
+                               "--nname_encoder_x2topic_h", "conv_bn_pool_2",
+                               "--nname_encoder_sandwich_x2h4zd", "conv_bn_pool_2"
                                ])
     exp = Exp(margs)
     exp.trainer.before_tr()
