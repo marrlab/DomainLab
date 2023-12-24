@@ -160,7 +160,6 @@ class TrainerMatchDG(AbstractTrainer):
             # not yet filled
             loss_erm_match_tensor, *_ = self.model.cal_task_loss(
                 batch_tensor_ref_domain2each, batch_ref_domain2each_y.long())
-            loss_erm_match_tensor *= self.model.multiplier4task_loss
 
         # Creating tensor of shape (domain size, total domains, feat size )
         # The match tensor's first two dimension
@@ -270,7 +269,7 @@ class TrainerMatchDG(AbstractTrainer):
             # the other one is the data loader from the match tensor
             loss_e = torch.tensor(0.0, requires_grad=True) + \
                     g_inst_component_loss_agg(loss_erm_rnd_loader) + \
-                    g_inst_component_loss_agg(loss_erm_match_tensor) + \
+                    g_inst_component_loss_agg(loss_erm_match_tensor) * self.model.multiplier4task_loss + \
                     self.lambda_ctr * percentage_finished_epochs * loss_ctr
         else:
             loss_e = torch.tensor(0.0, requires_grad=True) + \
