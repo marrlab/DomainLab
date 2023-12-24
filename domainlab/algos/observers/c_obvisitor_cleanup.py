@@ -21,3 +21,7 @@ class ObVisitorCleanUp(AObVisitor):
 
     def clean_up(self):
         self.observer.clean_up()
+
+    @property
+    def model_sel(self):
+        return self.observer.model_sel
