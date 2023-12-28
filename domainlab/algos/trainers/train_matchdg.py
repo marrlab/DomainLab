@@ -127,11 +127,7 @@ class TrainerMatchDG(AbstractTrainer):
         # with first dimension as batch size
 
         # clamp the first two dimensions so the model network could map image to feature
-        batch_tensor_ref_domain2each = batch_tensor_ref_domain2each.view(
-            batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
-            batch_tensor_ref_domain2each.shape[2],   # channel
-            batch_tensor_ref_domain2each.shape[3],   # img_h
-            batch_tensor_ref_domain2each.shape[4])   # img_w
+        batch_tensor_ref_domain2each = match_tensor_reshape(batch_tensor_ref_domain2each)
         # now batch_tensor_ref_domain2each first dim will not be batch_size!
         # batch_tensor_ref_domain2each.shape torch.Size([40, channel, 224, 224])
 
@@ -312,3 +308,16 @@ class TrainerMatchDG(AbstractTrainer):
         logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")
         # phase 1: contrastive learning
         # different than phase 2, ctr_model has no classification loss
+
+
+def match_tensor_reshape(batch_tensor_ref_domain2each): 
+    """
+    # original dimension is (ref_domain, domain, (channel, img_h, img_w))
+    # use a function so it is easier to accomodate other data mode (not image)
+    """
+    batch_tensor_refdomain_other_domain_chw = batch_tensor_ref_domain2each.view(
+        batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
+        batch_tensor_ref_domain2each.shape[2],   # channel
+        batch_tensor_ref_domain2each.shape[3],   # img_h
+        batch_tensor_ref_domain2each.shape[4])   # img_w
+    return batch_tensor_refdomain_other_domain_chw
