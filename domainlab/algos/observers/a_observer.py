@@ -55,3 +55,9 @@ class AObVisitor(metaclass=abc.ABCMeta):
         """
         to be called by a decorator
         """
+
+    def reset(self):
+        """
+        reset observer via reset model selector
+        """
+        self.model_sel.reset()

@@ -3,6 +3,7 @@ trainer matchdg
 """
 import torch
 
+from domainlab import g_inst_component_loss_agg, g_list_loss_agg
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.compos.matchdg_utils import \
 get_base_domain_size4match_dg
@@ -33,7 +34,7 @@ class TrainerMatchDG(AbstractTrainer):
         self.flag_erm = flag_erm
         self.lambda_ctr = self.aconf.gamma_reg
         self.mk_match_tensor(epoch=0)
-        self.flag_stop = False
+        self.flag_match_tensor_sweep_over = False
         self.tuple_tensor_ref_domain2each_y = None
         self.tuple_tensor_refdomain2each = None
 
@@ -70,13 +71,18 @@ class TrainerMatchDG(AbstractTrainer):
             # the 4th output of self.loader is not used at all,
             # is only used for creating the match tensor
             self.tr_batch(epoch, batch_idx, x_e, y_e, d_e, others)
-            if self.flag_stop is True:
+            if self.flag_match_tensor_sweep_over is True:
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
+                self.flag_match_tensor_sweep_over = False
                 break
+
         if epoch < self.aconf.epochs_ctr:
-            logger.info("\n\nPhase 0 continue\n\n")
+            logger.info("\n\nPhase ctr-only continue\n\n")
+            self.observer.reset()
             return False
+
+        logger.info("\n\nPhase erm+ctr \n\n")
         self.flag_erm = True
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
@@ -102,19 +108,17 @@ class TrainerMatchDG(AbstractTrainer):
         # these losses within one batch
 
         if self.flag_erm:
+            # decoratee can be both trainer or model
             list_loss_reg_rand, list_mu_reg = self.decoratee.cal_reg_loss(x_e, y_e, d_e, others)
             loss_reg = self.model.inner_product(list_loss_reg_rand, list_mu_reg)
             loss_task_rand = self.model.cal_task_loss(x_e, y_e)
             # loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e, others)
-            loss_erm_rnd_loader = loss_reg + loss_task_rand
+            loss_erm_rnd_loader = loss_reg + loss_task_rand * self.model.multiplier4task_loss
 
-        num_batches = len(self.tuple_tensor_refdomain2each)
+        num_batches_match_tensor = len(self.tuple_tensor_refdomain2each)
 
-        if batch_idx >= num_batches:
-            logger = Logger.get_logger()
-            logger.info("ref/base domain vs each domain match"
-                        "traversed one sweep, starting new epoch")
-            self.flag_stop = True
+        if batch_idx >= num_batches_match_tensor:
+            self.flag_match_tensor_sweep_over = True
             return
 
         curr_batch_size = self.tuple_tensor_refdomain2each[batch_idx].shape[0]
@@ -124,11 +128,7 @@ class TrainerMatchDG(AbstractTrainer):
         # with first dimension as batch size
 
         # clamp the first two dimensions so the model network could map image to feature
-        batch_tensor_ref_domain2each = batch_tensor_ref_domain2each.view(
-            batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
-            batch_tensor_ref_domain2each.shape[2],   # channel
-            batch_tensor_ref_domain2each.shape[3],   # img_h
-            batch_tensor_ref_domain2each.shape[4])   # img_w
+        batch_tensor_ref_domain2each = match_tensor_reshape(batch_tensor_ref_domain2each)
         # now batch_tensor_ref_domain2each first dim will not be batch_size!
         # batch_tensor_ref_domain2each.shape torch.Size([40, channel, 224, 224])
 
@@ -244,13 +244,13 @@ class TrainerMatchDG(AbstractTrainer):
 
                     counter_same_cls_diff_domain += dist_same_cls_diff_domain.shape[0]
 
-        loss_ctr = sum(list_batch_loss_ctr) / counter_same_cls_diff_domain
+        loss_ctr = g_list_loss_agg(list_batch_loss_ctr) / counter_same_cls_diff_domain
 
         if self.flag_erm:
             epos = self.aconf.epos
         else:
             epos = self.aconf.epochs_ctr
-        coeff = (epoch + 1)/(epos + 1)
+        percentage_finished_epochs = (epoch + 1)/(epos + 1)
         # loss aggregation is over different domain
         # combinations of the same batch
         # https://discuss.pytorch.org/t/leaf-variable-was-used-in-an-inplace-operation/308
@@ -265,12 +265,12 @@ class TrainerMatchDG(AbstractTrainer):
             # one is rnd (random) data loader
             # the other one is the data loader from the match tensor
             loss_e = torch.tensor(0.0, requires_grad=True) + \
-                    torch.mean(loss_erm_rnd_loader) + \
-                    torch.mean(loss_erm_match_tensor) + \
-                    self.lambda_ctr * coeff * loss_ctr
+                    g_inst_component_loss_agg(loss_erm_rnd_loader) + \
+                    g_inst_component_loss_agg(loss_erm_match_tensor) * self.model.multiplier4task_loss + \
+                    self.lambda_ctr * percentage_finished_epochs * loss_ctr
         else:
             loss_e = torch.tensor(0.0, requires_grad=True) + \
-                self.lambda_ctr * coeff * loss_ctr
+                self.lambda_ctr * percentage_finished_epochs * loss_ctr
         # @FIXME: without torch.tensor(0.0), after a few epochs,
         # error "'float' object has no attribute 'backward'"
 
@@ -309,3 +309,16 @@ class TrainerMatchDG(AbstractTrainer):
         logger.info("\n\nPhase 1 start: contractive alignment without task loss: \n\n")
         # phase 1: contrastive learning
         # different than phase 2, ctr_model has no classification loss
+
+
+def match_tensor_reshape(batch_tensor_ref_domain2each): 
+    """
+    # original dimension is (ref_domain, domain, (channel, img_h, img_w))
+    # use a function so it is easier to accomodate other data mode (not image)
+    """
+    batch_tensor_refdomain_other_domain_chw = batch_tensor_ref_domain2each.view(
+        batch_tensor_ref_domain2each.shape[0]*batch_tensor_ref_domain2each.shape[1],
+        batch_tensor_ref_domain2each.shape[2],   # channel
+        batch_tensor_ref_domain2each.shape[3],   # img_h
+        batch_tensor_ref_domain2each.shape[4])   # img_w
+    return batch_tensor_refdomain_other_domain_chw

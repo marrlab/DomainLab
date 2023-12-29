@@ -43,10 +43,10 @@ Task5:  # name
       distribution: loguniform
   
 Task6:  # name
-  model: deepall
+  model: erm
 
 Task7: # name
-  model: deepall_dial
+  model: erm_dial
 
   hyperparameters:
     dial_steps_perturb:

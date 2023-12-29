@@ -9,14 +9,14 @@ from domainlab.arg_parser import mk_parser_main
 from tests.utils_test import utils_test_algo
 
 
-def test_deepall():
+def test_erm():
     """
     unit deep all
     """
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--model", "deepall", "--bs", "2",
+                               "--model", "erm", "--bs", "2",
                                "--nname", "conv_bn_pool_2"
                                ])
     exp = Exp(margs)
@@ -27,7 +27,7 @@ def test_deepall():
     gc.collect()
 
 
-def test_deepall_res():
+def test_erm_res():
     """
     resnet on deep all
     """
@@ -39,7 +39,7 @@ def test_deepall_res():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--model", "deepall", "--bs", "2",
+                               "--model", "erm", "--bs", "2",
                                "--npath", f"{path}"
                                ])
     exp = Exp(margs)
@@ -50,7 +50,7 @@ def test_deepall_res():
     gc.collect()
 
 
-def test_deepall_resdombed():
+def test_erm_resdombed():
     """
     resnet on deep all
     """
@@ -62,7 +62,7 @@ def test_deepall_resdombed():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--model", "deepall",
+                               "--model", "erm",
                                "--bs", "2",
                                "--npath", f"{path}"
                                ])

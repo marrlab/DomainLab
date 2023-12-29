@@ -65,4 +65,4 @@ diva:  # name
       reference: zy_dim
 
 erm:  # name
-  model: deepall
+  model: erm
