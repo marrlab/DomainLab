@@ -73,6 +73,9 @@ Shared params:
     max: 10
     distribution: loguniform
 
+erm:  # name
+  model: erm
+
 
 diva:  # name
   model: diva
@@ -147,11 +150,6 @@ dann:  # name
   model: dann
   shared:
     - gamma_reg
-
-
-erm:  # name
-  model: erm
-
 
 dial: # name
   model: erm
