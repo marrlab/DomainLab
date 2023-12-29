@@ -10,7 +10,6 @@ class EncoderImg2TopicDistri(nn.Module):
     used by another path)
     """
     def __init__(self, i_c, i_h, i_w, num_topics,
-                 img_h_dim,
                  device,
                  args):
         """__init__.
@@ -23,27 +22,24 @@ class EncoderImg2TopicDistri(nn.Module):
         """
         super().__init__()
         self.device = device
-        self.img_h_dim = img_h_dim
 
-        # image->h_image->[alpha,topic]
+        # image->h_topic->(batchnorm, exp)[alpha,topic]
 
-        # @FIXME:
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
             arg_name_of_net="nname_encoder_x2topic_h",
-            arg_path_of_net="npath_encoder_x2topic_h")()  # @FIXME
+            arg_path_of_net="npath_encoder_x2topic_h")()
 
         self.add_module("layer_img2hidden",
                         net_builder.init_business(
                             flag_pretrain=True,
                             remove_last_layer=False,
-                            dim_out=self.img_h_dim,
+                            dim_out=num_topics,
                             i_c=i_c, i_h=i_h, i_w=i_w, args=args))
 
         # h_image->[alpha,topic]
         self.add_module("layer_hidden2dirichlet",
                         EncoderH2Dirichlet(
-                            dim_h=self.img_h_dim,
                             dim_topic=num_topics,
                             device=self.device))
 
