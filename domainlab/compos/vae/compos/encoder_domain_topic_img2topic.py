@@ -37,13 +37,12 @@ class EncoderImg2TopicDistri(nn.Module):
                         net_builder.init_business(
                             flag_pretrain=True,
                             remove_last_layer=False,
-                            dim_out=self.img_h_dim,
+                            dim_out=num_topics,
                             i_c=i_c, i_h=i_h, i_w=i_w, args=args))
 
         # h_image->[alpha,topic]
         self.add_module("layer_hidden2dirichlet",
                         EncoderH2Dirichlet(
-                            dim_h=self.img_h_dim,
                             dim_topic=num_topics,
                             device=self.device))
 
