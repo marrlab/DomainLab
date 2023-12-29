@@ -74,6 +74,7 @@ class TrainerMatchDG(AbstractTrainer):
             if self.flag_match_tensor_sweep_over is True:
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
+                self.flag_match_tensor_sweep_over = False
                 break
 
         if epoch < self.aconf.epochs_ctr:
