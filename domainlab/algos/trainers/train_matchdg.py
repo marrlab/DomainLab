@@ -76,9 +76,11 @@ class TrainerMatchDG(AbstractTrainer):
                             traversed one sweep, starting new epoch")
                 break
         if epoch < self.aconf.epochs_ctr:
-            logger.info("\n\nPhase 0 continue\n\n")
+            logger.info("\n\nPhase ctr-only continue\n\n")
             self.observer.reset()
             return False
+
+        logger.info("\n\nPhase erm+ctr \n\n")
         self.flag_erm = True
         flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
