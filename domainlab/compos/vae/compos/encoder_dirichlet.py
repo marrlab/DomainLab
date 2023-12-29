@@ -19,7 +19,9 @@ class EncoderH2Dirichlet(nn.Module):
         """
         :param hidden:
         """
-        alphas_batch = self.layer_bn(self.net_fc(hidden)).exp()
+        feat_fc = self.net_fc(hidden)
+        feat_bnorm = self.layer_bn(feat_fc)
+        alphas_batch = feat_bnorm.exp()
         q_topic = Dirichlet(alphas_batch)
         topic_q = q_topic.rsample().to(self.device)
         return q_topic, topic_q
