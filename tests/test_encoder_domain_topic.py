@@ -11,7 +11,7 @@ def test_TopicImg2Zd():
     args.nname_encoder_sandwich_x2h4zd = "conv_bn_pool_2"
     model = EncoderSandwichTopicImg2Zd(
         zd_dim=64, i_c=3, i_h=64, i_w=64,
-        num_topics=5, topic_h_dim=1024, img_h_dim=1024,
+        num_topics=5, img_h_dim=1024,
         args=args)
     x = torch.rand(20, 3, 64, 64)
     topic = torch.rand(20, 5)
