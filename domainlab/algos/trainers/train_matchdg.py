@@ -34,7 +34,7 @@ class TrainerMatchDG(AbstractTrainer):
         self.flag_erm = flag_erm
         self.lambda_ctr = self.aconf.gamma_reg
         self.mk_match_tensor(epoch=0)
-        self.flag_stop = False
+        self.flag_match_tensor_sweep_over = False
         self.tuple_tensor_ref_domain2each_y = None
         self.tuple_tensor_refdomain2each = None
 
@@ -71,10 +71,11 @@ class TrainerMatchDG(AbstractTrainer):
             # the 4th output of self.loader is not used at all,
             # is only used for creating the match tensor
             self.tr_batch(epoch, batch_idx, x_e, y_e, d_e, others)
-            if self.flag_stop is True:
+            if self.flag_match_tensor_sweep_over is True:
                 logger.info("ref/base domain vs each domain match \
                             traversed one sweep, starting new epoch")
                 break
+
         if epoch < self.aconf.epochs_ctr:
             logger.info("\n\nPhase ctr-only continue\n\n")
             self.observer.reset()
@@ -113,13 +114,10 @@ class TrainerMatchDG(AbstractTrainer):
             # loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e, others)
             loss_erm_rnd_loader = loss_reg + loss_task_rand * self.model.multiplier4task_loss
 
-        num_batches = len(self.tuple_tensor_refdomain2each)
+        num_batches_match_tensor = len(self.tuple_tensor_refdomain2each)
 
-        if batch_idx >= num_batches:
-            logger = Logger.get_logger()
-            logger.info("ref/base domain vs each domain match"
-                        "traversed one sweep, starting new epoch")
-            self.flag_stop = True
+        if batch_idx >= num_batches_match_tensor:
+            self.flag_match_tensor_sweep_over = True
             return
 
         curr_batch_size = self.tuple_tensor_refdomain2each[batch_idx].shape[0]
