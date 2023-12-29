@@ -26,7 +26,7 @@ domainlab_args:
   lr: 5e-5
   epos: 500
   epos_min: 20
-  es: 1
+  es: 5
   bs: 32
   npath: examples/nets/resnet50domainbed.py
   npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
