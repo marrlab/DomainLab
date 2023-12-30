@@ -22,11 +22,11 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   ## dataset
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug.py
   lr: 5e-5
   epos: 500
-  epos_min: 20
-  es: 1
+  epos_min: 10
+  es: 2
   bs: 32
   npath: examples/nets/resnet50domainbed.py
   npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
@@ -72,6 +72,9 @@ Shared params:
     min: 0.01
     max: 10
     distribution: loguniform
+
+erm:  # name
+  model: erm
 
 
 diva:  # name
@@ -119,6 +122,10 @@ matchdg:  # name
       max: 20
       step: 1
       distribution: uniform
+      
+# The only transformation for JiGen allowed is normalization and image resize, no random flip, as the original code shows:
+# https://github.com/fmcarlucci/JigenDG/blob/master/data/JigsawLoader.py
+# adding random flip here will cause jigen to confuse with the image tile reshuffling. 
 
 jigen:  # name
   model: jigen
@@ -147,11 +154,6 @@ dann:  # name
   model: dann
   shared:
     - gamma_reg
-
-
-erm:  # name
-  model: erm
-
 
 dial: # name
   model: erm
