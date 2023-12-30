@@ -78,7 +78,9 @@ class WrapDsetPatches(torchdata.Dataset):
         return tile
 
     def __getitem__(self, index):
+        # image transformation from self.dataset happens here:
         img, label, *domain = self.dataset.__getitem__(index)
+        # now img has been transformed (including normalization)
         original_size = img.shape[-2:]
         if domain:
             dlabel = domain[0]
