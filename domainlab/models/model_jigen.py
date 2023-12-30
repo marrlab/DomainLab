@@ -89,15 +89,15 @@ def mk_jigen(parent_class=AModelClassif):
 
             nperm = self.n_perm
             if args.nperm != nperm and not self.flag_overwrite_args:
-                warnings.warn("number of permutations specified differently \
-                              in model and args, \
+                warnings.warn(f"number of permutations specified differently \
+                              in model {nperm} and args {args.nperm}, \
                               going to take args specification")
                 nperm = args.nperm
                 
             pperm = self.prob_perm
             if args.pperm != pperm and not self.flag_overwrite_args:
-                warnings.warn("probability of reshuffling specified differently \
-                              in model and args, \
+                warnings.warn(f"probability of reshuffling specified differently \
+                              in model {pperm} and args: {args.pperm}, \
                               going to take model specification")
                 pperm = args.pperm
 
