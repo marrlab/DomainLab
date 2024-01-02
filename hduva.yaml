@@ -23,7 +23,7 @@ domainlab_args:
   # task specific arguments take precedence.
   ## dataset
   tpath: examples/tasks/task_pacs_aug.py
-  lr: e-5
+  lr: 1e-5
   epos: 500
   epos_min: 10
   es: 10
