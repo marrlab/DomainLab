@@ -23,14 +23,14 @@ domainlab_args:
   # task specific arguments take precedence.
   ## dataset
   tpath: examples/tasks/task_pacs_aug.py
-  lr: 1e-5
+  lr: 5e-5
   epos: 500
   epos_min: 10
   es: 10
   bs: 32
   npath: examples/nets/resnet50domainbed.py
-  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
+  npath_encoder_x2topic_h: examples/nets/resnet.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet.py
   npath_dom: examples/nets/resnet50domainbed.py
 
 Shared params:
