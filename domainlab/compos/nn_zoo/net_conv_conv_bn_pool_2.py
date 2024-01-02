@@ -33,13 +33,14 @@ def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
 
 
 class NetConvBnReluPool2L(nn.Module):
-    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h):
+    def __init__(self, isize, conv_stride, dim_out_h):
         """
         :param dim_out_h:
         """
         super().__init__()
         self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
         ###
+        i_c, i_h, i_w = isize
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
         self.layer_last = nn.Linear(self.hdim, dim_out_h)
 
@@ -60,11 +61,12 @@ class NetConvDense(nn.Module):
       until classifier. note in encoder, there is extra layer of hidden to mean
       and scale, in this component, it is replaced with another hidden layer.
     """
-    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, args, dense_layer=None):
+    def __init__(self, isize, conv_stride, dim_out_h, args, dense_layer=None):
         """
         :param dim_out_h:
         """
         super().__init__()
+        i_c, i_h, i_w = isize
         self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
         ###
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)

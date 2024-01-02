@@ -35,7 +35,7 @@ class EncoderImg2TopicDistri(nn.Module):
                             flag_pretrain=True,
                             remove_last_layer=False,
                             dim_out=num_topics,
-                            i_c=i_c, i_h=i_h, i_w=i_w, args=args))
+                            args=args))
 
         # h_image->[alpha,topic]
         self.add_module("layer_hidden2dirichlet",
