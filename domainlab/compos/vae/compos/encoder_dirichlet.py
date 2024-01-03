@@ -22,6 +22,6 @@ class EncoderH2Dirichlet(nn.Module):
         # feat_bnorm = self.layer_bn(hidden)
         feat_bnorm = hidden
         alphas_batch = torch.log(1 + feat_bnorm.exp())
-        q_topic = Dirichlet(alphas_batch)
+        q_topic = Dirichlet(alphas_batch + 1e-6)
         topic_q = q_topic.rsample().to(self.device)
         return q_topic, topic_q
