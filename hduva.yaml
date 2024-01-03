@@ -79,6 +79,7 @@ erm:  # name
 hduva:  # name
   model: hduva
   zx_dim: 0
+  img_h_dim: 64
   shared:
     - gamma_y
     - zy_dim
