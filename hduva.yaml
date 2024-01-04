@@ -36,7 +36,7 @@ Shared params:
   num_shared_param_samples: 8
   gamma_y:
     min: 1e4
-    max: 1e6
+    max: 1e8
     step: 100
     distribution: loguniform
 
