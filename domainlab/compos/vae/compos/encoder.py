@@ -35,7 +35,7 @@ class LSEncoderConvBnReluPool(nn.Module):
         self.conv = mk_conv_bn_relu_pool(self.i_channel,
                                          conv_stride=conv_stride)
         # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
-    self.flat_dim = get_flat_dim(self.conv, i_channel, i_h, i_w)
+        self.flat_dim = get_flat_dim(self.conv, i_channel, i_h, i_w)
         self.fc_loc = nn.Sequential(nn.Linear(self.flat_dim, z_dim))
         self.fc_scale = nn.Sequential(nn.Linear(self.flat_dim, z_dim),
                                       nn.Softplus())  # for scale calculation
