@@ -52,4 +52,4 @@ class MSelTrLoss(AMSel):
         """
         if should early stop
         """
-        return self.es_c > self.max_es
+        return self.es_c >= self.max_es
