@@ -22,7 +22,7 @@ domainlab_args:
   # Domainlab arguments passed to each task.
   # task specific arguments take precedence.
   ## dataset
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug_noflip.py
   lr: 5e-5
   epos: 500
   epos_min: 10
