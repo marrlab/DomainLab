@@ -28,10 +28,9 @@ domainlab_args:
   epos_min: 10
   es: 10
   bs: 32
-  npath: examples/nets/resnet50domainbed.py
+  npath: examples/nets/resnet.py
   npath_encoder_x2topic_h: examples/nets/resnet.py
   npath_encoder_sandwich_x2h4zd: examples/nets/resnet.py
-  npath_dom: examples/nets/resnet50domainbed.py
 
 Shared params:
   num_shared_param_samples: 8
