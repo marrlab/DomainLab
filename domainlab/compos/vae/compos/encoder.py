@@ -81,11 +81,10 @@ class LSEncoderLinear(nn.Module):
         torch.nn.init.xavier_uniform_(self.fc_scale[0].weight)
         self.fc_scale[0].bias.data.zero_()
 
-    def forward(self, tensor_x):
+    def forward(self, hidden):
         """.
-        :param tensor_x:
+        :param hidden:
         """
-        hidden = self.net_feat(tensor_x)
         zd_q_loc = self.fc_loc(hidden)
         zd_q_scale = self.fc_scale(hidden) + 1e-7
         q_zd = dist.Normal(zd_q_loc, zd_q_scale)
