@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from domainlab.compos.vae.compos.encoder import LSEncoderLinear
 
 
 class EncoderSandwichTopicImg2Zd(nn.Module):
