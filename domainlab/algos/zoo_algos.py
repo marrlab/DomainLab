@@ -3,11 +3,9 @@ chain of responsibility pattern for algorithm selection
 """
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
 from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
-from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
+from domainlab.algos.builder_erm import NodeAlgoBuilderERM
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
-from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
-from domainlab.algos.builder_match_hduva import NodeAlgoBuilderMatchHDUVA
 from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
 
 from domainlab.utils.u_import import import_path
@@ -18,9 +16,14 @@ class AlgoBuilderChainNodeGetter():
     1. Hardcoded chain
     3. Return selected node
     """
-    def __init__(self, aname, apath):
-        self.aname = aname
+    def __init__(self, model, apath):
+        self.model = model
         self.apath = apath
+        # 
+        self._list_str_model = model.split(',')
+        self.model = self._list_str_model.pop(0)
+
+
 
     def register_external_node(self, chain):
         """
@@ -39,13 +42,17 @@ class AlgoBuilderChainNodeGetter():
         2. hard code seems to be the best solution
         """
         chain = NodeAlgoBuilderDIVA(None)
-        chain = NodeAlgoBuilderDeepAll(chain)
+        chain = NodeAlgoBuilderERM(chain)
         chain = NodeAlgoBuilderDANN(chain)
         chain = NodeAlgoBuilderJiGen(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
-        chain = NodeAlgoBuilderMatchDG(chain)
-        chain = NodeAlgoBuilderMatchHDUVA(chain)
         chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
-        node = chain.handle(self.aname)
+        node = chain.handle(self.model)
+        head = node
+        while self._list_str_model:
+            self.model = self._list_str_model.pop(0)
+            node2decorate = self.__call__()
+            head.extend(node2decorate)
+            head = node2decorate
         return node

@@ -2,7 +2,7 @@ from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 
 
-def mk_deepall(parent_class=AModelClassif):
+def mk_erm(parent_class=AModelClassif):
     """
     Instantiate a Deepall (ERM) model
 
@@ -23,18 +23,18 @@ def mk_deepall(parent_class=AModelClassif):
 
     Usage:
         For a concrete example, see:
-        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py
+        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py
     """
 
     class ModelDeepAll(parent_class):
         """
         anonymous
         """
-        def __init__(self, net, list_str_y=None, list_str_d=None):
+        def __init__(self, net, list_str_y=None):
             dim_y = list(net.modules())[-1].out_features
             if list_str_y is None:
                 list_str_y = [f"class{i}" for i in range(dim_y)]
-            super().__init__(list_str_y, list_str_d)
+            super().__init__(list_str_y)
             self.add_module("net", net)
 
         @override_interface(AModelClassif)

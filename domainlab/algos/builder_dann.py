@@ -25,9 +25,10 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
         msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-        observer = ObVisitor(msel, device, exp=exp)
+        observer = ObVisitor(msel)
         observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
@@ -49,14 +50,17 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
         net_discriminator = ClassifDropoutReluLinear(
             dim_feat, len(task.list_domain_tr))
+        
+        
 
         model = mk_dann()(list_str_y=task.list_str_y,
-                          list_str_d=task.list_domain_tr,
+                          list_d_tr=task.list_domain_tr,
                           alpha=args.gamma_reg,
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
                           net_discriminator=net_discriminator)
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        model = self.init_next_model(model, exp)
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         if trainer.name == "hyperscheduler":
             trainer.set_scheduler(HyperSchedulerWarmupExponential,

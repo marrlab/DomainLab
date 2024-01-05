@@ -11,6 +11,24 @@ Within each benchmark, two aspects are considered:
 2. Sensitivity to selected hyperparameters: by sampling hyperparameters randomly,
 the performance with respect to different hyperparameter choices is investigated.
 
+## Dependencies installation
+
+DomainLab relies on `Snakemake` for its benchmark functionality. 
+
+### Unix installation
+
+```
+pip install snakemake
+```
+
+### Windows installation details
+
+Benchmarking is currently not tested on Windows due to the dependency on `Snakemake` and `datrie`
+One could, however, try install minimal Snakemake via
+`mamba create -c bioconda -c conda-forge -n snakemake snakemake-minimal`
+to see if the following function still works
+
+
 ## Setting up a benchmark
 The benchmark is configured in a yaml file. We refer to [doc_benchmark_yaml.md](https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark_yaml.md) for a documented
 example. 
@@ -113,7 +131,7 @@ explained below.
 
 
 ### Obtain partial results
-If the benchmark is not yet completed (still running or has some failed jobs), the `results.csv` file containing the aggregated results will not be created.
+If the benchmark is not yet completed (still running or has some failed jobs, e.g. BrokenPipe Error due to multiprocessing in PIL image reading), the `results.csv` file containing the aggregated results will not be created.
 The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:
 ```commandline

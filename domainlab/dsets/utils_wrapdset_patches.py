@@ -1,6 +1,8 @@
 """
-upon a task, if jigen is chosen as the algorithm, then task's dataset has to be augmented to
-include tile permutation
+upon a task, if Jigen is chosen as the model, then task's dataset has to be decorated with image tile permutation
+note that task's dataset already include standard image
+transformations like random croped resized, or flip, and normalization. See also the JiGen paper's implementation here:
+https://github.com/fmcarlucci/JigenDG/blob/master/data/JigsawLoader.py
 """
 import os
 import numpy as np
@@ -76,7 +78,14 @@ class WrapDsetPatches(torchdata.Dataset):
         return tile
 
     def __getitem__(self, index):
-        img, label, *_ = self.dataset.__getitem__(index)
+        # image transformation from self.dataset happens here:
+        img, label, *domain = self.dataset.__getitem__(index)
+        # now img has been transformed (including normalization)
+        original_size = img.shape[-2:]
+        if domain:
+            dlabel = domain[0]
+        else:
+            dlabel = None
         num_grids = self.grid_len ** 2
         # divide image into grid_len^2 tiles
         list_tiles = [None] * num_grids
@@ -95,8 +104,8 @@ class WrapDsetPatches(torchdata.Dataset):
         if self.prob_no_perm:  # probability of no permutation of tiles
             # note that this "if" block is not redundant: permutation will change the image
             # thus change the behavior of the class label classifier, if self.prob_no_perm=1.0
-            # then the algorithm will behave similarly to deepall, though not completely same
-            # FIXME: what hyperparameters one could set to let jigen=deepall?
+            # then the algorithm will behave similarly to erm, though not completely same
+            # FIXME: what hyperparameters one could set to let jigen=erm?
             if self.prob_no_perm > np.random.rand():
                 ind_which_perm = 0
         # ind_which_perm = 0 means no permutation, the classifier need to
@@ -113,7 +122,10 @@ class WrapDsetPatches(torchdata.Dataset):
         # be a whole image again by self.fun_weave_imgs
         # NOTE: ind_which_perm = 0 means no permutation, the classifier need to
         # judge if the image has not been permutated as well
-        return self.fun_weave_imgs(stacked_tiles), label, int(ind_which_perm)
+        re_tiled_img = self.fun_weave_imgs(stacked_tiles)
+        img_re_tiled_re_shaped = \
+            torchvision.transforms.RandomResizedCrop(original_size)(re_tiled_img)
+        return img_re_tiled_re_shaped, label, dlabel, int(ind_which_perm)
         # ind_which_perm is the ground truth for the permutation index
 
     def __len__(self):
@@ -128,8 +140,8 @@ class WrapDsetPatches(torchdata.Dataset):
         # @FIXME: this assumes always a relative path
         mdir = os.path.dirname(os.path.realpath(__file__))
         if ppath is None:
-            ppath = f'data/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
-        mpath = os.path.join(mdir, "..", "..", ppath)
+            ppath = f'zdata/patches_permutation4jigsaw/permutations_{num_perms_as_classes}.npy'
+        mpath = os.path.join(mdir, "..", ppath)
         arr_permutation_rows = np.load(mpath)
         # from range [1,9] to [0,8] since python array start with 0
         if arr_permutation_rows.min() == 1:

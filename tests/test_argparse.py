@@ -32,7 +32,7 @@ def test_parse_yml_args():
     assert args.te_d == "caltech"
     assert args.tpath == "examples/tasks/task_vlcs.py"
     assert args.bs == 2
-    assert args.aname == "diva"
+    assert args.model == "diva"
     assert args.gamma_y == 700000.0
 
 
@@ -53,7 +53,7 @@ def test_apply_dict_to_args():
     """Testing apply_dict_to_args"""
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    data = {'a': 1, 'b': [1, 2], 'aname': 'diva'}
+    data = {'a': 1, 'b': [1, 2], 'model': 'diva'}
     apply_dict_to_args(args, data, extend=True)
     assert args.a == 1
-    assert args.aname == 'diva'
+    assert args.model == 'diva'

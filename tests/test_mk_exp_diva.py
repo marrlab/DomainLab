@@ -36,7 +36,6 @@ def mk_exp_diva(trainer="mldg"):
     task.add_domain(name="domain3",
                 dset_tr=DsetMNISTColorSoloDefault(4),
                 dset_val=DsetMNISTColorSoloDefault(5))
-
     # specify parameters
     list_str_y = [f"class{i}" for i in range(task.dim_y)]
     list_d_tr = ["domain2", "domain3"]
