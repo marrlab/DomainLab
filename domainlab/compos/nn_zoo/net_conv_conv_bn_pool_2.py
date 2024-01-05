@@ -38,9 +38,8 @@ class NetConvBnReluPool2L(nn.Module):
         :param dim_out_h:
         """
         super().__init__()
-        self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
-        ###
         i_c, i_h, i_w = isize
+        self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
         self.layer_last = nn.Linear(self.hdim, dim_out_h)
 

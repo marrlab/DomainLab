@@ -24,7 +24,7 @@ def mkNodeFeatExtractNNBuilderNameConvBnRelu2(arg_name4net, arg_val,
             :param flag_pretrain
             """
             self.net_feat_extract = NetConvBnReluPool2L(
-                i_c=i_c, i_h=i_h, i_w=i_w,
+                isize=(i_c, i_h, i_w),
                 conv_stride=conv_stride, dim_out_h=dim_out)
             return self.net_feat_extract
 
