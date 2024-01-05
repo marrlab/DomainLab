@@ -9,10 +9,7 @@ def add_args2parser_vae(parser):
     parser.add_argument('--topic_dim', type=int, default=3,
             help='hduva: number of topics')
 
-    parser.add_argument('--img_h_dim', type=int, default=8,
-            help='hduva: hidden feature dimension of image for zd encoding')
-
-    parser.add_argument('--nname_encoder_x2topic_h',
+   parser.add_argument('--nname_encoder_x2topic_h',
                         type=str, default=None,
                         help='hduva: network from image to topic distribution')
     parser.add_argument('--npath_encoder_x2topic_h',
