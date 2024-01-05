@@ -7,7 +7,7 @@ def mkNodeFeatExtractNNBuilderNameAlex(arg_name4net, arg_val):
         """NodeFeatExtractNNBuilderAlex.
         Uniform interface to return AlexNet and other neural network as feature
         extractor from torchvision or external python file"""
-        def init_business(self, dim_out, args, i_size=None,
+        def init_business(self, dim_out, args, isize=None,
                           remove_last_layer=False, flag_pretrain=True):
             """
             initialize **and** return the heavy weight business
