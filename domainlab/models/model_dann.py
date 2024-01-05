@@ -56,7 +56,7 @@ def mk_dann(parent_class=AModelClassif):
             self.list_d_tr = list_d_tr
             self.alpha = alpha
             self.net_encoder = net_encoder
-            self.net_classifier = net_classifier
+            self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
 
         def hyper_update(self, epoch, fun_scheduler):
