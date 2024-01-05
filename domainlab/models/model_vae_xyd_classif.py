@@ -19,7 +19,6 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         """
         super().__init__(list_str_y)
         self.init()
-        self.net_classifier = self.net_classifier_y
 
     def extract_semantic_feat(self, tensor_x):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
@@ -37,3 +36,5 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         self.add_module("net_classif_y",
                         self.chain_node_builder.construct_classifier(
                             self.zy_dim, self.dim_y))
+        # property setter
+        self.net_classifier = self.net_classifier_y
