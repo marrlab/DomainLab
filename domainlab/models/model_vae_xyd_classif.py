@@ -19,15 +19,12 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         """
         super().__init__(list_str_y)
         self.init()
+        self.net_classifier = self.net_classifier_y
 
-    def cal_logit_y(self, tensor_x):
-        """
-        calculate the logit for softmax classification
-        """
+    def extract_semantic_feat(self, tensor_x):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
-        logit_y = self.net_classif_y(zy_q_loc)
-        return logit_y
-        
+        return zy_q_loc
+
     @property
     def multiplier4task_loss(self):
         """

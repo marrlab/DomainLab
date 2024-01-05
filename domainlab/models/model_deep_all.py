@@ -16,7 +16,7 @@ def mk_erm(parent_class=AModelClassif):
             Class object determining the task type. Defaults to AModelClassif.
 
     Returns:
-        ModelDeepAll: model inheriting from parent class
+        ModelERM: model inheriting from parent class
 
     Input Parameters:
         custom neural network, the output dimension must be the number of labels
@@ -26,7 +26,7 @@ def mk_erm(parent_class=AModelClassif):
         https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py
     """
 
-    class ModelDeepAll(parent_class):
+    class ModelERM(parent_class):
         """
         anonymous
         """
@@ -44,5 +44,4 @@ def mk_erm(parent_class=AModelClassif):
             """
             logit_y = self.net(tensor_x)
             return logit_y
-
-    return ModelDeepAll
+    return ModelERM
