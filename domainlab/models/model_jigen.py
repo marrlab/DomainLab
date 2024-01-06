@@ -4,6 +4,7 @@ Jigen Model Similar to DANN model
 import warnings
 from torch.nn import functional as F
 
+from domainlab import g_str_cross_entropy_agg
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_dann import mk_dann
 from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
@@ -145,6 +146,6 @@ def mk_jigen(parent_class=AModelClassif):
             batch_target_scalar = vec_perm_ind
             batch_target_scalar = batch_target_scalar.to(tensor_x.device)
             loss_perm = F.cross_entropy(
-                logits_which_permutation, batch_target_scalar, reduction="none")
+                logits_which_permutation, batch_target_scalar, reduction=g_str_cross_entropy_agg)
             return [loss_perm], [self.alpha]
     return ModelJiGen

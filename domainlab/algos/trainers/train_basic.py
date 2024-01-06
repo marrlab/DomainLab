@@ -5,6 +5,7 @@ import math
 from operator import add
 import torch
 
+from domainlab import g_tensor_batch_agg
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.a_trainer import mk_opt
 
@@ -65,17 +66,6 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr,
                                         list_b_reg_loss_sumed))
 
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        """
-        trainer specific regularization loss, by default 0
-        """
-        _ = tensor_y
-        _ = tensor_d
-        _ = others
-        device = tensor_x.device
-        bsize = tensor_x.shape[0]
-        return [torch.zeros(bsize, 1).to(device)], [0.0]
-
     def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
         """
         optimize neural network one step upon a mini-batch of data
@@ -97,6 +87,8 @@ class TrainerBasic(AbstractTrainer):
         so that user api can use trainer.cal_loss to train
         """
         loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
+
+        # only for logging
         self.epo_task_loss_tr += loss_task.sum().detach().item()
         #
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
@@ -104,5 +96,7 @@ class TrainerBasic(AbstractTrainer):
         #
         self.log_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
-        loss = self.model.multiplier4task_loss * loss_task.sum() + reg_tr.sum()
+        loss_erm_agg = g_tensor_batch_agg(loss_task)
+        loss_reg_agg = g_tensor_batch_agg(reg_tr)
+        loss = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_agg
         return loss

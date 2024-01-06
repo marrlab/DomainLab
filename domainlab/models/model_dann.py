@@ -4,6 +4,7 @@ network
 """
 from torch.nn import functional as F
 
+from domainlab import g_str_cross_entropy_agg
 from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.models.a_model_classif import AModelClassif
 
@@ -90,6 +91,6 @@ def mk_dann(parent_class=AModelClassif):
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
-            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
+            lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
             return [lc_d], [self.alpha]
     return ModelDAN
