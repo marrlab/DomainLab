@@ -37,4 +37,4 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
                         self.chain_node_builder.construct_classifier(
                             self.zy_dim, self.dim_y))
         # property setter
-        self.net_classifier = self.net_classifier_y
+        self.net_classifier = self.net_classif_y
