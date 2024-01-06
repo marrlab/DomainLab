@@ -4,7 +4,7 @@ DIVA
 import torch
 from torch.nn import functional as F
 
-from domainlab import g_inst_component_loss_agg
+from domainlab import g_inst_component_loss_agg, g_str_cross_entropy_agg
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
@@ -128,7 +128,7 @@ def mk_diva(parent_class=VAEXYDClassif):
                 p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
             _, d_target = tensor_d.max(dim=1)
-            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
+            lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
 
             return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
                 [self.multiplier_recon, -self.beta_d, -self.beta_x, -self.beta_y, self.gamma_d]
