@@ -83,7 +83,7 @@ def make_basic_trainer(class_name_model):
                 net = builder.init_business(
                     flag_pretrain=True, dim_out=task.dim_y,
                     remove_last_layer=False, args=args,
-                    i_c=task.isize.i_c, i_h=task.isize.i_h, i_w=task.isize.i_w)
+                    isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w))
                 model.add_module("%s" % (key_module_na), net)
 
         def init_business(self, exp):

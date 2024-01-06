@@ -9,14 +9,12 @@ class EncoderImg2TopicDistri(nn.Module):
     image to topic distribution  (not image to topic hidden representation
     used by another path)
     """
-    def __init__(self, i_c, i_h, i_w, num_topics,
+    def __init__(self, isize, num_topics,
                  device,
                  args):
         """__init__.
 
-        :param i_c:
-        :param i_h:
-        :param i_w:
+        :param isize:
         :param num_topics:
         :param device:
         """
@@ -33,9 +31,10 @@ class EncoderImg2TopicDistri(nn.Module):
         self.add_module("layer_img2hidden",
                         net_builder.init_business(
                             flag_pretrain=True,
+                            isize=isize,
                             remove_last_layer=False,
                             dim_out=num_topics,
-                            i_c=i_c, i_h=i_h, i_w=i_w, args=args))
+                            args=args))
 
         # h_image->[alpha,topic]
         self.add_module("layer_hidden2dirichlet",

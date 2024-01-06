@@ -9,7 +9,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
     """
     sandwich encoder: (img, s)->zd
     """
-    def __init__(self, zd_dim, i_c, i_h, i_w, num_topics,
+    def __init__(self, zd_dim, isize, num_topics,
                  img_h_dim, args):
         """
         num_topics, img_h_dim: (img->h_img, topic->h_topic)-> q_zd
@@ -30,7 +30,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
                             dim_out=self.img_h_dim,
                             flag_pretrain=True,
                             remove_last_layer=False,
-                            i_c=i_c, i_h=i_h, i_w=i_w, args=args))
+                            isize=isize, args=args))
 
         # [h_img, h_topic] -> zd
         self.add_module("encoder_cat_topic_img_h2zd",
@@ -46,10 +46,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
         """
         # image->h_img
         h_img = self.layer_img2h4zd(img)
-        # topic->h_topic
-        # REMOVE: h_topic = self.h_layer_topic(topic)
         h_topic = vec_topic
-        # @FIXME: order of concatnation
         h_img_topic = torch.cat((h_img, h_topic), 1)
         q_zd, zd_q = self.encoder_cat_topic_img_h2zd(h_img_topic)
         return q_zd, zd_q
