@@ -101,7 +101,7 @@ class WrapDsetPatches(torchdata.Dataset):
         # ind_which_perm is basically the row index to choose
         # from self.arr1perm_per_row which is a matrix of 31*9
         # where 9=3*3 is the number of tiles the image is broken into
-        if self.prob_no_perm:  # probability of no permutation of tiles
+        if self.prob_no_perm > 0:  # probability of no permutation of tiles
             # note that this "if" block is not redundant: permutation will change the image
             # thus change the behavior of the class label classifier, if self.prob_no_perm=1.0
             # then the algorithm will behave similarly to erm, though not completely same

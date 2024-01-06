@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-from domainlab.compos.vae.compos.encoder import LSEncoderDense
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from domainlab.compos.vae.compos.encoder import LSEncoderLinear
 
 
 class EncoderSandwichTopicImg2Zd(nn.Module):
@@ -34,7 +34,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
 
         # [h_img, h_topic] -> zd
         self.add_module("encoder_cat_topic_img_h2zd",
-                        LSEncoderDense(
+                        LSEncoderLinear(
                             dim_input=self.img_h_dim+num_topics,
                             z_dim=self.zd_dim))
 

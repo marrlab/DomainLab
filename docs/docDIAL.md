@@ -1,4 +1,5 @@
-# Trainer DIAL: Domain Invariant Adversarial Learning
+# Trainer DIAL
+## Domain Invariant Adversarial Learning
 
 The algorithm introduced in https://arxiv.org/pdf/2104.00322.pdf uses adversarial learning to tackle the task of domain generalization. Therefore, the source domain is the natural dataset, while the target domain is generated using adversarial attack on the source domain.
 
