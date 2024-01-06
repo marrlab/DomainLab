@@ -168,7 +168,7 @@ html_theme_options = {
         {
             "href": "doc_custom_nn",
             "internal": True,
-            "title": "Custom Neural Network"},
+            "title": "Specify neural network in commandline"},
         {
             "href": "doc_MNIST_classification",
             "internal": True,
@@ -176,7 +176,7 @@ html_theme_options = {
         {
             "href": "doc_examples",
             "internal": True,
-            "title": "Examples by algorithm"},
+            "title": "More commandline examples"},
 
         {
             "href": "doc_benchmark",
@@ -190,7 +190,7 @@ html_theme_options = {
         {
             "href": "doc_extend_contribute",
             "internal": True,
-            "title": "Extend and Contribute"},
+            "title": "Specify custom model in commandline"},
         # {
         #     "href": "https://squidfunk.github.io/mkdocs-material/",
         #     "internal": False,
@@ -198,7 +198,7 @@ html_theme_options = {
         # },
     ],
     "heroes": {
-        "index": "A pytorch platform for domain generalization",
+        "index": "DomainLab for modular domain generalization",
         "customization": "Configuration options to personalize your site.",
     },
     "version_dropdown": False,

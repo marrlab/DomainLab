@@ -17,6 +17,7 @@ Welcome to domainlab's documentation!
    doc_diva
    docMatchDG
    docDIAL
+   docFishr
 
 
 Indices and tables

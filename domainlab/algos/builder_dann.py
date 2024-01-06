@@ -64,7 +64,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         trainer.init_business(model, task, observer, device, args)
         if trainer.name == "hyperscheduler":
             trainer.set_scheduler(HyperSchedulerWarmupExponential,
-                                  total_steps=trainer.num_batches*args.epos,
+                                  total_steps=trainer.num_batches*args.warmup,
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
         return trainer, model, observer, device
