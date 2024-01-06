@@ -131,7 +131,7 @@ explained below.
 
 
 ### Obtain partial results
-If the benchmark is not yet completed (still running or has some failed jobs), the `results.csv` file containing the aggregated results will not be created.
+If the benchmark is not yet completed (still running or has some failed jobs, e.g. BrokenPipe Error due to multiprocessing in PIL image reading), the `results.csv` file containing the aggregated results will not be created.
 The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:
 ```commandline

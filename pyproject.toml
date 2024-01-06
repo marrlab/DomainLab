@@ -1,6 +1,9 @@
 [tool.poetry]
 name = "domainlab"
-version = "0.2.6"
+version = "0.3.0"
+readme = "README.md"
+repository = "https://github.com/marrlab/DomainLab"
+homepage = "https://marrlab.github.io/DomainLab/build/html/index.html"
 description = "Library of Domain Generalization"
 authors = ["Xudong Sun <smilesun.east@gmail.com>", "Alexej Gossmann <alexej.gossmann@fda.hhs.gov>"]
 
