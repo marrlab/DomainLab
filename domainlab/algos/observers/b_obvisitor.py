@@ -56,7 +56,7 @@ class ObVisitor(AObVisitor):
             self.host_trainer.model.save()
             logger.info("persisted")
         flag_stop = self.model_sel.if_stop()
-        flag_enough = epoch > self.host_trainer.aconf.epos_min
+        flag_enough = epoch >= self.host_trainer.aconf.epos_min
         return flag_stop & flag_enough
 
     def accept(self, trainer):

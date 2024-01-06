@@ -5,6 +5,7 @@ operations that all kinds of models should have
 import abc
 
 from torch import nn
+from domainlab import g_list_model_penalized_reg_agg
 
 
 class AModel(nn.Module, metaclass=abc.ABCMeta):
@@ -55,8 +56,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         - the vector mmu has dimension the number of regularizers
         """
         list_tuple = zip(list_loss_scalar, list_multiplier)
-        rst = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
-        return sum(rst)    # FIXME: is "sum" safe to pytorch?
+        list_penalized_reg = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
+        return g_list_model_penalized_reg_agg(list_penalized_reg)
 
     @abc.abstractmethod
     def cal_task_loss(self, tensor_x, tensor_y):

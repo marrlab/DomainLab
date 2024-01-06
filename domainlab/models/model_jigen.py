@@ -4,6 +4,7 @@ Jigen Model Similar to DANN model
 import warnings
 from torch.nn import functional as F
 
+from domainlab import g_str_cross_entropy_agg
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_dann import mk_dann
 from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
@@ -89,15 +90,15 @@ def mk_jigen(parent_class=AModelClassif):
 
             nperm = self.n_perm
             if args.nperm != nperm and not self.flag_overwrite_args:
-                warnings.warn("number of permutations specified differently \
-                              in model and args, \
+                warnings.warn(f"number of permutations specified differently \
+                              in model {nperm} and args {args.nperm}, \
                               going to take args specification")
                 nperm = args.nperm
                 
             pperm = self.prob_perm
             if args.pperm != pperm and not self.flag_overwrite_args:
-                warnings.warn("probability of reshuffling specified differently \
-                              in model and args, \
+                warnings.warn(f"probability of reshuffling specified differently \
+                              in model {pperm} and args: {args.pperm}, \
                               going to take model specification")
                 pperm = args.pperm
 
@@ -131,6 +132,6 @@ def mk_jigen(parent_class=AModelClassif):
             batch_target_scalar = vec_perm_ind
             batch_target_scalar = batch_target_scalar.to(tensor_x.device)
             loss_perm = F.cross_entropy(
-                logits_which_permutation, batch_target_scalar, reduction="none")
+                logits_which_permutation, batch_target_scalar, reduction=g_str_cross_entropy_agg)
             return [loss_perm], [self.alpha]
     return ModelJiGen

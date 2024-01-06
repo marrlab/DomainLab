@@ -12,7 +12,6 @@ class EncoderImg2TopicDirZd(nn.Module):
     def __init__(self, i_c, i_h, i_w, num_topics,
                  device,
                  zd_dim,
-                 img_h_dim,
                  args):
         """__init__.
 
@@ -30,7 +29,6 @@ class EncoderImg2TopicDirZd(nn.Module):
         super().__init__()
         self.device = device
         self.zd_dim = zd_dim
-        self.img_h_dim = img_h_dim
 
         self.add_module("net_img2topicdistri",
                         EncoderImg2TopicDistri(
@@ -43,7 +41,7 @@ class EncoderImg2TopicDirZd(nn.Module):
             "imgtopic2zd", EncoderSandwichTopicImg2Zd(
                 self.zd_dim, i_c, i_h, i_w,
                 num_topics,
-                img_h_dim=self.img_h_dim,
+                img_h_dim=num_topics,
                 args=args))
 
     def forward(self, img):
