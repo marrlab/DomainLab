@@ -48,7 +48,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Fishr: Invariant Gradient Variances for Out-of-distribution Generalization &#8212; domainlab  documentation</title>
+    <title>Trainer Fishr &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
@@ -59,6 +59,7 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Trainer DIAL" href="docDIAL.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -97,7 +98,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Fishr: Invariant Gradient Variances for Out-of-distribution Generalization </span>
+          <span class="md-header-nav__topic"> Trainer Fishr </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -236,7 +237,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -250,22 +251,60 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
       
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer Fishr </label>
+    
+      <a href="#" class="md-nav__link md-nav__link--active">Trainer Fishr</a>
+      
+        
+<nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">Contents</label>
+  <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docfishr--page-root" class="md-nav__link">Trainer Fishr</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#invariant-gradient-variances-for-out-of-distribution-generalization" class="md-nav__link">Invariant Gradient Variances for Out-of-distribution Generalization</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#quantifying-inconsistency-between-domains" class="md-nav__link">Quantifying inconsistency between domains</a>
+        </li>
+        <li class="md-nav__item"><a href="#matching-the-variances-during-training" class="md-nav__link">Matching the Variances during training</a>
+        </li>
+        <li class="md-nav__item"><a href="#implementation" class="md-nav__link">Implementation</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+  </ul>
+</nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#invariant-gradient-variances-for-out-of-distribution-generalization" class="md-nav__link">Invariant Gradient Variances for Out-of-distribution Generalization</a>
+      
+    
+    </li></ul>
     
     </li>
   </ul>
@@ -282,13 +321,17 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docfishr--page-root" class="md-nav__link">Fishr: Invariant Gradient Variances for Out-of-distribution Generalization</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docfishr--page-root" class="md-nav__link">Trainer Fishr</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#invariant-gradient-variances-for-out-of-distribution-generalization" class="md-nav__link">Invariant Gradient Variances for Out-of-distribution Generalization</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#quantifying-inconsistency-between-domains" class="md-nav__link">Quantifying inconsistency between domains</a>
         </li>
         <li class="md-nav__item"><a href="#matching-the-variances-during-training" class="md-nav__link">Matching the Variances during training</a>
         </li>
         <li class="md-nav__item"><a href="#implementation" class="md-nav__link">Implementation</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -301,8 +344,10 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="fishr-invariant-gradient-variances-for-out-of-distribution-generalization">
-<h1 id="docfishr--page-root">Fishr: Invariant Gradient Variances for Out-of-distribution Generalization<a class="headerlink" href="#docfishr--page-root" title="Link to this heading">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="trainer-fishr">
+<h1 id="docfishr--page-root">Trainer Fishr<a class="headerlink" href="#docfishr--page-root" title="Link to this heading">¶</a></h1>
+<section id="invariant-gradient-variances-for-out-of-distribution-generalization">
+<h2 id="invariant-gradient-variances-for-out-of-distribution-generalization">Invariant Gradient Variances for Out-of-distribution Generalization<a class="headerlink" href="#invariant-gradient-variances-for-out-of-distribution-generalization" title="Link to this heading">¶</a></h2>
 <p>The goal of the Fishr regularization technique is locally aligning the domain-level loss landscapes
 around the final weights, finding a minimizer around which the inconsistencies between
 the domain-level loss landscapes are as small as possible.
@@ -315,7 +360,7 @@ distributions across the training domains (Image source: Figure 1 of "Fishr:
 Invariant gradient variances for out-of-distribution generalization") </div>
 </div>
 <section id="quantifying-inconsistency-between-domains">
-<h2 id="quantifying-inconsistency-between-domains">Quantifying inconsistency between domains<a class="headerlink" href="#quantifying-inconsistency-between-domains" title="Link to this heading">¶</a></h2>
+<h3 id="quantifying-inconsistency-between-domains">Quantifying inconsistency between domains<a class="headerlink" href="#quantifying-inconsistency-between-domains" title="Link to this heading">¶</a></h3>
 <p>Intuitively, two domains are locally inconsistent around a minimizer, if a small
 perturbation of the minimizer highly affects its optimality in one domain, but only
 minimally affects its optimality in the other domain. Under certain assumptions, most importantly
@@ -335,7 +380,7 @@ the Fishr regularization. For the second term it suffices to align diagonal appr
 domain-level Hessians, matching the variances across domains.</p>
 </section>
 <section id="matching-the-variances-during-training">
-<h2 id="matching-the-variances-during-training">Matching the Variances during training<a class="headerlink" href="#matching-the-variances-during-training" title="Link to this heading">¶</a></h2>
+<h3 id="matching-the-variances-during-training">Matching the Variances during training<a class="headerlink" href="#matching-the-variances-during-training" title="Link to this heading">¶</a></h3>
 <p>Let $<span class="math notranslate nohighlight">\(\mathcal{E}\)</span><span class="math notranslate nohighlight">\( be the space of all training domains, and let \)</span>$\mathcal{R}_e(\theta) be the ERM
 objective. Fishr minimizes the following objective function during training:</p>
 <div class="math notranslate nohighlight">
@@ -352,7 +397,7 @@ objective. Fishr minimizes the following objective function during training:</p>
 \)</span><span class="math notranslate nohighlight">\(&lt;v = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} v_e\)</span>$.</p>
 </section>
 <section id="implementation">
-<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h2>
+<h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h3>
 <p>The variance of the gradients within each domain can be computed with the
 BACKPACK package (see: Dangel, Felix, Frederik Kunstner, and Philipp Hennig.
 “Backpack: Packing more into backprop.” <a class="reference external" href="https://arxiv.org/abs/1912.10985">https://arxiv.org/abs/1912.10985</a>).
@@ -366,6 +411,7 @@ Invariant gradient variances for out-of-distribution generalization.”
 International Conference on Machine Learning. PMLR, 2022.</p>
 </section>
 </section>
+</section>
 
 
           </article>
@@ -376,6 +422,19 @@ International Conference on Machine Learning. PMLR, 2022.</p>
   <footer class="md-footer">
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
+          
+            <a href="docDIAL.html" title="Trainer DIAL"
+               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+               rel="prev">
+              <div class="md-flex__cell md-flex__cell--shrink">
+                <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+              </div>
+              <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+                <span class="md-flex__ellipsis">
+                  <span
+                      class="md-footer-nav__direction"> Previous </span> Trainer DIAL </span>
+              </div>
+            </a>
           
           
         </a>

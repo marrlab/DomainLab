@@ -48,7 +48,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Trainer DIAL: Domain Invariant Adversarial Learning &#8212; domainlab  documentation</title>
+    <title>Trainer DIAL &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
@@ -59,7 +59,8 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Trainer MatchDG: Domain Generalization using Causal Matching" href="docMatchDG.html" />
+    <link rel="next" title="Trainer Fishr" href="docFishr.html" />
+    <link rel="prev" title="Trainer MatchDG" href="docMatchDG.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -98,7 +99,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Trainer DIAL: Domain Invariant Adversarial Learning </span>
+          <span class="md-header-nav__topic"> Trainer DIAL </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -237,7 +238,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -251,14 +252,14 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
@@ -266,16 +267,18 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer DIAL: Domain Invariant Adversarial Learning </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer DIAL </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Trainer DIAL</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docdial--page-root" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docdial--page-root" class="md-nav__link">Trainer DIAL</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domain-invariant-adversarial-learning" class="md-nav__link">Domain Invariant Adversarial Learning</a>
+        </li>
         <li class="md-nav__item"><a href="#generating-the-adversarial-domain" class="md-nav__link">generating the adversarial domain</a>
         </li>
         <li class="md-nav__item"><a href="#network-structure" class="md-nav__link">network structure</a>
@@ -287,6 +290,13 @@
   </ul>
 </nav>
       <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#domain-invariant-adversarial-learning" class="md-nav__link">Domain Invariant Adversarial Learning</a>
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -310,6 +320,13 @@
     </li></ul>
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -324,8 +341,10 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docdial--page-root" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docdial--page-root" class="md-nav__link">Trainer DIAL</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domain-invariant-adversarial-learning" class="md-nav__link">Domain Invariant Adversarial Learning</a>
+        </li>
         <li class="md-nav__item"><a href="#generating-the-adversarial-domain" class="md-nav__link">generating the adversarial domain</a>
         </li>
         <li class="md-nav__item"><a href="#network-structure" class="md-nav__link">network structure</a>
@@ -343,9 +362,12 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="trainer-dial-domain-invariant-adversarial-learning">
-<h1 id="docdial--page-root">Trainer DIAL: Domain Invariant Adversarial Learning<a class="headerlink" href="#docdial--page-root" title="Link to this heading">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="trainer-dial">
+<h1 id="docdial--page-root">Trainer DIAL<a class="headerlink" href="#docdial--page-root" title="Link to this heading">¶</a></h1>
+<section id="domain-invariant-adversarial-learning">
+<h2 id="domain-invariant-adversarial-learning">Domain Invariant Adversarial Learning<a class="headerlink" href="#domain-invariant-adversarial-learning" title="Link to this heading">¶</a></h2>
 <p>The algorithm introduced in <a class="reference external" href="https://arxiv.org/pdf/2104.00322.pdf">https://arxiv.org/pdf/2104.00322.pdf</a> uses adversarial learning to tackle the task of domain generalization. Therefore, the source domain is the natural dataset, while the target domain is generated using adversarial attack on the source domain.</p>
+</section>
 <section id="generating-the-adversarial-domain">
 <h2 id="generating-the-adversarial-domain">generating the adversarial domain<a class="headerlink" href="#generating-the-adversarial-domain" title="Link to this heading">¶</a></h2>
 <p>The generation of adversary images is demonstrated in figure 1.
@@ -396,7 +418,7 @@ The adversarial domain is weighted by the parameter <span class="math notranslat
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="docMatchDG.html" title="Trainer MatchDG: Domain Generalization using Causal Matching"
+            <a href="docMatchDG.html" title="Trainer MatchDG"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -405,10 +427,21 @@ The adversarial domain is weighted by the parameter <span class="math notranslat
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Trainer MatchDG: Domain Generalization using Causal Matching </span>
+                      class="md-footer-nav__direction"> Previous </span> Trainer MatchDG </span>
               </div>
             </a>
           
+          
+            <a href="docFishr.html" title="Trainer Fishr"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> Trainer Fishr </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         

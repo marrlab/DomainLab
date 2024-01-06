@@ -48,7 +48,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Trainer MatchDG: Domain Generalization using Causal Matching &#8212; domainlab  documentation</title>
+    <title>Trainer MatchDG &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
@@ -59,8 +59,8 @@
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Trainer DIAL: Domain Invariant Adversarial Learning" href="docDIAL.html" />
-    <link rel="prev" title="Model DIVA: Domain Invariant Variational Autoencoders" href="doc_diva.html" />
+    <link rel="next" title="Trainer DIAL" href="docDIAL.html" />
+    <link rel="prev" title="Model DIVA" href="doc_diva.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -99,7 +99,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Trainer MatchDG: Domain Generalization using Causal Matching </span>
+          <span class="md-header-nav__topic"> Trainer MatchDG </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -238,7 +238,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -252,7 +252,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
@@ -260,16 +260,18 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer MatchDG: Domain Generalization using Causal Matching </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer MatchDG </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Trainer MatchDG</a>
       
         
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docmatchdg--page-root" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docmatchdg--page-root" class="md-nav__link">Trainer MatchDG</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domain-generalization-using-causal-matching" class="md-nav__link">Domain Generalization using Causal Matching</a>
+        </li>
         <li class="md-nav__item"><a href="#motivation-causality-theory" class="md-nav__link">Motivation: causality theory</a>
         </li>
         <li class="md-nav__item"><a href="#network" class="md-nav__link">Network</a>
@@ -281,6 +283,13 @@
   </ul>
 </nav>
       <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#domain-generalization-using-causal-matching" class="md-nav__link">Domain Generalization using Causal Matching</a>
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -307,7 +316,14 @@
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
       
     
     </li>
@@ -325,8 +341,10 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docmatchdg--page-root" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docmatchdg--page-root" class="md-nav__link">Trainer MatchDG</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domain-generalization-using-causal-matching" class="md-nav__link">Domain Generalization using Causal Matching</a>
+        </li>
         <li class="md-nav__item"><a href="#motivation-causality-theory" class="md-nav__link">Motivation: causality theory</a>
         </li>
         <li class="md-nav__item"><a href="#network" class="md-nav__link">Network</a>
@@ -344,9 +362,12 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="trainer-matchdg-domain-generalization-using-causal-matching">
-<h1 id="docmatchdg--page-root">Trainer MatchDG: Domain Generalization using Causal Matching<a class="headerlink" href="#docmatchdg--page-root" title="Link to this heading">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="trainer-matchdg">
+<h1 id="docmatchdg--page-root">Trainer MatchDG<a class="headerlink" href="#docmatchdg--page-root" title="Link to this heading">¶</a></h1>
+<section id="domain-generalization-using-causal-matching">
+<h2 id="domain-generalization-using-causal-matching">Domain Generalization using Causal Matching<a class="headerlink" href="#domain-generalization-using-causal-matching" title="Link to this heading">¶</a></h2>
 <p>This algorithm introduced in <a class="reference external" href="https://arxiv.org/pdf/2006.07500.pdf">https://arxiv.org/pdf/2006.07500.pdf</a> is motivated by causality theory. The authors try to enforce, that a model does classify an image only on the object information included in the image and not on the domain information.</p>
+</section>
 <section id="motivation-causality-theory">
 <h2 id="motivation-causality-theory">Motivation: causality theory<a class="headerlink" href="#motivation-causality-theory" title="Link to this heading">¶</a></h2>
 <p>The authors of the paper motivate their approach by looking at the data-generation process. The underlying causal model (SCM) is given in figure 1. In the graphic one starts of from the object <span class="math notranslate nohighlight">\(O\)</span> and the domain D. The object is directly influenced by its true label <span class="math notranslate nohighlight">\(y_\text{true}\)</span> while label and domain do only correlate with each other. Additionally the object is correlated with the domain conditioned on <span class="math notranslate nohighlight">\(y_\text{true}\)</span>. The information from the object <span class="math notranslate nohighlight">\(O\)</span> and the domain <span class="math notranslate nohighlight">\(D\)</span> do together form the image <span class="math notranslate nohighlight">\(x\)</span> which shall be classified by the neuronal network. Doing so, the object does contribute to the image by providing high-level causal features <span class="math notranslate nohighlight">\(x_C\)</span> that are common to any image of the same object. This features are the key for classifying the object, as there is only subliminal influence of the domain, therefore the prediction <span class="math notranslate nohighlight">\(y\)</span> is only depending on this causal features. The second contribution to the image are domain-dependent high-level features of the object <span class="math notranslate nohighlight">\(x_A\)</span>, which depend on both, the object <span class="math notranslate nohighlight">\(O\)</span> and the domain <span class="math notranslate nohighlight">\(D\)</span>. This domain-dependent features shall not be respected in the classification as there is a high influence of the domain.</p>
@@ -415,7 +436,7 @@ l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right)
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="doc_diva.html" title="Model DIVA: Domain Invariant Variational Autoencoders"
+            <a href="doc_diva.html" title="Model DIVA"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -424,17 +445,17 @@ l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right)
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Model DIVA: Domain Invariant Variational Autoencoders </span>
+                      class="md-footer-nav__direction"> Previous </span> Model DIVA </span>
               </div>
             </a>
           
           
-            <a href="docDIAL.html" title="Trainer DIAL: Domain Invariant Adversarial Learning"
+            <a href="docDIAL.html" title="Trainer DIAL"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Trainer DIAL: Domain Invariant Adversarial Learning </span>
+                class="md-footer-nav__direction"> Next </span> Trainer DIAL </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

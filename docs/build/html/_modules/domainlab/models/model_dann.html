@@ -234,7 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +248,28 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
       
     
     </li>
@@ -295,6 +302,7 @@ network
 """
 from torch.nn import functional as F
 
+from domainlab import g_str_cross_entropy_agg
 from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.models.a_model_classif import AModelClassif
 
@@ -379,7 +387,7 @@ def mk_dann(parent_class=AModelClassif):
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
-            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
+            lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
             return [lc_d], [self.alpha]
     return ModelDAN</div>
 
