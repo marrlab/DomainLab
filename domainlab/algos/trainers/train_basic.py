@@ -94,6 +94,7 @@ class TrainerBasic(AbstractTrainer):
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
         #
+        list_reg_tr = [g_tensor_batch_agg(ele) for ele in list_reg_tr]
         self.log_r_loss(list_reg_tr)   # just for logging
         reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
         loss_erm_agg = g_tensor_batch_agg(loss_task)
