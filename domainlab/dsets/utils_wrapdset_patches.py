@@ -1,6 +1,8 @@
 """
-upon a task, if jigen is chosen as the algorithm, then task's dataset has to be augmented to
-include tile permutation
+upon a task, if Jigen is chosen as the model, then task's dataset has to be decorated with image tile permutation
+note that task's dataset already include standard image
+transformations like random croped resized, or flip, and normalization. See also the JiGen paper's implementation here:
+https://github.com/fmcarlucci/JigenDG/blob/master/data/JigsawLoader.py
 """
 import os
 import numpy as np
@@ -76,7 +78,9 @@ class WrapDsetPatches(torchdata.Dataset):
         return tile
 
     def __getitem__(self, index):
+        # image transformation from self.dataset happens here:
         img, label, *domain = self.dataset.__getitem__(index)
+        # now img has been transformed (including normalization)
         original_size = img.shape[-2:]
         if domain:
             dlabel = domain[0]
