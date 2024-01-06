@@ -99,7 +99,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # topic to zd follows Gaussian distribution
             self.add_module("net_p_zd",
                             self.chain_node_builder.construct_cond_prior(
-                                self.topic_dim, self.zd_dim))
+                                self.topic_dim, self.zd_dim)
 
         def init_p_topic_batch(self, batch_size, device):
             """
