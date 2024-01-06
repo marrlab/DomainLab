@@ -1,4 +1,5 @@
-# Fishr: Invariant Gradient Variances for Out-of-distribution Generalization
+# Trainer Fishr
+## Invariant Gradient Variances for Out-of-distribution Generalization
 
 The goal of the Fishr regularization technique is locally aligning the domain-level loss landscapes 
 around the final weights, finding a minimizer around which the inconsistencies between
