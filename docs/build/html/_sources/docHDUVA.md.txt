@@ -45,11 +45,7 @@ The user need to specify at least two neural networks for the **encoder** part v
 - `npath_encoder_x2topic_h`:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (`topic_dim`) hidden representation serving as input to Dirichlet encoder: `X->h_t(X)->alpha(h_t(X))` where `alpha` is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.
 - `npath_encoder_sandwich_x2h4zd`: the python file path of a neural network that maps the
-image to a hidden representation (`img_h_dim`), which will be used to infere the posterior distribution of `z_d`: `topic(X), X -> [h_dt(topic(X)), h_d(X)] -> zd_mean, zd_scale`
-
-For the path: `topic(X), X -> [h_dt(topic(X)), h_d(X)] -> zd_mean, zd_scale`, we need two output dimensions for neural network `h_dt` and `h_d`:
--   `topic_h_dim`: output size of `h_dt(topic)` as well as output size of `h_t(X)`
--   `img_h_dim`: output size of `h_d(X)`
+image to a hidden representation (same size as `topic_dim`), which will be used to infere the posterior distribution of `z_d`: `topic(X), X -> [topic(X), h_d(X)] -> zd_mean, zd_scale`
 
 Alternatively, one could use an existing neural network in DomainLab using `nname` instead of `npath`:
 -   `nname_encoder_x2topic_h`

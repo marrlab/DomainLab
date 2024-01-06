@@ -49,7 +49,7 @@
   
   
     <title>domainlab.compos.vae package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -107,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -165,17 +165,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="modules.html" class="md-tabs__link">domainlab</a></li>
           <li class="md-tabs__item"><a href="domainlab.html" class="md-tabs__link">domainlab package</a></li>
           <li class="md-tabs__item"><a href="domainlab.compos.html" class="md-tabs__link">domainlab.compos package</a></li>
@@ -290,7 +290,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#domainlab-compos-vae--page-root" class="md-nav__link">domainlab.compos.vae package</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -298,7 +298,7 @@
         </li>
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.a_model_builder" class="md-nav__link">domainlab.compos.vae.a_model_builder module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-a-model-builder-module" class="md-nav__link">domainlab.compos.vae.a_model_builder module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.a_model_builder.AbstractModelBuilderChainNode" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractModelBuilderChainNode</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -308,7 +308,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.a_vae_builder" class="md-nav__link">domainlab.compos.vae.a_vae_builder module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-a-vae-builder-module" class="md-nav__link">domainlab.compos.vae.a_vae_builder module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AbstractVAEBuilderChainNode</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -322,7 +322,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.c_vae_adaptor_model_recon" class="md-nav__link">domainlab.compos.vae.c_vae_adaptor_model_recon module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-c-vae-adaptor-model-recon-module" class="md-nav__link">domainlab.compos.vae.c_vae_adaptor_model_recon module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.c_vae_adaptor_model_recon.AdaptorReconVAEXYD" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AdaptorReconVAEXYD</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -338,7 +338,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.c_vae_builder_classif" class="md-nav__link">domainlab.compos.vae.c_vae_builder_classif module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-c-vae-builder-classif-module" class="md-nav__link">domainlab.compos.vae.c_vae_builder_classif module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ChainNodeVAEBuilderClassifCondPrior</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -356,7 +356,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.c_vae_recon" class="md-nav__link">domainlab.compos.vae.c_vae_recon module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-c-vae-recon-module" class="md-nav__link">domainlab.compos.vae.c_vae_recon module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.c_vae_recon.ReconVAEXYD" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ReconVAEXYD</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -368,13 +368,13 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.utils_request_chain_builder" class="md-nav__link">domainlab.compos.vae.utils_request_chain_builder module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-utils-request-chain-builder-module" class="md-nav__link">domainlab.compos.vae.utils_request_chain_builder module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.utils_request_chain_builder.VAEChainNodeGetter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEChainNodeGetter</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.zoo_vae_builders_classif" class="md-nav__link">domainlab.compos.vae.zoo_vae_builders_classif module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-zoo-vae-builders-classif-module" class="md-nav__link">domainlab.compos.vae.zoo_vae_builders_classif module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ChainNodeVAEBuilderClassifCondPriorBase</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -422,7 +422,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.zoo_vae_builders_classif_topic" class="md-nav__link">domainlab.compos.vae.zoo_vae_builders_classif_topic module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-compos-vae-zoo-vae-builders-classif-topic-module" class="md-nav__link">domainlab.compos.vae.zoo_vae_builders_classif_topic module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeVAEBuilderImgTopic</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -436,7 +436,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae" class="md-nav__link">Module contents</a>
+        <li class="md-nav__item"><a href="#module-contents" class="md-nav__link">Module contents</a>
         </li></ul>
             </nav>
         </li>
@@ -457,7 +457,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.compos.vae.compos.html">domainlab.compos.vae.compos package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-decoder-concat-vec-reshape-conv-module">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ydx"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv.concat_ydx()</span></code></a></li>
@@ -467,61 +467,61 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-decoder-concat-vec-reshape-conv-gated-conv-module">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFCReshapeConvGatedConv</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.decoder_cond_prior">domainlab.compos.vae.compos.decoder_cond_prior module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-decoder-cond-prior-module">domainlab.compos.vae.compos.decoder_cond_prior module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus"><code class="docutils literal notranslate"><span class="pre">LSCondPriorLinearBnReluLinearSoftPlus</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.forward"><code class="docutils literal notranslate"><span class="pre">LSCondPriorLinearBnReluLinearSoftPlus.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.decoder_losses">domainlab.compos.vae.compos.decoder_losses module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-decoder-losses-module">domainlab.compos.vae.compos.decoder_losses module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.decoder_losses.NLLPixelLogistic256"><code class="docutils literal notranslate"><span class="pre">NLLPixelLogistic256</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder">domainlab.compos.vae.compos.encoder module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-module">domainlab.compos.vae.compos.encoder module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool"><code class="docutils literal notranslate"><span class="pre">LSEncoderConvBnReluPool</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.forward"><code class="docutils literal notranslate"><span class="pre">LSEncoderConvBnReluPool.forward()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderDense"><code class="docutils literal notranslate"><span class="pre">LSEncoderDense</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderDense.forward"><code class="docutils literal notranslate"><span class="pre">LSEncoderDense.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderLinear"><code class="docutils literal notranslate"><span class="pre">LSEncoderLinear</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderLinear.forward"><code class="docutils literal notranslate"><span class="pre">LSEncoderLinear.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_dirichlet">domainlab.compos.vae.compos.encoder_dirichlet module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-dirichlet-module">domainlab.compos.vae.compos.encoder_dirichlet module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet"><code class="docutils literal notranslate"><span class="pre">EncoderH2Dirichlet</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward"><code class="docutils literal notranslate"><span class="pre">EncoderH2Dirichlet.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_domain_topic">domainlab.compos.vae.compos.encoder_domain_topic module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-domain-topic-module">domainlab.compos.vae.compos.encoder_domain_topic module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDirZd</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.forward"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDirZd.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic">domainlab.compos.vae.compos.encoder_domain_topic_img2topic module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-domain-topic-img2topic-module">domainlab.compos.vae.compos.encoder_domain_topic_img2topic module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDistri</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.forward"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDistri.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-domain-topic-img-topic2zd-module">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd"><code class="docutils literal notranslate"><span class="pre">EncoderSandwichTopicImg2Zd</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.forward"><code class="docutils literal notranslate"><span class="pre">EncoderSandwichTopicImg2Zd.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_xyd_parallel">domainlab.compos.vae.compos.encoder_xyd_parallel module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-xyd-parallel-module">domainlab.compos.vae.compos.encoder_xyd_parallel module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallel</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.forward"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallel.forward()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.infer_zy_loc"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallel.infer_zy_loc()</span></code></a></li>
@@ -533,7 +533,7 @@
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallelUser</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_xydt_elevator">domainlab.compos.vae.compos.encoder_xydt_elevator module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-xydt-elevator-module">domainlab.compos.vae.compos.encoder_xydt_elevator module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderArg</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderConvBnReluPool"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderConvBnReluPool</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderElevator</span></code></a><ul>
@@ -543,14 +543,14 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_zy">domainlab.compos.vae.compos.encoder_zy module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab-compos-vae-compos-encoder-zy-module">domainlab.compos.vae.compos.encoder_zy module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z"><code class="docutils literal notranslate"><span class="pre">EncoderConnectLastFeatLayer2Z</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.forward"><code class="docutils literal notranslate"><span class="pre">EncoderConnectLastFeatLayer2Z.forward()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.compos.vae.compos.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -559,9 +559,9 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-domainlab.compos.vae.a_model_builder">
-<span id="domainlab-compos-vae-a-model-builder-module"></span><h2 id="module-domainlab.compos.vae.a_model_builder">domainlab.compos.vae.a_model_builder module<a class="headerlink" href="#module-domainlab.compos.vae.a_model_builder" title="Link to this heading">¶</a></h2>
-<p>Integrate Chain-of-Responsibility and Builder Patter to construct VAE encoder and decoder</p>
+<section id="domainlab-compos-vae-a-model-builder-module">
+<h2 id="domainlab-compos-vae-a-model-builder-module">domainlab.compos.vae.a_model_builder module<a class="headerlink" href="#domainlab-compos-vae-a-model-builder-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.a_model_builder">Integrate Chain-of-Responsibility and Builder Patter to construct VAE encoder and decoder</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.a_model_builder.AbstractModelBuilderChainNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.a_model_builder.</span></span><span class="sig-name descname"><span class="pre">AbstractModelBuilderChainNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/a_model_builder.html#AbstractModelBuilderChainNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.a_model_builder.AbstractModelBuilderChainNode" title="Link to this definition">¶</a></dt>
@@ -577,9 +577,9 @@ initializer so that node construction is always light weight.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.a_vae_builder">
-<span id="domainlab-compos-vae-a-vae-builder-module"></span><h2 id="module-domainlab.compos.vae.a_vae_builder">domainlab.compos.vae.a_vae_builder module<a class="headerlink" href="#module-domainlab.compos.vae.a_vae_builder" title="Link to this heading">¶</a></h2>
-<p>Integrate Chain-of-Responsibility and Builder Patter to construct VAE
+<section id="domainlab-compos-vae-a-vae-builder-module">
+<h2 id="domainlab-compos-vae-a-vae-builder-module">domainlab.compos.vae.a_vae_builder module<a class="headerlink" href="#domainlab-compos-vae-a-vae-builder-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.a_vae_builder">Integrate Chain-of-Responsibility and Builder Patter to construct VAE
 encoder and decoder</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode">
@@ -606,9 +606,9 @@ initializer so that node construction is always light weight.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.c_vae_adaptor_model_recon">
-<span id="domainlab-compos-vae-c-vae-adaptor-model-recon-module"></span><h2 id="module-domainlab.compos.vae.c_vae_adaptor_model_recon">domainlab.compos.vae.c_vae_adaptor_model_recon module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_adaptor_model_recon" title="Link to this heading">¶</a></h2>
-<p>This adaptor couples intensively with the  heavy-weight model class
+<section id="domainlab-compos-vae-c-vae-adaptor-model-recon-module">
+<h2 id="domainlab-compos-vae-c-vae-adaptor-model-recon-module">domainlab.compos.vae.c_vae_adaptor_model_recon module<a class="headerlink" href="#domainlab-compos-vae-c-vae-adaptor-model-recon-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.c_vae_adaptor_model_recon">This adaptor couples intensively with the  heavy-weight model class
 The model class can be refactored, we do want to use the trained old-version model,
 which we only need to change this adaptor class.</p>
 <dl class="py class">
@@ -650,9 +650,9 @@ we only need to change this method.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.c_vae_builder_classif">
-<span id="domainlab-compos-vae-c-vae-builder-classif-module"></span><h2 id="module-domainlab.compos.vae.c_vae_builder_classif">domainlab.compos.vae.c_vae_builder_classif module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_builder_classif" title="Link to this heading">¶</a></h2>
-<p>Builder
+<section id="domainlab-compos-vae-c-vae-builder-classif-module">
+<h2 id="domainlab-compos-vae-c-vae-builder-classif-module">domainlab.compos.vae.c_vae_builder_classif module<a class="headerlink" href="#domainlab-compos-vae-c-vae-builder-classif-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.c_vae_builder_classif">Builder
 1. classifier for domain <strong>and</strong> class
 2. p(z_y|y) <strong>and</strong> p(z_d|d)</p>
 <dl class="py class">
@@ -698,9 +698,9 @@ we only need to change this method.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.c_vae_recon">
-<span id="domainlab-compos-vae-c-vae-recon-module"></span><h2 id="module-domainlab.compos.vae.c_vae_recon">domainlab.compos.vae.c_vae_recon module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_recon" title="Link to this heading">¶</a></h2>
-<p>Adaptor is vital for data generation so this class can be decoupled from model class.
+<section id="domainlab-compos-vae-c-vae-recon-module">
+<h2 id="domainlab-compos-vae-c-vae-recon-module">domainlab.compos.vae.c_vae_recon module<a class="headerlink" href="#domainlab-compos-vae-c-vae-recon-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.c_vae_recon">Adaptor is vital for data generation so this class can be decoupled from model class.
 The model class can be refactored, we do want to use the trained old-version model, which we
 only need to change adaptor class.</p>
 <dl class="py class">
@@ -732,9 +732,9 @@ only need to change adaptor class.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.utils_request_chain_builder">
-<span id="domainlab-compos-vae-utils-request-chain-builder-module"></span><h2 id="module-domainlab.compos.vae.utils_request_chain_builder">domainlab.compos.vae.utils_request_chain_builder module<a class="headerlink" href="#module-domainlab.compos.vae.utils_request_chain_builder" title="Link to this heading">¶</a></h2>
-<dl class="py class">
+<section id="domainlab-compos-vae-utils-request-chain-builder-module">
+<h2 id="domainlab-compos-vae-utils-request-chain-builder-module">domainlab.compos.vae.utils_request_chain_builder module<a class="headerlink" href="#domainlab-compos-vae-utils-request-chain-builder-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-domainlab.compos.vae.utils_request_chain_builder">
 <dt class="sig sig-object py" id="domainlab.compos.vae.utils_request_chain_builder.VAEChainNodeGetter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.utils_request_chain_builder.</span></span><span class="sig-name descname"><span class="pre">VAEChainNodeGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/utils_request_chain_builder.html#VAEChainNodeGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.utils_request_chain_builder.VAEChainNodeGetter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -746,9 +746,9 @@ only need to change adaptor class.</p>
 </ol>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.zoo_vae_builders_classif">
-<span id="domainlab-compos-vae-zoo-vae-builders-classif-module"></span><h2 id="module-domainlab.compos.vae.zoo_vae_builders_classif">domainlab.compos.vae.zoo_vae_builders_classif module<a class="headerlink" href="#module-domainlab.compos.vae.zoo_vae_builders_classif" title="Link to this heading">¶</a></h2>
-<p>Chain node VAE builders</p>
+<section id="domainlab-compos-vae-zoo-vae-builders-classif-module">
+<h2 id="domainlab-compos-vae-zoo-vae-builders-classif-module">domainlab.compos.vae.zoo_vae_builders_classif module<a class="headerlink" href="#domainlab-compos-vae-zoo-vae-builders-classif-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.zoo_vae_builders_classif">Chain node VAE builders</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.</span></span><span class="sig-name descname"><span class="pre">ChainNodeVAEBuilderClassifCondPriorBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#ChainNodeVAEBuilderClassifCondPriorBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="Link to this definition">¶</a></dt>
@@ -867,9 +867,9 @@ only need to change adaptor class.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae.zoo_vae_builders_classif_topic">
-<span id="domainlab-compos-vae-zoo-vae-builders-classif-topic-module"></span><h2 id="module-domainlab.compos.vae.zoo_vae_builders_classif_topic">domainlab.compos.vae.zoo_vae_builders_classif_topic module<a class="headerlink" href="#module-domainlab.compos.vae.zoo_vae_builders_classif_topic" title="Link to this heading">¶</a></h2>
-<p>Chain node VAE builders</p>
+<section id="domainlab-compos-vae-zoo-vae-builders-classif-topic-module">
+<h2 id="domainlab-compos-vae-zoo-vae-builders-classif-topic-module">domainlab.compos.vae.zoo_vae_builders_classif_topic module<a class="headerlink" href="#domainlab-compos-vae-zoo-vae-builders-classif-topic-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.compos.vae.zoo_vae_builders_classif_topic">Chain node VAE builders</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif_topic.</span></span><span class="sig-name descname"><span class="pre">NodeVAEBuilderImgTopic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif_topic.html#NodeVAEBuilderImgTopic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic" title="Link to this definition">¶</a></dt>
@@ -910,9 +910,9 @@ only need to change adaptor class.</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.compos.vae">
-<span id="module-contents"></span><h2 id="module-domainlab.compos.vae">Module contents<a class="headerlink" href="#module-domainlab.compos.vae" title="Link to this heading">¶</a></h2>
-</section>
+<section id="module-contents">
+<h2 id="module-contents">Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<span class="target" id="module-domainlab.compos.vae"></span></section>
 </section>
 
 
@@ -934,7 +934,7 @@ only need to change adaptor class.</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> domainlab.compos.pcr package </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab.compos.pcr package </span>
               </div>
             </a>
           
@@ -944,7 +944,7 @@ only need to change adaptor class.</p>
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> domainlab.compos.vae.compos package </span>
+                class="md-footer-nav__direction"> Next </span> domainlab.compos.vae.compos package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -958,11 +958,11 @@ only need to change adaptor class.</p>
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
