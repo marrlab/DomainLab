@@ -18,13 +18,13 @@ def mkNodeFeatExtractNNBuilderNameConvBnRelu2(arg_name4net, arg_val,
             AbstractFeatExtractNNBuilderChainNode):
         """NodeFeatExtractNNBuilderConvBnRelu2L."""
 
-        def init_business(self, dim_out, args, i_c, i_h, i_w,
+        def init_business(self, dim_out, args, isize,
                           flag_pretrain=None, remove_last_layer=False):
             """
             :param flag_pretrain
             """
             self.net_feat_extract = NetConvBnReluPool2L(
-                isize=(i_c, i_h, i_w),
+                isize=isize,
                 conv_stride=conv_stride, dim_out_h=dim_out)
             return self.net_feat_extract
 
