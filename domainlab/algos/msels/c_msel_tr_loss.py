@@ -12,12 +12,21 @@ class MSelTrLoss(AMSel):
     2. Visitor pattern to trainer
     """
     def __init__(self, max_es):
+        super().__init__()
+        # NOTE: super() must come first otherwise it will overwrite existing
+        # values!
+        self.reset()
+        self._max_es = max_es
+
+    def reset(self):
         self.best_loss = float("inf")
         self.es_c = 0
-        self.max_es = max_es
-        super().__init__()
 
-    def update(self):
+    @property
+    def max_es(self):
+        return self._max_es
+
+    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
@@ -34,10 +43,13 @@ class MSelTrLoss(AMSel):
             logger.info(f"early stop counter: {self.es_c}")
             logger.info(f"loss:{loss}, best loss: {self.best_loss}")
             flag = False  # do not update best model
+            if clear_counter:
+                logger.info("clearing counter")
+                self.es_c = 0
         return flag
 
     def if_stop(self):
         """
         if should early stop
         """
-        return self.es_c > self.max_es
+        return self.es_c >= self.max_es

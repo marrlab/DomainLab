@@ -1,4 +1,5 @@
-# DIVA: Domain Invariant Variational Autoencoders
+# Model DIVA
+## Domain Invariant Variational Autoencoders
 
 DIVA addresses the domain generalization problem with a variational autoencoder
 with three latent variables, using three independent encoders. 

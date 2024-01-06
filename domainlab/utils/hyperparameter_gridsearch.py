@@ -7,10 +7,13 @@ in def grid_task
 '''
 import copy
 import os
+import json
+import warnings
 
 import numpy as np
 import pandas as pd
 import domainlab.utils.hyperparameter_sampling as sampling
+from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
 
@@ -83,7 +86,7 @@ def loguniform_grid(param_config):
     mini = np.log10(float(param_config['min']))
     step = (maxi - mini) / num
     # linspace does exclude the end of the interval and include the beginning
-    grid = 10 ** np.linspace(mini + step / 2, maxi + step / 2, num)
+    grid = 10 ** np.linspace(mini + step / 2, maxi - step / 2, num)
     if 'step' in param_config.keys():
         return round_to_discreate_grid_uniform(grid, param_config)
     return grid
@@ -185,9 +188,9 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
                 if not eval(constr):
                     accepted = False
             if accepted:
-                grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
+                grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]
         else:
-            grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
+            grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]
 
 def sample_grid(param_config):
     '''
@@ -220,7 +223,9 @@ def sample_grid(param_config):
         if param_config['datatype'] == 'int':
             param_grid = np.array(param_grid)
             param_grid = param_grid.astype(int)
-    return param_grid
+        # NOTE: converting int to float will cause error for VAE, avoid do
+        # it here
+        return param_grid
 
 def build_param_grid_of_shared_params(shared_df):
     '''
@@ -261,6 +266,7 @@ def add_shared_params_to_param_grids(shared_df, dict_param_grids, config):
     '''
     dict_shared_grid = build_param_grid_of_shared_params(shared_df)
     if 'shared' in config.keys():
+        list_names = config['shared']
         dict_shared_grid = {key: dict_shared_grid[key] for key in config['shared']}
         if dict_shared_grid is not None:
             for key in dict_shared_grid.keys():
@@ -279,6 +285,11 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
             # constraints are not parameters
             if not param_name == 'constraints':
                 # remember all parameters which are reverenced
+                if 'datatype' not in param_config.keys():
+                    warnings.warn(f"datatype not specified in {param_config} \
+                                  for {param_name}, take float as default")
+                    param_config['datatype'] = 'float'
+
                 if 'reference' in param_config.keys():
                     referenced_params.update({param_name: param_config['reference']})
                 # sample other parameter
@@ -296,12 +307,12 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         # add referenced params and check constraints
         add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
                                              config, task_name)
-        if grid_df[grid_df['algo'] == config['aname']].shape[0] == 0:
+        if grid_df[grid_df['algo'] == config['model']].shape[0] == 0:
             raise RuntimeError('No valid value found for this grid spacing, refine grid')
         return grid_df
     elif 'shared' in config.keys():
         shared_grid = shared_df.copy()
-        shared_grid['algo'] = config['aname']
+        shared_grid['algo'] = config['model']
         shared_grid['task'] = task_name
         if 'constraints' in config.keys():
             config['hyperparameters'] = {'constraints': config['constraints']}
@@ -309,7 +320,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         return grid_df
     else:
         # add single line if no varying hyperparameters are specified.
-        grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], {}]
+        grid_df.loc[len(grid_df.index)] = [task_name, config['model'], {}]
         return grid_df
 
 
@@ -333,13 +344,13 @@ def sample_gridsearch(config: dict,
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
 
     if 'Shared params' in config.keys():
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
         # fill up the dataframe shared samples
         shared_samples_full = grid_task(shared_samples_full, 'all', shared_val, None)
     else:
         shared_samples_full = None
     for key, val in config.items():
-        if sampling.is_dict_with_key(val, "aname"):
+        if sampling.is_dict_with_key(val, "model"):
             if shared_samples_full is not None:
                 shared_samples = shared_samples_full.copy(deep=True)
                 if 'shared' in val.keys():
@@ -349,6 +360,8 @@ def sample_gridsearch(config: dict,
                 for line_num in range(shared_samples.shape[0]):
                     hyper_p_dict = shared_samples.iloc[line_num]['params'].copy()
                     key_list = copy.deepcopy(list(hyper_p_dict.keys()))
+                    if not all(x in key_list for x in shared):
+                        raise RuntimeError(f"shared keys: {shared} not included in global shared keys {key_list}")
                     for key_ in key_list:
                         if key_ not in shared:
                             del hyper_p_dict[key_]
@@ -360,9 +373,16 @@ def sample_gridsearch(config: dict,
 
             samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
-                        f'{samples[samples["algo"] == val["aname"]].shape[0]}')
+                        f'{samples[samples["algo"] == val["model"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')
     samples.to_csv(dest)
+        # create a txt file with the commit information
+    with open(config["output_dir"] + os.sep + 'commit.txt', 'w', encoding="utf8") as file:
+        file.writelines("use git log |grep \n")
+        file.writelines("consider remove leading b in the line below \n")
+        file.write(get_git_tag())
+    with open(config["output_dir"] + os.sep + 'config.txt', 'w', encoding="utf8") as file:
+        json.dump(config, file)
     return samples

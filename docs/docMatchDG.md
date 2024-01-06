@@ -1,4 +1,5 @@
-# MatchDG: Domain Generalization using Causal Matching
+# Trainer MatchDG
+## Domain Generalization using Causal Matching
 
 This algorithm introduced in https://arxiv.org/pdf/2006.07500.pdf is motivated by causality theory. The authors try to enforce, that a model does classify an image only on the object information included in the image and not on the domain information.
 

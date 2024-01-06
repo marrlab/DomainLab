@@ -9,7 +9,11 @@ We will start with the general setting of the yaml file and then continue with t
 
 One may start with a very general setup of the file, defining all fixed information like task description, test and training domains, used algorithms ...
 
-Een though we don't define the sampling of the hyperparameters yet, we need to deside wether the random sampling or grid search shall be used. For random samples we need to define the total number of hyperparameter samples in each task (`num_param_samples`) and a sampling seed for the hyperparameters (`sampling_seed`). For grid search the mode needs to be switched to grid using `mode: grid`, the specification on how many samples sould be created in gridsearch will be done in the next section when setting up the parameter ranges and distributions.
+At the top level, we need to decide whether the random sampling or grid search shall be used. 
+
+For random samples we need to define the total number of hyperparameter samples in each sampling task (`num_param_samples`) and a sampling seed for the hyperparameters (`sampling_seed`). 
+
+For grid search the mode needs to be switched to grid using `mode: grid`, the specification on how many samples sould be created in gridsearch will be done in the next section when setting up the parameter ranges and distributions.
 
 ```yaml
 # output_dir defines the output directory to be used to save the results
@@ -73,8 +77,8 @@ domainlab_args:
     # some of the algorithms do need multiple networks, 
     # all of which can also be paths to a network
     # (i.e. npath_... : examples/nets/resnet50domainbed.py)
-    nname_topic_distrib_img2topic: conv_bn_pool_2
-    nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+    nname_encoder_x2topic_h: conv_bn_pool_2
+    nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
     nname_dom: conv_bn_pool_2
 
 
@@ -104,8 +108,8 @@ Shared params:
 # a unique task name
 
 Task_Diva_Dial:
-    # set the method to be used, if aname is skipped the Task will not be executed
-    aname: diva   
+    # set the method to be used, if model is skipped the Task will not be executed
+    model: diva   
 
     # select a trainer to be used, if trainer is skipped adam is used
     # options: "dial" or "mldg"
@@ -201,10 +205,11 @@ choose the values of the hyperparameter from a predefined list. If one uses grid
 ```yaml
 nperm:                          # name of the hyperparameter
     distribution: categorical   # name of the distribution
+    datatype: int  
     values:                     # concrete values to choose from
-    - 30
-    - 31
-    - 100
+      - 30
+      - 31
+      - 100
 ```
 
 ### Referenced hperparameters
@@ -245,7 +250,7 @@ it is possible to have all sorts of combinations:
 1. a task which includes shared and task specific sampled hyperparameters
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 
     # specify sections from the Shared params section 
@@ -262,7 +267,7 @@ Task_Name:
 2. Only task specific sampled hyperparameters
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 
     # specify task specific hyperparameter sampling
@@ -276,7 +281,7 @@ Task_Name:
 3. Only shared sampled hyperparamters
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 
     # specify sections from the Shared params section 
@@ -290,6 +295,6 @@ Task_Name:
 4. No hyperparameter sampling. All Hyperparameters are either fixed to a user defined value or to the default value. No hyperparameter samples indicates no constraints.
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 ```

@@ -18,8 +18,8 @@ matplotlib.use('Agg')
 COLNAME_METHOD = "method"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
-G_DF_TASK_COL = 1   # column in which the task name is saved
-G_DF_PLOT_COL_METRIC_START = 7   # first 0-6 columns are not metric
+G_DF_TASK_COL = 1   # column in which the method name is saved
+G_DF_PLOT_COL_METRIC_START = 9   # first 0-6 columns are not metric
 
 
 
@@ -364,11 +364,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                         ax=axes[num], showfliers=False,
                         boxprops={"facecolor": (.4, .6, .8, .5)})
             sns.swarmplot(data=dataframe[dataframe[COLNAME_METHOD] == algo],
-                          x=COLNAME_IDX_PARAM, y=obj, hue=COLNAME_IDX_PARAM,
-                          legend=False, ax=axes[num],
-                          palette=sns.cubehelix_palette(n_colors=len(
-                              dataframe[dataframe[COLNAME_METHOD] == algo]
-                              [COLNAME_IDX_PARAM].unique())))
+                          x=COLNAME_IDX_PARAM, y=obj,
+                          legend=False, ax=axes[num])
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
             axes[num].set_ylim([-0.1, 1.1])

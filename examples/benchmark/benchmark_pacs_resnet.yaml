@@ -1,4 +1,4 @@
-# test benchmark config.
+# PACS
 
 test_domains:
   - sketch
@@ -6,8 +6,11 @@ test_domains:
 output_dir: zoutput/benchmarks/pacs_benchmark
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
-# by len(domains) * num_param_samples * num_seeds (see below)
+# by #(test_domains) * num_param_samples * num_seeds (see below)
 num_param_samples: 8
+# note that num_shared_param_samples is independent from num_param_samples (they are not cartesian
+# product) see details in https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md
+
 sampling_seed: 0
 
 startseed: 0
@@ -20,15 +23,15 @@ domainlab_args:
   # task specific arguments take precedence.
   ## dataset
   tpath: examples/tasks/task_pacs_path_list.py
-  dmem: False
   lr: 5e-5
   epos: 500
+  epos_min: 20
   es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
-  san_check: True
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
 
 Shared params:
   num_shared_param_samples: 8
@@ -72,7 +75,7 @@ Shared params:
 
 
 diva:  # name
-  aname: diva
+  model: diva
   shared:
     - gamma_y
     - gamma_d
@@ -82,7 +85,7 @@ diva:  # name
 
 
 hduva:  # name
-  aname: hduva
+  model: hduva
   zx_dim: 0
   shared:
     - gamma_y
@@ -91,7 +94,8 @@ hduva:  # name
 
 
 matchdg:  # name
-  aname: matchdg
+  model: erm
+  trainer: matchdg
   shared:
     - gamma_reg
 
@@ -117,7 +121,7 @@ matchdg:  # name
       distribution: uniform
 
 jigen:  # name
-  aname: jigen
+  model: jigen
   grid_len: 3
   shared:
     - gamma_reg
@@ -140,17 +144,17 @@ jigen:  # name
 
 
 dann:  # name
-  aname: dann
+  model: dann
   shared:
     - gamma_reg
 
 
 erm:  # name
-  aname: deepall
+  model: erm
 
 
 dial: # name
-  aname: deepall
+  model: erm
   trainer: dial
   shared:
     - gamma_reg
@@ -174,14 +178,15 @@ dial: # name
 
 
 mldg:  # name
-  aname: deepall
+  model: erm
   trainer: mldg
   shared:
     - gamma_reg
 
 
 hduva_matchdg:  # name
-  aname: matchhduva
+  model: hduva
+  trainer: matchdg
   zx_dim: 0
 
   shared:
@@ -216,7 +221,7 @@ hduva_matchdg:  # name
 
 diva_dial:
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   trainer: dial
   shared:
     - gamma_y
@@ -257,10 +262,10 @@ diva_dial:
       distribution: loguniform
 
 
-# Each node containing the aname property is considered as a task.
+# Each node containing the model property is considered as a task.
 diva_mldg:  # name
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   trainer: mldg
   shared:
     - gamma_y
@@ -269,7 +274,7 @@ diva_mldg:  # name
 
 
 hduva_mldg:  # name
-  aname: hduva
+  model: hduva
   trainer: mldg
   shared:
     - gamma_y

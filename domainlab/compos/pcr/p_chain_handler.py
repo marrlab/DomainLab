@@ -49,6 +49,7 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
         """
         self._success_node = success_node
         self._parent_node = None
+        self.next_model = None
         if success_node is not None:
             success_node.set_parent(self)
 
@@ -83,8 +84,9 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
             return self
         if self._success_node is not None:
             return self._success_node.handle(request)
-        err_msg = str(request) + " does not exist"
+        err_msg = "option " + str(request) + " does not exist"
         logger = Logger.get_logger()
+        logger.info(err_msg)
         logger.info("available options are")
         self.print_options()
         raise NotImplementedError(err_msg)

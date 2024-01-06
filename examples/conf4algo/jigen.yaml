@@ -1,5 +1,5 @@
 ---  # training with jigen
-aname: jigen
+model: jigen
 nname: alexnet
 pperm: 1
 nperm: 100

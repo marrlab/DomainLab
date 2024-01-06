@@ -6,7 +6,7 @@ from domainlab.utils.utils_classif import mk_dummy_label_list_str
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel_tr_loss import MSelTrLoss
@@ -16,7 +16,7 @@ from domainlab.utils.utils_cuda import get_device
 
 def test_trainer_diva():
     parser = mk_parser_main()
-    argstr = "--te_d=rgb_31_119_180 --task=mnistcolor10 --aname=diva --bs=2 \
+    argstr = "--te_d=rgb_31_119_180 --task=mnistcolor10 --model=diva --bs=2 \
         --split 0.8 --nocu"
 
     margs = parser.parse_args(argstr.split())
@@ -34,7 +34,7 @@ def test_trainer_diva():
     model_sel = MSelOracleVisitor(MSelTrLoss(max_es=margs.es))
     exp = Exp(margs)
     device = get_device(margs)
-    observer = ObVisitorCleanUp(ObVisitor(exp, model_sel, device))
+    observer = ObVisitorCleanUp(ObVisitor(model_sel))
     trainer = TrainerHyperScheduler()
     trainer.init_business(model, task=exp.task, observer=observer, device=device, aconf=margs)
     trainer.before_tr()

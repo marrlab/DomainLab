@@ -1,3 +1,7 @@
+"""
+parent class for combing model, trainer, task, observer
+"""
+import abc
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.utils.logger import Logger
 
@@ -7,14 +11,6 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
     Base class for Algorithm Builder
     """
     na_prefix = "NodeAlgoBuilder"
-
-    def dset_decoration_args_algo(self, args, ddset):
-        """
-        most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
-        """
-        logger = Logger.get_logger()
-        logger.info(f"processing dataset for {args.aname}")
-        return ddset
 
     @property
     def name(self):
@@ -36,5 +32,20 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         """
         return request == self.name
 
+    @abc.abstractmethod
     def init_business(self, exp):
-        raise NotImplementedError
+        """
+        combine model, trainer, observer, task
+        """
+
+    def extend(self, node):
+        self.next_model = node
+
+    def init_next_model(self, model, exp):
+        """
+        initialize the next model and decorate with current model
+        """
+        if self.next_model is not None:
+            _, next_model, *_ = self.next_model.init_business(exp)
+            model.extend(next_model)
+        return model

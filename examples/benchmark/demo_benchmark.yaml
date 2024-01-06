@@ -35,10 +35,10 @@ domainlab_args:
   epos: 2
   bs: 2
 
-# Each node containing the aname property is considered as a task.
+# Each node containing the model property is considered as a task.
 diva:  # name
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   nname: alexnet
   npath_dom: examples/nets/resnet.py
   # specification of parameters that shall vary
@@ -68,10 +68,10 @@ diva:  # name
       distribution: loguniform
 
 hduva:  # name
-  aname: hduva
+  model: hduva
   npath: examples/nets/resnet.py
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  nname_encoder_x2topic_h: conv_bn_pool_2
+  nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
 
   hyperparameters:
     gamma_y:
@@ -87,12 +87,12 @@ hduva:  # name
       distribution: loguniform
 
 
-deep_all:
-  aname: deepall
+erm:
+  model: erm
   nname: alexnet
 
 # set constant hyper-parameters
 mldg:
-    aname: deepallmldg
+    model: ermmldg
     nname: alexnet
     gamma_reg: 0.03
