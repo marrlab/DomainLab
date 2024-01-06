@@ -1,0 +1,71 @@
+
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_mnist_grid
+num_param_samples: 10
+startseed: 0
+endseed: 2
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [0, 3]
+  dmem: False
+  lr: 0.001
+  epos: 3
+  es: 5
+  bs: 32
+  nname: conv_bn_pool_2
+  san_check: True
+
+test_domains:
+  - 1
+  - 2
+
+ExperimentDann:
+  aname: dann
+
+
+
+ExperimentDeepall:
+  aname: deepall
+
+
+
+ExperimentDiva:
+  aname: diva
+  nname_dom: conv_bn_pool_2
+
+  hyperparameters:
+    gamma_y:
+      min: 1000
+      max: 10000
+      step: 100
+      num: 3
+      distribution: uniform
+
+    gamma_d:
+      min: 1000
+      max: 10000
+      step: 10
+      num: 2
+      distribution: uniform
+
+
+
+ExperimentJigen:
+  aname: jigen
+
+  hyperparameters:
+    pperm:
+      min: 0.1
+      max: 0.5
+      distribution: uniform
+      num: 3
+
+    nperm:
+      distribution: categorical
+      values:
+        - 30
+        - 31
+        - 100
+      datatype: int
