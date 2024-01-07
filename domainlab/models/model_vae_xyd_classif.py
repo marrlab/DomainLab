@@ -1,6 +1,7 @@
 """
 Base Class for XYD VAE Classify
 """
+import torch.nn as nn
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.interface_vae_xyd import InterfaceVAEXYD
 from domainlab.utils.utils_class import store_args
@@ -23,6 +24,10 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
     def extract_semantic_feat(self, tensor_x):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
         return zy_q_loc
+
+    @property
+    def net_invar_feat(self):
+        return self.encoder.net_invar_feat
 
     @property
     def multiplier4task_loss(self):
