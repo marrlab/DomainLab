@@ -24,6 +24,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     match_feat_fun_na = "cal_logit_y"
 
+    def extend(self, model):
+        super().extend(model)
+        self._net_classifier = model.net_classifier
+
     @property
     def metric4msel(self):
         return "acc"

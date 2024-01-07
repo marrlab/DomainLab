@@ -17,12 +17,14 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         self._decoratee = None
         self.list_d_tr = None
         self.visitor = None
+        self._net_invar_feat = None
 
     def extend(self, model):
         """
         extend the loss of the decoratee
         """
         self._decoratee = model
+        self.reset_feature_extractor(model.net_invar_feat)
 
     @property
     def metric4msel(self):
@@ -115,11 +117,16 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         extract semantic feature (not domain feature)
         """
 
+    @property
+    def net_invar_feat(self):
+        return self._net_invar_feat
+
     def reset_feature_extractor(self, module):
         """
         for two models to share the same neural network, the feature extractor has to be reset
         for classification, both feature extractor and classifier has to be reset
         """
+        self._net_invar_feat = module
 
     def save(self, suffix=None):
         """
