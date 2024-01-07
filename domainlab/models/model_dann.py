@@ -57,7 +57,7 @@ def mk_dann(parent_class=AModelClassif):
             self.list_d_tr = list_d_tr
             self.alpha = alpha
             self.net_encoder = net_encoder
-            self.net_classifier = net_classifier
+            self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
 
         @property
@@ -78,11 +78,11 @@ def mk_dann(parent_class=AModelClassif):
             """
             return functor_scheduler(trainer=trainer, alpha=self.alpha)
 
-        def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
+        def extract_semantic_feat(self, tensor_x):
             """
-            calculate the logit for softmax classification
+            extract semantic feature
             """
-            return self.net_classifier(self.net_encoder(tensor_x))
+            return self.net_encoder(tensor_x)
 
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             _ = others

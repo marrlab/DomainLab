@@ -31,9 +31,7 @@ class NodeAlgoBuilderERM(NodeAlgoBuilder):
 
         net = builder.init_business(flag_pretrain=True, dim_out=task.dim_y,
                                     remove_last_layer=False, args=args,
-                                    i_c=task.isize.i_c,
-                                    i_h=task.isize.i_h,
-                                    i_w=task.isize.i_w)
+                                    isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w))
 
         model = mk_erm()(net, list_str_y=task.list_str_y)
         model = self.init_next_model(model, exp)
