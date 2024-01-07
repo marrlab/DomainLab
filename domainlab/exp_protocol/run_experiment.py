@@ -14,6 +14,7 @@ from domainlab.exp.exp_cuda_seed import set_seed
 from domainlab.exp.exp_main import Exp
 from domainlab.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.utils.logger import Logger
+from domainlab.utils.hyperparameter_sampling import G_METHOD_NA
 
 
 def load_parameters(file: str, index: int) -> tuple:
@@ -27,7 +28,7 @@ def load_parameters(file: str, index: int) -> tuple:
     params = ast.literal_eval(row.params)
     # row.task has nothing to do with DomainLab task, it is
     # benchmark task which correspond to one algorithm
-    return row.task, params
+    return row[G_METHOD_NA], params
 
 
 def convert_dict2float(dict_in):
