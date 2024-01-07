@@ -32,14 +32,14 @@ class EncoderImg2TopicDirZd(nn.Module):
 
         self.add_module("net_img2topicdistri",
                         EncoderImg2TopicDistri(
-                            i_c, i_h, i_w, num_topics,
+                            (i_c, i_h, i_w), num_topics,
                             device,
                             args))
 
         # [topic, image] -> [h(topic), h(image)] -> [zd_mean, zd_scale]
         self.add_module(
             "imgtopic2zd", EncoderSandwichTopicImg2Zd(
-                self.zd_dim, i_c, i_h, i_w,
+                self.zd_dim, (i_c, i_h, i_w),
                 num_topics,
                 img_h_dim=num_topics,
                 args=args))

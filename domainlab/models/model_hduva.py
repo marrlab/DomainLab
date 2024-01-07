@@ -102,6 +102,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
                             self.chain_node_builder.construct_cond_prior(
                                 self.topic_dim, self.zd_dim))
 
+        # override interface
         def _init_components(self):
             """
             q(z|x)
@@ -118,6 +119,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             self.add_module("net_classif_y",
                             self.chain_node_builder.construct_classifier(
                                 self.zy_dim, self.dim_y))
+            self._net_classifier = self.net_classif_y
 
         def init_p_topic_batch(self, batch_size, device):
             """
