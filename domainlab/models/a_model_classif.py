@@ -216,4 +216,4 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         device = tensor_x.device
         bsize = tensor_x.shape[0]
-        return [torch.zeros(bsize, 1).to(device)], [0.0]
+        return [torch.zeros(bsize).to(device)], [0.0]
