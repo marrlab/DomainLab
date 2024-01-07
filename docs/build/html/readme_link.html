@@ -171,7 +171,7 @@
             
             <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
@@ -272,6 +272,13 @@
     
     
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -393,9 +400,10 @@ npath_dom: examples/nets/resnet.py  # neural network for domain classification
 <section id="benchmark-different-methods">
 <h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Link to this heading">¶</a></h4>
 <p>DomainLab provides a powerful benchmark functionality.
-To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">Benchmarks</span></a></p>
+To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">benchmarks documentation and tutorial</span></a></p>
 <p>One could simply run
-<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">your_benchmark_configuration.yaml</span></code> to launch different experiments with specified configuraiton. For example,  the following result (without any augmentation like flip) is for PACS dataset.</p>
+<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">your_benchmark_configuration.yaml</span></code> to launch different experiments with specified configuraiton.</p>
+<p>For example,  the following result (without any augmentation like flip) is for PACS dataset.</p>
 <div style="align: center; text-align:center;">
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/>
 </div>

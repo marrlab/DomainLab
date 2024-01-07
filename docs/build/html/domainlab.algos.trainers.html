@@ -171,7 +171,7 @@
             
             <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
@@ -285,6 +285,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -385,7 +392,7 @@
         </li>
         <li class="md-nav__item"><a href="#domainlab.algos.trainers.train_basic.TrainerBasic.cal_loss" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.cal_loss()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.log_r_loss()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.algos.trainers.train_basic.TrainerBasic.log_loss" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.log_loss()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.algos.trainers.train_basic.TrainerBasic.tr_batch" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.tr_batch()</span></code></a>
         </li>
@@ -719,8 +726,8 @@ initialize some member variables</p>
 <dd><p>so that user api can use trainer.cal_loss to train</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss">
-<span class="sig-name descname"><span class="pre">log_r_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_b_reg_loss</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_basic.html#TrainerBasic.log_r_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.algos.trainers.train_basic.TrainerBasic.log_loss">
+<span class="sig-name descname"><span class="pre">log_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_b_reg_loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/trainers/train_basic.html#TrainerBasic.log_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.trainers.train_basic.TrainerBasic.log_loss" title="Link to this definition">¶</a></dt>
 <dd><p>just for logging the self.epo_reg_loss_tr</p>
 </dd></dl>
 <dl class="py method">

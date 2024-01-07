@@ -168,12 +168,13 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
+          <li class="md-tabs__item"><a href="../../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
     </div>
   </nav>
@@ -273,6 +274,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -319,7 +327,6 @@ class TrainerDIAL(TrainerBasic):
         this is not necessarily constraint optimal due to nonlinearity,
         as the constraint epsilon is only considered ad-hoc
         """
-        # @FIXME: is there better way to initialize adversarial image?
         # ensure adversarial image not in computational graph
         steps_perturb = self.aconf.dial_steps_perturb
         scale = self.aconf.dial_noise_scale

@@ -171,7 +171,7 @@
             
             <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
@@ -284,6 +284,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -318,7 +325,7 @@
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.forward()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.inner_product" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.inner_product()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.list_inner_product" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.list_inner_product()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.load" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.load()</span></code></a>
         </li>
@@ -526,12 +533,13 @@ this parent class function delegate decoration to its decoratee</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.a_model.AModel.inner_product">
-<span class="sig-name descname"><span class="pre">inner_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_loss_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_multiplier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.inner_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.inner_product" title="Link to this definition">¶</a></dt>
-<dd><p>compute inner product between list of scalar loss and multiplier
-- the first dimension of the tensor v_reg_loss is mini-batch
-the second dimension is the number of regularizers
-- the vector mmu has dimension the number of regularizers</p>
+<dt class="sig sig-object py" id="domainlab.models.a_model.AModel.list_inner_product">
+<span class="sig-name descname"><span class="pre">list_inner_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_multiplier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.list_inner_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.list_inner_product" title="Link to this definition">¶</a></dt>
+<dd><p>compute inner product between list of regularization loss and multiplier
+- the length of the list is the number of regularizers
+- for each element of the list: the first dimension of the tensor is mini-batch
+return value of list_inner_product should keep the minibatch structure, thus aggregation
+here only aggregate along the list</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel.load">
