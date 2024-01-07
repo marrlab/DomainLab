@@ -31,7 +31,8 @@ domainlab_args:
   npath: examples/nets/resnet50domainbed.py
 
 Shared params:
-  num_shared_param_samples: 8
+  # sample more shared parameters to ensure range being covered in random sampling
+  num_shared_param_samples: 20
   gamma_reg:
     min: 0.01
     max: 100
