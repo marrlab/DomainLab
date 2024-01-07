@@ -181,7 +181,7 @@ html_theme_options = {
         {
             "href": "doc_benchmark",
             "internal": True,
-            "title": "Benchmarks"},
+            "title": "Benchmarks tutorial"},
 
         {
             "href": "doc_output",
@@ -198,7 +198,7 @@ html_theme_options = {
         # },
     ],
     "heroes": {
-        "index": "DomainLab for modular domain generalization",
+        "index": "DomainLab for modular domain generalization in deep learning",
         "customization": "Configuration options to personalize your site.",
     },
     "version_dropdown": False,
@@ -266,7 +266,7 @@ texinfo_documents = [
         "DomainLab Documentation",
         author,
         "domainlab",
-        "A pytorch platform for domain generalization",
+        "A pytorch platform of modular domain generalization for deep learning",
         "Miscellaneous",
     ),
 ]
