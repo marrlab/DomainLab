@@ -66,9 +66,9 @@ DomainLab provides a powerful benchmark functionality.
 To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in [Benchmarks](./docs/doc_benchmark.md)
 
 One could simply run 
-`bash run_benchmark_slurm.sh examples/benchmark/benchmark_pacs_resnet.yaml` to get the following result (without any augmentation like flip)
+`bash run_benchmark_slurm.sh your_benchmark_configuration.yaml` to launch different experiments with specified configuraiton. For example,  the following result (without any augmentation like flip) is for PACS dataset.
 
 <div style="align: center; text-align:center;">
-<img src="docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/> 
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/> 
 </div>
 where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.
