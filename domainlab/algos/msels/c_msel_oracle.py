@@ -32,7 +32,7 @@ class MSelOracleVisitor(AMSel):
         """
         if the best model should be updated
         """
-        self.tr_obs.exp.visitor.save(self.trainer.model, "epoch")
+        self.trainer.model.save("epoch")
         flag = False
         if self.tr_obs.metric_val is None:
             return super().update(clear_counter)
@@ -40,9 +40,9 @@ class MSelOracleVisitor(AMSel):
         if metric > self.best_oracle_acc:
             self.best_oracle_acc = metric
             if self.msel is not None:
-                self.tr_obs.exp.visitor.save(self.trainer.model, "oracle")
+                self.trainer.model.save("oracle")
             else:
-                self.tr_obs.exp.visitor.save(self.trainer.model)
+                self.trainer.model.save()
             logger = Logger.get_logger()
             logger.info("new oracle model saved")
             flag = True

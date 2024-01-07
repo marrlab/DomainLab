@@ -1,0 +1,10 @@
+photo/house/pic_218.jpg 6
+photo/horse/105_0223.jpg 5
+photo/house/pic_046.jpg 6
+photo/house/pic_110.jpg 6
+photo/elephant/n02503517_6232.jpg 2
+photo/dog/n02103406_1011.jpg 1
+photo/house/pic_146.jpg 6
+photo/guitar/n02676566_7830.jpg 4
+photo/person/253_0221.jpg 7
+photo/person/253_0297.jpg 7

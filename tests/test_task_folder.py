@@ -47,7 +47,7 @@ def test_fun():
 
     parser = mk_parser_main()
     # batchsize bs=2 ensures it works on small dataset
-    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
+    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--model", "diva"])
     node.init_business(args)
     node.get_list_domains()
     print(node.list_str_y)
@@ -131,7 +131,7 @@ def test_none_extensions():
 
     parser = mk_parser_main()
     # batchsize bs=2 ensures it works on small dataset
-    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
+    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--model", "diva"])
     node.init_business(args)
     assert node.dict_domain_class_count['caltech']['chair'] == 6
     assert node.dict_domain_class_count['caltech']['car'] == 20
@@ -168,7 +168,7 @@ def test_none_extensions():
 
     parser = mk_parser_main()
     # batchsize bs=2 ensures it works on small dataset
-    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
+    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--model", "diva"])
     node.init_business(args)
     assert node.dict_domain_class_count['caltech']['bird'] == 2,\
         "mixed_codec/caltech holds 2 jpg birds"
@@ -207,7 +207,7 @@ def test_none_extensions():
 
     parser = mk_parser_main()
     # batchsize bs=2 ensures it works on small dataset
-    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
+    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--model", "diva"])
     node.init_business(args)
 
 
@@ -233,7 +233,7 @@ def folder_args():
     """Test args; batchsize bs=2 ensures it works on small dataset
     """
     parser = mk_parser_main()
-    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--aname", "diva"])
+    args = parser.parse_args(["--te_d", "1", "--bs", "2", "--model", "diva"])
     return args
 
 def test_nodetaskfolder(pacs_node, folder_args):

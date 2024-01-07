@@ -7,7 +7,7 @@ def add_args2parser_jigen(parser):
     """
     parser.add_argument('--nperm', type=int, default=31,
                         help='number of permutations')
-    parser.add_argument('--pperm', type=float, default=0.7,
+    parser.add_argument('--pperm', type=float, default=0.1,
                         help='probability of permutating the tiles \
                         of an image')
     parser.add_argument('--jigen_ppath', type=str, default=None,

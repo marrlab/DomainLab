@@ -23,7 +23,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         chain of responsibility pattern for fetching trainer from dictionary
         """
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         return trainer
 
     def init_business(self, exp):
@@ -35,6 +35,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         model = mk_diva()(node,
                           zd_dim=args.zd_dim,
                           zy_dim=args.zy_dim,
@@ -49,14 +50,11 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         device = get_device(args)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         if not args.gen:
-            observer = ObVisitorCleanUp(
-                ObVisitor(model_sel,
-                          device,
-                          exp=exp))
+            observer = ObVisitor(model_sel)
         else:
-            observer = ObVisitorCleanUp(
-                ObVisitorGen(model_sel,
-                             device,
-                             exp=exp))
+            observer = ObVisitorGen(model_sel)
+
+        observer = ObVisitorCleanUp(observer)
         trainer = self.get_trainer(args)
+        model = self.init_next_model(model, exp)
         return trainer, model, observer, device

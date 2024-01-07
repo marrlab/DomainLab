@@ -18,7 +18,7 @@ def make_basic_trainer(class_name_model):
             """
             chain of responsibility pattern for fetching trainer from commandline parsed arguments
             """
-            trainer = TrainerChainNodeGetter(args)(default="basic")
+            trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
             return trainer
 
         def _set_args(self, args, val_arg_na, prefix, argname):
@@ -34,7 +34,7 @@ def make_basic_trainer(class_name_model):
 
             python main_out.py –te_d=caltech –task=mini_vlcs –debug –bs=3
             –apath=examples/algos/demo_custom_model.py
-            –aname=custom –nname_argna2val net1 –nname_argna2val alexnet
+            –model=custom –nname_argna2val net1 –nname_argna2val alexnet
 
             :param args: the namespace of command line arguemnts
             :param val_arg_na: the custom argument name the user specified
@@ -65,7 +65,7 @@ def make_basic_trainer(class_name_model):
             {"net1":"name1", "net2":"name2"}
             python main_out.py –te_d=caltech –task=mini_vlcs –debug –bs=3
             –apath=examples/algos/demo_custom_model.py
-            –aname=custom –nname_argna2val net1 –nname_argna2val alexnet
+            –model=custom –nname_argna2val net1 –nname_argna2val alexnet
             """
             for key_module_na, val_arg_na in \
                     model.dict_net_module_na2arg_na.items():
@@ -83,7 +83,7 @@ def make_basic_trainer(class_name_model):
                 net = builder.init_business(
                     flag_pretrain=True, dim_out=task.dim_y,
                     remove_last_layer=False, args=args,
-                    i_c=task.isize.i_c, i_h=task.isize.i_h, i_w=task.isize.i_w)
+                    isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w))
                 model.add_module("%s" % (key_module_na), net)
 
         def init_business(self, exp):
@@ -94,8 +94,9 @@ def make_basic_trainer(class_name_model):
             args = exp.args
             device = get_device(args)
             model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
-            observer = ObVisitor(model_sel, device, exp=exp)
+            observer = ObVisitor(model_sel)
             model = class_name_model(list_str_y=task.list_str_y)
+            model = self.init_next_model(model, exp)
             self.set_nets_from_dictionary(args, task, model)
             trainer = self.get_trainer(args)
             trainer.init_business(model, task, observer, device, args)

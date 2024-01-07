@@ -6,7 +6,7 @@ import warnings
 
 import yaml
 
-from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
@@ -149,7 +149,7 @@ def mk_parser_main():
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods')
 
-    parser.add_argument('--aname', metavar="an", type=str,
+    parser.add_argument('--model', metavar="an", type=str,
                         default=None,
                         help='algorithm name')
 

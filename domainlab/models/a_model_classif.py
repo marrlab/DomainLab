@@ -28,6 +28,14 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def metric4msel(self):
         return "acc"
 
+    @property
+    def net_classifier(self):
+        return self._net_classifier
+
+    @net_classifier.setter
+    def net_classifier(self, net_classifier):
+        self._net_classifier = net_classifier
+
     def create_perf_obj(self, task):
         """
         for classification, dimension of target can be quieried from task
@@ -61,21 +69,30 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         logger.info(f"before training, model accuracy: {acc}")
 
     @abc.abstractmethod
+    def extract_semantic_feat(self, tensor_x):
+        """
+        by default, use the logit as extracted feature if the current method
+        is not being overriden by child class
+        """
+
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
         """
+        feat = self.extract_semantic_feat(tensor_x)
+        logits = self.net_classifier(feat)
+        return logits
 
     @store_args
-    def __init__(self, list_str_y=None, list_d_tr=None):
+    def __init__(self, list_str_y=None):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
         self.list_str_y = list_str_y
-        self.list_d_tr = list_d_tr
         self.perf_metric = None
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
+        self._net_classifier = None
 
     def infer_y_vpicn(self, tensor):
         """
@@ -155,11 +172,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
         flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
         if not (flag1 & flag2 & flag_raw_consistency):
-            str_info = f"inconsistent acc:" \
-                       f"prediction file acc {file_acc}" \
-                       f"torchmetric acc {acc_metric_te}" \
-                       f"raw acc 1 {acc_raw1}" \
-                       f"raw acc 2 {acc_raw2}"
+            str_info = f"inconsistent acc: \n" \
+                       f"prediction file acc generated using the current model is {file_acc} \n" \
+                       f"input torchmetric acc to the current function: {acc_metric_te} \n" \
+                       f"raw acc 1 {acc_raw1} \n" \
+                       f"raw acc 2 {acc_raw2} \n"
             raise RuntimeError(str_info)
         return file_acc
 
@@ -193,10 +210,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
         return loss_adv_gen + loss_adv_gen_task.sum()
 
-    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         for ERM to adapt to the interface of other regularized learners
         """
         device = tensor_x.device
         bsize = tensor_x.shape[0]
-        return [torch.zeros(bsize, 1).to(device)], [0.0]
+        return [torch.zeros(bsize).to(device)], [0.0]

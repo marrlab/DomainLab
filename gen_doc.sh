@@ -1,6 +1,9 @@
 #!/bin/bash
 # sphinx-quickstart
+git checkout master
+git pull
 git checkout doc
+git pull  # get latest version of doc"
 git merge master -m "merge master"
 
 cd docs

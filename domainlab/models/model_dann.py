@@ -4,6 +4,7 @@ network
 """
 from torch.nn import functional as F
 
+from domainlab import g_str_cross_entropy_agg
 from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.models.a_model_classif import AModelClassif
 
@@ -31,7 +32,7 @@ def mk_dann(parent_class=AModelClassif):
 
     Input Parameters:
         list_str_y: list of labels,
-        list_str_d: list of domains,
+        list_d_tr: list of training domains
         alpha: total_loss = task_loss + $$\\alpha$$ * domain_classification_loss,
         net_encoder: neural network to extract the features (input: training data),
         net_classifier: neural network (input: output of net_encoder; output: label prediction),
@@ -47,15 +48,16 @@ def mk_dann(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, list_str_y, list_str_d,
+        def __init__(self, list_str_y, list_d_tr,
                      alpha, net_encoder, net_classifier, net_discriminator):
             """
             See documentation above in mk_dann() function
             """
-            super().__init__(list_str_y, list_str_d)
+            super().__init__(list_str_y)
+            self.list_d_tr = list_d_tr
             self.alpha = alpha
             self.net_encoder = net_encoder
-            self.net_classifier = net_classifier
+            self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
 
         def hyper_update(self, epoch, fun_scheduler):
@@ -72,17 +74,19 @@ def mk_dann(parent_class=AModelClassif):
             """
             return functor_scheduler(trainer=None, alpha=self.alpha)
 
-        def cal_logit_y(self, tensor_x):  # FIXME: this is only for classification
+        def extract_semantic_feat(self, tensor_x):
             """
-            calculate the logit for softmax classification
+            extract semantic feature
             """
-            return self.net_classifier(self.net_encoder(tensor_x))
+            return self.net_encoder(tensor_x)
 
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
+            _ = others
+            _ = tensor_y
             feat = self.net_encoder(tensor_x)
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
-            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
+            lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
             return [lc_d], [self.alpha]
     return ModelDAN

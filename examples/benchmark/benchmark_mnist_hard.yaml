@@ -29,8 +29,8 @@ domainlab_args:
   lr: 1e-3
   nname: conv_bn_pool_2
   nname_dom: conv_bn_pool_2
-  nname_topic_distrib_img2topic: conv_bn_pool_2
-  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+  nname_encoder_x2topic_h: conv_bn_pool_2
+  nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
   san_check: True
 
 Shared params:
@@ -76,7 +76,7 @@ Shared params:
 
 
 diva:  # name
-  aname: diva
+  model: diva
   shared:
     - gamma_y
     - gamma_d
@@ -86,7 +86,7 @@ diva:  # name
 
 
 hduva:  # name
-  aname: hduva
+  model: hduva
   zx_dim: 0
   shared:
     - gamma_y
@@ -95,7 +95,8 @@ hduva:  # name
 
 
 matchdg:  # name
-  aname: matchdg
+  model: erm
+  trainer: matchdg
   shared:
     - gamma_reg
 
@@ -121,7 +122,7 @@ matchdg:  # name
       distribution: uniform
 
 jigen:  # name
-  aname: jigen
+  model: jigen
   grid_len: 3
   shared:
     - gamma_reg
@@ -144,17 +145,17 @@ jigen:  # name
 
 
 dann:  # name
-  aname: dann
+  model: dann
   shared:
     - gamma_reg
 
 
 erm:  # name
-  aname: deepall
+  model: erm
 
 
 dial: # name
-  aname: deepall
+  model: erm
   trainer: dial
   shared:
     - gamma_reg
@@ -178,14 +179,15 @@ dial: # name
 
 
 mldg:  # name
-  aname: deepall
+  model: erm
   trainer: mldg
   shared:
     - gamma_reg
 
 
 hduva_matchdg:  # name
-  aname: matchhduva
+  model: hduva
+  trainer: matchdg
   zx_dim: 0
 
   shared:
@@ -220,7 +222,7 @@ hduva_matchdg:  # name
 
 diva_dial:
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   trainer: dial
   shared:
     - gamma_y
@@ -261,10 +263,10 @@ diva_dial:
       distribution: loguniform
 
 
-# Each node containing the aname property is considered as a task.
+# Each node containing the model property is considered as a task.
 diva_mldg:  # name
   # Parameters that are fixed for all runs of this task.
-  aname: diva
+  model: diva
   trainer: mldg
   shared:
     - gamma_y
@@ -273,7 +275,7 @@ diva_mldg:  # name
 
 
 hduva_mldg:  # name
-  aname: hduva
+  model: hduva
   trainer: mldg
   shared:
     - gamma_y

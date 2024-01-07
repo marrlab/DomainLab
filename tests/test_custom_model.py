@@ -2,7 +2,7 @@ import os
 import pytest
 import torch
 import gc
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 from domainlab.models.model_custom import AModelCustom
 from domainlab.arg_parser import mk_parser_main
 
@@ -13,7 +13,7 @@ def test_custom():
     rootdir = os.path.abspath(rootdir)
     mpath = os.path.join(rootdir, "examples/models/demo_custom_model.py")
     parser = mk_parser_main()
-    argsstr = "--te_d=caltech --task=mini_vlcs --aname=custom --bs=2 --debug \
+    argsstr = "--te_d=caltech --task=mini_vlcs --model=custom --bs=2 --debug \
                --apath=%s --nname_argna2val my_custom_arg_name \
         --nname_argna2val alexnet" % (mpath)
     margs = parser.parse_args(argsstr.split())
@@ -33,7 +33,7 @@ def test_custom2():
     mpath = os.path.join(rootdir, "examples/models/demo_custom_model.py")
     path_net = os.path.join(rootdir, "examples/nets/resnet.py")
     parser = mk_parser_main()
-    argsstr = "--te_d=caltech --task=mini_vlcs --aname=custom --bs=2 --debug \
+    argsstr = "--te_d=caltech --task=mini_vlcs --model=custom --bs=2 --debug \
                --apath=%s --npath_argna2val my_custom_arg_name \
         --npath_argna2val %s" % (mpath, path_net)
     margs = parser.parse_args(argsstr.split())
@@ -53,7 +53,7 @@ def test_no_network_exeption():
     '''
     parser = mk_parser_main()
     argsstr = "--te_d=caltech --task=mini_vlcs --debug \
-              --bs=8 --aname=deepall --npath=tests/this_is_not_a_network.py"
+              --bs=8 --model=erm --npath=tests/this_is_not_a_network.py"
     margs = parser.parse_args(argsstr.split())
     with pytest.raises(RuntimeError, match='the pytorch module returned by'):
         Exp(margs)

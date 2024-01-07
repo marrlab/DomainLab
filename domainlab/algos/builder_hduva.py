@@ -23,6 +23,7 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
+        task.get_list_domains_tr_te(args.tr_d, args.te_d)
         request = RequestVAEBuilderCHW(
             task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args)
@@ -34,16 +35,16 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
                            device=device,
                            topic_dim=args.topic_dim,
                            list_str_y=task.list_str_y,
-                           list_d_tr=task.list_domain_tr,
                            gamma_d=args.gamma_d,
                            gamma_y=args.gamma_y,
                            beta_t=args.beta_t,
                            beta_x=args.beta_x,
                            beta_y=args.beta_y,
                            beta_d=args.beta_d)
+        model = self.init_next_model(model, exp)
         model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
         observer = ObVisitorCleanUp(
-            ObVisitor(model_sel, device, exp=exp))
-        trainer = TrainerChainNodeGetter(args)(default="hyperscheduler")
+            ObVisitor(model_sel))
+        trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device

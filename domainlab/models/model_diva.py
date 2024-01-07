@@ -4,7 +4,7 @@ DIVA
 import torch
 from torch.nn import functional as F
 
-from domainlab import g_inst_component_loss_agg
+from domainlab import g_inst_component_loss_agg, g_str_cross_entropy_agg
 from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
@@ -66,7 +66,8 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
-                             list_str_y, list_d_tr)
+                             list_str_y)
+            self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:
                 self.add_module(
@@ -99,11 +100,7 @@ def mk_diva(parent_class=VAEXYDClassif):
                 trainer=None,
                 beta_d=self.beta_d, beta_y=self.beta_y, beta_x=self.beta_x)
 
-        def get_list_str_y(self):
-            """get_list_str_y."""
-            return self._list_str_y
-
-        def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+        def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
 
@@ -131,7 +128,7 @@ def mk_diva(parent_class=VAEXYDClassif):
                 p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
 
             _, d_target = tensor_d.max(dim=1)
-            lc_d = F.cross_entropy(logit_d, d_target, reduction="none")
+            lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
 
             return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
                 [self.multiplier_recon, -self.beta_d, -self.beta_x, -self.beta_y, self.gamma_d]
