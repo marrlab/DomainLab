@@ -38,6 +38,7 @@ def mk_erm(parent_class=AModelClassif):
             super().__init__(list_str_y)
             self.add_module("net", net)
             self._net_classifier = LayerId()
+            self._net_invar_feat = self.net
 
         @override_interface(AModelClassif)
         def extract_semantic_feat(self, tensor_x):
