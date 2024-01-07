@@ -395,9 +395,9 @@ npath_dom: examples/nets/resnet.py  # neural network for domain classification
 <p>DomainLab provides a powerful benchmark functionality.
 To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">Benchmarks</span></a></p>
 <p>One could simply run
-<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">examples/benchmark/benchmark_pacs_resnet.yaml</span></code> to get the following result (without any augmentation like flip)</p>
+<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">your_benchmark_configuration.yaml</span></code> to launch different experiments with specified configuraiton. For example,  the following result (without any augmentation like flip) is for PACS dataset.</p>
 <div style="align: center; text-align:center;">
-<img src="docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/>
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/>
 </div>
 where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.</section>
 </section>

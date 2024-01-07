@@ -320,17 +320,13 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         super().__init__(list_str_y)
         self.init()
 
-<div class="viewcode-block" id="VAEXYDClassif.cal_logit_y">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y">[docs]</a>
-    def cal_logit_y(self, tensor_x):
-        """
-        calculate the logit for softmax classification
-        """
+<div class="viewcode-block" id="VAEXYDClassif.extract_semantic_feat">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat">[docs]</a>
+    def extract_semantic_feat(self, tensor_x):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
-        logit_y = self.net_classif_y(zy_q_loc)
-        return logit_y</div>
+        return zy_q_loc</div>
 
-        
+
     @property
     def multiplier4task_loss(self):
         """
@@ -342,7 +338,9 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         super()._init_components()
         self.add_module("net_classif_y",
                         self.chain_node_builder.construct_classifier(
-                            self.zy_dim, self.dim_y))</div>
+                            self.zy_dim, self.dim_y))
+        # property setter only for other object, internally, one shoud use _net_classifier
+        self._net_classifier = self.net_classif_y</div>
 
 </pre></div>
 

@@ -365,14 +365,14 @@ Invariant gradient variances for out-of-distribution generalization") </div>
 perturbation of the minimizer highly affects its optimality in one domain, but only
 minimally affects its optimality in the other domain. Under certain assumptions, most importantly
 the Hessians being positive definite, it is possible to measure the inconsistency between two domains
-$<span class="math notranslate nohighlight">\(A\)</span><span class="math notranslate nohighlight">\( and \)</span><span class="math notranslate nohighlight">\(B\)</span>$ with the following inconsistency score:</p>
+<span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> with the following inconsistency score:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{I}^\epsilon (\theta^*) = \textnormal{max}_{(A,B)\in\mathcal{E}^2} \biggl( \mathcal{R}_B(\theta^*) -  \mathcal{R}_A(\theta^*) + \textnormal{max}_{\frac{1}{2}\theta^T H_A \theta\leq\epsilon}\frac{1}{2}\theta^T H_B \theta \biggl) 
+\mathcal{I}^\epsilon ( \theta^* ) = \text{max}_ {(A,B)\in\mathcal{E}^2} \biggl( \mathcal{R}_ B (\theta^* ) - \mathcal{R}_ {A} ( \theta^* ) + \text{max}_ {\frac{1}{2} \theta^T H_A \theta\leq\epsilon}\frac{1}{2}\theta^T H_B \theta \biggl) 
 \]</div>
-<p>, whereby $<span class="math notranslate nohighlight">\(\theta^*\)</span><span class="math notranslate nohighlight">\( denotes the minimizer, \)</span><span class="math notranslate nohighlight">\(\mathcal{E}\)</span><span class="math notranslate nohighlight">\( denotes the set of training domains,
-\)</span><span class="math notranslate nohighlight">\(H_e\)</span><span class="math notranslate nohighlight">\( denotes the Hessian for \)</span><span class="math notranslate nohighlight">\(e\in\mathcal{E}\)</span><span class="math notranslate nohighlight">\(, §§\theta\)</span><span class="math notranslate nohighlight">\( denote the network parameters
-and \)</span><span class="math notranslate nohighlight">\(\mathcal{R}_e\)</span><span class="math notranslate nohighlight">\( for \)</span><span class="math notranslate nohighlight">\(e\in\mathcal{E}\)</span>$ denotes the domain-level ERM objective.
+<p>, whereby <span class="math notranslate nohighlight">\(\theta^*\)</span> denotes the minimizer, <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> denotes the set of training domains,
+<span class="math notranslate nohighlight">\(H_e\)</span> denotes the Hessian for <span class="math notranslate nohighlight">\(e\in\mathcal{E}\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span> denote the network parameters
+and <span class="math notranslate nohighlight">\(\mathcal{R}_e\)</span> for <span class="math notranslate nohighlight">\(e\in\mathcal{E}\)</span> denotes the domain-level ERM objective.
 The Fishr regularization method forces both terms on the right hand side
 of the inconsistency score to become small. The first term represents the difference
 between the domain-level risks and is implicitly forced to be small by applying
@@ -381,27 +381,27 @@ domain-level Hessians, matching the variances across domains.</p>
 </section>
 <section id="matching-the-variances-during-training">
 <h3 id="matching-the-variances-during-training">Matching the Variances during training<a class="headerlink" href="#matching-the-variances-during-training" title="Link to this heading">¶</a></h3>
-<p>Let $<span class="math notranslate nohighlight">\(\mathcal{E}\)</span><span class="math notranslate nohighlight">\( be the space of all training domains, and let \)</span>$\mathcal{R}_e(\theta) be the ERM
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> be the space of all training domains, and let <span class="math notranslate nohighlight">\(\mathcal{R}_e(\theta)\)</span> be the ERM
 objective. Fishr minimizes the following objective function during training:</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{L}(\theta) = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} \mathcal{R}_\mathcal{E}(\theta) + \lambda \mathcal{L}_{\textnormal{Fishr}}(\theta)
+\mathcal{L} (\theta) = \frac{1}{|\mathcal{E}|} \sum_{e\in\mathcal{E}} \mathcal{R}_ {\mathcal{E}} (\theta) + \lambda \mathcal{L}_{\text{Fishr}}(\theta)
 \]</div>
 <p>, whereby</p>
 <div class="math notranslate nohighlight">
 \[
-\mathcal{L}_\textnormal{Fishr}(\theta) = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} \| v_e -v \|^2_2
+\mathcal{L}_ {\text{Fishr}} (\theta) = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} \| v_e -v \|^2_2
 \]</div>
-<p>with $<span class="math notranslate nohighlight">\(v_e\)</span><span class="math notranslate nohighlight">\( denoting the variance between the gradients of domain \)</span><span class="math notranslate nohighlight">\(e\in\mathcal{E}\)</span><span class="math notranslate nohighlight">\( and
-\)</span><span class="math notranslate nohighlight">\(v\)</span><span class="math notranslate nohighlight">\( denoting the average variance of the gradients across all domains, i.e.
-\)</span><span class="math notranslate nohighlight">\(&lt;v = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} v_e\)</span>$.</p>
+<p>with <span class="math notranslate nohighlight">\(v_e\)</span> denoting the variance between the gradients of domain <span class="math notranslate nohighlight">\(e\in\mathcal{E}\)</span> and
+<span class="math notranslate nohighlight">\(v\)</span> denoting the average variance of the gradients across all domains, i.e.
+<span class="math notranslate nohighlight">\(v = \frac{1}{|\mathcal{E}|}\sum_{e\in\mathcal{E}} v_e\)</span>.</p>
 </section>
 <section id="implementation">
 <h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Link to this heading">¶</a></h3>
 <p>The variance of the gradients within each domain can be computed with the
 BACKPACK package (see: Dangel, Felix, Frederik Kunstner, and Philipp Hennig.
 “Backpack: Packing more into backprop.” <a class="reference external" href="https://arxiv.org/abs/1912.10985">https://arxiv.org/abs/1912.10985</a>).
-Further on, we use $<span class="math notranslate nohighlight">\( \textnormal{Var}(G) \approx \textnormal{diag}(H) \)</span>$.
+Further on, we use <span class="math notranslate nohighlight">\( \textnormal{Var}(G) \approx \textnormal{diag}(H) \)</span>.
 The Hessian is then approximated by the Fisher Information Matrix, which
 again is approximated by an empirical estimator for computational efficiency.
 For more details, see the reference below or the domainlab code.</p>

@@ -315,8 +315,7 @@ def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_net_path):
         Local class to return
         """
         def init_business(self, dim_out, args, flag_pretrain,
-                          remove_last_layer,
-                          i_c=None, i_h=None, i_w=None):
+                          remove_last_layer, isize=None):
             """
             initialize **and** return the heavy weight business object for
             doing the real job

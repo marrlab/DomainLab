@@ -360,6 +360,8 @@
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.metric4msel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.metric4msel</span></code></a>
         </li>
+        <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.net_classifier" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.net_classifier</span></code></a>
+        </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.pred2file" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.pred2file()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.read_prediction_file" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.read_prediction_file()</span></code></a>
@@ -396,11 +398,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.cal_logit_y" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.cal_logit_y()</span></code></a>
-        </li>
         <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.dict_net_module_na2arg_na</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.infer_y_vpicn" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.infer_y_vpicn()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.extract_semantic_feat" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.extract_semantic_feat()</span></code></a>
         </li></ul>
             </nav>
         </li></ul>
@@ -440,7 +440,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif.cal_logit_y()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif.extract_semantic_feat()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.multiplier4task_loss" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif.multiplier4task_loss</span></code></a>
         </li></ul>
@@ -569,7 +569,7 @@ the second dimension is the number of regularizers
 <p>operations that all classification model should have</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.cal_logit_y">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_logit_y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_logit_y" title="Link to this definition">¶</a></dt>
 <dd><p>calculate the logit for softmax classification</p>
 </dd></dl>
 <dl class="py method">
@@ -619,7 +619,7 @@ as necessary.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">
-<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat" title="Link to this definition">¶</a></dt>
 <dd><p>by default, use the logit as extracted feature if the current method
 is not being overriden by child class</p>
 </dd></dl>
@@ -649,6 +649,10 @@ n: list of name of class</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metric4msel</span></span><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.metric4msel" title="Link to this definition">¶</a></dt>
 <dd><p>metric for model selection</p>
 </dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.net_classifier">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">net_classifier</span></span><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.net_classifier" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.pred2file">
 <span class="sig-name descname"><span class="pre">pred2file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spliter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.pred2file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.pred2file" title="Link to this definition">¶</a></dt>
@@ -714,11 +718,6 @@ n: list of name of class</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_custom.</span></span><span class="sig-name descname"><span class="pre">AModelCustom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a></p>
 <p>AModelCustom.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.cal_logit_y">
-<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.cal_logit_y" title="Link to this definition">¶</a></dt>
-<dd><p>calculate the logit for softmax classification</p>
-</dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dict_net_module_na2arg_na</span></span><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na" title="Link to this definition">¶</a></dt>
@@ -727,23 +726,9 @@ A dictionary with the key being the pytorch module name and value
 being the commandline argument name</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.infer_y_vpicn">
-<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.infer_y_vpicn" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tensor</strong> – input</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p>v - vector of one-hot class label</p></li>
-<li><p>p - vector of probability</p></li>
-<li><p>i - class label index</p></li>
-<li><p>c - confidence: maximum probability</p></li>
-<li><p>n - list of name of class</p></li>
-</ul>
-</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.extract_semantic_feat" title="Link to this definition">¶</a></dt>
+<dd><p>calculate the logit for softmax classification</p>
 </dd></dl>
 </dd></dl>
 </section>
@@ -815,7 +800,7 @@ domains are pooled together during training.</p>
 <dd class="field-even"><p>model inheriting from parent class</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ModelDeepAll</p>
+<dd class="field-odd"><p>ModelERM</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -993,9 +978,10 @@ prob_permutation: probability of shuffling image tiles</p>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a>, <a class="reference internal" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="domainlab.models.interface_vae_xyd.InterfaceVAEXYD"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceVAEXYD</span></code></a></p>
 <p>Base Class for DIVA and HDUVA</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y">
-<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y" title="Link to this definition">¶</a></dt>
-<dd><p>calculate the logit for softmax classification</p>
+<dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat" title="Link to this definition">¶</a></dt>
+<dd><p>by default, use the logit as extracted feature if the current method
+is not being overriden by child class</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.multiplier4task_loss">

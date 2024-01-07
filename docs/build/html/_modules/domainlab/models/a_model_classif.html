@@ -328,6 +328,14 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def metric4msel(self):
         return "acc"
 
+    @property
+    def net_classifier(self):
+        return self._net_classifier
+
+    @net_classifier.setter
+    def net_classifier(self, net_classifier):
+        self._net_classifier = net_classifier
+
 <div class="viewcode-block" id="AModelClassif.create_perf_obj">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.create_perf_obj">[docs]</a>
     def create_perf_obj(self, task):
@@ -371,21 +379,23 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
 
 <div class="viewcode-block" id="AModelClassif.extract_semantic_feat">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">[docs]</a>
+    @abc.abstractmethod
     def extract_semantic_feat(self, tensor_x):
         """
         by default, use the logit as extracted feature if the current method
         is not being overriden by child class
-        """
-        return self.cal_logit_y(tensor_x)</div>
+        """</div>
 
 
 <div class="viewcode-block" id="AModelClassif.cal_logit_y">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_logit_y">[docs]</a>
-    @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
-        """</div>
+        """
+        feat = self.extract_semantic_feat(tensor_x)
+        logits = self.net_classifier(feat)
+        return logits</div>
 
 
     @store_args
@@ -397,6 +407,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         self.list_str_y = list_str_y
         self.perf_metric = None
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
+        self._net_classifier = None
 
 <div class="viewcode-block" id="AModelClassif.infer_y_vpicn">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">[docs]</a>

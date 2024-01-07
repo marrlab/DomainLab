@@ -340,9 +340,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_encoder = builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=False, args=args,
-            i_c=task.isize.i_c,
-            i_w=task.isize.i_w,
-            i_h=task.isize.i_h)
+            isize=(task.isize.i_c, task.isize.i_w, task.isize.i_h))
 
         dim_feat = get_flat_dim(net_encoder,
                                 task.isize.i_c,
