@@ -9,7 +9,10 @@ g_inst_component_loss_agg = torch.sum
 g_tensor_batch_agg = torch.sum
 g_list_loss_agg = sum
 
-def g_list_model_penalized_reg_agg(list_penalized_reg): 
+def g_list_model_penalized_reg_agg(list_penalized_reg):
+    """
+    aggregate along the list, but do not diminish the batch structure of the tensor
+    """
     return torch.stack(list_penalized_reg, dim=0).sum(dim=0)
 
 g_str_cross_entropy_agg = "none"
