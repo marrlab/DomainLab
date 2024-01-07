@@ -234,8 +234,14 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         list_reg_model, list_mu_model = self.decoratee.cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others)
-        list_reg, list_mu = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
-        return list_reg_model + list_reg, list_mu_model + list_mu
+        assert len(list_reg_model) == len(list_mu_model)
+
+        list_reg_trainer, list_mu_trainer = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        assert len(list_reg_trainer) ==  len(list_mu_trainer)
+
+        list_loss = list_reg_model + list_reg_trainer
+        list_mu = list_mu_model + list_mu_trainer
+        return list_loss, list_mu
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """

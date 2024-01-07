@@ -76,7 +76,7 @@ class TrainerMLDG(AbstractTrainer):
             # since mldg's reg loss is on target domain,
             # no other trainer except hyperscheduler could decorate it unless we use state pattern
             # in the future to control source and target domain loader behavior
-            source_reg_tr = self.model.inner_product(list_source_reg_tr, list_source_mu_tr)
+            source_reg_tr = self.model.list_inner_product(list_source_reg_tr, list_source_mu_tr)
             # self.aconf.gamma_reg * loss_look_forward.sum()
             loss = loss_source_task.sum() + source_reg_tr.sum() +\
                     self.aconf.gamma_reg * loss_look_forward.sum()
