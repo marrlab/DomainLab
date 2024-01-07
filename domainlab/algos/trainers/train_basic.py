@@ -90,11 +90,12 @@ class TrainerBasic(AbstractTrainer):
         """
         loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
 
-        list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
+        list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
-        tensor_batch_reg_loss_penalized = self.model.list_inner_product(list_reg_tr, list_mu_tr)
+        tensor_batch_reg_loss_penalized = self.model.list_inner_product(list_reg_tr_batch, list_mu_tr)
+        assert len(tensor_batch_reg_loss_penalized.shape) == 1
         loss_erm_agg = g_tensor_batch_agg(loss_task)
         loss_reg_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
         loss = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_agg
-        self.log_loss(list_reg_tr, loss_task, loss)
+        self.log_loss(list_reg_tr_batch, loss_task, loss)
         return loss

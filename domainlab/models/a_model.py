@@ -48,7 +48,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         loss_task = self.multiplier4task_loss * loss_task_alone
         return loss_task + loss_reg, list_loss, loss_task_alone
 
-    def list_inner_product(self, list_loss_scalar, list_multiplier):
+    def list_inner_product(self, list_loss, list_multiplier):
         """
         compute inner product between list of regularization loss and multiplier
         - the length of the list is the number of regularizers
@@ -56,7 +56,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         return value of list_inner_product should keep the minibatch structure, thus aggregation
         here only aggregate along the list
         """
-        list_tuple = zip(list_loss_scalar, list_multiplier)
+        list_tuple = zip(list_loss, list_multiplier)
         list_penalized_reg = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
         tensor_batch_penalized_loss = g_list_model_penalized_reg_agg(list_penalized_reg)
         # return value of list_inner_product should keep the minibatch structure, thus aggregation
