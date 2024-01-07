@@ -57,7 +57,7 @@ class TrainerBasic(AbstractTrainer):
         assert flag_stop is not None
         return flag_stop
 
-    def log_loss(self, list_b_reg_loss):
+    def log_loss(self, list_b_reg_loss, loss_task):
         """
         just for logging the self.epo_reg_loss_tr
         """
