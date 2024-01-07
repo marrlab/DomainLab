@@ -17,7 +17,6 @@ class TrainerDIAL(TrainerBasic):
         this is not necessarily constraint optimal due to nonlinearity,
         as the constraint epsilon is only considered ad-hoc
         """
-        # @FIXME: is there better way to initialize adversarial image?
         # ensure adversarial image not in computational graph
         steps_perturb = self.aconf.dial_steps_perturb
         scale = self.aconf.dial_noise_scale

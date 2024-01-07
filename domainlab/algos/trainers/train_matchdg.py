@@ -110,7 +110,7 @@ class TrainerMatchDG(AbstractTrainer):
         if self.flag_erm:
             # decoratee can be both trainer or model
             list_loss_reg_rand, list_mu_reg = self.decoratee.cal_reg_loss(x_e, y_e, d_e, others)
-            loss_reg = self.model.inner_product(list_loss_reg_rand, list_mu_reg)
+            loss_reg = self.model.list_inner_product(list_loss_reg_rand, list_mu_reg)
             loss_task_rand = self.model.cal_task_loss(x_e, y_e)
             # loss_erm_rnd_loader, *_ = self.model.cal_loss(x_e, y_e, d_e, others)
             loss_erm_rnd_loader = loss_reg + loss_task_rand * self.model.multiplier4task_loss
