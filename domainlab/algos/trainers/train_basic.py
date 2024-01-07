@@ -93,8 +93,8 @@ class TrainerBasic(AbstractTrainer):
         list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
         self.log_loss(list_reg_tr, loss_task)   # just for logging
-        reg_tr = self.model.list_inner_product(list_reg_tr, list_mu_tr)
+        tensor_batch_reg_loss_penalized = self.model.list_inner_product(list_reg_tr, list_mu_tr)
         loss_erm_agg = g_tensor_batch_agg(loss_task)
-        loss_reg_agg = g_tensor_batch_agg(reg_tr)
+        loss_reg_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
         loss = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_agg
         return loss
