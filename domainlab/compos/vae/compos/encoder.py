@@ -58,11 +58,6 @@ class LSEncoderConvBnReluPool(nn.Module):
         zd_q = q_zd.rsample()  # Reparameterization trick
         return q_zd, zd_q
 
-    @property
-    def net_invar_feat(self):
-        parts_of_nets = nn.Sequential(self.conv, self.fc_loc)
-        return parts_of_nets
-
 
 class LSEncoderLinear(nn.Module):
     """
