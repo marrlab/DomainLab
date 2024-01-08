@@ -132,6 +132,10 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         for two models to share the same neural network, the feature extractor has to be reset
         for classification, both feature extractor and classifier has to be reset
         """
+        # note if net is None, which means the decoratee does not have net_invar_feat (can be 
+        # because there is tensor reshape during forward pass, which can not be represented
+        # by a static neural network, in this case, we simply set self._net_invar_feat to be
+        # None
         self._net_invar_feat = net
 
     def save(self, suffix=None):
