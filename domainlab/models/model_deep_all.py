@@ -39,12 +39,4 @@ def mk_erm(parent_class=AModelClassif):
             self.add_module("net", net)
             self._net_classifier = LayerId()
             self._net_invar_feat = self.net
-
-        @override_interface(AModelClassif)
-        def extract_semantic_feat(self, tensor_x):
-            """
-            calculate the logit for softmax classification
-            """
-            feat = self._net_invar_feat(tensor_x)
-            return feat
     return ModelERM

@@ -72,13 +72,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         logger = Logger.get_logger()
         logger.info(f"before training, model accuracy: {acc}")
 
-    @abc.abstractmethod
-    def extract_semantic_feat(self, tensor_x):
-        """
-        by default, use the logit as extracted feature if the current method
-        is not being overriden by child class
-        """
-
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
