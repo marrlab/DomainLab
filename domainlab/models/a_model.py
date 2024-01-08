@@ -113,8 +113,13 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     
     def extract_semantic_feat(self, tensor_x):
         """
-        extract semantic feature (not domain feature)
+        extract semantic feature (not domain feature), note that
+        extract semantic feature is an action, it is more general than
+        calling a static network(module)'s forward function since 
+        there are extra action like reshape the tensor 
         """
+        if self._decoratee is not None:
+            return self._decoratee.extract_semantic_feat(tensor_x)
         feat = self._net_invar_feat(tensor_x)
         return feat
 
@@ -122,12 +127,12 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     def net_invar_feat(self):
         return self._net_invar_feat
 
-    def reset_feature_extractor(self, module):
+    def reset_feature_extractor(self, net):
         """
         for two models to share the same neural network, the feature extractor has to be reset
         for classification, both feature extractor and classifier has to be reset
         """
-        self._net_invar_feat = module
+        self._net_invar_feat = net
 
     def save(self, suffix=None):
         """

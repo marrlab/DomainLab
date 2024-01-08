@@ -1,3 +1,4 @@
+import torch.nn as nn
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 from domainlab.compos.nn_zoo.nn import LayerId
@@ -37,6 +38,6 @@ def mk_erm(parent_class=AModelClassif):
                 list_str_y = [f"class{i}" for i in range(dim_y)]
             super().__init__(list_str_y)
             self.add_module("net", net)
-            self._net_classifier = LayerId()
-            self._net_invar_feat = self.net
+            self._net_classifier = list(self.net.children())[-1]
+            self._net_invar_feat = nn.Sequential(*(list(self.net.children())[:-1]))
     return ModelERM
