@@ -27,6 +27,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def extend(self, model):
         super().extend(model)
         self._net_classifier = model.net_classifier
+        breakpoint()
 
     @property
     def metric4msel(self):
