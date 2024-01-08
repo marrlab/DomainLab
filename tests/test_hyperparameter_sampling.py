@@ -8,7 +8,7 @@ import yaml
 
 from domainlab.utils.hyperparameter_sampling import \
     sample_hyperparameters, sample_parameters, get_hyperparameter, \
-    Hyperparameter, SampledHyperparameter
+    Hyperparameter, SampledHyperparameter, G_MODEL_NA, G_METHOD_NA
 from domainlab.utils.hyperparameter_gridsearch import \
     sample_gridsearch
 from tests.utils_test import assert_frame_not_equal
@@ -21,7 +21,7 @@ def test_hyperparameter_sampling():
 
     samples = sample_hyperparameters(config)
 
-    a1samples = samples[samples['algo'] == 'Algo1']
+    a1samples = samples[samples[G_MODEL_NA] == 'Algo1']
     for par in a1samples['params']:
         assert par['p1_shared'] < par['p1']
         assert par['p1'] < par['p2']
@@ -30,7 +30,7 @@ def test_hyperparameter_sampling():
         assert par['p4'] == par['p3']
         assert par['p5'] == 2 * par['p3'] / par['p1']
 
-    a2samples = samples[samples['algo'] == 'Algo2']
+    a2samples = samples[samples[G_MODEL_NA] == 'Algo2']
     for par in a2samples['params']:
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
@@ -39,7 +39,7 @@ def test_hyperparameter_sampling():
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
         assert np.issubdtype(type(p_4), np.integer)
 
-    a3samples = samples[samples['algo'] == 'Algo3']
+    a3samples = samples[samples[G_MODEL_NA] == 'Algo3']
     assert not a3samples.empty
 
     # test the case with less parameter samples than shared samples
@@ -69,7 +69,7 @@ def test_fallback_solution_of_sample_parameters():
     shared_samples = pd.DataFrame(
         [['all', 'all', {'p1_shared': 5}],
          ['all', 'all', {'p1_shared': 6}]],
-        columns=['task', 'algo', 'params']
+        columns=[G_METHOD_NA, G_MODEL_NA, 'params']
     )
     sample_parameters(init_params, constraints,
                       shared_config=shared_config,
@@ -84,7 +84,7 @@ def test_hyperparameter_gridsearch():
 
     samples = sample_gridsearch(config)
 
-    a1samples = samples[samples['algo'] == 'Algo1']
+    a1samples = samples[samples[G_MODEL_NA] == 'Algo1']
     for par in a1samples['params']:
         assert par['p1'] < par['p2']
         assert par['p3'] < par['p2']
@@ -96,7 +96,7 @@ def test_hyperparameter_gridsearch():
         assert np.issubdtype(type(par['p9']), np.integer)
         assert par['p10'] % 1 == 0.5
 
-    a2samples = samples[samples['algo'] == 'Algo2']
+    a2samples = samples[samples[G_MODEL_NA] == 'Algo2']
     for par in a2samples['params']:
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
@@ -106,7 +106,7 @@ def test_hyperparameter_gridsearch():
         assert np.issubdtype(type(par['p4']), np.integer)
         assert 'p2_shared' not in par.keys()
 
-    a3samples = samples[samples['algo'] == 'Algo3']
+    a3samples = samples[samples[G_MODEL_NA] == 'Algo3']
     assert not a3samples.empty
     assert 'p1_shared' not in a3samples.keys()
     assert 'p2_shared' not in a3samples.keys()
