@@ -56,7 +56,6 @@ def mk_dann(parent_class=AModelClassif):
             super().__init__(list_str_y)
             self.list_d_tr = list_d_tr
             self.alpha = alpha
-            self.net_encoder = net_encoder
             self._net_invar_feat = self.net_encoder
             self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
@@ -74,17 +73,11 @@ def mk_dann(parent_class=AModelClassif):
             :param functor_scheduler:
             """
             return functor_scheduler(trainer=None, alpha=self.alpha)
-
-        def extract_semantic_feat(self, tensor_x):
-            """
-            extract semantic feature
-            """
-            return self.net_encoder(tensor_x)
-
+        
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             _ = others
             _ = tensor_y
-            feat = self.net_encoder(tensor_x)
+            feat = self.extract_semantic_feat(tensor_x)
             logit_d = self.net_discriminator(
                 AutoGradFunReverseMultiply.apply(feat, self.alpha))
             _, d_target = tensor_d.max(dim=1)
