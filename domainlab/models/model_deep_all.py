@@ -45,6 +45,6 @@ def mk_erm(parent_class=AModelClassif):
             """
             calculate the logit for softmax classification
             """
-            logit_y = self.net(tensor_x)
-            return logit_y
+            feat = self._net_invar_feat(tensor_x)
+            return feat
     return ModelERM

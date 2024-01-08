@@ -36,6 +36,10 @@ class XYDEncoderParallel(nn.Module):
         zy_loc = q_zy.mean
         return zy_loc
 
+    @property
+    def net_invar_feat(self):
+        return self.net_infer_zy.net_invar_feat
+
 
 class XYDEncoderParallelUser(XYDEncoderParallel):
     """

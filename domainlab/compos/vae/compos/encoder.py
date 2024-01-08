@@ -60,7 +60,8 @@ class LSEncoderConvBnReluPool(nn.Module):
 
     @property
     def net_invar_feat(self):
-        return nn.Sequential(self.conv, self.fc_loc)
+        parts_of_nets = nn.Sequential(self.conv, self.fc_loc)
+        return parts_of_nets
 
 
 class LSEncoderLinear(nn.Module):
