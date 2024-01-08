@@ -119,7 +119,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         if self._decoratee is not None:
             self._decoratee.init_business(model, task, observer, device, aconf, flag_accept)
-            breakpoint()
         self.model = model
         self.task = task
         self.task.init_business(trainer=self, args=aconf)
