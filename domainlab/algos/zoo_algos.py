@@ -21,7 +21,7 @@ class AlgoBuilderChainNodeGetter():
         self.model = model
         self.apath = apath
         # 
-        self._list_str_model = model.split(',')
+        self._list_str_model = model.split('_')
         self.model = self._list_str_model.pop(0)
 
 

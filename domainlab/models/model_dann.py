@@ -49,16 +49,25 @@ def mk_dann(parent_class=AModelClassif):
         anonymous
         """
         def __init__(self, list_str_y, list_d_tr,
-                     alpha, net_encoder, net_classifier, net_discriminator):
+                     alpha, net_encoder, net_classifier, net_discriminator, builder=None):
             """
             See documentation above in mk_dann() function
             """
             super().__init__(list_str_y)
             self.list_d_tr = list_d_tr
             self.alpha = alpha
-            self.net_encoder = net_encoder
+            self._net_invar_feat = net_encoder
             self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
+            self.builder = builder
+
+        def reset_aux_net(self):
+            """
+            reset auxilliary neural network: domain classifier
+            """
+            if self.builder is None:
+                return
+            self.net_discriminator =  self.builder.reset_aux_net(self.extract_semantic_feat)
 
         @property
         def list_str_multiplier_na(self):
@@ -78,18 +87,12 @@ def mk_dann(parent_class=AModelClassif):
             """
             return functor_scheduler(trainer=trainer, alpha=self.alpha)
 
-        def extract_semantic_feat(self, tensor_x):
-            """
-            extract semantic feature
-            """
-            return self.net_encoder(tensor_x)
-
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             _ = others
             _ = tensor_y
-            feat = self.net_encoder(tensor_x)
-            logit_d = self.net_discriminator(
-                AutoGradFunReverseMultiply.apply(feat, self.alpha))
+            feat = self.extract_semantic_feat(tensor_x)
+            net_grad_additive_reverse = AutoGradFunReverseMultiply.apply(feat, self.alpha)
+            logit_d = self.net_discriminator(net_grad_additive_reverse)
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
             return [lc_d], [self.alpha]
