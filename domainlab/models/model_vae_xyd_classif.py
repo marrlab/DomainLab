@@ -1,7 +1,6 @@
 """
 Base Class for XYD VAE Classify
 """
-import torch.nn as nn
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.interface_vae_xyd import InterfaceVAEXYD
 from domainlab.utils.utils_class import store_args

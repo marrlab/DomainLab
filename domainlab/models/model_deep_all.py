@@ -1,4 +1,8 @@
-import torch.nn as nn
+"""
+Emperical risk minimization
+"""
+
+from torch import nn
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 from domainlab.compos.nn_zoo.nn import LayerId

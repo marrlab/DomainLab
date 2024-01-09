@@ -73,7 +73,7 @@ def mk_dann(parent_class=AModelClassif):
             :param functor_scheduler:
             """
             return functor_scheduler(trainer=None, alpha=self.alpha)
-        
+
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             _ = others
             _ = tensor_y

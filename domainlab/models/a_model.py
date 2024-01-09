@@ -110,7 +110,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         :param d:
         """
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
-    
+
     def extract_semantic_feat(self, tensor_x):
         """
         extract semantic feature (not domain feature), note that
@@ -125,6 +125,9 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
 
     @property
     def net_invar_feat(self):
+        """
+        if exist, return a neural network for extracting invariant features
+        """
         return self._net_invar_feat
 
     def reset_feature_extractor(self, net):
@@ -132,7 +135,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         for two models to share the same neural network, the feature extractor has to be reset
         for classification, both feature extractor and classifier has to be reset
         """
-        # note if net is None, which means the decoratee does not have net_invar_feat (can be 
+        # note if net is None, which means the decoratee does not have net_invar_feat (can be
         # because there is tensor reshape during forward pass, which can not be represented
         # by a static neural network, in this case, we simply set self._net_invar_feat to be
         # None
