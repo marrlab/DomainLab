@@ -4,7 +4,6 @@ Emperical risk minimization
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 from domainlab.compos.nn_zoo.nn import LayerId
-from domainlab.algos.utils import split_net_feat_last
 
 
 def mk_erm(parent_class=AModelClassif):

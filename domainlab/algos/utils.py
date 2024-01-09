@@ -11,5 +11,3 @@ def split_net_feat_last(net):
     net_classifier = list(net.children())[-1]
     net_invar_feat = nn.Sequential(*(list(net.children())[:-1]))
     return net_invar_feat, net_classifier
-
-
