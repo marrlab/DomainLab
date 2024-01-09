@@ -38,7 +38,10 @@ class NodeAlgoBuilderERM(NodeAlgoBuilder):
 
         net_invar_feat, net_classifier = split_net_feat_last(net)
 
-        model = mk_erm()(net_invar_feat, net_classifier, list_str_y=task.list_str_y)
+        model = mk_erm()(
+                net=net,
+                # net_feat=net_invar_feat, net_classifier=net_classifier, 
+                list_str_y=task.list_str_y)
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
         # trainer.init_business(model, task, observer, device, args)
