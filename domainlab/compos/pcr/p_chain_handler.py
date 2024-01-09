@@ -47,6 +47,7 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
         :param success_node: successor chain node which implement the AbstractChainNodeHandler
         interface
         """
+        self._task = None
         self._success_node = success_node
         self._parent_node = None
         self.next_model = None
