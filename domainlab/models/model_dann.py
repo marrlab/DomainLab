@@ -56,7 +56,7 @@ def mk_dann(parent_class=AModelClassif):
             super().__init__(list_str_y)
             self.list_d_tr = list_d_tr
             self.alpha = alpha
-            self._net_invar_feat = self.net_encoder
+            self._net_invar_feat = net_encoder
             self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
 

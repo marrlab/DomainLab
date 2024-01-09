@@ -25,10 +25,6 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
         return zy_q_loc
 
     @property
-    def net_invar_feat(self):
-        return self.encoder.net_invar_feat
-
-    @property
     def multiplier4task_loss(self):
         """
         the multiplier for task loss is default to 1.0 except for vae family models
