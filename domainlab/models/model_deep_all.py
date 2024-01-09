@@ -4,6 +4,7 @@ Emperical risk minimization
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 from domainlab.compos.nn_zoo.nn import LayerId
+from domainlab.algos.utils import split_net_feat_last
 
 
 def mk_erm(parent_class=AModelClassif):
@@ -34,7 +35,9 @@ def mk_erm(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, net_feat, net_classifier=None, list_str_y=None):
+        def __init__(self, net=None, net_feat=None, net_classifier=None, list_str_y=None):
+            if net is not None:
+                net_feat, net_classifier = split_net_feat_last(net)
             dim_y = list(net_classifier.modules())[-1].out_features
             if list_str_y is None:
                 list_str_y = [f"class{i}" for i in range(dim_y)]
