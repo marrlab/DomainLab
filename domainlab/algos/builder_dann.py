@@ -70,6 +70,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
     def reset_aux_net(self, net_encoder):
         """
         reset auxilliary neural network from task
+        note that net_encoder can also be a method like extract_semantic_feat
         """
         dim_feat = get_flat_dim(net_encoder,
                                 self._task.isize.i_c,
