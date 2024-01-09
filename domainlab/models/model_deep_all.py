@@ -1,8 +1,6 @@
 """
 Emperical risk minimization
 """
-
-from torch import nn
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 from domainlab.compos.nn_zoo.nn import LayerId
@@ -36,12 +34,11 @@ def mk_erm(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, net, list_str_y=None):
-            dim_y = list(net.modules())[-1].out_features
+        def __init__(self, net_feat, net_classifier=None, list_str_y=None):
+            dim_y = list(net_classifier.modules())[-1].out_features
             if list_str_y is None:
                 list_str_y = [f"class{i}" for i in range(dim_y)]
             super().__init__(list_str_y)
-            self.add_module("net", net)
-            self._net_classifier = list(self.net.children())[-1]
-            self._net_invar_feat = nn.Sequential(*(list(self.net.children())[:-1]))
+            self._net_classifier = net_classifier
+            self._net_invar_feat = net_feat
     return ModelERM

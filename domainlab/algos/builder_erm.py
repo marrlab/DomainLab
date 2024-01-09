@@ -1,6 +1,8 @@
 """
 builder for erm
 """
+from torch import nn
+
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
@@ -33,7 +35,9 @@ class NodeAlgoBuilderERM(NodeAlgoBuilder):
                                     remove_last_layer=False, args=args,
                                     isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w))
 
-        model = mk_erm()(net, list_str_y=task.list_str_y)
+        net_classifier = list(net.children())[-1]
+        net_invar_feat = nn.Sequential(*(list(net.children())[:-1]))
+        model = mk_erm()(net_invar_feat, net_classifier, list_str_y=task.list_str_y)
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
         # trainer.init_business(model, task, observer, device, args)

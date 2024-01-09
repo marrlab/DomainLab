@@ -72,6 +72,14 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         logger = Logger.get_logger()
         logger.info(f"before training, model accuracy: {acc}")
 
+    def extract_semantic_feat(self, tensor_x):
+        """
+        flatten the shape of feature tensor from super()
+        """
+        feat_tensor = super().extract_semantic_feat(tensor_x)
+        feat = feat_tensor.reshape(feat_tensor.shape[0], -1)
+        return feat
+
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification

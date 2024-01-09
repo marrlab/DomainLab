@@ -140,6 +140,14 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         # by a static neural network, in this case, we simply set self._net_invar_feat to be
         # None
         self._net_invar_feat = net
+        self.reset_aux_net()
+
+    def reset_aux_net(self):
+        """
+        after feature extractor being reset, the input dim of other networks like domain
+        classification will also change (for commandline usage only)
+        """
+        # by default doing nothing
 
     def save(self, suffix=None):
         """

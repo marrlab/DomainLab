@@ -49,7 +49,7 @@ def mk_dann(parent_class=AModelClassif):
         anonymous
         """
         def __init__(self, list_str_y, list_d_tr,
-                     alpha, net_encoder, net_classifier, net_discriminator):
+                     alpha, net_encoder, net_classifier, net_discriminator, builder=None):
             """
             See documentation above in mk_dann() function
             """
@@ -59,6 +59,15 @@ def mk_dann(parent_class=AModelClassif):
             self._net_invar_feat = net_encoder
             self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
+            self.builder = builder
+
+        def reset_aux_net(self):
+            """
+            reset auxilliary neural network: domain classifier
+            """
+            if self.builder is None:
+                return
+            self.net_discriminator =  self.builder.reset_aux_net(self.extract_semantic_feat)
 
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
@@ -78,8 +87,8 @@ def mk_dann(parent_class=AModelClassif):
             _ = others
             _ = tensor_y
             feat = self.extract_semantic_feat(tensor_x)
-            logit_d = self.net_discriminator(
-                AutoGradFunReverseMultiply.apply(feat, self.alpha))
+            net_grad_additive_reverse = AutoGradFunReverseMultiply.apply(feat, self.alpha)
+            logit_d = self.net_discriminator(net_grad_additive_reverse)
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
             return [lc_d], [self.alpha]
