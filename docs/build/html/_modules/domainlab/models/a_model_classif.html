@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.models.a_model_classif &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -107,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -327,15 +324,20 @@ from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="AModelClassif"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif">[docs]</a>class AModelClassif(AModel, metaclass=abc.ABCMeta):
+<div class="viewcode-block" id="AModelClassif">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif">[docs]</a>
+class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have
     """
     match_feat_fun_na = "cal_logit_y"
 
-<div class="viewcode-block" id="AModelClassif.extend"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extend">[docs]</a>    def extend(self, model):
+<div class="viewcode-block" id="AModelClassif.extend">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extend">[docs]</a>
+    def extend(self, model):
         super().extend(model)
         self._net_classifier = model.net_classifier</div>
+
 
     @property
     def metric4msel(self):
@@ -349,14 +351,19 @@ from domainlab.utils.logger import Logger
     def net_classifier(self, net_classifier):
         self._net_classifier = net_classifier
 
-<div class="viewcode-block" id="AModelClassif.create_perf_obj"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.create_perf_obj">[docs]</a>    def create_perf_obj(self, task):
+<div class="viewcode-block" id="AModelClassif.create_perf_obj">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.create_perf_obj">[docs]</a>
+    def create_perf_obj(self, task):
         """
         for classification, dimension of target can be quieried from task
         """
         self.perf_metric = PerfMetricClassif(task.dim_y)
         return self.perf_metric</div>
 
-<div class="viewcode-block" id="AModelClassif.cal_perf_metric"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_perf_metric">[docs]</a>    def cal_perf_metric(self, loader, device):
+
+<div class="viewcode-block" id="AModelClassif.cal_perf_metric">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_perf_metric">[docs]</a>
+    def cal_perf_metric(self, loader, device):
         """
         classification performance metric
         """
@@ -373,7 +380,10 @@ from domainlab.utils.logger import Logger
                 metric["confmat"] = confmat
         return metric</div>
 
-<div class="viewcode-block" id="AModelClassif.evaluate"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.evaluate">[docs]</a>    def evaluate(self, loader_te, device):
+
+<div class="viewcode-block" id="AModelClassif.evaluate">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.evaluate">[docs]</a>
+    def evaluate(self, loader_te, device):
         """
         for classification task, use the current model to cal acc
         """
@@ -381,7 +391,10 @@ from domainlab.utils.logger import Logger
         logger = Logger.get_logger()
         logger.info(f"before training, model accuracy: {acc}")</div>
 
-<div class="viewcode-block" id="AModelClassif.extract_semantic_feat"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">[docs]</a>    def extract_semantic_feat(self, tensor_x):
+
+<div class="viewcode-block" id="AModelClassif.extract_semantic_feat">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">[docs]</a>
+    def extract_semantic_feat(self, tensor_x):
         """
         flatten the shape of feature tensor from super()
         """
@@ -389,13 +402,17 @@ from domainlab.utils.logger import Logger
         feat = feat_tensor.reshape(feat_tensor.shape[0], -1)
         return feat</div>
 
-<div class="viewcode-block" id="AModelClassif.cal_logit_y"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_logit_y">[docs]</a>    def cal_logit_y(self, tensor_x):
+
+<div class="viewcode-block" id="AModelClassif.cal_logit_y">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_logit_y">[docs]</a>
+    def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
         """
         feat = self.extract_semantic_feat(tensor_x)
         logits = self.net_classifier(feat)
         return logits</div>
+
 
     @store_args
     def __init__(self, list_str_y=None):
@@ -408,7 +425,9 @@ from domainlab.utils.logger import Logger
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
         self._net_classifier = None
 
-<div class="viewcode-block" id="AModelClassif.infer_y_vpicn"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">[docs]</a>    def infer_y_vpicn(self, tensor):
+<div class="viewcode-block" id="AModelClassif.infer_y_vpicn">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">[docs]</a>
+    def infer_y_vpicn(self, tensor):
         """
         :param tensor: input
         :return: vpicn
@@ -424,6 +443,7 @@ from domainlab.utils.logger import Logger
         na_class = get_label_na(ind, self.list_str_y)
         return vec_one_hot, prob, ind, confidence, na_class</div>
 
+
     @property
     def dim_y(self):
         """
@@ -431,7 +451,9 @@ from domainlab.utils.logger import Logger
         """
         return len(self.list_str_y)
 
-<div class="viewcode-block" id="AModelClassif.cal_task_loss"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_task_loss">[docs]</a>    def cal_task_loss(self, tensor_x, tensor_y):
+<div class="viewcode-block" id="AModelClassif.cal_task_loss">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_task_loss">[docs]</a>
+    def cal_task_loss(self, tensor_x, tensor_y):
         """
         Calculate the task loss. Used within the `cal_loss` methods of models
         that are subclasses of `AModelClassif`. Cross entropy loss for
@@ -452,7 +474,10 @@ from domainlab.utils.logger import Logger
         # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y</div>
 
-<div class="viewcode-block" id="AModelClassif.pred2file"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.pred2file">[docs]</a>    def pred2file(self, loader_te, device, filename,
+
+<div class="viewcode-block" id="AModelClassif.pred2file">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.pred2file">[docs]</a>
+    def pred2file(self, loader_te, device, filename,
                   metric_te,
                   spliter="#"):
         """
@@ -494,7 +519,10 @@ from domainlab.utils.logger import Logger
             raise RuntimeError(str_info)
         return file_acc</div>
 
-<div class="viewcode-block" id="AModelClassif.read_prediction_file"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.read_prediction_file">[docs]</a>    def read_prediction_file(self, filename, spliter):
+
+<div class="viewcode-block" id="AModelClassif.read_prediction_file">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.read_prediction_file">[docs]</a>
+    def read_prediction_file(self, filename, spliter):
         """
         check if the written fiel could calculate acc
         """
@@ -510,7 +538,10 @@ from domainlab.utils.logger import Logger
         logger.info(f"accuracy from prediction file {acc}")
         return acc</div>
 
-<div class="viewcode-block" id="AModelClassif.cal_loss_gen_adv"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_loss_gen_adv">[docs]</a>    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
+
+<div class="viewcode-block" id="AModelClassif.cal_loss_gen_adv">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_loss_gen_adv">[docs]</a>
+    def cal_loss_gen_adv(self, x_natural, x_adv, vec_y):
         """
         calculate loss function for generation of adversarial images
         """
@@ -524,6 +555,7 @@ from domainlab.utils.logger import Logger
             loss_adv_gen = self.loss4gen_adv(prob_adv, prob_natural)
         return loss_adv_gen + loss_adv_gen_task.sum()</div>
 
+
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         for ERM to adapt to the interface of other regularized learners
@@ -531,6 +563,7 @@ from domainlab.utils.logger import Logger
         device = tensor_x.device
         bsize = tensor_x.shape[0]
         return [torch.zeros(bsize).to(device)], [0.0]</div>
+
 </pre></div>
 
           </article>
@@ -555,7 +588,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

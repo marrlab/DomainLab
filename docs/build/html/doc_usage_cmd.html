@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,13 +49,11 @@
   
   
     <title>Basic usage &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -108,7 +105,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -295,7 +292,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-usage-cmd--page-root" class="md-nav__link">Basic usage</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -319,8 +316,8 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="basic-usage">
-<h1 id="doc-usage-cmd--page-root">Basic usage<a class="headerlink" href="#doc-usage-cmd--page-root" title="Permalink to this heading">¶</a></h1>
-<p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <span class="xref myst">A minimal subsample of the VLCS dataset</span> and <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">an example configuration file for vlcs_mini</span></a></p>
+<h1 id="doc-usage-cmd--page-root">Basic usage<a class="headerlink" href="#doc-usage-cmd--page-root" title="Link to this heading">¶</a></h1>
+<p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <a class="reference internal" href="#../data/vlcs_mini"><span class="xref myst">A minimal subsample of the VLCS dataset</span></a> and <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">an example configuration file for vlcs_mini</span></a></p>
 <p>Suppose you have cloned the repository and have the dependencies ready, change directory to this repository:</p>
 <p>To train a domain invariant model on the vlcs_mini task</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--config<span class="o">=</span>examples/yaml/demo_config_single_run_diva.yaml<span class="w"> </span>
@@ -328,7 +325,7 @@
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">see here</span></a>, <code class="docutils literal notranslate"><span class="pre">--te_d</span></code> specifies the test domain name (or index starting from 0), <code class="docutils literal notranslate"><span class="pre">--config</span></code> specifies the configurations of the domain generalization algorithms, <a class="reference download internal" download="" href="_downloads/79dff157bfbc0773edb46ea14b42e885/demo_config_single_run_diva.yaml"><span class="xref download myst">see here</span></a></p>
 <section id="further-usage">
-<h2 id="further-usage">Further usage<a class="headerlink" href="#further-usage" title="Permalink to this heading">¶</a></h2>
+<h2 id="further-usage">Further usage<a class="headerlink" href="#further-usage" title="Link to this heading">¶</a></h2>
 <p>Alternatively, in a verbose mode without using the algorithm configuration file:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2
 </pre></div>
@@ -339,21 +336,21 @@ For usage of other arguments, check with</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
 </pre></div>
 </div>
-<p>See also <a class="reference internal" href="doc_examples.html"><span class="doc std std-doc">Examples</span></a>.</p>
+<p>See also <a class="reference internal" href="doc_examples.html"><span class="std std-doc">Examples</span></a>.</p>
 </section>
 </section>
 <section id="custom-neural-network">
-<h1 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this heading">¶</a></h1>
+<h1 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Link to this heading">¶</a></h1>
 <p>where the user could plugin different neural network architectures for the same algorithm. See
-<a class="reference internal" href="doc_custom_nn.html"><span class="doc std std-doc">Specify Custom Neural Networks for an algorithm</span></a></p>
+<a class="reference internal" href="doc_custom_nn.html"><span class="std std-doc">Specify Custom Neural Networks for an algorithm</span></a></p>
 </section>
 <section id="output-structure-results-storage-and-performance-measure">
-<h1 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this heading">¶</a></h1>
-<p><a class="reference internal" href="doc_output.html"><span class="doc std std-doc">Output structure and Performance Measure</span></a></p>
+<h1 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Link to this heading">¶</a></h1>
+<p><a class="reference internal" href="doc_output.html"><span class="std std-doc">Output structure and Performance Measure</span></a></p>
 </section>
 <section id="software-design-pattern-extend-or-contribution">
-<h1 id="software-design-pattern-extend-or-contribution">Software Design Pattern, Extend or Contribution<a class="headerlink" href="#software-design-pattern-extend-or-contribution" title="Permalink to this heading">¶</a></h1>
-<p><a class="reference internal" href="doc_extend_contribute.html"><span class="doc std std-doc">Extend or Contibute</span></a></p>
+<h1 id="software-design-pattern-extend-or-contribution">Software Design Pattern, Extend or Contribution<a class="headerlink" href="#software-design-pattern-extend-or-contribution" title="Link to this heading">¶</a></h1>
+<p><a class="reference internal" href="doc_extend_contribute.html"><span class="std std-doc">Extend or Contibute</span></a></p>
 </section>
 
 
@@ -379,7 +376,7 @@ For usage of other arguments, check with</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.algos.msels.c_msel_tr_loss &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -107,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -315,7 +312,9 @@ from domainlab.algos.msels.a_model_sel import AMSel
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="MSelTrLoss"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss">[docs]</a>class MSelTrLoss(AMSel):
+<div class="viewcode-block" id="MSelTrLoss">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss">[docs]</a>
+class MSelTrLoss(AMSel):
     """
     1. Model selection using sum of loss across training domains
     2. Visitor pattern to trainer
@@ -327,15 +326,20 @@ from domainlab.utils.logger import Logger
         self.reset()
         self._max_es = max_es
 
-<div class="viewcode-block" id="MSelTrLoss.reset"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.reset">[docs]</a>    def reset(self):
+<div class="viewcode-block" id="MSelTrLoss.reset">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.reset">[docs]</a>
+    def reset(self):
         self.best_loss = float("inf")
         self.es_c = 0</div>
+
 
     @property
     def max_es(self):
         return self._max_es
 
-<div class="viewcode-block" id="MSelTrLoss.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update">[docs]</a>    def update(self, clear_counter=False):
+<div class="viewcode-block" id="MSelTrLoss.update">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update">[docs]</a>
+    def update(self, clear_counter=False):
         """
         if the best model should be updated
         """
@@ -357,11 +361,16 @@ from domainlab.utils.logger import Logger
                 self.es_c = 0
         return flag</div>
 
-<div class="viewcode-block" id="MSelTrLoss.if_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop">[docs]</a>    def if_stop(self):
+
+<div class="viewcode-block" id="MSelTrLoss.if_stop">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop">[docs]</a>
+    def if_stop(self):
         """
         if should early stop
         """
-        return self.es_c &gt;= self.max_es</div></div>
+        return self.es_c &gt;= self.max_es</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -386,7 +395,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

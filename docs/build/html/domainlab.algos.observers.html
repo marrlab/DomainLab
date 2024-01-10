@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,13 +49,11 @@
   
   
     <title>domainlab.algos.observers package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -110,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -307,19 +304,81 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#domainlab-algos-observers--page-root" class="md-nav__link">domainlab.algos.observers package</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.a_observer" class="md-nav__link">domainlab.algos.observers.a_observer module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.a_observer" class="md-nav__link">domainlab.algos.observers.a_observer module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor.accept" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor.accept()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.b_obvisitor" class="md-nav__link">domainlab.algos.observers.b_obvisitor module</a>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor.after_all" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor.after_all()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.c_obvisitor_cleanup" class="md-nav__link">domainlab.algos.observers.c_obvisitor_cleanup module</a>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor.clean_up" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor.clean_up()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.c_obvisitor_gen" class="md-nav__link">domainlab.algos.observers.c_obvisitor_gen module</a>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor.reset" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor.reset()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor.set_task" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor.set_task()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.a_observer.AObVisitor.update" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AObVisitor.update()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.b_obvisitor" class="md-nav__link">domainlab.algos.observers.b_obvisitor module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.accept" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.accept()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.after_all" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.after_all()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.cal_oracle_perf" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.cal_oracle_perf()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.clean_up()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.dump_prediction()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.str_metric4msel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.str_metric4msel</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.b_obvisitor.ObVisitor.update" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitor.update()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.c_obvisitor_cleanup" class="md-nav__link">domainlab.algos.observers.c_obvisitor_cleanup module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.accept()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.after_all" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.after_all()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.clean_up" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.clean_up()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.model_sel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.model_sel</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.update" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.update()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.algos.observers.c_obvisitor_gen" class="md-nav__link">domainlab.algos.observers.c_obvisitor_gen module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorGen</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">ObVisitorGen.after_all()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.algos.observers" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -335,146 +394,146 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-algos-observers-package">
-<h1 id="domainlab-algos-observers--page-root">domainlab.algos.observers package<a class="headerlink" href="#domainlab-algos-observers--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="domainlab-algos-observers--page-root">domainlab.algos.observers package<a class="headerlink" href="#domainlab-algos-observers--page-root" title="Link to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.algos.observers.a_observer">
-<span id="domainlab-algos-observers-a-observer-module"></span><h2 id="module-domainlab.algos.observers.a_observer">domainlab.algos.observers.a_observer module<a class="headerlink" href="#module-domainlab.algos.observers.a_observer" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-a-observer-module"></span><h2 id="module-domainlab.algos.observers.a_observer">domainlab.algos.observers.a_observer module<a class="headerlink" href="#module-domainlab.algos.observers.a_observer" title="Link to this heading">¶</a></h2>
 <p>interface for observer + visitor</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.a_observer.</span></span><span class="sig-name descname"><span class="pre">AObVisitor</span></span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.a_observer.</span></span><span class="sig-name descname"><span class="pre">AObVisitor</span></span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Observer + Visitor pattern for model selection</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.accept">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.accept" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.accept" title="Link to this definition">¶</a></dt>
 <dd><p>accept invitation as a visitor</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.after_all">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.after_all" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.after_all" title="Link to this definition">¶</a></dt>
 <dd><p>After training is done</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.clean_up">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.clean_up" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.clean_up" title="Link to this definition">¶</a></dt>
 <dd><p>to be called by a decorator</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.reset">
-<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.reset" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.reset" title="Link to this definition">¶</a></dt>
 <dd><p>reset observer via reset model selector</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.set_task">
-<span class="sig-name descname"><span class="pre">set_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.set_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.set_task" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.set_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.set_task" title="Link to this definition">¶</a></dt>
 <dd><p>couple observer with task</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor.update">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.update" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/domainlab/algos/observers/a_observer.html#AObVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.a_observer.AObVisitor.update" title="Link to this definition">¶</a></dt>
 <dd><p>return True/False whether the trainer should stop training</p>
 </dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers.b_obvisitor">
-<span id="domainlab-algos-observers-b-obvisitor-module"></span><h2 id="module-domainlab.algos.observers.b_obvisitor">domainlab.algos.observers.b_obvisitor module<a class="headerlink" href="#module-domainlab.algos.observers.b_obvisitor" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-b-obvisitor-module"></span><h2 id="module-domainlab.algos.observers.b_obvisitor">domainlab.algos.observers.b_obvisitor module<a class="headerlink" href="#module-domainlab.algos.observers.b_obvisitor" title="Link to this heading">¶</a></h2>
 <p>observer and visitor pattern, responsible train, validation, test
 dispatch performance evaluation to model,
 dispatch model selection to model selection object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.b_obvisitor.</span></span><span class="sig-name descname"><span class="pre">ObVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_sel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.b_obvisitor.</span></span><span class="sig-name descname"><span class="pre">ObVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_sel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.a_observer.AObVisitor" title="domainlab.algos.observers.a_observer.AObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AObVisitor</span></code></a></p>
 <p>Observer + Visitor pattern for model selection</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.accept">
-<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.accept" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.accept" title="Link to this definition">¶</a></dt>
 <dd><p>accept invitation as a visitor</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.after_all">
-<span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.after_all" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.after_all" title="Link to this definition">¶</a></dt>
 <dd><p>After training is done</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.cal_oracle_perf">
-<span class="sig-name descname"><span class="pre">cal_oracle_perf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.cal_oracle_perf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.cal_oracle_perf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cal_oracle_perf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.cal_oracle_perf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.cal_oracle_perf" title="Link to this definition">¶</a></dt>
 <dd><p>calculate oracle performance</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up">
-<span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up" title="Link to this definition">¶</a></dt>
 <dd><p>to be called by a decorator</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction">
-<span class="sig-name descname"><span class="pre">dump_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_ld</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.dump_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dump_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_ld</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_te</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.dump_prediction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction" title="Link to this definition">¶</a></dt>
 <dd><p>given the test domain loader, use the loaded model             model_ld to predict each instance</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.str_metric4msel">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">str_metric4msel</span></span><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.str_metric4msel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">str_metric4msel</span></span><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.str_metric4msel" title="Link to this definition">¶</a></dt>
 <dd><p>string representing the metric used for persisting models on the disk</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.update" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor.update" title="Link to this definition">¶</a></dt>
 <dd><p>return True/False whether the trainer should stop training</p>
 </dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers.c_obvisitor_cleanup">
-<span id="domainlab-algos-observers-c-obvisitor-cleanup-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_cleanup">domainlab.algos.observers.c_obvisitor_cleanup module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_cleanup" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-c-obvisitor-cleanup-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_cleanup">domainlab.algos.observers.c_obvisitor_cleanup module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_cleanup" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.c_obvisitor_cleanup.</span></span><span class="sig-name descname"><span class="pre">ObVisitorCleanUp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.c_obvisitor_cleanup.</span></span><span class="sig-name descname"><span class="pre">ObVisitorCleanUp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.a_observer.AObVisitor" title="domainlab.algos.observers.a_observer.AObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AObVisitor</span></code></a></p>
 <p>decorator of observer, instead of using if and else to decide clean up or not, we use decorator</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept">
-<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept" title="Link to this definition">¶</a></dt>
 <dd><p>accept invitation as a visitor</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.after_all">
-<span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.after_all" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.after_all" title="Link to this definition">¶</a></dt>
 <dd><p>After training is done</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.clean_up">
-<span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.clean_up" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">clean_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.clean_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.clean_up" title="Link to this definition">¶</a></dt>
 <dd><p>to be called by a decorator</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.model_sel">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_sel</span></span><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.model_sel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_sel</span></span><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.model_sel" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.update" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.update" title="Link to this definition">¶</a></dt>
 <dd><p>return True/False whether the trainer should stop training</p>
 </dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers.c_obvisitor_gen">
-<span id="domainlab-algos-observers-c-obvisitor-gen-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_gen">domainlab.algos.observers.c_obvisitor_gen module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_gen" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-c-obvisitor-gen-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_gen">domainlab.algos.observers.c_obvisitor_gen module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_gen" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.c_obvisitor_gen.</span></span><span class="sig-name descname"><span class="pre">ObVisitorGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_sel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_gen.html#ObVisitorGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.c_obvisitor_gen.</span></span><span class="sig-name descname"><span class="pre">ObVisitorGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_sel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_gen.html#ObVisitorGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.b_obvisitor.ObVisitor" title="domainlab.algos.observers.b_obvisitor.ObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObVisitor</span></code></a></p>
 <p>For Generative Models</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all">
-<span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_gen.html#ObVisitorGen.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">after_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_gen.html#ObVisitorGen.after_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all" title="Link to this definition">¶</a></dt>
 <dd><p>After training is done</p>
 </dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers">
-<span id="module-contents"></span><h2 id="module-domainlab.algos.observers">Module contents<a class="headerlink" href="#module-domainlab.algos.observers" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.algos.observers">Module contents<a class="headerlink" href="#module-domainlab.algos.observers" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -497,7 +556,7 @@ dispatch model selection to model selection object</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> domainlab.algos.msels package </span>
+                      class="md-footer-nav__direction"> "Previous" </span> domainlab.algos.msels package </span>
               </div>
             </a>
           
@@ -507,7 +566,7 @@ dispatch model selection to model selection object</p>
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> domainlab.algos.trainers package </span>
+                class="md-footer-nav__direction"> "Next" </span> domainlab.algos.trainers package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -525,7 +584,7 @@ dispatch model selection to model selection object</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

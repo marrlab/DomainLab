@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,13 +49,11 @@
   
   
     <title>Benchmarking with DomainLab &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -108,7 +105,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -295,7 +292,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-benchmark--page-root" class="md-nav__link">Benchmarking with DomainLab</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -345,7 +342,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="benchmarking-with-domainlab">
-<h1 id="doc-benchmark--page-root">Benchmarking with DomainLab<a class="headerlink" href="#doc-benchmark--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-benchmark--page-root">Benchmarking with DomainLab<a class="headerlink" href="#doc-benchmark--page-root" title="Link to this heading">¶</a></h1>
 <p><a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md">Documentation for Benchmark in Markdown</a></p>
 <p>The package offers the ability to benchmark different user-defined experiments against each other,
 as well as against different hyperparameter settings and random seeds.
@@ -357,16 +354,16 @@ The results are collected in a csv file, but also prepared in charts.</p>
 the performance with respect to different hyperparameter choices is investigated.</p></li>
 </ol>
 <section id="dependencies-installation">
-<h2 id="dependencies-installation">Dependencies installation<a class="headerlink" href="#dependencies-installation" title="Permalink to this heading">¶</a></h2>
+<h2 id="dependencies-installation">Dependencies installation<a class="headerlink" href="#dependencies-installation" title="Link to this heading">¶</a></h2>
 <p>DomainLab relies on <code class="docutils literal notranslate"><span class="pre">Snakemake</span></code> for its benchmark functionality.</p>
 <section id="unix-installation">
-<h3 id="unix-installation">Unix installation<a class="headerlink" href="#unix-installation" title="Permalink to this heading">¶</a></h3>
+<h3 id="unix-installation">Unix installation<a class="headerlink" href="#unix-installation" title="Link to this heading">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install snakemake
 </pre></div>
 </div>
 </section>
 <section id="windows-installation-details">
-<h3 id="windows-installation-details">Windows installation details<a class="headerlink" href="#windows-installation-details" title="Permalink to this heading">¶</a></h3>
+<h3 id="windows-installation-details">Windows installation details<a class="headerlink" href="#windows-installation-details" title="Link to this heading">¶</a></h3>
 <p>Benchmarking is currently not tested on Windows due to the dependency on <code class="docutils literal notranslate"><span class="pre">Snakemake</span></code> and <code class="docutils literal notranslate"><span class="pre">datrie</span></code>
 One could, however, try install minimal Snakemake via
 <code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">create</span> <span class="pre">-c</span> <span class="pre">bioconda</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">-n</span> <span class="pre">snakemake</span> <span class="pre">snakemake-minimal</span></code>
@@ -374,12 +371,12 @@ to see if the following function still works</p>
 </section>
 </section>
 <section id="setting-up-a-benchmark">
-<h2 id="setting-up-a-benchmark">Setting up a benchmark<a class="headerlink" href="#setting-up-a-benchmark" title="Permalink to this heading">¶</a></h2>
+<h2 id="setting-up-a-benchmark">Setting up a benchmark<a class="headerlink" href="#setting-up-a-benchmark" title="Link to this heading">¶</a></h2>
 <p>The benchmark is configured in a yaml file. We refer to <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark_yaml.md">doc_benchmark_yaml.md</a> for a documented
 example.</p>
 </section>
 <section id="running-a-benchmark">
-<h2 id="running-a-benchmark">Running a benchmark<a class="headerlink" href="#running-a-benchmark" title="Permalink to this heading">¶</a></h2>
+<h2 id="running-a-benchmark">Running a benchmark<a class="headerlink" href="#running-a-benchmark" title="Link to this heading">¶</a></h2>
 <p>For the execution of a benchmark we provide two scripts in our repository:</p>
 <ul class="simple">
 <li><p>local version for running the benchmark on a standalone machine:
@@ -387,7 +384,7 @@ example.</p>
 <li><p>cluster version for running the benchmark on a slurm cluster: <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm.sh">run_benchmark_slurm.sh</a></p></li>
 </ul>
 <section id="benchmark-on-a-standalone-machine-with-or-without-gpu">
-<h3 id="benchmark-on-a-standalone-machine-with-or-without-gpu">Benchmark on a standalone machine (with or without GPU)<a class="headerlink" href="#benchmark-on-a-standalone-machine-with-or-without-gpu" title="Permalink to this heading">¶</a></h3>
+<h3 id="benchmark-on-a-standalone-machine-with-or-without-gpu">Benchmark on a standalone machine (with or without GPU)<a class="headerlink" href="#benchmark-on-a-standalone-machine-with-or-without-gpu" title="Link to this heading">¶</a></h3>
 <p>To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab
 folder, one can execute (we assume you have a machine with 4 cores or more)</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: this has only been tested on Linux based systems and may not work on Windows</span>
@@ -402,7 +399,7 @@ fourth argument is the number of GPUs to use (optional). The number of GPUs defa
 <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-r</span> <span class="pre">.snakemake/</span></code></p>
 </section>
 <section id="benchmark-on-a-hpc-cluster-with-slurm">
-<h3 id="benchmark-on-a-hpc-cluster-with-slurm">Benchmark on a HPC cluster with slurm<a class="headerlink" href="#benchmark-on-a-hpc-cluster-with-slurm" title="Permalink to this heading">¶</a></h3>
+<h3 id="benchmark-on-a-hpc-cluster-with-slurm">Benchmark on a HPC cluster with slurm<a class="headerlink" href="#benchmark-on-a-hpc-cluster-with-slurm" title="Link to this heading">¶</a></h3>
 <p>If you have access to an HPC cluster with slurm support: In a submission node, clone the DomainLab
 repository, cd into the repository and execute the following command:</p>
 <p><strong>Make sure to use tool like nohup or tmux to keep the following command active!</strong></p>
@@ -414,7 +411,7 @@ repository, cd into the repository and execute the following command:</p>
 <p>Similar to the local version explained above, the user can also specify a random seed for
 hyperparameter sampling and pytorch.</p>
 <section id="check-errors-for-slurm-runs">
-<h4 id="check-errors-for-slurm-runs">Check errors for slurm runs<a class="headerlink" href="#check-errors-for-slurm-runs" title="Permalink to this heading">¶</a></h4>
+<h4 id="check-errors-for-slurm-runs">Check errors for slurm runs<a class="headerlink" href="#check-errors-for-slurm-runs" title="Link to this heading">¶</a></h4>
 <p>The following script will help to find out which job has failed and the error message, so that you could direct to the
 specific log file</p>
 <div class="highlight-cluster notranslate"><div class="highlight"><pre><span></span>bash ./sh_list_error.sh ./zoutput/slurm_logs
@@ -422,7 +419,7 @@ specific log file</p>
 </div>
 </section>
 <section id="map-between-slurm-job-id-and-sampled-hyperparameter-index">
-<h4 id="map-between-slurm-job-id-and-sampled-hyperparameter-index">Map between slurm job id and sampled hyperparameter index<a class="headerlink" href="#map-between-slurm-job-id-and-sampled-hyperparameter-index" title="Permalink to this heading">¶</a></h4>
+<h4 id="map-between-slurm-job-id-and-sampled-hyperparameter-index">Map between slurm job id and sampled hyperparameter index<a class="headerlink" href="#map-between-slurm-job-id-and-sampled-hyperparameter-index" title="Link to this heading">¶</a></h4>
 <p>suppose the slurm job id is 14144163, one could the corresponding log file in <code class="docutils literal notranslate"><span class="pre">./zoutput/slurm_logs</span></code> folder via
 <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">.</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">"14144163"</span></code></p>
 <p>the results can be
@@ -432,13 +429,13 @@ where <code class="docutils literal notranslate"><span class="pre">41</span></co
 </section>
 </section>
 <section id="obtained-results">
-<h2 id="obtained-results">Obtained results<a class="headerlink" href="#obtained-results" title="Permalink to this heading">¶</a></h2>
+<h2 id="obtained-results">Obtained results<a class="headerlink" href="#obtained-results" title="Link to this heading">¶</a></h2>
 <p>All files created by this benchmark are saved in the given output directory
 (by default <code class="docutils literal notranslate"><span class="pre">./zoutput/benchmarks/[name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">benchmark</span> <span class="pre">defined</span> <span class="pre">in</span> <span class="pre">YAML</span> <span class="pre">file]</span></code>). The sampled hyperparameters can be found in
 <code class="docutils literal notranslate"><span class="pre">hyperparameters.csv</span></code>. The yaml file is translated to <code class="docutils literal notranslate"><span class="pre">config.txt</span></code> with corresponding to commit in formation in <code class="docutils literal notranslate"><span class="pre">commit.txt</span></code> (<strong>do not update code during benchmark process so results can be reproducible with this commit information</strong>), corresponding to each line in <code class="docutils literal notranslate"><span class="pre">hyperparameters.csv</span></code>, there will
 be a csv file in directory <code class="docutils literal notranslate"><span class="pre">rule_results</span></code>.</p>
 <section id="output-folder-structure">
-<h3 id="output-folder-structure">Output folder structure<a class="headerlink" href="#output-folder-structure" title="Permalink to this heading">¶</a></h3>
+<h3 id="output-folder-structure">Output folder structure<a class="headerlink" href="#output-folder-structure" title="Link to this heading">¶</a></h3>
 <p>via <code class="docutils literal notranslate"><span class="pre">tree</span> <span class="pre">-L</span> <span class="pre">2</span></code> in <code class="docutils literal notranslate"><span class="pre">zoutput/benchmarks/[name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">benchmark</span> <span class="pre">defined</span> <span class="pre">in</span> <span class="pre">configuration</span> <span class="pre">yaml</span> <span class="pre">file]</span></code>, one can get something like below</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>├── commit.txt
 ├── config.txt
@@ -473,7 +470,7 @@ visualized for interpretation.</p>
 explained below.</p>
 </section>
 <section id="obtain-partial-results">
-<h3 id="obtain-partial-results">Obtain partial results<a class="headerlink" href="#obtain-partial-results" title="Permalink to this heading">¶</a></h3>
+<h3 id="obtain-partial-results">Obtain partial results<a class="headerlink" href="#obtain-partial-results" title="Link to this heading">¶</a></h3>
 <p>If the benchmark is not yet completed (still running or has some failed jobs, e.g. BrokenPipe Error due to multiprocessing in PIL image reading), the <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> file containing the aggregated results will not be created.
 The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:</p>
@@ -489,7 +486,7 @@ e.g. <code class="docutils literal notranslate"><span class="pre">./zoutput/benc
 <p>clean up the extra csv head generated and plot the csv using command below</p>
 </section>
 <section id="generate-plots-from-csv-file">
-<h3 id="generate-plots-from-csv-file">Generate plots from .csv file<a class="headerlink" href="#generate-plots-from-csv-file" title="Permalink to this heading">¶</a></h3>
+<h3 id="generate-plots-from-csv-file">Generate plots from .csv file<a class="headerlink" href="#generate-plots-from-csv-file" title="Link to this heading">¶</a></h3>
 <p>If the benchmark is not completed, the <code class="docutils literal notranslate"><span class="pre">graphics</span></code> subdirectory might not be created. The user can then manually
 create the graphics from the csv file of the aggregated partial results, which can be obtained as explained above.
 Here for, the user must cd into the DomainLab directory and run</p>
@@ -574,7 +571,7 @@ Note that the cvs file must have the same form as the one generated by the fully
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
