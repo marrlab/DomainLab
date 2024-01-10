@@ -126,7 +126,7 @@ def mk_jigen(parent_class=AModelClassif):
             else:
                 vec_perm_ind = others
             # tensor_x can be either original image or tile-shuffled image
-            feat = self.net_encoder(tensor_x)
+            feat = self.extract_semantic_feat(tensor_x)
             logits_which_permutation = self.net_classifier_permutation(feat)
             # _, batch_target_scalar = vec_perm_ind.max(dim=1)
             batch_target_scalar = vec_perm_ind

@@ -32,7 +32,7 @@ domainlab_args:
   npath: examples/nets/resnet50domainbed.py
 
 Shared params:
-  num_shared_param_samples: 8
+  num_shared_param_samples: 20
   gamma_y:
     min: 1e4
     max: 1e8

@@ -46,9 +46,9 @@ where the configuration file below can be downloaded [here](https://raw.githubus
 te_d: caltech                       # domain name of test domain
 tpath: examples/tasks/task_vlcs.py  # python file path to specify the task 
 bs: 2                               # batch size
-model: diva                         # specify model
+model: dann_diva                    # combine model DANN with DIVA
 epos: 1                             # number of epochs
-trainer: mldg,dial                  # combine trainer MLDG and DIAL
+trainer: mldg_dial                  # combine trainer MLDG and DIAL
 gamma_y: 700000.0                   # hyperparameter of diva
 gamma_d: 100000.0                   # hyperparameter of diva
 npath: examples/nets/resnet.py      # neural network for class classification
