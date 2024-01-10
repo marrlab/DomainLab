@@ -20,7 +20,7 @@ class TrainerChainNodeGetter(object):
         """
         self._list_str_trainer = None
         if str_trainer is not None:
-            self._list_str_trainer = str_trainer.split(',')
+            self._list_str_trainer = str_trainer.split('_')
             self.request = self._list_str_trainer.pop(0)
         else:
             self.request = str_trainer
