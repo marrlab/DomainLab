@@ -3,7 +3,7 @@ tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
 bs: 2                               # batch size
 model: dann_diva                    # combine model DANN with DIVA
 epos: 1                             # number of epochs
-trainer: mldg_dial                  # combine trainer MLDG and DIAL
+trainer: mldg,dial                  # combine trainer MLDG and DIAL
 gamma_reg: 1.0                      # hyperparameter of DANN
 gamma_y: 700000.0                   # hyperparameter of diva
 gamma_d: 100000.0                   # hyperparameter of diva
