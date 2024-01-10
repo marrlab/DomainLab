@@ -8,7 +8,7 @@ from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-from domainlab.models.model_deep_all import mk_erm
+from domainlab.models.model_erm import mk_erm
 from domainlab.utils.utils_cuda import get_device
 
 

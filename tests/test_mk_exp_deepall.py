@@ -8,7 +8,7 @@ from torchvision.models import ResNet50_Weights
 from domainlab.mk_exp import mk_exp
 from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
 from domainlab.tasks.task_dset import mk_task_dset
-from domainlab.models.model_deep_all import mk_erm
+from domainlab.models.model_erm import mk_erm
 from domainlab.tasks.utils_task import ImSize
 
 
