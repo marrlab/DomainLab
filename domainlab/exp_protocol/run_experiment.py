@@ -4,15 +4,17 @@ and each random seed.
 """
 import ast
 import gc
-
+import copy
+import numpy as np
 import pandas as pd
 import torch
 
 from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
-from domainlab.compos.exp.exp_cuda_seed import set_seed
-from domainlab.compos.exp.exp_main import Exp
-from domainlab.compos.exp.exp_utils import ExpProtocolAggWriter
+from domainlab.exp.exp_cuda_seed import set_seed
+from domainlab.exp.exp_main import Exp
+from domainlab.exp.exp_utils import ExpProtocolAggWriter
 from domainlab.utils.logger import Logger
+from domainlab.utils.hyperparameter_sampling import G_METHOD_NA
 
 
 def load_parameters(file: str, index: int) -> tuple:
@@ -26,7 +28,22 @@ def load_parameters(file: str, index: int) -> tuple:
     params = ast.literal_eval(row.params)
     # row.task has nothing to do with DomainLab task, it is
     # benchmark task which correspond to one algorithm
-    return row.task, params
+    return row[G_METHOD_NA], params
+
+
+def convert_dict2float(dict_in):
+    """
+    convert scientific notation from 1e5 to 10000
+    """
+    dict_out = copy.deepcopy(dict_in)
+    for key, val in dict_out.items():
+        if isinstance(val, str):
+            try:
+                val_float = float(val)
+                dict_out[key] = val_float
+            except:
+                pass
+    return dict_out
 
 
 def run_experiment(
@@ -69,16 +86,35 @@ def run_experiment(
     misc['benchmark_task_name'] = str_algo_as_task
     misc['param_index'] = param_index
     misc['keep_model'] = False
-    misc['no_dump'] = True
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
-    args_algo_as_task = config[str_algo_as_task].copy()
-    if 'hyperparameters' in args_algo_as_task:
-        del args_algo_as_task['hyperparameters']
-    args_domainlab_common = config.get("domainlab_args", {})
+    args_algo_specific = config[str_algo_as_task].copy()
+    if 'hyperparameters' in args_algo_specific:
+        del args_algo_specific['hyperparameters']
+    args_domainlab_common_raw = config.get("domainlab_args", {})
+    args_domainlab_common = convert_dict2float(args_domainlab_common_raw)
+    # check if some of the hyperparameters are already specified
+    # in args_domainlab_common or args_algo_specific
+    if np.intersect1d(list(args_algo_specific.keys()),
+                      list(hyperparameters.keys())).shape[0] > 0:
+        logger.error(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+        raise RuntimeError(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the algorithm section.")
+    if np.intersect1d(list(args_domainlab_common.keys()),
+                      list(hyperparameters.keys())).shape[0] > 0:
+        logger.error(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
+        raise RuntimeError(f"the hyperparameter "
+                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+                  f" has already been fixed to a value in the domainlab_args section.")
     apply_dict_to_args(args, args_domainlab_common)
-    apply_dict_to_args(args, args_algo_as_task)
+    args_algo_specific_scientific_notation = convert_dict2float(args_algo_specific)
+    apply_dict_to_args(args, args_algo_specific_scientific_notation, extend=True)
     apply_dict_to_args(args, hyperparameters)
     apply_dict_to_args(args, misc, extend=True)
     gpu_ind = param_index % num_gpus
@@ -93,7 +129,6 @@ def run_experiment(
         end_seed = config['endseed']
     else:
         end_seed = start_seed + (config['endseed'] - config['startseed'])
-
     for seed in range(start_seed, end_seed + 1):
         for te_d in config['test_domains']:
             args.te_d = te_d
@@ -108,6 +143,8 @@ def run_experiment(
             args.lr = float(args.lr)
             # <=' not supported between instances of 'float' and 'str
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
+            # NOTE: if key "testing" is set in benchmark, then do not execute
+            # experiment
             if not misc.get('testing', False):
                 exp.execute()
             try:

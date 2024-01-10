@@ -1,12 +1,14 @@
 """
 tests hyperparameter_sampling.py
 """
+import numpy as np
 import pandas as pd
 import pytest
 import yaml
 
 from domainlab.utils.hyperparameter_sampling import \
-    sample_hyperparameters, sample_parameters, get_hyperparameter
+    sample_hyperparameters, sample_parameters, get_hyperparameter, \
+    Hyperparameter, SampledHyperparameter, G_MODEL_NA, G_METHOD_NA
 from domainlab.utils.hyperparameter_gridsearch import \
     sample_gridsearch
 from tests.utils_test import assert_frame_not_equal
@@ -19,24 +21,59 @@ def test_hyperparameter_sampling():
 
     samples = sample_hyperparameters(config)
 
-    a1samples = samples[samples['algo'] == 'Algo1']
+    a1samples = samples[samples[G_MODEL_NA] == 'Algo1']
     for par in a1samples['params']:
+        assert par['p1_shared'] < par['p1']
         assert par['p1'] < par['p2']
         assert par['p3'] < par['p2']
         assert par['p2'] % 1 == pytest.approx(0)
         assert par['p4'] == par['p3']
         assert par['p5'] == 2 * par['p3'] / par['p1']
 
-    a2samples = samples[samples['algo'] == 'Algo2']
+    a2samples = samples[samples[G_MODEL_NA] == 'Algo2']
     for par in a2samples['params']:
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
         assert par['p3'] == 2 * par['p2']
         p_4 = par['p4']
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
+        assert np.issubdtype(type(p_4), np.integer)
 
-    a3samples = samples[samples['algo'] == 'Algo3']
+    a3samples = samples[samples[G_MODEL_NA] == 'Algo3']
     assert not a3samples.empty
+
+    # test the case with less parameter samples than shared samples
+    config['num_param_samples'] = 3
+    sample_hyperparameters(config)
+
+
+def test_fallback_solution_of_sample_parameters():
+    '''
+    trying to meet the constrainds with the pool of presampled shared
+    hyperparameters may not be possible, in this case the shared
+    hyperparameters are sampled accoring to their config.
+    This case is tested in this function
+    '''
+    # define a task specific hyperparameter
+    config = {'distribution': 'uniform', 'min': 0, 'max': 1, 'step': 0}
+    par = SampledHyperparameter('p1', config)
+    init_params = [par]
+    # set a constrained with a shared hyperparameter
+    constraints = ['p1 > p1_shared']
+    # set config for shared hyperparameter
+    shared_config = {'num_shared_param_samples': 2,
+                     'p1_shared': {'distribution': 'uniform',
+                                   'min': 0, 'max': 10, 'step': 0}}
+    # set the shared samples to values which do never meet the
+    # constrained with the task specific hyperparameter
+    shared_samples = pd.DataFrame(
+        [['all', 'all', {'p1_shared': 5}],
+         ['all', 'all', {'p1_shared': 6}]],
+        columns=[G_METHOD_NA, G_MODEL_NA, 'params']
+    )
+    sample_parameters(init_params, constraints,
+                      shared_config=shared_config,
+                      shared_samples=shared_samples)
 
 
 def test_hyperparameter_gridsearch():
@@ -47,53 +84,53 @@ def test_hyperparameter_gridsearch():
 
     samples = sample_gridsearch(config)
 
-    a1samples = samples[samples['algo'] == 'Algo1']
+    a1samples = samples[samples[G_MODEL_NA] == 'Algo1']
     for par in a1samples['params']:
         assert par['p1'] < par['p2']
         assert par['p3'] < par['p2']
         assert par['p2'] % 1 == pytest.approx(0)
+        assert np.issubdtype(type(par['p2']), np.integer)
         assert par['p4'] == par['p3']
         assert par['p5'] == 2 * par['p3'] / par['p1']
+        assert par['p1_shared'] == par['p1']
+        assert np.issubdtype(type(par['p9']), np.integer)
+        assert par['p10'] % 1 == 0.5
 
-    a2samples = samples[samples['algo'] == 'Algo2']
+    a2samples = samples[samples[G_MODEL_NA] == 'Algo2']
     for par in a2samples['params']:
         assert par['p1'] % 2 == pytest.approx(1)
         assert par['p2'] % 1 == pytest.approx(0)
         assert par['p3'] == 2 * par['p2']
         p_4 = par['p4']
         assert p_4 == 30 or p_4 == 31 or p_4 == 100
+        assert np.issubdtype(type(par['p4']), np.integer)
+        assert 'p2_shared' not in par.keys()
 
-    a3samples = samples[samples['algo'] == 'Algo3']
+    a3samples = samples[samples[G_MODEL_NA] == 'Algo3']
     assert not a3samples.empty
-
-    # test sampling seed
-    sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                       'Task1': {'aname': 'Algo1',
-                                 'hyperparameters':
-                                     {'p1': {'min': 0, 'max': 1, 'step': 0,
-                                             'distribution': 'uniform', 'num': 2}}}},
-                          sampling_seed=0)
+    assert 'p1_shared' not in a3samples.keys()
+    assert 'p2_shared' not in a3samples.keys()
 
 
 def test_gridhyperparameter_errors():
     """Test for the errors which may occour in the sampling of the grid"""
     with pytest.raises(RuntimeError, match="distance between max and min to small"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 0, 'max': 1, 'step': 5,
                                                 'distribution': 'uniform', 'num': 2}}}})
 
     with pytest.raises(RuntimeError, match="distribution \"random\" not implemented"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 0, 'max': 1, 'step': 0,
                                                 'distribution': 'random', 'num': 2}}}})
 
     with pytest.raises(RuntimeError, match="No valid value found"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 2, 'max': 3.5, 'step': 1,
                                                 'distribution': 'uniform', 'num': 2},
@@ -105,7 +142,7 @@ def test_gridhyperparameter_errors():
     with pytest.raises(RuntimeError, match="the number of parameters in the grid "
                                            "direction of p1 needs to be specified"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1': {'min': 0, 'max': 1, 'step': 0,
                                                  'distribution': 'uniform'}}}})

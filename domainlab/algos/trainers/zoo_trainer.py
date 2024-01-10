@@ -13,12 +13,16 @@ class TrainerChainNodeGetter(object):
     Chain of Responsibility: node is named in pattern Trainer[XXX] where the string
     after 'Trainer' is the name to be passed to args.trainer.
     """
-    def __init__(self, args):
+    def __init__(self, str_trainer):
         """__init__.
         :param args: command line arguments
         """
-        # NOTE: self.request.trainer is hard coded
-        self.request = args.trainer
+        self._list_str_trainer = None
+        if str_trainer is not None:
+            self._list_str_trainer = str_trainer.split('_')
+            self.request = self._list_str_trainer.pop(0)
+        else:
+            self.request = str_trainer
 
     def __call__(self, lst_candidates=None, default=None, lst_excludes=None):
         """
@@ -38,6 +42,12 @@ class TrainerChainNodeGetter(object):
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
-        chain = TrainerHyperScheduler(chain)  # FIXME: change to warmup
+        chain = TrainerHyperScheduler(chain)
         node = chain.handle(self.request)
+        head = node
+        while self._list_str_trainer:
+            self.request = self._list_str_trainer.pop(0)
+            node2decorate = self.__call__(lst_candidates, default, lst_excludes)
+            head.extend(node2decorate)
+            head = node2decorate
         return node

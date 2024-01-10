@@ -29,7 +29,7 @@ nname: alexnet
 san_check: False
 
 Task5:  # name
-  aname: dann
+  model: dann
 
   hyperparameters:
     early_stop:
@@ -46,7 +46,7 @@ Task5:  # name
       distribution: loguniform
   
 Task6:  # name
-  aname: deepall
+  model: erm
 
   hyperparameters:
     early_stop:
@@ -63,7 +63,7 @@ Task6:  # name
       distribution: loguniform
 
 Task7: # name
-  aname: deepall_dial
+  model: erm_dial
 
   hyperparameters:
     dial_steps_perturb:

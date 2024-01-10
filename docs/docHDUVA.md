@@ -1,4 +1,5 @@
-# HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION
+# Model HDUVA
+## HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION
 
 HDUVA builds on a generative approach within the framework of variational autoencoders to facilitate generalization to new domains without supervision. HDUVA learns representations that disentangle domain-specific information from class-label specific information even in complex settings where domain structure is not observed during training. 
 
@@ -31,28 +32,28 @@ In addition, we construct the overall loss by adding an auxiliary classsifier, b
 ## Hyperparameters loss function
 For fitting the model, we need to specify the 4 $\beta$-weights related to the the different terms of the ELBO ( $\beta_x$ , $\beta_y$, $\beta_d$, $\beta_t$)  as well as $\gamma_y$. 
 
-## Model parameters
+## Model hyperparameters
 In addition to these hyperparameters, the following model parameters can be specified: 
 
-- Size of latent space for domain-specific information: zd_dim 
-- Size of latent space for residual variance: zx_dim
-- Size of latent space for class-specific information: zy_dim
-- Size of latent space for topics $s$: topic_dim
-- Size of latent space for latent image representation for topic: topic_h_dim
-- Size of latent space for latent image representation for domain: img_h_dim
+-   `zd_dim`: size of latent space for domain-specific information
+-   `zx_dim`: size of latent space for residual variance
+-   `zy_dim`: size of latent space for class-specific information
+-   `topic_dim`: size of dirichlet distribution for topics $s$
 
-Finally, 2 models need to be specified: A network converting an image to a topic distribution (of size topic_h_dim) and an encoder converting an image to a latent representation that can be concatenated to $z_d$ (size img_h_dim). The names and paths of the networks are: 
+The user need to specify at least two neural networks for the **encoder** part via 
 
-- nname_topic_distrib_img2topic
-- npath_topic_distrib_img2topic
+- `npath_encoder_x2topic_h`:  the python file path of a neural network that maps the image (or other
+modal of data to a one dimensional (`topic_dim`) hidden representation serving as input to Dirichlet encoder: `X->h_t(X)->alpha(h_t(X))` where `alpha` is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.
+- `npath_encoder_sandwich_x2h4zd`: the python file path of a neural network that maps the
+image to a hidden representation (same size as `topic_dim`), which will be used to infere the posterior distribution of `z_d`: `topic(X), X -> [topic(X), h_d(X)] -> zd_mean, zd_scale`
 
-and
-- nname_encoder_sandwich_layer_img2h4zd
-- npath_encoder_sandwich_layer_img2h4zd
+Alternatively, one could use an existing neural network in DomainLab using `nname` instead of `npath`:
+-   `nname_encoder_x2topic_h`
+-   `nname_encoder_sandwich_x2h4zd`
 
 
-## Hyperparameter warmup
-Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument warmup
+## Hyperparameter for warmup
+Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument `warmup`.
 
 Please cite our paper if you find it useful!
 ```text

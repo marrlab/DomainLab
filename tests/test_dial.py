@@ -4,7 +4,7 @@ so it is easier to identify which algorithm has a problem
 """
 import gc
 import torch
-from domainlab.compos.exp.exp_main import Exp
+from domainlab.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
 
@@ -15,7 +15,7 @@ def test_trainer_dial():
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "0",
                                "--task", "mnistcolor10",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "erm", "--bs", "2",
                                "--trainer", "dial",
                                "--nname", "conv_bn_pool_2"])
     exp = Exp(margs)

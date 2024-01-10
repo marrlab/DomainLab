@@ -1,5 +1,5 @@
 """
-make an experiment using the "deepall" model
+make an experiment using the "erm" model
 """
 from torch import nn
 from torchvision import models as torchvisionmodels
@@ -8,22 +8,22 @@ from torchvision.models import ResNet50_Weights
 from domainlab.mk_exp import mk_exp
 from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
 from domainlab.tasks.task_dset import mk_task_dset
-from domainlab.models.model_deep_all import mk_deepall
+from domainlab.models.model_erm import mk_erm
 from domainlab.tasks.utils_task import ImSize
 
 
-def test_mk_exp_deepall():
+def test_mk_exp_erm():
     """
-    test mk experiment API with "deepall" model and "mldg", "dial" trainers
+    test mk experiment API with "erm" model and "mldg", "dial" trainers
     """
 
-    mk_exp_deepall(trainer="mldg")
-    mk_exp_deepall(trainer="dial")
+    mk_exp_erm(trainer="mldg")
+    mk_exp_erm(trainer="dial")
 
 
-def mk_exp_deepall(trainer="mldg"):
+def mk_exp_erm(trainer="mldg"):
     """
-    execute experiment with "deepall" model and custom trainer
+    execute experiment with "erm" model and custom trainer
 
     """
     # specify domain generalization task
@@ -44,7 +44,7 @@ def mk_exp_deepall(trainer="mldg"):
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_deepall()(backbone)
+    model = mk_erm()(backbone)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)

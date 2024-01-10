@@ -6,7 +6,7 @@ import warnings
 
 import yaml
 
-from domainlab.algos.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
@@ -50,8 +50,15 @@ def mk_parser_main():
     parser.add_argument('--epos', default=2, type=int,
                         help='maximum number of epochs')
 
+    parser.add_argument('--epos_min', default=0, type=int,
+                        help='maximum number of epochs')
+
     parser.add_argument('--epo_te', default=1, type=int,
                         help='test performance per {} epochs')
+    
+    parser.add_argument('-w', '--warmup', type=int, default=100,
+                        help='number of epochs for hyper-parameter warm-up. \
+                        Set to 0 to turn warmup off.')
 
     parser.add_argument('--debug', action='store_true', default=False)
     parser.add_argument('--dmem', action='store_true', default=False)
@@ -142,7 +149,7 @@ def mk_parser_main():
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods')
 
-    parser.add_argument('--aname', metavar="an", type=str,
+    parser.add_argument('--model', metavar="an", type=str,
                         default=None,
                         help='algorithm name')
 
