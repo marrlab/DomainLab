@@ -117,6 +117,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         model, task, observer, device, aconf
         """
+        # Note self.decoratee can be both model and trainer,
+        # but self._decoratee can only be trainer!
         if self._decoratee is not None:
             self._decoratee.init_business(model, task, observer, device, aconf, flag_accept)
         self.model = model

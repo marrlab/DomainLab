@@ -24,6 +24,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     match_feat_fun_na = "cal_logit_y"
 
+    def extend(self, model):
+        super().extend(model)
+        self._net_classifier = model.net_classifier
+
     @property
     def metric4msel(self):
         return "acc"
@@ -68,12 +72,13 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         logger = Logger.get_logger()
         logger.info(f"before training, model accuracy: {acc}")
 
-    @abc.abstractmethod
     def extract_semantic_feat(self, tensor_x):
         """
-        by default, use the logit as extracted feature if the current method
-        is not being overriden by child class
+        flatten the shape of feature tensor from super()
         """
+        feat_tensor = super().extract_semantic_feat(tensor_x)
+        feat = feat_tensor.reshape(feat_tensor.shape[0], -1)
+        return feat
 
     def cal_logit_y(self, tensor_x):
         """

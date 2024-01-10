@@ -19,6 +19,9 @@ import pandas as pd
 from domainlab.utils.logger import Logger
 from domainlab.utils.get_git_tag import get_git_tag
 
+G_MODEL_NA = "model"
+G_METHOD_NA = "method"
+
 
 class Hyperparameter:
     """
@@ -271,15 +274,15 @@ def create_samples_from_shared_samples(shared_samples: pd.DataFrame,
                                        config: dict,
                                        task_name: str):
     '''
-    add informations like task, algo and constrainds to the shared samples
+    add informations like task, G_MODEL_NA and constrainds to the shared samples
     Parameters:
-    shared_samples: pd Dataframe with columns ['task', 'algo', 'params']
+    shared_samples: pd Dataframe with columns [G_METHOD_NA, G_MODEL_NA, 'params']
     config: dataframe with yaml configuration of the current task
     task_name: name of the current task
     '''
     shared_samp = shared_samples.copy()
-    shared_samp['algo'] = config['model']
-    shared_samp['task'] = task_name
+    shared_samp[G_MODEL_NA] = config['model']
+    shared_samp[G_METHOD_NA] = task_name
     # respect the constraints if specified in the task
     if 'constraints' in config.keys():
         for idx in range(shared_samp.shape[0] - 1, -1, -1):
@@ -297,10 +300,10 @@ def sample_task_only_shared(num_samples, task_name, sample_df, config, shared_co
     contain shared hyperparameters
     '''
     shared_config, shared_samples = shared_conf_samp
-    # copy the shared samples dataframe and add the corrct algo and taks names
+    # copy the shared samples dataframe and add the corrct G_MODEL_NA and taks names
     shared_samp = create_samples_from_shared_samples(shared_samples, config, task_name)
 
-    # for the case that we expect more hyperparameter samples for the algorithm as provided
+    # for the case that we expect more hyperparameter samples for the G_MODEL_NArithm as provided
     # in the shared sampes we use the shared config to sample new hyperparameters to ensure
     # that we have distinct hyperparameters
     if num_samples - shared_samp.shape[0] > 0:
@@ -364,8 +367,8 @@ def get_shared_samples(shared_samples_full: pd.DataFrame,
                        shared_config_full: dict,
                        task_config: dict):
     '''
-    - creates a dataframe with columns [task, algo, params],
-    task and algo are all for all rows, but params is filled with the
+    - creates a dataframe with columns [task, G_MODEL_NA, params],
+    task and G_MODEL_NA are all for all rows, but params is filled with the
     shared parameters of shared_samples_full requested by task_config.
 
     - creates a shared config containing only information about the
@@ -412,10 +415,10 @@ def sample_hyperparameters(config: dict,
         np.random.seed(sampling_seed)
 
     num_samples = config['num_param_samples']
-    samples = pd.DataFrame(columns=['task', 'algo', 'params'])
+    samples = pd.DataFrame(columns=[G_METHOD_NA, G_MODEL_NA, 'params'])
     if 'Shared params' in config.keys():
         shared_config_full = config['Shared params']
-        shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
+        shared_samples_full = pd.DataFrame(columns=[G_METHOD_NA, G_MODEL_NA, 'params'])
         shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
         # fill up the dataframe shared samples
         shared_samples_full = sample_task(shared_config_full['num_shared_param_samples'],
