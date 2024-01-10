@@ -49,7 +49,7 @@
   
   
     <title>Welcome to domainlab’s documentation! &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -106,7 +106,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -157,7 +157,7 @@
 
 <div class="md-hero" data-md-component="hero">
   <div class="md-hero__inner md-grid">
-    <p>A pytorch platform for domain generalization</p>
+    <p>DomainLab for modular domain generalization in deep learning</p>
   </div>
 </div>
 
@@ -171,17 +171,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
       </ul>
     </div>
   </nav>
@@ -242,7 +242,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -256,21 +256,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -286,7 +300,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#index--page-root" class="md-nav__link">Welcome to domainlab’s documentation!</a>
         </li>
@@ -310,9 +324,9 @@
 <li class="toctree-l2"><a class="reference internal" href="domainlab.html">domainlab package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.html#subpackages">Subpackages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="domainlab.html#module-domainlab.arg_parser">domainlab.arg_parser module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="domainlab.html#module-domainlab.mk_exp">domainlab.mk_exp module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="domainlab.html#module-domainlab">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.html#domainlab-arg-parser-module">domainlab.arg_parser module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.html#domainlab-mk-exp-module">domainlab.mk_exp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -326,25 +340,46 @@
 <li class="toctree-l2"><a class="reference internal" href="docHDUVA.html#hyperparameter-for-warmup">Hyperparameter for warmup</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc_dann.html">Model DANN: Domain Adversarial Neural Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc_dann.html">Model DANN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc_dann.html#domain-adversarial-neural-network">Domain Adversarial Neural Network</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="docJiGen.html">Model JiGen</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="docJiGen.html#model-parameters">Model parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc_diva.html">Model DIVA: Domain Invariant Variational Autoencoders</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc_diva.html#model-parameters">Model parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc_diva.html">Model DIVA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc_diva.html#domain-invariant-variational-autoencoders">Domain Invariant Variational Autoencoders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_diva.html#model-parameters">Model parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="docMatchDG.html">Trainer MatchDG: Domain Generalization using Causal Matching</a><ul>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docMatchDG.html">Trainer MatchDG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docMatchDG.html#domain-generalization-using-causal-matching">Domain Generalization using Causal Matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docMatchDG.html#motivation-causality-theory">Motivation: causality theory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docMatchDG.html#network">Network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docMatchDG.html#training">Training</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="docDIAL.html">Trainer DIAL: Domain Invariant Adversarial Learning</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="docDIAL.html">Trainer DIAL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docDIAL.html#domain-invariant-adversarial-learning">Domain Invariant Adversarial Learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docDIAL.html#generating-the-adversarial-domain">generating the adversarial domain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docDIAL.html#network-structure">network structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docDIAL.html#loss-function-and-gradient-reversal-layer">loss function and gradient reversal layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docFishr.html">Trainer Fishr</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docFishr.html#invariant-gradient-variances-for-out-of-distribution-generalization">Invariant Gradient Variances for Out-of-distribution Generalization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="docFishr.html#quantifying-inconsistency-between-domains">Quantifying inconsistency between domains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docFishr.html#matching-the-variances-during-training">Matching the Variances during training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docFishr.html#implementation">Implementation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc_mldg.html">Trainer MLDG</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc_mldg.html#meta-learning-domain-generalization">Meta Learning Domain Generalization</a></li>
 </ul>
 </li>
 </ul>
@@ -375,7 +410,7 @@
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> domainlab </span>
+                class="md-footer-nav__direction"> Next </span> domainlab </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -389,11 +424,11 @@
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

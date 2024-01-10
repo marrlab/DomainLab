@@ -7,14 +7,14 @@ from domainlab.exp.exp_main import Exp
 from domainlab.arg_parser import mk_parser_main
 
 
-def test_deepall():
+def test_erm():
     """
     unit deep all
     """
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "erm", "--bs", "2",
                                "--nname", "conv_bn_pool_2"
                                ])
     exp = Exp(margs)
@@ -26,14 +26,14 @@ def test_deepall():
     gc.collect()
 
 
-def test_deepall_trloss():
+def test_erm_trloss():
     """
     unit deep all
     """
     parser = mk_parser_main()
     margs = parser.parse_args(["--te_d", "caltech",
                                "--task", "mini_vlcs",
-                               "--aname", "deepall", "--bs", "2",
+                               "--model", "erm", "--bs", "2",
                                "--nname", "conv_bn_pool_2",
                                "--msel", "loss_tr"
                                ])

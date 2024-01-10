@@ -5,6 +5,7 @@ import math
 from operator import add
 import torch
 
+from domainlab import g_tensor_batch_agg
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.a_trainer import mk_opt
 
@@ -56,25 +57,17 @@ class TrainerBasic(AbstractTrainer):
         assert flag_stop is not None
         return flag_stop
 
-    def log_r_loss(self, list_b_reg_loss):
+    def log_loss(self, list_b_reg_loss, loss_task, loss):
         """
         just for logging the self.epo_reg_loss_tr
         """
+        self.epo_task_loss_tr += loss_task.sum().detach().item()
+        #
         list_b_reg_loss_sumed = [ele.sum().detach().item()
                                  for ele in list_b_reg_loss]
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr,
                                         list_b_reg_loss_sumed))
-
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        """
-        trainer specific regularization loss, by default 0
-        """
-        _ = tensor_y
-        _ = tensor_d
-        _ = others
-        device = tensor_x.device
-        bsize = tensor_x.shape[0]
-        return [torch.zeros(bsize, 1).to(device)], [0.0]
+        self.epo_loss_tr += loss.detach().item()
 
     def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
         """
@@ -88,7 +81,6 @@ class TrainerBasic(AbstractTrainer):
         loss = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
         loss.backward()
         self.optimizer.step()
-        self.epo_loss_tr += loss.detach().item()
         self.after_batch(epoch, ind_batch)
         self.counter_batch += 1
 
@@ -97,12 +89,14 @@ class TrainerBasic(AbstractTrainer):
         so that user api can use trainer.cal_loss to train
         """
         loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
-        self.epo_task_loss_tr += loss_task.sum().detach().item()
-        #
-        list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
+
+        list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
-        #
-        self.log_r_loss(list_reg_tr)   # just for logging
-        reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
-        loss = loss_task.sum() + reg_tr.sum()
+        tensor_batch_reg_loss_penalized = self.model.list_inner_product(
+                list_reg_tr_batch, list_mu_tr)
+        assert len(tensor_batch_reg_loss_penalized.shape) == 1
+        loss_erm_agg = g_tensor_batch_agg(loss_task)
+        loss_reg_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
+        loss = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_agg
+        self.log_loss(list_reg_tr_batch, loss_task, loss)
         return loss

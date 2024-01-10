@@ -49,7 +49,7 @@
   
   
     <title>domainlab.utils package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -107,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -165,17 +165,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="modules.html" class="md-tabs__link">domainlab</a></li>
           <li class="md-tabs__item"><a href="domainlab.html" class="md-tabs__link">domainlab package</a></li>
       </ul>
@@ -245,7 +245,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -259,21 +259,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -289,13 +303,13 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#domainlab-utils--page-root" class="md-nav__link">domainlab.utils package</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.flows_gen_img_model" class="md-nav__link">domainlab.utils.flows_gen_img_model module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-flows-gen-img-model-module" class="md-nav__link">domainlab.utils.flows_gen_img_model module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.flows_gen_img_model.FlowGenImgs" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">FlowGenImgs</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -309,7 +323,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.generate_benchmark_plots" class="md-nav__link">domainlab.utils.generate_benchmark_plots module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-generate-benchmark-plots-module" class="md-nav__link">domainlab.utils.generate_benchmark_plots module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.generate_benchmark_plots.boxplot" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">boxplot()</span></code></a>
         </li>
@@ -333,13 +347,13 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.get_git_tag" class="md-nav__link">domainlab.utils.get_git_tag module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-get-git-tag-module" class="md-nav__link">domainlab.utils.get_git_tag module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.get_git_tag.get_git_tag" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_git_tag()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.hyperparameter_gridsearch" class="md-nav__link">domainlab.utils.hyperparameter_gridsearch module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-hyperparameter-gridsearch-module" class="md-nav__link">domainlab.utils.hyperparameter_gridsearch module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.hyperparameter_gridsearch.add_next_param_from_list" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">add_next_param_from_list()</span></code></a>
         </li>
@@ -371,7 +385,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.hyperparameter_sampling" class="md-nav__link">domainlab.utils.hyperparameter_sampling module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-hyperparameter-sampling-module" class="md-nav__link">domainlab.utils.hyperparameter_sampling module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">CategoricalHyperparameter</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -427,7 +441,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.logger" class="md-nav__link">domainlab.utils.logger module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-logger-module" class="md-nav__link">domainlab.utils.logger module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.logger.Logger" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -439,13 +453,13 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.override_interface" class="md-nav__link">domainlab.utils.override_interface module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-override-interface-module" class="md-nav__link">domainlab.utils.override_interface module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.override_interface.override_interface" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">override_interface()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.perf" class="md-nav__link">domainlab.utils.perf module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-perf-module" class="md-nav__link">domainlab.utils.perf module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.perf.PerfClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfClassif</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -459,7 +473,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.perf_metrics" class="md-nav__link">domainlab.utils.perf_metrics module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-perf-metrics-module" class="md-nav__link">domainlab.utils.perf_metrics module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.perf_metrics.PerfMetricClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">PerfMetricClassif</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -469,7 +483,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.sanity_check" class="md-nav__link">domainlab.utils.sanity_check module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-sanity-check-module" class="md-nav__link">domainlab.utils.sanity_check module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.sanity_check.SanityCheck" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">SanityCheck</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -481,7 +495,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.test_img" class="md-nav__link">domainlab.utils.test_img module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-test-img-module" class="md-nav__link">domainlab.utils.test_img module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.test_img.mk_img" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_img()</span></code></a>
         </li>
@@ -491,25 +505,25 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.u_import" class="md-nav__link">domainlab.utils.u_import module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-u-import-module" class="md-nav__link">domainlab.utils.u_import module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.u_import.import_path" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">import_path()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.u_import_net_module" class="md-nav__link">domainlab.utils.u_import_net_module module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-u-import-net-module-module" class="md-nav__link">domainlab.utils.u_import_net_module module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.u_import_net_module.build_external_obj_net_module_feat_extract" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">build_external_obj_net_module_feat_extract()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_class" class="md-nav__link">domainlab.utils.utils_class module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-utils-class-module" class="md-nav__link">domainlab.utils.utils_class module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.utils_class.store_args" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">store_args()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_classif" class="md-nav__link">domainlab.utils.utils_classif module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-utils-classif-module" class="md-nav__link">domainlab.utils.utils_classif module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.utils_classif.get_label_na" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_label_na()</span></code></a>
         </li>
@@ -519,13 +533,13 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_cuda" class="md-nav__link">domainlab.utils.utils_cuda module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-utils-cuda-module" class="md-nav__link">domainlab.utils.utils_cuda module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.utils_cuda.get_device" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_device()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils.utils_img_sav" class="md-nav__link">domainlab.utils.utils_img_sav module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-utils-utils-img-sav-module" class="md-nav__link">domainlab.utils.utils_img_sav module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.utils.utils_img_sav.mk_fun_sav_img" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_fun_sav_img()</span></code></a>
         </li>
@@ -533,7 +547,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.utils" class="md-nav__link">Module contents</a>
+        <li class="md-nav__item"><a href="#module-contents" class="md-nav__link">Module contents</a>
         </li></ul>
             </nav>
         </li>
@@ -551,9 +565,9 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-domainlab.utils.flows_gen_img_model">
-<span id="domainlab-utils-flows-gen-img-model-module"></span><h2 id="module-domainlab.utils.flows_gen_img_model">domainlab.utils.flows_gen_img_model module<a class="headerlink" href="#module-domainlab.utils.flows_gen_img_model" title="Link to this heading">¶</a></h2>
-<dl class="py class">
+<section id="domainlab-utils-flows-gen-img-model-module">
+<h2 id="domainlab-utils-flows-gen-img-model-module">domainlab.utils.flows_gen_img_model module<a class="headerlink" href="#domainlab-utils-flows-gen-img-model-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-domainlab.utils.flows_gen_img_model">
 <dt class="sig sig-object py" id="domainlab.utils.flows_gen_img_model.FlowGenImgs">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.flows_gen_img_model.</span></span><span class="sig-name descname"><span class="pre">FlowGenImgs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/flows_gen_img_model.html#FlowGenImgs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.flows_gen_img_model.FlowGenImgs" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -572,9 +586,9 @@
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.flows_gen_img_model.</span></span><span class="sig-name descname"><span class="pre">fun_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subfolder_na</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_folder_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gen'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/flows_gen_img_model.html#fun_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.flows_gen_img_model.fun_gen" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
-<section id="module-domainlab.utils.generate_benchmark_plots">
-<span id="domainlab-utils-generate-benchmark-plots-module"></span><h2 id="module-domainlab.utils.generate_benchmark_plots">domainlab.utils.generate_benchmark_plots module<a class="headerlink" href="#module-domainlab.utils.generate_benchmark_plots" title="Link to this heading">¶</a></h2>
-<p>generate the benchmark plots by calling the gen_bencmark_plots(…) function</p>
+<section id="domainlab-utils-generate-benchmark-plots-module">
+<h2 id="domainlab-utils-generate-benchmark-plots-module">domainlab.utils.generate_benchmark_plots module<a class="headerlink" href="#domainlab-utils-generate-benchmark-plots-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.generate_benchmark_plots">generate the benchmark plots by calling the gen_bencmark_plots(…) function</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.generate_benchmark_plots.boxplot">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.generate_benchmark_plots.</span></span><span class="sig-name descname"><span class="pre">boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/generate_benchmark_plots.html#boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.generate_benchmark_plots.boxplot" title="Link to this definition">¶</a></dt>
@@ -685,16 +699,16 @@ distinguish_param_setups: if True the plot will not only distinguish between mod
 </div></blockquote>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.get_git_tag">
-<span id="domainlab-utils-get-git-tag-module"></span><h2 id="module-domainlab.utils.get_git_tag">domainlab.utils.get_git_tag module<a class="headerlink" href="#module-domainlab.utils.get_git_tag" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-get-git-tag-module">
+<h2 id="domainlab-utils-get-git-tag-module">domainlab.utils.get_git_tag module<a class="headerlink" href="#domainlab-utils-get-git-tag-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.get_git_tag">
 <dt class="sig sig-object py" id="domainlab.utils.get_git_tag.get_git_tag">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.get_git_tag.</span></span><span class="sig-name descname"><span class="pre">get_git_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">print_diff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/get_git_tag.html#get_git_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.get_git_tag.get_git_tag" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
-<section id="module-domainlab.utils.hyperparameter_gridsearch">
-<span id="domainlab-utils-hyperparameter-gridsearch-module"></span><h2 id="module-domainlab.utils.hyperparameter_gridsearch">domainlab.utils.hyperparameter_gridsearch module<a class="headerlink" href="#module-domainlab.utils.hyperparameter_gridsearch" title="Link to this heading">¶</a></h2>
-<p>gridsearch for the hyperparameter space</p>
+<section id="domainlab-utils-hyperparameter-gridsearch-module">
+<h2 id="domainlab-utils-hyperparameter-gridsearch-module">domainlab.utils.hyperparameter_gridsearch module<a class="headerlink" href="#domainlab-utils-hyperparameter-gridsearch-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.hyperparameter_gridsearch">gridsearch for the hyperparameter space</p>
 <p>def add_next_param_from_list is an recursive function to make cartesian product along all the scalar hyper-parameters, this resursive function is used
 in def grid_task</p>
 <dl class="py function">
@@ -802,9 +816,9 @@ only with trusted config files.</p>
 param_config: config which needs to contain ‘num’, ‘max’, ‘min’, ‘step’</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.hyperparameter_sampling">
-<span id="domainlab-utils-hyperparameter-sampling-module"></span><h2 id="module-domainlab.utils.hyperparameter_sampling">domainlab.utils.hyperparameter_sampling module<a class="headerlink" href="#module-domainlab.utils.hyperparameter_sampling" title="Link to this heading">¶</a></h2>
-<p>Samples the hyperparameters according to a benchmark configuration file.</p>
+<section id="domainlab-utils-hyperparameter-sampling-module">
+<h2 id="domainlab-utils-hyperparameter-sampling-module">domainlab.utils.hyperparameter_sampling module<a class="headerlink" href="#domainlab-utils-hyperparameter-sampling-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.hyperparameter_sampling">Samples the hyperparameters according to a benchmark configuration file.</p>
 <p># Structure of this file:
 - Class Hyperparameter
 # Inherited Classes
@@ -956,9 +970,9 @@ constraints is found.</p>
 contain shared hyperparameters</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.logger">
-<span id="domainlab-utils-logger-module"></span><h2 id="module-domainlab.utils.logger">domainlab.utils.logger module<a class="headerlink" href="#module-domainlab.utils.logger" title="Link to this heading">¶</a></h2>
-<p>A logger for our software</p>
+<section id="domainlab-utils-logger-module">
+<h2 id="domainlab-utils-logger-module">domainlab.utils.logger module<a class="headerlink" href="#domainlab-utils-logger-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.logger">A logger for our software</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.utils.logger.Logger">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="_modules/domainlab/utils/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.logger.Logger" title="Link to this definition">¶</a></dt>
@@ -966,7 +980,7 @@ contain shared hyperparameters</p>
 <p>static logger class</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.utils.logger.Logger.get_logger">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'logger_7691'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loglevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'INFO'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/logger.html#Logger.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.logger.Logger.get_logger" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'logger_31927'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loglevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'INFO'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/logger.html#Logger.get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.logger.Logger.get_logger" title="Link to this definition">¶</a></dt>
 <dd><p>returns a logger
 if no logger was created yet, it will create a logger with the name
 specified in logger_name with the level specified in loglevel.
@@ -979,9 +993,9 @@ anything at the behaviour anymore</p>
 <dd></dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.override_interface">
-<span id="domainlab-utils-override-interface-module"></span><h2 id="module-domainlab.utils.override_interface">domainlab.utils.override_interface module<a class="headerlink" href="#module-domainlab.utils.override_interface" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-override-interface-module">
+<h2 id="domainlab-utils-override-interface-module">domainlab.utils.override_interface module<a class="headerlink" href="#domainlab-utils-override-interface-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.override_interface">
 <dt class="sig sig-object py" id="domainlab.utils.override_interface.override_interface">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.override_interface.</span></span><span class="sig-name descname"><span class="pre">override_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/override_interface.html#override_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.override_interface.override_interface" title="Link to this definition">¶</a></dt>
 <dd><p>overrides.
@@ -998,9 +1012,9 @@ function “overrider” accept will be the current child class</p>
 </div>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.perf">
-<span id="domainlab-utils-perf-module"></span><h2 id="module-domainlab.utils.perf">domainlab.utils.perf module<a class="headerlink" href="#module-domainlab.utils.perf" title="Link to this heading">¶</a></h2>
-<p>Classification Performance</p>
+<section id="domainlab-utils-perf-module">
+<h2 id="domainlab-utils-perf-module">domainlab.utils.perf module<a class="headerlink" href="#domainlab-utils-perf-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.perf">Classification Performance</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.utils.perf.PerfClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf.</span></span><span class="sig-name descname"><span class="pre">PerfClassif</span></span><a class="reference internal" href="_modules/domainlab/utils/perf.html#PerfClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf.PerfClassif" title="Link to this definition">¶</a></dt>
@@ -1035,9 +1049,9 @@ function “overrider” accept will be the current child class</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.perf_metrics">
-<span id="domainlab-utils-perf-metrics-module"></span><h2 id="module-domainlab.utils.perf_metrics">domainlab.utils.perf_metrics module<a class="headerlink" href="#module-domainlab.utils.perf_metrics" title="Link to this heading">¶</a></h2>
-<p>Classification Performance</p>
+<section id="domainlab-utils-perf-metrics-module">
+<h2 id="domainlab-utils-perf-metrics-module">domainlab.utils.perf_metrics module<a class="headerlink" href="#domainlab-utils-perf-metrics-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.perf_metrics">Classification Performance</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.utils.perf_metrics.PerfMetricClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.perf_metrics.</span></span><span class="sig-name descname"><span class="pre">PerfMetricClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_precision_recall_f1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/perf_metrics.html#PerfMetricClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.perf_metrics.PerfMetricClassif" title="Link to this definition">¶</a></dt>
@@ -1058,9 +1072,9 @@ function “overrider” accept will be the current child class</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.sanity_check">
-<span id="domainlab-utils-sanity-check-module"></span><h2 id="module-domainlab.utils.sanity_check">domainlab.utils.sanity_check module<a class="headerlink" href="#module-domainlab.utils.sanity_check" title="Link to this heading">¶</a></h2>
-<p>This class is used to perform the sanity check on a task description</p>
+<section id="domainlab-utils-sanity-check-module">
+<h2 id="domainlab-utils-sanity-check-module">domainlab.utils.sanity_check module<a class="headerlink" href="#domainlab-utils-sanity-check-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.sanity_check">This class is used to perform the sanity check on a task description</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.utils.sanity_check.SanityCheck">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.utils.sanity_check.</span></span><span class="sig-name descname"><span class="pre">SanityCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/sanity_check.html#SanityCheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.sanity_check.SanityCheck" title="Link to this definition">¶</a></dt>
@@ -1084,9 +1098,9 @@ d_dataset: dataset</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.test_img">
-<span id="domainlab-utils-test-img-module"></span><h2 id="module-domainlab.utils.test_img">domainlab.utils.test_img module<a class="headerlink" href="#module-domainlab.utils.test_img" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-test-img-module">
+<h2 id="domainlab-utils-test-img-module">domainlab.utils.test_img module<a class="headerlink" href="#domainlab-utils-test-img-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.test_img">
 <dt class="sig sig-object py" id="domainlab.utils.test_img.mk_img">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.test_img.</span></span><span class="sig-name descname"><span class="pre">mk_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_ch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/test_img.html#mk_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.test_img.mk_img" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1099,16 +1113,16 @@ d_dataset: dataset</p>
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.test_img.</span></span><span class="sig-name descname"><span class="pre">mk_rand_xyd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/test_img.html#mk_rand_xyd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.test_img.mk_rand_xyd" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
-<section id="module-domainlab.utils.u_import">
-<span id="domainlab-utils-u-import-module"></span><h2 id="module-domainlab.utils.u_import">domainlab.utils.u_import module<a class="headerlink" href="#module-domainlab.utils.u_import" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-u-import-module">
+<h2 id="domainlab-utils-u-import-module">domainlab.utils.u_import module<a class="headerlink" href="#domainlab-utils-u-import-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.u_import">
 <dt class="sig sig-object py" id="domainlab.utils.u_import.import_path">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.u_import.</span></span><span class="sig-name descname"><span class="pre">import_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/u_import.html#import_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.u_import.import_path" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
-<section id="module-domainlab.utils.u_import_net_module">
-<span id="domainlab-utils-u-import-net-module-module"></span><h2 id="module-domainlab.utils.u_import_net_module">domainlab.utils.u_import_net_module module<a class="headerlink" href="#module-domainlab.utils.u_import_net_module" title="Link to this heading">¶</a></h2>
-<p>import external neural network implementation</p>
+<section id="domainlab-utils-u-import-net-module-module">
+<h2 id="domainlab-utils-u-import-net-module-module">domainlab.utils.u_import_net_module module<a class="headerlink" href="#domainlab-utils-u-import-net-module-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.u_import_net_module">import external neural network implementation</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.u_import_net_module.build_external_obj_net_module_feat_extract">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.u_import_net_module.</span></span><span class="sig-name descname"><span class="pre">build_external_obj_net_module_feat_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_last_layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/u_import_net_module.html#build_external_obj_net_module_feat_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.u_import_net_module.build_external_obj_net_module_feat_extract" title="Link to this definition">¶</a></dt>
@@ -1120,17 +1134,17 @@ architecture is defined
 :param dim_y: dimension of features</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.utils_class">
-<span id="domainlab-utils-utils-class-module"></span><h2 id="module-domainlab.utils.utils_class">domainlab.utils.utils_class module<a class="headerlink" href="#module-domainlab.utils.utils_class" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-utils-class-module">
+<h2 id="domainlab-utils-utils-class-module">domainlab.utils.utils_class module<a class="headerlink" href="#domainlab-utils-utils-class-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.utils_class">
 <dt class="sig sig-object py" id="domainlab.utils.utils_class.store_args">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.utils_class.</span></span><span class="sig-name descname"><span class="pre">store_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/utils_class.html#store_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.utils_class.store_args" title="Link to this definition">¶</a></dt>
 <dd><p>Stores provided method args as instance attributes.</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.utils_classif">
-<span id="domainlab-utils-utils-classif-module"></span><h2 id="module-domainlab.utils.utils_classif">domainlab.utils.utils_classif module<a class="headerlink" href="#module-domainlab.utils.utils_classif" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-utils-classif-module">
+<h2 id="domainlab-utils-utils-classif-module">domainlab.utils.utils_classif module<a class="headerlink" href="#domainlab-utils-utils-classif-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.utils_classif">
 <dt class="sig sig-object py" id="domainlab.utils.utils_classif.get_label_na">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.utils_classif.</span></span><span class="sig-name descname"><span class="pre">get_label_na</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_na</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/utils_classif.html#get_label_na"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.utils_classif.get_label_na" title="Link to this definition">¶</a></dt>
 <dd><p>given list of label names in strings, map tensor of index to label names</p>
@@ -1156,18 +1170,18 @@ maximum probability</p>
 <dd><p>only used for testing, to generate list of class/domain label names</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.utils_cuda">
-<span id="domainlab-utils-utils-cuda-module"></span><h2 id="module-domainlab.utils.utils_cuda">domainlab.utils.utils_cuda module<a class="headerlink" href="#module-domainlab.utils.utils_cuda" title="Link to this heading">¶</a></h2>
-<p>choose devices</p>
+<section id="domainlab-utils-utils-cuda-module">
+<h2 id="domainlab-utils-utils-cuda-module">domainlab.utils.utils_cuda module<a class="headerlink" href="#domainlab-utils-utils-cuda-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.utils.utils_cuda">choose devices</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.utils.utils_cuda.get_device">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.utils_cuda.</span></span><span class="sig-name descname"><span class="pre">get_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/utils_cuda.html#get_device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.utils_cuda.get_device" title="Link to this definition">¶</a></dt>
 <dd><p>choose devices</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils.utils_img_sav">
-<span id="domainlab-utils-utils-img-sav-module"></span><h2 id="module-domainlab.utils.utils_img_sav">domainlab.utils.utils_img_sav module<a class="headerlink" href="#module-domainlab.utils.utils_img_sav" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-utils-utils-img-sav-module">
+<h2 id="domainlab-utils-utils-img-sav-module">domainlab.utils.utils_img_sav module<a class="headerlink" href="#domainlab-utils-utils-img-sav-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.utils.utils_img_sav">
 <dt class="sig sig-object py" id="domainlab.utils.utils_img_sav.mk_fun_sav_img">
 <span class="sig-prename descclassname"><span class="pre">domainlab.utils.utils_img_sav.</span></span><span class="sig-name descname"><span class="pre">mk_fun_sav_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nrow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_na</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/utils/utils_img_sav.html#mk_fun_sav_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.utils.utils_img_sav.mk_fun_sav_img" title="Link to this definition">¶</a></dt>
 <dd><p>create torchvision.utils image saver</p>
@@ -1178,9 +1192,9 @@ maximum probability</p>
 <dd><p>add title and save image as matplotlib.pyplot</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.utils">
-<span id="module-contents"></span><h2 id="module-domainlab.utils">Module contents<a class="headerlink" href="#module-domainlab.utils" title="Link to this heading">¶</a></h2>
-</section>
+<section id="module-contents">
+<h2 id="module-contents">Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<span class="target" id="module-domainlab.utils"></span></section>
 </section>
 
 
@@ -1202,7 +1216,7 @@ maximum probability</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> domainlab.tasks package </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab.tasks package </span>
               </div>
             </a>
           
@@ -1212,7 +1226,7 @@ maximum probability</p>
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> Model HDUVA </span>
+                class="md-footer-nav__direction"> Next </span> Model HDUVA </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -1226,11 +1240,11 @@ maximum probability</p>
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

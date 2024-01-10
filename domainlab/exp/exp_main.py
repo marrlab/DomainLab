@@ -31,17 +31,18 @@ class Exp():
             self.task = TaskChainNodeGetter(args)()
 
         self.args = args
-        algo_builder = AlgoBuilderChainNodeGetter(self.args.aname, self.args.apath)()  # request
+        algo_builder = AlgoBuilderChainNodeGetter(self.args.model, self.args.apath)()  # request
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
 
+        self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
+        # sanity check has to be done after init_business
         # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
         if args.san_check:
             sancheck = SanityCheck(args, self.task)
             sancheck.dataset_sanity_check()
 
-        self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
         if model is not None:
             self.model = model
         self.epochs = self.args.epos

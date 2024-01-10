@@ -48,7 +48,7 @@
   
   
     <title>domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css?v=79c92029" />
     <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -162,18 +162,19 @@
             
             <li class="md-tabs__item"><a href="../../../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="../../../../../doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="../../../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../../doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="../../../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="../../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="../../../../index.html" class="md-tabs__link">Module code</a></li>
+          <li class="md-tabs__item"><a href="../../../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
     </div>
   </nav>
@@ -234,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../../doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="../../../../../doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +249,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../../doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="../../../../../doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="../../../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../../docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="../../../../../docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../../doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -292,8 +307,8 @@
 <span></span>import torch
 import torch.nn as nn
 
-from domainlab.compos.vae.compos.encoder import LSEncoderDense
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from domainlab.compos.vae.compos.encoder import LSEncoderLinear
 
 
 <div class="viewcode-block" id="EncoderSandwichTopicImg2Zd">
@@ -302,41 +317,33 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
     """
     sandwich encoder: (img, s)-&gt;zd
     """
-    def __init__(self, zd_dim, i_c, i_h, i_w, num_topics,
-                 topic_h_dim, img_h_dim, args):
+    def __init__(self, zd_dim, isize, num_topics,
+                 img_h_dim, args):
         """
-        topic_h_dim, img_h_dim: (img-&gt;h_img, topic-&gt;h_topic)-&gt; q_zd
+        num_topics, img_h_dim: (img-&gt;h_img, topic-&gt;h_topic)-&gt; q_zd
         :param img_h_dim: (img-&gt;h_img, topic-&gt;h_topic)-&gt; q_zd
         the dimension to concatenate with topic vector to infer z_d
         """
         super().__init__()
         self.zd_dim = zd_dim
-        self.topic_h_dim = num_topics
         self.img_h_dim = img_h_dim
 
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
-            arg_name_of_net="nname_encoder_sandwich_layer_img2h4zd",
-            arg_path_of_net="npath_encoder_sandwich_layer_img2h4zd")()  # @FIXME
+            arg_name_of_net="nname_encoder_sandwich_x2h4zd",
+            arg_path_of_net="npath_encoder_sandwich_x2h4zd")()
 
         # image-&gt;h_img
         self.add_module("layer_img2h4zd", net_builder.init_business(
                             dim_out=self.img_h_dim,
                             flag_pretrain=True,
                             remove_last_layer=False,
-                            i_c=i_c, i_h=i_h, i_w=i_w, args=args))
-
-        # topic-&gt;h_topic
-        # @FIXME: do we need topic to h_topic instead of simplying using topic?
-        # REMOVED: self.add_module("h_layer_topic",
-        # REMOVED:  DenseNet(
-        # REMOVED:  input_flat_size=num_topics,
-        # REMOVED:  out_hidden_size=self.topic_h_dim))
+                            isize=isize, args=args))
 
         # [h_img, h_topic] -&gt; zd
         self.add_module("encoder_cat_topic_img_h2zd",
-                        LSEncoderDense(
-                            dim_input=self.img_h_dim+self.topic_h_dim,
+                        LSEncoderLinear(
+                            dim_input=self.img_h_dim+num_topics,
                             z_dim=self.zd_dim))
 
 <div class="viewcode-block" id="EncoderSandwichTopicImg2Zd.forward">
@@ -349,10 +356,7 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
         """
         # image-&gt;h_img
         h_img = self.layer_img2h4zd(img)
-        # topic-&gt;h_topic
-        # REMOVE: h_topic = self.h_layer_topic(topic)
         h_topic = vec_topic
-        # @FIXME: order of concatnation
         h_img_topic = torch.cat((h_img, h_topic), 1)
         q_zd, zd_q = self.encoder_cat_topic_img_h2zd(h_img_topic)
         return q_zd, zd_q</div>
@@ -378,11 +382,11 @@ class EncoderSandwichTopicImg2Zd(nn.Module):
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

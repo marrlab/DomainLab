@@ -38,9 +38,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_encoder = builder.init_business(
             flag_pretrain=True, dim_out=task.dim_y,
             remove_last_layer=False, args=args,
-            i_c=task.isize.i_c,
-            i_w=task.isize.i_w,
-            i_h=task.isize.i_h)
+            isize=(task.isize.i_c, task.isize.i_w, task.isize.i_h))
 
         dim_feat = get_flat_dim(net_encoder,
                                 task.isize.i_c,
@@ -59,11 +57,12 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
                           net_discriminator=net_discriminator)
+        model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         if trainer.name == "hyperscheduler":
             trainer.set_scheduler(HyperSchedulerWarmupExponential,
-                                  total_steps=trainer.num_batches*args.epos,
+                                  total_steps=trainer.num_batches*args.warmup,
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
         return trainer, model, observer, device

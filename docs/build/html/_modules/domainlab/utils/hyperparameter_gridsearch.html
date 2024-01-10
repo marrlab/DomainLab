@@ -48,7 +48,7 @@
   
   
     <title>domainlab.utils.hyperparameter_gridsearch &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -162,18 +162,19 @@
             
             <li class="md-tabs__item"><a href="../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
+          <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
     </div>
   </nav>
@@ -234,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +249,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -502,9 +517,9 @@ def add_references_and_check_constraints(grid_df_prior, grid_df, referenced_para
                 if not eval(constr):
                     accepted = False
             if accepted:
-                grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]
+                grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]
         else:
-            grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], dictio]</div>
+            grid_df.loc[len(grid_df.index)] = [task_name, config['model'], dictio]</div>
 
 
 <div class="viewcode-block" id="sample_grid">
@@ -636,12 +651,12 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         # add referenced params and check constraints
         add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
                                              config, task_name)
-        if grid_df[grid_df['algo'] == config['aname']].shape[0] == 0:
+        if grid_df[grid_df['algo'] == config['model']].shape[0] == 0:
             raise RuntimeError('No valid value found for this grid spacing, refine grid')
         return grid_df
     elif 'shared' in config.keys():
         shared_grid = shared_df.copy()
-        shared_grid['algo'] = config['aname']
+        shared_grid['algo'] = config['model']
         shared_grid['task'] = task_name
         if 'constraints' in config.keys():
             config['hyperparameters'] = {'constraints': config['constraints']}
@@ -649,7 +664,7 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         return grid_df
     else:
         # add single line if no varying hyperparameters are specified.
-        grid_df.loc[len(grid_df.index)] = [task_name, config['aname'], {}]
+        grid_df.loc[len(grid_df.index)] = [task_name, config['model'], {}]
         return grid_df</div>
 
 
@@ -676,13 +691,13 @@ def sample_gridsearch(config: dict,
     shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
 
     if 'Shared params' in config.keys():
-        shared_val = {'aname': 'all', 'hyperparameters':  config['Shared params']}
+        shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
         # fill up the dataframe shared samples
         shared_samples_full = grid_task(shared_samples_full, 'all', shared_val, None)
     else:
         shared_samples_full = None
     for key, val in config.items():
-        if sampling.is_dict_with_key(val, "aname"):
+        if sampling.is_dict_with_key(val, "model"):
             if shared_samples_full is not None:
                 shared_samples = shared_samples_full.copy(deep=True)
                 if 'shared' in val.keys():
@@ -705,7 +720,7 @@ def sample_gridsearch(config: dict,
 
             samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
-                        f'{samples[samples["algo"] == val["aname"]].shape[0]}')
+                        f'{samples[samples["algo"] == val["model"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')
@@ -739,11 +754,11 @@ def sample_gridsearch(config: dict,
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

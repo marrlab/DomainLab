@@ -49,7 +49,7 @@
   
   
     <title>domainlab.algos package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -107,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -165,17 +165,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="modules.html" class="md-tabs__link">domainlab</a></li>
           <li class="md-tabs__item"><a href="domainlab.html" class="md-tabs__link">domainlab package</a></li>
       </ul>
@@ -245,7 +245,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -259,21 +259,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -289,7 +303,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#domainlab-algos--page-root" class="md-nav__link">domainlab.algos package</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -297,11 +311,15 @@
         </li>
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.a_algo_builder" class="md-nav__link">domainlab.algos.a_algo_builder module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-a-algo-builder-module" class="md-nav__link">domainlab.algos.a_algo_builder module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.extend" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilder.extend()</span></code></a>
+        </li>
         <li class="md-nav__item"><a href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilder.init_business()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_next_model" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilder.init_next_model()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.is_myjob" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilder.is_myjob()</span></code></a>
         </li>
@@ -313,7 +331,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_api_model" class="md-nav__link">domainlab.algos.builder_api_model module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-api-model-module" class="md-nav__link">domainlab.algos.builder_api_model module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.builder_api_model.NodeAlgoBuilderAPIModel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderAPIModel</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -323,13 +341,13 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_custom" class="md-nav__link">domainlab.algos.builder_custom module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-custom-module" class="md-nav__link">domainlab.algos.builder_custom module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.builder_custom.make_basic_trainer" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">make_basic_trainer()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_dann" class="md-nav__link">domainlab.algos.builder_dann module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-dann-module" class="md-nav__link">domainlab.algos.builder_dann module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.builder_dann.NodeAlgoBuilderDANN" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderDANN</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -339,17 +357,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_deepall" class="md-nav__link">domainlab.algos.builder_deepall module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderDeepAll</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderDeepAll.init_business()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_diva" class="md-nav__link">domainlab.algos.builder_diva module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-diva-module" class="md-nav__link">domainlab.algos.builder_diva module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderDIVA</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -361,7 +369,17 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_hduva" class="md-nav__link">domainlab.algos.builder_hduva module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-erm-module" class="md-nav__link">domainlab.algos.builder_erm module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.builder_erm.NodeAlgoBuilderERM" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderERM</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.algos.builder_erm.NodeAlgoBuilderERM.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderERM.init_business()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-hduva-module" class="md-nav__link">domainlab.algos.builder_hduva module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderHDUVA</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -371,7 +389,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_jigen1" class="md-nav__link">domainlab.algos.builder_jigen1 module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-builder-jigen1-module" class="md-nav__link">domainlab.algos.builder_jigen1 module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderJiGen</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -381,27 +399,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_match_hduva" class="md-nav__link">domainlab.algos.builder_match_hduva module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderMatchHDUVA</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderMatchHDUVA.init_business()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.builder_matchdg" class="md-nav__link">domainlab.algos.builder_matchdg module</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderMatchDG</span></code></a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG.init_business" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilderMatchDG.init_business()</span></code></a>
-        </li></ul>
-            </nav>
-        </li></ul>
-            </nav>
-        </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos.zoo_algos" class="md-nav__link">domainlab.algos.zoo_algos module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-algos-zoo-algos-module" class="md-nav__link">domainlab.algos.zoo_algos module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AlgoBuilderChainNodeGetter</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -411,7 +409,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.algos" class="md-nav__link">Module contents</a>
+        <li class="md-nav__item"><a href="#module-contents" class="md-nav__link">Module contents</a>
         </li></ul>
             </nav>
         </li>
@@ -432,7 +430,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.algos.msels.html">domainlab.algos.msels package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#module-domainlab.algos.msels.a_model_sel">domainlab.algos.msels.a_model_sel module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#domainlab-algos-msels-a-model-sel-module">domainlab.algos.msels.a_model_sel module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel"><code class="docutils literal notranslate"><span class="pre">AMSel</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.accept"><code class="docutils literal notranslate"><span class="pre">AMSel.accept()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.best_te_metric"><code class="docutils literal notranslate"><span class="pre">AMSel.best_te_metric</span></code></a></li>
@@ -447,7 +445,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel_oracle">domainlab.algos.msels.c_msel_oracle module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#domainlab-algos-msels-c-msel-oracle-module">domainlab.algos.msels.c_msel_oracle module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor"><code class="docutils literal notranslate"><span class="pre">MSelOracleVisitor</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.accept"><code class="docutils literal notranslate"><span class="pre">MSelOracleVisitor.accept()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.if_stop"><code class="docutils literal notranslate"><span class="pre">MSelOracleVisitor.if_stop()</span></code></a></li>
@@ -457,7 +455,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel_tr_loss">domainlab.algos.msels.c_msel_tr_loss module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#domainlab-algos-msels-c-msel-tr-loss-module">domainlab.algos.msels.c_msel_tr_loss module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss"><code class="docutils literal notranslate"><span class="pre">MSelTrLoss</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop"><code class="docutils literal notranslate"><span class="pre">MSelTrLoss.if_stop()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.max_es"><code class="docutils literal notranslate"><span class="pre">MSelTrLoss.max_es</span></code></a></li>
@@ -467,7 +465,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#module-domainlab.algos.msels.c_msel_val">domainlab.algos.msels.c_msel_val module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#domainlab-algos-msels-c-msel-val-module">domainlab.algos.msels.c_msel_val module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_val.MSelValPerf"><code class="docutils literal notranslate"><span class="pre">MSelValPerf</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_val.MSelValPerf.best_te_metric"><code class="docutils literal notranslate"><span class="pre">MSelValPerf.best_te_metric</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_val.MSelValPerf.best_val_acc"><code class="docutils literal notranslate"><span class="pre">MSelValPerf.best_val_acc</span></code></a></li>
@@ -478,70 +476,71 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#module-domainlab.algos.msels">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.msels.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.algos.observers.html">domainlab.algos.observers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#module-domainlab.algos.observers.a_observer">domainlab.algos.observers.a_observer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#domainlab-algos-observers-a-observer-module">domainlab.algos.observers.a_observer module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor"><code class="docutils literal notranslate"><span class="pre">AObVisitor</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.accept"><code class="docutils literal notranslate"><span class="pre">AObVisitor.accept()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.after_all"><code class="docutils literal notranslate"><span class="pre">AObVisitor.after_all()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.clean_up"><code class="docutils literal notranslate"><span class="pre">AObVisitor.clean_up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.reset"><code class="docutils literal notranslate"><span class="pre">AObVisitor.reset()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.set_task"><code class="docutils literal notranslate"><span class="pre">AObVisitor.set_task()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.update"><code class="docutils literal notranslate"><span class="pre">AObVisitor.update()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#module-domainlab.algos.observers.b_obvisitor">domainlab.algos.observers.b_obvisitor module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#domainlab-algos-observers-b-obvisitor-module">domainlab.algos.observers.b_obvisitor module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor"><code class="docutils literal notranslate"><span class="pre">ObVisitor</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.accept"><code class="docutils literal notranslate"><span class="pre">ObVisitor.accept()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.after_all"><code class="docutils literal notranslate"><span class="pre">ObVisitor.after_all()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.cal_oracle_perf"><code class="docutils literal notranslate"><span class="pre">ObVisitor.cal_oracle_perf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.clean_up"><code class="docutils literal notranslate"><span class="pre">ObVisitor.clean_up()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.dump_prediction"><code class="docutils literal notranslate"><span class="pre">ObVisitor.dump_prediction()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.reset"><code class="docutils literal notranslate"><span class="pre">ObVisitor.reset()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.str_metric4msel"><code class="docutils literal notranslate"><span class="pre">ObVisitor.str_metric4msel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.update"><code class="docutils literal notranslate"><span class="pre">ObVisitor.update()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#module-domainlab.algos.observers.c_obvisitor_cleanup">domainlab.algos.observers.c_obvisitor_cleanup module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#domainlab-algos-observers-c-obvisitor-cleanup-module">domainlab.algos.observers.c_obvisitor_cleanup module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.accept()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.after_all"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.after_all()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.clean_up"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.clean_up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.model_sel"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.model_sel</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.update"><code class="docutils literal notranslate"><span class="pre">ObVisitorCleanUp.update()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#module-domainlab.algos.observers.c_obvisitor_gen">domainlab.algos.observers.c_obvisitor_gen module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#domainlab-algos-observers-c-obvisitor-gen-module">domainlab.algos.observers.c_obvisitor_gen module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen"><code class="docutils literal notranslate"><span class="pre">ObVisitorGen</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all"><code class="docutils literal notranslate"><span class="pre">ObVisitorGen.after_all()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#module-domainlab.algos.observers">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.observers.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.algos.trainers.html">domainlab.algos.trainers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.compos.html">domainlab.algos.trainers.compos package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#module-domainlab.algos.trainers.compos.matchdg_args">domainlab.algos.trainers.compos.matchdg_args module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#module-domainlab.algos.trainers.compos.matchdg_match">domainlab.algos.trainers.compos.matchdg_match module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#module-domainlab.algos.trainers.compos.matchdg_utils">domainlab.algos.trainers.compos.matchdg_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#module-domainlab.algos.trainers.compos">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#domainlab-algos-trainers-compos-matchdg-args-module">domainlab.algos.trainers.compos.matchdg_args module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#domainlab-algos-trainers-compos-matchdg-match-module">domainlab.algos.trainers.compos.matchdg_match module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#domainlab-algos-trainers-compos-matchdg-utils-module">domainlab.algos.trainers.compos.matchdg_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.compos.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.a_trainer">domainlab.algos.trainers.a_trainer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-a-trainer-module">domainlab.algos.trainers.a_trainer module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer"><code class="docutils literal notranslate"><span class="pre">AbstractTrainer</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.after_batch"><code class="docutils literal notranslate"><span class="pre">AbstractTrainer.after_batch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_batch"><code class="docutils literal notranslate"><span class="pre">AbstractTrainer.before_batch()</span></code></a></li>
@@ -565,11 +564,11 @@
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.mk_opt"><code class="docutils literal notranslate"><span class="pre">mk_opt()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.args_dial">domainlab.algos.trainers.args_dial module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-args-dial-module">domainlab.algos.trainers.args_dial module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.args_dial.add_args2parser_dial"><code class="docutils literal notranslate"><span class="pre">add_args2parser_dial()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.hyper_scheduler">domainlab.algos.trainers.hyper_scheduler module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-hyper-scheduler-module">domainlab.algos.trainers.hyper_scheduler module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential"><code class="docutils literal notranslate"><span class="pre">HyperSchedulerWarmupExponential</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential.warmup"><code class="docutils literal notranslate"><span class="pre">HyperSchedulerWarmupExponential.warmup()</span></code></a></li>
 </ul>
@@ -581,13 +580,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-train-basic-module">domainlab.algos.trainers.train_basic module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic"><code class="docutils literal notranslate"><span class="pre">TrainerBasic</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.after_epoch"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.after_epoch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_epoch"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.before_epoch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_tr"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.before_tr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.cal_loss"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.cal_loss()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.log_r_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_loss"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.log_loss()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_batch"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.tr_batch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_epoch"><code class="docutils literal notranslate"><span class="pre">TrainerBasic.tr_epoch()</span></code></a></li>
 </ul>
@@ -595,14 +594,14 @@
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.list_divide"><code class="docutils literal notranslate"><span class="pre">list_divide()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-train-dial-module">domainlab.algos.trainers.train_dial module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL"><code class="docutils literal notranslate"><span class="pre">TrainerDIAL</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial"><code class="docutils literal notranslate"><span class="pre">TrainerDIAL.gen_adversarial()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_hyper_scheduler">domainlab.algos.trainers.train_hyper_scheduler module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-train-hyper-scheduler-module">domainlab.algos.trainers.train_hyper_scheduler module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_hyper_scheduler.TrainerHyperScheduler"><code class="docutils literal notranslate"><span class="pre">TrainerHyperScheduler</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_hyper_scheduler.TrainerHyperScheduler.before_batch"><code class="docutils literal notranslate"><span class="pre">TrainerHyperScheduler.before_batch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_hyper_scheduler.TrainerHyperScheduler.before_tr"><code class="docutils literal notranslate"><span class="pre">TrainerHyperScheduler.before_tr()</span></code></a></li>
@@ -612,7 +611,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_matchdg">domainlab.algos.trainers.train_matchdg module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-train-matchdg-module">domainlab.algos.trainers.train_matchdg module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG"><code class="docutils literal notranslate"><span class="pre">TrainerMatchDG</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.before_tr"><code class="docutils literal notranslate"><span class="pre">TrainerMatchDG.before_tr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.dset_decoration_args_algo"><code class="docutils literal notranslate"><span class="pre">TrainerMatchDG.dset_decoration_args_algo()</span></code></a></li>
@@ -622,9 +621,10 @@
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.tr_epoch"><code class="docutils literal notranslate"><span class="pre">TrainerMatchDG.tr_epoch()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.match_tensor_reshape"><code class="docutils literal notranslate"><span class="pre">match_tensor_reshape()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_mldg">domainlab.algos.trainers.train_mldg module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-train-mldg-module">domainlab.algos.trainers.train_mldg module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG"><code class="docutils literal notranslate"><span class="pre">TrainerMLDG</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.before_tr"><code class="docutils literal notranslate"><span class="pre">TrainerMLDG.before_tr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG.prepare_ziped_loader"><code class="docutils literal notranslate"><span class="pre">TrainerMLDG.prepare_ziped_loader()</span></code></a></li>
@@ -633,11 +633,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.zoo_trainer">domainlab.algos.trainers.zoo_trainer module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab-algos-trainers-zoo-trainer-module">domainlab.algos.trainers.zoo_trainer module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="domainlab.algos.trainers.html#domainlab.algos.trainers.zoo_trainer.TrainerChainNodeGetter"><code class="docutils literal notranslate"><span class="pre">TrainerChainNodeGetter</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -646,18 +646,27 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-domainlab.algos.a_algo_builder">
-<span id="domainlab-algos-a-algo-builder-module"></span><h2 id="module-domainlab.algos.a_algo_builder">domainlab.algos.a_algo_builder module<a class="headerlink" href="#module-domainlab.algos.a_algo_builder" title="Link to this heading">¶</a></h2>
-<p>parent class for combing model, trainer, task, observer</p>
+<section id="domainlab-algos-a-algo-builder-module">
+<h2 id="domainlab-algos-a-algo-builder-module">domainlab.algos.a_algo_builder module<a class="headerlink" href="#domainlab-algos-a-algo-builder-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.a_algo_builder">parent class for combing model, trainer, task, observer</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.a_algo_builder.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/a_algo_builder.html#NodeAlgoBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
 <p>Base class for Algorithm Builder</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/a_algo_builder.html#NodeAlgoBuilder.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.extend" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_business">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/a_algo_builder.html#NodeAlgoBuilder.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_business" title="Link to this definition">¶</a></dt>
 <dd><p>combine model, trainer, observer, task</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_next_model">
+<span class="sig-name descname"><span class="pre">init_next_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/a_algo_builder.html#NodeAlgoBuilder.init_next_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_next_model" title="Link to this definition">¶</a></dt>
+<dd><p>initialize the next model and decorate with current model</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder.is_myjob">
@@ -679,9 +688,9 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_api_model">
-<span id="domainlab-algos-builder-api-model-module"></span><h2 id="module-domainlab.algos.builder_api_model">domainlab.algos.builder_api_model module<a class="headerlink" href="#module-domainlab.algos.builder_api_model" title="Link to this heading">¶</a></h2>
-<p>build algorithm from API coded model with custom backbone</p>
+<section id="domainlab-algos-builder-api-model-module">
+<h2 id="domainlab-algos-builder-api-model-module">domainlab.algos.builder_api_model module<a class="headerlink" href="#domainlab-algos-builder-api-model-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.builder_api_model">build algorithm from API coded model with custom backbone</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_api_model.NodeAlgoBuilderAPIModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_api_model.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderAPIModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_api_model.html#NodeAlgoBuilderAPIModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_api_model.NodeAlgoBuilderAPIModel" title="Link to this definition">¶</a></dt>
@@ -694,18 +703,18 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_custom">
-<span id="domainlab-algos-builder-custom-module"></span><h2 id="module-domainlab.algos.builder_custom">domainlab.algos.builder_custom module<a class="headerlink" href="#module-domainlab.algos.builder_custom" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-algos-builder-custom-module">
+<h2 id="domainlab-algos-builder-custom-module">domainlab.algos.builder_custom module<a class="headerlink" href="#domainlab-algos-builder-custom-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.algos.builder_custom">
 <dt class="sig sig-object py" id="domainlab.algos.builder_custom.make_basic_trainer">
 <span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_custom.</span></span><span class="sig-name descname"><span class="pre">make_basic_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_name_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_custom.html#make_basic_trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_custom.make_basic_trainer" title="Link to this definition">¶</a></dt>
 <dd><p>make_basic_trainer.
 :param class_name_model:</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_dann">
-<span id="domainlab-algos-builder-dann-module"></span><h2 id="module-domainlab.algos.builder_dann">domainlab.algos.builder_dann module<a class="headerlink" href="#module-domainlab.algos.builder_dann" title="Link to this heading">¶</a></h2>
-<p>builder for Domain Adversarial Neural Network: accept different training scheme</p>
+<section id="domainlab-algos-builder-dann-module">
+<h2 id="domainlab-algos-builder-dann-module">domainlab.algos.builder_dann module<a class="headerlink" href="#domainlab-algos-builder-dann-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.builder_dann">builder for Domain Adversarial Neural Network: accept different training scheme</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_dann.NodeAlgoBuilderDANN">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_dann.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderDANN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_dann.html#NodeAlgoBuilderDANN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_dann.NodeAlgoBuilderDANN" title="Link to this definition">¶</a></dt>
@@ -717,24 +726,9 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_deepall">
-<span id="domainlab-algos-builder-deepall-module"></span><h2 id="module-domainlab.algos.builder_deepall">domainlab.algos.builder_deepall module<a class="headerlink" href="#module-domainlab.algos.builder_deepall" title="Link to this heading">¶</a></h2>
-<p>builder for deepall</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_deepall.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderDeepAll</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_deepall.html#NodeAlgoBuilderDeepAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
-<p>builder for deepall</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_deepall.html#NodeAlgoBuilderDeepAll.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll.init_business" title="Link to this definition">¶</a></dt>
-<dd><p>return trainer, model, observer</p>
-</dd></dl>
-</dd></dl>
-</section>
-<section id="module-domainlab.algos.builder_diva">
-<span id="domainlab-algos-builder-diva-module"></span><h2 id="module-domainlab.algos.builder_diva">domainlab.algos.builder_diva module<a class="headerlink" href="#module-domainlab.algos.builder_diva" title="Link to this heading">¶</a></h2>
-<p>Builder pattern to build different component for experiment with DIVA</p>
+<section id="domainlab-algos-builder-diva-module">
+<h2 id="domainlab-algos-builder-diva-module">domainlab.algos.builder_diva module<a class="headerlink" href="#domainlab-algos-builder-diva-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.builder_diva">Builder pattern to build different component for experiment with DIVA</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_diva.NodeAlgoBuilderDIVA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_diva.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderDIVA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_diva.html#NodeAlgoBuilderDIVA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA" title="Link to this definition">¶</a></dt>
@@ -752,9 +746,24 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_hduva">
-<span id="domainlab-algos-builder-hduva-module"></span><h2 id="module-domainlab.algos.builder_hduva">domainlab.algos.builder_hduva module<a class="headerlink" href="#module-domainlab.algos.builder_hduva" title="Link to this heading">¶</a></h2>
-<p>build hduva model, get trainer from cmd arguments</p>
+<section id="domainlab-algos-builder-erm-module">
+<h2 id="domainlab-algos-builder-erm-module">domainlab.algos.builder_erm module<a class="headerlink" href="#domainlab-algos-builder-erm-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.builder_erm">builder for erm</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="domainlab.algos.builder_erm.NodeAlgoBuilderERM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_erm.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderERM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_erm.html#NodeAlgoBuilderERM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_erm.NodeAlgoBuilderERM" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
+<p>builder for erm</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.builder_erm.NodeAlgoBuilderERM.init_business">
+<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_erm.html#NodeAlgoBuilderERM.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_erm.NodeAlgoBuilderERM.init_business" title="Link to this definition">¶</a></dt>
+<dd><p>return trainer, model, observer</p>
+</dd></dl>
+</dd></dl>
+</section>
+<section id="domainlab-algos-builder-hduva-module">
+<h2 id="domainlab-algos-builder-hduva-module">domainlab.algos.builder_hduva module<a class="headerlink" href="#domainlab-algos-builder-hduva-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.builder_hduva">build hduva model, get trainer from cmd arguments</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_hduva.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderHDUVA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_hduva.html#NodeAlgoBuilderHDUVA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA" title="Link to this definition">¶</a></dt>
@@ -766,9 +775,9 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_jigen1">
-<span id="domainlab-algos-builder-jigen1-module"></span><h2 id="module-domainlab.algos.builder_jigen1">domainlab.algos.builder_jigen1 module<a class="headerlink" href="#module-domainlab.algos.builder_jigen1" title="Link to this heading">¶</a></h2>
-<p>builder for JiGen</p>
+<section id="domainlab-algos-builder-jigen1-module">
+<h2 id="domainlab-algos-builder-jigen1-module">domainlab.algos.builder_jigen1 module<a class="headerlink" href="#domainlab-algos-builder-jigen1-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.builder_jigen1">builder for JiGen</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_jigen1.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderJiGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_jigen1.html#NodeAlgoBuilderJiGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen" title="Link to this definition">¶</a></dt>
@@ -780,41 +789,12 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos.builder_match_hduva">
-<span id="domainlab-algos-builder-match-hduva-module"></span><h2 id="module-domainlab.algos.builder_match_hduva">domainlab.algos.builder_match_hduva module<a class="headerlink" href="#module-domainlab.algos.builder_match_hduva" title="Link to this heading">¶</a></h2>
-<p>hduva with matchdg</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_match_hduva.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderMatchHDUVA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_match_hduva.html#NodeAlgoBuilderMatchHDUVA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_match_hduva.html#NodeAlgoBuilderMatchHDUVA.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA.init_business" title="Link to this definition">¶</a></dt>
-<dd><p>return trainer, model, observer</p>
-</dd></dl>
-</dd></dl>
-</section>
-<section id="module-domainlab.algos.builder_matchdg">
-<span id="domainlab-algos-builder-matchdg-module"></span><h2 id="module-domainlab.algos.builder_matchdg">domainlab.algos.builder_matchdg module<a class="headerlink" href="#module-domainlab.algos.builder_matchdg" title="Link to this heading">¶</a></h2>
-<p>builder for mathcdg with deepall</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_matchdg.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderMatchDG</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_matchdg.html#NodeAlgoBuilderMatchDG"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
-<p>algorithm builder for matchDG</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG.init_business">
-<span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_matchdg.html#NodeAlgoBuilderMatchDG.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG.init_business" title="Link to this definition">¶</a></dt>
-<dd><p>return trainer, model, observer</p>
-</dd></dl>
-</dd></dl>
-</section>
-<section id="module-domainlab.algos.zoo_algos">
-<span id="domainlab-algos-zoo-algos-module"></span><h2 id="module-domainlab.algos.zoo_algos">domainlab.algos.zoo_algos module<a class="headerlink" href="#module-domainlab.algos.zoo_algos" title="Link to this heading">¶</a></h2>
-<p>chain of responsibility pattern for algorithm selection</p>
+<section id="domainlab-algos-zoo-algos-module">
+<h2 id="domainlab-algos-zoo-algos-module">domainlab.algos.zoo_algos module<a class="headerlink" href="#domainlab-algos-zoo-algos-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.algos.zoo_algos">chain of responsibility pattern for algorithm selection</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.zoo_algos.</span></span><span class="sig-name descname"><span class="pre">AlgoBuilderChainNodeGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/zoo_algos.html#AlgoBuilderChainNodeGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.zoo_algos.</span></span><span class="sig-name descname"><span class="pre">AlgoBuilderChainNodeGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/zoo_algos.html#AlgoBuilderChainNodeGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>1. Hardcoded chain
 3. Return selected node</p>
@@ -825,9 +805,9 @@
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.algos">
-<span id="module-contents"></span><h2 id="module-domainlab.algos">Module contents<a class="headerlink" href="#module-domainlab.algos" title="Link to this heading">¶</a></h2>
-</section>
+<section id="module-contents">
+<h2 id="module-contents">Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<span class="target" id="module-domainlab.algos"></span></section>
 </section>
 
 
@@ -849,7 +829,7 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> domainlab package </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab package </span>
               </div>
             </a>
           
@@ -859,7 +839,7 @@
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> domainlab.algos.msels package </span>
+                class="md-footer-nav__direction"> Next </span> domainlab.algos.msels package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -873,11 +853,11 @@
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

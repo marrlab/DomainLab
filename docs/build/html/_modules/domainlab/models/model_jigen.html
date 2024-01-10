@@ -48,7 +48,7 @@
   
   
     <title>domainlab.models.model_jigen &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -162,18 +162,19 @@
             
             <li class="md-tabs__item"><a href="../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
+          <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
     </div>
   </nav>
@@ -234,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +249,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -292,8 +307,10 @@
 <span></span>"""
 Jigen Model Similar to DANN model
 """
+import warnings
 from torch.nn import functional as F
 
+from domainlab import g_str_cross_entropy_agg
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_dann import mk_dann
 from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
@@ -333,6 +350,8 @@ def mk_jigen(parent_class=AModelClassif):
         net_classifier_permutation: neural network (input: output of net_encoder;
         output: prediction of permutation index),
         coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss
+        nperm: number of permutations to use, by default 31
+        prob_permutation: probability of shuffling image tiles
 
     Usage:
         For a concrete example, see:
@@ -349,7 +368,10 @@ def mk_jigen(parent_class=AModelClassif):
                      net_encoder,
                      net_classifier_class,
                      net_classifier_permutation,
-                     coeff_reg, meta_info=None):
+                     coeff_reg, n_perm=31,
+                     prob_permutation=0.1,
+                     overwrite_args=False,
+                     meta_info=None):
             super().__init__(list_str_y,
                              list_d_tr=None,
                              alpha=coeff_reg,
@@ -360,18 +382,37 @@ def mk_jigen(parent_class=AModelClassif):
             self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
             self.meta_info = meta_info
+            self.n_perm = n_perm
+            self.prob_perm = prob_permutation
+            self.flag_overwrite_args = overwrite_args
 
         def dset_decoration_args_algo(self, args, ddset):
             """
             JiGen need to shuffle the tiles of the original image
             """
             if self.meta_info is not None:
-                args.nperm = self.meta_info["nperm"] -1  if "nperm" in self.meta_info else args.nperm
-                args.pperm = self.meta_info["pperm"] if "pperm" in self.meta_info else args.pperm
+                args.nperm = self.meta_info["nperm"] -1  \
+                    if "nperm" in self.meta_info else args.nperm
+                args.pperm = self.meta_info["pperm"] \
+                    if "pperm" in self.meta_info else args.pperm
+
+            nperm = self.n_perm
+            if args.nperm != nperm and not self.flag_overwrite_args:
+                warnings.warn(f"number of permutations specified differently \
+                              in model {nperm} and args {args.nperm}, \
+                              going to take args specification")
+                nperm = args.nperm
+                
+            pperm = self.prob_perm
+            if args.pperm != pperm and not self.flag_overwrite_args:
+                warnings.warn(f"probability of reshuffling specified differently \
+                              in model {pperm} and args: {args.pperm}, \
+                              going to take model specification")
+                pperm = args.pperm
 
             ddset_new = WrapDsetPatches(ddset,
-                                        num_perms2classify=args.nperm,
-                                        prob_no_perm=1-args.pperm,
+                                        num_perms2classify=nperm,
+                                        prob_no_perm=1-pperm,
                                         grid_len=args.grid_len,
                                         ppath=args.jigen_ppath)
             return ddset_new
@@ -399,7 +440,7 @@ def mk_jigen(parent_class=AModelClassif):
             batch_target_scalar = vec_perm_ind
             batch_target_scalar = batch_target_scalar.to(tensor_x.device)
             loss_perm = F.cross_entropy(
-                logits_which_permutation, batch_target_scalar, reduction="none")
+                logits_which_permutation, batch_target_scalar, reduction=g_str_cross_entropy_agg)
             return [loss_perm], [self.alpha]
     return ModelJiGen</div>
 
@@ -423,11 +464,11 @@ def mk_jigen(parent_class=AModelClassif):
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

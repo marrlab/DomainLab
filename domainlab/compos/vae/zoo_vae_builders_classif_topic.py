@@ -31,8 +31,6 @@ class NodeVAEBuilderImgTopic(NodeVAEBuilderArg):
                                  self.i_c,
                                  self.i_h,
                                  self.i_w,
-                                 topic_h_dim=self.args.topic_h_dim,
-                                 img_h_dim=self.args.img_h_dim,
                                  args=self.args)
         return encoder
 

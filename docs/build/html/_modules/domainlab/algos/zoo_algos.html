@@ -48,7 +48,7 @@
   
   
     <title>domainlab.algos.zoo_algos &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -162,18 +162,19 @@
             
             <li class="md-tabs__item"><a href="../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
+          <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
     </div>
   </nav>
@@ -234,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="../../../doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +249,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="../../../doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="../../../docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -294,11 +309,9 @@ chain of responsibility pattern for algorithm selection
 """
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
 from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
-from domainlab.algos.builder_deepall import NodeAlgoBuilderDeepAll
+from domainlab.algos.builder_erm import NodeAlgoBuilderERM
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
-from domainlab.algos.builder_matchdg import NodeAlgoBuilderMatchDG
-from domainlab.algos.builder_match_hduva import NodeAlgoBuilderMatchHDUVA
 from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
 
 from domainlab.utils.u_import import import_path
@@ -311,9 +324,14 @@ class AlgoBuilderChainNodeGetter():
     1. Hardcoded chain
     3. Return selected node
     """
-    def __init__(self, aname, apath):
-        self.aname = aname
+    def __init__(self, model, apath):
+        self.model = model
         self.apath = apath
+        # 
+        self._list_str_model = model.split(',')
+        self.model = self._list_str_model.pop(0)
+
+
 
 <div class="viewcode-block" id="AlgoBuilderChainNodeGetter.register_external_node">
 <a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter.register_external_node">[docs]</a>
@@ -335,15 +353,19 @@ class AlgoBuilderChainNodeGetter():
         2. hard code seems to be the best solution
         """
         chain = NodeAlgoBuilderDIVA(None)
-        chain = NodeAlgoBuilderDeepAll(chain)
+        chain = NodeAlgoBuilderERM(chain)
         chain = NodeAlgoBuilderDANN(chain)
         chain = NodeAlgoBuilderJiGen(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
-        chain = NodeAlgoBuilderMatchDG(chain)
-        chain = NodeAlgoBuilderMatchHDUVA(chain)
         chain = NodeAlgoBuilderAPIModel(chain)
         chain = self.register_external_node(chain)
-        node = chain.handle(self.aname)
+        node = chain.handle(self.model)
+        head = node
+        while self._list_str_model:
+            self.model = self._list_str_model.pop(0)
+            node2decorate = self.__call__()
+            head.extend(node2decorate)
+            head = node2decorate
         return node</div>
 
 </pre></div>
@@ -366,11 +388,11 @@ class AlgoBuilderChainNodeGetter():
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

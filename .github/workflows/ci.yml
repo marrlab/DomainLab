@@ -18,6 +18,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.10.7
+    - name: test if api works before setup install since setup install miss data
+      run: pip install domainlab && cd examples/api/ && python jigen_dann_transformer.py
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -34,7 +36,9 @@ jobs:
         fail_ci_if_error: true
       env:
         CODECOV_TOKEN: 02ecb3ac-b7ce-4ea4-90a2-961c3d1a1030
+    - name: check if readme yaml works
+      run: python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml
     - name: test if examples in markdown works
       run: bash -x -v ci_run_examples.sh
     - name: test if benchmark works
-      run: pip install snakemake && bash -x -v run_benchmark_standalone.sh examples/benchmark/benchmark_mnist_shared_hyper_grid.yaml
+      run: pip install snakemake && bash -x -v run_benchmark_standalone.sh examples/benchmark/demo_shared_hyper_grid.yaml

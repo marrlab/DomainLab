@@ -49,7 +49,7 @@
   
   
     <title>domainlab.models package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -107,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -165,17 +165,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="modules.html" class="md-tabs__link">domainlab</a></li>
           <li class="md-tabs__item"><a href="domainlab.html" class="md-tabs__link">domainlab package</a></li>
       </ul>
@@ -245,7 +245,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -259,21 +259,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -289,13 +303,13 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#domainlab-models--page-root" class="md-nav__link">domainlab.models package</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.a_model" class="md-nav__link">domainlab.models.a_model module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-a-model-module" class="md-nav__link">domainlab.models.a_model module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -305,11 +319,13 @@
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.cal_task_loss" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.cal_task_loss()</span></code></a>
         </li>
+        <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.dset_decoration_args_algo" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.dset_decoration_args_algo()</span></code></a>
+        </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.extend" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.extend()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.forward()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.inner_product" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.inner_product()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.list_inner_product" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.list_inner_product()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model.AModel.load" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModel.load()</span></code></a>
         </li>
@@ -325,7 +341,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.a_model_classif" class="md-nav__link">domainlab.models.a_model_classif module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-a-model-classif-module" class="md-nav__link">domainlab.models.a_model_classif module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -351,6 +367,8 @@
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.metric4msel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.metric4msel</span></code></a>
         </li>
+        <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.net_classifier" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.net_classifier</span></code></a>
+        </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.pred2file" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.pred2file()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.a_model_classif.AModelClassif.read_prediction_file" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelClassif.read_prediction_file()</span></code></a>
@@ -359,19 +377,19 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.args_jigen" class="md-nav__link">domainlab.models.args_jigen module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-args-jigen-module" class="md-nav__link">domainlab.models.args_jigen module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.args_jigen.add_args2parser_jigen" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">add_args2parser_jigen()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.args_vae" class="md-nav__link">domainlab.models.args_vae module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-args-vae-module" class="md-nav__link">domainlab.models.args_vae module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.args_vae.add_args2parser_vae" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">add_args2parser_vae()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.interface_vae_xyd" class="md-nav__link">domainlab.models.interface_vae_xyd module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-interface-vae-xyd-module" class="md-nav__link">domainlab.models.interface_vae_xyd module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">InterfaceVAEXYD</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -383,55 +401,53 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_custom" class="md-nav__link">domainlab.models.model_custom module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-custom-module" class="md-nav__link">domainlab.models.model_custom module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.cal_logit_y" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.cal_logit_y()</span></code></a>
-        </li>
         <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.dict_net_module_na2arg_na</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.infer_y_vpicn" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.infer_y_vpicn()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.model_custom.AModelCustom.extract_semantic_feat" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">AModelCustom.extract_semantic_feat()</span></code></a>
         </li></ul>
             </nav>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_dann" class="md-nav__link">domainlab.models.model_dann module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-dann-module" class="md-nav__link">domainlab.models.model_dann module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_dann.mk_dann" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_dann()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_deep_all" class="md-nav__link">domainlab.models.model_deep_all module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-deep-all-module" class="md-nav__link">domainlab.models.model_deep_all module</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.models.model_deep_all.mk_deepall" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_deepall()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.model_deep_all.mk_erm" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_erm()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_diva" class="md-nav__link">domainlab.models.model_diva module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-diva-module" class="md-nav__link">domainlab.models.model_diva module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_diva.mk_diva" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_diva()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_hduva" class="md-nav__link">domainlab.models.model_hduva module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-hduva-module" class="md-nav__link">domainlab.models.model_hduva module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_hduva.mk_hduva" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_hduva()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_jigen" class="md-nav__link">domainlab.models.model_jigen module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-jigen-module" class="md-nav__link">domainlab.models.model_jigen module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_jigen.mk_jigen" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">mk_jigen()</span></code></a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models.model_vae_xyd_classif" class="md-nav__link">domainlab.models.model_vae_xyd_classif module</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#domainlab-models-model-vae-xyd-classif-module" class="md-nav__link">domainlab.models.model_vae_xyd_classif module</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif</span></code></a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif.cal_logit_y()</span></code></a>
+        <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif.extract_semantic_feat()</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.multiplier4task_loss" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">VAEXYDClassif.multiplier4task_loss</span></code></a>
         </li></ul>
@@ -439,7 +455,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.models" class="md-nav__link">Module contents</a>
+        <li class="md-nav__item"><a href="#module-contents" class="md-nav__link">Module contents</a>
         </li></ul>
             </nav>
         </li>
@@ -457,9 +473,9 @@
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-domainlab.models.a_model">
-<span id="domainlab-models-a-model-module"></span><h2 id="module-domainlab.models.a_model">domainlab.models.a_model module<a class="headerlink" href="#module-domainlab.models.a_model" title="Link to this heading">¶</a></h2>
-<p>operations that all kinds of models should have</p>
+<section id="domainlab-models-a-model-module">
+<h2 id="domainlab-models-a-model-module">domainlab.models.a_model module<a class="headerlink" href="#domainlab-models-a-model-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.a_model">operations that all kinds of models should have</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.a_model.</span></span><span class="sig-name descname"><span class="pre">AModel</span></span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel" title="Link to this definition">¶</a></dt>
@@ -492,6 +508,12 @@
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="domainlab.models.a_model.AModel.dset_decoration_args_algo">
+<span class="sig-name descname"><span class="pre">dset_decoration_args_algo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.dset_decoration_args_algo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.dset_decoration_args_algo" title="Link to this definition">¶</a></dt>
+<dd><p>decorate dataset to get extra entries in load item, for instance, jigen need permutation index
+this parent class function delegate decoration to its decoratee</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel.extend">
 <span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.extend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.extend" title="Link to this definition">¶</a></dt>
 <dd><p>extend the loss of the decoratee</p>
@@ -511,12 +533,13 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.a_model.AModel.inner_product">
-<span class="sig-name descname"><span class="pre">inner_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_loss_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_multiplier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.inner_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.inner_product" title="Link to this definition">¶</a></dt>
-<dd><p>compute inner product between list of scalar loss and multiplier
-- the first dimension of the tensor v_reg_loss is mini-batch
-the second dimension is the number of regularizers
-- the vector mmu has dimension the number of regularizers</p>
+<dt class="sig sig-object py" id="domainlab.models.a_model.AModel.list_inner_product">
+<span class="sig-name descname"><span class="pre">list_inner_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_loss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_multiplier</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.list_inner_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.list_inner_product" title="Link to this definition">¶</a></dt>
+<dd><p>compute inner product between list of regularization loss and multiplier
+- the length of the list is the number of regularizers
+- for each element of the list: the first dimension of the tensor is mini-batch
+return value of list_inner_product should keep the minibatch structure, thus aggregation
+here only aggregate along the list</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel.load">
@@ -544,9 +567,9 @@ the second dimension is the number of regularizers
 <dd></dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.a_model_classif">
-<span id="domainlab-models-a-model-classif-module"></span><h2 id="module-domainlab.models.a_model_classif">domainlab.models.a_model_classif module<a class="headerlink" href="#module-domainlab.models.a_model_classif" title="Link to this heading">¶</a></h2>
-<p>operations that all claasification model should have</p>
+<section id="domainlab-models-a-model-classif-module">
+<h2 id="domainlab-models-a-model-classif-module">domainlab.models.a_model_classif module<a class="headerlink" href="#domainlab-models-a-model-classif-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.a_model_classif">operations that all claasification model should have</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.a_model_classif.</span></span><span class="sig-name descname"><span class="pre">AModelClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif" title="Link to this definition">¶</a></dt>
@@ -554,7 +577,7 @@ the second dimension is the number of regularizers
 <p>operations that all classification model should have</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.cal_logit_y">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_logit_y" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.cal_logit_y" title="Link to this definition">¶</a></dt>
 <dd><p>calculate the logit for softmax classification</p>
 </dd></dl>
 <dl class="py method">
@@ -604,7 +627,7 @@ as necessary.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">
-<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat" title="Link to this definition">¶</a></dt>
 <dd><p>by default, use the logit as extracted feature if the current method
 is not being overriden by child class</p>
 </dd></dl>
@@ -634,6 +657,10 @@ n: list of name of class</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metric4msel</span></span><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.metric4msel" title="Link to this definition">¶</a></dt>
 <dd><p>metric for model selection</p>
 </dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.net_classifier">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">net_classifier</span></span><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.net_classifier" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.pred2file">
 <span class="sig-name descname"><span class="pre">pred2file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_te</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spliter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.pred2file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.pred2file" title="Link to this definition">¶</a></dt>
@@ -646,25 +673,25 @@ n: list of name of class</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.args_jigen">
-<span id="domainlab-models-args-jigen-module"></span><h2 id="module-domainlab.models.args_jigen">domainlab.models.args_jigen module<a class="headerlink" href="#module-domainlab.models.args_jigen" title="Link to this heading">¶</a></h2>
-<p>hyper-parameters for JiGen</p>
+<section id="domainlab-models-args-jigen-module">
+<h2 id="domainlab-models-args-jigen-module">domainlab.models.args_jigen module<a class="headerlink" href="#domainlab-models-args-jigen-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.args_jigen">hyper-parameters for JiGen</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.args_jigen.add_args2parser_jigen">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.args_jigen.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_jigen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/args_jigen.html#add_args2parser_jigen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.args_jigen.add_args2parser_jigen" title="Link to this definition">¶</a></dt>
 <dd><p>hyper-parameters for JiGen</p>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.args_vae">
-<span id="domainlab-models-args-vae-module"></span><h2 id="module-domainlab.models.args_vae">domainlab.models.args_vae module<a class="headerlink" href="#module-domainlab.models.args_vae" title="Link to this heading">¶</a></h2>
-<dl class="py function">
+<section id="domainlab-models-args-vae-module">
+<h2 id="domainlab-models-args-vae-module">domainlab.models.args_vae module<a class="headerlink" href="#domainlab-models-args-vae-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.models.args_vae">
 <dt class="sig sig-object py" id="domainlab.models.args_vae.add_args2parser_vae">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.args_vae.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_vae</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/args_vae.html#add_args2parser_vae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.args_vae.add_args2parser_vae" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
-<section id="module-domainlab.models.interface_vae_xyd">
-<span id="domainlab-models-interface-vae-xyd-module"></span><h2 id="module-domainlab.models.interface_vae_xyd">domainlab.models.interface_vae_xyd module<a class="headerlink" href="#module-domainlab.models.interface_vae_xyd" title="Link to this heading">¶</a></h2>
-<p>Base Class for XYD VAE</p>
+<section id="domainlab-models-interface-vae-xyd-module">
+<h2 id="domainlab-models-interface-vae-xyd-module">domainlab.models.interface_vae_xyd module<a class="headerlink" href="#domainlab-models-interface-vae-xyd-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.interface_vae_xyd">Base Class for XYD VAE</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.interface_vae_xyd.InterfaceVAEXYD">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.interface_vae_xyd.</span></span><span class="sig-name descname"><span class="pre">InterfaceVAEXYD</span></span><a class="reference internal" href="_modules/domainlab/models/interface_vae_xyd.html#InterfaceVAEXYD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="Link to this definition">¶</a></dt>
@@ -692,18 +719,13 @@ n: list of name of class</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_custom">
-<span id="domainlab-models-model-custom-module"></span><h2 id="module-domainlab.models.model_custom">domainlab.models.model_custom module<a class="headerlink" href="#module-domainlab.models.model_custom" title="Link to this heading">¶</a></h2>
-<dl class="py class">
+<section id="domainlab-models-model-custom-module">
+<h2 id="domainlab-models-model-custom-module">domainlab.models.model_custom module<a class="headerlink" href="#domainlab-models-model-custom-module" title="Link to this heading">¶</a></h2>
+<dl class="py class" id="module-domainlab.models.model_custom">
 <dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_custom.</span></span><span class="sig-name descname"><span class="pre">AModelCustom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a></p>
 <p>AModelCustom.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.cal_logit_y">
-<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.cal_logit_y" title="Link to this definition">¶</a></dt>
-<dd><p>calculate the logit for softmax classification</p>
-</dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dict_net_module_na2arg_na</span></span><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na" title="Link to this definition">¶</a></dt>
@@ -712,29 +734,15 @@ A dictionary with the key being the pytorch module name and value
 being the commandline argument name</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.infer_y_vpicn">
-<span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.infer_y_vpicn" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>tensor</strong> – input</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p>v - vector of one-hot class label</p></li>
-<li><p>p - vector of probability</p></li>
-<li><p>i - class label index</p></li>
-<li><p>c - confidence: maximum probability</p></li>
-<li><p>n - list of name of class</p></li>
-</ul>
-</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom.extract_semantic_feat" title="Link to this definition">¶</a></dt>
+<dd><p>calculate the logit for softmax classification</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_dann">
-<span id="domainlab-models-model-dann-module"></span><h2 id="module-domainlab.models.model_dann">domainlab.models.model_dann module<a class="headerlink" href="#module-domainlab.models.model_dann" title="Link to this heading">¶</a></h2>
-<p>construct feature extractor, task neural network (e.g. classification) and domain classification
+<section id="domainlab-models-model-dann-module">
+<h2 id="domainlab-models-model-dann-module">domainlab.models.model_dann module<a class="headerlink" href="#domainlab-models-model-dann-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.model_dann">construct feature extractor, task neural network (e.g. classification) and domain classification
 network</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_dann.mk_dann">
@@ -780,11 +788,11 @@ output: prediction of training domain)</p>
 </dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_deep_all">
-<span id="domainlab-models-model-deep-all-module"></span><h2 id="module-domainlab.models.model_deep_all">domainlab.models.model_deep_all module<a class="headerlink" href="#module-domainlab.models.model_deep_all" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="domainlab.models.model_deep_all.mk_deepall">
-<span class="sig-prename descclassname"><span class="pre">domainlab.models.model_deep_all.</span></span><span class="sig-name descname"><span class="pre">mk_deepall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.a_model_classif.AModelClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_deep_all.html#mk_deepall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_deep_all.mk_deepall" title="Link to this definition">¶</a></dt>
+<section id="domainlab-models-model-deep-all-module">
+<h2 id="domainlab-models-model-deep-all-module">domainlab.models.model_deep_all module<a class="headerlink" href="#domainlab-models-model-deep-all-module" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-domainlab.models.model_deep_all">
+<dt class="sig sig-object py" id="domainlab.models.model_deep_all.mk_erm">
+<span class="sig-prename descclassname"><span class="pre">domainlab.models.model_deep_all.</span></span><span class="sig-name descname"><span class="pre">mk_erm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.a_model_classif.AModelClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_deep_all.html#mk_erm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_deep_all.mk_erm" title="Link to this definition">¶</a></dt>
 <dd><p>Instantiate a Deepall (ERM) model</p>
 <dl class="simple">
 <dt>Details:</dt><dd><p>Creates a model, which trains a neural network via standard empirical risk minimization
@@ -800,21 +808,21 @@ domains are pooled together during training.</p>
 <dd class="field-even"><p>model inheriting from parent class</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ModelDeepAll</p>
+<dd class="field-odd"><p>ModelERM</p>
 </dd>
 </dl>
 <dl class="simple">
 <dt>Input Parameters:</dt><dd><p>custom neural network, the output dimension must be the number of labels</p>
 </dd>
 <dt>Usage:</dt><dd><p>For a concrete example, see:
-<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py">https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py</a></p>
+<a class="reference external" href="https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py">https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py</a></p>
 </dd>
 </dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_diva">
-<span id="domainlab-models-model-diva-module"></span><h2 id="module-domainlab.models.model_diva">domainlab.models.model_diva module<a class="headerlink" href="#module-domainlab.models.model_diva" title="Link to this heading">¶</a></h2>
-<p>DIVA</p>
+<section id="domainlab-models-model-diva-module">
+<h2 id="domainlab-models-model-diva-module">domainlab.models.model_diva module<a class="headerlink" href="#domainlab-models-model-diva-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.model_diva">DIVA</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_diva.mk_diva">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.model_diva.</span></span><span class="sig-name descname"><span class="pre">mk_diva</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.model_vae_xyd_classif.VAEXYDClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_diva.html#mk_diva"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_diva.mk_diva" title="Link to this definition">¶</a></dt>
@@ -864,9 +872,9 @@ beta_y: weighting term for class encoder</p>
 </dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_hduva">
-<span id="domainlab-models-model-hduva-module"></span><h2 id="module-domainlab.models.model_hduva">domainlab.models.model_hduva module<a class="headerlink" href="#module-domainlab.models.model_hduva" title="Link to this heading">¶</a></h2>
-<p>Hierarchical Domain Unsupervised Variational Auto-Encoding</p>
+<section id="domainlab-models-model-hduva-module">
+<h2 id="domainlab-models-model-hduva-module">domainlab.models.model_hduva module<a class="headerlink" href="#domainlab-models-model-hduva-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.model_hduva">Hierarchical Domain Unsupervised Variational Auto-Encoding</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_hduva.mk_hduva">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.model_hduva.</span></span><span class="sig-name descname"><span class="pre">mk_hduva</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.model_vae_xyd_classif.VAEXYDClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_hduva.html#mk_hduva"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_hduva.mk_hduva" title="Link to this definition">¶</a></dt>
@@ -918,9 +926,9 @@ topic_dim: size of latent space for topics (int, defaults to 3)</p>
 </dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_jigen">
-<span id="domainlab-models-model-jigen-module"></span><h2 id="module-domainlab.models.model_jigen">domainlab.models.model_jigen module<a class="headerlink" href="#module-domainlab.models.model_jigen" title="Link to this heading">¶</a></h2>
-<p>Jigen Model Similar to DANN model</p>
+<section id="domainlab-models-model-jigen-module">
+<h2 id="domainlab-models-model-jigen-module">domainlab.models.model_jigen module<a class="headerlink" href="#domainlab-models-model-jigen-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.model_jigen">Jigen Model Similar to DANN model</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_jigen.mk_jigen">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.model_jigen.</span></span><span class="sig-name descname"><span class="pre">mk_jigen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_class=&lt;class</span> <span class="pre">'domainlab.models.a_model_classif.AModelClassif'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_jigen.html#mk_jigen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_jigen.mk_jigen" title="Link to this definition">¶</a></dt>
@@ -959,7 +967,9 @@ net_classifier_class: neural network (input: output of net_encoder;
 output: label prediction),
 net_classifier_permutation: neural network (input: output of net_encoder;
 output: prediction of permutation index),
-coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss</p>
+coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss
+nperm: number of permutations to use, by default 31
+prob_permutation: probability of shuffling image tiles</p>
 </dd>
 <dt>Usage:</dt><dd><p>For a concrete example, see:
 <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_jigen.py">https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_jigen.py</a></p>
@@ -967,18 +977,19 @@ coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss</p>
 </dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models.model_vae_xyd_classif">
-<span id="domainlab-models-model-vae-xyd-classif-module"></span><h2 id="module-domainlab.models.model_vae_xyd_classif">domainlab.models.model_vae_xyd_classif module<a class="headerlink" href="#module-domainlab.models.model_vae_xyd_classif" title="Link to this heading">¶</a></h2>
-<p>Base Class for XYD VAE Classify</p>
+<section id="domainlab-models-model-vae-xyd-classif-module">
+<h2 id="domainlab-models-model-vae-xyd-classif-module">domainlab.models.model_vae_xyd_classif module<a class="headerlink" href="#domainlab-models-model-vae-xyd-classif-module" title="Link to this heading">¶</a></h2>
+<p id="module-domainlab.models.model_vae_xyd_classif">Base Class for XYD VAE Classify</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_vae_xyd_classif.</span></span><span class="sig-name descname"><span class="pre">VAEXYDClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_node_builder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_str_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a>, <a class="reference internal" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="domainlab.models.interface_vae_xyd.InterfaceVAEXYD"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceVAEXYD</span></code></a></p>
 <p>Base Class for DIVA and HDUVA</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y">
-<span class="sig-name descname"><span class="pre">cal_logit_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.cal_logit_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y" title="Link to this definition">¶</a></dt>
-<dd><p>calculate the logit for softmax classification</p>
+<dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat">
+<span class="sig-name descname"><span class="pre">extract_semantic_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif.extract_semantic_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat" title="Link to this definition">¶</a></dt>
+<dd><p>by default, use the logit as extracted feature if the current method
+is not being overriden by child class</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.multiplier4task_loss">
@@ -987,9 +998,9 @@ coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss</p>
 </dd></dl>
 </dd></dl>
 </section>
-<section id="module-domainlab.models">
-<span id="module-contents"></span><h2 id="module-domainlab.models">Module contents<a class="headerlink" href="#module-domainlab.models" title="Link to this heading">¶</a></h2>
-</section>
+<section id="module-contents">
+<h2 id="module-contents">Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<span class="target" id="module-domainlab.models"></span></section>
 </section>
 
 
@@ -1011,7 +1022,7 @@ coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> "Previous" </span> domainlab.exp_protocol package </span>
+                      class="md-footer-nav__direction"> Previous </span> domainlab.exp_protocol package </span>
               </div>
             </a>
           
@@ -1021,7 +1032,7 @@ coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss</p>
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> "Next" </span> domainlab.tasks package </span>
+                class="md-footer-nav__direction"> Next </span> domainlab.tasks package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -1035,11 +1046,11 @@ coeff_reg: total_loss = img_class_loss + coeff_reg * perm_task_loss</p>
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -48,7 +48,7 @@
   
   
     <title>domainlab.algos.trainers.train_basic &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
     <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -162,18 +162,19 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
           <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
+          <li class="md-tabs__item"><a href="../../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
     </div>
   </nav>
@@ -234,7 +235,7 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="../../../../doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +249,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="../../../../doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="../../../../docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="../../../../docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -296,6 +311,7 @@ import math
 from operator import add
 import torch
 
+from domainlab import g_tensor_batch_agg
 from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.a_trainer import mk_opt
 
@@ -364,28 +380,20 @@ class TrainerBasic(AbstractTrainer):
         return flag_stop</div>
 
 
-<div class="viewcode-block" id="TrainerBasic.log_r_loss">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss">[docs]</a>
-    def log_r_loss(self, list_b_reg_loss):
+<div class="viewcode-block" id="TrainerBasic.log_loss">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_loss">[docs]</a>
+    def log_loss(self, list_b_reg_loss, loss_task, loss):
         """
         just for logging the self.epo_reg_loss_tr
         """
+        self.epo_task_loss_tr += loss_task.sum().detach().item()
+        #
         list_b_reg_loss_sumed = [ele.sum().detach().item()
                                  for ele in list_b_reg_loss]
         self.epo_reg_loss_tr = list(map(add, self.epo_reg_loss_tr,
-                                        list_b_reg_loss_sumed))</div>
+                                        list_b_reg_loss_sumed))
+        self.epo_loss_tr += loss.detach().item()</div>
 
-
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        """
-        trainer specific regularization loss, by default 0
-        """
-        _ = tensor_y
-        _ = tensor_d
-        _ = others
-        device = tensor_x.device
-        bsize = tensor_x.shape[0]
-        return [torch.zeros(bsize, 1).to(device)], [0.0]
 
 <div class="viewcode-block" id="TrainerBasic.tr_batch">
 <a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_batch">[docs]</a>
@@ -401,7 +409,6 @@ class TrainerBasic(AbstractTrainer):
         loss = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
         loss.backward()
         self.optimizer.step()
-        self.epo_loss_tr += loss.detach().item()
         self.after_batch(epoch, ind_batch)
         self.counter_batch += 1</div>
 
@@ -413,14 +420,16 @@ class TrainerBasic(AbstractTrainer):
         so that user api can use trainer.cal_loss to train
         """
         loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
-        self.epo_task_loss_tr += loss_task.sum().detach().item()
-        #
-        list_reg_tr, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
+
+        list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(tensor_x, tensor_y,
                                                     tensor_d, others)
-        #
-        self.log_r_loss(list_reg_tr)   # just for logging
-        reg_tr = self.model.inner_product(list_reg_tr, list_mu_tr)
-        loss = loss_task.sum() + reg_tr.sum()
+        tensor_batch_reg_loss_penalized = self.model.list_inner_product(
+                list_reg_tr_batch, list_mu_tr)
+        assert len(tensor_batch_reg_loss_penalized.shape) == 1
+        loss_erm_agg = g_tensor_batch_agg(loss_task)
+        loss_reg_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
+        loss = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_agg
+        self.log_loss(list_reg_tr_batch, loss_task, loss)
         return loss</div>
 </div>
 
@@ -444,11 +453,11 @@ class TrainerBasic(AbstractTrainer):
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

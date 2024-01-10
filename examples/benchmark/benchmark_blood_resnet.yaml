@@ -64,7 +64,7 @@ Shared params:
 
 
 diva:  # name
-  aname: diva
+  model: diva
   # set nname_dom = nname when changing nname
   npath_dom: examples/nets/resnet50domainbed.py
   shared:
@@ -81,33 +81,33 @@ diva:  # name
       distribution: loguniform
 
 hduva:  # name
-  aname: hduva
+  model: hduva
 
-  npath_topic_distrib_img2topic: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_layer_img2h4zd: examples/nets/resnet50domainbed.py
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   shared:
     - gamma_y
     - zx_dim
     - zy_dim
     - zd_dim
 
-deepall:  # name
-  aname: deepall
+erm:  # name
+  model: erm
 
 mldg:
-  aname: deepall
+  model: erm
   trainer: mldg
   shared:
     - gamma_reg
 
 dann:
-  aname: dann
+  model: dann
   shared:
     - gamma_reg
 
 
 dial: # name
-  aname: deepall
+  model: erm
   trainer: dial
   shared:
     - gamma_reg

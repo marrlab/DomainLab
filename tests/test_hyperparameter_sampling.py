@@ -116,21 +116,21 @@ def test_gridhyperparameter_errors():
     """Test for the errors which may occour in the sampling of the grid"""
     with pytest.raises(RuntimeError, match="distance between max and min to small"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 0, 'max': 1, 'step': 5,
                                                 'distribution': 'uniform', 'num': 2}}}})
 
     with pytest.raises(RuntimeError, match="distribution \"random\" not implemented"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 0, 'max': 1, 'step': 0,
                                                 'distribution': 'random', 'num': 2}}}})
 
     with pytest.raises(RuntimeError, match="No valid value found"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1':{'min': 2, 'max': 3.5, 'step': 1,
                                                 'distribution': 'uniform', 'num': 2},
@@ -142,7 +142,7 @@ def test_gridhyperparameter_errors():
     with pytest.raises(RuntimeError, match="the number of parameters in the grid "
                                            "direction of p1 needs to be specified"):
         sample_gridsearch({'output_dir': "zoutput/benchmarks/test",
-                           'Task1': {'aname': 'Algo1',
+                           'Task1': {'model': 'Algo1',
                                      'hyperparameters':
                                          {'p1': {'min': 0, 'max': 1, 'step': 0,
                                                  'distribution': 'uniform'}}}})

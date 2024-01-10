@@ -77,8 +77,8 @@ domainlab_args:
     # some of the algorithms do need multiple networks, 
     # all of which can also be paths to a network
     # (i.e. npath_... : examples/nets/resnet50domainbed.py)
-    nname_topic_distrib_img2topic: conv_bn_pool_2
-    nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+    nname_encoder_x2topic_h: conv_bn_pool_2
+    nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
     nname_dom: conv_bn_pool_2
 
 
@@ -108,8 +108,8 @@ Shared params:
 # a unique task name
 
 Task_Diva_Dial:
-    # set the method to be used, if aname is skipped the Task will not be executed
-    aname: diva   
+    # set the method to be used, if model is skipped the Task will not be executed
+    model: diva   
 
     # select a trainer to be used, if trainer is skipped adam is used
     # options: "dial" or "mldg"
@@ -250,7 +250,7 @@ it is possible to have all sorts of combinations:
 1. a task which includes shared and task specific sampled hyperparameters
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 
     # specify sections from the Shared params section 
@@ -267,7 +267,7 @@ Task_Name:
 2. Only task specific sampled hyperparameters
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 
     # specify task specific hyperparameter sampling
@@ -281,7 +281,7 @@ Task_Name:
 3. Only shared sampled hyperparamters
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 
     # specify sections from the Shared params section 
@@ -295,6 +295,6 @@ Task_Name:
 4. No hyperparameter sampling. All Hyperparameters are either fixed to a user defined value or to the default value. No hyperparameter samples indicates no constraints.
 ```yaml
 Task_Name:
-    aname: ...   
+    model: ...   
     ...
 ```

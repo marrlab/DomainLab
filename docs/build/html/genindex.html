@@ -48,7 +48,7 @@
   
   
     <title>Index &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -162,17 +162,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
       </ul>
     </div>
   </nav>
@@ -233,7 +233,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -247,21 +247,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -504,13 +518,7 @@
       <li><a href="domainlab.compos.vae.html#domainlab.compos.vae.c_vae_adaptor_model_recon.AdaptorReconVAEXYD.cal_latent">cal_latent() (domainlab.compos.vae.c_vae_adaptor_model_recon.AdaptorReconVAEXYD method)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.cal_logit_y">cal_logit_y() (domainlab.models.a_model_classif.AModelClassif method)</a>
-
-      <ul>
-        <li><a href="domainlab.models.html#domainlab.models.model_custom.AModelCustom.cal_logit_y">(domainlab.models.model_custom.AModelCustom method)</a>
 </li>
-        <li><a href="domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.cal_logit_y">(domainlab.models.model_vae_xyd_classif.VAEXYDClassif method)</a>
-</li>
-      </ul></li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.cal_loss">cal_loss() (domainlab.algos.trainers.train_basic.TrainerBasic method)</a>
 
       <ul>
@@ -549,10 +557,10 @@
 </li>
       <li><a href="domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase">ChainNodeVAEBuilderClassifCondPriorBase (class in domainlab.compos.vae.zoo_vae_builders_classif)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.utils.html#domainlab.utils.hyperparameter_sampling.check_constraints">check_constraints() (in module domainlab.utils.hyperparameter_sampling)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_classif.ClassifDropoutReluLinear">ClassifDropoutReluLinear (class in domainlab.compos.nn_zoo.net_classif)</a>
 </li>
       <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.clean_up">clean_up() (domainlab.algos.observers.a_observer.AObVisitor method)</a>
@@ -684,17 +692,17 @@
 </li>
       </ul></li>
       <li>
-    domainlab.algos.builder_deepall
-
-      <ul>
-        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_deepall">module</a>
-</li>
-      </ul></li>
-      <li>
     domainlab.algos.builder_diva
 
       <ul>
         <li><a href="domainlab.algos.html#module-domainlab.algos.builder_diva">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.builder_erm
+
+      <ul>
+        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_erm">module</a>
 </li>
       </ul></li>
       <li>
@@ -709,20 +717,6 @@
 
       <ul>
         <li><a href="domainlab.algos.html#module-domainlab.algos.builder_jigen1">module</a>
-</li>
-      </ul></li>
-      <li>
-    domainlab.algos.builder_match_hduva
-
-      <ul>
-        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_match_hduva">module</a>
-</li>
-      </ul></li>
-      <li>
-    domainlab.algos.builder_matchdg
-
-      <ul>
-        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_matchdg">module</a>
 </li>
       </ul></li>
       <li>
@@ -1138,8 +1132,6 @@
         <li><a href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     domainlab.compos.vae.compos.encoder_xyd_parallel
 
@@ -1147,6 +1139,8 @@
         <li><a href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_xyd_parallel">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     domainlab.compos.vae.compos.encoder_xydt_elevator
 
@@ -1631,7 +1625,11 @@
 </li>
       </ul></li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG.dset_decoration_args_algo">dset_decoration_args_algo() (domainlab.algos.trainers.train_matchdg.TrainerMatchDG method)</a>
+
+      <ul>
+        <li><a href="domainlab.models.html#domainlab.models.a_model.AModel.dset_decoration_args_algo">(domainlab.models.a_model.AModel method)</a>
 </li>
+      </ul></li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.utils_task.DsetClassVecDecorator">DsetClassVecDecorator (class in domainlab.tasks.utils_task)</a>
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.utils_task.DsetClassVecDecoratorImgPath">DsetClassVecDecoratorImgPath (class in domainlab.tasks.utils_task)</a>
@@ -1684,24 +1682,32 @@
 </li>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_main.Exp.execute">execute() (domainlab.exp.exp_main.Exp method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_main.Exp">Exp (class in domainlab.exp.exp_main)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor">ExpModelPersistVisitor (class in domainlab.exp.exp_utils)</a>
 </li>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter">ExpProtocolAggWriter (class in domainlab.exp.exp_utils)</a>
 </li>
-      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.extend">extend() (domainlab.algos.trainers.a_trainer.AbstractTrainer method)</a>
+      <li><a href="domainlab.algos.html#domainlab.algos.a_algo_builder.NodeAlgoBuilder.extend">extend() (domainlab.algos.a_algo_builder.NodeAlgoBuilder method)</a>
 
       <ul>
+        <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.extend">(domainlab.algos.trainers.a_trainer.AbstractTrainer method)</a>
+</li>
         <li><a href="domainlab.models.html#domainlab.models.a_model.AModel.extend">(domainlab.models.a_model.AModel method)</a>
 </li>
       </ul></li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.task_folder.NodeTaskFolder.extensions">extensions (domainlab.tasks.task_folder.NodeTaskFolder property)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">extract_semantic_feat() (domainlab.models.a_model_classif.AModelClassif method)</a>
+
+      <ul>
+        <li><a href="domainlab.models.html#domainlab.models.model_custom.AModelCustom.extract_semantic_feat">(domainlab.models.model_custom.AModelCustom method)</a>
 </li>
+        <li><a href="domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat">(domainlab.models.model_vae_xyd_classif.VAEXYDClassif method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -1755,7 +1761,7 @@
 </li>
         <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.forward">(domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool method)</a>
 </li>
-        <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderDense.forward">(domainlab.compos.vae.compos.encoder.LSEncoderDense method)</a>
+        <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderLinear.forward">(domainlab.compos.vae.compos.encoder.LSEncoderLinear method)</a>
 </li>
         <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward">(domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet method)</a>
 </li>
@@ -1790,6 +1796,8 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.html#domainlab.g_list_model_penalized_reg_agg">g_list_model_penalized_reg_agg() (in module domainlab)</a>
+</li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedConv2d">GatedConv2d (class in domainlab.compos.nn_zoo.net_gated)</a>
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedDense">GatedDense (class in domainlab.compos.nn_zoo.net_gated)</a>
@@ -1842,14 +1850,14 @@
         <li><a href="domainlab.dsets.html#domainlab.dsets.dset_mnist_color_solo_default.DsetMNISTColorSoloDefault.get_foreground_color">(domainlab.dsets.dset_mnist_color_solo_default.DsetMNISTColorSoloDefault method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.get_fpath">get_fpath() (domainlab.exp.exp_utils.AggWriter method)</a>
 
       <ul>
         <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.get_fpath">(domainlab.exp.exp_utils.ExpProtocolAggWriter method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="domainlab.utils.html#domainlab.utils.get_git_tag.get_git_tag">get_git_tag() (in module domainlab.utils.get_git_tag)</a>
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.hyperparameter_sampling.get_hyperparameter">get_hyperparameter() (in module domainlab.utils.hyperparameter_sampling)</a>
@@ -1941,11 +1949,7 @@
       <li><a href="domainlab.tasks.html#domainlab.tasks.utils_task.ImSize">ImSize (class in domainlab.tasks.utils_task)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">infer_y_vpicn() (domainlab.models.a_model_classif.AModelClassif method)</a>
-
-      <ul>
-        <li><a href="domainlab.models.html#domainlab.models.model_custom.AModelCustom.infer_y_vpicn">(domainlab.models.model_custom.AModelCustom method)</a>
 </li>
-      </ul></li>
       <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.infer_zy_loc">infer_zy_loc() (domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel method)</a>
 
       <ul>
@@ -1961,17 +1965,13 @@
 </li>
         <li><a href="domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.init_business">(domainlab.algos.builder_dann.NodeAlgoBuilderDANN method)</a>
 </li>
-        <li><a href="domainlab.algos.html#domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll.init_business">(domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll method)</a>
-</li>
         <li><a href="domainlab.algos.html#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA.init_business">(domainlab.algos.builder_diva.NodeAlgoBuilderDIVA method)</a>
+</li>
+        <li><a href="domainlab.algos.html#domainlab.algos.builder_erm.NodeAlgoBuilderERM.init_business">(domainlab.algos.builder_erm.NodeAlgoBuilderERM method)</a>
 </li>
         <li><a href="domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA.init_business">(domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA method)</a>
 </li>
         <li><a href="domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen.init_business">(domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen method)</a>
-</li>
-        <li><a href="domainlab.algos.html#domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA.init_business">(domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA method)</a>
-</li>
-        <li><a href="domainlab.algos.html#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG.init_business">(domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG method)</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.init_business">(domainlab.algos.trainers.a_trainer.AbstractTrainer method)</a>
 </li>
@@ -1996,9 +1996,9 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init_p_zx4batch">init_p_zx4batch() (domainlab.models.interface_vae_xyd.InterfaceVAEXYD method)</a>
+      <li><a href="domainlab.algos.html#domainlab.algos.a_algo_builder.NodeAlgoBuilder.init_next_model">init_next_model() (domainlab.algos.a_algo_builder.NodeAlgoBuilder method)</a>
 </li>
-      <li><a href="domainlab.models.html#domainlab.models.a_model.AModel.inner_product">inner_product() (domainlab.models.a_model.AModel method)</a>
+      <li><a href="domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init_p_zx4batch">init_p_zx4batch() (domainlab.models.interface_vae_xyd.InterfaceVAEXYD method)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD">InterfaceVAEXYD (class in domainlab.models.interface_vae_xyd)</a>
 </li>
@@ -2052,6 +2052,8 @@
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.list_domain_tr">list_domain_tr (domainlab.tasks.a_task.NodeTaskDG property)</a>
 </li>
+      <li><a href="domainlab.models.html#domainlab.models.a_model.AModel.list_inner_product">list_inner_product() (domainlab.models.a_model.AModel method)</a>
+</li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.a_task_classif.NodeTaskDGClassif.list_str_y">list_str_y (domainlab.tasks.a_task_classif.NodeTaskDGClassif property)</a>
 
       <ul>
@@ -2070,15 +2072,15 @@
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.loader_te">loader_te (domainlab.tasks.a_task.NodeTaskDG property)</a>
 </li>
-      <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.loader_tr">loader_tr (domainlab.tasks.a_task.NodeTaskDG property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.loader_tr">loader_tr (domainlab.tasks.a_task.NodeTaskDG property)</a>
+</li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.loader_val">loader_val (domainlab.tasks.a_task.NodeTaskDG property)</a>
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.utils_task.LoaderDomainLabel">LoaderDomainLabel (class in domainlab.tasks.utils_task)</a>
 </li>
-      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_r_loss">log_r_loss() (domainlab.algos.trainers.train_basic.TrainerBasic method)</a>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.log_loss">log_loss() (domainlab.algos.trainers.train_basic.TrainerBasic method)</a>
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.logger.Logger">Logger (class in domainlab.utils.logger)</a>
 </li>
@@ -2094,7 +2096,7 @@
 </li>
       <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool">LSEncoderConvBnReluPool (class in domainlab.compos.vae.compos.encoder)</a>
 </li>
-      <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderDense">LSEncoderDense (class in domainlab.compos.vae.compos.encoder)</a>
+      <li><a href="domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder.LSEncoderLinear">LSEncoderLinear (class in domainlab.compos.vae.compos.encoder)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2105,6 +2107,8 @@
       <li><a href="domainlab.algos.html#domainlab.algos.builder_custom.make_basic_trainer">make_basic_trainer() (in module domainlab.algos.builder_custom)</a>
 </li>
       <li><a href="domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.match_feat_fun_na">match_feat_fun_na (domainlab.models.a_model_classif.AModelClassif attribute)</a>
+</li>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.match_tensor_reshape">match_tensor_reshape() (in module domainlab.algos.trainers.train_matchdg)</a>
 </li>
       <li><a href="domainlab.algos.trainers.compos.html#domainlab.algos.trainers.compos.matchdg_utils.MatchDictInit">MatchDictInit (class in domainlab.algos.trainers.compos.matchdg_utils)</a>
 </li>
@@ -2134,11 +2138,11 @@
 </li>
       <li><a href="domainlab.models.html#domainlab.models.model_dann.mk_dann">mk_dann() (in module domainlab.models.model_dann)</a>
 </li>
-      <li><a href="domainlab.models.html#domainlab.models.model_deep_all.mk_deepall">mk_deepall() (in module domainlab.models.model_deep_all)</a>
-</li>
       <li><a href="domainlab.models.html#domainlab.models.model_diva.mk_diva">mk_diva() (in module domainlab.models.model_diva)</a>
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.utils_classif.mk_dummy_label_list_str">mk_dummy_label_list_str() (in module domainlab.utils.utils_classif)</a>
+</li>
+      <li><a href="domainlab.models.html#domainlab.models.model_deep_all.mk_erm">mk_erm() (in module domainlab.models.model_deep_all)</a>
 </li>
       <li><a href="domainlab.html#domainlab.mk_exp.mk_exp">mk_exp() (in module domainlab.mk_exp)</a>
 </li>
@@ -2184,6 +2188,8 @@
 </li>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.model_dir">model_dir (domainlab.exp.exp_utils.ExpModelPersistVisitor attribute)</a>
 </li>
+      <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.model_sel">model_sel (domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp property)</a>
+</li>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.model_suffix">model_suffix (domainlab.exp.exp_utils.ExpModelPersistVisitor attribute)</a>
 </li>
       <li>
@@ -2202,17 +2208,13 @@
 </li>
         <li><a href="domainlab.algos.html#module-domainlab.algos.builder_dann">domainlab.algos.builder_dann</a>
 </li>
-        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_deepall">domainlab.algos.builder_deepall</a>
-</li>
         <li><a href="domainlab.algos.html#module-domainlab.algos.builder_diva">domainlab.algos.builder_diva</a>
+</li>
+        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_erm">domainlab.algos.builder_erm</a>
 </li>
         <li><a href="domainlab.algos.html#module-domainlab.algos.builder_hduva">domainlab.algos.builder_hduva</a>
 </li>
         <li><a href="domainlab.algos.html#module-domainlab.algos.builder_jigen1">domainlab.algos.builder_jigen1</a>
-</li>
-        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_match_hduva">domainlab.algos.builder_match_hduva</a>
-</li>
-        <li><a href="domainlab.algos.html#module-domainlab.algos.builder_matchdg">domainlab.algos.builder_matchdg</a>
 </li>
         <li><a href="domainlab.algos.msels.html#module-domainlab.algos.msels">domainlab.algos.msels</a>
 </li>
@@ -2501,6 +2503,8 @@
         <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.name">(domainlab.algos.trainers.a_trainer.AbstractTrainer property)</a>
 </li>
       </ul></li>
+      <li><a href="domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.net_classifier">net_classifier (domainlab.models.a_model_classif.AModelClassif property)</a>
+</li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvBnReluPool2L">NetConvBnReluPool2L (class in domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2)</a>
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2.NetConvDense">NetConvDense (class in domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2)</a>
@@ -2515,19 +2519,15 @@
 </li>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN">NodeAlgoBuilderDANN (class in domainlab.algos.builder_dann)</a>
 </li>
-      <li><a href="domainlab.algos.html#domainlab.algos.builder_deepall.NodeAlgoBuilderDeepAll">NodeAlgoBuilderDeepAll (class in domainlab.algos.builder_deepall)</a>
-</li>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA">NodeAlgoBuilderDIVA (class in domainlab.algos.builder_diva)</a>
+</li>
+      <li><a href="domainlab.algos.html#domainlab.algos.builder_erm.NodeAlgoBuilderERM">NodeAlgoBuilderERM (class in domainlab.algos.builder_erm)</a>
 </li>
       <li><a href="domainlab.algos.html#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA">NodeAlgoBuilderHDUVA (class in domainlab.algos.builder_hduva)</a>
 </li>
-      <li><a href="domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">NodeAlgoBuilderJiGen (class in domainlab.algos.builder_jigen1)</a>
-</li>
-      <li><a href="domainlab.algos.html#domainlab.algos.builder_matchdg.NodeAlgoBuilderMatchDG">NodeAlgoBuilderMatchDG (class in domainlab.algos.builder_matchdg)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="domainlab.algos.html#domainlab.algos.builder_match_hduva.NodeAlgoBuilderMatchHDUVA">NodeAlgoBuilderMatchHDUVA (class in domainlab.algos.builder_match_hduva)</a>
+      <li><a href="domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">NodeAlgoBuilderJiGen (class in domainlab.algos.builder_jigen1)</a>
 </li>
       <li><a href="domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG">NodeTaskDG (class in domainlab.tasks.a_task)</a>
 </li>
@@ -2652,7 +2652,7 @@
 </li>
         <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_val.MSelValPerf.reset">(domainlab.algos.msels.c_msel_val.MSelValPerf method)</a>
 </li>
-        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.b_obvisitor.ObVisitor.reset">(domainlab.algos.observers.b_obvisitor.ObVisitor method)</a>
+        <li><a href="domainlab.algos.observers.html#domainlab.algos.observers.a_observer.AObVisitor.reset">(domainlab.algos.observers.a_observer.AObVisitor method)</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.reset">(domainlab.algos.trainers.a_trainer.AbstractTrainer method)</a>
 </li>
@@ -2900,11 +2900,11 @@
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -28,6 +28,14 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def metric4msel(self):
         return "acc"
 
+    @property
+    def net_classifier(self):
+        return self._net_classifier
+
+    @net_classifier.setter
+    def net_classifier(self, net_classifier):
+        self._net_classifier = net_classifier
+
     def create_perf_obj(self, task):
         """
         for classification, dimension of target can be quieried from task
@@ -60,18 +68,20 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         logger = Logger.get_logger()
         logger.info(f"before training, model accuracy: {acc}")
 
+    @abc.abstractmethod
     def extract_semantic_feat(self, tensor_x):
         """
         by default, use the logit as extracted feature if the current method
         is not being overriden by child class
         """
-        return self.cal_logit_y(tensor_x)
 
-    @abc.abstractmethod
     def cal_logit_y(self, tensor_x):
         """
         calculate the logit for softmax classification
         """
+        feat = self.extract_semantic_feat(tensor_x)
+        logits = self.net_classifier(feat)
+        return logits
 
     @store_args
     def __init__(self, list_str_y=None):
@@ -82,6 +92,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         self.list_str_y = list_str_y
         self.perf_metric = None
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
+        self._net_classifier = None
 
     def infer_y_vpicn(self, tensor):
         """
@@ -205,4 +216,4 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         device = tensor_x.device
         bsize = tensor_x.shape[0]
-        return [torch.zeros(bsize, 1).to(device)], [0.0]
+        return [torch.zeros(bsize).to(device)], [0.0]

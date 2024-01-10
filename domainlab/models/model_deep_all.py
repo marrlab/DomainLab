@@ -1,8 +1,9 @@
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
+from domainlab.compos.nn_zoo.nn import LayerId
 
 
-def mk_deepall(parent_class=AModelClassif):
+def mk_erm(parent_class=AModelClassif):
     """
     Instantiate a Deepall (ERM) model
 
@@ -16,17 +17,17 @@ def mk_deepall(parent_class=AModelClassif):
             Class object determining the task type. Defaults to AModelClassif.
 
     Returns:
-        ModelDeepAll: model inheriting from parent class
+        ModelERM: model inheriting from parent class
 
     Input Parameters:
         custom neural network, the output dimension must be the number of labels
 
     Usage:
         For a concrete example, see:
-        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_deepall.py
+        https://github.com/marrlab/DomainLab/blob/tests/test_mk_exp_erm.py
     """
 
-    class ModelDeepAll(parent_class):
+    class ModelERM(parent_class):
         """
         anonymous
         """
@@ -36,13 +37,13 @@ def mk_deepall(parent_class=AModelClassif):
                 list_str_y = [f"class{i}" for i in range(dim_y)]
             super().__init__(list_str_y)
             self.add_module("net", net)
+            self._net_classifier = LayerId()
 
         @override_interface(AModelClassif)
-        def cal_logit_y(self, tensor_x):
+        def extract_semantic_feat(self, tensor_x):
             """
             calculate the logit for softmax classification
             """
             logit_y = self.net(tensor_x)
             return logit_y
-
-    return ModelDeepAll
+    return ModelERM

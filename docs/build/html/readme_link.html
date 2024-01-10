@@ -49,7 +49,7 @@
   
   
     <title>Introduction &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -107,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -165,17 +165,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
       </ul>
     </div>
   </nav>
@@ -236,7 +236,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -250,21 +250,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -280,7 +294,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#readme-link--page-root" class="md-nav__link">Introduction</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -331,7 +345,7 @@
 <section id="distribution-shifts-domain-generalization-and-domainlab">
 <h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Link to this heading">¶</a></h3>
 <p>Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).</p>
-<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software componets thus enhances maximal code reuse.</p>
+<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.</p>
 <p>As an input to the software, the user need to provide</p>
 <ul class="simple">
 <li><p>the neural network to be trained for the task (e.g. classification)</p></li>
@@ -339,17 +353,18 @@
 </ul>
 <p>DomainLab decouples the following concepts or objects:</p>
 <ul class="simple">
-<li><p>neural network: a map from the input data to the feature space and output.</p></li>
+<li><p>neural network: a map from the input data to the feature space and output (e.g. decision variable).</p></li>
 <li><p>model: structural risk in the form of <span class="math notranslate nohighlight">\(\ell() + \mu R()\)</span>  where <span class="math notranslate nohighlight">\(\ell()\)</span> is the task specific empirical loss (e.g. cross entropy for classification task) and <span class="math notranslate nohighlight">\(R()\)</span> is the penalty loss for inter-domain alignment (domain invariant regularization).</p></li>
 <li><p>trainer:  an object that guides the data flow to model and append further domain invariant losses.</p></li>
 </ul>
-<p>DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like <code class="docutils literal notranslate"><span class="pre">Trainer</span> <span class="pre">A(Trainer</span> <span class="pre">B(Model</span> <span class="pre">C(Model</span> <span class="pre">D(network</span> <span class="pre">E),</span> <span class="pre">network</span> <span class="pre">F)))</span></code> which correspond to <span class="math notranslate nohighlight">\(\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()\)</span></p>
+<p>DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code <code class="docutils literal notranslate"><span class="pre">Trainer</span> <span class="pre">A(Trainer</span> <span class="pre">B(Model</span> <span class="pre">C(Model</span> <span class="pre">D(network</span> <span class="pre">E),</span> <span class="pre">network</span> <span class="pre">E,</span> <span class="pre">network</span> <span class="pre">F)))</span></code> which correspond to <span class="math notranslate nohighlight">\(\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()\)</span>, where Model C and Model D share neural network E, but Model C has an extra neural network F.</p>
+<p>We offer detailed documentation on how these models and trainers work in our documentation page: <a class="reference external" href="https://marrlab.github.io/DomainLab/">https://marrlab.github.io/DomainLab/</a></p>
 </section>
 <section id="getting-started">
 <h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h3>
 <section id="installation">
 <h4 id="installation">Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h4>
-<p>For development version in Github, see <a class="reference internal" href="#./docs/doc_intall.md"><span class="xref myst">Installation and Dependencies handling</span></a></p>
+<p>For development version in Github, see <a class="reference internal" href="#./docs/doc_install.md"><span class="xref myst">Installation and Dependencies handling</span></a></p>
 <p>We also offer a PyPI version here <a class="reference external" href="https://pypi.org/project/domainlab/">https://pypi.org/project/domainlab/</a>  which one could install via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">domainlab</span></code> and it is recommended to create a virtual environment for it.</p>
 </section>
 <section id="task-specification">
@@ -361,57 +376,38 @@
 <h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Link to this heading">¶</a></h4>
 <section id="either-clone-this-repo-and-use-command-line">
 <h5 id="either-clone-this-repo-and-use-command-line">Either clone this repo and use command line<a class="headerlink" href="#either-clone-this-repo-and-use-command-line" title="Link to this heading">¶</a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main_out.py</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code>
+where the configuration file below can be downloaded <a class="reference external" href="https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml">here</a></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>te_d: caltech                       # domain name of test domain
+tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
+bs: 2                               # batch size
+model: diva                         # specify model
+epos: 1                             # number of epochs
+trainer: mldg,dial                  # combine trainer MLDG and DIAL
+gamma_y: 700000.0                   # hyperparameter of diva
+gamma_d: 100000.0                   # hyperparameter of diva
+npath: examples/nets/resnet.py      # neural network for class classification
+npath_dom: examples/nets/resnet.py  # neural network for domain classification
+</pre></div>
+</div>
 <p>See details in <a class="reference internal" href="#./docs/doc_usage_cmd.md"><span class="xref myst">Command line usage</span></a></p>
 </section>
 <section id="or-programm-against-domainlab-api">
 <h5 id="or-programm-against-domainlab-api">or Programm against DomainLab API<a class="headerlink" href="#or-programm-against-domainlab-api" title="Link to this heading">¶</a></h5>
-<p>As a user, you need to define neural networks you want to train. As an example, here we define a transformer neural network for classification in the following code.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from torch import nn
-from torchvision.models import vit_b_16
-from torchvision.models.feature_extraction import create_feature_extractor
-
-class VIT(nn.Module):
-    def __init__(self, num_cls, freeze=True,
-                 list_str_last_layer=['getitem_5'],
-                 len_last_layer=768):
-        super().__init__()
-        self.nets = vit_b_16(pretrained=True)
-        if freeze:
-            for param in self.nets.parameters():
-                param.requires_grad = False
-        self.features_vit_flatten = create_feature_extractor(self.nets, return_nodes=list_str_last_layer)
-        self.fc = nn.Linear(len_last_layer, num_cls)
-
-    def forward(self, tensor_x):
-        """
-        compute logits predicts
-        """
-        x = self.features_vit_flatten(tensor_x)['getitem_5']
-        out = self.fc(x)
-        return out
-</pre></div>
-</div>
-<p>Then we plug this neural network in our model:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from domainlab.mk_exp import mk_exp
-from domainlab.tasks import get_task
-from domainlab.models.model_deep_all import mk_deepall
-
-task = get_task("mini_vlcs")
-nn = VIT(num_cls=task.dim_y, freeze=True)
-model = mk_deepall()(nn)
-# use trainer MLDG, DIAL
-exp = mk_exp(task, model, trainer="mldg,dial",   # combine two trainers
-             test_domain="caltech", batchsize=2, nocu=True)
-exp.execute(num_epochs=2)
-</pre></div>
-</div>
+<p>See example here: <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/api/jigen_dann_transformer.py">Transformer as feature extractor, decorate JIGEN with DANN, training using MLDG decorated by DIAL</a></p>
 </section>
 </section>
 <section id="benchmark-different-methods">
 <h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Link to this heading">¶</a></h4>
 <p>DomainLab provides a powerful benchmark functionality.
-To benchmark several algorithms, a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">Benchmarks</span></a></p>
-</section>
+To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <a class="reference internal" href="#./docs/doc_benchmark.md"><span class="xref myst">benchmarks documentation and tutorial</span></a></p>
+<p>One could simply run
+<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">your_benchmark_configuration.yaml</span></code> to launch different experiments with specified configuraiton.</p>
+<p>For example,  the following result (without any augmentation like flip) is for PACS dataset.</p>
+<div style="align: center; text-align:center;">
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/>
+</div>
+where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.</section>
 </section>
 </section>
 </section>
@@ -435,11 +431,11 @@ To benchmark several algorithms, a single line command along with a benchmark co
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

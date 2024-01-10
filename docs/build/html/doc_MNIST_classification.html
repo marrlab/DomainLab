@@ -49,7 +49,7 @@
   
   
     <title>colored MNIST classification &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
@@ -105,7 +105,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -163,17 +163,17 @@
             
             <li class="md-tabs__item"><a href="doc_tasks.html" class="md-tabs__link">Task Specification</a></li>
             
-            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Custom Neural Network</a></li>
+            <li class="md-tabs__item"><a href="doc_custom_nn.html" class="md-tabs__link">Specify neural network in commandline</a></li>
             
             <li class="md-tabs__item"><a href="#" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">Examples by algorithm</a></li>
+            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
             
-            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks</a></li>
+            <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Extend and Contribute</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
       </ul>
     </div>
   </nav>
@@ -234,7 +234,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_dann.html" class="md-nav__link">Model DANN: Domain Adversarial Neural Network</a>
+      <a href="doc_dann.html" class="md-nav__link">Model DANN</a>
       
     
     </li>
@@ -248,21 +248,35 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_diva.html" class="md-nav__link">Model DIVA: Domain Invariant Variational Autoencoders</a>
+      <a href="doc_diva.html" class="md-nav__link">Model DIVA</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG: Domain Generalization using Causal Matching</a>
+      <a href="docMatchDG.html" class="md-nav__link">Trainer MatchDG</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL: Domain Invariant Adversarial Learning</a>
+      <a href="docDIAL.html" class="md-nav__link">Trainer DIAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
     </li>
@@ -278,7 +292,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">"Contents"</label>
+    <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-mnist-classification--page-root" class="md-nav__link">colored MNIST classification</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -286,7 +300,7 @@
         </li>
         <li class="md-nav__item"><a href="#domain-generalisation-on-colored-mnist" class="md-nav__link">domain generalisation on colored MNIST</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#deepall-emperical-risk-minimization" class="md-nav__link">deepall (Emperical Risk Minimization)</a>
+        <li class="md-nav__item"><a href="#erm-emperical-risk-minimization" class="md-nav__link">erm (Emperical Risk Minimization)</a>
         </li>
         <li class="md-nav__item"><a href="#diva" class="md-nav__link">diva</a>
         </li>
@@ -349,16 +363,16 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
 <section id="domain-generalisation-on-colored-mnist">
 <h2 id="domain-generalisation-on-colored-mnist">domain generalisation on colored MNIST<a class="headerlink" href="#domain-generalisation-on-colored-mnist" title="Link to this heading">¶</a></h2>
 <p>A particular hard task for domain generalization is, if only a few training domains are available and the test domain differs a lot from the train domains. Here we use domain 0 and 3, from Figure 2, for the training, while choosing  domain 1 and 2 for testing as the colors appearing here are far different from the ones used in training.</p>
-<p>For our test we like to compare diva and deepall, this was done using the following command prompts:</p>
-<section id="deepall-emperical-risk-minimization">
-<h3 id="deepall-emperical-risk-minimization">deepall (Emperical Risk Minimization)<a class="headerlink" href="#deepall-emperical-risk-minimization" title="Link to this heading">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--aname<span class="o">=</span>deepall<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
+<p>For our test we like to compare diva and erm, this was done using the following command prompts:</p>
+<section id="erm-emperical-risk-minimization">
+<h3 id="erm-emperical-risk-minimization">erm (Emperical Risk Minimization)<a class="headerlink" href="#erm-emperical-risk-minimization" title="Link to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
 </pre></div>
 </div>
 </section>
 <section id="diva">
 <h3 id="diva">diva<a class="headerlink" href="#diva" title="Link to this heading">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--aname<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--gamma_y<span class="o">=</span>1e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--epos<span class="o">=</span><span class="m">500</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--lr<span class="o">=</span>1e-3<span class="w"> </span>--seed<span class="o">=</span><span class="m">0</span><span class="w"> </span>--gamma_y<span class="o">=</span>1e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">8</span>
 </pre></div>
 </div>
 </section>
@@ -378,7 +392,7 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>deepall</p></td>
+<tr class="row-even"><td><p>erm</p></td>
 <td><p>9</p></td>
 <td><p>0.798</p></td>
 <td><p>0.858</p></td>
@@ -407,7 +421,7 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
 <li><p><code class="docutils literal notranslate"><span class="pre">--task=mnistcolor10</span></code> points the program to a task description containing all information about how and where to the training and testing data is saved as well as about transformations which should be done before training. More about this can be found in <em>doc_task.md</em>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--epos=500</span></code> sets the maximal number of epos to 500. This value is set sufficiently high such that the training terminates, by using the early stopping criterion, to ensure full convergence for both algorithms.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--bs=16</span></code> sets the batch size t0 16</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--aname=...</span></code> specifies the algorithm, in our case <code class="docutils literal notranslate"><span class="pre">deepall</span></code> and <code class="docutils literal notranslate"><span class="pre">diva</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--model=...</span></code> specifies the algorithm, in our case <code class="docutils literal notranslate"><span class="pre">erm</span></code> and <code class="docutils literal notranslate"><span class="pre">diva</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--nname=conv_bn_pool_2</span></code> specifies which network structure should be used as an underlying basis for the algorithms. <code class="docutils literal notranslate"><span class="pre">conv_bn_pool_2</span></code> is is already implemented into Domainlab, its structure is given by</p></li>
 </ul>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>nn.Sequential(
@@ -452,11 +466,11 @@ Note that for domain 0 we have red in the background and blue for the digit. Thi
       <div class="md-footer-meta__inner md-grid">
         <div class="md-footer-copyright">
           <div class="md-footer-copyright__highlight">
-              &#169; Copyright 2021-2023, Marr Lab..
+              &#169; Copyright 2021-2024, Marr Lab..
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

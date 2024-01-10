@@ -1,0 +1,37 @@
+domainlab.algos.trainers.compos package
+=======================================
+
+Submodules
+----------
+
+domainlab.algos.trainers.compos.matchdg\_args module
+----------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.compos.matchdg_args
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.trainers.compos.matchdg\_match module
+-----------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.compos.matchdg_match
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.trainers.compos.matchdg\_utils module
+-----------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.compos.matchdg_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: domainlab.algos.trainers.compos
+   :members:
+   :undoc-members:
+   :show-inheritance:
