@@ -96,30 +96,10 @@ def mk_hduva(parent_class=VAEXYDClassif):
             super().__init__(chain_node_builder,
                              zd_dim, zy_dim, zx_dim,
                              list_str_y)
-
             # topic to zd follows Gaussian distribution
             self.add_module("net_p_zd",
                             self.chain_node_builder.construct_cond_prior(
-                                self.topic_dim, self.zd_dim))
-
-        # override interface
-        def _init_components(self):
-            """
-            q(z|x)
-            p(zy)
-            q_{classif}(zy)
-            """
-            self.add_module("encoder", self.chain_node_builder.build_encoder(
-                self.device, self.topic_dim))
-            self.add_module("decoder", self.chain_node_builder.build_decoder(
-                self.topic_dim))
-            self.add_module("net_p_zy",
-                            self.chain_node_builder.construct_cond_prior(
-                                self.dim_y, self.zy_dim))
-            self.add_module("net_classif_y",
-                            self.chain_node_builder.construct_classifier(
-                                self.zy_dim, self.dim_y))
-            self._net_classifier = self.net_classif_y
+                                self.topic_dim, self.zd_dim)
 
         def init_p_topic_batch(self, batch_size, device):
             """

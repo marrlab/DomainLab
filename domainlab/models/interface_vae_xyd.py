@@ -27,9 +27,6 @@ class InterfaceVAEXYD():
         """
         self.add_module("encoder", self.chain_node_builder.build_encoder())
         self.add_module("decoder", self.chain_node_builder.build_decoder())
-        self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(
-                            self.dim_y, self.zy_dim))
 
     def init_p_zx4batch(self, batch_size, device):
         """
