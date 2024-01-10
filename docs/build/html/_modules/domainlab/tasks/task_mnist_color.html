@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.tasks.task_mnist_color &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -317,9 +320,7 @@ from domainlab.tasks.utils_task import ImSize
 from domainlab.utils.utils_classif import mk_dummy_label_list_str
 
 
-<div class="viewcode-block" id="NodeTaskMNISTColor10">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10">[docs]</a>
-class NodeTaskMNISTColor10(NodeTaskDictClassif):
+<div class="viewcode-block" id="NodeTaskMNISTColor10"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10">[docs]</a>class NodeTaskMNISTColor10(NodeTaskDictClassif):
     """
     Use the deafult palette with 10 colors
     """
@@ -332,9 +333,7 @@ class NodeTaskMNISTColor10(NodeTaskDictClassif):
         """image channel, height, width"""
         return ImSize(3, 28, 28)
 
-<div class="viewcode-block" id="NodeTaskMNISTColor10.get_list_domains">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10.get_list_domains">[docs]</a>
-    def get_list_domains(self):
+<div class="viewcode-block" id="NodeTaskMNISTColor10.get_list_domains"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10.get_list_domains">[docs]</a>    def get_list_domains(self):
         """
         1. get list of domain names
         2. better use method than property so new domains can be added
@@ -346,10 +345,7 @@ class NodeTaskMNISTColor10(NodeTaskDictClassif):
             list_domains.append(domain)
         return list_domains</div>
 
-
-<div class="viewcode-block" id="NodeTaskMNISTColor10.get_dset_by_domain">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10.get_dset_by_domain">[docs]</a>
-    def get_dset_by_domain(self, args, na_domain, split=True):  # @FIXME: different number of arguments than parent
+<div class="viewcode-block" id="NodeTaskMNISTColor10.get_dset_by_domain"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_mnist_color.NodeTaskMNISTColor10.get_dset_by_domain">[docs]</a>    def get_dset_by_domain(self, args, na_domain, split=True):  # @FIXME: different number of arguments than parent
         """get_dset_by_domain.
         :param args:
         :param na_domain:
@@ -372,9 +368,7 @@ class NodeTaskMNISTColor10(NodeTaskDictClassif):
             train_len = int(len(dset) * ratio_split)
             val_len = len(dset) - train_len
             train_set, val_set = random_split(dset, [train_len, val_len])
-        return train_set, val_set</div>
-</div>
-
+        return train_set, val_set</div></div>
 </pre></div>
 
           </article>
@@ -399,7 +393,7 @@ class NodeTaskMNISTColor10(NodeTaskDictClassif):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

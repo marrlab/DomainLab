@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.compos.vae.zoo_vae_builders_classif &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -316,16 +319,12 @@ from domainlab.compos.vae.compos.encoder_xyd_parallel import (
     XYDEncoderParallelExtern, XYDEncoderParallelUser)
 
 
-<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase">[docs]</a>
-class ChainNodeVAEBuilderClassifCondPriorBase(
+<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase">[docs]</a>class ChainNodeVAEBuilderClassifCondPriorBase(
     ChainNodeVAEBuilderClassifCondPrior):
     """
     base class of AE builder
     """
-<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.config_img">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.config_img">[docs]</a>
-    def config_img(self, flag, request):
+<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.config_img"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.config_img">[docs]</a>    def config_img(self, flag, request):
         """config_img.
 
         :param flag:
@@ -336,45 +335,30 @@ class ChainNodeVAEBuilderClassifCondPriorBase(
             self.i_h = request.i_h
             self.i_w = request.i_w</div>
 
-
-<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.is_myjob">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.is_myjob">[docs]</a>
-    def is_myjob(self, request):
+<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.is_myjob">[docs]</a>    def is_myjob(self, request):
         """is_myjob.
 
         :param request:
         """
         raise NotImplementedError</div>
 
-
-<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.build_encoder">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.build_encoder">[docs]</a>
-    def build_encoder(self):
+<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.build_encoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.build_encoder">[docs]</a>    def build_encoder(self):
         """build_encoder."""
         raise NotImplementedError</div>
 
-
-<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.build_decoder">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.build_decoder">[docs]</a>
-    def build_decoder(self):
+<div class="viewcode-block" id="ChainNodeVAEBuilderClassifCondPriorBase.build_decoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.build_decoder">[docs]</a>    def build_decoder(self):
         """build_decoder."""
         decoder = DecoderConcatLatentFCReshapeConvGatedConv(
             z_dim=self.zd_dim + self.zx_dim + self.zy_dim,
             i_c=self.i_c, i_w=self.i_w,
             i_h=self.i_h)
-        return decoder</div>
-</div>
+        return decoder</div></div>
 
 
-
-<div class="viewcode-block" id="NodeVAEBuilderArg">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg">[docs]</a>
-class NodeVAEBuilderArg(ChainNodeVAEBuilderClassifCondPriorBase):
+<div class="viewcode-block" id="NodeVAEBuilderArg"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg">[docs]</a>class NodeVAEBuilderArg(ChainNodeVAEBuilderClassifCondPriorBase):
     """Build encoder decoder according to commandline arguments
     """
-<div class="viewcode-block" id="NodeVAEBuilderArg.is_myjob">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg.is_myjob">[docs]</a>
-    def is_myjob(self, request):
+<div class="viewcode-block" id="NodeVAEBuilderArg.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg.is_myjob">[docs]</a>    def is_myjob(self, request):
         """is_myjob.
         :param request:
         """
@@ -385,52 +369,34 @@ class NodeVAEBuilderArg(ChainNodeVAEBuilderClassifCondPriorBase):
             return True
         return False</div>
 
-
-<div class="viewcode-block" id="NodeVAEBuilderArg.build_encoder">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg.build_encoder">[docs]</a>
-    def build_encoder(self):
+<div class="viewcode-block" id="NodeVAEBuilderArg.build_encoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg.build_encoder">[docs]</a>    def build_encoder(self):
         """build_encoder."""
         encoder = XYDEncoderParallelExtern(
             self.zd_dim, self.zx_dim, self.zy_dim, args=self.args,
             i_c=self.i_c,
             i_h=self.i_h,
             i_w=self.i_w)
-        return encoder</div>
-</div>
+        return encoder</div></div>
 
 
-
-<div class="viewcode-block" id="NodeVAEBuilderUser">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser">[docs]</a>
-class NodeVAEBuilderUser(ChainNodeVAEBuilderClassifCondPriorBase):
+<div class="viewcode-block" id="NodeVAEBuilderUser"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser">[docs]</a>class NodeVAEBuilderUser(ChainNodeVAEBuilderClassifCondPriorBase):
     """Build encoders according to test_mk_exp file"""
 
-<div class="viewcode-block" id="NodeVAEBuilderUser.is_myjob">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.is_myjob">[docs]</a>
-    def is_myjob(self, request):
+<div class="viewcode-block" id="NodeVAEBuilderUser.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.is_myjob">[docs]</a>    def is_myjob(self, request):
         flag = not hasattr(request, "args")
         self.request = request
         self.config_img(flag, request)
         return flag</div>
 
-
-<div class="viewcode-block" id="NodeVAEBuilderUser.build_encoder">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.build_encoder">[docs]</a>
-    def build_encoder(self):
+<div class="viewcode-block" id="NodeVAEBuilderUser.build_encoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.build_encoder">[docs]</a>    def build_encoder(self):
         encoder = XYDEncoderParallelUser(self.request.net_class_d,
                                          self.request.net_x,
                                          self.request.net_class_y)
-        return encoder</div>
-</div>
+        return encoder</div></div>
 
 
-
-<div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool">[docs]</a>
-class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
-<div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool.is_myjob">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.is_myjob">[docs]</a>
-    def is_myjob(self, request):
+<div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool">[docs]</a>class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
+<div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.is_myjob">[docs]</a>    def is_myjob(self, request):
         """is_myjob.
 
         :param request:
@@ -440,29 +406,20 @@ class NodeVAEBuilderImgConvBnPool(ChainNodeVAEBuilderClassifCondPriorBase):
         self.config_img(flag, request)
         return flag</div>
 
-
-<div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool.build_encoder">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.build_encoder">[docs]</a>
-    def build_encoder(self):
+<div class="viewcode-block" id="NodeVAEBuilderImgConvBnPool.build_encoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.build_encoder">[docs]</a>    def build_encoder(self):
         """build_encoder."""
         encoder = XYDEncoderParallelConvBnReluPool(
             self.zd_dim, self.zx_dim, self.zy_dim,
             self.i_c,
             self.i_h,
             self.i_w)
-        return encoder</div>
-</div>
+        return encoder</div></div>
 
 
-
-<div class="viewcode-block" id="NodeVAEBuilderImgAlex">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex">[docs]</a>
-class NodeVAEBuilderImgAlex(NodeVAEBuilderImgConvBnPool):
+<div class="viewcode-block" id="NodeVAEBuilderImgAlex"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex">[docs]</a>class NodeVAEBuilderImgAlex(NodeVAEBuilderImgConvBnPool):
     """NodeVAEBuilderImgAlex"""
 
-<div class="viewcode-block" id="NodeVAEBuilderImgAlex.is_myjob">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.is_myjob">[docs]</a>
-    def is_myjob(self, request):
+<div class="viewcode-block" id="NodeVAEBuilderImgAlex.is_myjob"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.is_myjob">[docs]</a>    def is_myjob(self, request):
         """is_myjob.
 
         :param request:
@@ -472,19 +429,14 @@ class NodeVAEBuilderImgAlex(NodeVAEBuilderImgConvBnPool):
         self.config_img(flag, request)
         return flag</div>
 
-
-<div class="viewcode-block" id="NodeVAEBuilderImgAlex.build_encoder">
-<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.build_encoder">[docs]</a>
-    def build_encoder(self):
+<div class="viewcode-block" id="NodeVAEBuilderImgAlex.build_encoder"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.build_encoder">[docs]</a>    def build_encoder(self):
         """build_encoder."""
         encoder = XYDEncoderParallelAlex(
             self.zd_dim, self.zx_dim, self.zy_dim,
             self.i_c,
             self.i_h,
             self.i_w, args=self.args)
-        return encoder</div>
-</div>
-
+        return encoder</div></div>
 </pre></div>
 
           </article>
@@ -509,7 +461,7 @@ class NodeVAEBuilderImgAlex(NodeVAEBuilderImgConvBnPool):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

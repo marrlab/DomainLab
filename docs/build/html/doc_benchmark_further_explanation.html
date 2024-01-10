@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,11 +50,13 @@
   
   
     <title>Further explanations to Benchmark Setup &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -314,7 +317,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="further-explanations-to-benchmark-setup">
-<h1 id="doc-benchmark-further-explanation--page-root">Further explanations to Benchmark Setup<a class="headerlink" href="#doc-benchmark-further-explanation--page-root" title="Link to this heading">¶</a></h1>
+<h1 id="doc-benchmark-further-explanation--page-root">Further explanations to Benchmark Setup<a class="headerlink" href="#doc-benchmark-further-explanation--page-root" title="Permalink to this heading">¶</a></h1>
 <p>The user can create different custom experiments, which are to be benchmarked. Each
 experiment can have a custom name.</p>
 <p>An experiment can specify following arguments:</p>
@@ -382,7 +385,7 @@ can be sampled. <code class="docutils literal notranslate"><span class="pre">0</
 </li>
 </ul>
 <section id="hyperparameter-sampling">
-<h2 id="hyperparameter-sampling">Hyperparameter sampling<a class="headerlink" href="#hyperparameter-sampling" title="Link to this heading">¶</a></h2>
+<h2 id="hyperparameter-sampling">Hyperparameter sampling<a class="headerlink" href="#hyperparameter-sampling" title="Permalink to this heading">¶</a></h2>
 <p>The benchmark offers the option to randomly sample hyperparameters from different distributions.
 An example can be found in <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml">demo_hyperparameter_sampling.yml</a>. We offer two sampling
 techniques, random hyperparameter sampling and grid search. The default sampling mode is random
@@ -414,7 +417,7 @@ hyperparameter (mandatory):</p>
 </ul>
 </section>
 <section id="constraints">
-<h2 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Link to this heading">¶</a></h2>
+<h2 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Permalink to this heading">¶</a></h2>
 <p>The user can specify a list of constraints for the hyperparameters. Please note the following:</p>
 <ul class="simple">
 <li><p>We currently use rejection sampling, to prevent the case of contradictory constraints,
@@ -451,7 +454,7 @@ referencing a reference results in undefined behaviour.</p></li>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

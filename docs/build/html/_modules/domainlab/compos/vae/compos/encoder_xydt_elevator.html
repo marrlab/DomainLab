@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.compos.vae.compos.encoder_xydt_elevator &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
@@ -314,9 +317,7 @@ from domainlab.compos.vae.compos.encoder_zy import \
 from domainlab.utils.utils_class import store_args
 
 
-<div class="viewcode-block" id="XYDTEncoderElevator">
-<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator">[docs]</a>
-class XYDTEncoderElevator(nn.Module):
+<div class="viewcode-block" id="XYDTEncoderElevator"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator">[docs]</a>class XYDTEncoderElevator(nn.Module):
     """
     x-&gt;zx, x-&gt;zy, x-&gt;s, (x,s)-&gt;zd
     """
@@ -326,9 +327,7 @@ class XYDTEncoderElevator(nn.Module):
         self.add_module("net_infer_zx", net_infer_zx)
         self.add_module("net_infer_zy", net_infer_zy)
 
-<div class="viewcode-block" id="XYDTEncoderElevator.forward">
-<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.forward">[docs]</a>
-    def forward(self, img):
+<div class="viewcode-block" id="XYDTEncoderElevator.forward"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.forward">[docs]</a>    def forward(self, img):
         """
         encode img into 3 latent variables separately/parallel
         :param img:
@@ -339,23 +338,16 @@ class XYDTEncoderElevator(nn.Module):
         q_zy, zy_q = self.net_infer_zy(img)
         return q_topic, topic_q, q_zd, zd_q, q_zx, zx_q, q_zy, zy_q</div>
 
-
-<div class="viewcode-block" id="XYDTEncoderElevator.infer_zy_loc">
-<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.infer_zy_loc">[docs]</a>
-    def infer_zy_loc(self, tensor):
+<div class="viewcode-block" id="XYDTEncoderElevator.infer_zy_loc"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.infer_zy_loc">[docs]</a>    def infer_zy_loc(self, tensor):
         """
         Used by VAE model to predict class label
         """
         q_zy, _ = self.net_infer_zy(tensor)
         zy_loc = q_zy.mean
-        return zy_loc</div>
-</div>
+        return zy_loc</div></div>
 
 
-
-<div class="viewcode-block" id="XYDTEncoderArg">
-<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg">[docs]</a>
-class XYDTEncoderArg(XYDTEncoderElevator):
+<div class="viewcode-block" id="XYDTEncoderArg"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg">[docs]</a>class XYDTEncoderArg(XYDTEncoderElevator):
     """
     This class only reimplemented constructor of parent class
     """
@@ -399,11 +391,8 @@ class XYDTEncoderArg(XYDTEncoderElevator):
         super().__init__(net_infer_zd_topic, net_infer_zx, net_infer_zy)</div>
 
 
-
 # To remove
-<div class="viewcode-block" id="XYDTEncoderConvBnReluPool">
-<a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderConvBnReluPool">[docs]</a>
-class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
+<div class="viewcode-block" id="XYDTEncoderConvBnReluPool"><a class="viewcode-back" href="../../../../../domainlab.compos.vae.compos.html#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderConvBnReluPool">[docs]</a>class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
     """
     This class only reimplemented constructor of parent class
     """
@@ -440,7 +429,6 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
             self.zy_dim, self.i_c, self.i_w, self.i_h,
             conv_stride=conv_stride)
         super().__init__(net_infer_zd_topic, net_infer_zx, net_infer_zy)</div>
-
 </pre></div>
 
           </article>
@@ -465,7 +453,7 @@ class XYDTEncoderConvBnReluPool(XYDTEncoderElevator):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

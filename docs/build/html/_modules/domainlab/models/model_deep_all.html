@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.models.model_deep_all &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -304,14 +307,15 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <h1 id="modules-domainlab-models-model-deep-all--page-root">Source code for domainlab.models.model_deep_all</h1><div class="highlight"><pre>
-<span></span>from domainlab.models.a_model_classif import AModelClassif
+<span></span>"""
+Emperical risk minimization
+"""
+from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 from domainlab.compos.nn_zoo.nn import LayerId
 
 
-<div class="viewcode-block" id="mk_erm">
-<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.mk_erm">[docs]</a>
-def mk_erm(parent_class=AModelClassif):
+<div class="viewcode-block" id="mk_erm"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.model_deep_all.mk_erm">[docs]</a>def mk_erm(parent_class=AModelClassif):
     """
     Instantiate a Deepall (ERM) model
 
@@ -339,23 +343,22 @@ def mk_erm(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, net, list_str_y=None):
-            dim_y = list(net.modules())[-1].out_features
+        def __init__(self, net=None, net_feat=None, net_classifier=None, list_str_y=None):
+            if net_feat is None and net_classifier is None and net is not None:
+                net_feat = net
+                net_classifier = LayerId()
+                dim_y = list(net.modules())[-1].out_features
+            elif net_classifier is not None:
+                dim_y = list(net_classifier.modules())[-1].out_features
+            else:
+                raise RuntimeError("specify either a whole network for classification or separate \
+                        feature and classifier")
             if list_str_y is None:
                 list_str_y = [f"class{i}" for i in range(dim_y)]
             super().__init__(list_str_y)
-            self.add_module("net", net)
-            self._net_classifier = LayerId()
-
-        @override_interface(AModelClassif)
-        def extract_semantic_feat(self, tensor_x):
-            """
-            calculate the logit for softmax classification
-            """
-            logit_y = self.net(tensor_x)
-            return logit_y
+            self._net_classifier = net_classifier
+            self._net_invar_feat = net_feat
     return ModelERM</div>
-
 </pre></div>
 
           </article>
@@ -380,7 +383,7 @@ def mk_erm(parent_class=AModelClassif):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -78,6 +78,14 @@ domainlab.algos.builder\_jigen1 module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.utils module
+----------------------------
+
+.. automodule:: domainlab.algos.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.zoo\_algos module
 ---------------------------------
 
