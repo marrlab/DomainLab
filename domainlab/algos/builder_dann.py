@@ -24,6 +24,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         return trainer, model, observer
         """
         task = exp.task
+        self._task = task
         args = exp.args
         task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
@@ -46,17 +47,16 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                                 task.isize.i_w)
 
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
-        net_discriminator = ClassifDropoutReluLinear(
-            dim_feat, len(task.list_domain_tr))
-        
-        
 
+        net_discriminator = self.reset_aux_net(net_encoder)
         model = mk_dann()(list_str_y=task.list_str_y,
                           list_d_tr=task.list_domain_tr,
                           alpha=args.gamma_reg,
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
-                          net_discriminator=net_discriminator)
+                          net_discriminator=net_discriminator,
+                          builder=self)
+
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
@@ -66,3 +66,16 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
         return trainer, model, observer, device
+
+    def reset_aux_net(self, net_encoder):
+        """
+        reset auxilliary neural network from task
+        note that net_encoder can also be a method like extract_semantic_feat
+        """
+        dim_feat = get_flat_dim(net_encoder,
+                                self._task.isize.i_c,
+                                self._task.isize.i_h,
+                                self._task.isize.i_w)
+        net_discriminator = ClassifDropoutReluLinear(
+            dim_feat, len(self._task.list_domain_tr))
+        return net_discriminator
