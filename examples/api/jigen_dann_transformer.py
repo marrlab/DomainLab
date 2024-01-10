@@ -67,7 +67,7 @@ def test_transformer():
     model_jigen.extend(model_dann)  # let Jigen decorate DANN
     model = model_jigen
     # make trainer for model, here we decorate trainer mldg with dial
-    exp = mk_exp(task, model, trainer="mldg,dial",
+    exp = mk_exp(task, model, trainer="mldg_dial",
                  test_domain="caltech", batchsize=2, nocu=True)
     exp.execute(num_epochs=2)
 
