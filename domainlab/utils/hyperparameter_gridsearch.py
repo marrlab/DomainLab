@@ -16,6 +16,8 @@ import domainlab.utils.hyperparameter_sampling as sampling
 from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
+G_MODEL_NA = "model"
+G_METHOD_NA = "method"
 
 def round_to_discreate_grid_uniform(grid, param_config):
     '''
@@ -144,7 +146,7 @@ def add_next_param_from_list(param_grid: dict, grid: dict,
             after one step grid = {p1: 1}
     grid_df: dataframe which will save the finished grids
     task_name: task name
-    also: algo name
+    also: G_MODEL_NA name
     '''
     if len(param_grid.keys()) != 0:
         # specify the parameter to be used
@@ -307,13 +309,13 @@ def grid_task(grid_df: pd.DataFrame, task_name: str, config: dict, shared_df: pd
         # add referenced params and check constraints
         add_references_and_check_constraints(grid_df_prior, grid_df, referenced_params,
                                              config, task_name)
-        if grid_df[grid_df['algo'] == config['model']].shape[0] == 0:
+        if grid_df[grid_df[G_MODEL_NA] == config['model']].shape[0] == 0:
             raise RuntimeError('No valid value found for this grid spacing, refine grid')
         return grid_df
     elif 'shared' in config.keys():
         shared_grid = shared_df.copy()
-        shared_grid['algo'] = config['model']
-        shared_grid['task'] = task_name
+        shared_grid[G_MODEL_NA] = config['model']
+        shared_grid[G_METHOD_NA] = task_name
         if 'constraints' in config.keys():
             config['hyperparameters'] = {'constraints': config['constraints']}
         add_references_and_check_constraints(shared_grid, grid_df, {}, config, task_name)
@@ -340,8 +342,8 @@ def sample_gridsearch(config: dict,
         dest = config['output_dir'] + os.sep + 'hyperparameters.csv'
 
     logger = Logger.get_logger()
-    samples = pd.DataFrame(columns=['task', 'algo', 'params'])
-    shared_samples_full = pd.DataFrame(columns=['task', 'algo', 'params'])
+    samples = pd.DataFrame(columns=[G_METHOD_NA, G_MODEL_NA, 'params'])
+    shared_samples_full = pd.DataFrame(columns=[G_METHOD_NA, G_MODEL_NA, 'params'])
 
     if 'Shared params' in config.keys():
         shared_val = {'model': 'all', 'hyperparameters':  config['Shared params']}
@@ -373,7 +375,7 @@ def sample_gridsearch(config: dict,
 
             samples = grid_task(samples, key, val, shared_samples)
             logger.info(f'number of gridpoints for {key} : '
-                        f'{samples[samples["algo"] == val["model"]].shape[0]}')
+                        f'{samples[samples[G_MODEL_NA] == val["model"]].shape[0]}')
 
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     logger.info(f'number of total sampled gridpoints: {samples.shape[0]}')

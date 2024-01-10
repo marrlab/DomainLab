@@ -1,13 +1,14 @@
 """
 builder for erm
 """
+from domainlab.algos.utils import split_net_feat_last
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
-from domainlab.models.model_deep_all import mk_erm
+from domainlab.models.model_erm import mk_erm
 from domainlab.utils.utils_cuda import get_device
 
 
@@ -33,8 +34,13 @@ class NodeAlgoBuilderERM(NodeAlgoBuilder):
                                     remove_last_layer=False, args=args,
                                     isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w))
 
-        model = mk_erm()(net, list_str_y=task.list_str_y)
+        _, _ = split_net_feat_last(net)
+
+        model = mk_erm()(
+                net=net,
+                # net_feat=net_invar_feat, net_classifier=net_classifier,
+                list_str_y=task.list_str_y)
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="basic")
-        trainer.init_business(model, task, observer, device, args)
+        # trainer.init_business(model, task, observer, device, args)
         return trainer, model, observer, device

@@ -10,7 +10,7 @@ def test_trainer_decorator_matchdg_dial():
     """
     args = "--te_d=0 --task=mnistcolor10 --model=diva \
         --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 \
-        --gamma_y=10e5 --gamma_d=1e5 --trainer=matchdg,dial"
+        --gamma_y=10e5 --gamma_d=1e5 --trainer=matchdg_dial"
     utils_test_algo(args)
 
 
@@ -20,5 +20,5 @@ def test_trainer_decorator_mldg_dial():
     """
     args = "--te_d=0 --task=mnistcolor10 --model=diva \
         --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 \
-        --gamma_y=10e5 --gamma_d=1e5 --trainer=mldg,dial"
+        --gamma_y=10e5 --gamma_d=1e5 --trainer=mldg_dial"
     utils_test_algo(args)

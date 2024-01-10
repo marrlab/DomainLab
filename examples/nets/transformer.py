@@ -8,7 +8,7 @@ from torchvision.models.feature_extraction import create_feature_extractor
 
 from domainlab.mk_exp import mk_exp
 from domainlab.tasks import get_task
-from domainlab.models.model_deep_all import mk_erm
+from domainlab.models.model_erm import mk_erm
 
 
 class VIT(nn.Module):
