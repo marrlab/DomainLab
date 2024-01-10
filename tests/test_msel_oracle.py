@@ -9,7 +9,7 @@ from torchvision.models import ResNet50_Weights
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.observers.b_obvisitor import ObVisitor
-from domainlab.models.model_deep_all import mk_erm
+from domainlab.models.model_erm import mk_erm
 from domainlab.utils.utils_cuda import get_device
 from domainlab.arg_parser import mk_parser_main
 from domainlab.exp.exp_main import Exp
