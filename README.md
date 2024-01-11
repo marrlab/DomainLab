@@ -9,6 +9,9 @@
 ## Distribution shifts, domain generalization and DomainLab
 
 Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
+<div style="align: center; text-align:center;">
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png" style="width:400px;"/> 
+</div>
 
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.
 
