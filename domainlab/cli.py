@@ -7,8 +7,7 @@ from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
 
 def domainlab_cli():
     """
-    This is a copy of main_out.py (found outside of the domainlab directory),
-    so it can be run as a command line tool for the package installed with pip.
+    Function used to run domainlab as a command line tool for the package installed with pip.
     """
     args = parse_cmd_args()
     if args.bm_dir:
