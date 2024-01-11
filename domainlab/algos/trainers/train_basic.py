@@ -96,7 +96,7 @@ class TrainerBasic(AbstractTrainer):
                 list_reg_tr_batch, list_mu_tr)
         assert len(tensor_batch_reg_loss_penalized.shape) == 1
         loss_erm_agg = g_tensor_batch_agg(loss_task)
-        loss_reg_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
-        loss = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_agg
-        self.log_loss(list_reg_tr_batch, loss_task, loss)
-        return loss
+        loss_reg_penalized_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
+        loss_penalized = self.model.multiplier4task_loss * loss_erm_agg + loss_reg_penalized_agg
+        self.log_loss(list_reg_tr_batch, loss_task, loss_penalized)
+        return loss_penalized
