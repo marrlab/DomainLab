@@ -9,6 +9,7 @@
 ## Distribution shifts, domain generalization and DomainLab
 
 Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
+
 <div style="align: center; text-align:center;">
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg" style="width:400px;"/> 
 </div>
@@ -75,6 +76,6 @@ One could simply run
 For example,  the following result (without any augmentation like flip) is for PACS dataset.
 
 <div style="align: center; text-align:center;">
-<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/> 
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows" style="width:800px;"/> 
 </div>
 where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.
