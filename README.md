@@ -10,23 +10,24 @@
 
 Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
 <div style="align: center; text-align:center;">
-<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png" style="width:400px;"/> 
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:400px;"/> 
 </div>
 
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.
 
-As an input to the software, the user need to provide 
-- the neural network to be trained for the task (e.g. classification)
-- task specification which contains dataset(s) from domain(s). 
-
 DomainLab decouples the following concepts or objects:
-- neural network: a map from the input data to the feature space and output (e.g. decision variable).
-- model: structural risk in the form of $\ell() + \mu R()$  where $\ell()$ is the task specific empirical loss (e.g. cross entropy for classification task) and $R()$ is the penalty loss for inter-domain alignment (domain invariant regularization).
-- trainer:  an object that guides the data flow to model and append further domain invariant losses.
-
-DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. 
+- task $M$: a combination of datasets (e.g. from distribution $D_1$ and $D_2$)
+- neural network: a map $\phi$ from the input data to the feature space and a map $\varphi$ from feature space to output $\hat{y}$ (e.g. decision variable).
+- model: structural risk in the form of $\ell() + \mu R()$  where 
+  - $\ell(Y, \hat{y}=\varphi(\phi(X)))$ is the task specific empirical loss (e.g. cross entropy for classification task).
+  - $R(\phi(X))$ is the penalty loss to boost domain invariant feature extraction using $\phi$.
+  - $\mu$ is the corresponding multiplier to each penalty function factor.
+- trainer:  an object that guides the data flow to model and append further domain invariant losses
+like inter-domain feature alignment.
 
 We offer detailed documentation on how these models and trainers work in our documentation page: https://marrlab.github.io/DomainLab/
+
+DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxilliary networks for $R()$.
 
 ## Getting started
 
@@ -75,6 +76,6 @@ One could simply run
 For example,  the following result (without any augmentation like flip) is for PACS dataset.
 
 <div style="align: center; text-align:center;">
-<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png" style="width:800px;"/> 
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/> 
 </div>
 where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.
