@@ -11,8 +11,6 @@ More specifically, HDUVA is based on three latent variables that are used to mod
  <div class="caption">Figure 1: Probabilistic graphical model for HDUVA:Hierarchical Domain Unsupervised Variational Autoencoding. </div>
 </div>
 
-
-
 Note that as part of the model a latent representation of $X$ is concatentated with $s$ and $z_d$ (dashed arrows), requiring respecive encoder networks.
 
 ## Evidence lower bound and overall loss
@@ -42,15 +40,15 @@ In addition to these hyperparameters, the following model parameters can be spec
 
 The user need to specify at least two neural networks for the **encoder** part via 
 
-- `npath_encoder_x2topic_h`:  the python file path of a neural network that maps the image (or other
+-   `npath_encoder_x2topic_h`:  the python file path of a neural network that maps the image (or other
 modal of data to a one dimensional (`topic_dim`) hidden representation serving as input to Dirichlet encoder: `X->h_t(X)->alpha(h_t(X))` where `alpha` is the neural network to map a 1-d hidden layer to dirichlet concentration parameter.
-- `npath_encoder_sandwich_x2h4zd`: the python file path of a neural network that maps the
+
+-   `npath_encoder_sandwich_x2h4zd`: the python file path of a neural network that maps the
 image to a hidden representation (same size as `topic_dim`), which will be used to infere the posterior distribution of `z_d`: `topic(X), X -> [topic(X), h_d(X)] -> zd_mean, zd_scale`
 
 Alternatively, one could use an existing neural network in DomainLab using `nname` instead of `npath`:
 -   `nname_encoder_x2topic_h`
 -   `nname_encoder_sandwich_x2h4zd`
-
 
 ## Hyperparameter for warmup
 Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument `warmup`.
