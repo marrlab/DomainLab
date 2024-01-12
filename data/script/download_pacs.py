@@ -24,18 +24,18 @@ def download_and_extract(url, dst, remove=True):
     gdown.download(url, dst, quiet=False)
 
     if dst.endswith(".tar.gz"):
-        with open(dst, "r:gz") as tar:
+        with tarfile.open(dst, "r:gz") as tar:
             tar.extractall(os.path.dirname(dst))
         tar.close()
 
     if dst.endswith(".tar"):
-        with open(dst, "r:") as tar:
+        with tarfile.open(dst, "r:") as tar:
             tar.extractall(os.path.dirname(dst))
         tar.close()
 
     if dst.endswith(".zip"):
-        zfile = ZipFile(dst, "r")
-        zfile.extractall(os.path.dirname(dst))
+        with ZipFile(dst, "r") as zfile:
+            zfile.extractall(os.path.dirname(dst))
         zfile.close()
 
     if remove:
