@@ -39,6 +39,14 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         """
 
     def extend(self, node):
+        """
+        Extends the current algorithm builder with a new node.
+
+        This method updates the builder by setting the `next_model` attribute to the specified node.
+
+        Args:
+            node: The node to be added to the algorithm builder.
+        """
         self.next_model = node
 
     def init_next_model(self, model, exp):
