@@ -38,7 +38,7 @@ It might be the case that across the different data sources the same class is na
 It might also be the case that some classes exist in one data source but does not exist in another data source. For example, folder "/path/to/2nd_domain/folder_b" does not have a sub-folder for class "human".
 
 Folder structure of the 1st domain:
-```
+```text
     ── /path/to/1st_domain/folder_a
        ├── auto
        ├── hund

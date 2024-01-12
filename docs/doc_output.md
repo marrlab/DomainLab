@@ -4,7 +4,7 @@ By default, this package generates outputs into a folder `zoutput` relative to t
 
 The output structure is something similar to below. ([] means the folder might or might not exist, texts inside () are comments)
 
-```
+```text
 zoutput/
 ├── aggrsts (aggregation of results)
 │   ├── task1_test_domain1_tagName.csv
