@@ -3,13 +3,11 @@ import inspect
 
 
 def store_args(method):
-    """Stores provided method args as instance attributes.
-    """
+    """Stores provided method args as instance attributes."""
     argspec = inspect.getfullargspec(method)
     defaults = {}
     if argspec.defaults is not None:
-        defaults = dict(
-            zip(argspec.args[-len(argspec.defaults):], argspec.defaults))
+        defaults = dict(zip(argspec.args[-len(argspec.defaults) :], argspec.defaults))
     if argspec.kwonlydefaults is not None:
         defaults.update(argspec.kwonlydefaults)
     arg_names = argspec.args[1:]

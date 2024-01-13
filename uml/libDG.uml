@@ -1,17 +1,17 @@
 @startuml
-' 
+'
 ' *--  composition
 ' <|-- extension
 ' o-- aggregation
 ' --  association (1 to n or 1 to 1 or n to 1)
 ' ..>
-'Dependency is a weaker form of bond which indicates that one class depends on 
-'another because it uses it at some point in time. One class depends on 
-'another if the independent class is a parameter variable or local variable of 
-'a method of the dependent class. This is different from an association, where 
-'an attribute of the dependent class is an instance of the independent class. 
-'Sometimes the relationship between two classes is very weak. They are not 
-'implemented with member variables at all. Rather they might be implemented as 
+'Dependency is a weaker form of bond which indicates that one class depends on
+'another because it uses it at some point in time. One class depends on
+'another if the independent class is a parameter variable or local variable of
+'a method of the dependent class. This is different from an association, where
+'an attribute of the dependent class is an instance of the independent class.
+'Sometimes the relationship between two classes is very weak. They are not
+'implemented with member variables at all. Rather they might be implemented as
 'member function arguments.
 package tasks {
   abstract class Task {
@@ -48,7 +48,7 @@ package algos {
   }
   package observer {
     class Observer {
-    + trainer.model.calculate_metric() 
+    + trainer.model.calculate_metric()
     }
   }
   package model_selection {
@@ -56,7 +56,7 @@ package algos {
     - early_stop
     }
   }
-} 
+}
 
 package datasets <<DataBase>>{
   class Dataset {

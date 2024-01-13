@@ -8,6 +8,7 @@ import torch.utils.data as data_utils
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision.utils import save_image
+
 from domainlab.utils.logger import Logger
 
 
@@ -15,7 +16,7 @@ def fun_img_path_loader_default(path):
     """
     https://discuss.pytorch.org/t/handling-rgba-images/88428/4
     """
-    return Image.open(path).convert('RGB')
+    return Image.open(path).convert("RGB")
 
 
 def mk_fun_label2onehot(dim):
@@ -23,12 +24,14 @@ def mk_fun_label2onehot(dim):
     function generator
     index to onehot
     """
+
     def fun_label2onehot(label):
         """
         :param label:
         """
         m_eye = torch.eye(dim)
         return m_eye[label]
+
     return fun_label2onehot
 
 
@@ -67,6 +70,7 @@ class DsetInMemDecorator(Dataset):
     """
     fetch all items of a dataset into memory
     """
+
     def __init__(self, dset, name=None):
         """
         :param dset: x, y, *d

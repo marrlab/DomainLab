@@ -7,13 +7,13 @@ import torch.distributions as dist
 from domainlab.utils.utils_class import store_args
 
 
-class InterfaceVAEXYD():
+class InterfaceVAEXYD:
     """
     Interface (without constructor and inheritance) for XYD VAE
     """
+
     def init(self):
-        self.chain_node_builder.init_business(
-            self.zd_dim, self.zx_dim, self.zy_dim)
+        self.chain_node_builder.init_business(self.zd_dim, self.zx_dim, self.zy_dim)
         self.i_c = self.chain_node_builder.i_c
         self.i_h = self.chain_node_builder.i_h
         self.i_w = self.chain_node_builder.i_w
@@ -27,9 +27,10 @@ class InterfaceVAEXYD():
         """
         self.add_module("encoder", self.chain_node_builder.build_encoder())
         self.add_module("decoder", self.chain_node_builder.build_decoder())
-        self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(
-                            self.dim_y, self.zy_dim))
+        self.add_module(
+            "net_p_zy",
+            self.chain_node_builder.construct_cond_prior(self.dim_y, self.zy_dim),
+        )
 
     def init_p_zx4batch(self, batch_size, device):
         """

@@ -6,8 +6,9 @@ import numpy as np
 import torch.nn as nn
 
 from domainlab.compos.nn_zoo.net_gated import Conv2d, GatedConv2d, GatedDense
-from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv import \
-    DecoderConcatLatentFcReshapeConv
+from domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv import (
+    DecoderConcatLatentFcReshapeConv,
+)
 from domainlab.compos.vae.compos.decoder_losses import NLLPixelLogistic256
 
 
@@ -18,6 +19,7 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
     Latent vector re-arranged to image-size directly, then convolute
     to get the textures of the original image
     """
+
     def __init__(self, z_dim, i_c, i_h, i_w):
         """
         :param z_dim:
@@ -26,9 +28,7 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
         """
         list_im_chw = [i_c, i_h, i_w]
         cls_fun_nll_p_x = NLLPixelLogistic256
-        net_fc_z2flat_img = nn.Sequential(
-            GatedDense(z_dim, np.prod(list_im_chw))
-        )
+        net_fc_z2flat_img = nn.Sequential(GatedDense(z_dim, np.prod(list_im_chw)))
 
         net_conv = nn.Sequential(
             # GatedConv2d
@@ -43,13 +43,23 @@ class DecoderConcatLatentFCReshapeConvGatedConv(DecoderConcatLatentFcReshapeConv
         #
         # hidden image to mean and variance of each pixel
         # stride(1) and kernel size 1, pad 0
-        net_p_x_mean = Conv2d(64, list_im_chw[0], 1, 1, 0,
-                              activation=nn.Sigmoid())
-        net_p_x_log_var = Conv2d(64, list_im_chw[0], 1, 1, 0,
-                                 activation=nn.Hardtanh(min_val=-4.5, max_val=0.))
-        super().__init__(z_dim, i_c, i_h, i_w,
-                         cls_fun_nll_p_x,
-                         net_fc_z2flat_img,
-                         net_conv,
-                         net_p_x_mean,
-                         net_p_x_log_var)
+        net_p_x_mean = Conv2d(64, list_im_chw[0], 1, 1, 0, activation=nn.Sigmoid())
+        net_p_x_log_var = Conv2d(
+            64,
+            list_im_chw[0],
+            1,
+            1,
+            0,
+            activation=nn.Hardtanh(min_val=-4.5, max_val=0.0),
+        )
+        super().__init__(
+            z_dim,
+            i_c,
+            i_h,
+            i_w,
+            cls_fun_nll_p_x,
+            net_fc_z2flat_img,
+            net_conv,
+            net_p_x_mean,
+            net_p_x_log_var,
+        )

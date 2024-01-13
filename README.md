@@ -8,10 +8,10 @@
 
 ## Distribution shifts, domain generalization and DomainLab
 
-Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
+Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).
 
 <div style="align: center; text-align:center;">
-<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:400px;"/> 
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:400px;"/>
 </div>
 
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.
@@ -19,7 +19,7 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 DomainLab decouples the following concepts or objects:
 - task $M$: a combination of datasets (e.g. from distribution $D_1$ and $D_2$)
 - neural network: a map $\phi$ from the input data to the feature space and a map $\varphi$ from feature space to output $\hat{y}$ (e.g. decision variable).
-- model: structural risk in the form of $\ell() + \mu R()$  where 
+- model: structural risk in the form of $\ell() + \mu R()$  where
   - $\ell(Y, \hat{y}=\varphi(\phi(X)))$ is the task specific empirical loss (e.g. cross entropy for classification task).
   - $R(\phi(X))$ is the penalty loss to boost domain invariant feature extraction using $\phi$.
   - $\mu$ is the corresponding multiplier to each penalty function factor.
@@ -35,7 +35,7 @@ DomainLab makes it possible to combine models with models, trainers with models,
 ### Installation
 For development version in Github, see [Installation and Dependencies handling](./docs/doc_install.md)
 
-We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it. 
+We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it.
 
 ### Task specification
 In DomainLab, a task is a container for datasets from different domains. See detail in
@@ -43,13 +43,13 @@ In DomainLab, a task is a container for datasets from different domains. See det
 
 ### Example and usage
 
-#### Either clone this repo and use command line 
+#### Either clone this repo and use command line
 
 `python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml`
 where the configuration file below can be downloaded [here](https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml)
 ```
 te_d: caltech                       # domain name of test domain
-tpath: examples/tasks/task_vlcs.py  # python file path to specify the task 
+tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
 bs: 2                               # batch size
 model: dann_diva                    # combine model DANN with DIVA
 epos: 1                             # number of epochs
@@ -67,16 +67,16 @@ See example here: [Transformer as feature extractor, decorate JIGEN with DANN, t
 
 
 ### Benchmark different methods
-DomainLab provides a powerful benchmark functionality. 
+DomainLab provides a powerful benchmark functionality.
 To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in [benchmarks documentation and tutorial](./docs/doc_benchmark.md)
 
-One could simply run 
-`bash run_benchmark_slurm.sh your_benchmark_configuration.yaml` to launch different experiments with specified configuraiton. 
+One could simply run
+`bash run_benchmark_slurm.sh your_benchmark_configuration.yaml` to launch different experiments with specified configuraiton.
 
 
 For example,  the following result (without any augmentation like flip) is for PACS dataset.
 
 <div style="align: center; text-align:center;">
-<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/> 
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/>
 </div>
 where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.

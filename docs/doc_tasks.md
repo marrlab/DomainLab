@@ -2,10 +2,10 @@
 
 The package offers various ways to specify a domain generalization task (where to find the data, which domain to use as training, which to test) according to user's need.
 
-For all thress ways covered below, the user has to prepare a python file to feed via argument `--tpath` (means task path) into DomainLab.  We provide example python files in our repository [see all examples here for specifying domain generalization task](https://github.com/marrlab/DomainLab/tree/master/examples/tasks) so that the user could follow the example to create their own domain generalization task specification.  We provide inline comment to explain what each line is doing, as well as below in this documentation. 
+For all thress ways covered below, the user has to prepare a python file to feed via argument `--tpath` (means task path) into DomainLab.  We provide example python files in our repository [see all examples here for specifying domain generalization task](https://github.com/marrlab/DomainLab/tree/master/examples/tasks) so that the user could follow the example to create their own domain generalization task specification.  We provide inline comment to explain what each line is doing, as well as below in this documentation.
 
 ## Possibility 1: Specify train and test domain dataset directly
-The most straightforward way to specify a domain generalization task is, if you have already a [PyTorch Dataset](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html) class for each domain: you could define a dictionary with the key being name for domain, and the value being the PyTorch Dataset you created corresponding to that domain (train and validation or only training) 
+The most straightforward way to specify a domain generalization task is, if you have already a [PyTorch Dataset](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html) class for each domain: you could define a dictionary with the key being name for domain, and the value being the PyTorch Dataset you created corresponding to that domain (train and validation or only training)
 [See an example python file here](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/task_dset_custom.py)
 
 To train a ERM (Emperical Risk Minimization) network on this task:
@@ -28,11 +28,11 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 In this mode,  we assume there are structured folders where each folder contains all data from one domain, and each domain folder contains subfolders corresponding to different classes. See examples below.
 
 ### Data organization
-To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name "folder_a", "folder_b" and "folder_c" respectively as shown below. 
+To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name "folder_a", "folder_b" and "folder_c" respectively as shown below.
 
 In each folder, the images are organized in sub-folders by their class. For example, "/path/to/3rd_domain/folder_c/dog" folder contains all the images of class "dog" from the 3rd domain.
 
-It might be the case that across the different data sources the same class is named differently. For example, in the 1st data source, the class dog is stored in sub-folder named 
+It might be the case that across the different data sources the same class is named differently. For example, in the 1st data source, the class dog is stored in sub-folder named
 "hund", in the 2nd data source, the dog is stored in sub-folder named "husky" and in the 3rd data source, the dog is stored in sub-folder named "dog".
 
 It might also be the case that some classes exist in one data source but does not exist in another data source. For example, folder "/path/to/2nd_domain/folder_b" does not have a sub-folder for class "human".
@@ -45,7 +45,7 @@ Folder structure of the 1st domain:
        ├── mensch
        ├── stuhl
        └── vogel
-    
+
 ```
 Folder structure of the 2nd domain:
 
@@ -56,7 +56,7 @@ Folder structure of the 2nd domain:
        ├── sit
        └── husky
 ```
-Folder structure of the 3rd domain: 
+Folder structure of the 3rd domain:
 
 ```
     ── /path/to/3rd_domain/folder_c
@@ -146,7 +146,7 @@ of domain information so only a unique transform (composition) is allowed.
 
 isize: domainlab.tasks.ImSize(image channel, image height, image width)
 
-dict_domain2imgroot: a python dictionary with keys as user specified domain names and values 
+dict_domain2imgroot: a python dictionary with keys as user specified domain names and values
 as the absolute path to each domain's data.
 
 taskna: user defined task name

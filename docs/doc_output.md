@@ -9,11 +9,11 @@ zoutput/
 ├── aggrsts (aggregation of results)
 │   ├── task1_test_domain1_tagName.csv
 │   ├── task2_test_domain3_tagName.csv
-│   
-│  
+│
+│
 ├── [gen] (counterfactual image generation, only exist for generative models with "--gen" specified)
 │   ├── [task1_test_domain1]
-│   
+│
 └── saved_models (persisted pytorch model)
     ├── task1_algo1_git-commit-hashtag1_seed_1_instance_wise_predictions.txt (instance wise prediction of the model)
     ├── [task1_algo1_git-commit-hashtag1_seed_1.model]  (only exist if with command line argument "--keep_model")
