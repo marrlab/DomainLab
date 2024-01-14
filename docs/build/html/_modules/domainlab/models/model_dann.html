@@ -48,7 +48,7 @@
   
   
     <title>domainlab.models.model_dann &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -357,16 +357,25 @@ def mk_dann(parent_class=AModelClassif):
         anonymous
         """
         def __init__(self, list_str_y, list_d_tr,
-                     alpha, net_encoder, net_classifier, net_discriminator):
+                     alpha, net_encoder, net_classifier, net_discriminator, builder=None):
             """
             See documentation above in mk_dann() function
             """
             super().__init__(list_str_y)
             self.list_d_tr = list_d_tr
             self.alpha = alpha
-            self.net_encoder = net_encoder
+            self._net_invar_feat = net_encoder
             self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
+            self.builder = builder
+
+        def reset_aux_net(self):
+            """
+            reset auxilliary neural network: domain classifier
+            """
+            if self.builder is None:
+                return
+            self.net_discriminator =  self.builder.reset_aux_net(self.extract_semantic_feat)
 
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
@@ -382,18 +391,12 @@ def mk_dann(parent_class=AModelClassif):
             """
             return functor_scheduler(trainer=None, alpha=self.alpha)
 
-        def extract_semantic_feat(self, tensor_x):
-            """
-            extract semantic feature
-            """
-            return self.net_encoder(tensor_x)
-
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             _ = others
             _ = tensor_y
-            feat = self.net_encoder(tensor_x)
-            logit_d = self.net_discriminator(
-                AutoGradFunReverseMultiply.apply(feat, self.alpha))
+            feat = self.extract_semantic_feat(tensor_x)
+            net_grad_additive_reverse = AutoGradFunReverseMultiply.apply(feat, self.alpha)
+            logit_d = self.net_discriminator(net_grad_additive_reverse)
             _, d_target = tensor_d.max(dim=1)
             lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
             return [lc_d], [self.alpha]
@@ -423,7 +426,7 @@ def mk_dann(parent_class=AModelClassif):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

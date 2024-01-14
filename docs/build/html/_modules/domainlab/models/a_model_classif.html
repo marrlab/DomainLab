@@ -48,7 +48,7 @@
   
   
     <title>domainlab.models.a_model_classif &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -332,6 +332,13 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     match_feat_fun_na = "cal_logit_y"
 
+<div class="viewcode-block" id="AModelClassif.extend">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extend">[docs]</a>
+    def extend(self, model):
+        super().extend(model)
+        self._net_classifier = model.net_classifier</div>
+
+
     @property
     def metric4msel(self):
         return "acc"
@@ -387,12 +394,13 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
 
 <div class="viewcode-block" id="AModelClassif.extract_semantic_feat">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif.extract_semantic_feat">[docs]</a>
-    @abc.abstractmethod
     def extract_semantic_feat(self, tensor_x):
         """
-        by default, use the logit as extracted feature if the current method
-        is not being overriden by child class
-        """</div>
+        flatten the shape of feature tensor from super()
+        """
+        feat_tensor = super().extract_semantic_feat(tensor_x)
+        feat = feat_tensor.reshape(feat_tensor.shape[0], -1)
+        return feat</div>
 
 
 <div class="viewcode-block" id="AModelClassif.cal_logit_y">
@@ -580,7 +588,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

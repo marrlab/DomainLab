@@ -60,18 +60,18 @@ domainlab.models.model\_dann module
    :undoc-members:
    :show-inheritance:
 
-domainlab.models.model\_deep\_all module
-----------------------------------------
-
-.. automodule:: domainlab.models.model_deep_all
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 domainlab.models.model\_diva module
 -----------------------------------
 
 .. automodule:: domainlab.models.model_diva
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.models.model\_erm module
+----------------------------------
+
+.. automodule:: domainlab.models.model_erm
    :members:
    :undoc-members:
    :show-inheritance:

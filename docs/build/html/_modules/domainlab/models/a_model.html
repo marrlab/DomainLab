@@ -48,7 +48,7 @@
   
   
     <title>domainlab.models.a_model &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -325,6 +325,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         self._decoratee = None
         self.list_d_tr = None
         self.visitor = None
+        self._net_invar_feat = None
 
 <div class="viewcode-block" id="AModel.extend">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.extend">[docs]</a>
@@ -332,7 +333,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         extend the loss of the decoratee
         """
-        self._decoratee = model</div>
+        self._decoratee = model
+        self.reset_feature_extractor(model.net_invar_feat)</div>
 
 
     @property
@@ -435,6 +437,53 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         return self.cal_loss(tensor_x, tensor_y, tensor_d, others)</div>
 
 
+<div class="viewcode-block" id="AModel.extract_semantic_feat">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.extract_semantic_feat">[docs]</a>
+    def extract_semantic_feat(self, tensor_x):
+        """
+        extract semantic feature (not domain feature), note that
+        extract semantic feature is an action, it is more general than
+        calling a static network(module)'s forward function since 
+        there are extra action like reshape the tensor 
+        """
+        if self._decoratee is not None:
+            return self._decoratee.extract_semantic_feat(tensor_x)
+        feat = self._net_invar_feat(tensor_x)
+        return feat</div>
+
+
+    @property
+    def net_invar_feat(self):
+        """
+        if exist, return a neural network for extracting invariant features
+        """
+        return self._net_invar_feat
+
+<div class="viewcode-block" id="AModel.reset_feature_extractor">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.reset_feature_extractor">[docs]</a>
+    def reset_feature_extractor(self, net):
+        """
+        for two models to share the same neural network, the feature extractor has to be reset
+        for classification, both feature extractor and classifier has to be reset
+        """
+        # note if net is None, which means the decoratee does not have net_invar_feat (can be
+        # because there is tensor reshape during forward pass, which can not be represented
+        # by a static neural network, in this case, we simply set self._net_invar_feat to be
+        # None
+        self._net_invar_feat = net
+        self.reset_aux_net()</div>
+
+
+<div class="viewcode-block" id="AModel.reset_aux_net">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.reset_aux_net">[docs]</a>
+    def reset_aux_net(self):
+        """
+        after feature extractor being reset, the input dim of other networks like domain
+        classification will also change (for commandline usage only)
+        """</div>
+
+        # by default doing nothing
+
 <div class="viewcode-block" id="AModel.save">
 <a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model.AModel.save">[docs]</a>
     def save(self, suffix=None):
@@ -500,7 +549,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

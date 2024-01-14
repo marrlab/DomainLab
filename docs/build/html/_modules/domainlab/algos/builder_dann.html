@@ -48,7 +48,7 @@
   
   
     <title>domainlab.algos.builder_dann &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
@@ -104,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -334,6 +334,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         return trainer, model, observer
         """
         task = exp.task
+        self._task = task
         args = exp.args
         task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
@@ -356,17 +357,16 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                                 task.isize.i_w)
 
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
-        net_discriminator = ClassifDropoutReluLinear(
-            dim_feat, len(task.list_domain_tr))
-        
-        
 
+        net_discriminator = self.reset_aux_net(net_encoder)
         model = mk_dann()(list_str_y=task.list_str_y,
                           list_d_tr=task.list_domain_tr,
                           alpha=args.gamma_reg,
                           net_encoder=net_encoder,
                           net_classifier=net_classifier,
-                          net_discriminator=net_discriminator)
+                          net_discriminator=net_discriminator,
+                          builder=self)
+
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
@@ -376,6 +376,22 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
                                   flag_update_epoch=False,
                                   flag_update_batch=True)
         return trainer, model, observer, device</div>
+
+
+<div class="viewcode-block" id="NodeAlgoBuilderDANN.reset_aux_net">
+<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.reset_aux_net">[docs]</a>
+    def reset_aux_net(self, net_encoder):
+        """
+        reset auxilliary neural network from task
+        note that net_encoder can also be a method like extract_semantic_feat
+        """
+        dim_feat = get_flat_dim(net_encoder,
+                                self._task.isize.i_c,
+                                self._task.isize.i_h,
+                                self._task.isize.i_w)
+        net_discriminator = ClassifDropoutReluLinear(
+            dim_feat, len(self._task.list_domain_tr))
+        return net_discriminator</div>
 </div>
 
 </pre></div>
@@ -402,7 +418,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
