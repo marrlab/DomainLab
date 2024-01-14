@@ -41,4 +41,4 @@ jobs:
     - name: test if examples in markdown works
       run: bash -x -v ci_run_examples.sh
     - name: test if benchmark works
-      run: pip install snakemake && sed -i '1s/^/#!\/bin\/bash -x -v\n/' run_benchmark_standalone.sh && bash -x -v run_benchmark_standalone.sh examples/benchmark/demo_shared_hyper_grid.yaml && cat zoutput/benchmarks/mnist_benchmark_grid/hyperparameters.csv && cat zoutput/benchmarks/mnist_benchmark_grid/results.csv
+      run: pip install snakemake==7.32.2 && sed -i '1s/^/#!\/bin\/bash -x -v\n/' run_benchmark_standalone.sh && bash -x -v run_benchmark_standalone.sh examples/benchmark/demo_shared_hyper_grid.yaml && cat zoutput/benchmarks/mnist_benchmark_grid/hyperparameters.csv && cat zoutput/benchmarks/mnist_benchmark_grid/results.csv
