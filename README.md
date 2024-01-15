@@ -10,10 +10,6 @@
 
 Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions). 
 
-<div style="align: center; text-align:center;">
-<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:400px;"/> 
-</div>
-
 DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.
 
 DomainLab decouples the following concepts or objects:
@@ -30,6 +26,10 @@ We offer detailed documentation on how these models and trainers work in our doc
 
 DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxilliary networks for $R()$.
 
+<div style="align: center; text-align:center;">
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:300px;"/> 
+</div>
+
 ## Getting started
 
 ### Installation
@@ -39,7 +39,7 @@ We also offer a PyPI version here https://pypi.org/project/domainlab/  which one
 
 ### Task specification
 In DomainLab, a task is a container for datasets from different domains. See detail in
-[Task Specification](./docs/doc_tasks.md)
+[Task Specification](./docs/doc_tasks.md) Task offer a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, wich dataset(s) used for testing. 
 
 ### Example and usage
 
@@ -74,9 +74,12 @@ One could simply run
 `bash run_benchmark_slurm.sh your_benchmark_configuration.yaml` to launch different experiments with specified configuraiton. 
 
 
-For example,  the following result (without any augmentation like flip) is for PACS dataset.
+For example,  the following result (without any augmentation like flip) is for PACS dataset using ResNet. 
 
 <div style="align: center; text-align:center;">
+<figure>  
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/> 
+<figcaption>Benchmark results plot generated from DomainLab</figcaption>
+</figure>
 </div>
 where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.
