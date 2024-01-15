@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.mk_exp &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../_static/material.css?v=79c92029" />
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/material.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -104,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -311,9 +314,7 @@ from domainlab.arg_parser import mk_parser_main
 from domainlab.exp.exp_main import Exp
 
 
-<div class="viewcode-block" id="mk_exp">
-<a class="viewcode-back" href="../../domainlab.html#domainlab.mk_exp.mk_exp">[docs]</a>
-def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int, nocu=False):
+<div class="viewcode-block" id="mk_exp"><a class="viewcode-back" href="../../domainlab.html#domainlab.mk_exp.mk_exp">[docs]</a>def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int, nocu=False):
     """
     Creates a custom experiment. The user can specify the input parameters.
 
@@ -337,7 +338,6 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int, nocu=Fal
     conf = parser.parse_args(str_arg.split())
     exp = Exp(conf, task, model=model)
     return exp</div>
-
 </pre></div>
 
           </article>
@@ -362,7 +362,7 @@ def mk_exp(task, model, trainer: str, test_domain: str, batchsize: int, nocu=Fal
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.algos.trainers.train_dial &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -104,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder=""Search""
+      <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -313,15 +316,11 @@ from torch.autograd import Variable
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
-<div class="viewcode-block" id="TrainerDIAL">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL">[docs]</a>
-class TrainerDIAL(TrainerBasic):
+<div class="viewcode-block" id="TrainerDIAL"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL">[docs]</a>class TrainerDIAL(TrainerBasic):
     """
     Trainer Domain Invariant Adversarial Learning
     """
-<div class="viewcode-block" id="TrainerDIAL.gen_adversarial">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial">[docs]</a>
-    def gen_adversarial(self, device, img_natural, vec_y):
+<div class="viewcode-block" id="TrainerDIAL.gen_adversarial"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial">[docs]</a>    def gen_adversarial(self, device, img_natural, vec_y):
         """
         use naive trimming to find optimize img in the direction of adversarial gradient,
         this is not necessarily constraint optimal due to nonlinearity,
@@ -345,7 +344,6 @@ class TrainerDIAL(TrainerBasic):
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv</div>
 
-
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         Let trainer behave like a model, so that other trainer could use it
@@ -356,7 +354,6 @@ class TrainerDIAL(TrainerBasic):
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
         loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
         return [loss_dial], [self.aconf.gamma_reg]</div>
-
 </pre></div>
 
           </article>
@@ -381,7 +378,7 @@ class TrainerDIAL(TrainerBasic):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
