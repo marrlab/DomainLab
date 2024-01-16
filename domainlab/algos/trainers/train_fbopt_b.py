@@ -134,7 +134,10 @@ class TrainerFbOpt(TrainerBasic):
             logger = Logger.get_logger()
             logger.info(f"current multiplier: {self.model.dict_multiplier}")
 
-        flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
+        if self._decoratee is not None:
+            flag = self._decoratee.tr_epoch(epoch, self.flag_setpoint_updated)
+        else:
+            flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?
         self.flag_setpoint_updated = self.hyper_scheduler.update_setpoint(
             self.epo_reg_loss_tr, self.epo_task_loss_tr)

@@ -38,7 +38,7 @@ class TrainerMatchDG(AbstractTrainer):
         self.tuple_tensor_ref_domain2each_y = None
         self.tuple_tensor_refdomain2each = None
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         """
         # data in one batch comes from two sources: one part from loader,
         # the other part from match tensor
