@@ -65,20 +65,22 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             """
             gamma: classification loss coefficient
             """
-            super().__init__(chain_node_builder,
-                             zd_dim, zy_dim, zx_dim,
-                             list_str_y)
+            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y)
             self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:
                 self.add_module(
                     "net_p_zd",
                     self.chain_node_builder.construct_cond_prior(
-                        self.dim_d_tr, self.zd_dim))
+                        self.dim_d_tr, self.zd_dim
+                    ),
+                )
                 self.add_module(
                     "net_classif_d",
                     self.chain_node_builder.construct_classifier(
-                        self.zd_dim, self.dim_d_tr))
+                        self.zd_dim, self.dim_d_tr
+                    ),
+                )
 
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
@@ -137,17 +139,20 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
 
             zd_p_minus_zd_q = g_inst_component_loss_agg(
-                p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1)
+                p_zd.log_prob(zd_q) - q_zd.log_prob(zd_q), 1
+            )
             # without aggregation, shape is [batchsize, zd_dim]
             zx_p_minus_zx_q = torch.zeros_like(zd_p_minus_zd_q)
             if self.zx_dim > 0:
                 # torch.sum will return 0 for empty tensor,
                 # torch.mean will return nan
                 zx_p_minus_zx_q = g_inst_component_loss_agg(
-                    p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1)
+                    p_zx.log_prob(zx_q) - q_zx.log_prob(zx_q), 1
+                )
 
             zy_p_minus_zy_q = g_inst_component_loss_agg(
-                p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1)
+                p_zy.log_prob(zy_q) - q_zy.log_prob(zy_q), 1
+            )
 
             _, d_target = tensor_d.max(dim=1)
 

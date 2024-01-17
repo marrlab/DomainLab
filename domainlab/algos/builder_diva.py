@@ -10,7 +10,6 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.observers.c_obvisitor_gen import ObVisitorGen
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
-
 from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
 from domainlab.models.model_diva import mk_diva
@@ -21,6 +20,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
     """
     Builder pattern to build different component for experiment with DIVA
     """
+
     def get_trainer(self, args):
         """
         chain of responsibility pattern for fetching trainer from dictionary
@@ -34,8 +34,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         """
         task = exp.task
         args = exp.args
-        request = RequestVAEBuilderCHW(
-            task.isize.c, task.isize.h, task.isize.w, args)
+        request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
         task.get_list_domains_tr_te(args.tr_d, args.te_d)
         model = mk_diva(str_diva_multiplier_type=args.str_diva_multiplier_type)(node,

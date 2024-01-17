@@ -6,7 +6,7 @@ Suppose you have cloned the repository and have the dependencies ready, change d
 To train a domain invariant model on the vlcs_mini task
 
 ```shell
-python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --config=examples/yaml/demo_config_single_run_diva.yaml 
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --config=examples/yaml/demo_config_single_run_diva.yaml
 ```
 where `--tpath` specifies the path of a user specified python file which defines the domain generalization task [see here](../examples/tasks/task_vlcs.py), `--te_d` specifies the test domain name (or index starting from 0), `--config` specifies the configurations of the domain generalization algorithms, [see here](../examples/yaml/demo_config_single_run_diva.yaml)
 

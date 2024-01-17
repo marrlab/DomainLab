@@ -4,6 +4,7 @@ operations that all claasification model should have
 
 import abc
 import math
+
 import numpy as np
 import pandas as pd
 import torch
@@ -11,17 +12,18 @@ from torch import nn
 from torch.nn import functional as F
 
 from domainlab.models.a_model import AModel
-from domainlab.utils.utils_class import store_args
-from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
+from domainlab.utils.logger import Logger
 from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
-from domainlab.utils.logger import Logger
+from domainlab.utils.utils_class import store_args
+from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have
     """
+
     match_feat_fun_na = "cal_logit_y"
 
     def extend(self, model):
@@ -143,9 +145,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y
 
-    def pred2file(self, loader_te, device, filename,
-                  metric_te,
-                  spliter="#"):
+    def pred2file(self, loader_te, device, filename, metric_te, spliter="#"):
         """
         pred2file dump predicted label to file as sanity check
         """
@@ -157,31 +157,40 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             _, prob, *_ = model_local.infer_y_vpicn(x_s)
             list_pred_prob_list = prob.tolist()
             list_target_list = y_s.tolist()
-            list_target_scalar = [np.asarray(label).argmax() for label in list_target_list]
+            list_target_scalar = [
+                np.asarray(label).argmax() for label in list_target_list
+            ]
             tuple_zip = zip(path4instance, list_target_scalar, list_pred_prob_list)
             list_pair_path_pred = list(tuple_zip)
-            with open(filename, 'a', encoding="utf8") as handle_file:
+            with open(filename, "a", encoding="utf8") as handle_file:
                 for list4one_obs_path_prob_target in list_pair_path_pred:
                     list_str_one_obs_path_target_predprob = [
-                        str(ele) for ele in list4one_obs_path_prob_target]
-                    str_line = (" "+spliter+" ").join(list_str_one_obs_path_target_predprob)
+                        str(ele) for ele in list4one_obs_path_prob_target
+                    ]
+                    str_line = (" " + spliter + " ").join(
+                        list_str_one_obs_path_target_predprob
+                    )
                     str_line = str_line.replace("[", "")
                     str_line = str_line.replace("]", "")
                     print(str_line, file=handle_file)
         logger.info(f"prediction saved in file {filename}")
         file_acc = self.read_prediction_file(filename, spliter)
-        acc_metric_te = metric_te['acc']
+        acc_metric_te = metric_te["acc"]
         flag1 = math.isclose(file_acc, acc_metric_te, rel_tol=1e-9, abs_tol=0.01)
         acc_raw1 = PerfClassif.cal_acc(self, loader_te, device)
         acc_raw2 = PerfClassif.cal_acc(self, loader_te, device)
-        flag_raw_consistency = math.isclose(acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01)
+        flag_raw_consistency = math.isclose(
+            acc_raw1, acc_raw2, rel_tol=1e-9, abs_tol=0.01
+        )
         flag2 = math.isclose(file_acc, acc_raw1, rel_tol=1e-9, abs_tol=0.01)
         if not (flag1 & flag2 & flag_raw_consistency):
-            str_info = f"inconsistent acc: \n" \
-                       f"prediction file acc generated using the current model is {file_acc} \n" \
-                       f"input torchmetric acc to the current function: {acc_metric_te} \n" \
-                       f"raw acc 1 {acc_raw1} \n" \
-                       f"raw acc 2 {acc_raw2} \n"
+            str_info = (
+                f"inconsistent acc: \n"
+                f"prediction file acc generated using the current model is {file_acc} \n"
+                f"input torchmetric acc to the current function: {acc_metric_te} \n"
+                f"raw acc 1 {acc_raw1} \n"
+                f"raw acc 2 {acc_raw2} \n"
+            )
             raise RuntimeError(str_info)
         return file_acc
 
@@ -189,7 +198,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         """
         check if the written fiel could calculate acc
         """
-        with open(filename, 'r', encoding="utf8") as handle_file:
+        with open(filename, "r", encoding="utf8") as handle_file:
             list_lines = [line.strip().split(spliter) for line in handle_file]
         count_correct = 0
         for line in list_lines:

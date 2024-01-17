@@ -15,6 +15,7 @@ class ObVisitor(AObVisitor):
     """
     Observer + Visitor pattern for model selection
     """
+
     def __init__(self, model_sel):
         """
         observer trainer
@@ -48,16 +49,17 @@ class ObVisitor(AObVisitor):
         self.epo = epoch
         if epoch % self.epo_te == 0:
             logger.info("---- Training Domain: ")
-            self.host_trainer.model.cal_perf_metric(
-                self.loader_tr, self.device)
+            self.host_trainer.model.cal_perf_metric(self.loader_tr, self.device)
             if self.loader_val is not None:
                 logger.info("---- Validation: ")
                 self.metric_val = self.host_trainer.model.cal_perf_metric(
-                    self.loader_val, self.device)
+                    self.loader_val, self.device
+                )
             if self.loader_te is not None:
                 logger.info("---- Test Domain (oracle): ")
                 metric_te = self.host_trainer.model.cal_perf_metric(
-                    self.loader_te, self.device)
+                    self.loader_te, self.device
+                )
                 self.metric_te = metric_te
         if self.model_sel.update(flag_info):
             logger.info("better model found")
@@ -79,7 +81,7 @@ class ObVisitor(AObVisitor):
         """
         self.host_trainer = trainer
         self.model_sel.accept(trainer, self)
-        self.set_task(trainer.task, args=trainer.aconf,  device=trainer.device)
+        self.set_task(trainer.task, args=trainer.aconf, device=trainer.device)
         self.perf_metric = self.host_trainer.model.create_perf_obj(self.task)
 
     def after_all(self):
@@ -95,10 +97,12 @@ class ObVisitor(AObVisitor):
             # this can happen if loss is increasing, model never get selected
             logger = Logger.get_logger()
             logger.warning(err)
-            logger.warning("this error can occur if model selection criteria \
+            logger.warning(
+                "this error can occur if model selection criteria \
                            is worsening, "
-                           "model never get persisted, \
-                           no performance metric is reported")
+                "model never get persisted, \
+                           no performance metric is reported"
+            )
             return
         model_ld = model_ld.to(self.device)
         model_ld.eval()
@@ -147,22 +151,22 @@ class ObVisitor(AObVisitor):
             model_ld to predict each instance
         """
         flag_task_folder = isinstance(
-            self.host_trainer.task, NodeTaskFolderClassNaMismatch)
-        flag_task_path_list = isinstance(
-            self.host_trainer.task, NodeTaskPathListDummy)
+            self.host_trainer.task, NodeTaskFolderClassNaMismatch
+        )
+        flag_task_path_list = isinstance(self.host_trainer.task, NodeTaskPathListDummy)
         if flag_task_folder or flag_task_path_list:
-            fname4model = self.host_trainer.model.visitor.model_path  # pylint: disable=E1101
+            fname4model = (
+                self.host_trainer.model.visitor.model_path
+            )  # pylint: disable=E1101
             file_prefix = os.path.splitext(fname4model)[0]  # remove ".model"
             dir4preds = os.path.join(self.host_trainer.aconf.out, "saved_predicts")
             if not os.path.exists(dir4preds):
                 os.mkdir(dir4preds)
-            file_prefix = os.path.join(dir4preds,
-                                       os.path.basename(file_prefix))
+            file_prefix = os.path.join(dir4preds, os.path.basename(file_prefix))
             file_name = file_prefix + "_instance_wise_predictions.txt"
             model_ld.pred2file(
-                self.loader_te, self.device,
-                filename=file_name,
-                metric_te=metric_te)
+                self.loader_te, self.device, filename=file_name, metric_te=metric_te
+            )
 
     def clean_up(self):
         """

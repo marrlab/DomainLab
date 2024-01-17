@@ -11,10 +11,10 @@ class DsetMNISTColorSoloDefault(ADsetMNISTColorRGBSolo):
         return len(self.palette)
 
     def get_background_color(self, ind):
-        if self.color_scheme == 'back':
+        if self.color_scheme == "back":
             return self.palette[ind]
-        if self.color_scheme == 'both':
-            return self.palette[-(ind-3)]
+        if self.color_scheme == "both":
+            return self.palette[-(ind - 3)]
         # only array can be multiplied with number 255 directly
         return self.palette[ind]
         # "num" do not use background at all

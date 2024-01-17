@@ -1,11 +1,13 @@
 """
 unit and end-end test for deep all, dann
 """
-import os
 import gc
+import os
+
 import torch
-from domainlab.exp.exp_main import Exp
+
 from domainlab.arg_parser import mk_parser_main
+from domainlab.exp.exp_main import Exp
 from tests.utils_test import utils_test_algo
 
 
@@ -14,11 +16,20 @@ def test_erm():
     unit deep all
     """
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--task", "mini_vlcs",
-                               "--model", "erm", "--bs", "2",
-                               "--nname", "conv_bn_pool_2"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--task",
+            "mini_vlcs",
+            "--model",
+            "erm",
+            "--bs",
+            "2",
+            "--nname",
+            "conv_bn_pool_2",
+        ]
+    )
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
@@ -37,11 +48,20 @@ def test_erm_res():
     path = os.path.join(rootdir, "examples/nets/resnet.py")
 
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--task", "mini_vlcs",
-                               "--model", "erm", "--bs", "2",
-                               "--npath", f"{path}"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--task",
+            "mini_vlcs",
+            "--model",
+            "erm",
+            "--bs",
+            "2",
+            "--npath",
+            f"{path}",
+        ]
+    )
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
@@ -60,12 +80,20 @@ def test_erm_resdombed():
     path = os.path.join(rootdir, "examples/nets/resnet50domainbed.py")
 
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--task", "mini_vlcs",
-                               "--model", "erm",
-                               "--bs", "2",
-                               "--npath", f"{path}"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--task",
+            "mini_vlcs",
+            "--model",
+            "erm",
+            "--bs",
+            "2",
+            "--npath",
+            f"{path}",
+        ]
+    )
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
@@ -79,12 +107,22 @@ def test_dann():
     domain adversarial neural network
     """
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--task", "mini_vlcs",
-                               "--model", "dann", "--bs", "2",
-                               "--nname", "conv_bn_pool_2",
-                               "--gamma_reg", "1.0"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--task",
+            "mini_vlcs",
+            "--model",
+            "dann",
+            "--bs",
+            "2",
+            "--nname",
+            "conv_bn_pool_2",
+            "--gamma_reg",
+            "1.0",
+        ]
+    )
     exp = Exp(margs)
     exp.execute()
     del exp
@@ -103,14 +141,25 @@ def test_dann_dial():
 def test_sanity_check():
     """Sanity check of the dataset"""
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--task", "mini_vlcs",
-                               "--model", "dann", "--bs", "2",
-                               "--nname", "conv_bn_pool_2",
-                               "--gamma_reg", "1.0",
-                               "--san_check",
-                               "--san_num", "4"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--task",
+            "mini_vlcs",
+            "--model",
+            "dann",
+            "--bs",
+            "2",
+            "--nname",
+            "conv_bn_pool_2",
+            "--gamma_reg",
+            "1.0",
+            "--san_check",
+            "--san_num",
+            "4",
+        ]
+    )
     exp = Exp(margs)
     exp.execute()
     del exp

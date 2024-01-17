@@ -4,14 +4,15 @@ Template class to inherit from if user need custom neural network
 import torch
 from torch.nn import functional as F
 
-from domainlab.models.model_custom import AModelCustom
 from domainlab.algos.builder_custom import make_basic_trainer
+from domainlab.models.model_custom import AModelCustom
 
 
 class ModelCustom(AModelCustom):
     """
     Template class to inherit from if user need custom neural network
     """
+
     @property
     def dict_net_module_na2arg_na(self):
         """
