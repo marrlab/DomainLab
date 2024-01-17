@@ -106,6 +106,7 @@ def mk_hduva(parent_class=VAEXYDClassif):
             topic_dim=3,
             mu_recon=1.0,
         ):
+            # pylint: disable=too-many-arguments, unused-argument
             """ """
             super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y)
             # topic to zd follows Gaussian distribution

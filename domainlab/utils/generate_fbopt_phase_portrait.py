@@ -1,3 +1,7 @@
+"""
+This file is used to generate phase portraits.
+"""
+
 import argparse
 import glob
 import os

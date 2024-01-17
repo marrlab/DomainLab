@@ -74,7 +74,7 @@ def mk_diva(
             beta_y,
             mu_recon=1.0,
         ):
-            # pylint: disable=too-many-arguments
+            # pylint: disable=too-many-arguments, unused-argument
             """
             gamma: classification loss coefficient
             """
