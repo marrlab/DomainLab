@@ -19,6 +19,7 @@ def list_divide(list_val, scalar):
 
 
 class HyperSetter:
+    # pylint: disable=too-few-public-methods
     """
     mock object to force hyper-parameter in the model
     """

@@ -177,7 +177,7 @@ class HyperSchedulerFeedback:
     def search_mu(
         self, epo_reg_loss, epo_task_loss, epo_loss_tr, list_str_multiplier_na, miter
     ):
-        # pylint: disable=too-many-locals
+        # pylint: disable=too-many-locals, too-many-arguments
         """
         start from parameter dictionary dict_theta: {"layer":tensor},
         enlarge mu w.r.t. its current value

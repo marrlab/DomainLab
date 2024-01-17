@@ -131,6 +131,7 @@ class SetpointRewinder:
 
 
 class FbOptSetpointController:
+    # pylint: disable=too-many-instance-attributes
     """
     update setpoint for mu
     """
@@ -205,6 +206,7 @@ class FbOptSetpointController:
 
 
 class FbOptSetpointControllerState:
+    # pylint: disable=too-few-public-methods
     """
     abstract state pattern
     """
