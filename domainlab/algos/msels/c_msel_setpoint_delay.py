@@ -35,9 +35,12 @@ class MSelSetpointDelay(AMSel):
             f"setpoint selected current acc {self._oracle_last_setpoint_sel_te_acc}"
         )
         if clear_counter:
-            logger.info(
-                "setpoint msel te acc updated from {self._oracle_last_setpoint_sel_te_acc} to {self.sel_model_te_acc}"
+            log_message = (
+                f"setpoint msel te acc updated from "
+                f"{self._oracle_last_setpoint_sel_te_acc} to "
+                f"{self.sel_model_te_acc}"
             )
+            logger.info(log_message)
             self._oracle_last_setpoint_sel_te_acc = self.sel_model_te_acc
         flag = self.msel.update(clear_counter)
         return flag
