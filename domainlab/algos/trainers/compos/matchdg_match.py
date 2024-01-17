@@ -373,7 +373,7 @@ class MatchPair:
         logger.info(f"Total Label MisMatch across pairs: {wrong_case}")
         if wrong_case != 0:
             raise RuntimeError(
-                "the reference domain " "has 'rows' with inconsistent class labels"
+                "the reference domain has 'rows' with inconsistent class labels"
             )
 
         list_ref_domain_each_domain = []
