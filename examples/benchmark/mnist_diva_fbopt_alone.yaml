@@ -65,7 +65,7 @@ Shared params:
     num: 3
     distribution: loguniform
 
-  mu_clip: 
+  mu_clip:
     distribution: categorical
     datatype: float
     values:

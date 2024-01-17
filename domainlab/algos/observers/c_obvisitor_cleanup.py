@@ -12,7 +12,7 @@ class ObVisitorCleanUp(AObVisitor):
 
     def after_all(self):
         self.observer.after_all()
-        self.observer.clean_up()    # FIXME should  be self.clean_up???
+        self.observer.clean_up()  # FIXME should  be self.clean_up???
 
     def accept(self, trainer):
         self.observer.accept(trainer)

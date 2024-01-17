@@ -2,6 +2,7 @@
 update hyper-parameters during training
 """
 import numpy as np
+
 from domainlab.utils.logger import Logger
 
 
@@ -41,8 +42,9 @@ def is_less_list_any(list1, list2):
     judge if one list is less than the other
     """
     if_list_sign_agree(list1, list2)
-    list_comparison = [a < b if a >= 0 and b >= 0 else a > b
-                       for a, b in zip(list1, list2)]
+    list_comparison = [
+        a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)
+    ]
     return any(list_comparison), list_true(list_comparison)
 
 
@@ -51,11 +53,13 @@ def is_less_list_all(list1, list2, flag_eq=False):
     judge if one list is less than the other
     """
     if_list_sign_agree(list1, list2)
-    list_comparison = [a < b if a >= 0 and b >= 0 else a > b
-                       for a, b in zip(list1, list2)]
+    list_comparison = [
+        a < b if a >= 0 and b >= 0 else a > b for a, b in zip(list1, list2)
+    ]
     if flag_eq:
-        list_comparison = [a <= b if a >= 0 and b >= 0 else a >= b
-                           for a, b in zip(list1, list2)]
+        list_comparison = [
+            a <= b if a >= 0 and b >= 0 else a >= b for a, b in zip(list1, list2)
+        ]
     return all(list_comparison)
 
 
@@ -63,15 +67,15 @@ def list_ma(list_state, list_input, coeff):
     """
     moving average of list
     """
-    return [a * coeff + b * (1 - coeff) for a, b in \
-            zip(list_state, list_input)]
+    return [a * coeff + b * (1 - coeff) for a, b in zip(list_state, list_input)]
 
 
-class SetpointRewinder():
+class SetpointRewinder:
     """
     rewind setpoint if current loss exponential moving average is
     bigger than setpoint
     """
+
     def __init__(self, host):
         self.host = host
         self.counter = None
@@ -95,10 +99,10 @@ class SetpointRewinder():
         if self.ref is None:
             self.reset(epo_reg_loss)
         self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma)
-        list_comparison_increase = \
-            [a < b for a, b in zip(self.ref, self.epo_ma)]
-        list_comparison_above_setpoint = \
-            [a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)]
+        list_comparison_increase = [a < b for a, b in zip(self.ref, self.epo_ma)]
+        list_comparison_above_setpoint = [
+            a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)
+        ]
         flag_increase = any(list_comparison_increase)
         flag_above_setpoint = any(list_comparison_above_setpoint)
         if flag_increase and flag_above_setpoint:
@@ -114,9 +118,11 @@ class SetpointRewinder():
                 list_pos = list_true(list_comparison_above_setpoint)
                 print(f"\n\n\n!!!!!!!setpoint too low at {list_pos}!\n\n\n")
                 for pos in list_pos:
-                    print(f"\n\n\n!!!!!!!rewinding setpoint at pos {pos} \
+                    print(
+                        f"\n\n\n!!!!!!!rewinding setpoint at pos {pos} \
                         from {self.host.setpoint4R[pos]} to \
-                          {self.epo_ma[pos]}!\n\n\n")
+                          {self.epo_ma[pos]}!\n\n\n"
+                    )
                     self.host.setpoint4R[pos] = self.epo_ma[pos]
 
             if self.counter > 3:
@@ -124,10 +130,11 @@ class SetpointRewinder():
                 self.counter = np.inf  # FIXME
 
 
-class FbOptSetpointController():
+class FbOptSetpointController:
     """
     update setpoint for mu
     """
+
     def __init__(self, state=None, args=None):
         """
         kwargs is a dictionary with key the hyper-parameter name and its value
@@ -141,7 +148,9 @@ class FbOptSetpointController():
         self.flag_setpoint_rewind = args.setpoint_rewind == "yes"
         self.setpoint_rewinder = SetpointRewinder(self)
         self.state_task_loss = 0.0
-        self.state_epo_reg_loss = [0.0 for _ in range(10)] # FIXME: 10 is the maximum number losses here
+        self.state_epo_reg_loss = [
+            0.0 for _ in range(10)
+        ]  # FIXME: 10 is the maximum number losses here
         self.coeff_ma_setpoint = args.coeff_ma_setpoint
         self.coeff_ma_output = args.coeff_ma_output_state
         # initial value will be set via trainer
@@ -160,31 +169,34 @@ class FbOptSetpointController():
         """
         using moving average
         """
-        target_ma = [self.coeff_ma_setpoint * a +
-                     (1 - self.coeff_ma_setpoint) * b
-                     for a, b in zip(self.setpoint4R, list_target)]
-        self.setpoint4R = [target_ma[i] if i in list_pos else
-                           self.setpoint4R[i] for i in range(len(target_ma))]
+        target_ma = [
+            self.coeff_ma_setpoint * a + (1 - self.coeff_ma_setpoint) * b
+            for a, b in zip(self.setpoint4R, list_target)
+        ]
+        self.setpoint4R = [
+            target_ma[i] if i in list_pos else self.setpoint4R[i]
+            for i in range(len(target_ma))
+        ]
 
     def observe(self, epo_reg_loss, epo_task_loss):
         """
         read current epo_reg_loss continuously
         """
-        self.state_epo_reg_loss = [self.coeff_ma_output*a + \
-                                   (1-self.coeff_ma_output)*b
-                                   if a != 0.0 else b
-                                   for a, b in zip(
-                                       self.state_epo_reg_loss, epo_reg_loss)]
+        self.state_epo_reg_loss = [
+            self.coeff_ma_output * a + (1 - self.coeff_ma_output) * b if a != 0.0 else b
+            for a, b in zip(self.state_epo_reg_loss, epo_reg_loss)
+        ]
         if self.state_task_loss == 0.0:
             self.state_task_loss = epo_task_loss
-        self.state_task_loss = self.coeff_ma_output * self.state_task_loss + \
-            (1 - self.coeff_ma_output) * epo_task_loss
+        self.state_task_loss = (
+            self.coeff_ma_output * self.state_task_loss
+            + (1 - self.coeff_ma_output) * epo_task_loss
+        )
         self.setpoint_rewinder.observe(self.state_epo_reg_loss)
         flag_update, list_pos = self.state_updater.update_setpoint()
         if flag_update:
             self.setpoint_rewinder.reset(self.state_epo_reg_loss)
-            logger = Logger.get_logger(
-                logger_name='main_out_logger', loglevel="INFO")
+            logger = Logger.get_logger(logger_name="main_out_logger", loglevel="INFO")
             logger.info(f"!!!!!set point old value {self.setpoint4R}!")
             self.update_setpoint_ma(self.state_epo_reg_loss, list_pos)
             logger.info(f"!!!!!set point updated to {self.setpoint4R}!")
@@ -192,13 +204,13 @@ class FbOptSetpointController():
         return False
 
 
-class FbOptSetpointControllerState():
+class FbOptSetpointControllerState:
     """
     abstract state pattern
     """
+
     def __init__(self):
-        """
-        """
+        """ """
         self.host = None
 
     def accept(self, controller):
@@ -212,6 +224,7 @@ class FixedSetpoint(FbOptSetpointControllerState):
     """
     do not update setpoint
     """
+
     def update_setpoint(self):
         """
         always return False so setpoint no update
@@ -223,19 +236,23 @@ class SliderAllComponent(FbOptSetpointControllerState):
     """
     concrete state pattern
     """
+
     def update_setpoint(self):
         """
         all components of R descreases regardless if ell decreases or not
         """
-        logger = Logger.get_logger(
-            logger_name='main_out_logger', loglevel="INFO")
+        logger = Logger.get_logger(logger_name="main_out_logger", loglevel="INFO")
         logger.info(
             f"comparing output vs setpoint: \n \
             {self.host.state_epo_reg_loss} \n \
-            {self.host.setpoint4R}")
-        if is_less_list_all(self.host.state_epo_reg_loss,
-                            self.host.setpoint4R, flag_eq=True):
-            logger.info("!!!!!!!!!In SliderAllComponent: R current value better than current setpoint!")
+            {self.host.setpoint4R}"
+        )
+        if is_less_list_all(
+            self.host.state_epo_reg_loss, self.host.setpoint4R, flag_eq=True
+        ):
+            logger.info(
+                "!!!!!!!!!In SliderAllComponent: R current value better than current setpoint!"
+            )
             return True, list(range(len(self.host.setpoint4R)))
         return False, None
 
@@ -244,12 +261,14 @@ class SliderAnyComponent(FbOptSetpointControllerState):
     """
     concrete state pattern
     """
+
     def update_setpoint(self):
         """
         if any component of R has decreased regardless if ell decreases
         """
         flag, list_pos = is_less_list_any(
-            self.host.state_epo_reg_loss, self.host.setpoint4R)
+            self.host.state_epo_reg_loss, self.host.setpoint4R
+        )
         return flag, list_pos
 
     def transit(self):
@@ -260,6 +279,7 @@ class DominateAnyComponent(SliderAnyComponent):
     """
     concrete state pattern
     """
+
     def update_setpoint(self):
         """
         if any of the component of R loss has decreased together with ell loss
@@ -275,6 +295,7 @@ class DominateAllComponent(SliderAllComponent):
     """
     concrete state pattern
     """
+
     def update_setpoint(self):
         """
         if each component of R loss has decreased and ell loss also decreased
@@ -282,10 +303,10 @@ class DominateAllComponent(SliderAllComponent):
         flag1, list_pos = super().update_setpoint()
         flag2 = self.host.state_task_loss < self.host.setpoint4ell
         if flag2:
-            logger = Logger.get_logger(
-                logger_name='main_out_logger', loglevel="INFO")
+            logger = Logger.get_logger(logger_name="main_out_logger", loglevel="INFO")
             logger.info(
                 f"best ell loss: from {self.host.setpoint4ell} to \
-                {self.host.state_task_loss}")
+                {self.host.state_task_loss}"
+            )
             self.host.setpoint4ell = self.host.state_task_loss
         return flag1 & flag2, list_pos

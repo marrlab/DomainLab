@@ -9,6 +9,7 @@ class NodeAlgoBuilderFbOptDial(NodeAlgoBuilderDIVA):
     """
     builder for feedback optimization for dial
     """
+
     def init_business(self, exp):
         """
         return trainer, model, observer

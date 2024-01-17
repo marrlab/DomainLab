@@ -85,24 +85,29 @@ def mk_hduva(parent_class=VAEXYDClassif):
                 beta_d=self.beta_d,
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
-                beta_t=self.beta_t)
+                beta_t=self.beta_t,
+            )
 
         @store_args
-        def __init__(self, chain_node_builder,
-                     zy_dim, zd_dim,
-                     list_str_y,
-                     gamma_d, gamma_y,
-                     beta_d, beta_x, beta_y,
-                     beta_t,
-                     device,
-                     zx_dim=0,
-                     topic_dim=3,
-                     mu_recon=1.0):
-            """
-            """
-            super().__init__(chain_node_builder,
-                             zd_dim, zy_dim, zx_dim,
-                             list_str_y)
+        def __init__(
+            self,
+            chain_node_builder,
+            zy_dim,
+            zd_dim,
+            list_str_y,
+            gamma_d,
+            gamma_y,
+            beta_d,
+            beta_x,
+            beta_y,
+            beta_t,
+            device,
+            zx_dim=0,
+            topic_dim=3,
+            mu_recon=1.0,
+        ):
+            """ """
+            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y)
             # topic to zd follows Gaussian distribution
             self.add_module(
                 "net_p_zd",
@@ -189,8 +194,13 @@ def mk_hduva(parent_class=VAEXYDClassif):
             # reconstruction
             z_concat = self.decoder.concat_ytdx(zy_q, topic_q, zd_q, zx_q)
             loss_recon_x, _, _ = self.decoder(z_concat, tensor_x)
-            return [loss_recon_x, zx_p_minus_q, zy_p_minus_zy_q, zd_p_minus_q, topic_p_minus_q], \
-                [self.mu_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
+            return [
+                loss_recon_x,
+                zx_p_minus_q,
+                zy_p_minus_zy_q,
+                zd_p_minus_q,
+                topic_p_minus_q,
+            ], [self.mu_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
 
         @property
         def list_str_multiplier_na(self):
@@ -204,11 +214,13 @@ def mk_hduva(parent_class=VAEXYDClassif):
             """
             dictionary of multipliers name
             """
-            return {"mu_recon": self.mu_recon,
-                    "beta_d": self.beta_d,
-                    "beta_x": self.beta_x,
-                    "beta_y": self.beta_y,
-                    "beta_t": self.beta_t}
+            return {
+                "mu_recon": self.mu_recon,
+                "beta_d": self.beta_d,
+                "beta_x": self.beta_x,
+                "beta_y": self.beta_y,
+                "beta_t": self.beta_t,
+            }
 
         def extract_semantic_feat(self, tensor_x):
             """
