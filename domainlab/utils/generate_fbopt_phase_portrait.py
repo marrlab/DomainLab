@@ -1,5 +1,5 @@
 """
-This file is used to generate phase portraits.
+This file is used for generating phase portrait from tensorboard event files.
 """
 
 import argparse
@@ -11,6 +11,7 @@ import numpy as np
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 
 
+# pylint: disable=too-many-arguments
 def get_xy_from_event_file(
     event_file,
     plot1,
@@ -19,6 +20,9 @@ def get_xy_from_event_file(
     sanity_check=False,
     verbose=True,
 ):
+    """
+    extract x and y values from a tensorboard event file
+    """
     if tf_size_guidance is None:
         # settings for which/how much data is loaded from the
         # tensorboard event files
@@ -55,6 +59,7 @@ def get_xy_from_event_file(
     return x, y
 
 
+# pylint: disable=too-many-arguments, too-many-locals, redefined-outer-name, unused-argument
 def phase_portrait_combined(
     event_files,
     colors,
