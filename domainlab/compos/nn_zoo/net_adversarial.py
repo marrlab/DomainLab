@@ -13,6 +13,7 @@ class AutoGradFunReverseMultiply(Function):
     https://pytorch.org/docs/stable/autograd.html
     https://pytorch.org/docs/stable/notes/extending.html#extending-autograd
     """
+
     @staticmethod
     def forward(ctx, x, alpha):
         ctx.alpha = alpha

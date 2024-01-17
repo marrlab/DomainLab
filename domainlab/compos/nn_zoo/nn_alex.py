@@ -38,21 +38,24 @@ class AlexNetBase(NetTorchVisionBase):
        )
        )
     """
+
     def fetch_net(self, flag_pretrain):
-        self.net_torchvision = torchvisionmodels.alexnet(
-            pretrained=flag_pretrain)
+        self.net_torchvision = torchvisionmodels.alexnet(pretrained=flag_pretrain)
 
 
 class Alex4DeepAll(AlexNetBase):
     """
     change the last layer output of AlexNet to the dimension of the
     """
+
     def __init__(self, flag_pretrain, dim_y):
         super().__init__(flag_pretrain)
         if self.net_torchvision.classifier[6].out_features != dim_y:
             logger = Logger.get_logger()
-            logger.info(f"original alex net out dim "
-                        f"{self.net_torchvision.classifier[6].out_features}")
+            logger.info(
+                f"original alex net out dim "
+                f"{self.net_torchvision.classifier[6].out_features}"
+            )
             num_ftrs = self.net_torchvision.classifier[6].in_features
             self.net_torchvision.classifier[6] = nn.Linear(num_ftrs, dim_y)
             logger.info(f"re-initialized to {dim_y}")
@@ -64,6 +67,7 @@ class AlexNetNoLastLayer(AlexNetBase):
     the classifier from VAE can then have the same layer depth as erm
     model so it is fair for comparison
     """
+
     def __init__(self, flag_pretrain):
         super().__init__(flag_pretrain)
         self.net_torchvision.classifier[6] = LayerId()

@@ -6,8 +6,7 @@ import torch
 import torch.distributions as dist
 import torch.nn as nn
 
-from domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 import \
-    mk_conv_bn_relu_pool
+from domainlab.compos.nn_zoo.net_conv_conv_bn_pool_2 import mk_conv_bn_relu_pool
 from domainlab.compos.nn_zoo.nn import DenseNet
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 
@@ -17,6 +16,7 @@ class LSEncoderConvBnReluPool(nn.Module):
     Batch Normalization, Relu and Pooling.
     Softplus for scale
     """
+
     def __init__(self, z_dim: int, i_channel, i_h, i_w, conv_stride):
         """
         :param z_dim:
@@ -32,13 +32,13 @@ class LSEncoderConvBnReluPool(nn.Module):
         self.i_h = i_h
         self.i_w = i_w
 
-        self.conv = mk_conv_bn_relu_pool(self.i_channel,
-                                         conv_stride=conv_stride)
+        self.conv = mk_conv_bn_relu_pool(self.i_channel, conv_stride=conv_stride)
         # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
         self.flat_dim = get_flat_dim(self.conv, i_channel, i_h, i_w)
         self.fc_loc = nn.Sequential(nn.Linear(self.flat_dim, z_dim))
-        self.fc_scale = nn.Sequential(nn.Linear(self.flat_dim, z_dim),
-                                      nn.Softplus())  # for scale calculation
+        self.fc_scale = nn.Sequential(
+            nn.Linear(self.flat_dim, z_dim), nn.Softplus()
+        )  # for scale calculation
 
         # initialization
         torch.nn.init.xavier_uniform_(self.fc_loc[0].weight)
@@ -64,6 +64,7 @@ class LSEncoderLinear(nn.Module):
     Location-Scale Encoder with DenseNet as feature extractor
     Softplus for scale
     """
+
     def __init__(self, z_dim, dim_input):
         """
         :param z_dim:
@@ -72,8 +73,9 @@ class LSEncoderLinear(nn.Module):
         """
         super().__init__()
         self.fc_loc = nn.Sequential(nn.Linear(dim_input, z_dim))
-        self.fc_scale = nn.Sequential(nn.Linear(dim_input, z_dim),
-                                      nn.Softplus())  # for scale calculation
+        self.fc_scale = nn.Sequential(
+            nn.Linear(dim_input, z_dim), nn.Softplus()
+        )  # for scale calculation
 
         # initialization
         torch.nn.init.xavier_uniform_(self.fc_loc[0].weight)

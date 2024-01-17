@@ -9,8 +9,7 @@ class EncoderH2Dirichlet(nn.Module):
     """
 
     def __init__(self, dim_topic, device):
-        """
-        """
+        """ """
         super().__init__()
         self.layer_bn = nn.BatchNorm1d(dim_topic)
         self.layer_concentration = nn.Softplus()

@@ -13,6 +13,7 @@ def override_interface(interface_class):
            def fun(self):
                pass
     """
+
     def overrider(method2override):
         """overrider.
 

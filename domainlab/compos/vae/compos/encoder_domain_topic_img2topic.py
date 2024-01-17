@@ -9,9 +9,8 @@ class EncoderImg2TopicDistri(nn.Module):
     image to topic distribution  (not image to topic hidden representation
     used by another path)
     """
-    def __init__(self, isize, num_topics,
-                 device,
-                 args):
+
+    def __init__(self, isize, num_topics, device, args):
         """__init__.
 
         :param isize:
@@ -26,21 +25,25 @@ class EncoderImg2TopicDistri(nn.Module):
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
             arg_name_of_net="nname_encoder_x2topic_h",
-            arg_path_of_net="npath_encoder_x2topic_h")()
+            arg_path_of_net="npath_encoder_x2topic_h",
+        )()
 
-        self.add_module("layer_img2hidden",
-                        net_builder.init_business(
-                            flag_pretrain=True,
-                            isize=isize,
-                            remove_last_layer=False,
-                            dim_out=num_topics,
-                            args=args))
+        self.add_module(
+            "layer_img2hidden",
+            net_builder.init_business(
+                flag_pretrain=True,
+                isize=isize,
+                remove_last_layer=False,
+                dim_out=num_topics,
+                args=args,
+            ),
+        )
 
         # h_image->[alpha,topic]
-        self.add_module("layer_hidden2dirichlet",
-                        EncoderH2Dirichlet(
-                            dim_topic=num_topics,
-                            device=self.device))
+        self.add_module(
+            "layer_hidden2dirichlet",
+            EncoderH2Dirichlet(dim_topic=num_topics, device=self.device),
+        )
 
     def forward(self, x):
         """forward.

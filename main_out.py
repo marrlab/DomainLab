@@ -9,8 +9,9 @@ if __name__ == "__main__":
     if args.bm_dir:
         aggregate_results.agg_main(args.bm_dir)
     elif args.plot_data is not None:
-        gen_benchmark_plots(args.plot_data, args.outp_dir,
-                            use_param_index=args.param_idx)
+        gen_benchmark_plots(
+            args.plot_data, args.outp_dir, use_param_index=args.param_idx
+        )
     else:
         set_seed(args.seed)
         exp = Exp(args=args)

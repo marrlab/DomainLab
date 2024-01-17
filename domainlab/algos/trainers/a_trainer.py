@@ -2,7 +2,9 @@
 Base Class for trainer
 """
 import abc
+
 from torch import optim
+
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
 
@@ -18,11 +20,11 @@ def mk_opt(model, aconf):
         set_param = set(list(var1) + list(var2))
         list_par = list(set_param)
         # optimizer = optim.Adam([var1, var2], lr=aconf.lr)
-        #optimizer = optim.Adam([
+        # optimizer = optim.Adam([
         #    {'params': model.parameters()},
         #    {'params': model._decoratee.parameters()}
-        #], lr=aconf.lr)
-        optimizer = optim.Adam(list_par, lr= aconf.lr)
+        # ], lr=aconf.lr)
+        optimizer = optim.Adam(list_par, lr=aconf.lr)
     return optimizer
 
 
@@ -30,6 +32,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
     """
     Algorithm director that controls the data flow
     """
+
     @property
     def p_na_prefix(self):
         """
@@ -120,7 +123,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         # Note self.decoratee can be both model and trainer,
         # but self._decoratee can only be trainer!
         if self._decoratee is not None:
-            self._decoratee.init_business(model, task, observer, device, aconf, flag_accept)
+            self._decoratee.init_business(
+                model, task, observer, device, aconf, flag_accept
+            )
         self.model = model
         self.task = task
         self.task.init_business(trainer=self, args=aconf)
@@ -193,8 +198,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         na_class = type(self).__name__
         if na_class[:len_prefix] != na_prefix:
             raise RuntimeError(
-                "Trainer builder node class must start with ", na_prefix,
-                "the current class is named: ", na_class)
+                "Trainer builder node class must start with ",
+                na_prefix,
+                "the current class is named: ",
+                na_class,
+            )
         return type(self).__name__[len_prefix:].lower()
 
     def is_myjob(self, request):
@@ -218,11 +226,14 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         can be either a trainer or a model
         """
         list_reg_model, list_mu_model = self.decoratee.cal_reg_loss(
-            tensor_x, tensor_y, tensor_d, others)
+            tensor_x, tensor_y, tensor_d, others
+        )
         assert len(list_reg_model) == len(list_mu_model)
 
-        list_reg_trainer, list_mu_trainer = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
-        assert len(list_reg_trainer) ==  len(list_mu_trainer)
+        list_reg_trainer, list_mu_trainer = self._cal_reg_loss(
+            tensor_x, tensor_y, tensor_d, others
+        )
+        assert len(list_reg_trainer) == len(list_mu_trainer)
 
         list_loss = list_reg_model + list_reg_trainer
         list_mu = list_mu_model + list_mu_trainer

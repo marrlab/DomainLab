@@ -11,6 +11,7 @@ class TrainerDIAL(TrainerBasic):
     """
     Trainer Domain Invariant Adversarial Learning
     """
+
     def gen_adversarial(self, device, img_natural, vec_y):
         """
         use naive trimming to find optimize img in the direction of adversarial gradient,
@@ -23,7 +24,9 @@ class TrainerDIAL(TrainerBasic):
         step_size = self.aconf.dial_lr
         epsilon = self.aconf.dial_epsilon
         img_adv_ini = img_natural.detach()
-        img_adv_ini = img_adv_ini + scale * torch.randn(img_natural.shape).to(device).detach()
+        img_adv_ini = (
+            img_adv_ini + scale * torch.randn(img_natural.shape).to(device).detach()
+        )
         img_adv = img_adv_ini
         for _ in range(steps_perturb):
             img_adv.requires_grad_()
@@ -31,7 +34,9 @@ class TrainerDIAL(TrainerBasic):
             grad = torch.autograd.grad(loss_gen_adv, [img_adv])[0]
             # instead of gradient descent, we gradient ascent here
             img_adv = img_adv_ini.detach() + step_size * torch.sign(grad.detach())
-            img_adv = torch.min(torch.max(img_adv, img_natural - epsilon), img_natural + epsilon)
+            img_adv = torch.min(
+                torch.max(img_adv, img_natural - epsilon), img_natural + epsilon
+            )
             img_adv = torch.clamp(img_adv, 0.0, 1.0)
         return img_adv
 

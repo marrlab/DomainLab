@@ -13,6 +13,7 @@ class AbstractFeatExtractNNBuilderChainNode(AbstractChainNodeHandler):
     avoid override the initializer so that node construction is always
     light weight.
     """
+
     def __init__(self, successor_node):
         """__init__.
 
@@ -22,8 +23,16 @@ class AbstractFeatExtractNNBuilderChainNode(AbstractChainNodeHandler):
         super().__init__(successor_node)
 
     @store_args
-    def init_business(self, dim_out, args, i_c=None, i_h=None, i_w=None,
-                      flag_pretrain=None, remove_last_layer=False):
+    def init_business(
+        self,
+        dim_out,
+        args,
+        i_c=None,
+        i_h=None,
+        i_w=None,
+        flag_pretrain=None,
+        remove_last_layer=False,
+    ):
         """
         initialize **and** return the heavy weight business object for doing
         the real job
