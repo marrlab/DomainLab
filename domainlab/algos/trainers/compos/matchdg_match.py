@@ -13,6 +13,9 @@ from domainlab.utils.utils_class import store_args
 
 
 class MatchPair:
+    """
+    match different input
+    """
     @store_args
     def __init__(
         self,
@@ -121,8 +124,8 @@ class MatchPair:
         for domain in range(self.num_domains_tr):
             if self.domain_count[domain] != self.list_tr_domain_size[domain]:
                 logger = Logger.get_logger()
-                logger.warning("domain_count show matching " "dictionary missing data!")
-                warnings.warn("domain_count show matching " "dictionary missing data!")
+                logger.warning("domain_count show matching: dictionary missing data!")
+                warnings.warn("domain_count show matching: dictionary missing data!")
 
     def _cal_base_domain(self):
         """

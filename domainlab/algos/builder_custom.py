@@ -50,11 +50,10 @@ def make_basic_trainer(class_name_model):
             ind = list_args.index(val_arg_na)
             if ind + 1 >= len(list_args):  # list of args always even length
                 raise RuntimeError(
-                    "\n nname_argna2val or npath_argna2val should \
+                    f"\n nname_argna2val or npath_argna2val should \
                                    \n always be specified in pairs instead of \
                                    odd number:\
-                                   \n %s"
-                    % (str(list_args))
+                                   \n {str(list_args)}"
                 )
             val = list_args[ind + 1]
             # add attributes to namespaces args, the attributes are provided by
