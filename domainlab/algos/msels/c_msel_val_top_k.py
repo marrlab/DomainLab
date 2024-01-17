@@ -43,7 +43,9 @@ class MSelValPerfTopK(MSelValPerf):
                 # issue #569: initially self.list_top_k_acc will be [xx, 0] and it does not matter since 0 will be overwriten by second epoch validation acc.
                 # actually, after epoch 1, most often, sefl._best_val_acc will be the higher value of self.list_top_k_acc will overwriten by min(self.list_top_k_acc)
                 logger.info(
-                    f"top-2 val sel: overwriting best val acc from {self._best_val_acc} to minium of {self.list_top_k_acc} which is {min(self.list_top_k_acc)} to ensure consistency"
+                    f"top-2 val sel: overwriting best val acc from {self._best_val_acc} to "
+                    f"minimum of {self.list_top_k_acc} which is {min(self.list_top_k_acc)} "
+                    f"to ensure consistency"
                 )
                 self._best_val_acc = min(self.list_top_k_acc)
             # overwrite test acc, this does not depend on if val top-k acc has been overwritten or not
@@ -51,7 +53,8 @@ class MSelValPerfTopK(MSelValPerf):
             if self._sel_model_te_acc != metric_te_current:
                 # this can only happen if the validation acc has decreased and current val acc is only bigger than min(self.list_top_k_acc} but lower than max(self.list_top_k_acc)
                 logger.info(
-                    f"top-2 val sel: overwriting selected model test acc from {self._sel_model_te_acc} to {metric_te_current} to ensure consistency"
+                    f"top-2 val sel: overwriting selected model test acc from "
+                    f"{self._sel_model_te_acc} to {metric_te_current} to ensure consistency"
                 )
             self._sel_model_te_acc = metric_te_current
             return True
