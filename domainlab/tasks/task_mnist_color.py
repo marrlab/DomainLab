@@ -3,8 +3,7 @@ Color MNIST with palette
 """
 from torch.utils.data import random_split
 
-from domainlab.dsets.dset_mnist_color_solo_default import \
-    DsetMNISTColorSoloDefault
+from domainlab.dsets.dset_mnist_color_solo_default import DsetMNISTColorSoloDefault
 from domainlab.dsets.utils_color_palette import default_rgb_palette  # @FIXME
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 from domainlab.tasks.utils_task import ImSize
@@ -15,6 +14,7 @@ class NodeTaskMNISTColor10(NodeTaskDictClassif):
     """
     Use the deafult palette with 10 colors
     """
+
     @property
     def list_str_y(self):
         return mk_dummy_label_list_str("digit", 10)
@@ -30,13 +30,15 @@ class NodeTaskMNISTColor10(NodeTaskDictClassif):
         2. better use method than property so new domains can be added
         """
         list_domains = []
-        for rgb_list in default_rgb_palette:   # 10 colors
+        for rgb_list in default_rgb_palette:  # 10 colors
             domain = "_".join([str(c) for c in rgb_list])
             domain = "rgb_" + domain
             list_domains.append(domain)
         return list_domains
 
-    def get_dset_by_domain(self, args, na_domain, split=True):  # @FIXME: different number of arguments than parent
+    def get_dset_by_domain(
+        self, args, na_domain, split=True
+    ):  # @FIXME: different number of arguments than parent
         """get_dset_by_domain.
         :param args:
         :param na_domain:

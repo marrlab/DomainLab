@@ -9,6 +9,7 @@ class AMSel(metaclass=abc.ABCMeta):
     """
     Abstract Model Selection
     """
+
     def __init__(self):
         """
         trainer and tr_observer

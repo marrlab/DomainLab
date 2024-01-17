@@ -3,18 +3,19 @@ Runs one task for a single hyperparameter sample for each leave-out-domain
 and each random seed.
 """
 import ast
-import gc
 import copy
+import gc
+
 import numpy as np
 import pandas as pd
 import torch
 
-from domainlab.arg_parser import mk_parser_main, apply_dict_to_args
+from domainlab.arg_parser import apply_dict_to_args, mk_parser_main
 from domainlab.exp.exp_cuda_seed import set_seed
 from domainlab.exp.exp_main import Exp
 from domainlab.exp.exp_utils import ExpProtocolAggWriter
-from domainlab.utils.logger import Logger
 from domainlab.utils.hyperparameter_sampling import G_METHOD_NA
+from domainlab.utils.logger import Logger
 
 
 def load_parameters(file: str, index: int) -> tuple:
@@ -47,13 +48,13 @@ def convert_dict2float(dict_in):
 
 
 def run_experiment(
-        config: dict,
-        param_file: str,
-        param_index: int,
-        out_file: str,
-        start_seed=None,
-        misc=None,
-        num_gpus=1
+    config: dict,
+    param_file: str,
+    param_index: int,
+    out_file: str,
+    start_seed=None,
+    misc=None,
+    num_gpus=1,
 ):
     """
     Runs the experiment several times:
@@ -78,40 +79,62 @@ def run_experiment(
         misc = {}
     str_algo_as_task, hyperparameters = load_parameters(param_file, param_index)
     logger = Logger.get_logger()
-    logger.debug("\n*******************************************************************")
-    logger.debug(f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}")
-    logger.debug("*******************************************************************\n")
-    misc['result_file'] = out_file
-    misc['params'] = hyperparameters
-    misc['benchmark_task_name'] = str_algo_as_task
-    misc['param_index'] = param_index
-    misc['keep_model'] = False
+    logger.debug(
+        "\n*******************************************************************"
+    )
+    logger.debug(
+        f"{str_algo_as_task}, param_index={param_index}, params={hyperparameters}"
+    )
+    logger.debug(
+        "*******************************************************************\n"
+    )
+    misc["result_file"] = out_file
+    misc["params"] = hyperparameters
+    misc["benchmark_task_name"] = str_algo_as_task
+    misc["param_index"] = param_index
+    misc["keep_model"] = False
 
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
     args_algo_specific = config[str_algo_as_task].copy()
-    if 'hyperparameters' in args_algo_specific:
-        del args_algo_specific['hyperparameters']
+    if "hyperparameters" in args_algo_specific:
+        del args_algo_specific["hyperparameters"]
     args_domainlab_common_raw = config.get("domainlab_args", {})
     args_domainlab_common = convert_dict2float(args_domainlab_common_raw)
     # check if some of the hyperparameters are already specified
     # in args_domainlab_common or args_algo_specific
-    if np.intersect1d(list(args_algo_specific.keys()),
-                      list(hyperparameters.keys())).shape[0] > 0:
-        logger.error(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
-                  f" has already been fixed to a value in the algorithm section.")
-        raise RuntimeError(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
-                  f" has already been fixed to a value in the algorithm section.")
-    if np.intersect1d(list(args_domainlab_common.keys()),
-                      list(hyperparameters.keys())).shape[0] > 0:
-        logger.error(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
-                  f" has already been fixed to a value in the domainlab_args section.")
-        raise RuntimeError(f"the hyperparameter "
-                  f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
-                  f" has already been fixed to a value in the domainlab_args section.")
+    if (
+        np.intersect1d(
+            list(args_algo_specific.keys()), list(hyperparameters.keys())
+        ).shape[0]
+        > 0
+    ):
+        logger.error(
+            f"the hyperparameter "
+            f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+            f" has already been fixed to a value in the algorithm section."
+        )
+        raise RuntimeError(
+            f"the hyperparameter "
+            f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+            f" has already been fixed to a value in the algorithm section."
+        )
+    if (
+        np.intersect1d(
+            list(args_domainlab_common.keys()), list(hyperparameters.keys())
+        ).shape[0]
+        > 0
+    ):
+        logger.error(
+            f"the hyperparameter "
+            f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+            f" has already been fixed to a value in the domainlab_args section."
+        )
+        raise RuntimeError(
+            f"the hyperparameter "
+            f"{np.intersect1d(list(args_algo_specific.keys()), list(hyperparameters.keys()))}"
+            f" has already been fixed to a value in the domainlab_args section."
+        )
     apply_dict_to_args(args, args_domainlab_common)
     args_algo_specific_scientific_notation = convert_dict2float(args_algo_specific)
     apply_dict_to_args(args, args_algo_specific_scientific_notation, extend=True)
@@ -130,12 +153,12 @@ def run_experiment(
         logger.info("before experiment loop: ")
         logger.info(str(torch.cuda.memory_summary()))
     if start_seed is None:
-        start_seed = config['startseed']
-        end_seed = config['endseed']
+        start_seed = config["startseed"]
+        end_seed = config["endseed"]
     else:
-        end_seed = start_seed + (config['endseed'] - config['startseed'])
+        end_seed = start_seed + (config["endseed"] - config["startseed"])
     for seed in range(start_seed, end_seed + 1):
-        for te_d in config['test_domains']:
+        for te_d in config["test_domains"]:
             args.te_d = te_d
             set_seed(seed)
             args.seed = seed
@@ -150,7 +173,7 @@ def run_experiment(
             exp = Exp(args=args, visitor=ExpProtocolAggWriter)
             # NOTE: if key "testing" is set in benchmark, then do not execute
             # experiment
-            if not misc.get('testing', False):
+            if not misc.get("testing", False):
                 exp.execute()
             try:
                 if torch.cuda.is_available():

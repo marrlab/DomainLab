@@ -17,8 +17,7 @@ def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
     :param max_pool_stride:
     """
     conv_net = nn.Sequential(
-        nn.Conv2d(i_channel, 32, kernel_size=5,
-                  stride=conv_stride, bias=False),
+        nn.Conv2d(i_channel, 32, kernel_size=5, stride=conv_stride, bias=False),
         nn.BatchNorm2d(32),
         nn.ReLU(),
         nn.MaxPool2d(2, stride=max_pool_stride),
@@ -47,8 +46,10 @@ class NetConvBnReluPool2L(nn.Module):
         """
         :param tensor_x: image
         """
-        conv_out = self.conv_net(tensor_x)  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
-        flat = conv_out.view(-1, self.hdim)   # 1024 =   64 * (4*4)
+        conv_out = self.conv_net(
+            tensor_x
+        )  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
+        flat = conv_out.view(-1, self.hdim)  # 1024 =   64 * (4*4)
         hidden = self.layer_last(flat)
         return hidden
 
@@ -60,6 +61,7 @@ class NetConvDense(nn.Module):
       until classifier. note in encoder, there is extra layer of hidden to mean
       and scale, in this component, it is replaced with another hidden layer.
     """
+
     def __init__(self, isize, conv_stride, dim_out_h, args, dense_layer=None):
         """
         :param dim_out_h:
@@ -78,7 +80,9 @@ class NetConvDense(nn.Module):
         """
         :param tensor_x: image
         """
-        conv_out = self.conv_net(tensor_x)  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
-        flat = conv_out.view(-1, self.hdim)   # 1024 =   64 * (4*4)
+        conv_out = self.conv_net(
+            tensor_x
+        )  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
+        flat = conv_out.view(-1, self.hdim)  # 1024 =   64 * (4*4)
         hidden = self.dense_layers(flat)
         return hidden

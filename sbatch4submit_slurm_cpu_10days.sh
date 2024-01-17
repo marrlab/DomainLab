@@ -2,7 +2,7 @@
 VENV="domainlab_py39"
 BASHRC="~/.bashrc"  # source ~/.bash_profile
 
-## 
+##
 JOB_NAME="submit10d"
 PATH_CODE=$1
 PATH_OUT_BASE="${PATH_CODE}/job_logs"
@@ -16,7 +16,7 @@ echo "#!/bin/bash
 #SBATCH -J ${JOB_NAME}
 #SBATCH -o ${PATH_OUT_BASE}/${JOB_NAME}.out
 #SBATCH -e ${PATH_OUT_BASE}/${JOB_NAME}.err
-#SBATCH -p cpu_p 
+#SBATCH -p cpu_p
 #SBATCH -t 10-00:00:00
 #SBATCH -c 20
 #SBATCH --mem=32G

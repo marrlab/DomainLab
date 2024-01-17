@@ -31,9 +31,9 @@ Furthermore, the user can declare:
 - `startseed`: creates reproducible results (mandatory)
 - `endseed`: creates reproducible results (mandatory)
 - `mode`: set to `grid` to apply grid search for hyperparameter sampling (optional, for details see next section)
-- `Shared params`: an optional list including the shared hyperparameters with respective sampling distribution 
-(mandatory if Shared params should be used) and in case of random sampling `num_shared_param_samples` 
-(number of samples for the shared hyperparameters, mandatory for random sampling) 
+- `Shared params`: an optional list including the shared hyperparameters with respective sampling distribution
+(mandatory if Shared params should be used) and in case of random sampling `num_shared_param_samples`
+(number of samples for the shared hyperparameters, mandatory for random sampling)
 
 Depending on which hyperparameter sampling technique is used (see section below), the user must also
 respect/declare the following:
@@ -44,7 +44,7 @@ respect/declare the following:
   hyperparameter, for available distributions see section below (mandatory)
   - `step`: "step-size" (float) between samples. Only points being a multiple of the step-size apart
   can be sampled. `0` means that each real number can be sampled.
-  - `num_shared_param_samples`: number of samples for the shared hyperparameters. Must be defined 
+  - `num_shared_param_samples`: number of samples for the shared hyperparameters. Must be defined
   inside the Shared params section (if this section is used)
 - grid search hyperparameter sampling (`mode`:`grid`):
   - `num`: number of hyperparameters to be sampled (int) must be specified for each hyperparameter
@@ -52,8 +52,8 @@ respect/declare the following:
   - `distribution`: specifies the distribution used for sampling, must be specified for each
   hyperparameter (for available distributions see section below)
   - `step`: "step-size" (float) of the grid points. Only points lying on the grid
-  can be sampled. `0` means that each real number represents a grid point and thus, can be sampled. 
-  
+  can be sampled. `0` means that each real number represents a grid point and thus, can be sampled.
+
 
 ### Hyperparameter sampling
 The benchmark offers the option to randomly sample hyperparameters from different distributions.
@@ -63,7 +63,7 @@ hyperparameter sampling. If grid search should be applied, the user must specify
 
 Each sampling technique offers the following distributions:
 - `categorical` distribution. For each parameter the user can specify:
-  - `values`: a list of valid values 
+  - `values`: a list of valid values
   - `datatype`: the datatype of the list values (int or float, default: float)
 - `uniform` and `loguniform` distribution. The user must define the following for each
 hyperparameter (mandatory):
@@ -75,15 +75,15 @@ hyperparameter (mandatory):
   - `min`: lower bound for samples (int)
   - `max`: upper bound for samples (int)
   - `datatype`: the datatype of the list values (int or float, default: float)
-  
-  
+
+
 
 ### Constraints
 The user can specify a list of constraints for the hyperparameters. Please note the following:
 - We currently use rejection sampling, to prevent the case of contradictory constraints,
 amongst others. In concrete, the sampling aborts with an error if 10.000 samples are rejected in a
-row. 
-- Equality constraints are not supported in the constraints section. To enforce equality of two or 
+row.
+- Equality constraints are not supported in the constraints section. To enforce equality of two or
 more hyperparameters use the `reference` key, see `p4` of `Task1` in
 [demo_hypeparameter_sampling.yml](https://github.com/marrlab/DomainLab/blob/master/examples/yaml/demo_hyperparameter_sampling.yml). References are only supported to reference sampled hyperparameters, e.g.
 referencing a reference results in undefined behaviour.

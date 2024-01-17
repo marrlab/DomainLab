@@ -3,6 +3,7 @@
 __author__ = "Xudong Sun"
 
 import abc
+
 from domainlab.utils.logger import Logger
 
 
@@ -10,6 +11,7 @@ class Request4Chain(metaclass=abc.ABCMeta):
     """
     define all available fields of request to ensure operation safety
     """
+
     @abc.abstractmethod
     def convert(self, obj):
         """
@@ -99,13 +101,12 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
             self._parent_node.print_options()
 
 
-class DummyBusiness():
+class DummyBusiness:
     message = "dummy business"
 
 
 class DummyChainNodeHandlerBeaver(AbstractChainNodeHandler):
-    """Dummy class to show how to inherit from Chain of Responsibility
-    """
+    """Dummy class to show how to inherit from Chain of Responsibility"""
 
     def init_business(self, *kargs, **kwargs):
         return DummyBusiness()
@@ -119,8 +120,7 @@ class DummyChainNodeHandlerBeaver(AbstractChainNodeHandler):
 
 
 class DummyChainNodeHandlerLazy(AbstractChainNodeHandler):
-    """Dummy class to show how to inherit from Chain of Responsibility
-    """
+    """Dummy class to show how to inherit from Chain of Responsibility"""
 
     def init_business(self, *kargs, **kwargs):
         return DummyBusiness()

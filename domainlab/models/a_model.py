@@ -5,6 +5,7 @@ operations that all kinds of models should have
 import abc
 
 from torch import nn
+
 from domainlab import g_list_model_penalized_reg_agg
 
 
@@ -53,7 +54,9 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         calculate the loss
         """
-        list_loss, list_multiplier = self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        list_loss, list_multiplier = self.cal_reg_loss(
+            tensor_x, tensor_y, tensor_d, others
+        )
         loss_reg = self.list_inner_product(list_loss, list_multiplier)
         loss_task_alone = self.cal_task_loss(tensor_x, tensor_y)
         loss_task = self.multiplier4task_loss * loss_task_alone
@@ -68,7 +71,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         here only aggregate along the list
         """
         list_tuple = zip(list_loss, list_multiplier)
-        list_penalized_reg = [mtuple[0]*mtuple[1] for mtuple in list_tuple]
+        list_penalized_reg = [mtuple[0] * mtuple[1] for mtuple in list_tuple]
         tensor_batch_penalized_loss = g_list_model_penalized_reg_agg(list_penalized_reg)
         # return value of list_inner_product should keep the minibatch structure, thus aggregation
         # here only aggregate along the list
@@ -94,10 +97,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         task independent regularization loss for domain generalization
         """
-        loss_reg, mu = self._extend_loss(
-            tensor_x, tensor_y, tensor_d, others)
-        loss_reg_, mu_ = self._cal_reg_loss(
-            tensor_x, tensor_y, tensor_d, others)
+        loss_reg, mu = self._extend_loss(tensor_x, tensor_y, tensor_d, others)
+        loss_reg_, mu_ = self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         if loss_reg is not None:
             return loss_reg_ + loss_reg, mu_ + mu
         return loss_reg_, mu_
@@ -107,8 +108,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         combine losses from two models
         """
         if self._decoratee is not None:
-            return self._decoratee.cal_reg_loss(
-                tensor_x, tensor_y, tensor_d, others)
+            return self._decoratee.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         return None, None
 
     def forward(self, tensor_x, tensor_y, tensor_d, others=None):
@@ -124,8 +124,8 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         """
         extract semantic feature (not domain feature), note that
         extract semantic feature is an action, it is more general than
-        calling a static network(module)'s forward function since 
-        there are extra action like reshape the tensor 
+        calling a static network(module)'s forward function since
+        there are extra action like reshape the tensor
         """
         if self._decoratee is not None:
             return self._decoratee.extract_semantic_feat(tensor_x)

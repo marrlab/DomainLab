@@ -22,9 +22,9 @@ def agg_results(input_files: List[str], output_file: str):
     has_header = False
     # logger = Logger.get_logger()
     # logger.debug(f"exp_results={input.exp_results}")
-    with open(output_file, 'w') as out_stream:
+    with open(output_file, "w") as out_stream:
         for res in input_files:
-            with open(res, 'r') as in_stream:
+            with open(res, "r") as in_stream:
                 if has_header:
                     # skip header line
                     in_stream.readline()
@@ -46,4 +46,4 @@ def agg_main(bm_dir: str, skip_plotting: bool = False):
     agg_output = f"{bm_dir}/results.csv"
     agg_input = f"{bm_dir}/rule_results"
     agg_from_directory(agg_input, agg_output)
-    gen_benchmark_plots(agg_output, f'{bm_dir}/graphics', skip_plotting)
+    gen_benchmark_plots(agg_output, f"{bm_dir}/graphics", skip_plotting)

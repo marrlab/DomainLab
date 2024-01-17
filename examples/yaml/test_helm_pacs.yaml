@@ -41,7 +41,7 @@ Task5:  # name
       min: 0.01
       max: 10
       distribution: loguniform
-  
+
 Task6:  # name
   model: erm
 

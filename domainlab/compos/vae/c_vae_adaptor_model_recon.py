@@ -5,12 +5,13 @@ which we only need to change this adaptor class.
 """
 
 
-class AdaptorReconVAEXYD():
+class AdaptorReconVAEXYD:
     """
     This adaptor couples intensively with the  heavy-weight model class
     The model class can be refactored, we do want to use the trained old-version model,
     which we only need to change this adaptor class.
     """
+
     def __init__(self, model):
         self.model = model
 
@@ -23,8 +24,7 @@ class AdaptorReconVAEXYD():
         we only need to change this method.
         :param x:
         """
-        q_zd, _, q_zx, _, q_zy, _ =  \
-            self.model.encoder(x)
+        q_zd, _, q_zx, _, q_zy, _ = self.model.encoder(x)
         return q_zd, q_zx, q_zy
 
     def recon_ydx(self, zy, zd, zx, x):
@@ -41,13 +41,11 @@ class AdaptorReconVAEXYD():
         return x_mean
 
     def cal_prior_zy(self, vec_y):
-        """
-        """
+        """ """
         p_zy = self.model.net_p_zy(vec_y)
         return p_zy
 
     def cal_prior_zd(self, vec_d):
-        """
-        """
+        """ """
         p_zd = self.model.net_p_zd(vec_d)
         return p_zd
