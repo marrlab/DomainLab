@@ -16,9 +16,10 @@ the performance with respect to different hyperparameter choices is investigated
 DomainLab relies on `Snakemake` for its benchmark functionality.
 
 ### Unix installation
-
+snakemake depends on pulp due to an upgrde of pulp, snakemake becomes unstable, so we recommed install the following version. 
 ```
-pip install snakemake
+pip install snakemake==7.32.0
+pip install pulp==2.7.0
 ```
 
 ### Windows installation details
