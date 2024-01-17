@@ -8,7 +8,9 @@ import warnings
 from typing import Any, Tuple
 
 from torchvision.datasets import DatasetFolder
+
 from domainlab.utils.logger import Logger
+
 
 def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -> bool:
     """
@@ -38,8 +40,10 @@ def fetch_img_paths(path_dir, class_to_idx, extensions=None, is_valid_file=None)
     #     raise ValueError(
     #         "Both extensions and is_valid_file cannot be None or not None at the same time")
     if extensions is not None:
+
         def functor_is_valid_file(filena):
             return has_file_allowed_extension(filena, extensions)
+
         is_valid_file = functor_is_valid_file
     for target in sorted(class_to_idx.keys()):
         apath = os.path.join(path_dir, target)
@@ -50,7 +54,7 @@ def fetch_img_paths(path_dir, class_to_idx, extensions=None, is_valid_file=None)
                 path_file = os.path.join(root, fname)
                 if is_valid_file(path_file):
                     item = (path_file, class_to_idx[target])
-                    list_tuple_path_cls_ind.append(item)   # @FIXME
+                    list_tuple_path_cls_ind.append(item)  # @FIXME
     return list_tuple_path_cls_ind
 
 
@@ -59,27 +63,39 @@ class DsetSubFolder(DatasetFolder):
     Only use user provided class names, ignore the other subfolders
     :param list_class_dir: list of class directories to use as classes
     """
-    def __init__(self, root, loader, list_class_dir, extensions=None, transform=None,
-                 target_transform=None, is_valid_file=None):
+
+    def __init__(
+        self,
+        root,
+        loader,
+        list_class_dir,
+        extensions=None,
+        transform=None,
+        target_transform=None,
+        is_valid_file=None,
+    ):
         self.list_class_dir = list_class_dir
 
         if is_valid_file is not None and extensions is not None:
             raise ValueError(
-                "Both extensions and is_valid_file cannot be not None at the same time")
+                "Both extensions and is_valid_file cannot be not None at the same time"
+            )
 
         if is_valid_file is None and extensions is None:
             # setting default extensions
-            extensions = ('jpg', 'jpeg', 'png')
+            extensions = ("jpg", "jpeg", "png")
             logger = Logger.get_logger()
             logger.warn("no user provided extensions, set to be jpg, jpeg, png")
             warnings.warn("no user provided extensions, set to be jpg, jpeg, png")
 
-        super().__init__(root,
-                         loader,
-                         extensions=extensions,
-                         transform=transform,
-                         target_transform=target_transform,
-                         is_valid_file=is_valid_file)
+        super().__init__(
+            root,
+            loader,
+            extensions=extensions,
+            transform=transform,
+            target_transform=target_transform,
+            is_valid_file=is_valid_file,
+        )
         classes, class_to_idx = self._find_classes(self.root)
         samples = fetch_img_paths(self.root, class_to_idx, extensions, is_valid_file)
         self.classes = classes
@@ -121,16 +137,24 @@ class DsetSubFolder(DatasetFolder):
             # Faster and available in Python 3.5 and above
             list_subfolders = [subfolder.name for subfolder in list(os.scandir(mdir))]
             logger.info(f"list of subfolders {list_subfolders}")
-            classes = [d.name for d in os.scandir(mdir) \
-                       if d.is_dir() and d.name in self.list_class_dir]
+            classes = [
+                d.name
+                for d in os.scandir(mdir)
+                if d.is_dir() and d.name in self.list_class_dir
+            ]
         else:
-            classes = [d for d in os.listdir(mdir) \
-                       if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir]
-        flag_user_input_classes_in_folder = (set(self.list_class_dir) <= set(classes))
+            classes = [
+                d
+                for d in os.listdir(mdir)
+                if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir
+            ]
+        flag_user_input_classes_in_folder = set(self.list_class_dir) <= set(classes)
         if not flag_user_input_classes_in_folder:
             logger.info(f"user provided class names: {self.list_class_dir}")
             logger.info(f"subfolder names from folder: {mdir} {classes}")
-            raise RuntimeError("user provided class names does not match the subfolder names")
+            raise RuntimeError(
+                "user provided class names does not match the subfolder names"
+            )
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx

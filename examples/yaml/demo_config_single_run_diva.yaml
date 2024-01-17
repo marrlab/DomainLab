@@ -1,4 +1,4 @@
----  # yaml demo document 
+---  # yaml demo document
 
 te_d: caltech
 tpath: examples/tasks/task_vlcs.py

@@ -1,8 +1,8 @@
 """
 update hyper-parameters during training
 """
-from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupLinear
+from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.utils.logger import Logger
 
 
@@ -10,9 +10,10 @@ class TrainerHyperScheduler(TrainerBasic):
     """
     TrainerHyperScheduler
     """
-    def set_scheduler(self, scheduler, total_steps,
-                      flag_update_epoch=False,
-                      flag_update_batch=False):
+
+    def set_scheduler(
+        self, scheduler, total_steps, flag_update_epoch=False, flag_update_batch=False
+    ):
         """
         set the warmup strategy from objective scheduler
         set wheter the hyper-parameter scheduling happens per epoch or per batch
@@ -36,17 +37,23 @@ class TrainerHyperScheduler(TrainerBasic):
         should be set to epoch*self.num_batches + ind_batch
         """
         if self.flag_update_hyper_per_batch:
-            self.model.hyper_update(epoch*self.num_batches + ind_batch, self.hyper_scheduler)
+            self.model.hyper_update(
+                epoch * self.num_batches + ind_batch, self.hyper_scheduler
+            )
         return super().before_batch(epoch, ind_batch)
 
     def before_tr(self):
         if self.hyper_scheduler is None:
             logger = Logger.get_logger()
-            logger.warning("hyper-parameter scheduler not set,"
-                           "going to use default Warmpup and epoch update")
-            self.set_scheduler(HyperSchedulerWarmupLinear,
-                               total_steps=self.aconf.warmup,
-                               flag_update_epoch=True)
+            logger.warning(
+                "hyper-parameter scheduler not set,"
+                "going to use default Warmpup and epoch update"
+            )
+            self.set_scheduler(
+                HyperSchedulerWarmupLinear,
+                total_steps=self.aconf.warmup,
+                flag_update_epoch=True,
+            )
 
     def tr_epoch(self, epoch):
         """

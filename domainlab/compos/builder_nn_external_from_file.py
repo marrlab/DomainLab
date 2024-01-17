@@ -1,6 +1,7 @@
 from domainlab.compos.a_nn_builder import AbstractFeatExtractNNBuilderChainNode
-from domainlab.utils.u_import_net_module import \
-    build_external_obj_net_module_feat_extract
+from domainlab.utils.u_import_net_module import (
+    build_external_obj_net_module_feat_extract,
+)
 
 
 def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_net_path):
@@ -9,13 +10,17 @@ def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_net_path):
     for diva, there can be class feature extractor and domain feature
     extractor
     """
+
     class _LNodeFeatExtractNNBuilderExternFromFile(
-            AbstractFeatExtractNNBuilderChainNode):
+        AbstractFeatExtractNNBuilderChainNode
+    ):
         """LNodeFeatExtractNNBuilderExternFromFile.
         Local class to return
         """
-        def init_business(self, dim_out, args, flag_pretrain,
-                          remove_last_layer, isize=None):
+
+        def init_business(
+            self, dim_out, args, flag_pretrain, remove_last_layer, isize=None
+        ):
             """
             initialize **and** return the heavy weight business object for
             doing the real job
@@ -25,12 +30,13 @@ def mkNodeFeatExtractNNBuilderExternFromFile(arg_name_net_path):
             """
             pyfile4net = getattr(args, arg_name_net_path)
             net = build_external_obj_net_module_feat_extract(
-                   pyfile4net, dim_out, remove_last_layer)
+                pyfile4net, dim_out, remove_last_layer
+            )
             return net
 
         def is_myjob(self, args):
-            """is_myjob.
-            """
+            """is_myjob."""
             pyfile4net = getattr(args, arg_name_net_path)
             return pyfile4net is not None
+
     return _LNodeFeatExtractNNBuilderExternFromFile

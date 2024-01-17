@@ -2,14 +2,14 @@
 VENV="domainlab_py39"
 BASHRC="~/.bashrc"  # source ~/.bash_profile
 
-## 
+##
 JOB_NAME="submit"
 PATH_CODE=$1
 PATH_OUT_BASE="${PATH_CODE}/submit_job_logs"
 mkdir -p $PATH_OUT_BASE
 PATH_YAML=$2
 START_SEED=$3
-ACTIVE_TIME="3-00:00:00" 
+ACTIVE_TIME="3-00:00:00"
 
 job_file="${PATH_OUT_BASE}/${JOB_NAME}.cmd"
 
@@ -19,7 +19,7 @@ echo "#!/bin/bash
 #SBATCH -J ${JOB_NAME}
 #SBATCH -o ${PATH_OUT_BASE}/${JOB_NAME}.out
 #SBATCH -e ${PATH_OUT_BASE}/${JOB_NAME}.err
-#SBATCH -p cpu_p 
+#SBATCH -p cpu_p
 #SBATCH -t ${ACTIVE_TIME}
 #SBATCH -c 20
 #SBATCH --mem=32G

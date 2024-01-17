@@ -19,34 +19,67 @@ class GatedDense(nn.Module):
 
         return h * g
 
-#==========================================================================
+
+# ==========================================================================
 class GatedConv2d(nn.Module):
-    def __init__(self, input_channels, output_channels, kernel_size, stride, padding, dilation=1, activation=None):
+    def __init__(
+        self,
+        input_channels,
+        output_channels,
+        kernel_size,
+        stride,
+        padding,
+        dilation=1,
+        activation=None,
+    ):
         super(GatedConv2d, self).__init__()
 
         self.activation = activation
         self.sigmoid = nn.Sigmoid()
 
-        self.h = nn.Conv2d(input_channels, output_channels, kernel_size, stride, padding, dilation)
-        self.g = nn.Conv2d(input_channels, output_channels, kernel_size, stride, padding, dilation)
+        self.h = nn.Conv2d(
+            input_channels, output_channels, kernel_size, stride, padding, dilation
+        )
+        self.g = nn.Conv2d(
+            input_channels, output_channels, kernel_size, stride, padding, dilation
+        )
 
     def forward(self, x):
         if self.activation is None:
             h = self.h(x)
         else:
-            h = self.activation( self.h( x ) )
+            h = self.activation(self.h(x))
 
-        g = self.sigmoid( self.g( x ) )
+        g = self.sigmoid(self.g(x))
 
         return h * g
 
-#==============================================================================
+
+# ==============================================================================
 class Conv2d(nn.Module):
-    def __init__(self, input_channels, output_channels, kernel_size, stride, padding, dilation=1, activation=None, bias=True):
+    def __init__(
+        self,
+        input_channels,
+        output_channels,
+        kernel_size,
+        stride,
+        padding,
+        dilation=1,
+        activation=None,
+        bias=True,
+    ):
         super(Conv2d, self).__init__()
 
         self.activation = activation
-        self.conv = nn.Conv2d(input_channels, output_channels, kernel_size, stride, padding, dilation, bias=bias)
+        self.conv = nn.Conv2d(
+            input_channels,
+            output_channels,
+            kernel_size,
+            stride,
+            padding,
+            dilation,
+            bias=bias,
+        )
 
     def forward(self, x):
         h = self.conv(x)

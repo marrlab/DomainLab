@@ -1,10 +1,11 @@
-'''
+"""
 Code coverage issues:
     https://app.codecov.io/gh/marrlab/DomainLab/blob/master/domainlab/utils/get_git_tag.py
     - lines 10-20
     - lines 28, 30-32
-'''
+"""
 from domainlab.utils.get_git_tag import get_git_tag
+
 
 def test_git_tag():
     """
@@ -12,10 +13,11 @@ def test_git_tag():
     """
     get_git_tag(print_diff=True)
 
+
 def test_git_tag_error():
-    '''
+    """
     test git_tag error
-    '''
+    """
     # add one line to the file
     with open("data/ztest_files/dummy_file.py", "a") as f:
         f.write("\n# I am a dummy command")

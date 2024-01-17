@@ -1,7 +1,7 @@
-'''
+"""
 resnet50 modified as described in
 https://arxiv.org/pdf/2007.01434.pdf appendix D
-'''
+"""
 from torch import nn
 from torchvision import models as torchvisionmodels
 from torchvision.models import ResNet50_Weights
@@ -11,7 +11,7 @@ from domainlab.compos.nn_zoo.nn_torchvision import NetTorchVisionBase
 
 
 class CostumResNet(nn.Module):
-    '''
+    """
     this costum resnet includes the modification described in
     https://arxiv.org/pdf/2007.01434.pdf appendix D
 
@@ -20,21 +20,22 @@ class CostumResNet(nn.Module):
     generalization algorithms (as different minibatches follow different distributions),
     we freeze all batch normalization
     layers before fine-tuning. We insert a dropout layer before the final linear layer.
-    '''
+    """
+
     def __init__(self, flag_pretrain):
         super().__init__()
         self.flag_pretrain = flag_pretrain
 
         if flag_pretrain:
             resnet50 = torchvisionmodels.resnet.resnet50(
-                weights=ResNet50_Weights.IMAGENET1K_V2)
+                weights=ResNet50_Weights.IMAGENET1K_V2
+            )
         else:
-            resnet50 = torchvisionmodels.resnet.resnet50(
-                weights='None')
+            resnet50 = torchvisionmodels.resnet.resnet50(weights="None")
 
         # freez all batchnormalisation layers
         for module in resnet50.modules():
-            if module._get_name() == 'BatchNorm2d':
+            if module._get_name() == "BatchNorm2d":
                 module.requires_grad_(False)
 
         self.resnet50_first_part = nn.Sequential(*(list(resnet50.children())[:-1]))
@@ -55,6 +56,7 @@ class ResNetBase(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision
     """
+
     def fetch_net(self, flag_pretrain):
         """fetch_net.
 
@@ -69,6 +71,7 @@ class ResNet4DeepAll(ResNetBase):
     """
     change the size of the last layer
     """
+
     def __init__(self, flag_pretrain, dim_y):
         """__init__.
 

@@ -20,15 +20,15 @@ def test_exp_protocol_agg_writer():
     parser = mk_parser_main()
     args = parser.parse_args(args=[])
     misc = {
-        'model': 'diva',
-        'nname': 'conv_bn_pool_2',
-        'nname_dom': 'conv_bn_pool_2',
-        'task': 'mnistcolor10',
-        'te_d': 0,
-        'result_file': "out_file",
-        'params': "hyperparameters",
-        'benchmark_task_name': "task",
-        'param_index': 0
+        "model": "diva",
+        "nname": "conv_bn_pool_2",
+        "nname_dom": "conv_bn_pool_2",
+        "task": "mnistcolor10",
+        "te_d": 0,
+        "result_file": "out_file",
+        "params": "hyperparameters",
+        "benchmark_task_name": "task",
+        "param_index": 0,
     }
     apply_dict_to_args(args, misc, extend=True)
 

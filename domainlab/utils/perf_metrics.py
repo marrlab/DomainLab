@@ -1,26 +1,39 @@
 """Classification Performance"""
 import numpy as np
 import torch
-from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
-                                         F1Score, Precision, Recall,
-                                         Specificity)
+from torchmetrics.classification import (
+    AUC,
+    AUROC,
+    Accuracy,
+    ConfusionMatrix,
+    F1Score,
+    Precision,
+    Recall,
+    Specificity,
+)
 
 
-class PerfMetricClassif():
+class PerfMetricClassif:
     """Classification Performance metrics"""
-    def __init__(self, num_classes, agg_precision_recall_f1='macro'):
+
+    def __init__(self, num_classes, agg_precision_recall_f1="macro"):
         super().__init__()
-        self.acc = Accuracy(num_classes=num_classes, average='micro')
+        self.acc = Accuracy(num_classes=num_classes, average="micro")
         # NOTE: only micro aggregation make sense for acc
-        self.precision = Precision(num_classes=num_classes, average=agg_precision_recall_f1)
+        self.precision = Precision(
+            num_classes=num_classes, average=agg_precision_recall_f1
+        )
         # Calculate the metric for each class separately, and average the
         # metrics across classes (with equal weights for each class).
         self.recall = Recall(num_classes=num_classes, average=agg_precision_recall_f1)
-        self.f1_score = F1Score(num_classes=num_classes, average=agg_precision_recall_f1)
+        self.f1_score = F1Score(
+            num_classes=num_classes, average=agg_precision_recall_f1
+        )
         # NOTE: auroc does nto support "micro" as aggregation
         self.auroc = AUROC(num_classes=num_classes, average=agg_precision_recall_f1)
-        self.specificity = Specificity(num_classes=num_classes,
-                                       average=agg_precision_recall_f1)
+        self.specificity = Specificity(
+            num_classes=num_classes, average=agg_precision_recall_f1
+        )
         self.confmat = ConfusionMatrix(num_classes=num_classes)
 
     def cal_metrics(self, model, loader_te, device):
@@ -68,13 +81,15 @@ class PerfMetricClassif():
         f1_score_y = self.f1_score.compute()
         auroc_y = self.auroc.compute()
         confmat_y = self.confmat.compute()
-        dict_metric = {"acc": acc_y,
-                       "precision": precision_y,
-                       "recall": recall_y,
-                       "specificity": specificity_y,
-                       "f1": f1_score_y,
-                       "auroc": auroc_y,
-                       "confmat": confmat_y}
+        dict_metric = {
+            "acc": acc_y,
+            "precision": precision_y,
+            "recall": recall_y,
+            "specificity": specificity_y,
+            "f1": f1_score_y,
+            "auroc": auroc_y,
+            "confmat": confmat_y,
+        }
         keys = list(dict_metric)
         keys.remove("confmat")
         for key in keys:
