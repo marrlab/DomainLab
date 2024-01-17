@@ -146,7 +146,6 @@ def mk_parser_main():
         dest="bm_dir",
         help="Aggregates and plots partial data of a snakemake \
                         benchmark. Requires the benchmark config file. \
-<<<<<<< HEAD
                         Other arguments will be ignored.")
 
     parser.add_argument('--gen_plots', type=str,
@@ -205,8 +204,7 @@ def mk_parser_main():
                                 single space, will be parsed to be list of \
                                 strings; if not provided then all available \
                                 domains that are not assigned to \
-                                the test set will be used as training domains",
-    )
+                                the test set will be used as training domains')
 
     arg_group_task.add_argument(
         "--san_check",
