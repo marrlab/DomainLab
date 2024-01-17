@@ -31,6 +31,7 @@ class StubSummaryWriter:
 
 
 class HyperSchedulerFeedback:
+    # pylint: disable=too-many-instance-attributes
     """
     design $\\mu$$ sequence based on state of penalized loss
     """
