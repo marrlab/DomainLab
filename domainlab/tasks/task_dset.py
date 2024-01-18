@@ -4,21 +4,25 @@ Use dictionaries to create train and test domain split
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif  # abstract class
 
 
-def mk_task_dset(isize,
-                 taskna="task_custom",  # name of the task
-                 dim_y=None,
-                 list_str_y=None,
-                 parent=NodeTaskDictClassif,
-                 succ=None):
+def mk_task_dset(
+    isize,
+    taskna="task_custom",  # name of the task
+    dim_y=None,
+    list_str_y=None,
+    parent=NodeTaskDictClassif,
+    succ=None,
+):
     """
     make a task via a dictionary of dataset where the key is domain
     value is a tuple of dataset for training and dataset for
     validation (can be identical to training)
     """
+
     class NodeTaskDset(parent):
         """
         Use dictionaries to create train and test domain split
         """
+
         def conf_without_args(self):
             """
             set member variables
@@ -26,9 +30,13 @@ def mk_task_dset(isize,
             self._name = taskna
 
             if list_str_y is None and dim_y is None:
-                raise RuntimeError("arguments list_str_y and dim_y can not be both None!")
+                raise RuntimeError(
+                    "arguments list_str_y and dim_y can not be both None!"
+                )
 
-            self.list_str_y = list_str_y   # list_str_y has to be initialized before dim_y
+            self.list_str_y = (
+                list_str_y  # list_str_y has to be initialized before dim_y
+            )
             self.dim_y = dim_y
 
             if self.list_str_y is None:

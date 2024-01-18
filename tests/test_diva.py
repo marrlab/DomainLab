@@ -1,8 +1,10 @@
-import os
 import gc
+import os
+
 import torch
-from domainlab.exp.exp_main import Exp
+
 from domainlab.arg_parser import mk_parser_main
+from domainlab.exp.exp_main import Exp
 from tests.utils_test import utils_test_algo
 
 
@@ -10,9 +12,12 @@ def test_dial_diva():
     """
     the combination of dial and diva: use dial trainer to train diva model
     """
-    utils_test_algo("--te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=diva \
+    utils_test_algo(
+        "--te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=diva \
                     --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 \
-                    --gamma_y=7e5 --gamma_d=1e5 --trainer=dial")
+                    --gamma_y=7e5 --gamma_d=1e5 --trainer=dial"
+    )
+
 
 def test_diva():
     parser = mk_parser_main()
@@ -29,24 +34,34 @@ def test_diva():
     gc.collect()
 
 
-
 def test_trainer_diva():
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--task", "mini_vlcs",
-                               "--model", "diva", "--bs", "2",
-                               "--nname", "conv_bn_pool_2",
-                               "--gamma_y", "7e5",
-                               "--gamma_d", "7e5",
-                               "--nname_dom", "conv_bn_pool_2"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--task",
+            "mini_vlcs",
+            "--model",
+            "diva",
+            "--bs",
+            "2",
+            "--nname",
+            "conv_bn_pool_2",
+            "--gamma_y",
+            "7e5",
+            "--gamma_d",
+            "7e5",
+            "--nname_dom",
+            "conv_bn_pool_2",
+        ]
+    )
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     del exp
     torch.cuda.empty_cache()
     gc.collect()
-
 
 
 def test_trainer_diva_folder():
@@ -55,21 +70,32 @@ def test_trainer_diva_folder():
     rootdir = os.path.abspath(rootdir)
     path = os.path.join(rootdir, "examples/tasks/task_vlcs.py")
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "caltech",
-                               "--tpath", "%s" % (path),
-                               "--model", "diva", "--bs", "2",
-                               "--nname", "conv_bn_pool_2",
-                               "--gamma_y", "7e5",
-                               "--gamma_d", "7e5",
-                               "--nname_dom", "conv_bn_pool_2"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "caltech",
+            "--tpath",
+            "%s" % (path),
+            "--model",
+            "diva",
+            "--bs",
+            "2",
+            "--nname",
+            "conv_bn_pool_2",
+            "--gamma_y",
+            "7e5",
+            "--gamma_d",
+            "7e5",
+            "--nname_dom",
+            "conv_bn_pool_2",
+        ]
+    )
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     del exp
     torch.cuda.empty_cache()
     gc.collect()
-
 
 
 def test_trainer_diva_pathlist():
@@ -78,18 +104,29 @@ def test_trainer_diva_pathlist():
     rootdir = os.path.abspath(rootdir)
     path = os.path.join(rootdir, "examples/tasks/demo_task_path_list_small.py")
     parser = mk_parser_main()
-    margs = parser.parse_args(["--te_d", "sketch",
-                               "--tpath", "%s" % (path),
-                               "--model", "diva", "--bs", "2",
-                               "--nname", "conv_bn_pool_2",
-                               "--gamma_y", "7e5",
-                               "--gamma_d", "7e5",
-                               "--nname_dom", "conv_bn_pool_2"
-                               ])
+    margs = parser.parse_args(
+        [
+            "--te_d",
+            "sketch",
+            "--tpath",
+            "%s" % (path),
+            "--model",
+            "diva",
+            "--bs",
+            "2",
+            "--nname",
+            "conv_bn_pool_2",
+            "--gamma_y",
+            "7e5",
+            "--gamma_d",
+            "7e5",
+            "--nname_dom",
+            "conv_bn_pool_2",
+        ]
+    )
     exp = Exp(margs)
     exp.trainer.before_tr()
     exp.trainer.tr_epoch(0)
     del exp
     torch.cuda.empty_cache()
     gc.collect()
-

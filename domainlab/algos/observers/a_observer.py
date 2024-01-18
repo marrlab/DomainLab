@@ -8,6 +8,7 @@ class AObVisitor(metaclass=abc.ABCMeta):
     """
     Observer + Visitor pattern for model selection
     """
+
     def __init__(self):
         self.task = None
         self.device = None

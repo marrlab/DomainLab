@@ -5,9 +5,9 @@ This module contains 3 classes inheriting:
 import copy
 import datetime
 import os
-import numpy as np
 from pathlib import Path
 
+import numpy as np
 import torch
 from sklearn.metrics import ConfusionMatrixDisplay
 
@@ -15,10 +15,11 @@ from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
 
-class ExpModelPersistVisitor():
+class ExpModelPersistVisitor:
     """
     This class couples with Task class attributes
     """
+
     model_dir = "saved_models"
     model_suffix = ".model"
 
@@ -31,17 +32,15 @@ class ExpModelPersistVisitor():
         """
         self.host = host
         self.out = host.args.out
-        self.model_dir = os.path.join(self.out,
-                                      ExpModelPersistVisitor.model_dir)
+        self.model_dir = os.path.join(self.out, ExpModelPersistVisitor.model_dir)
         self.git_tag = get_git_tag()
-        self.task_name = self.host.task.get_na(self.host.args.tr_d,
-                                               self.host.args.te_d)
+        self.task_name = self.host.task.get_na(self.host.args.tr_d, self.host.args.te_d)
         self.algo_name = self.host.args.model
         self.seed = self.host.args.seed
         self.model_name = self.mk_model_na(self.git_tag)
-        self.model_path = os.path.join(self.model_dir,
-                                       self.model_name +
-                                       ExpModelPersistVisitor.model_suffix)
+        self.model_path = os.path.join(
+            self.model_dir, self.model_name + ExpModelPersistVisitor.model_suffix
+        )
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
         self.model = copy.deepcopy(self.host.trainer.model)
@@ -59,19 +58,22 @@ class ExpModelPersistVisitor():
         suffix_t = str(datetime.datetime.now())[:dd_cut].replace(" ", "_")
         suffix_t = suffix_t.replace("-", "md_")
         suffix_t = suffix_t.replace(":", "_")
-        list4mname = [self.task_name,
-                      self.algo_name,
-                      tag, suffix_t,
-                      "seed",
-                      str(self.seed)]
+        list4mname = [
+            self.task_name,
+            self.algo_name,
+            tag,
+            suffix_t,
+            "seed",
+            str(self.seed),
+        ]
         # the sequence of components (e.g. seed in the last place)
         # in model name is not crutial
         model_name = "_".join(list4mname)
         if self.host.args.debug:
             model_name = "debug_" + model_name
-        slurm = os.environ.get('SLURM_JOB_ID')
+        slurm = os.environ.get("SLURM_JOB_ID")
         if slurm:
-            model_name = model_name + '_' + slurm
+            model_name = model_name + "_" + slurm
         logger = Logger.get_logger()
         logger.info(f"model name: {model_name}")
         return model_name
@@ -128,6 +130,7 @@ class AggWriter(ExpModelPersistVisitor):
     1. aggregate results to text file.
     2. all dependencies are in the constructor
     """
+
     def __init__(self, host):
         super().__init__(host)
         self.agg_tag = self.host.args.aggtag
@@ -159,13 +162,14 @@ class AggWriter(ExpModelPersistVisitor):
         """
         epos_name = "epos"
         dict_cols = {
-                     "algo": self.algo_name,
-                     epos_name: None,
-                     "seed": self.seed,
-                     "aggtag": self.agg_tag,
-                     # algorithm configuration for instance
-                     "mname": "mname_" + self.model_name,
-                     "commit": "commit_" + self.git_tag}
+            "algo": self.algo_name,
+            epos_name: None,
+            "seed": self.seed,
+            "aggtag": self.agg_tag,
+            # algorithm configuration for instance
+            "mname": "mname_" + self.model_name,
+            "commit": "commit_" + self.git_tag,
+        }
         return dict_cols, epos_name
 
     def _gen_line(self, dict_metric):
@@ -186,9 +190,10 @@ class AggWriter(ExpModelPersistVisitor):
         for writing and reading, the same function is called to ensure name
         change in the future will not break the software
         """
-        list4fname = [self.task_name,
-                      self.exp_tag,
-                      ]
+        list4fname = [
+            self.task_name,
+            self.exp_tag,
+        ]
         fname = "_".join(list4fname) + ".csv"
         if self.debug:
             fname = "_".join(["debug_agg", fname])
@@ -203,7 +208,7 @@ class AggWriter(ExpModelPersistVisitor):
         Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
         logger = Logger.get_logger()
         logger.info(f"results aggregation path: {file_path}")
-        with open(file_path, 'a', encoding="utf8") as f_h:
+        with open(file_path, "a", encoding="utf8") as f_h:
             print(str_line, file=f_h)
 
     def confmat_to_file(self, confmat, confmat_filename):
@@ -222,7 +227,9 @@ class AggWriter(ExpModelPersistVisitor):
         # @FIXME: still we want to have mname_ as a variable defined in some
         # configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
-        file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
+        file_path = os.path.join(
+            os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png"
+        )
         logger = Logger.get_logger()
         logger.info(f"confusion matrix saved in file: {file_path}")
         disp.figure_.savefig(file_path)
@@ -233,6 +240,7 @@ class ExpProtocolAggWriter(AggWriter):
     AggWriter tailored to experimental protocol
     Output contains additionally index, exp task, te_d and params.
     """
+
     def get_cols(self):
         """columns"""
         epos_name = "epos"
@@ -245,7 +253,7 @@ class ExpProtocolAggWriter(AggWriter):
             epos_name: None,
             "te_d": self.host.args.te_d,
             "seed": self.seed,
-            "params": f"\"{self.host.args.params}\"",
+            "params": f'"{self.host.args.params}"',
         }
         return dict_cols, epos_name
 
@@ -268,11 +276,10 @@ class ExpProtocolAggWriter(AggWriter):
         confmat_filename = confmat_filename.removeprefix("mname_")
         path4file = os.path.join(path4file, "confusion_matrix")
         os.makedirs(path4file, exist_ok=True)
-        file_path = os.path.join(path4file,
-                                 f"{index}.txt")
-        with open(file_path, 'a', encoding="utf8") as f_h:
+        file_path = os.path.join(path4file, f"{index}.txt")
+        with open(file_path, "a", encoding="utf8") as f_h:
             print(confmat_filename, file=f_h)
             for line in np.matrix(confmat):
-                np.savetxt(f_h, line, fmt='%.2f')
+                np.savetxt(f_h, line, fmt="%.2f")
         logger = Logger.get_logger()
         logger.info(f"confusion matrix saved in file: {file_path}")

@@ -4,10 +4,10 @@ all available tasks for domainlab
 
 from domainlab.arg_parser import mk_parser_main
 from domainlab.compos.pcr.request import RequestTask
-from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
-from domainlab.utils.u_import import import_path
-from domainlab.utils.logger import Logger
 from domainlab.tasks.task_mini_vlcs import addtask2chain
+from domainlab.tasks.task_mnist_color import NodeTaskMNISTColor10
+from domainlab.utils.logger import Logger
+from domainlab.utils.u_import import import_path
 
 
 class TaskChainNodeGetter(object):
@@ -15,6 +15,7 @@ class TaskChainNodeGetter(object):
     1. Hardcoded chain
     3. Return selected node
     """
+
     def __init__(self, args):
         self.args = args
         tpath = args.tpath
@@ -38,8 +39,9 @@ class TaskChainNodeGetter(object):
             if self.args.task is None:
                 logger = Logger.get_logger()
                 logger.info("")
-                logger.info(f"overriding args.task {self.args.task} "
-                            f"to {node.task_name}")
+                logger.info(
+                    f"overriding args.task {self.args.task} " f"to {node.task_name}"
+                )
                 logger.info("")
                 self.request = node.task_name  # @FIXME
         node = chain.handle(self.request)
