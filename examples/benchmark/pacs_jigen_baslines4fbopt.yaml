@@ -55,7 +55,7 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-    
+
 jigen_feedforward:
   model: jigen
   trainer: hyperscheduler

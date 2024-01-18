@@ -38,10 +38,10 @@ class TrainerBasic(AbstractTrainer):
 
     def tr_epoch(self, epoch, flag_info=False):
         self.before_epoch()
-        for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in \
-                enumerate(self.loader_tr):
-            self.tr_batch(tensor_x, tensor_y, tensor_d, others,
-                          ind_batch, epoch)
+        for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
+            self.loader_tr
+        ):
+            self.tr_batch(tensor_x, tensor_y, tensor_d, others, ind_batch, epoch)
         return self.after_epoch(epoch, flag_info)
 
     def after_epoch(self, epoch, flag_info):

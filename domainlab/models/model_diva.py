@@ -9,7 +9,9 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   # FIXME: should not be default
+def mk_diva(
+    parent_class=VAEXYDClassif, str_diva_multiplier_type="default"
+):  # FIXME: should not be default
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -57,11 +59,22 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
         """
 
         @store_args
-        def __init__(self, chain_node_builder,
-                     zd_dim, zy_dim, zx_dim,
-                     list_str_y, list_d_tr,
-                     gamma_d, gamma_y,
-                     beta_d, beta_x, beta_y, mu_recon=1.0):
+        def __init__(
+            self,
+            chain_node_builder,
+            zd_dim,
+            zy_dim,
+            zx_dim,
+            list_str_y,
+            list_d_tr,
+            gamma_d,
+            gamma_y,
+            beta_d,
+            beta_x,
+            beta_y,
+            mu_recon=1.0,
+        ):
+            # pylint: disable=too-many-arguments, unused-argument
             """
             gamma: classification loss coefficient
             """
@@ -118,12 +131,14 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             """
             list of multipliers name, which correspond to cal_reg_loss
             """
-            return {"mu_recon": self.mu_recon,
-                    "beta_d": self.beta_d,
-                    "beta_x": self.beta_x,
-                    "beta_y": self.beta_y,
-                    "gamma_d": self.gamma_d}
-          
+            return {
+                "mu_recon": self.mu_recon,
+                "beta_d": self.beta_d,
+                "beta_x": self.beta_x,
+                "beta_y": self.beta_y,
+                "gamma_d": self.gamma_d,
+            }
+
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
             q_zd, zd_q, q_zx, zx_q, q_zy, zy_q = self.encoder(tensor_x)
             logit_d = self.net_classif_d(zd_q)
@@ -157,8 +172,13 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             _, d_target = tensor_d.max(dim=1)
 
             lc_d = F.cross_entropy(logit_d, d_target, reduction=g_str_cross_entropy_agg)
-            return [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
-                   [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, self.gamma_d]
+            return [
+                loss_recon_x,
+                zd_p_minus_zd_q,
+                zx_p_minus_zx_q,
+                zy_p_minus_zy_q,
+                lc_d,
+            ], [self.mu_recon, -self.beta_d, -self.beta_x, -self.beta_y, self.gamma_d]
 
     class ModelDIVAGammadRecon(ModelDIVA):
         def hyper_update(self, epoch, fun_scheduler):
@@ -174,7 +194,6 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
             self.gamma_d = dict_rst["gamma_d"]
             self.mu_recon = dict_rst["mu_recon"]
 
-
         def hyper_init(self, functor_scheduler, trainer=None):
             """
             initiate a scheduler object via class name and things inside this model
@@ -187,23 +206,32 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
                 gamma_d=self.gamma_d,
-                mu_recon=self.mu_recon
+                mu_recon=self.mu_recon,
             )
 
     class ModelDIVAGammadReconPerPixel(ModelDIVAGammadRecon):
         def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-            [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], [mu_recon, minus_beta_d, minus_beta_x, minus_beta_y, gamma_d] = super().cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+            [loss_recon_x, zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], [
+                mu_recon,
+                minus_beta_d,
+                minus_beta_x,
+                minus_beta_y,
+                gamma_d,
+            ] = super().cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
 
-            return [torch.div(loss_recon_x,
-                              tensor_x.shape[2] * tensor_x.shape[3]),
-                    zd_p_minus_zd_q, zx_p_minus_zx_q, zy_p_minus_zy_q, lc_d], \
-                   [mu_recon, minus_beta_d, minus_beta_x,
-                    minus_beta_y, gamma_d]
+            return [
+                torch.div(loss_recon_x, tensor_x.shape[2] * tensor_x.shape[3]),
+                zd_p_minus_zd_q,
+                zx_p_minus_zx_q,
+                zy_p_minus_zy_q,
+                lc_d,
+            ], [mu_recon, minus_beta_d, minus_beta_x, minus_beta_y, gamma_d]
 
     class ModelDIVAGammad(ModelDIVA):
         """
         only adjust gammad and beta
         """
+
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
 
@@ -234,6 +262,7 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
         """
         mock
         """
+
     if str_diva_multiplier_type == "gammad_recon":
         return ModelDIVAGammadRecon
     if str_diva_multiplier_type == "gammad_recon_per_pixel":
@@ -244,4 +273,5 @@ def mk_diva(parent_class=VAEXYDClassif, str_diva_multiplier_type="default"):   #
         return ModelDIVADefault
     raise RuntimeError(
         "not support argument candiates for str_diva_multiplier_type: \
-        allowed: default, gammad_recon, gammad_recon_per_pixel, gammad")
+        allowed: default, gammad_recon, gammad_recon_per_pixel, gammad"
+    )

@@ -89,7 +89,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.mu_iter_start = 0
         self.flag_setpoint_updated = False
 
-
     @property
     def model(self):
         """
@@ -226,7 +225,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if "trainer" not in str(type(self._model)).lower():
             return self._model
         return self._model.get_model()
-      
+
     def as_model(self):
         """
         used for decorator pattern

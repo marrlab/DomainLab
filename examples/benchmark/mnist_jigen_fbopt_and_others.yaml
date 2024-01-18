@@ -63,7 +63,7 @@ jigen_feedback:
   shared:
     - k_i_gain
     - mu_clip
-    
+
 jigen_feedforward:
   model: jigen
   trainer: hyperscheduler
