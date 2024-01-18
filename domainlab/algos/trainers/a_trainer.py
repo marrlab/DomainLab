@@ -244,3 +244,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         interface for each trainer to implement
         """
         return [], []
+
+    def dset_decoration_args_algo(self, args, ddset):
+        """
+        decorate dataset to get extra entries in load item, for instance,
+        jigen need permutation index
+        this parent class function delegate decoration to its decoratee
+        """
+        if self._decoratee is not None:
+            return self._decoratee.dset_decoration_args_algo(args, ddset)
+        return ddset
