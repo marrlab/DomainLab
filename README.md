@@ -45,7 +45,7 @@ conda activate domainlab_py39
 conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.6 -c pytorch -c conda-forge
 conda install torchmetrics==0.10.3
 git checkout fbopt
-pip install -r requirements_notorch.txt 
+pip install -r requirements_notorch.txt
 conda install tensorboard
 ```
 
@@ -60,7 +60,7 @@ https://github.com/marrlab/DomainLab/blob/fbopt/data/script/download_pacs.py
 step 2:
 make a symbolic link following the example script in https://github.com/marrlab/DomainLab/blob/master/sh_pacs.sh
 
-where `mkdir -p data/pacs` is executed under the repository directory, 
+where `mkdir -p data/pacs` is executed under the repository directory,
 
 `ln -s /dir/to/yourdata/pacs/raw  ./data/pacs/PACS`
 will create a symbolic link under the repository directory

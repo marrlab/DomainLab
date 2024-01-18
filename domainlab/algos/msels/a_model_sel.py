@@ -92,7 +92,7 @@ class AMSel(metaclass=abc.ABCMeta):
         if self.msel is not None:
             return self.msel.best_te_metric
         return -1
-        
+
     @property
     def sel_model_te_acc(self):
         """
@@ -101,7 +101,7 @@ class AMSel(metaclass=abc.ABCMeta):
         if self.msel is not None:
             return self.msel.sel_model_te_acc
         return -1
-        
+
     @property
     def oracle_last_setpoint_sel_te_acc(self):
         if self.msel is not None:

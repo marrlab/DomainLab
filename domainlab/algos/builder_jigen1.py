@@ -2,10 +2,10 @@
 builder for JiGen
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel_val import MSelValPerf
-from domainlab.algos.msels.c_msel_val_top_k import MSelValPerfTopK
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
 from domainlab.algos.msels.c_msel_setpoint_delay import MSelSetpointDelay
+from domainlab.algos.msels.c_msel_val import MSelValPerf
+from domainlab.algos.msels.c_msel_val_top_k import MSelValPerfTopK
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupExponential

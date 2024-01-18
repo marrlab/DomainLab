@@ -94,7 +94,7 @@ Shared params:
 
 
 
-# Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small 
+# Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small
 
 hduva_beta_warmup:
   model: hduva
