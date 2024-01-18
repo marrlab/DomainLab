@@ -10,25 +10,25 @@ class ResNetBaseDassl(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision
     """
+
     def fetch_net(self, flag_pretrain):
         """fetch_net.
 
         :param flag_pretrain:
         """
-        self.net_torchvision = torchvisionmodels.resnet.resnet50(
-            weights=None)
-        weights = 'examples/nets/resnet50-19c8e357Dassl.pth'
+        self.net_torchvision = torchvisionmodels.resnet.resnet50(weights=None)
+        weights = "examples/nets/resnet50-19c8e357Dassl.pth"
         # CHANGEME: user can modify this line to choose other neural
         # network architectures from 'torchvision.models'
         if flag_pretrain:
             self.net_torchvision.load_state_dict(torch.load(weights))
 
 
-
 class ResNet4DeepAllDassl(ResNetBaseDassl):
     """
     change the size of the last layer
     """
+
     def __init__(self, flag_pretrain, dim_y):
         """__init__.
 

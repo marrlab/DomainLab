@@ -1,5 +1,5 @@
 # source distribution
-python setup.py sdist 
+python setup.py sdist
 pip install -e .
 #!/bin/bash
 python setup.py develop

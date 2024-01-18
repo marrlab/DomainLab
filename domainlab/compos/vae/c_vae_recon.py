@@ -8,19 +8,26 @@ import torch
 from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
 
 
-class ReconVAEXYD():
+class ReconVAEXYD:
     """
     Adaptor is vital for data generation so this class can be decoupled from model class.
     The model class can be refactored, we do want to use the trained old-version model, which we
     only need to change adaptor class.
     """
+
     def __init__(self, model, na_adaptor=AdaptorReconVAEXYD):
         self.model = model
         self.adaptor = na_adaptor(self.model)
 
-    def recon(self, x, vec_y=None, vec_d=None,
-              sample_p_zy=False, sample_p_zd=False,
-              scalar_zx2fill=None):
+    def recon(
+        self,
+        x,
+        vec_y=None,
+        vec_d=None,
+        sample_p_zy=False,
+        sample_p_zd=False,
+        scalar_zx2fill=None,
+    ):
         """
         common function
         """
@@ -44,7 +51,9 @@ class ReconVAEXYD():
             if scalar_zx2fill is not None:
                 recon_zx = torch.zeros_like(zx_loc_q)
                 recon_zx = recon_zx.fill_(scalar_zx2fill)
-                str_type = "_".join([str_type, "__fill_zx_", str(scalar_zx2fill), "___"])
+                str_type = "_".join(
+                    [str_type, "__fill_zx_", str(scalar_zx2fill), "___"]
+                )
             else:
                 recon_zx = zx_loc_q
                 str_type = "_".join([str_type, "__zx_q__"])
@@ -62,10 +71,18 @@ class ReconVAEXYD():
             img_recon = self.adaptor.recon_ydx(recon_zy, recon_zd, recon_zx, x)
             return img_recon, str_type
 
-    def recon_cf(self, x, na_cf, dim_cf, device,
-                 vec_y=None, vec_d=None,
-                 zx2fill=None,
-                 sample_p_zy=False, sample_p_zd=False):
+    def recon_cf(
+        self,
+        x,
+        na_cf,
+        dim_cf,
+        device,
+        vec_y=None,
+        vec_d=None,
+        zx2fill=None,
+        sample_p_zy=False,
+        sample_p_zd=False,
+    ):
         """
         Countefactual reconstruction:
             :param na_cf: name of counterfactual, 'y' or 'd'
@@ -79,10 +96,16 @@ class ReconVAEXYD():
             label_cf = torch.zeros(batch_size, dim_cf).to(device)
             label_cf[:, i] = 1
             if na_cf == "y":
-                img_recon_cf, str_type = self.recon(x, label_cf, vec_d, sample_p_zy, sample_p_zd, zx2fill)
+                img_recon_cf, str_type = self.recon(
+                    x, label_cf, vec_d, sample_p_zy, sample_p_zd, zx2fill
+                )
             elif na_cf == "d":
-                img_recon_cf, str_type = self.recon(x, vec_y, label_cf, sample_p_zy, sample_p_zd, zx2fill)
+                img_recon_cf, str_type = self.recon(
+                    x, vec_y, label_cf, sample_p_zy, sample_p_zd, zx2fill
+                )
             else:
-                raise RuntimeError("counterfactual image generation can only be 'y' or 'd'")
+                raise RuntimeError(
+                    "counterfactual image generation can only be 'y' or 'd'"
+                )
             list_recon_cf.append(img_recon_cf)
         return list_recon_cf, str_type

@@ -2,13 +2,15 @@
 import torch
 
 
-class PerfClassif():
+class PerfClassif:
     """Classification Performance"""
+
     @classmethod
     def gen_fun_acc(cls, dim_target):
         """
         :param dim_target: class/domain label embeding dimension
         """
+
         def fun_acc(list_vec_preds, list_vec_labels):
             """
             :param list_vec_preds: list of batches
@@ -17,7 +19,9 @@ class PerfClassif():
             correct_count = 0
             obs_count = 0
             for pred, label in zip(list_vec_preds, list_vec_labels):
-                correct_count += torch.sum(torch.sum(pred == label, dim=1) == dim_target)
+                correct_count += torch.sum(
+                    torch.sum(pred == label, dim=1) == dim_target
+                )
                 obs_count += pred.shape[0]  # batch size
             if isinstance(correct_count, int):
                 acc = (correct_count) / obs_count
@@ -26,6 +30,7 @@ class PerfClassif():
             # AttributeError: 'int' object has no attribute 'float'
             # reason: batchsize is too big
             return acc
+
         return fun_acc
 
     @classmethod
@@ -39,7 +44,8 @@ class PerfClassif():
         model_local = model.to(device)
         fun_acc = cls.gen_fun_acc(model_local.dim_y)
         list_vec_preds, list_vec_labels = cls.get_list_pred_target(
-            model_local, loader_te, device)
+            model_local, loader_te, device
+        )
         accuracy_y = fun_acc(list_vec_preds, list_vec_labels)
         acc_y = accuracy_y.cpu().numpy().item()
         return acc_y

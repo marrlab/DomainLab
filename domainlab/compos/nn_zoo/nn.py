@@ -5,6 +5,7 @@ class LayerId(nn.Module):
     """
     used to delete layers
     """
+
     def __init__(self):
         super().__init__()
 
@@ -19,7 +20,10 @@ class DenseNet(nn.Module):
     """
     (input)-dropout-linear-relu-dropout-linear-relu(output)
     """
-    def __init__(self, input_flat_size, out_hidden_size=1024, last_feat_dim=4096, p_dropout=0.5):
+
+    def __init__(
+        self, input_flat_size, out_hidden_size=1024, last_feat_dim=4096, p_dropout=0.5
+    ):
         """
         :param input_flat_size:
         :param out_hidden_size:

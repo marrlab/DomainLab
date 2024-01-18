@@ -21,5 +21,3 @@ endtime=`date +%s`
 runtime=$((endtime-starttime))
 echo "total time used:"
 echo "$runtime"
-
-
