@@ -25,9 +25,3 @@ class AModelCustom(AModelClassif):
         being the commandline argument name
         """
         raise NotImplementedError
-
-    def extract_semantic_feat(self, tensor_x):
-        """
-        calculate the logit for softmax classification
-        """
-        raise NotImplementedError

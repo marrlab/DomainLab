@@ -18,7 +18,7 @@ def test_custom():
     argsstr = (
         "--te_d=caltech --task=mini_vlcs --model=custom --bs=2 --debug \
                --apath=%s --nname_argna2val my_custom_arg_name \
-        --nname_argna2val alexnet"
+        --nname_argna2val alexnet --nname=alexnet"
         % (mpath)
     )
     margs = parser.parse_args(argsstr.split())
