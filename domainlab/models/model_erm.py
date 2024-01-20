@@ -51,8 +51,7 @@ def mk_erm(parent_class=AModelClassif):
                 )
             if list_str_y is None:
                 list_str_y = [f"class{i}" for i in range(dim_y)]
-            super().__init__(list_str_y)
-            self._net_classifier = net_classifier
+            super().__init__(net_classifier, list_str_y)
             self._net_invar_feat = net_feat
 
     return ModelERM
