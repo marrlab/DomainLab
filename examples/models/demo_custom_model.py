@@ -12,7 +12,6 @@ class ModelCustom(AModelCustom):
     """
     Template class to inherit from if user need custom neural network
     """
-
     @property
     def dict_net_module_na2arg_na(self):
         """
