@@ -54,4 +54,4 @@ def mk_erm(parent_class=AModelClassif):
             super().__init__(net_classifier, list_str_y)
             self._net_invar_feat = net_feat
 
-    return ModelERM
+    return parent_class.gen(ModelERM)

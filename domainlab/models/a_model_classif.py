@@ -231,3 +231,10 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         device = tensor_x.device
         bsize = tensor_x.shape[0]
         return [torch.zeros(bsize).to(device)], [0.0]
+
+    @classmethod
+    def gen(cls, class_na):
+        """
+        process domain generalization model to fit to be a classification task
+        """
+        return class_na
