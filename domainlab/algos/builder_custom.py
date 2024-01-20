@@ -5,6 +5,7 @@ from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.utils.utils_cuda import get_device
+from domainlab.compos.nn_zoo.nn import LayerId
 
 
 def make_basic_trainer(class_name_model):
@@ -92,6 +93,9 @@ def make_basic_trainer(class_name_model):
                     isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w),
                 )
                 model.add_module("%s" % (key_module_na), net)
+            # FIXME: this is just a stub to let net_aux be invariant feature
+            model._net_invar_feat = model.net_aux
+            model._net_classifier = LayerId()
 
         def init_business(self, exp):
             """
@@ -102,7 +106,7 @@ def make_basic_trainer(class_name_model):
             device = get_device(args)
             model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
             observer = ObVisitor(model_sel)
-            model = class_name_model(list_str_y=task.list_str_y)
+            model = class_name_model(net_classifier=None, list_str_y=task.list_str_y)
             model = self.init_next_model(model, exp)
             self.set_nets_from_dictionary(args, task, model)
             trainer = self.get_trainer(args)

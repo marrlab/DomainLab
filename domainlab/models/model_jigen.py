@@ -67,7 +67,6 @@ def mk_jigen(parent_class=AModelClassif):
             coeff_reg,
             n_perm=31,
             prob_permutation=0.1,
-            overwrite_args=False,
             meta_info=None,
         ):
             super().__init__(
@@ -84,7 +83,6 @@ def mk_jigen(parent_class=AModelClassif):
             self.meta_info = meta_info
             self.n_perm = n_perm
             self.prob_perm = prob_permutation
-            self.flag_overwrite_args = overwrite_args
 
         @property
         def list_str_multiplier_na(self):
@@ -113,25 +111,8 @@ def mk_jigen(parent_class=AModelClassif):
                 args.pperm = (
                     self.meta_info["pperm"] if "pperm" in self.meta_info else args.pperm
                 )
-
             nperm = self.n_perm
-            if args.nperm != nperm and not self.flag_overwrite_args:
-                warnings.warn(
-                    f"number of permutations specified differently \
-                              in model {nperm} and args {args.nperm}, \
-                              going to take args specification"
-                )
-                nperm = args.nperm
-
             pperm = self.prob_perm
-            if args.pperm != pperm and not self.flag_overwrite_args:
-                warnings.warn(
-                    f"probability of reshuffling specified differently \
-                              in model {pperm} and args: {args.pperm}, \
-                              going to take model specification"
-                )
-                pperm = args.pperm
-
             ddset_new = WrapDsetPatches(
                 ddset,
                 num_perms2classify=nperm,

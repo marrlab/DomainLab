@@ -178,7 +178,7 @@ html_theme_options = {
         {
             "href": "doc_extend_contribute",
             "internal": True,
-            "title": "Specify custom model in commandline",
+            "title": "Developers note",
         },
         # {
         #     "href": "https://squidfunk.github.io/mkdocs-material/",
