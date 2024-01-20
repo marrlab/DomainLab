@@ -3,10 +3,12 @@ for end to end test
 helper function to execute as if command line arguments are passed
 """
 import gc
+
 import pandas as pd
 import torch
-from domainlab.exp.exp_main import Exp
+
 from domainlab.arg_parser import mk_parser_main
+from domainlab.exp.exp_main import Exp
 
 
 def utils_test_algo(argsstr="--help"):

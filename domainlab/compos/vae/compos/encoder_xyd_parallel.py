@@ -1,8 +1,7 @@
 import torch.nn as nn
 
 from domainlab.compos.vae.compos.encoder import LSEncoderConvBnReluPool
-from domainlab.compos.vae.compos.encoder_zy import \
-    EncoderConnectLastFeatLayer2Z
+from domainlab.compos.vae.compos.encoder_zy import EncoderConnectLastFeatLayer2Z
 from domainlab.utils.utils_class import store_args
 
 
@@ -11,6 +10,7 @@ class XYDEncoderParallel(nn.Module):
     calculate zx, zy, zd vars independently (without order, parallel):
     x->zx, x->zy, x->zd
     """
+
     def __init__(self, net_infer_zd, net_infer_zx, net_infer_zy):
         super().__init__()
         self.add_module("net_infer_zd", net_infer_zd)
@@ -41,6 +41,7 @@ class XYDEncoderParallelUser(XYDEncoderParallel):
     """
     This class only reimplemented constructor of parent class
     """
+
     @store_args
     def __init__(self, net_class_d, net_x, net_class_y):
         super().__init__(net_class_d, net_x, net_class_y)
@@ -50,6 +51,7 @@ class XYDEncoderParallelConvBnReluPool(XYDEncoderParallel):
     """
     This class only reimplemented constructor of parent class
     """
+
     @store_args
     def __init__(self, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w, conv_stride=1):
         """
@@ -65,16 +67,16 @@ class XYDEncoderParallelConvBnReluPool(XYDEncoderParallel):
         # Calculated output size: (64x0x0).
         # Output size is too small
         net_infer_zd = LSEncoderConvBnReluPool(
-            self.zd_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
+            self.zd_dim, self.i_c, self.i_w, self.i_h, conv_stride=conv_stride
+        )
         # if self.zx_dim != 0:
         # pytorch can generate emtpy tensor, so no need to judge here
         net_infer_zx = LSEncoderConvBnReluPool(
-            self.zx_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
+            self.zx_dim, self.i_c, self.i_w, self.i_h, conv_stride=conv_stride
+        )
         net_infer_zy = LSEncoderConvBnReluPool(
-            self.zy_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
+            self.zy_dim, self.i_c, self.i_w, self.i_h, conv_stride=conv_stride
+        )
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)
 
 
@@ -84,9 +86,9 @@ class XYDEncoderParallelAlex(XYDEncoderParallel):
     at the end of the constructor of this class, the parent
     class contructor is called
     """
+
     @store_args
-    def __init__(self, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w, args,
-                 conv_stride=1):
+    def __init__(self, zd_dim, zx_dim, zy_dim, i_c, i_h, i_w, args, conv_stride=1):
         """
         :param zd_dim:
         :param zx_dim:
@@ -100,17 +102,23 @@ class XYDEncoderParallelAlex(XYDEncoderParallel):
         # Calculated output size: (64x0x0).
         # Output size is too small
         net_infer_zd = LSEncoderConvBnReluPool(
-            self.zd_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
+            self.zd_dim, self.i_c, self.i_w, self.i_h, conv_stride=conv_stride
+        )
         # if self.zx_dim != 0: pytorch can generate emtpy tensor,
         # so no need to judge here
         net_infer_zx = LSEncoderConvBnReluPool(
-            self.zx_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
-        net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True,
-                                                     i_c, i_h, i_w, args,
-                                                     arg_name="nname",
-                                                     arg_path_name="npath")
+            self.zx_dim, self.i_c, self.i_w, self.i_h, conv_stride=conv_stride
+        )
+        net_infer_zy = EncoderConnectLastFeatLayer2Z(
+            self.zy_dim,
+            True,
+            i_c,
+            i_h,
+            i_w,
+            args,
+            arg_name="nname",
+            arg_path_name="npath",
+        )
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)
 
 
@@ -120,26 +128,38 @@ class XYDEncoderParallelExtern(XYDEncoderParallel):
     at the end of the constructor of this class, the parent
     class contructor is called
     """
+
     @store_args
-    def __init__(self, zd_dim, zx_dim, zy_dim, args,
-                 i_c, i_h, i_w, conv_stride=1):
+    def __init__(self, zd_dim, zx_dim, zy_dim, args, i_c, i_h, i_w, conv_stride=1):
         """
         :param zd_dim:
         :param zx_dim:
         :param zy_dim:
         """
-        net_infer_zd = EncoderConnectLastFeatLayer2Z(self.zd_dim, True,
-                                                     i_c, i_h, i_w, args,
-                                                     arg_name="nname_dom",
-                                                     arg_path_name="npath_dom")
+        net_infer_zd = EncoderConnectLastFeatLayer2Z(
+            self.zd_dim,
+            True,
+            i_c,
+            i_h,
+            i_w,
+            args,
+            arg_name="nname_dom",
+            arg_path_name="npath_dom",
+        )
         # if self.zx_dim != 0: pytorch can generate emtpy tensor,
         # so no need to judge zx_dim=0 here
         net_infer_zx = LSEncoderConvBnReluPool(
-            self.zx_dim, self.i_c, self.i_w, self.i_h,
-            conv_stride=conv_stride)
+            self.zx_dim, self.i_c, self.i_w, self.i_h, conv_stride=conv_stride
+        )
 
-        net_infer_zy = EncoderConnectLastFeatLayer2Z(self.zy_dim, True,
-                                                     i_c, i_h, i_w, args,
-                                                     arg_name="nname",
-                                                     arg_path_name="npath")
+        net_infer_zy = EncoderConnectLastFeatLayer2Z(
+            self.zy_dim,
+            True,
+            i_c,
+            i_h,
+            i_w,
+            args,
+            arg_name="nname",
+            arg_path_name="npath",
+        )
         super().__init__(net_infer_zd, net_infer_zx, net_infer_zy)

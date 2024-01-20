@@ -10,6 +10,7 @@ class ResNetBase(NetTorchVisionBase):
     """
     Since ResNet can be fetched from torchvision
     """
+
     def fetch_net(self, flag_pretrain):
         """fetch_net.
 
@@ -17,10 +18,10 @@ class ResNetBase(NetTorchVisionBase):
         """
         if flag_pretrain:
             self.net_torchvision = torchvisionmodels.resnet.resnet50(
-                weights=ResNet50_Weights.IMAGENET1K_V2)
+                weights=ResNet50_Weights.IMAGENET1K_V2
+            )
         else:
-            self.net_torchvision = torchvisionmodels.resnet.resnet50(
-                weights='None')
+            self.net_torchvision = torchvisionmodels.resnet.resnet50(weights="None")
         # CHANGEME: user can modify this line to choose other neural
         # network architectures from 'torchvision.models'
 
@@ -29,6 +30,7 @@ class ResNet4DeepAll(ResNetBase):
     """
     change the size of the last layer
     """
+
     def __init__(self, flag_pretrain, dim_y):
         """__init__.
 

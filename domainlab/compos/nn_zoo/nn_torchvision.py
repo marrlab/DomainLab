@@ -1,4 +1,5 @@
 import torch.nn as nn
+
 from domainlab.utils.logger import Logger
 
 
@@ -6,6 +7,7 @@ class NetTorchVisionBase(nn.Module):
     """
     fetch model from torchvision
     """
+
     def __init__(self, flag_pretrain):
         super().__init__()
         self.net_torchvision = None

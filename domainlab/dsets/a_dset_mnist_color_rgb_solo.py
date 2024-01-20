@@ -22,6 +22,7 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
     3. structure: each subdomain contains a combination of
     foreground+background color
     """
+
     @abc.abstractmethod
     def get_foreground_color(self, ind):
         raise NotImplementedError
@@ -35,14 +36,17 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @store_args
-    def __init__(self, ind_color, path="zoutput",
-                 subset_step=100,
-                 color_scheme="both",
-                 label_transform=mk_fun_label2onehot(10),
-                 list_transforms=None,
-                 raw_split='train',
-                 flag_rand_color=False,
-                 ):
+    def __init__(
+        self,
+        ind_color,
+        path="zoutput",
+        subset_step=100,
+        color_scheme="both",
+        label_transform=mk_fun_label2onehot(10),
+        list_transforms=None,
+        raw_split="train",
+        flag_rand_color=False,
+    ):
         """
         :param ind_color: index of a color palette
         :param path: disk storage directory
@@ -60,12 +64,11 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         flag_train = True
         if raw_split != "train":
             flag_train = False
-        dataset = datasets.MNIST(root=dpath,
-                                 train=flag_train,
-                                 download=True,
-                                 transform=transforms.ToTensor())
+        dataset = datasets.MNIST(
+            root=dpath, train=flag_train, download=True, transform=transforms.ToTensor()
+        )
 
-        if color_scheme not in ['num', 'back', 'both']:
+        if color_scheme not in ["num", "back", "both"]:
             raise ValueError("color must be either 'num', 'back' or 'both")
         raw_path = os.path.dirname(dataset.raw_folder)
         self._collect_imgs_labels(raw_path, raw_split)
@@ -79,21 +82,20 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         :param path:
         :param raw_split:
         """
-        if raw_split == 'train':
-            fimages = os.path.join(path, 'raw', 'train-images-idx3-ubyte')
-            flabels = os.path.join(path, 'raw', 'train-labels-idx1-ubyte')
+        if raw_split == "train":
+            fimages = os.path.join(path, "raw", "train-images-idx3-ubyte")
+            flabels = os.path.join(path, "raw", "train-labels-idx1-ubyte")
         else:
-            fimages = os.path.join(path, 'raw', 't10k-images-idx3-ubyte')
-            flabels = os.path.join(path, 'raw', 't10k-labels-idx1-ubyte')
+            fimages = os.path.join(path, "raw", "t10k-images-idx3-ubyte")
+            flabels = os.path.join(path, "raw", "t10k-labels-idx1-ubyte")
 
         # Load images
-        with open(fimages, 'rb') as f_h:
+        with open(fimages, "rb") as f_h:
             _, _, rows, cols = struct.unpack(">IIII", f_h.read(16))
-            self.images = np.fromfile(f_h, dtype=np.uint8).reshape(
-                -1, rows, cols)
+            self.images = np.fromfile(f_h, dtype=np.uint8).reshape(-1, rows, cols)
 
         # Load labels
-        with open(flabels, 'rb') as f_h:
+        with open(flabels, "rb") as f_h:
             struct.unpack(">II", f_h.read(8))
             self.labels = np.fromfile(f_h, dtype=np.int8)
         self.images = np.tile(self.images[:, :, :, np.newaxis], 3)
@@ -107,37 +109,41 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         """
         # randomcolor is a flag orthogonal to num-back-both
         if self.flag_rand_color:
-
             c_f = self.get_foreground_color(np.random.randint(0, self.get_num_colors()))
             c_b = 0
-            if self.color_scheme == 'both':
+            if self.color_scheme == "both":
                 count = 0
                 while True:
-                    c_b = self.get_background_color(np.random.randint(0, self.get_num_colors()))
+                    c_b = self.get_background_color(
+                        np.random.randint(0, self.get_num_colors())
+                    )
                     if c_b != c_f and count < 10:
                         # exit loop if background color
                         # is not equal to foreground
                         break
         else:
-            if self.color_scheme == 'num':
+            if self.color_scheme == "num":
                 # domain and class label has perfect mutual information:
                 # assign color
                 # according to their class (0,10)
                 c_f = self.get_foreground_color(self.ind_color)
-                c_b = np.array([0]*3)
-            elif self.color_scheme == 'back':  # only paint background
-                c_f = np.array([0]*3)
+                c_b = np.array([0] * 3)
+            elif self.color_scheme == "back":  # only paint background
+                c_f = np.array([0] * 3)
                 c_b = self.get_background_color(self.ind_color)
 
             else:  # paint both background and foreground
                 c_f = self.get_foreground_color(self.ind_color)
                 c_b = self.get_background_color(self.ind_color)
-        image[:, :, 0] = image[:, :, 0] / 255 * c_f[0] + \
-            (255 - image[:, :, 0]) / 255 * c_b[0]
-        image[:, :, 1] = image[:, :, 1] / 255 * c_f[1] + \
-            (255 - image[:, :, 1]) / 255 * c_b[1]
-        image[:, :, 2] = image[:, :, 2] / 255 * c_f[2] + \
-            (255 - image[:, :, 2]) / 255 * c_b[2]
+        image[:, :, 0] = (
+            image[:, :, 0] / 255 * c_f[0] + (255 - image[:, :, 0]) / 255 * c_b[0]
+        )
+        image[:, :, 1] = (
+            image[:, :, 1] / 255 * c_f[1] + (255 - image[:, :, 1]) / 255 * c_b[1]
+        )
+        image[:, :, 2] = (
+            image[:, :, 2] / 255 * c_f[2] + (255 - image[:, :, 2]) / 255 * c_b[2]
+        )
         return image
 
     def _color_imgs_onehot_labels(self):
@@ -153,7 +159,7 @@ class ADsetMNISTColorRGBSolo(Dataset, metaclass=abc.ABCMeta):
         label = self.labels[idx]
         if self.label_transform is not None:
             label = self.label_transform(label)
-        image = Image.fromarray(image)   # numpy array 28*28*3 -> 3*28*28
+        image = Image.fromarray(image)  # numpy array 28*28*3 -> 3*28*28
         if self.list_transforms is not None:
             for trans in self.list_transforms:
                 image = trans(image)

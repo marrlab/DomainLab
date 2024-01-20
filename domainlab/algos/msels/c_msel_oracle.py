@@ -10,6 +10,7 @@ class MSelOracleVisitor(AMSel):
     save best out-of-domain test acc model, but do not affect
     how the final model is selected
     """
+
     def __init__(self, msel=None):
         """
         Decorator pattern
@@ -23,8 +24,9 @@ class MSelOracleVisitor(AMSel):
         """
         last setpoint acc
         """
-        if self.msel is not None and \
-                hasattr(self.msel, "oracle_last_setpoint_sel_te_acc"):
+        if self.msel is not None and hasattr(
+            self.msel, "oracle_last_setpoint_sel_te_acc"
+        ):
             return self.msel.oracle_last_setpoint_sel_te_acc
         return -1
 

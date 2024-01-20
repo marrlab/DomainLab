@@ -55,7 +55,7 @@ Shared params:
 
   zd_dim:
     reference: zy_dim
-    
+
   gamma_reg:
     min: 0.01
     max: 10

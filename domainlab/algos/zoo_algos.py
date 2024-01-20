@@ -1,29 +1,27 @@
 """
 chain of responsibility pattern for algorithm selection
 """
-from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
-from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
-from domainlab.algos.builder_erm import NodeAlgoBuilderERM
-from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
-from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
-
+from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
+from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
+from domainlab.algos.builder_erm import NodeAlgoBuilderERM
+from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
+from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.utils.u_import import import_path
 
 
-class AlgoBuilderChainNodeGetter():
+class AlgoBuilderChainNodeGetter:
     """
     1. Hardcoded chain
     3. Return selected node
     """
+
     def __init__(self, model, apath):
         self.model = model
         self.apath = apath
-        # 
-        self._list_str_model = model.split('_')
+        #
+        self._list_str_model = model.split("_")
         self.model = self._list_str_model.pop(0)
-
-
 
     def register_external_node(self, chain):
         """

@@ -16,6 +16,7 @@ class AbstractVAEBuilderChainNode(AbstractChainNodeHandler):
     avoid override the
     initializer so that node construction is always light weight.
     """
+
     def __init__(self, successor_node):
         self.args = None
         self.zd_dim = None
