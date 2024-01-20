@@ -21,12 +21,6 @@ class ModelCustom(AModelCustom):
         """
         return {"net_aux": "my_custom_arg_name"}
 
-    def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        """
-        task independent regularization loss for domain generalization
-        """
-        return [], []
-
 def get_node_na():
     """In your custom python file, this function has to be implemented
     to return the custom algorithm builder"""

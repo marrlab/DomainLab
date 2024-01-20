@@ -14,4 +14,3 @@ class AModelCustom(AModelClassif):
         A dictionary with the key being the pytorch module name and value
         being the commandline argument name
         """
-        raise NotImplementedError
