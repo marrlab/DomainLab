@@ -4,6 +4,7 @@
 
 ## Code structure
 
+```text
 domainlab/
 ├── algos
 │   ├── a_algo_builder.py
@@ -112,3 +113,4 @@ domainlab/
     ├── script
     ├── vlcs_mini
     └── ztest_files
+```
