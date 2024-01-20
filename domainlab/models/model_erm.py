@@ -6,7 +6,7 @@ from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 
 
-def mk_erm(parent_class=AModelClassif):
+def mk_erm(parent_class=AModelClassif, **kwargs):
     """
     Instantiate a Deepall (ERM) model
 
@@ -54,4 +54,4 @@ def mk_erm(parent_class=AModelClassif):
             super().__init__(net_classifier, list_str_y)
             self._net_invar_feat = net_feat
 
-    return parent_class.gen(ModelERM)
+    return parent_class.gen(ModelERM, kwargs)

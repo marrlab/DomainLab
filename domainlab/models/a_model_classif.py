@@ -233,7 +233,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return [torch.zeros(bsize).to(device)], [0.0]
 
     @classmethod
-    def gen(cls, class_na):
+    def gen(cls, class_na, **kwargs):
         """
         process domain generalization model to fit to be a classification task
         """
