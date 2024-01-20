@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.exp.exp_utils &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -314,9 +311,9 @@ This module contains 3 classes inheriting:
 import copy
 import datetime
 import os
-import numpy as np
 from pathlib import Path
 
+import numpy as np
 import torch
 from sklearn.metrics import ConfusionMatrixDisplay
 
@@ -324,10 +321,13 @@ from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="ExpModelPersistVisitor"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor">[docs]</a>class ExpModelPersistVisitor():
+<div class="viewcode-block" id="ExpModelPersistVisitor">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor">[docs]</a>
+class ExpModelPersistVisitor:
     """
     This class couples with Task class attributes
     """
+
     model_dir = "saved_models"
     model_suffix = ".model"
 
@@ -340,17 +340,15 @@ from domainlab.utils.logger import Logger
         """
         self.host = host
         self.out = host.args.out
-        self.model_dir = os.path.join(self.out,
-                                      ExpModelPersistVisitor.model_dir)
+        self.model_dir = os.path.join(self.out, ExpModelPersistVisitor.model_dir)
         self.git_tag = get_git_tag()
-        self.task_name = self.host.task.get_na(self.host.args.tr_d,
-                                               self.host.args.te_d)
+        self.task_name = self.host.task.get_na(self.host.args.tr_d, self.host.args.te_d)
         self.algo_name = self.host.args.model
         self.seed = self.host.args.seed
         self.model_name = self.mk_model_na(self.git_tag)
-        self.model_path = os.path.join(self.model_dir,
-                                       self.model_name +
-                                       ExpModelPersistVisitor.model_suffix)
+        self.model_path = os.path.join(
+            self.model_dir, self.model_name + ExpModelPersistVisitor.model_suffix
+        )
 
         Path(os.path.dirname(self.model_path)).mkdir(parents=True, exist_ok=True)
         self.model = copy.deepcopy(self.host.trainer.model)
@@ -359,7 +357,9 @@ from domainlab.utils.logger import Logger
         # if self.host.trainer has tensorboard writer, see
         # https://github.com/marrlab/DomainLab/issues/673
 
-<div class="viewcode-block" id="ExpModelPersistVisitor.mk_model_na"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.mk_model_na">[docs]</a>    def mk_model_na(self, tag=None, dd_cut=19):
+<div class="viewcode-block" id="ExpModelPersistVisitor.mk_model_na">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.mk_model_na">[docs]</a>
+    def mk_model_na(self, tag=None, dd_cut=19):
         """
         :param tag: for git commit hash for example
         """
@@ -368,24 +368,30 @@ from domainlab.utils.logger import Logger
         suffix_t = str(datetime.datetime.now())[:dd_cut].replace(" ", "_")
         suffix_t = suffix_t.replace("-", "md_")
         suffix_t = suffix_t.replace(":", "_")
-        list4mname = [self.task_name,
-                      self.algo_name,
-                      tag, suffix_t,
-                      "seed",
-                      str(self.seed)]
+        list4mname = [
+            self.task_name,
+            self.algo_name,
+            tag,
+            suffix_t,
+            "seed",
+            str(self.seed),
+        ]
         # the sequence of components (e.g. seed in the last place)
         # in model name is not crutial
         model_name = "_".join(list4mname)
         if self.host.args.debug:
             model_name = "debug_" + model_name
-        slurm = os.environ.get('SLURM_JOB_ID')
+        slurm = os.environ.get("SLURM_JOB_ID")
         if slurm:
-            model_name = model_name + '_' + slurm
+            model_name = model_name + "_" + slurm
         logger = Logger.get_logger()
         logger.info(f"model name: {model_name}")
         return model_name</div>
 
-<div class="viewcode-block" id="ExpModelPersistVisitor.save"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.save">[docs]</a>    def save(self, model, suffix=None):
+
+<div class="viewcode-block" id="ExpModelPersistVisitor.save">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.save">[docs]</a>
+    def save(self, model, suffix=None):
         """
         :param model:
         """
@@ -393,12 +399,15 @@ from domainlab.utils.logger import Logger
         if suffix is not None:
             file_na = "_".join([file_na, suffix])
         torch.save(copy.deepcopy(model.state_dict()), file_na)</div>
+
         # checkpoint = {'model': Net(), '
         # state_dict': model.state_dict(),
         # 'optimizer' :optimizer.state_dict()}
         # torch.save(checkpoint, 'Checkpoint.pth')
 
-<div class="viewcode-block" id="ExpModelPersistVisitor.remove"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.remove">[docs]</a>    def remove(self, suffix=None):
+<div class="viewcode-block" id="ExpModelPersistVisitor.remove">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.remove">[docs]</a>
+    def remove(self, suffix=None):
         """
         remove model after use
         """
@@ -407,7 +416,10 @@ from domainlab.utils.logger import Logger
             file_na = "_".join([file_na, suffix])
         os.remove(file_na)</div>
 
-<div class="viewcode-block" id="ExpModelPersistVisitor.load"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.load">[docs]</a>    def load(self, suffix=None):
+
+<div class="viewcode-block" id="ExpModelPersistVisitor.load">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.load">[docs]</a>
+    def load(self, suffix=None):
         """
         load pre-defined model name from disk
         the save function is the same class so to ensure load will ways work
@@ -425,18 +437,26 @@ from domainlab.utils.logger import Logger
         # is not deepcopied
         # However, deepcopy is also problematic when it is executed too many times
         return copy.deepcopy(self.model)</div>
+
         # instead of deepcopy, one could also have multiple copies of model in constructor, but this
         # does not adhere the lazy principle.
 
-<div class="viewcode-block" id="ExpModelPersistVisitor.clean_up"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.clean_up">[docs]</a>    def clean_up(self):
-        self.host.clean_up()</div></div>
+<div class="viewcode-block" id="ExpModelPersistVisitor.clean_up">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.clean_up">[docs]</a>
+    def clean_up(self):
+        self.host.clean_up()</div>
+</div>
 
 
-<div class="viewcode-block" id="AggWriter"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter">[docs]</a>class AggWriter(ExpModelPersistVisitor):
+
+<div class="viewcode-block" id="AggWriter">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter">[docs]</a>
+class AggWriter(ExpModelPersistVisitor):
     """
     1. aggregate results to text file.
     2. all dependencies are in the constructor
     """
+
     def __init__(self, host):
         super().__init__(host)
         self.agg_tag = self.host.args.aggtag
@@ -445,7 +465,9 @@ from domainlab.utils.logger import Logger
         self.has_first_line = False
         self.list_cols = None
 
-<div class="viewcode-block" id="AggWriter.first_line"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.first_line">[docs]</a>    def first_line(self, dict_cols):
+<div class="viewcode-block" id="AggWriter.first_line">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.first_line">[docs]</a>
+    def first_line(self, dict_cols):
         """
         generate header of the results aggregation file
         """
@@ -456,26 +478,31 @@ from domainlab.utils.logger import Logger
             self.to_file(str_line)
         self.has_first_line = True</div>
 
+
     def __call__(self, dict_metric):
         line, confmat, confmat_filename = self._gen_line(dict_metric)
         self.to_file(line)
         if not self.host.args.no_dump:
             self.confmat_to_file(confmat, confmat_filename)
 
-<div class="viewcode-block" id="AggWriter.get_cols"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.get_cols">[docs]</a>    def get_cols(self):
+<div class="viewcode-block" id="AggWriter.get_cols">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.get_cols">[docs]</a>
+    def get_cols(self):
         """
         call the same function to always get the same columns configuration
         """
         epos_name = "epos"
         dict_cols = {
-                     "algo": self.algo_name,
-                     epos_name: None,
-                     "seed": self.seed,
-                     "aggtag": self.agg_tag,
-                     # algorithm configuration for instance
-                     "mname": "mname_" + self.model_name,
-                     "commit": "commit_" + self.git_tag}
+            "algo": self.algo_name,
+            epos_name: None,
+            "seed": self.seed,
+            "aggtag": self.agg_tag,
+            # algorithm configuration for instance
+            "mname": "mname_" + self.model_name,
+            "commit": "commit_" + self.git_tag,
+        }
         return dict_cols, epos_name</div>
+
 
     def _gen_line(self, dict_metric):
         dict_cols, epos_name = self.get_cols()
@@ -490,21 +517,27 @@ from domainlab.utils.logger import Logger
         str_line = ", ".join(list_str)
         return str_line, confmat, confmat_filename
 
-<div class="viewcode-block" id="AggWriter.get_fpath"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.get_fpath">[docs]</a>    def get_fpath(self, dirname="aggrsts"):
+<div class="viewcode-block" id="AggWriter.get_fpath">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.get_fpath">[docs]</a>
+    def get_fpath(self, dirname="aggrsts"):
         """
         for writing and reading, the same function is called to ensure name
         change in the future will not break the software
         """
-        list4fname = [self.task_name,
-                      self.exp_tag,
-                      ]
+        list4fname = [
+            self.task_name,
+            self.exp_tag,
+        ]
         fname = "_".join(list4fname) + ".csv"
         if self.debug:
             fname = "_".join(["debug_agg", fname])
         file_path = os.path.join(self.out, dirname, fname)
         return file_path</div>
 
-<div class="viewcode-block" id="AggWriter.to_file"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.to_file">[docs]</a>    def to_file(self, str_line):
+
+<div class="viewcode-block" id="AggWriter.to_file">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.to_file">[docs]</a>
+    def to_file(self, str_line):
         """
         :param str_line:
         """
@@ -512,10 +545,13 @@ from domainlab.utils.logger import Logger
         Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
         logger = Logger.get_logger()
         logger.info(f"results aggregation path: {file_path}")
-        with open(file_path, 'a', encoding="utf8") as f_h:
+        with open(file_path, "a", encoding="utf8") as f_h:
             print(str_line, file=f_h)</div>
 
-<div class="viewcode-block" id="AggWriter.confmat_to_file"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.confmat_to_file">[docs]</a>    def confmat_to_file(self, confmat, confmat_filename):
+
+<div class="viewcode-block" id="AggWriter.confmat_to_file">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.AggWriter.confmat_to_file">[docs]</a>
+    def confmat_to_file(self, confmat, confmat_filename):
         """Save confusion matrix as a figure
 
         Args:
@@ -531,18 +567,27 @@ from domainlab.utils.logger import Logger
         # @FIXME: still we want to have mname_ as a variable defined in some
         # configuration file in the future.
         confmat_filename = confmat_filename.removeprefix("mname_")
-        file_path = os.path.join(os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png")
+        file_path = os.path.join(
+            os.path.dirname(file_path), f"{confmat_filename}_conf_mat.png"
+        )
         logger = Logger.get_logger()
         logger.info(f"confusion matrix saved in file: {file_path}")
-        disp.figure_.savefig(file_path)</div></div>
+        disp.figure_.savefig(file_path)</div>
+</div>
 
 
-<div class="viewcode-block" id="ExpProtocolAggWriter"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter">[docs]</a>class ExpProtocolAggWriter(AggWriter):
+
+<div class="viewcode-block" id="ExpProtocolAggWriter">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter">[docs]</a>
+class ExpProtocolAggWriter(AggWriter):
     """
     AggWriter tailored to experimental protocol
     Output contains additionally index, exp task, te_d and params.
     """
-<div class="viewcode-block" id="ExpProtocolAggWriter.get_cols"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.get_cols">[docs]</a>    def get_cols(self):
+
+<div class="viewcode-block" id="ExpProtocolAggWriter.get_cols">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.get_cols">[docs]</a>
+    def get_cols(self):
         """columns"""
         epos_name = "epos"
         dict_cols = {
@@ -554,17 +599,23 @@ from domainlab.utils.logger import Logger
             epos_name: None,
             "te_d": self.host.args.te_d,
             "seed": self.seed,
-            "params": f"\"{self.host.args.params}\"",
+            "params": f'"{self.host.args.params}"',
         }
         return dict_cols, epos_name</div>
 
-<div class="viewcode-block" id="ExpProtocolAggWriter.get_fpath"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.get_fpath">[docs]</a>    def get_fpath(self, dirname=None):
+
+<div class="viewcode-block" id="ExpProtocolAggWriter.get_fpath">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.get_fpath">[docs]</a>
+    def get_fpath(self, dirname=None):
         """filepath"""
         if dirname is None:
             return self.host.args.result_file
         return super().get_fpath(dirname)</div>
 
-<div class="viewcode-block" id="ExpProtocolAggWriter.confmat_to_file"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.confmat_to_file">[docs]</a>    def confmat_to_file(self, confmat, confmat_filename):
+
+<div class="viewcode-block" id="ExpProtocolAggWriter.confmat_to_file">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_utils.ExpProtocolAggWriter.confmat_to_file">[docs]</a>
+    def confmat_to_file(self, confmat, confmat_filename):
         """Save confusion matrix as a figure
 
         Args:
@@ -577,14 +628,15 @@ from domainlab.utils.logger import Logger
         confmat_filename = confmat_filename.removeprefix("mname_")
         path4file = os.path.join(path4file, "confusion_matrix")
         os.makedirs(path4file, exist_ok=True)
-        file_path = os.path.join(path4file,
-                                 f"{index}.txt")
-        with open(file_path, 'a', encoding="utf8") as f_h:
+        file_path = os.path.join(path4file, f"{index}.txt")
+        with open(file_path, "a", encoding="utf8") as f_h:
             print(confmat_filename, file=f_h)
             for line in np.matrix(confmat):
-                np.savetxt(f_h, line, fmt='%.2f')
+                np.savetxt(f_h, line, fmt="%.2f")
         logger = Logger.get_logger()
-        logger.info(f"confusion matrix saved in file: {file_path}")</div></div>
+        logger.info(f"confusion matrix saved in file: {file_path}")</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -609,7 +661,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

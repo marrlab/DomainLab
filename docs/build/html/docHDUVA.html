@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,13 +49,11 @@
   
   
     <title>Model HDUVA &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -180,7 +177,7 @@
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
       </ul>
     </div>
   </nav>
@@ -395,13 +392,13 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="model-hduva">
-<h1 id="dochduva--page-root">Model HDUVA<a class="headerlink" href="#dochduva--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="dochduva--page-root">Model HDUVA<a class="headerlink" href="#dochduva--page-root" title="Link to this heading">¶</a></h1>
 <section id="hduva-hierarchical-variational-auto-encoding-for-unsupervised-domain-generalization">
-<h2 id="hduva-hierarchical-variational-auto-encoding-for-unsupervised-domain-generalization">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION<a class="headerlink" href="#hduva-hierarchical-variational-auto-encoding-for-unsupervised-domain-generalization" title="Permalink to this heading">¶</a></h2>
+<h2 id="hduva-hierarchical-variational-auto-encoding-for-unsupervised-domain-generalization">HDUVA: HIERARCHICAL VARIATIONAL AUTO-ENCODING FOR UNSUPERVISED DOMAIN GENERALIZATION<a class="headerlink" href="#hduva-hierarchical-variational-auto-encoding-for-unsupervised-domain-generalization" title="Link to this heading">¶</a></h2>
 <p>HDUVA builds on a generative approach within the framework of variational autoencoders to facilitate generalization to new domains without supervision. HDUVA learns representations that disentangle domain-specific information from class-label specific information even in complex settings where domain structure is not observed during training.</p>
 </section>
 <section id="model-overview">
-<h2 id="model-overview">Model Overview<a class="headerlink" href="#model-overview" title="Permalink to this heading">¶</a></h2>
+<h2 id="model-overview">Model Overview<a class="headerlink" href="#model-overview" title="Link to this heading">¶</a></h2>
 <p>More specifically, HDUVA is based on three latent variables that are used to model distinct sources of variation and are denoted as <span class="math notranslate nohighlight">\(z_y\)</span>, <span class="math notranslate nohighlight">\(z_d\)</span> and <span class="math notranslate nohighlight">\(z_x\)</span>. <span class="math notranslate nohighlight">\(z_y\)</span> represents class specific information, <span class="math notranslate nohighlight">\(z_d\)</span> represents domain specific information and <span class="math notranslate nohighlight">\(z_x\)</span> models residual variance of the input. We introduce an additional hierarchical level and use a continuous latent representation s to model (potentially unobserved) domain structure. This means that we can encourage disentanglement of the latent variables through conditional priors without the need of conditioning on a one-hot-encoded, observed domain label. The model along with its parameters and hyperparameters is shown in Figure 1:</p>
 <div style="align: center; text-align:center;">
 <img alt="PGM for HDUVA" src="figs/tikz_hduva.svg" style="height: 300px; width:500px;"/>
@@ -410,7 +407,7 @@
 <p>Note that as part of the model a latent representation of <span class="math notranslate nohighlight">\(X\)</span> is concatentated with <span class="math notranslate nohighlight">\(s\)</span> and <span class="math notranslate nohighlight">\(z_d\)</span> (dashed arrows), requiring respecive encoder networks.</p>
 </section>
 <section id="evidence-lower-bound-and-overall-loss">
-<h2 id="evidence-lower-bound-and-overall-loss">Evidence lower bound and overall loss<a class="headerlink" href="#evidence-lower-bound-and-overall-loss" title="Permalink to this heading">¶</a></h2>
+<h2 id="evidence-lower-bound-and-overall-loss">Evidence lower bound and overall loss<a class="headerlink" href="#evidence-lower-bound-and-overall-loss" title="Link to this heading">¶</a></h2>
 <p>The ELBO of the model can be decomposed into 4 different terms:</p>
 <p>Likelihood: <span class="math notranslate nohighlight">\(E_{q(z_d, s|x), q(z_x|x), q(z_y|x)}\log p_{\theta}(x|s, z_d, z_x, z_y)\)</span></p>
 <p>KL divergence weighted as in the Beta-VAE: <span class="math notranslate nohighlight">\(-\beta_x KL(q_{\phi_x}(z_x|x)||p_{\theta_x}(z_x)) - \beta_y KL(q_{\phi_y}(z_y|x)||p_{\theta_y}(z_y|y))\)</span></p>
@@ -419,11 +416,11 @@
 <p>In addition, we construct the overall loss by adding an auxiliary classsifier, by adding an additional term to the ELBO loss, weighted with <span class="math notranslate nohighlight">\(\gamma_y\)</span>:</p>
 </section>
 <section id="hyperparameters-loss-function">
-<h2 id="hyperparameters-loss-function">Hyperparameters loss function<a class="headerlink" href="#hyperparameters-loss-function" title="Permalink to this heading">¶</a></h2>
+<h2 id="hyperparameters-loss-function">Hyperparameters loss function<a class="headerlink" href="#hyperparameters-loss-function" title="Link to this heading">¶</a></h2>
 <p>For fitting the model, we need to specify the 4 <span class="math notranslate nohighlight">\(\beta\)</span>-weights related to the the different terms of the ELBO ( <span class="math notranslate nohighlight">\(\beta_x\)</span> , <span class="math notranslate nohighlight">\(\beta_y\)</span>, <span class="math notranslate nohighlight">\(\beta_d\)</span>, <span class="math notranslate nohighlight">\(\beta_t\)</span>)  as well as <span class="math notranslate nohighlight">\(\gamma_y\)</span>.</p>
 </section>
 <section id="model-hyperparameters">
-<h2 id="model-hyperparameters">Model hyperparameters<a class="headerlink" href="#model-hyperparameters" title="Permalink to this heading">¶</a></h2>
+<h2 id="model-hyperparameters">Model hyperparameters<a class="headerlink" href="#model-hyperparameters" title="Link to this heading">¶</a></h2>
 <p>In addition to these hyperparameters, the following model parameters can be specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">zd_dim</span></code>: size of latent space for domain-specific information</p></li>
@@ -445,7 +442,7 @@ image to a hidden representation (same size as <code class="docutils literal not
 </ul>
 </section>
 <section id="hyperparameter-for-warmup">
-<h2 id="hyperparameter-for-warmup">Hyperparameter for warmup<a class="headerlink" href="#hyperparameter-for-warmup" title="Permalink to this heading">¶</a></h2>
+<h2 id="hyperparameter-for-warmup">Hyperparameter for warmup<a class="headerlink" href="#hyperparameter-for-warmup" title="Link to this heading">¶</a></h2>
 <p>Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument <code class="docutils literal notranslate"><span class="pre">warmup</span></code>.</p>
 <p>Please cite our paper if you find it useful!</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>@inproceedings{sun2021hierarchical,
@@ -506,7 +503,7 @@ image to a hidden representation (same size as <code class="docutils literal not
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

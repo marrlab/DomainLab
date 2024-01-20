@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.dsets.dset_subfolder &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -317,9 +314,13 @@ import warnings
 from typing import Any, Tuple
 
 from torchvision.datasets import DatasetFolder
+
 from domainlab.utils.logger import Logger
 
-<div class="viewcode-block" id="has_file_allowed_extension"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.has_file_allowed_extension">[docs]</a>def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -&gt; bool:
+
+<div class="viewcode-block" id="has_file_allowed_extension">
+<a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.has_file_allowed_extension">[docs]</a>
+def has_file_allowed_extension(filename: str, extensions: Tuple[str, ...]) -&gt; bool:
     """
     Checks if a file is an allowed extension.
     Args:
@@ -330,7 +331,10 @@ from domainlab.utils.logger import Logger
     return filename.lower().endswith(extensions)</div>
 
 
-<div class="viewcode-block" id="fetch_img_paths"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.fetch_img_paths">[docs]</a>def fetch_img_paths(path_dir, class_to_idx, extensions=None, is_valid_file=None):
+
+<div class="viewcode-block" id="fetch_img_paths">
+<a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.fetch_img_paths">[docs]</a>
+def fetch_img_paths(path_dir, class_to_idx, extensions=None, is_valid_file=None):
     """
     :param path_dir: path to fetch images in string format
     :param class_to_idx: given list of strings as class names
@@ -347,8 +351,10 @@ from domainlab.utils.logger import Logger
     #     raise ValueError(
     #         "Both extensions and is_valid_file cannot be None or not None at the same time")
     if extensions is not None:
+
         def functor_is_valid_file(filena):
             return has_file_allowed_extension(filena, extensions)
+
         is_valid_file = functor_is_valid_file
     for target in sorted(class_to_idx.keys()):
         apath = os.path.join(path_dir, target)
@@ -359,36 +365,51 @@ from domainlab.utils.logger import Logger
                 path_file = os.path.join(root, fname)
                 if is_valid_file(path_file):
                     item = (path_file, class_to_idx[target])
-                    list_tuple_path_cls_ind.append(item)   # @FIXME
+                    list_tuple_path_cls_ind.append(item)  # @FIXME
     return list_tuple_path_cls_ind</div>
 
 
-<div class="viewcode-block" id="DsetSubFolder"><a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.DsetSubFolder">[docs]</a>class DsetSubFolder(DatasetFolder):
+
+<div class="viewcode-block" id="DsetSubFolder">
+<a class="viewcode-back" href="../../../domainlab.dsets.html#domainlab.dsets.dset_subfolder.DsetSubFolder">[docs]</a>
+class DsetSubFolder(DatasetFolder):
     """
     Only use user provided class names, ignore the other subfolders
     :param list_class_dir: list of class directories to use as classes
     """
-    def __init__(self, root, loader, list_class_dir, extensions=None, transform=None,
-                 target_transform=None, is_valid_file=None):
+
+    def __init__(
+        self,
+        root,
+        loader,
+        list_class_dir,
+        extensions=None,
+        transform=None,
+        target_transform=None,
+        is_valid_file=None,
+    ):
         self.list_class_dir = list_class_dir
 
         if is_valid_file is not None and extensions is not None:
             raise ValueError(
-                "Both extensions and is_valid_file cannot be not None at the same time")
+                "Both extensions and is_valid_file cannot be not None at the same time"
+            )
 
         if is_valid_file is None and extensions is None:
             # setting default extensions
-            extensions = ('jpg', 'jpeg', 'png')
+            extensions = ("jpg", "jpeg", "png")
             logger = Logger.get_logger()
             logger.warn("no user provided extensions, set to be jpg, jpeg, png")
             warnings.warn("no user provided extensions, set to be jpg, jpeg, png")
 
-        super().__init__(root,
-                         loader,
-                         extensions=extensions,
-                         transform=transform,
-                         target_transform=target_transform,
-                         is_valid_file=is_valid_file)
+        super().__init__(
+            root,
+            loader,
+            extensions=extensions,
+            transform=transform,
+            target_transform=target_transform,
+            is_valid_file=is_valid_file,
+        )
         classes, class_to_idx = self._find_classes(self.root)
         samples = fetch_img_paths(self.root, class_to_idx, extensions, is_valid_file)
         self.classes = classes
@@ -430,19 +451,28 @@ from domainlab.utils.logger import Logger
             # Faster and available in Python 3.5 and above
             list_subfolders = [subfolder.name for subfolder in list(os.scandir(mdir))]
             logger.info(f"list of subfolders {list_subfolders}")
-            classes = [d.name for d in os.scandir(mdir) \
-                       if d.is_dir() and d.name in self.list_class_dir]
+            classes = [
+                d.name
+                for d in os.scandir(mdir)
+                if d.is_dir() and d.name in self.list_class_dir
+            ]
         else:
-            classes = [d for d in os.listdir(mdir) \
-                       if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir]
-        flag_user_input_classes_in_folder = (set(self.list_class_dir) &lt;= set(classes))
+            classes = [
+                d
+                for d in os.listdir(mdir)
+                if os.path.isdir(os.path.join(mdir, d)) and d in self.list_class_dir
+            ]
+        flag_user_input_classes_in_folder = set(self.list_class_dir) &lt;= set(classes)
         if not flag_user_input_classes_in_folder:
             logger.info(f"user provided class names: {self.list_class_dir}")
             logger.info(f"subfolder names from folder: {mdir} {classes}")
-            raise RuntimeError("user provided class names does not match the subfolder names")
+            raise RuntimeError(
+                "user provided class names does not match the subfolder names"
+            )
         classes.sort()
         class_to_idx = {classes[i]: i for i in range(len(classes))}
         return classes, class_to_idx</div>
+
 </pre></div>
 
           </article>
@@ -467,7 +497,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

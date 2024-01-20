@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,14 +48,12 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Extend or contribute with a custom domain generalization model &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+    <title>Software Architecture and Design &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -98,7 +95,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Extend or contribute with a custom domain generalization model </span>
+          <span class="md-header-nav__topic"> Software Architecture and Design </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -176,7 +173,7 @@
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="#" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="#" class="md-tabs__link">Developers note</a></li>
       </ul>
     </div>
   </nav>
@@ -297,13 +294,9 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-extend-contribute--page-root" class="md-nav__link">Extend or contribute with a custom domain generalization model</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#external-extension-by-implementing-your-custom-models" class="md-nav__link">External extension by implementing your custom models</a>
-        </li></ul>
-            </nav>
+        <li class="md-nav__item"><a href="#doc-extend-contribute--page-root" class="md-nav__link">Software Architecture and Design</a>
         </li>
-        <li class="md-nav__item"><a href="#software-architecture-and-design" class="md-nav__link">Software Architecture and Design</a>
+        <li class="md-nav__item"><a href="#code-structure" class="md-nav__link">Code structure</a>
         </li>
   </ul>
 </nav>
@@ -314,23 +307,120 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="extend-or-contribute-with-a-custom-domain-generalization-model">
-<h1 id="doc-extend-contribute--page-root">Extend or contribute with a custom domain generalization model<a class="headerlink" href="#doc-extend-contribute--page-root" title="Permalink to this heading">¶</a></h1>
-<section id="external-extension-by-implementing-your-custom-models">
-<h2 id="external-extension-by-implementing-your-custom-models">External extension by implementing your custom models<a class="headerlink" href="#external-extension-by-implementing-your-custom-models" title="Permalink to this heading">¶</a></h2>
-<p>Look at this example</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--apath<span class="o">=</span>examples/models/demo_custom_model.py<span class="w"> </span>--model<span class="o">=</span>custom<span class="w"> </span>--nname_argna2val<span class="w"> </span>my_custom_arg_name<span class="w"> </span>--nname_argna2val<span class="w"> </span>alexnet
-
-python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--apath<span class="o">=</span>examples/models/demo_custom_model.py<span class="w"> </span>--model<span class="o">=</span>custom<span class="w"> </span>--npath_argna2val<span class="w"> </span>my_custom_arg_name<span class="w"> </span>--npath_argna2val<span class="w"> </span>examples/nets/resnet.py
-</pre></div>
-</div>
-<p>where the example python file corresponding to <code class="docutils literal notranslate"><span class="pre">--apath</span></code> defines a model which contains several modules that can be customized to different neural networks via <code class="docutils literal notranslate"><span class="pre">--npath_argna2val</span></code> if the neural network is specified in a python file
-or <code class="docutils literal notranslate"><span class="pre">nname_argna2val</span></code> if the neural network is already implemented.</p>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="software-architecture-and-design">
-<h1 id="software-architecture-and-design">Software Architecture and Design<a class="headerlink" href="#software-architecture-and-design" title="Permalink to this heading">¶</a></h1>
+  <section id="software-architecture-and-design">
+<h1 id="doc-extend-contribute--page-root">Software Architecture and Design<a class="headerlink" href="#doc-extend-contribute--page-root" title="Link to this heading">¶</a></h1>
 <p><img alt="Design Diagram" src="_images/libDG.svg"/></p>
+</section>
+<section id="code-structure">
+<h1 id="code-structure">Code structure<a class="headerlink" href="#code-structure" title="Link to this heading">¶</a></h1>
+<p>domainlab/
+├── algos
+│   ├── a_algo_builder.py
+│   ├── builder_api_model.py
+│   ├── builder_custom.py
+│   ├── builder_dann.py
+│   ├── builder_diva.py
+│   ├── builder_erm.py
+│   ├── builder_hduva.py
+│   ├── builder_jigen1.py
+│   ├── <strong>init</strong>.py
+│   ├── msels
+│   ├── observers
+│   ├── trainers
+│   ├── <a class="reference external" href="http://utils.py">utils.py</a>
+│   └── zoo_algos.py
+├── arg_parser.py
+├── <a class="reference external" href="http://cli.py">cli.py</a>
+├── compos
+│   ├── a_nn_builder.py
+│   ├── builder_nn_alex.py
+│   ├── builder_nn_conv_bn_relu_2.py
+│   ├── builder_nn_external_from_file.py
+│   ├── <strong>init</strong>.py
+│   ├── nn_zoo
+│   ├── pcr
+│   ├── utils_conv_get_flat_dim.py
+│   ├── vae
+│   └── zoo_nn.py
+├── dsets
+│   ├── a_dset_mnist_color_rgb_solo.py
+│   ├── dset_img_path_list.py
+│   ├── dset_mnist_color_solo_default.py
+│   ├── dset_poly_domains_mnist_color_default.py
+│   ├── dset_subfolder.py
+│   ├── <strong>init</strong>.py
+│   ├── utils_color_palette.py
+│   ├── utils_data.py
+│   └── utils_wrapdset_patches.py
+├── exp
+│   ├── exp_cuda_seed.py
+│   ├── exp_main.py
+│   ├── exp_utils.py
+│   └── <strong>init</strong>.py
+├── exp_protocol
+│   ├── aggregate_results.py
+│   ├── benchmark.smk
+│   ├── <strong>init</strong>.py
+│   └── run_experiment.py
+├── <strong>init</strong>.py
+├── mk_exp.py
+├── models
+│   ├── a_model_classif.py
+│   ├── a_model.py
+│   ├── args_jigen.py
+│   ├── args_vae.py
+│   ├── <strong>init</strong>.py
+│   ├── interface_vae_xyd.py
+│   ├── model_custom.py
+│   ├── model_dann.py
+│   ├── model_diva.py
+│   ├── model_erm.py
+│   ├── model_hduva.py
+│   ├── model_jigen.py
+│   └── model_vae_xyd_classif.py
+├── tasks
+│   ├── a_task_classif.py
+│   ├── a_task.py
+│   ├── b_task_classif.py
+│   ├── b_task.py
+│   ├── <strong>init</strong>.py
+│   ├── task_dset.py
+│   ├── task_folder_mk.py
+│   ├── task_folder.py
+│   ├── task_mini_vlcs.py
+│   ├── task_mnist_color.py
+│   ├── task_pathlist.py
+│   ├── task_utils.py
+│   ├── utils_task_dset.py
+│   ├── utils_task.py
+│   └── zoo_tasks.py
+├── utils
+│   ├── flows_gen_img_model.py
+│   ├── generate_benchmark_plots.py
+│   ├── get_git_tag.py
+│   ├── hyperparameter_gridsearch.py
+│   ├── hyperparameter_sampling.py
+│   ├── <strong>init</strong>.py
+│   ├── <a class="reference external" href="http://logger.py">logger.py</a>
+│   ├── override_interface.py
+│   ├── perf_metrics.py
+│   ├── <a class="reference external" href="http://perf.py">perf.py</a>
+│   ├── sanity_check.py
+│   ├── test_img.py
+│   ├── u_import_net_module.py
+│   ├── u_import.py
+│   ├── utils_classif.py
+│   ├── utils_class.py
+│   ├── utils_cuda.py
+│   └── utils_img_sav.py
+└── zdata
+├── mixed_codec
+├── pacs_mini_10
+├── pacs_split
+├── patches_permutation4jigsaw
+├── script
+├── vlcs_mini
+└── ztest_files</p>
 </section>
 
 
@@ -356,7 +446,7 @@ or <code class="docutils literal notranslate"><span class="pre">nname_argna2val<
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

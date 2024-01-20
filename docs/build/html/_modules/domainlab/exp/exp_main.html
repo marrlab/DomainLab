@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.exp.exp_main &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -314,20 +311,22 @@ import datetime
 import os
 import warnings
 
-
 from domainlab.algos.zoo_algos import AlgoBuilderChainNodeGetter
 from domainlab.exp.exp_utils import AggWriter
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
-from domainlab.utils.sanity_check import SanityCheck
 from domainlab.utils.logger import Logger
+from domainlab.utils.sanity_check import SanityCheck
 
-os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
+os.environ["CUDA_LAUNCH_BLOCKING"] = "1"  # debug
 
 
-<div class="viewcode-block" id="Exp"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_main.Exp">[docs]</a>class Exp():
+<div class="viewcode-block" id="Exp">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_main.Exp">[docs]</a>
+class Exp:
     """
     Exp is combination of Task, Algorithm, and Configuration (including random seed)
     """
+
     def __init__(self, args, task=None, model=None, observer=None, visitor=AggWriter):
         """
         :param args:
@@ -340,11 +339,15 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
             self.task = TaskChainNodeGetter(args)()
 
         self.args = args
-        algo_builder = AlgoBuilderChainNodeGetter(self.args.model, self.args.apath)()  # request
+        algo_builder = AlgoBuilderChainNodeGetter(
+            self.args.model, self.args.apath
+        )()  # request
         # the critical logic below is to avoid circular dependence between task initialization
         # and trainer initialization:
 
-        self.trainer, self.model, observer_default, device = algo_builder.init_business(self)
+        self.trainer, self.model, observer_default, device = algo_builder.init_business(
+            self
+        )
         # sanity check has to be done after init_business
         # jigen algorithm builder has method dset_decoration_args_algo, which could AOP
         # into the task intilization process
@@ -364,7 +367,9 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
         # visitor must be initialized last after trainer is initialized
         self.model.set_saver(self.visitor)
 
-<div class="viewcode-block" id="Exp.execute"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_main.Exp.execute">[docs]</a>    def execute(self, num_epochs=None):
+<div class="viewcode-block" id="Exp.execute">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_main.Exp.execute">[docs]</a>
+    def execute(self, num_epochs=None):
         """
         train model
         check performance by loading persisted model
@@ -373,18 +378,20 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
             num_epochs = self.epochs + 1
         t_0 = datetime.datetime.now()
         logger = Logger.get_logger()
-        logger.info(f'\n Experiment start at: {str(t_0)}')
+        logger.info(f"\n Experiment start at: {str(t_0)}")
         t_c = t_0
         self.trainer.before_tr()
         for epoch in range(1, num_epochs):
             t_before_epoch = t_c
             flag_stop = self.trainer.tr_epoch(epoch)
             t_c = datetime.datetime.now()
-            logger.info(f"after epoch: {epoch},"
-                        f"now: {str(t_c)},"
-                        f"epoch time: {t_c - t_before_epoch},"
-                        f"used: {t_c - t_0},"
-                        f"model: {self.visitor.model_name}")
+            logger.info(
+                f"after epoch: {epoch},"
+                f"now: {str(t_c)},"
+                f"epoch time: {t_c - t_before_epoch},"
+                f"used: {t_c - t_0},"
+                f"model: {self.visitor.model_name}"
+            )
             logger.info(f"working direcotry: {self.curr_dir}")
             # current time, time since experiment start, epoch time
             if flag_stop:
@@ -395,11 +402,16 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
                 self.epoch_counter = self.epochs
             else:
                 self.epoch_counter += 1
-        logger.info(f"Experiment finished at epoch: {self.epoch_counter} "
-                    f"with time: {t_c - t_0} at {t_c}")
+        logger.info(
+            f"Experiment finished at epoch: {self.epoch_counter} "
+            f"with time: {t_c - t_0} at {t_c}"
+        )
         self.trainer.post_tr()</div>
 
-<div class="viewcode-block" id="Exp.clean_up"><a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_main.Exp.clean_up">[docs]</a>    def clean_up(self):
+
+<div class="viewcode-block" id="Exp.clean_up">
+<a class="viewcode-back" href="../../../domainlab.exp.html#domainlab.exp.exp_main.Exp.clean_up">[docs]</a>
+    def clean_up(self):
         """
         to be called by a decorator
         """
@@ -430,7 +442,9 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
             # for matchdg
             self.visitor.remove("ctr")  # pylint: disable=E1101
         except FileNotFoundError:
-            pass</div></div>
+            pass</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -455,7 +469,7 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = "1"  # debug
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

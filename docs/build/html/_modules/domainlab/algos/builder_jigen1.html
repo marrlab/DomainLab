@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.algos.builder_jigen1 &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -311,26 +308,31 @@
 builder for JiGen
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
-from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 from domainlab.algos.trainers.hyper_scheduler import HyperSchedulerWarmupExponential
+from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
+from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 from domainlab.models.model_jigen import mk_jigen
 from domainlab.utils.utils_cuda import get_device
-from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 
 
-<div class="viewcode-block" id="NodeAlgoBuilderJiGen"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">[docs]</a>class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
+<div class="viewcode-block" id="NodeAlgoBuilderJiGen">
+<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">[docs]</a>
+class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
     """
     NodeAlgoBuilderJiGen
     """
-<div class="viewcode-block" id="NodeAlgoBuilderJiGen.init_business"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen.init_business">[docs]</a>    def init_business(self, exp):
+
+<div class="viewcode-block" id="NodeAlgoBuilderJiGen.init_business">
+<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen.init_business">[docs]</a>
+    def init_business(self, exp):
         """
         return trainer, model, observer
         """
@@ -342,40 +344,47 @@ from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
         observer = ObVisitorCleanUp(observer)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
-            args, arg_name_of_net="nname",
-            arg_path_of_net="npath")()  # request, @FIXME, constant string
+            args, arg_name_of_net="nname", arg_path_of_net="npath"
+        )()  # request, @FIXME, constant string
 
         net_encoder = builder.init_business(
-            flag_pretrain=True, dim_out=task.dim_y,
-            remove_last_layer=False, args=args,
-            isize=(task.isize.i_c,
-                   task.isize.i_w,
-                   task.isize.i_h))
+            flag_pretrain=True,
+            dim_out=task.dim_y,
+            remove_last_layer=False,
+            args=args,
+            isize=(task.isize.i_c, task.isize.i_w, task.isize.i_h),
+        )
 
-        dim_feat = get_flat_dim(net_encoder,
-                                task.isize.i_c,
-                                task.isize.i_h,
-                                task.isize.i_w)
+        dim_feat = get_flat_dim(
+            net_encoder, task.isize.i_c, task.isize.i_h, task.isize.i_w
+        )
 
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
 
         # @FIXME: this seems to be the only difference w.r.t. builder_dann
-        net_classifier_perm = ClassifDropoutReluLinear(
-            dim_feat, args.nperm+1)
-        model = mk_jigen()(list_str_y=task.list_str_y,
-                           coeff_reg=args.gamma_reg,
-                           net_encoder=net_encoder,
-                           net_classifier_class=net_classifier,
-                           net_classifier_permutation=net_classifier_perm)
+        net_classifier_perm = ClassifDropoutReluLinear(dim_feat, args.nperm + 1)
+        model = mk_jigen()(
+            list_str_y=task.list_str_y,
+            coeff_reg=args.gamma_reg,
+            net_encoder=net_encoder,
+            net_classifier_class=net_classifier,
+            net_classifier_permutation=net_classifier_perm,
+            n_perm=args.nperm,
+            prob_permutation=args.pperm,
+        )
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
         trainer.init_business(model, task, observer, device, args)
         if isinstance(trainer, TrainerHyperScheduler):
-            trainer.set_scheduler(HyperSchedulerWarmupExponential,
-                                  total_steps=trainer.num_batches*args.warmup,
-                                  flag_update_epoch=False,
-                                  flag_update_batch=True)
-        return trainer, model, observer, device</div></div>
+            trainer.set_scheduler(
+                HyperSchedulerWarmupExponential,
+                total_steps=trainer.num_batches * args.warmup,
+                flag_update_epoch=False,
+                flag_update_batch=True,
+            )
+        return trainer, model, observer, device</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -400,7 +409,7 @@ from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

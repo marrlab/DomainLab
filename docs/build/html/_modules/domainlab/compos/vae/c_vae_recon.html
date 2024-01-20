@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.compos.vae.c_vae_recon &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -317,19 +314,30 @@ import torch
 from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
 
 
-<div class="viewcode-block" id="ReconVAEXYD"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.c_vae_recon.ReconVAEXYD">[docs]</a>class ReconVAEXYD():
+<div class="viewcode-block" id="ReconVAEXYD">
+<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.c_vae_recon.ReconVAEXYD">[docs]</a>
+class ReconVAEXYD:
     """
     Adaptor is vital for data generation so this class can be decoupled from model class.
     The model class can be refactored, we do want to use the trained old-version model, which we
     only need to change adaptor class.
     """
+
     def __init__(self, model, na_adaptor=AdaptorReconVAEXYD):
         self.model = model
         self.adaptor = na_adaptor(self.model)
 
-<div class="viewcode-block" id="ReconVAEXYD.recon"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.c_vae_recon.ReconVAEXYD.recon">[docs]</a>    def recon(self, x, vec_y=None, vec_d=None,
-              sample_p_zy=False, sample_p_zd=False,
-              scalar_zx2fill=None):
+<div class="viewcode-block" id="ReconVAEXYD.recon">
+<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.c_vae_recon.ReconVAEXYD.recon">[docs]</a>
+    def recon(
+        self,
+        x,
+        vec_y=None,
+        vec_d=None,
+        sample_p_zy=False,
+        sample_p_zd=False,
+        scalar_zx2fill=None,
+    ):
         """
         common function
         """
@@ -353,7 +361,9 @@ from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
             if scalar_zx2fill is not None:
                 recon_zx = torch.zeros_like(zx_loc_q)
                 recon_zx = recon_zx.fill_(scalar_zx2fill)
-                str_type = "_".join([str_type, "__fill_zx_", str(scalar_zx2fill), "___"])
+                str_type = "_".join(
+                    [str_type, "__fill_zx_", str(scalar_zx2fill), "___"]
+                )
             else:
                 recon_zx = zx_loc_q
                 str_type = "_".join([str_type, "__zx_q__"])
@@ -371,10 +381,21 @@ from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
             img_recon = self.adaptor.recon_ydx(recon_zy, recon_zd, recon_zx, x)
             return img_recon, str_type</div>
 
-<div class="viewcode-block" id="ReconVAEXYD.recon_cf"><a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.c_vae_recon.ReconVAEXYD.recon_cf">[docs]</a>    def recon_cf(self, x, na_cf, dim_cf, device,
-                 vec_y=None, vec_d=None,
-                 zx2fill=None,
-                 sample_p_zy=False, sample_p_zd=False):
+
+<div class="viewcode-block" id="ReconVAEXYD.recon_cf">
+<a class="viewcode-back" href="../../../../domainlab.compos.vae.html#domainlab.compos.vae.c_vae_recon.ReconVAEXYD.recon_cf">[docs]</a>
+    def recon_cf(
+        self,
+        x,
+        na_cf,
+        dim_cf,
+        device,
+        vec_y=None,
+        vec_d=None,
+        zx2fill=None,
+        sample_p_zy=False,
+        sample_p_zd=False,
+    ):
         """
         Countefactual reconstruction:
             :param na_cf: name of counterfactual, 'y' or 'd'
@@ -388,13 +409,21 @@ from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
             label_cf = torch.zeros(batch_size, dim_cf).to(device)
             label_cf[:, i] = 1
             if na_cf == "y":
-                img_recon_cf, str_type = self.recon(x, label_cf, vec_d, sample_p_zy, sample_p_zd, zx2fill)
+                img_recon_cf, str_type = self.recon(
+                    x, label_cf, vec_d, sample_p_zy, sample_p_zd, zx2fill
+                )
             elif na_cf == "d":
-                img_recon_cf, str_type = self.recon(x, vec_y, label_cf, sample_p_zy, sample_p_zd, zx2fill)
+                img_recon_cf, str_type = self.recon(
+                    x, vec_y, label_cf, sample_p_zy, sample_p_zd, zx2fill
+                )
             else:
-                raise RuntimeError("counterfactual image generation can only be 'y' or 'd'")
+                raise RuntimeError(
+                    "counterfactual image generation can only be 'y' or 'd'"
+                )
             list_recon_cf.append(img_recon_cf)
-        return list_recon_cf, str_type</div></div>
+        return list_recon_cf, str_type</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -419,7 +448,7 @@ from domainlab.compos.vae.c_vae_adaptor_model_recon import AdaptorReconVAEXYD
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.tasks.a_task &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -310,18 +307,21 @@
 <span></span>"""
 Base class for Task
 """
-from abc import abstractmethod
 import warnings
+from abc import abstractmethod
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.task_utils import parse_domain_id
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="NodeTaskDG"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG">[docs]</a>class NodeTaskDG(AbstractChainNodeHandler):
+<div class="viewcode-block" id="NodeTaskDG">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG">[docs]</a>
+class NodeTaskDG(AbstractChainNodeHandler):
     """
     Domain Generalization Classification Task
     """
+
     def __init__(self, succ=None):
         super().__init__(succ)
         self._loader_tr = None
@@ -339,40 +339,56 @@ from domainlab.utils.logger import Logger
         self.dim_d_tr = None  # public, only used for diva
         self._im_size = None
         self._dict_domains2imgroot = {}
-        self._dict_domain_folder_name2class = {}  # {"domain1": {"class1":car, "class2":dog}}
+        self._dict_domain_folder_name2class = (
+            {}
+        )  # {"domain1": {"class1":car, "class2":dog}}
         self._dict_domain_img_trans = {}
         self.dict_att = {}
         self.img_trans_te = None
         self.dict_domain2imgroot = {}
-        self._dict_domain2filepath_list_im_tr = {}  # {"photo": "xxx/yyy/file_of_path2imgs"}
+        self._dict_domain2filepath_list_im_tr = (
+            {}
+        )  # {"photo": "xxx/yyy/file_of_path2imgs"}
         self._dict_domain2filepath_list_im_val = {}
         self._dict_domain2filepath_list_im_te = {}
         self.dict_class_label_ind2name = None
         self.conf_without_args()  # configuration without init_business
 
-<div class="viewcode-block" id="NodeTaskDG.conf_without_args"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.conf_without_args">[docs]</a>    def conf_without_args(self):
+<div class="viewcode-block" id="NodeTaskDG.conf_without_args">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.conf_without_args">[docs]</a>
+    def conf_without_args(self):
         """
         configuration without init_business
         """</div>
 
-<div class="viewcode-block" id="NodeTaskDG.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.init_business">[docs]</a>    @abstractmethod
+
+<div class="viewcode-block" id="NodeTaskDG.init_business">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.init_business">[docs]</a>
+    @abstractmethod
     def init_business(self, args, trainer=None):
         """
         construct task data loader
         """</div>
 
-<div class="viewcode-block" id="NodeTaskDG.get_list_domains"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains">[docs]</a>    def get_list_domains(self):
+
+<div class="viewcode-block" id="NodeTaskDG.get_list_domains">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains">[docs]</a>
+    def get_list_domains(self):
         """
         1. get list of domain names
         2. better use method than property so new domains can be added
         """
         return self._list_domains</div>
 
-<div class="viewcode-block" id="NodeTaskDG.set_list_domains"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.set_list_domains">[docs]</a>    def set_list_domains(self, list_domains):
+
+<div class="viewcode-block" id="NodeTaskDG.set_list_domains">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.set_list_domains">[docs]</a>
+    def set_list_domains(self, list_domains):
         """
         setter for self._list_domains
         """
         self._list_domains = list_domains</div>
+
 
     @property
     def isize(self):
@@ -420,7 +436,9 @@ from domainlab.utils.logger import Logger
         # @FIXME: hardcoded position:NodeTaskXXX
         return type(self).__name__[8:].lower()
 
-<div class="viewcode-block" id="NodeTaskDG.get_na"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_na">[docs]</a>    def get_na(self, na_tr, na_te):
+<div class="viewcode-block" id="NodeTaskDG.get_na">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_na">[docs]</a>
+    def get_na(self, na_tr, na_te):
         """
         task name appended with configurations
         :param na_tr: training domain names
@@ -431,13 +449,19 @@ from domainlab.utils.logger import Logger
         # train domain names are too long
         return "_".join([self.task_name, "te", str_te])</div>
 
-<div class="viewcode-block" id="NodeTaskDG.is_myjob"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.is_myjob">[docs]</a>    def is_myjob(self, request):
+
+<div class="viewcode-block" id="NodeTaskDG.is_myjob">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.is_myjob">[docs]</a>
+    def is_myjob(self, request):
         """
         :param request: string
         """
         return request == self.task_name</div>
 
-<div class="viewcode-block" id="NodeTaskDG.get_list_domains_tr_te"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains_tr_te">[docs]</a>    def get_list_domains_tr_te(self, tr_id, te_id):
+
+<div class="viewcode-block" id="NodeTaskDG.get_list_domains_tr_te">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.a_task.NodeTaskDG.get_list_domains_tr_te">[docs]</a>
+    def get_list_domains_tr_te(self, tr_id, te_id):
         """
         For static DG task, get train and test domains list.
 
@@ -454,14 +478,14 @@ from domainlab.utils.logger import Logger
         assert set(list_domain_te).issubset(set(list_domains))
 
         if tr_id is None:
-            list_domain_tr = [did for did in list_domains if
-                              did not in list_domain_te]
+            list_domain_tr = [did for did in list_domains if did not in list_domain_te]
         else:
             list_domain_tr = parse_domain_id(tr_id, list_domains)
         if not set(list_domain_tr).issubset(set(list_domains)):
             raise RuntimeError(
                 f"training domain {list_domain_tr} is not \
-                subset of available domains {list_domains}")
+                subset of available domains {list_domains}"
+            )
 
         if set(list_domain_tr) &amp; set(list_domain_te):
             logger = Logger.get_logger()
@@ -472,12 +496,13 @@ from domainlab.utils.logger import Logger
             warnings.warn(
                 "The sets of training and test domains overlap -- "
                 "be aware of data leakage or training to the test!",
-                RuntimeWarning
+                RuntimeWarning,
             )
 
         self.dim_d_tr = len(list_domain_tr)
         self._list_domain_tr = list_domain_tr
         return list_domain_tr, list_domain_te</div>
+
 
     def __str__(self):
         """
@@ -485,8 +510,9 @@ from domainlab.utils.logger import Logger
         """
         strout = "list of domains: \n"
         strout += str(self.get_list_domains())
-        strout += (f"\n input tensor size: {self.isize}")
+        strout += f"\n input tensor size: {self.isize}"
         return strout</div>
+
 </pre></div>
 
           </article>
@@ -511,7 +537,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

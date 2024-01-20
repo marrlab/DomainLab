@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.tasks.task_pathlist &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -322,28 +319,39 @@ from domainlab.dsets.dset_img_path_list import DsetImPathList
 from domainlab.dsets.utils_data import mk_fun_label2onehot
 from domainlab.tasks.b_task_classif import NodeTaskDictClassif
 
-torch.multiprocessing.set_sharing_strategy('file_system')
+torch.multiprocessing.set_sharing_strategy("file_system")
 # "too many opened files" https://github.com/pytorch/pytorch/issues/11201
 
 
-<div class="viewcode-block" id="NodeTaskPathListDummy"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_pathlist.NodeTaskPathListDummy">[docs]</a>class NodeTaskPathListDummy(NodeTaskDictClassif):
+<div class="viewcode-block" id="NodeTaskPathListDummy">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_pathlist.NodeTaskPathListDummy">[docs]</a>
+class NodeTaskPathListDummy(NodeTaskDictClassif):
     """
     typedef class so that other function can use isinstance
     """
-<div class="viewcode-block" id="NodeTaskPathListDummy.get_dset_by_domain"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_pathlist.NodeTaskPathListDummy.get_dset_by_domain">[docs]</a>    def get_dset_by_domain(self, args, na_domain, split=False):
-        raise NotImplementedError</div></div>
+
+<div class="viewcode-block" id="NodeTaskPathListDummy.get_dset_by_domain">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_pathlist.NodeTaskPathListDummy.get_dset_by_domain">[docs]</a>
+    def get_dset_by_domain(self, args, na_domain, split=False):
+        raise NotImplementedError</div>
+</div>
 
 
-<div class="viewcode-block" id="mk_node_task_path_list"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_pathlist.mk_node_task_path_list">[docs]</a>def mk_node_task_path_list(isize,
-                           img_trans_te,
-                           list_str_y,
-                           img_trans_tr,
-                           dict_class_label_ind2name,
-                           dict_domain2imgroot,
-                           dict_d2filepath_list_img_tr,
-                           dict_d2filepath_list_img_val,
-                           dict_d2filepath_list_img_te,
-                           succ=None):
+
+<div class="viewcode-block" id="mk_node_task_path_list">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.task_pathlist.mk_node_task_path_list">[docs]</a>
+def mk_node_task_path_list(
+    isize,
+    img_trans_te,
+    list_str_y,
+    img_trans_tr,
+    dict_class_label_ind2name,
+    dict_domain2imgroot,
+    dict_d2filepath_list_img_tr,
+    dict_d2filepath_list_img_val,
+    dict_d2filepath_list_img_te,
+    succ=None,
+):
     """mk_node_task_path_list.
 
     :param isize:
@@ -356,6 +364,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
     :param dict_d2filepath_list_img_te:
     :param succ:
     """
+
     class NodeTaskPathList(NodeTaskPathListDummy):
         """
         The class TaskPathList provides the user an interface to provide a file
@@ -365,6 +374,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
         slot contains the class label as a numerical string.
         e.g.: /path/2/file/art_painting/dog/pic_376.jpg 1
         """
+
         def _get_complete_domain(self, na_domain, dict_domain2pathfilepath):
             """_get_complete_domain.
 
@@ -381,9 +391,12 @@ torch.multiprocessing.set_sharing_strategy('file_system')
             path2filelist = dict_domain2pathfilepath[na_domain]
             path2filelist = os.path.expanduser(path2filelist)
             root_img = os.path.expanduser(root_img)
-            dset = DsetImPathList(root_img, path2filelist, trans_img=trans,
-                                  trans_target=mk_fun_label2onehot(
-                                      len(self.list_str_y)))
+            dset = DsetImPathList(
+                root_img,
+                path2filelist,
+                trans_img=trans,
+                trans_target=mk_fun_label2onehot(len(self.list_str_y)),
+            )
             return dset
 
         def get_dset_by_domain(self, args, na_domain, split=True):
@@ -398,20 +411,22 @@ torch.multiprocessing.set_sharing_strategy('file_system')
                 # if split=False, then only te is used, which contains
                 # the whole dataset
                 dset = self._get_complete_domain(
-                    na_domain,
-                    self._dict_domain2filepath_list_im_te)
+                    na_domain, self._dict_domain2filepath_list_im_te
+                )
                 # test set contains train+validation
                 return dset, dset  # @FIXME: avoid returning two identical
 
             dset = self._get_complete_domain(
                 na_domain,
                 # read training set from user configuration
-                self._dict_domain2filepath_list_im_tr)
+                self._dict_domain2filepath_list_im_tr,
+            )
 
             dset_val = self._get_complete_domain(
                 na_domain,
                 # read validation set from user configuration
-                self._dict_domain2filepath_list_im_val)
+                self._dict_domain2filepath_list_im_val,
+            )
 
             return dset, dset_val
 
@@ -433,6 +448,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
             self.conf()
 
     return NodeTaskPathList(succ)</div>
+
 </pre></div>
 
           </article>
@@ -457,7 +473,7 @@ torch.multiprocessing.set_sharing_strategy('file_system')
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

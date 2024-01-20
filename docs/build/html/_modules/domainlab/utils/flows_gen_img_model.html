@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.utils.flows_gen_img_model &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -315,7 +312,9 @@ from domainlab.compos.vae.c_vae_recon import ReconVAEXYD
 from domainlab.utils.utils_img_sav import mk_fun_sav_img
 
 
-<div class="viewcode-block" id="FlowGenImgs"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.FlowGenImgs">[docs]</a>class FlowGenImgs():
+<div class="viewcode-block" id="FlowGenImgs">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.FlowGenImgs">[docs]</a>
+class FlowGenImgs:
     def __init__(self, model, device):
         model = model.to(device)
         self.obj_recon = ReconVAEXYD(model)
@@ -338,7 +337,9 @@ from domainlab.utils.utils_img_sav import mk_fun_sav_img
         comparison = torch.cat([img, x_recon_img])
         self.sav_fun(comparison, name)
 
-<div class="viewcode-block" id="FlowGenImgs.gen_img_loader"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.FlowGenImgs.gen_img_loader">[docs]</a>    def gen_img_loader(self, loader, device, path, domain):
+<div class="viewcode-block" id="FlowGenImgs.gen_img_loader">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.FlowGenImgs.gen_img_loader">[docs]</a>
+    def gen_img_loader(self, loader, device, path, domain):
         """
         gen image for the first batch of input loader
         """
@@ -351,7 +352,10 @@ from domainlab.utils.utils_img_sav import mk_fun_sav_img
             self.gen_img_xyd(x_batch, y_batch, d_batch, device, path, folder_na=domain)
             break</div>
 
-<div class="viewcode-block" id="FlowGenImgs.gen_img_xyd"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.FlowGenImgs.gen_img_xyd">[docs]</a>    def gen_img_xyd(self, img, vec_y, vec_d, device, path, folder_na):
+
+<div class="viewcode-block" id="FlowGenImgs.gen_img_xyd">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.FlowGenImgs.gen_img_xyd">[docs]</a>
+    def gen_img_xyd(self, img, vec_y, vec_d, device, path, folder_na):
         img = img.to(device)
         vec_y = vec_y.to(device)
         if vec_d is not None:
@@ -363,59 +367,79 @@ from domainlab.utils.utils_img_sav import mk_fun_sav_img
         if vec_d is not None:
             self._flow_cf_d(img, vec_y, vec_d, device)</div>
 
+
     def _flow_vanilla(self, img, vec_y, vec_d, device, num_sample=10):
         x_recon_img, str_type = self.obj_recon.recon(img)
-        self._save_pair(x_recon_img, device, img, str_type + '.png')
+        self._save_pair(x_recon_img, device, img, str_type + ".png")
 
         x_recon_img, str_type = self.obj_recon.recon(img, vec_y)
-        self._save_pair(x_recon_img, device, img, str_type + '.png')
+        self._save_pair(x_recon_img, device, img, str_type + ".png")
 
         if vec_d is not None:
             x_recon_img, str_type = self.obj_recon.recon(img, None, vec_d)
-            self._save_pair(x_recon_img, device, img, str_type + '.png')
+            self._save_pair(x_recon_img, device, img, str_type + ".png")
 
         for i in range(num_sample):
             x_recon_img, str_type = self.obj_recon.recon(img, vec_y, vec_d, True, True)
             x_recon_img = x_recon_img.to(device)
             comparison = torch.cat([img, x_recon_img])
-            self.sav_fun(comparison, str_type + str(i) + '.png')
+            self.sav_fun(comparison, str_type + str(i) + ".png")
 
     def _flow_cf_y(self, img, vec_y, vec_d, device):
         """
         scan possible values of vec_y
         """
-        recon_list, str_type = self.obj_recon.recon_cf(img, "y", vec_y.shape[1], device,
-                                                       zx2fill=None)
-        self._save_list(recon_list, device, img, "_".join(["recon_cf_y", str_type]) + ".png")
-        recon_list, str_type = self.obj_recon.recon_cf(img, "y", vec_y.shape[1], device, zx2fill=0)
-        self._save_list(recon_list, device, img, "_".join(["recon_cf_y", str_type]) + ".png")
+        recon_list, str_type = self.obj_recon.recon_cf(
+            img, "y", vec_y.shape[1], device, zx2fill=None
+        )
+        self._save_list(
+            recon_list, device, img, "_".join(["recon_cf_y", str_type]) + ".png"
+        )
+        recon_list, str_type = self.obj_recon.recon_cf(
+            img, "y", vec_y.shape[1], device, zx2fill=0
+        )
+        self._save_list(
+            recon_list, device, img, "_".join(["recon_cf_y", str_type]) + ".png"
+        )
         if vec_d is not None:
             recon_list, str_type = self.obj_recon.recon_cf(
-                img, "y", vec_y.shape[1], device,
-                vec_d=vec_d,
-                zx2fill=0)
-            self._save_list(recon_list, device, img, "_".join(["recon_cf_y", str_type]) + ".png")
+                img, "y", vec_y.shape[1], device, vec_d=vec_d, zx2fill=0
+            )
+            self._save_list(
+                recon_list, device, img, "_".join(["recon_cf_y", str_type]) + ".png"
+            )
 
     def _flow_cf_d(self, img, vec_y, vec_d, device):
         """
         scan possible values of vec_y
         """
-        recon_list, str_type = self.obj_recon.recon_cf(img, "d", vec_d.shape[1], device,
-                                                       zx2fill=None)
-        self._save_list(recon_list, device, img, "_".join(["recon_cf_d", str_type]) +".png")
-        recon_list, str_type = self.obj_recon.recon_cf(img, "d", vec_d.shape[1], device, zx2fill=0)
-        self._save_list(recon_list, device, img, "_".join(["recon_cf_d", str_type]) +".png")</div>
+        recon_list, str_type = self.obj_recon.recon_cf(
+            img, "d", vec_d.shape[1], device, zx2fill=None
+        )
+        self._save_list(
+            recon_list, device, img, "_".join(["recon_cf_d", str_type]) + ".png"
+        )
+        recon_list, str_type = self.obj_recon.recon_cf(
+            img, "d", vec_d.shape[1], device, zx2fill=0
+        )
+        self._save_list(
+            recon_list, device, img, "_".join(["recon_cf_d", str_type]) + ".png"
+        )</div>
 
 
-<div class="viewcode-block" id="fun_gen"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.fun_gen">[docs]</a>def fun_gen(model, device, node, args, subfolder_na, output_folder_na="gen"):
+
+<div class="viewcode-block" id="fun_gen">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.flows_gen_img_model.fun_gen">[docs]</a>
+def fun_gen(model, device, node, args, subfolder_na, output_folder_na="gen"):
     flow = FlowGenImgs(model, device)
-    path = os.path.join(args.out, output_folder_na, node.task_name, args.model, subfolder_na)
-    flow.gen_img_loader(node.loader_te, device,
-                        path=path,
-                        domain="_".join(args.te_d))
-    flow.gen_img_loader(node.loader_tr, device,
-                        path=path,
-                        domain="_".join(node.list_domain_tr))</div>
+    path = os.path.join(
+        args.out, output_folder_na, node.task_name, args.model, subfolder_na
+    )
+    flow.gen_img_loader(node.loader_te, device, path=path, domain="_".join(args.te_d))
+    flow.gen_img_loader(
+        node.loader_tr, device, path=path, domain="_".join(node.list_domain_tr)
+    )</div>
+
 </pre></div>
 
           </article>
@@ -440,7 +464,7 @@ from domainlab.utils.utils_img_sav import mk_fun_sav_img
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

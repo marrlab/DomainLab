@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.algos.observers.c_obvisitor_gen &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -312,30 +309,53 @@ from domainlab.utils.flows_gen_img_model import fun_gen
 from domainlab.utils.logger import Logger
 
 
-<div class="viewcode-block" id="ObVisitorGen"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen">[docs]</a>class ObVisitorGen(ObVisitor):
+<div class="viewcode-block" id="ObVisitorGen">
+<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen">[docs]</a>
+class ObVisitorGen(ObVisitor):
     """
     For Generative Models
     """
-<div class="viewcode-block" id="ObVisitorGen.after_all"><a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all">[docs]</a>    def after_all(self):
+
+<div class="viewcode-block" id="ObVisitorGen.after_all">
+<a class="viewcode-back" href="../../../../domainlab.algos.observers.html#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all">[docs]</a>
+    def after_all(self):
         super().after_all()
         logger = Logger.get_logger()
         logger.info("generating images for final model at last epoch")
-        fun_gen(subfolder_na=self.host_trainer.model.visitor.model_name+"final",
-                args=self.host_trainer.aconf, node=self.host_trainer.task, model=self.host_trainer.model,
-                device=self.device)
+        fun_gen(
+            subfolder_na=self.host_trainer.model.visitor.model_name + "final",
+            args=self.host_trainer.aconf,
+            node=self.host_trainer.task,
+            model=self.host_trainer.model,
+            device=self.device,
+        )
 
         logger.info("generating images for oracle model")
-        model_or = self.host_trainer.model.load("oracle")  # @FIXME: name "oracle is a strong dependency
+        model_or = self.host_trainer.model.load(
+            "oracle"
+        )  # @FIXME: name "oracle is a strong dependency
         model_or = model_or.to(self.device)
         model_or.eval()
-        fun_gen(subfolder_na=self.host_trainer.model.visitor.model_name+"oracle",
-                args=self.host_trainer.aconf, node=self.host_trainer.task, model=model_or, device=self.device)
+        fun_gen(
+            subfolder_na=self.host_trainer.model.visitor.model_name + "oracle",
+            args=self.host_trainer.aconf,
+            node=self.host_trainer.task,
+            model=model_or,
+            device=self.device,
+        )
         logger.info("generating images for selected model")
         model_ld = self.host_trainer.model.load()
         model_ld = model_ld.to(self.device)
         model_ld.eval()
-        fun_gen(subfolder_na=self.host_trainer.model.visitor.model_name+"selected",
-                args=self.host_trainer.aconf, node=self.host_trainer.task, model=model_ld, device=self.device)</div></div>
+        fun_gen(
+            subfolder_na=self.host_trainer.model.visitor.model_name + "selected",
+            args=self.host_trainer.aconf,
+            node=self.host_trainer.task,
+            model=model_ld,
+            device=self.device,
+        )</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -360,7 +380,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

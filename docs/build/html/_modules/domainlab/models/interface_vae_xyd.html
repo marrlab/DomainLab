@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,13 +48,11 @@
   
   
     <title>domainlab.models.interface_vae_xyd &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -175,7 +172,7 @@
             
             <li class="md-tabs__item"><a href="../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
             
-            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Specify custom model in commandline</a></li>
+            <li class="md-tabs__item"><a href="../../../doc_extend_contribute.html" class="md-tabs__link">Developers note</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
           <li class="md-tabs__item"><a href="../../domainlab.html" class="md-tabs__link">domainlab</a></li>
       </ul>
@@ -316,17 +313,22 @@ import torch.distributions as dist
 from domainlab.utils.utils_class import store_args
 
 
-<div class="viewcode-block" id="InterfaceVAEXYD"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD">[docs]</a>class InterfaceVAEXYD():
+<div class="viewcode-block" id="InterfaceVAEXYD">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD">[docs]</a>
+class InterfaceVAEXYD:
     """
     Interface (without constructor and inheritance) for XYD VAE
     """
-<div class="viewcode-block" id="InterfaceVAEXYD.init"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init">[docs]</a>    def init(self):
-        self.chain_node_builder.init_business(
-            self.zd_dim, self.zx_dim, self.zy_dim)
+
+<div class="viewcode-block" id="InterfaceVAEXYD.init">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init">[docs]</a>
+    def init(self):
+        self.chain_node_builder.init_business(self.zd_dim, self.zx_dim, self.zy_dim)
         self.i_c = self.chain_node_builder.i_c
         self.i_h = self.chain_node_builder.i_h
         self.i_w = self.chain_node_builder.i_w
         self._init_components()</div>
+
 
     def _init_components(self):
         """
@@ -336,11 +338,14 @@ from domainlab.utils.utils_class import store_args
         """
         self.add_module("encoder", self.chain_node_builder.build_encoder())
         self.add_module("decoder", self.chain_node_builder.build_decoder())
-        self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(
-                            self.dim_y, self.zy_dim))
+        self.add_module(
+            "net_p_zy",
+            self.chain_node_builder.construct_cond_prior(self.dim_y, self.zy_dim),
+        )
 
-<div class="viewcode-block" id="InterfaceVAEXYD.init_p_zx4batch"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init_p_zx4batch">[docs]</a>    def init_p_zx4batch(self, batch_size, device):
+<div class="viewcode-block" id="InterfaceVAEXYD.init_p_zx4batch">
+<a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.interface_vae_xyd.InterfaceVAEXYD.init_p_zx4batch">[docs]</a>
+    def init_p_zx4batch(self, batch_size, device):
         """
         1. Generate pytorch distribution object.
         2. To be called by trainer
@@ -352,7 +357,9 @@ from domainlab.utils.utils_class import store_args
         zx_p_loc = torch.zeros(batch_size, self.zx_dim).to(device)
         zx_p_scale = torch.ones(batch_size, self.zx_dim).to(device)
         p_zx = dist.Normal(zx_p_loc, zx_p_scale)
-        return p_zx</div></div>
+        return p_zx</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -377,7 +384,7 @@ from domainlab.utils.utils_class import store_args
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
