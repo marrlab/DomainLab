@@ -100,7 +100,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         self._net_classifier = net_classifier
         self.perf_metric = None
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
-        self._net_classifier = None
 
     def infer_y_vpicn(self, tensor):
         """
