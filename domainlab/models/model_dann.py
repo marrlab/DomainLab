@@ -62,11 +62,10 @@ def mk_dann(parent_class=AModelClassif):
             """
             See documentation above in mk_dann() function
             """
-            super().__init__(list_str_y)
+            super().__init__(net_classifier, list_str_y)
             self.list_d_tr = list_d_tr
             self.alpha = alpha
             self._net_invar_feat = net_encoder
-            self._net_classifier = net_classifier
             self.net_discriminator = net_discriminator
             self.builder = builder
 

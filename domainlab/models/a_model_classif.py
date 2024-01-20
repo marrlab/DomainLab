@@ -91,15 +91,15 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         return logits
 
     @store_args
-    def __init__(self, list_str_y=None):
+    def __init__(self, net_classifier, list_str_y=None):
         """
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
         self.list_str_y = list_str_y
+        self._net_classifier = net_classifier
         self.perf_metric = None
         self.loss4gen_adv = nn.KLDivLoss(size_average=False)
-        self._net_classifier = None
 
     def infer_y_vpicn(self, tensor):
         """
