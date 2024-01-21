@@ -53,11 +53,12 @@ def test_transformer():
     net_classifier = nn.Linear(768, task.dim_y)
 
     # see documentation for each arguments below
-    model_dann = mk_dann()(
+    model_dann = mk_dann(
+            net_classifier=net_classifier,
+            list_str_y=task.list_str_y,
+            )(
         net_encoder=net_feature,
-        net_classifier=net_classifier,
         net_discriminator=nn.Linear(768, 2),
-        list_str_y=task.list_str_y,
         list_d_tr=["labelme", "sun"],
         alpha=1.0,
     )

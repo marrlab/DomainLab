@@ -66,24 +66,24 @@ def mk_exp_jigen(trainer="mldg"):
     net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
 
     # specify model to use
-    model = mk_jigen()(
-        list_str_y,
-        net_encoder,
-        net_classifier,
-        net_permutation_classifier,
-        coeff_reg,
-        meta_info={"nperm": num_output_net_permutation},
-    )
+    model = mk_jigen(
+            list_str_y=list_str_y,
+            net_classifier=net_classifier
+            )(
+        net_encoder=net_encoder,
+        net_classifier_permutation=net_permutation_classifier,
+        coeff_reg=coeff_reg)
 
     num_output_net_discriminator = 2
     net_discriminator = nn.Linear(num_output_net_encoder, num_output_net_discriminator)
     alpha = 0.3
-    model2 = mk_dann()(
-        list_str_y,
+    model2 = mk_dann(
+        list_str_y=list_str_y,
+        net_classifier=net_classifier
+            )(
         ["domain2", "domain3"],
         alpha,
         net_encoder,
-        net_classifier,
         net_discriminator,
     )
 
