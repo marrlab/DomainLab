@@ -69,12 +69,11 @@ def mk_exp_diva(trainer="mldg"):
     chain_node_builder = VAEChainNodeGetter(request)()
 
     # specify model to use
-    model = mk_diva()(
+    model = mk_diva(list_str_y=list_str_y)(
         chain_node_builder,
         zd_dim,
         zy_dim,
         zx_dim,
-        list_str_y,
         list_d_tr,
         gamma_d,
         gamma_y,

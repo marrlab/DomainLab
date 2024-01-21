@@ -63,13 +63,14 @@ def mk_exp_dann(trainer="mldg"):
     net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
 
     # specify model to use
-    model = mk_dann()(
-        list_str_y,
+    model = mk_dann(
+        list_str_y=list_str_y,
+        net_classifier= net_classifier
+            )(
         task.list_domain_tr,
         alpha,
         net_encoder,
-        net_classifier,
-        net_discriminator,
+        net_discriminator
     )
 
     # make trainer for model

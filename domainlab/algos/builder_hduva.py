@@ -28,14 +28,13 @@ class NodeAlgoBuilderHDUVA(NodeAlgoBuilder):
         request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w, args)
         device = get_device(args)
         node = VAEChainNodeGetter(request, args.topic_dim)()
-        model = mk_hduva()(
+        model = mk_hduva(list_str_y=task.list_str_y)(
             node,
             zd_dim=args.zd_dim,
             zy_dim=args.zy_dim,
             zx_dim=args.zx_dim,
             device=device,
             topic_dim=args.topic_dim,
-            list_str_y=task.list_str_y,
             gamma_d=args.gamma_d,
             gamma_y=args.gamma_y,
             beta_t=args.beta_t,
