@@ -30,13 +30,12 @@ def test_trainer_diva():
     request = RequestVAEBuilderCHW(3, 28, 28, args=margs)
 
     node = VAEChainNodeGetter(request)()
-    model = mk_diva()(
+    model = mk_diva(list_str_y=list_str_y)(
         node,
         zd_dim=8,
         zy_dim=8,
         zx_dim=8,
         list_d_tr=list_str_d,
-        list_str_y=list_str_y,
         gamma_d=1.0,
         gamma_y=1.0,
         beta_d=1.0,
