@@ -9,7 +9,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_hduva(parent_class=VAEXYDClassif):
+def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
     """
     Instantiate a Hierarchical Domain Unsupervised VAE (HDUVA) with arbitrary task loss.
 
@@ -92,7 +92,6 @@ def mk_hduva(parent_class=VAEXYDClassif):
             chain_node_builder,
             zy_dim,
             zd_dim,
-            list_str_y,
             gamma_d,
             gamma_y,
             beta_d,
@@ -103,9 +102,10 @@ def mk_hduva(parent_class=VAEXYDClassif):
             zx_dim=0,
             topic_dim=3,
             multiplier_recon=1.0,
+            **kwargs
         ):
             """ """
-            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y)
+            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs)
 
             # topic to zd follows Gaussian distribution
             self.add_module(
