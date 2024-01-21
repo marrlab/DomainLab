@@ -101,9 +101,7 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             device,
             zx_dim=0,
             topic_dim=3,
-            multiplier_recon=1.0,
-            **kwargs
-        ):
+            multiplier_recon=1.0):
             """ """
             super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs)
 
