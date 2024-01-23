@@ -8,6 +8,7 @@ g_inst_component_loss_agg = torch.sum
 g_tensor_batch_agg = torch.sum
 g_list_loss_agg = sum
 
+g_name_num_shared_param_samples_rand_search = "num_shared_param_samples"
 
 def g_list_model_penalized_reg_agg(list_penalized_reg):
     """

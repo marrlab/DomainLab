@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 
 import domainlab.utils.hyperparameter_sampling as sampling
+from domainlab import g_name_num_shared_param_samples_rand_search
 from domainlab.utils.get_git_tag import get_git_tag
 from domainlab.utils.logger import Logger
 
@@ -270,6 +271,8 @@ def rais_error_if_num_not_specified(param_name: str, param_config: dict):
     param_name: parameter name under consideration
     param_config: config of this parameter
     """
+    # if param_name == g_name_num_shared_param_samples_rand_search:
+    #     raise RuntimeError(f"{g_name_num_shared_param_samples_rand_search} only for random search!")
     if not param_name == "constraints":
         if (
             not "num" in param_config.keys()
