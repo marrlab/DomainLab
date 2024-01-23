@@ -271,8 +271,8 @@ def rais_error_if_num_not_specified(param_name: str, param_config: dict):
     param_name: parameter name under consideration
     param_config: config of this parameter
     """
-    # if param_name == g_name_num_shared_param_samples_rand_search:
-    #     raise RuntimeError(f"{g_name_num_shared_param_samples_rand_search} only for random search!")
+    if param_name == g_name_num_shared_param_samples_rand_search:
+         raise RuntimeError(f"{g_name_num_shared_param_samples_rand_search} only for random search!")
     if not param_name == "constraints":
         if (
             not "num" in param_config.keys()
