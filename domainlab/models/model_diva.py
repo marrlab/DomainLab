@@ -9,7 +9,7 @@ from domainlab.models.model_vae_xyd_classif import VAEXYDClassif
 from domainlab.utils.utils_class import store_args
 
 
-def mk_diva(parent_class=VAEXYDClassif):
+def mk_diva(parent_class=VAEXYDClassif, **kwargs):
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -63,7 +63,6 @@ def mk_diva(parent_class=VAEXYDClassif):
             zd_dim,
             zy_dim,
             zx_dim,
-            list_str_y,
             list_d_tr,
             gamma_d,
             gamma_y,
@@ -75,7 +74,7 @@ def mk_diva(parent_class=VAEXYDClassif):
             """
             gamma: classification loss coefficient
             """
-            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y)
+            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs)
             self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:
