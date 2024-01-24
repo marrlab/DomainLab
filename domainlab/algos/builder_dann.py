@@ -52,15 +52,13 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
 
         net_discriminator = self.reset_aux_net(net_encoder)
-        model = mk_dann()(
-            list_str_y=task.list_str_y,
+        model = mk_dann(list_str_y=task.list_str_y,
+                        net_classifier=net_classifier)(
             list_d_tr=task.list_domain_tr,
             alpha=args.gamma_reg,
             net_encoder=net_encoder,
-            net_classifier=net_classifier,
             net_discriminator=net_discriminator,
-            builder=self,
-        )
+            builder=self)
 
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")

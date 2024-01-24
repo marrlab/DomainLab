@@ -11,7 +11,7 @@ from domainlab.models.a_model_classif import AModelClassif
 from domainlab.models.model_dann import mk_dann
 
 
-def mk_jigen(parent_class=AModelClassif):
+def mk_jigen(parent_class=AModelClassif, **kwargs):
     """
     Instantiate a JiGen model
 
@@ -51,7 +51,7 @@ def mk_jigen(parent_class=AModelClassif):
         https://github.com/marrlab/DomainLab/blob/master/tests/test_mk_exp_jigen.py
     """
 
-    class_dann = mk_dann(parent_class)
+    class_dann = mk_dann(parent_class, **kwargs)
 
     class ModelJiGen(class_dann):
         """
@@ -60,27 +60,19 @@ def mk_jigen(parent_class=AModelClassif):
 
         def __init__(
             self,
-            list_str_y,
             net_encoder,
-            net_classifier_class,
             net_classifier_permutation,
             coeff_reg,
             n_perm=31,
-            prob_permutation=0.1,
-            meta_info=None,
-        ):
+            prob_permutation=0.1):
             super().__init__(
-                list_str_y,
                 list_d_tr=None,
                 alpha=coeff_reg,
                 net_encoder=net_encoder,
-                net_classifier=net_classifier_class,
                 net_discriminator=net_classifier_permutation,
             )
             self.net_encoder = net_encoder
-            self.net_classifier_class = net_classifier_class
             self.net_classifier_permutation = net_classifier_permutation
-            self.meta_info = meta_info
             self.n_perm = n_perm
             self.prob_perm = prob_permutation
 
@@ -102,16 +94,10 @@ def mk_jigen(parent_class=AModelClassif):
             """
             JiGen need to shuffle the tiles of the original image
             """
-            if self.meta_info is not None:
-                args.nperm = (
-                    self.meta_info["nperm"] - 1
-                    if "nperm" in self.meta_info
-                    else args.nperm
-                )
-                args.pperm = (
-                    self.meta_info["pperm"] if "pperm" in self.meta_info else args.pperm
-                )
-            nperm = self.n_perm
+            # note if model is initialized via API, args might not agree with  self.n_perm
+            # in this case, we just ignore args, since in model builder, self.n_perm is set
+            # via args as well
+            nperm = self.n_perm  # ignore args since self.n_perm also set via args
             pperm = self.prob_perm
             ddset_new = WrapDsetPatches(
                 ddset,

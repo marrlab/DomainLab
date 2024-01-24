@@ -10,8 +10,7 @@ from domainlab.utils.utils_class import store_args
 
 
 def mk_diva(
-    parent_class=VAEXYDClassif, str_diva_multiplier_type="default"
-):  # FIXME: should not be default
+    parent_class=VAEXYDClassif, str_diva_multiplier_type="default", **kwargs):  # FIXME: should not be default
     """
     Instantiate a domain invariant variational autoencoder (DIVA) with arbitrary task loss.
 
@@ -65,7 +64,6 @@ def mk_diva(
             zd_dim,
             zy_dim,
             zx_dim,
-            list_str_y,
             list_d_tr,
             gamma_d,
             gamma_y,
@@ -78,7 +76,7 @@ def mk_diva(
             """
             gamma: classification loss coefficient
             """
-            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y)
+            super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs)
             self.list_d_tr = list_d_tr
             self.dim_d_tr = len(self.list_d_tr)
             if self.zd_dim > 0:

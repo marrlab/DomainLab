@@ -12,11 +12,14 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
     """
 
     @store_args
-    def __init__(self, chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y):
+    def __init__(self, chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs):
         """
         :param chain_node_builder: constructed object
         """
-        super().__init__(None, list_str_y)
+        for key, value in kwargs.items():
+            if key == "list_str_y":
+                list_str_y = value
+        super().__init__(net_classifier=None, list_str_y=list_str_y)
         self.init()
         self._net_classifier = self.net_classif_y 
 

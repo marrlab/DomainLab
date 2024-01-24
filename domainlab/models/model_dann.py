@@ -9,7 +9,7 @@ from domainlab.compos.nn_zoo.net_adversarial import AutoGradFunReverseMultiply
 from domainlab.models.a_model_classif import AModelClassif
 
 
-def mk_dann(parent_class=AModelClassif):
+def mk_dann(parent_class=AModelClassif, **kwargs):
     """
     Instantiate a Deep Adversarial Net (DAN) model
 
@@ -51,18 +51,16 @@ def mk_dann(parent_class=AModelClassif):
 
         def __init__(
             self,
-            list_str_y,
             list_d_tr,
             alpha,
             net_encoder,
-            net_classifier,
             net_discriminator,
             builder=None,
         ):
             """
             See documentation above in mk_dann() function
             """
-            super().__init__(net_classifier, list_str_y)
+            super().__init__(**kwargs)
             self.list_d_tr = list_d_tr
             self.alpha = alpha
             self._net_invar_feat = net_encoder
