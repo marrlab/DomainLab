@@ -35,12 +35,11 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
         task.get_list_domains_tr_te(args.tr_d, args.te_d)
-        model = mk_diva()(
+        model = mk_diva(list_str_y=task.list_str_y)(
             node,
             zd_dim=args.zd_dim,
             zy_dim=args.zy_dim,
             zx_dim=args.zx_dim,
-            list_str_y=task.list_str_y,
             list_d_tr=task.list_domain_tr,
             gamma_d=args.gamma_d,
             gamma_y=args.gamma_y,

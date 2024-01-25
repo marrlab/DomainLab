@@ -53,12 +53,14 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
 
         # @FIXME: this seems to be the only difference w.r.t. builder_dann
         net_classifier_perm = ClassifDropoutReluLinear(dim_feat, args.nperm + 1)
-        model = mk_jigen()(
+        model = mk_jigen(
             list_str_y=task.list_str_y,
+            net_classifier=net_classifier)(
             coeff_reg=args.gamma_reg,
             net_encoder=net_encoder,
-            net_classifier_class=net_classifier,
             net_classifier_permutation=net_classifier_perm,
+            n_perm=args.nperm,
+            prob_permutation=args.pperm,
         )
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")

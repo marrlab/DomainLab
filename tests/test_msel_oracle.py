@@ -97,7 +97,7 @@ def test_msel_oracle():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_erm()(backbone)
+    model = mk_erm(list_str_y=task.list_str_y)(backbone)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
@@ -133,7 +133,7 @@ def test_msel_oracle1():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_erm()(backbone)
+    model = mk_erm(list_str_y=task.list_str_y)(backbone)
 
     # make trainer for model
 
@@ -173,7 +173,7 @@ def test_msel_oracle2():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_erm()(backbone)
+    model = mk_erm(list_str_y=task.list_str_y)(backbone)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
@@ -207,7 +207,7 @@ def test_msel_oracle3():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_erm()(backbone)
+    model = mk_erm(list_str_y=task.list_str_y)(backbone)
 
     exp = mk_exp(
         task,
@@ -249,7 +249,7 @@ def test_msel_oracle4():
     backbone.fc = nn.Linear(num_final_in, task.dim_y)
 
     # specify model to use
-    model = mk_erm()(backbone)
+    model = mk_erm(list_str_y=task.list_str_y)(backbone)
     exp = mk_exp(
         task,
         model,

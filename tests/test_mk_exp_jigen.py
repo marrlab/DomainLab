@@ -64,14 +64,12 @@ def mk_exp_jigen(trainer="mldg"):
     net_classifier = nn.Linear(num_output_net_encoder, num_output_net_classifier)
 
     # specify model to use
-    model = mk_jigen()(
-        list_str_y,
+    model = mk_jigen(
+        list_str_y=list_str_y,
+        net_classifier=net_classifier)(
         net_encoder,
-        net_classifier,
         net_permutation,
-        coeff_reg,
-        meta_info={"nperm": num_output_net_permutation},
-    )
+        coeff_reg)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer=trainer, test_domain="domain1", batchsize=32)
