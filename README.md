@@ -83,8 +83,7 @@ For example,  the following result (without any augmentation like flip) is for P
 <figure>  
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/>
 <div class="caption" style="align: center; text-align:center;">
-<figcaption>Benchmark results plot generated from DomainLab</figcaption>
+<figcaption>Benchmark results plot generated from DomainLab, where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.</figcaption>
 </div>
 </figure>
 </div>
-where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.
