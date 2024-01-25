@@ -63,7 +63,7 @@ def test_transformer():
     # see documentation for each argument below
     model_jigen = mk_jigen(
         list_str_y=task.list_str_y,
-        net_classifier_class=net_classifier)(
+        net_classifier=net_classifier)(
         net_encoder=net_feature,
         net_classifier_permutation=nn.Linear(768, 32),
         coeff_reg=1.0,
