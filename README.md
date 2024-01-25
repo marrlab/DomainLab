@@ -14,7 +14,7 @@ DomainLab is a software platform with state-of-the-art domain generalization alg
 
 ### DomainLab
 DomainLab decouples the following concepts or objects:
-- task $M$: a combination of datasets (e.g. from distribution $D_1$ and $D_2$). Task offer a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, wich dataset(s) used for testing. 
+- task $M$: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution $D_1$ and $D_2$). Task offer a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, wich dataset(s) used for testing.  
 - neural network: a map $\phi$ from the input data to the feature space and a map $\varphi$ from feature space to output $\hat{y}$ (e.g. decision variable).
 - model: structural risk in the form of $\ell() + \mu R()$  where
   - $\ell(Y, \hat{y}=\varphi(\phi(X)))$ is the task specific empirical loss (e.g. cross entropy for classification task).
@@ -41,7 +41,7 @@ For development version in Github, see [Installation and Dependencies handling](
 We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it.
 
 ### Task specification
-In DomainLab, a task is a container for datasets from different domains. See detail in
+We offer various ways for the user to specify a scenario to evaluate the generalization performance via training on a limited number of datasets. See detail in
 [Task Specification](./docs/doc_tasks.md) 
 
 ### Example and usage
