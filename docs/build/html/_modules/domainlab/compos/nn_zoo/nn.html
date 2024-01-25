@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.compos.nn_zoo.nn &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -307,9 +310,7 @@
 <span></span>import torch.nn as nn
 
 
-<div class="viewcode-block" id="LayerId">
-<a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId">[docs]</a>
-class LayerId(nn.Module):
+<div class="viewcode-block" id="LayerId"><a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId">[docs]</a>class LayerId(nn.Module):
     """
     used to delete layers
     """
@@ -317,20 +318,14 @@ class LayerId(nn.Module):
     def __init__(self):
         super().__init__()
 
-<div class="viewcode-block" id="LayerId.forward">
-<a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId.forward">[docs]</a>
-    def forward(self, x):
+<div class="viewcode-block" id="LayerId.forward"><a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.LayerId.forward">[docs]</a>    def forward(self, x):
         """
         :param x:
         """
-        return x</div>
-</div>
+        return x</div></div>
 
 
-
-<div class="viewcode-block" id="DenseNet">
-<a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet">[docs]</a>
-class DenseNet(nn.Module):
+<div class="viewcode-block" id="DenseNet"><a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet">[docs]</a>class DenseNet(nn.Module):
     """
     (input)-dropout-linear-relu-dropout-linear-relu(output)
     """
@@ -353,17 +348,13 @@ class DenseNet(nn.Module):
             nn.ReLU(inplace=True),
         )
 
-<div class="viewcode-block" id="DenseNet.forward">
-<a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet.forward">[docs]</a>
-    def forward(self, tensor_x):
+<div class="viewcode-block" id="DenseNet.forward"><a class="viewcode-back" href="../../../../domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.nn.DenseNet.forward">[docs]</a>    def forward(self, tensor_x):
         """
         :param x:
         """
         flat = tensor_x.view(tensor_x.shape[0], -1)
         out = self.h_layers(flat)
-        return out</div>
-</div>
-
+        return out</div></div>
 </pre></div>
 
           </article>
@@ -388,7 +379,7 @@ class DenseNet(nn.Module):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

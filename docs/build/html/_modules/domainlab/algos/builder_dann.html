@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.algos.builder_dann &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -321,16 +324,12 @@ from domainlab.models.model_dann import mk_dann
 from domainlab.utils.utils_cuda import get_device
 
 
-<div class="viewcode-block" id="NodeAlgoBuilderDANN">
-<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN">[docs]</a>
-class NodeAlgoBuilderDANN(NodeAlgoBuilder):
+<div class="viewcode-block" id="NodeAlgoBuilderDANN"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN">[docs]</a>class NodeAlgoBuilderDANN(NodeAlgoBuilder):
     """
     NodeAlgoBuilderDANN
     """
 
-<div class="viewcode-block" id="NodeAlgoBuilderDANN.init_business">
-<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.init_business">[docs]</a>
-    def init_business(self, exp):
+<div class="viewcode-block" id="NodeAlgoBuilderDANN.init_business"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.init_business">[docs]</a>    def init_business(self, exp):
         """
         return trainer, model, observer
         """
@@ -362,15 +361,13 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_classifier = ClassifDropoutReluLinear(dim_feat, task.dim_y)
 
         net_discriminator = self.reset_aux_net(net_encoder)
-        model = mk_dann()(
-            list_str_y=task.list_str_y,
+        model = mk_dann(list_str_y=task.list_str_y,
+                        net_classifier=net_classifier)(
             list_d_tr=task.list_domain_tr,
             alpha=args.gamma_reg,
             net_encoder=net_encoder,
-            net_classifier=net_classifier,
             net_discriminator=net_discriminator,
-            builder=self,
-        )
+            builder=self)
 
         model = self.init_next_model(model, exp)
         trainer = TrainerChainNodeGetter(args.trainer)(default="hyperscheduler")
@@ -384,10 +381,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
             )
         return trainer, model, observer, device</div>
 
-
-<div class="viewcode-block" id="NodeAlgoBuilderDANN.reset_aux_net">
-<a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.reset_aux_net">[docs]</a>
-    def reset_aux_net(self, net_encoder):
+<div class="viewcode-block" id="NodeAlgoBuilderDANN.reset_aux_net"><a class="viewcode-back" href="../../../domainlab.algos.html#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.reset_aux_net">[docs]</a>    def reset_aux_net(self, net_encoder):
         """
         reset auxilliary neural network from task
         note that net_encoder can also be a method like extract_semantic_feat
@@ -401,9 +395,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         net_discriminator = ClassifDropoutReluLinear(
             dim_feat, len(self._task.list_domain_tr)
         )
-        return net_discriminator</div>
-</div>
-
+        return net_discriminator</div></div>
 </pre></div>
 
           </article>
@@ -428,7 +420,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

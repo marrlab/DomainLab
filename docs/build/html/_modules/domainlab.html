@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../_static/material.css?v=79c92029" />
-    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -313,15 +316,13 @@ g_inst_component_loss_agg = torch.sum
 g_tensor_batch_agg = torch.sum
 g_list_loss_agg = sum
 
+g_name_num_shared_param_samples_rand_search = "num_shared_param_samples"
 
-<div class="viewcode-block" id="g_list_model_penalized_reg_agg">
-<a class="viewcode-back" href="../domainlab.html#domainlab.g_list_model_penalized_reg_agg">[docs]</a>
-def g_list_model_penalized_reg_agg(list_penalized_reg):
+<div class="viewcode-block" id="g_list_model_penalized_reg_agg"><a class="viewcode-back" href="../domainlab.html#domainlab.g_list_model_penalized_reg_agg">[docs]</a>def g_list_model_penalized_reg_agg(list_penalized_reg):
     """
     aggregate along the list, but do not diminish the batch structure of the tensor
     """
     return torch.stack(list_penalized_reg, dim=0).sum(dim=0)</div>
-
 
 
 g_str_cross_entropy_agg = "none"
@@ -352,7 +353,7 @@ g_str_cross_entropy_agg = "none"
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

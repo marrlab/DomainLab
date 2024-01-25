@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.utils.hyperparameter_sampling &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -329,9 +332,7 @@ G_MODEL_NA = "model"
 G_METHOD_NA = "method"
 
 
-<div class="viewcode-block" id="Hyperparameter">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter">[docs]</a>
-class Hyperparameter:
+<div class="viewcode-block" id="Hyperparameter"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter">[docs]</a>class Hyperparameter:
     """
     Represents a hyperparameter.
     The datatype of .val is int if step and p1 is integer valued,
@@ -350,35 +351,23 @@ class Hyperparameter:
         """Make sure that the hyperparameter sticks to the discrete grid"""
         raise NotImplementedError
 
-<div class="viewcode-block" id="Hyperparameter.sample">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter.sample">[docs]</a>
-    def sample(self):
+<div class="viewcode-block" id="Hyperparameter.sample"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter.sample">[docs]</a>    def sample(self):
         """Sample this parameter, respecting properties"""
         raise NotImplementedError</div>
 
-
-<div class="viewcode-block" id="Hyperparameter.get_val">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter.get_val">[docs]</a>
-    def get_val(self):
+<div class="viewcode-block" id="Hyperparameter.get_val"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter.get_val">[docs]</a>    def get_val(self):
         """Returns the current value of the hyperparameter"""
         return self.val</div>
 
-
-<div class="viewcode-block" id="Hyperparameter.datatype">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter.datatype">[docs]</a>
-    def datatype(self):
+<div class="viewcode-block" id="Hyperparameter.datatype"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.Hyperparameter.datatype">[docs]</a>    def datatype(self):
         """
         Returns the datatype of this parameter.
         This does not apply for references.
         """
-        raise NotImplementedError</div>
-</div>
+        raise NotImplementedError</div></div>
 
 
-
-<div class="viewcode-block" id="SampledHyperparameter">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter">[docs]</a>
-class SampledHyperparameter(Hyperparameter):
+<div class="viewcode-block" id="SampledHyperparameter"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter">[docs]</a>class SampledHyperparameter(Hyperparameter):
     """
     A numeric hyperparameter that shall be sampled
     """
@@ -423,9 +412,7 @@ class SampledHyperparameter(Hyperparameter):
         if self.datatype() == int:
             self.val = self.datatype()(np.round(self.val))
 
-<div class="viewcode-block" id="SampledHyperparameter.sample">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.sample">[docs]</a>
-    def sample(self):
+<div class="viewcode-block" id="SampledHyperparameter.sample"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.sample">[docs]</a>    def sample(self):
         """Sample this parameter, respecting properties"""
         if self.distribution == "uniform":
             self.val = np.random.uniform(self.p_1, self.p_2)
@@ -439,18 +426,11 @@ class SampledHyperparameter(Hyperparameter):
             raise RuntimeError(f"Unsupported distribution type: {self.distribution}.")
         self._ensure_step()</div>
 
-
-<div class="viewcode-block" id="SampledHyperparameter.datatype">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.datatype">[docs]</a>
-    def datatype(self):
-        return int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float</div>
-</div>
+<div class="viewcode-block" id="SampledHyperparameter.datatype"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.SampledHyperparameter.datatype">[docs]</a>    def datatype(self):
+        return int if self.step % 1 == 0 and self.p_1 % 1 == 0 else float</div></div>
 
 
-
-<div class="viewcode-block" id="ReferenceHyperparameter">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter">[docs]</a>
-class ReferenceHyperparameter(Hyperparameter):
+<div class="viewcode-block" id="ReferenceHyperparameter"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter">[docs]</a>class ReferenceHyperparameter(Hyperparameter):
     """
     Hyperparameter that references only a different one.
     Thus, this parameter is not sampled but set after sampling.
@@ -465,25 +445,16 @@ class ReferenceHyperparameter(Hyperparameter):
         # nothing to do for references
         return
 
-<div class="viewcode-block" id="ReferenceHyperparameter.sample">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.sample">[docs]</a>
-    def sample(self):
+<div class="viewcode-block" id="ReferenceHyperparameter.sample"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.sample">[docs]</a>    def sample(self):
         """Sample this parameter, respecting properties"""
         # nothing to do for references
         return</div>
 
-
-<div class="viewcode-block" id="ReferenceHyperparameter.datatype">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.datatype">[docs]</a>
-    def datatype(self):
-        raise RuntimeError("Datatype unknown for ReferenceHyperparameter")</div>
-</div>
+<div class="viewcode-block" id="ReferenceHyperparameter.datatype"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.ReferenceHyperparameter.datatype">[docs]</a>    def datatype(self):
+        raise RuntimeError("Datatype unknown for ReferenceHyperparameter")</div></div>
 
 
-
-<div class="viewcode-block" id="CategoricalHyperparameter">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter">[docs]</a>
-class CategoricalHyperparameter(Hyperparameter):
+<div class="viewcode-block" id="CategoricalHyperparameter"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter">[docs]</a>class CategoricalHyperparameter(Hyperparameter):
     """
     A sampled hyperparameter, which is constraint to fixed,
     user given values and datatype
@@ -504,26 +475,17 @@ class CategoricalHyperparameter(Hyperparameter):
         # nothing to do for categorical ones
         return
 
-<div class="viewcode-block" id="CategoricalHyperparameter.sample">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.sample">[docs]</a>
-    def sample(self):
+<div class="viewcode-block" id="CategoricalHyperparameter.sample"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.sample">[docs]</a>    def sample(self):
         """Sample this parameter, respecting properties"""
         # nothing to do for references
         idx = np.random.randint(0, len(self.allowed_values))
         self.val = self.allowed_values[idx]</div>
 
-
-<div class="viewcode-block" id="CategoricalHyperparameter.datatype">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.datatype">[docs]</a>
-    def datatype(self):
-        return self.type</div>
-</div>
+<div class="viewcode-block" id="CategoricalHyperparameter.datatype"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.CategoricalHyperparameter.datatype">[docs]</a>    def datatype(self):
+        return self.type</div></div>
 
 
-
-<div class="viewcode-block" id="get_hyperparameter">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.get_hyperparameter">[docs]</a>
-def get_hyperparameter(name: str, config: dict) -&gt; Hyperparameter:
+<div class="viewcode-block" id="get_hyperparameter"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.get_hyperparameter">[docs]</a>def get_hyperparameter(name: str, config: dict) -&gt; Hyperparameter:
     """Factory function. Instantiates the correct Hyperparameter"""
     if "reference" in config.keys():
         return ReferenceHyperparameter(name, config)
@@ -534,10 +496,7 @@ def get_hyperparameter(name: str, config: dict) -&gt; Hyperparameter:
     return SampledHyperparameter(name, config)</div>
 
 
-
-<div class="viewcode-block" id="check_constraints">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.check_constraints">[docs]</a>
-def check_constraints(params: List[Hyperparameter], constraints) -&gt; bool:
+<div class="viewcode-block" id="check_constraints"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.check_constraints">[docs]</a>def check_constraints(params: List[Hyperparameter], constraints) -&gt; bool:
     """Check if the constraints are fulfilled."""
     # set each param as a local variable
     for par in params:
@@ -571,10 +530,7 @@ def check_constraints(params: List[Hyperparameter], constraints) -&gt; bool:
     return True</div>
 
 
-
-<div class="viewcode-block" id="sample_parameters">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_parameters">[docs]</a>
-def sample_parameters(
+<div class="viewcode-block" id="sample_parameters"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_parameters">[docs]</a>def sample_parameters(
     init_params: List[Hyperparameter],
     constraints,
     shared_config=None,
@@ -639,10 +595,7 @@ def sample_parameters(
     )</div>
 
 
-
-<div class="viewcode-block" id="create_samples_from_shared_samples">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.create_samples_from_shared_samples">[docs]</a>
-def create_samples_from_shared_samples(
+<div class="viewcode-block" id="create_samples_from_shared_samples"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.create_samples_from_shared_samples">[docs]</a>def create_samples_from_shared_samples(
     shared_samples: pd.DataFrame, config: dict, task_name: str
 ):
     """
@@ -667,10 +620,7 @@ def create_samples_from_shared_samples(
     return shared_samp</div>
 
 
-
-<div class="viewcode-block" id="sample_task_only_shared">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_task_only_shared">[docs]</a>
-def sample_task_only_shared(
+<div class="viewcode-block" id="sample_task_only_shared"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_task_only_shared">[docs]</a>def sample_task_only_shared(
     num_samples, task_name, sample_df, config, shared_conf_samp
 ):
     """
@@ -713,10 +663,7 @@ def sample_task_only_shared(
     return sample_df</div>
 
 
-
-<div class="viewcode-block" id="sample_task">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_task">[docs]</a>
-def sample_task(
+<div class="viewcode-block" id="sample_task"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_task">[docs]</a>def sample_task(
     num_samples: int, task_name: str, conf_samp: tuple, shared_conf_samp: tuple
 ):
     """Sample one task and add it to the dataframe"""
@@ -747,18 +694,12 @@ def sample_task(
     return sample_df</div>
 
 
-
-<div class="viewcode-block" id="is_dict_with_key">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.is_dict_with_key">[docs]</a>
-def is_dict_with_key(input_dict, key) -&gt; bool:
+<div class="viewcode-block" id="is_dict_with_key"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.is_dict_with_key">[docs]</a>def is_dict_with_key(input_dict, key) -&gt; bool:
     """Determines if the input argument is a dictionary and it has key"""
     return isinstance(input_dict, dict) and key in input_dict.keys()</div>
 
 
-
-<div class="viewcode-block" id="get_shared_samples">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.get_shared_samples">[docs]</a>
-def get_shared_samples(
+<div class="viewcode-block" id="get_shared_samples"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.get_shared_samples">[docs]</a>def get_shared_samples(
     shared_samples_full: pd.DataFrame, shared_config_full: dict, task_config: dict
 ):
     """
@@ -791,10 +732,7 @@ def get_shared_samples(
     return shared_samples, shared_config</div>
 
 
-
-<div class="viewcode-block" id="sample_hyperparameters">
-<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_hyperparameters">[docs]</a>
-def sample_hyperparameters(
+<div class="viewcode-block" id="sample_hyperparameters"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.hyperparameter_sampling.sample_hyperparameters">[docs]</a>def sample_hyperparameters(
     config: dict, dest: str = None, sampling_seed: int = None
 ) -&gt; pd.DataFrame:
     """
@@ -858,7 +796,6 @@ def sample_hyperparameters(
 
     samples.to_csv(dest)
     return samples</div>
-
 </pre></div>
 
           </article>
@@ -883,7 +820,7 @@ def sample_hyperparameters(
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

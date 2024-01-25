@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.tasks.b_task &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
-    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -313,33 +316,23 @@ from domainlab.tasks.a_task import NodeTaskDG
 from domainlab.tasks.utils_task import DsetDomainVecDecorator, mk_loader, mk_onehot
 
 
-<div class="viewcode-block" id="NodeTaskDict">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict">[docs]</a>
-class NodeTaskDict(NodeTaskDG):
+<div class="viewcode-block" id="NodeTaskDict"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict">[docs]</a>class NodeTaskDict(NodeTaskDG):
     """
     Use dictionaries to create train and test domain split
     """
 
-<div class="viewcode-block" id="NodeTaskDict.get_dset_by_domain">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain">[docs]</a>
-    def get_dset_by_domain(self, args, na_domain, split=False):
+<div class="viewcode-block" id="NodeTaskDict.get_dset_by_domain"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.get_dset_by_domain">[docs]</a>    def get_dset_by_domain(self, args, na_domain, split=False):
         """
         each domain correspond to one dataset, must be implemented by child class
         """
         raise NotImplementedError  # it is safe for each subclass to implement this</div>
 
-
-<div class="viewcode-block" id="NodeTaskDict.decorate_dset">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.decorate_dset">[docs]</a>
-    def decorate_dset(self, model, args):
+<div class="viewcode-block" id="NodeTaskDict.decorate_dset"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.decorate_dset">[docs]</a>    def decorate_dset(self, model, args):
         """
         dispatch re-organization of data flow to model
         """</div>
 
-
-<div class="viewcode-block" id="NodeTaskDict.init_business">
-<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.init_business">[docs]</a>
-    def init_business(self, args, trainer=None):
+<div class="viewcode-block" id="NodeTaskDict.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task.NodeTaskDict.init_business">[docs]</a>    def init_business(self, args, trainer=None):
         """
         create a dictionary of datasets
         """
@@ -384,9 +377,7 @@ class NodeTaskDict(NodeTaskDG):
             # train and validation, this is not needed in test domain
             self.dict_dset_te.update({na_domain: dset_te})
         dset_te = ConcatDataset(tuple(self.dict_dset_te.values()))
-        self._loader_te = mk_loader(dset_te, args.bs, shuffle=False, drop_last=False)</div>
-</div>
-
+        self._loader_te = mk_loader(dset_te, args.bs, shuffle=False, drop_last=False)</div></div>
 </pre></div>
 
           </article>
@@ -411,7 +402,7 @@ class NodeTaskDict(NodeTaskDG):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,6 +1,7 @@
+
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="../../../../">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,11 +49,13 @@
   
   
     <title>domainlab.algos.trainers.hyper_scheduler &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=92fd9be5" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
-    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -310,9 +313,7 @@ update hyper-parameters during training
 import numpy as np
 
 
-<div class="viewcode-block" id="HyperSchedulerWarmupLinear">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear">[docs]</a>
-class HyperSchedulerWarmupLinear:
+<div class="viewcode-block" id="HyperSchedulerWarmupLinear"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear">[docs]</a>class HyperSchedulerWarmupLinear:
     """
     HyperSchedulerWarmupLinear
     """
@@ -325,18 +326,13 @@ class HyperSchedulerWarmupLinear:
         self.dict_par_setpoint = kwargs
         self.total_steps = None
 
-<div class="viewcode-block" id="HyperSchedulerWarmupLinear.set_steps">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear.set_steps">[docs]</a>
-    def set_steps(self, total_steps):
+<div class="viewcode-block" id="HyperSchedulerWarmupLinear.set_steps"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear.set_steps">[docs]</a>    def set_steps(self, total_steps):
         """
         set number of total_steps to gradually change optimization parameter
         """
         self.total_steps = total_steps</div>
 
-
-<div class="viewcode-block" id="HyperSchedulerWarmupLinear.warmup">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear.warmup">[docs]</a>
-    def warmup(self, par_setpoint, epoch):
+<div class="viewcode-block" id="HyperSchedulerWarmupLinear.warmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupLinear.warmup">[docs]</a>    def warmup(self, par_setpoint, epoch):
         """warmup.
         start from a small value of par to ramp up the steady state value using
         # total_steps
@@ -347,7 +343,6 @@ class HyperSchedulerWarmupLinear:
         par = min(list_par)
         return par</div>
 
-
     def __call__(self, epoch):
         dict_rst = {}
         for key, val_setpoint in self.dict_par_setpoint.items():
@@ -355,17 +350,12 @@ class HyperSchedulerWarmupLinear:
         return dict_rst</div>
 
 
-
-<div class="viewcode-block" id="HyperSchedulerWarmupExponential">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential">[docs]</a>
-class HyperSchedulerWarmupExponential(HyperSchedulerWarmupLinear):
+<div class="viewcode-block" id="HyperSchedulerWarmupExponential"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential">[docs]</a>class HyperSchedulerWarmupExponential(HyperSchedulerWarmupLinear):
     """
     HyperScheduler Exponential
     """
 
-<div class="viewcode-block" id="HyperSchedulerWarmupExponential.warmup">
-<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential.warmup">[docs]</a>
-    def warmup(self, par_setpoint, epoch):
+<div class="viewcode-block" id="HyperSchedulerWarmupExponential.warmup"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.hyper_scheduler.HyperSchedulerWarmupExponential.warmup">[docs]</a>    def warmup(self, par_setpoint, epoch):
         """
         start from a small value of par to ramp up the steady state value using
         number of total_steps
@@ -379,9 +369,7 @@ class HyperSchedulerWarmupExponential(HyperSchedulerWarmupLinear):
         # exp(-10)=4.5e-5 is approximately 0
         # slowly increase the regularization weight from 0 to 1*alpha as epochs goes on
         parval = float(ratio * par_setpoint)
-        return parval</div>
-</div>
-
+        return parval</div></div>
 </pre></div>
 
           </article>
@@ -406,7 +394,7 @@ class HyperSchedulerWarmupExponential(HyperSchedulerWarmupLinear):
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
