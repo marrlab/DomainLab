@@ -79,7 +79,7 @@ For example,  the following result (without any augmentation like flip) is for P
 <div style="align: center; text-align:center;">
 <figure>  
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/>
-<div class="caption">
+<div class="caption" style="align: center; text-align:center;">
 <figcaption>Benchmark results plot generated from DomainLab</figcaption>
 </div>
 </figure>
