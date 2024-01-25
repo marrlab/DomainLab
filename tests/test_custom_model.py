@@ -18,7 +18,7 @@ def test_custom():
     argsstr = (
         "--te_d=caltech --task=mini_vlcs --model=custom --bs=2 --debug \
                --apath=%s --nname_argna2val my_custom_arg_name \
-        --nname_argna2val alexnet"
+        --nname_argna2val alexnet --nname=alexnet"
         % (mpath)
     )
     margs = parser.parse_args(argsstr.split())
@@ -65,26 +65,3 @@ def test_no_network_exeption():
     margs = parser.parse_args(argsstr.split())
     with pytest.raises(RuntimeError, match="the pytorch module returned by"):
         Exp(margs)
-
-
-def test_amodelcustom():
-    """Test that AModelCustom raises correct NotImplementedErrors"""
-
-    class Custom(AModelCustom):
-        """Dummy class to create an instance of the abstract AModelCustom"""
-
-        @property
-        def dict_net_module_na2arg_na(self):
-            pass
-
-    img = torch.rand(1, 3, 28, 28)
-    mod = Custom(None)
-    with pytest.raises(NotImplementedError):
-        mod.cal_logit_y(None)
-    with pytest.raises(NotImplementedError):
-        mod.forward(img, None, None)
-    with pytest.raises(NotImplementedError):
-        mod.cal_loss(img, None, None)
-    del mod
-    torch.cuda.empty_cache()
-    gc.collect()

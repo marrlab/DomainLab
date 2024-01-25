@@ -12,12 +12,16 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
     """
 
     @store_args
-    def __init__(self, chain_node_builder, zd_dim, zy_dim, zx_dim, list_str_y):
+    def __init__(self, chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs):
         """
         :param chain_node_builder: constructed object
         """
-        super().__init__(list_str_y)
+        for key, value in kwargs.items():
+            if key == "list_str_y":
+                list_str_y = value
+        super().__init__(net_classifier=None, list_str_y=list_str_y)
         self.init()
+        self._net_classifier = self.net_classif_y 
 
     def extract_semantic_feat(self, tensor_x):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
@@ -37,4 +41,3 @@ class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
             self.chain_node_builder.construct_classifier(self.zy_dim, self.dim_y),
         )
         # property setter only for other object, internally, one shoud use _net_classifier
-        self._net_classifier = self.net_classif_y
