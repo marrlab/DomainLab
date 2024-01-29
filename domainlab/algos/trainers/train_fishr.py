@@ -5,19 +5,21 @@ use random start to generate adversarial images
 from collections import OrderedDict
 import torch
 from torch import nn
-
-try:
-    from backpack import backpack, extend
-    from backpack.extensions import Variance
-except:
-    backpack = None
+from trainers import backpack_wrapper
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
-_bce_extended = extend(nn.CrossEntropyLoss(reduction='none'))
-
-
 class TrainerFishr(TrainerBasic):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.backpack_wrapper = BackpackWrapper()
+        # Extend the loss function with backpack's extend method
+        self._bce_extended = self.backpack_wrapper.extend_loss_function(
+            nn.CrossEntropyLoss(reduction='none')
+        )
+
+
     """
     The goal is to minimize the variance of the domain-level variance of the gradients.
     This aligns the domain-level loss landscapes locally around the final weights, reducing
@@ -153,20 +155,25 @@ class TrainerFishr(TrainerBasic):
         Return Example:
         {"layer1": Tensor[batchsize=32, 64, 3, 11, 11 ]} as a convolution kernel
         """
+        # wrapping the model with backpack
+        if self.backpack_wrapper.backpack is not None and self.backpack_wrapper.Variance is not None:
+            loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
 
-        loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
+            with self.backpack_wrapper.backpack(self.backpack_wrapper.Variance()):
+                loss.backward(
+                    inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
+                )
 
-        with backpack(Variance()):
-            loss.backward(
-                inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
-            )
+            for name, param in self.model.named_parameters():
+                print(name)
+                print(".grad.shape:             ", param.variance.shape)
 
-        for name, param in self.model.named_parameters():
-            print(name)
-            print(".grad.shape:             ", param.variance.shape)
-
-        dict_variance = OrderedDict(
-            [(name, weights.variance.clone())
-             for name, weights in self.model.named_parameters()
-             ])
-        return dict_variance
+            dict_variance = OrderedDict(
+                [(name, weights.variance.clone())
+                 for name, weights in self.model.named_parameters()
+                 ])
+            return dict_variance
+        else:
+            # Handle the case where backpack isn't available
+            raise ImportError("Backpack functionality is required but not available.")
+        
