@@ -27,7 +27,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     def __init__(self):
         self.backpack_wrapper = BackpackWrapper()
         # Extend the loss function with backpack's extend method
-        self._bce_extended = self.backpack_wrapper.loss_cross_entropy_extended(
+        self.loss_cross_entropy_extended = self.backpack_wrapper.extend_loss_function(
             nn.CrossEntropyLoss(reduction='none')
         )
 

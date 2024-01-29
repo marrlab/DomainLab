@@ -5,7 +5,7 @@ use random start to generate adversarial images
 from collections import OrderedDict
 import torch
 from torch import nn
-from domainlab.algos.trainers import backpack_wrapper
+from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
