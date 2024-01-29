@@ -26,7 +26,7 @@ class TrainerFishr(TrainerBasic):
         self._bce_extended = self.backpack_wrapper.extend_loss_function(
             nn.CrossEntropyLoss(reduction='none')
         )
-        
+
     def tr_epoch(self, epoch):
         list_loaders = list(self.dict_loader_tr.values())
         loaders_zip = zip(*list_loaders)
@@ -156,7 +156,7 @@ class TrainerFishr(TrainerBasic):
         # wrapping the model with backpack
         loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
 
-        self.backpack_wrapper.apply_backpack(self.model, loss, [self.backpack_wrapper.Variance()])
+        self.backpack_wrapper.apply_backpack(self.model, loss, [self.backpack_wrapper.variance()])
 
         for name, param in self.model.named_parameters():
             print(name)
