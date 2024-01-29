@@ -8,7 +8,7 @@ class BackpackWrapper:
     """
     Facilitates the use of backpack and its extensions.
     """
-     
+    
     def __init__(self):
         self.backpack = self._safe_import('backpack')
         self.extend = self._safe_import('backpack.extend')
