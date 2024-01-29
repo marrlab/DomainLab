@@ -17,19 +17,19 @@ from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
-
-try:
-    from backpack import extend
-except:
-    backpack = None
-
-loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
-
+from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have
     """
+
+    def __init__(self):
+        self.backpack_wrapper = BackpackWrapper()
+        # Extend the loss function with backpack's extend method
+        self._bce_extended = self.backpack_wrapper.loss_cross_entropy_extended(
+            nn.CrossEntropyLoss(reduction='none')
+        )
 
     match_feat_fun_na = "cal_logit_y"
 
@@ -154,7 +154,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             y_target = tensor_y
         else:
             _, y_target = tensor_y.max(dim=1)
-        lc_y = loss_cross_entropy_extended(logit_y, y_target)
+        lc_y = self.loss_cross_entropy_extended(logit_y, y_target)
         # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y
 
