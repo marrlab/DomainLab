@@ -52,20 +52,20 @@ def test_transformer():
     net_classifier = nn.Linear(768, task.dim_y)
 
     # see documentation for each arguments below
-    model_dann = mk_dann()(
-        net_encoder=net_feature,
+    model_dann = mk_dann(
         net_classifier=net_classifier,
+        list_str_y=task.list_str_y)(
+        net_encoder=net_feature,
         net_discriminator=nn.Linear(768, 2),
-        list_str_y=task.list_str_y,
         list_d_tr=["labelme", "sun"],
         alpha=1.0,
     )
     # see documentation for each argument below
-    model_jigen = mk_jigen()(
-        net_encoder=net_feature,
-        net_classifier_class=net_classifier,
-        net_classifier_permutation=nn.Linear(768, 32),
+    model_jigen = mk_jigen(
         list_str_y=task.list_str_y,
+        net_classifier=net_classifier)(
+        net_encoder=net_feature,
+        net_classifier_permutation=nn.Linear(768, 32),
         coeff_reg=1.0,
         n_perm=31,
     )
