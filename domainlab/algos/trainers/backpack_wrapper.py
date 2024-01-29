@@ -1,12 +1,24 @@
+"""
+Wrapper for backpack and its extensions.
+"""
+
 import importlib
 
 class BackpackWrapper:
+    """
+    Facilitates the use of backpack and its extensions.
+    """
+     
     def __init__(self):
         self.backpack = self._safe_import('backpack')
         self.extend = self._safe_import('backpack.extend')
         self.Variance = self._safe_import('backpack.extensions', 'Variance')
 
     def _safe_import(self, module_name, attr=None):
+        """
+        Safely import a module and its attribute.
+        :param module_name: The name of the module to be imported.
+        """
         try:
             module = importlib.import_module(module_name)
             return getattr(module, attr) if attr else module
@@ -15,10 +27,14 @@ class BackpackWrapper:
             return None
 
     def extend_loss_function(self, loss_function):
+        """
+        Extend the loss function with backpack's extend method.
+        :param loss_function: The loss function to be extended.
+        """
         if self.extend is not None:
             return self.extend(loss_function)
-        else:
-            raise ImportError("Backpack extension not available.")
+            
+        raise ImportError("Backpack extension not available.")
         
 
     def apply_backpack(self, model, loss, extensions):
@@ -36,5 +52,3 @@ class BackpackWrapper:
                 )
         else:
             raise ImportError("Backpack is not available.")
-
-

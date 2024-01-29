@@ -10,16 +10,6 @@ from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 class TrainerFishr(TrainerBasic):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.backpack_wrapper = BackpackWrapper()
-        # Extend the loss function with backpack's extend method
-        self._bce_extended = self.backpack_wrapper.extend_loss_function(
-            nn.CrossEntropyLoss(reduction='none')
-        )
-
-
     """
     The goal is to minimize the variance of the domain-level variance of the gradients.
     This aligns the domain-level loss landscapes locally around the final weights, reducing
@@ -29,6 +19,14 @@ class TrainerFishr(TrainerBasic):
         "Fishr: Invariant gradient variances for out-of-distribution generalization."
         International Conference on Machine Learning. PMLR, 2022.
     """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.backpack_wrapper = BackpackWrapper()
+        # Extend the loss function with backpack's extend method
+        self._bce_extended = self.backpack_wrapper.extend_loss_function(
+            nn.CrossEntropyLoss(reduction='none')
+        )
+    
     def tr_epoch(self, epoch):
         list_loaders = list(self.dict_loader_tr.values())
         loaders_zip = zip(*list_loaders)
@@ -156,7 +154,6 @@ class TrainerFishr(TrainerBasic):
         {"layer1": Tensor[batchsize=32, 64, 3, 11, 11 ]} as a convolution kernel
         """
         # wrapping the model with backpack
-       
         loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
 
         self.backpack_wrapper.apply_backpack(self.model, loss, [self.backpack_wrapper.Variance()])
