@@ -12,7 +12,7 @@ class BackpackWrapper:
     def __init__(self):
         self.backpack = self._safe_import('backpack')
         self.extend = self._safe_import('backpack.extend')
-        self.Variance = self._safe_import('backpack.extensions', 'Variance')
+        self.variance = self._safe_import('backpack.extensions', 'Variance')
 
     def _safe_import(self, module_name, attr=None):
         """

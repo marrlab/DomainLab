@@ -24,14 +24,6 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
     operations that all classification model should have
     """
 
-    def __init__(self):
-        super().__init__()
-        self.backpack_wrapper = BackpackWrapper()
-        # Extend the loss function with backpack's extend method
-        self.loss_cross_entropy_extended = self.backpack_wrapper.extend_loss_function(
-            nn.CrossEntropyLoss(reduction='none')
-        )
-
     match_feat_fun_na = "cal_logit_y"
 
     def extend(self, model):
@@ -104,6 +96,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
+        self.backpack_wrapper = BackpackWrapper()
+        # Extend the loss function with backpack's extend method
+        self.loss_cross_entropy_extended = self.backpack_wrapper.extend_loss_function(
+            nn.CrossEntropyLoss(reduction='none')
+        )
         for key, value in kwargs.items():
             if key == "list_str_y":
                 list_str_y = value
