@@ -34,6 +34,25 @@ python-versions = "*"
 simplejson = "*"
 
 [[package]]
+name = "backpack-for-pytorch"
+version = "1.6.0"
+description = "BackPACK: Packing more into backprop"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+einops = ">=0.3.0,<1.0.0"
+torch = ">=1.9.0"
+torchvision = ">=0.7.0"
+unfoldNd = ">=0.2.0,<1.0.0"
+
+[package.extras]
+docs = ["matplotlib", "memory-profiler", "sphinx-gallery", "sphinx-rtd-theme", "tabulate"]
+lint = ["black", "darglint", "flake8", "flake8-bugbear", "flake8-comprehensions", "flake8-tidy-imports", "isort", "mccabe", "pep8-naming", "pycodestyle", "pydocstyle", "pyflakes"]
+test = ["coveralls", "pytest (>=4.5.0,<5.0.0)", "pytest-benchmark (>=3.2.2,<4.0.0)", "pytest-cov", "pytest-optional-tests (>=0.1.1)", "scipy"]
+
+[[package]]
 name = "beautifulsoup4"
 version = "4.12.3"
 description = "Screen-scraping library"
@@ -118,6 +137,14 @@ python-versions = ">=3.8"
 [package.extras]
 docs = ["ipython", "matplotlib", "numpydoc", "sphinx"]
 tests = ["pytest", "pytest-cov", "pytest-xdist"]
+
+[[package]]
+name = "einops"
+version = "0.7.0"
+description = "A new flavour of deep learning operations"
+category = "main"
+optional = false
+python-versions = ">=3.8"
 
 [[package]]
 name = "filelock"
@@ -660,6 +687,22 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
+name = "unfoldNd"
+version = "0.2.1"
+description = "N-dimensional unfold (im2col) and fold (col2im) in PyTorch"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+numpy = "*"
+torch = "*"
+
+[package.extras]
+lint = ["black", "darglint", "flake8", "flake8-bugbear", "flake8-comprehensions", "flake8-tidy-imports", "isort", "mccabe", "pep8-naming", "pycodestyle", "pydocstyle", "pyflakes"]
+test = ["coveralls", "pytest", "pytest-cov", "pytest-optional-tests"]
+
+[[package]]
 name = "urllib3"
 version = "2.1.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -698,7 +741,7 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "9fef5418f7dbd918200578409cbe080e29298decd71fc3199c8298d0f91834bc"
+content-hash = "5f6784ae1746758e7a27c535f81d57dcc36a79569e40730391c54e15bf8c69ae"
 
 [metadata.files]
 atomicwrites = [
@@ -710,6 +753,10 @@ attrs = [
 ]
 backpack = [
     {file = "backpack-0.1.tar.gz", hash = "sha256:0162cf7b34c810ba4ddbbd32a1e5e804ef96fcf2fea5ce2848aa4950770d3893"},
+]
+backpack-for-pytorch = [
+    {file = "backpack-for-pytorch-1.6.0.tar.gz", hash = "sha256:af6495b71bacf82a1c7cab01aa85bebabccfe74d87d89f108ea72a4a0d384de3"},
+    {file = "backpack_for_pytorch-1.6.0-py3-none-any.whl", hash = "sha256:ac708dbb86dbb36f70fc81a1ccb1df5c7ba46d62bc9d10239d4b0e406ba41a6f"},
 ]
 beautifulsoup4 = [
     {file = "beautifulsoup4-4.12.3-py3-none-any.whl", hash = "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"},
@@ -918,6 +965,10 @@ coverage = [
 cycler = [
     {file = "cycler-0.12.1-py3-none-any.whl", hash = "sha256:85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30"},
     {file = "cycler-0.12.1.tar.gz", hash = "sha256:88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c"},
+]
+einops = [
+    {file = "einops-0.7.0-py3-none-any.whl", hash = "sha256:0f3096f26b914f465f6ff3c66f5478f9a5e380bb367ffc6493a68143fbbf1fd1"},
+    {file = "einops-0.7.0.tar.gz", hash = "sha256:b2b04ad6081a3b227080c9bf5e3ace7160357ff03043cd66cc5b2319eb7031d1"},
 ]
 filelock = [
     {file = "filelock-3.13.1-py3-none-any.whl", hash = "sha256:57dbda9b35157b05fb3e58ee91448612eb674172fab98ee235ccb0b5bee19a1c"},
@@ -1613,6 +1664,10 @@ tqdm = [
 typing-extensions = [
     {file = "typing_extensions-4.9.0-py3-none-any.whl", hash = "sha256:af72aea155e91adfc61c3ae9e0e342dbc0cba726d6cba4b6c72c1f34e47291cd"},
     {file = "typing_extensions-4.9.0.tar.gz", hash = "sha256:23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783"},
+]
+unfoldNd = [
+    {file = "unfoldNd-0.2.1-py3-none-any.whl", hash = "sha256:5d9a7f23e9004127486eb8c58f18025529b106ad407e6271ab57f13d910a7458"},
+    {file = "unfoldNd-0.2.1.tar.gz", hash = "sha256:3d91e0e6006d1ab45702db4b36f28e6150aef11c96d46331a273efe963e5efef"},
 ]
 urllib3 = [
     {file = "urllib3-2.1.0-py3-none-any.whl", hash = "sha256:55901e917a5896a349ff771be919f8bd99aff50b79fe58fec595eb37bbc56bb3"},
