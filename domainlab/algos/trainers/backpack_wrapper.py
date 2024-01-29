@@ -19,5 +19,22 @@ class BackpackWrapper:
             return self.extend(loss_function)
         else:
             raise ImportError("Backpack extension not available.")
+        
+
+    def apply_backpack(self, model, loss, extensions):
+        """
+        Apply backpack and its extensions to the model.
+
+        :param model: The model to be extended with backpack.
+        :param loss: The loss tensor to perform backward on.
+        :param extensions: List of backpack extensions to be applied.
+        """
+        if self.backpack is not None:
+            with self.backpack(*extensions):
+                loss.backward(
+                    inputs=list(model.parameters()), retain_graph=True, create_graph=True
+                )
+        else:
+            raise ImportError("Backpack is not available.")
 
 
