@@ -21,7 +21,6 @@ pandas = "^1.5.1"
 scikit-learn = "^1.2.1"
 pyyaml = "^6.0"
 gdown = "^4.7.1"
-backpack = "^0.1"
 backpack-for-pytorch = "^1.6.0"
 
 [tool.poetry.scripts]
