@@ -87,3 +87,17 @@ For example,  the following result (without any augmentation like flip) is for P
 </div>
 </figure>
 </div>
+
+
+### Temporary citation
+
+```bibtex
+@manual{domainlab,
+  title={{DomainLab: modular python package for training domain invariant neural networks}},
+  author={{Xudong Sun, et.al.}},
+  organization={{Institute of AI for Health}},
+  year={2023},
+  url={https://github.com/marrlab/DomainLab},
+  note={temporary citation for domainlab}
+}
+```
