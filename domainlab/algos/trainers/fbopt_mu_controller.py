@@ -84,7 +84,7 @@ class HyperSchedulerFeedback:
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
-        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate
         warnings.warn(
             f"hyperparameter k_i_gain disabled! \
                       replace with {self.k_i_control}"
