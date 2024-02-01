@@ -50,7 +50,7 @@ class HyperSchedulerFeedback:
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
 
-        self.k_i_control = trainer.aconf.k_i_gain
+        self.k_i_control = [trainer.aconf.k_i_gain for i in len(self.mmu)]
         self.k_i_gain_ratio = None
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
@@ -84,7 +84,7 @@ class HyperSchedulerFeedback:
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
-        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate
+        self.k_i_control = [self.k_i_gain_ratio * ele for ele in k_i_gain_saturate]
         warnings.warn(
             f"hyperparameter k_i_gain disabled! \
                       replace with {self.k_i_control}"
