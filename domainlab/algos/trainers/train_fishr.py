@@ -5,17 +5,9 @@ use random start to generate adversarial images
 from collections import OrderedDict
 import torch
 from torch import nn
-
-try:
-    from backpack import backpack, extend
-    from backpack.extensions import Variance
-except:
-    backpack = None
+from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
-
-_bce_extended = extend(nn.CrossEntropyLoss(reduction='none'))
-
 
 class TrainerFishr(TrainerBasic):
     """
@@ -27,6 +19,14 @@ class TrainerFishr(TrainerBasic):
         "Fishr: Invariant gradient variances for out-of-distribution generalization."
         International Conference on Machine Learning. PMLR, 2022.
     """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.backpack_wrapper = BackpackWrapper()
+        # Extend the loss function with backpack's extend method
+        self._bce_extended = self.backpack_wrapper.extend_loss_function(
+            nn.CrossEntropyLoss(reduction='none')
+        )
+
     def tr_epoch(self, epoch):
         list_loaders = list(self.dict_loader_tr.values())
         loaders_zip = zip(*list_loaders)
@@ -153,14 +153,11 @@ class TrainerFishr(TrainerBasic):
         Return Example:
         {"layer1": Tensor[batchsize=32, 64, 3, 11, 11 ]} as a convolution kernel
         """
-
+        # wrapping the model with backpack
         loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
         loss = loss.sum()
 
-        with backpack(Variance()):
-            loss.backward(
-                inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
-            )
+        self.backpack_wrapper.apply_backpack(self.model, loss, [self.backpack_wrapper.variance()])
 
         for name, param in self.model.named_parameters():
             print(name)
@@ -168,6 +165,7 @@ class TrainerFishr(TrainerBasic):
 
         dict_variance = OrderedDict(
             [(name, weights.variance.clone())
-             for name, weights in self.model.named_parameters()
-             ])
+                for name, weights in self.model.named_parameters()
+                ])
         return dict_variance
+        
