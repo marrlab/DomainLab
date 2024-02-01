@@ -106,7 +106,10 @@ class AModelSeg(AModel, metaclass=abc.ABCMeta):
         :param tensor_y: label
         :return: task loss
         """
-        return lc_y
+        masks_pred = model(images)
+        loss = criterion(masks_pred.squeeze(1), true_masks.float())
+        loss += dice_loss(F.sigmoid(masks_pred.squeeze(1)), true_masks.float(), multiclass=False)
+        return loss
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
