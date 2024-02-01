@@ -11,7 +11,7 @@ test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
   epos: 200
