@@ -69,7 +69,7 @@ class TrainerFishr(TrainerBasic):
                 tensor_x.to(self.device), vec_y.to(self.device), vec_d.to(self.device)
             dict_var_grads_single_domain = self.cal_dict_variance_grads(tensor_x, vec_y)
             list_dict_var_grads.append(dict_var_grads_single_domain)
-            loss_erm = self.model.cal_loss(tensor_x, vec_y, vec_d)
+            loss_erm, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d)
             list_loss_erm.append(loss_erm.sum())  # FIXME: let sum() to be configurable
         # now len(list_dict_var_grads) = (# domains)
         return list_dict_var_grads, list_loss_erm
@@ -155,6 +155,7 @@ class TrainerFishr(TrainerBasic):
         """
         # wrapping the model with backpack
         loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
+        loss = loss.sum()
 
         self.backpack_wrapper.apply_backpack(self.model, loss, [self.backpack_wrapper.variance()])
 
