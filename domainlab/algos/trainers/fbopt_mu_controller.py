@@ -162,7 +162,7 @@ class HyperSchedulerFeedback:
         """
         setpoint = self.get_setpoint4r()
         activation = [
-            self.k_i_control * val if setpoint[i] > 0 else self.k_i_control * (-val)
+            self.k_i_control[i] * val if setpoint[i] > 0 else self.k_i_control[i] * (-val)
             for i, val in enumerate(self.delta_epsilon_r)
         ]
         if self.activation_clip is not None:
