@@ -17,6 +17,7 @@ from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
+from domainlab.utils.utils_seg import dice_loss
 
 try:
     from backpack import extend
@@ -91,8 +92,12 @@ class AModelSeg(AModel, metaclass=abc.ABCMeta):
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
-        self._net_classifier = net_classifier
-        self.perf_metric = None
+        for key, value in kwargs.items():
+            if key == "net_seg":
+                net_seg = value
+            
+        self.seg_cross_entropy_loss = nn.CrossEntropyLoss()
+        self.net_seg = net_seg
 
     def cal_task_loss(self, tensor_x, tensor_y):
         """
@@ -106,9 +111,9 @@ class AModelSeg(AModel, metaclass=abc.ABCMeta):
         :param tensor_y: label
         :return: task loss
         """
-        masks_pred = model(images)
-        loss = criterion(masks_pred.squeeze(1), true_masks.float())
-        loss += dice_loss(F.sigmoid(masks_pred.squeeze(1)), true_masks.float(), multiclass=False)
+        masks_pred = self.net_seg(tensor_x)
+        loss = self.seg_cross_entropy_loss(masks_pred.squeeze(1), tensor_y.float())
+        loss += dice_loss(F.sigmoid(masks_pred.squeeze(1)), tensor_y.float(), multiclass=False)
         return loss
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
