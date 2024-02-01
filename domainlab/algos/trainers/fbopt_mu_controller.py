@@ -50,7 +50,7 @@ class HyperSchedulerFeedback:
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
 
-        self.k_i_control = [trainer.aconf.k_i_gain for i in len(self.mmu)]
+        self.k_i_control = [trainer.aconf.k_i_gain for i in range(len(self.mmu))]
         self.k_i_gain_ratio = None
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
