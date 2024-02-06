@@ -101,8 +101,6 @@ diva_fbopt_full:
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   str_diva_multiplier_type: gammad_recon
-  coeff_ma_output_state: 0
-  coeff_ma_setpoint: 0
   mu_init: 1e-6
   shared:
     - k_i_gain_ratio
