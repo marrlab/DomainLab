@@ -75,8 +75,6 @@ rule parameter_sampling:
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
         from domainlab.utils.hyperparameter_gridsearch import sample_gridsearch
-        yaml_file_na=os.environ["YAML_FILE_NA"]
-        config['yaml_file'] = yaml_file_na
         # for gridsearch there is no random component, therefore no
         # random seed is needed
         if 'mode' in config.keys():  # type(config)=dict
