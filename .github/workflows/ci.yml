@@ -42,7 +42,7 @@ jobs:
       env:
         CODECOV_TOKEN: 02ecb3ac-b7ce-4ea4-90a2-961c3d1a1030
     - name: check if readme yaml works
-      run: python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml
+      run: rm -r zoutput && python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml
     - name: test if examples in markdown works
       run: bash -x -v ci_run_examples.sh
     - name: test if benchmark works
