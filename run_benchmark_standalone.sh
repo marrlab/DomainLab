@@ -13,7 +13,7 @@ echo "verbose log: $logfile"
 
 
 CONFIGFILE=$1
-
+export YAML_FILE_NA=$1
 
 
 echo "argument 2=$2"
