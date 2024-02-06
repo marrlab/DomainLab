@@ -7,6 +7,7 @@ timestamp() {
 
 # CONFIGFILE="examples/yaml/test_helm_benchmark.yaml"
 CONFIGFILE=$1
+export YAML_FILE_NA=$CONFIGFILE
 export DOMAINLAB_CUDA_START_SEED=$2
 
 if [ -z "$2" ]

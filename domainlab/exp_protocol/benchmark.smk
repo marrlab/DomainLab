@@ -19,6 +19,7 @@ sys.path.insert(0, Path(workflow.basedir).parent.parent.as_posix())
 envvars:
     "DOMAINLAB_CUDA_START_SEED",
     "DOMAINLAB_CUDA_HYPERPARAM_SEED",
+    "YAML_FILE_NA",
     "NUMBER_GPUS"
 
 
@@ -71,10 +72,11 @@ rule parameter_sampling:
         dest=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
     params:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
+        yaml_file_na=os.environ["YAML_FILE_NA"]
     run:
         from domainlab.utils.hyperparameter_sampling import sample_hyperparameters
         from domainlab.utils.hyperparameter_gridsearch import sample_gridsearch
-
+        config['yaml_file'] = yaml_file_na
         # for gridsearch there is no random component, therefore no
         # random seed is needed
         if 'mode' in config.keys():  # type(config)=dict
