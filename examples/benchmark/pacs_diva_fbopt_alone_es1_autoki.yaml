@@ -16,7 +16,7 @@ domainlab_args:
   lr: 5e-5
   epos: 500
   epos_min: 20
-  es: 10
+  es: 1
   bs: 32
   san_check: False
   npath: examples/nets/resnet50domainbed.py
@@ -98,6 +98,7 @@ Shared params:
 diva_fbopt_full:
   model: diva
   trainer: fbopt
+  force_setpoint_change_once: True
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
   str_diva_multiplier_type: gammad_recon
