@@ -35,4 +35,4 @@ echo "verbose log: $logfile"
 
 rm -f -R .snakemake
 
-snakemake --profile "examples/yaml/slurm" --keep-going --keep-incomplete --notemp --cores 3 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" 2>&1 | tee "$logfile"
+snakemake --profile "examples/yaml/slurm" --config yaml_file=$CONFIGFILE --keep-going --keep-incomplete --notemp --cores 3 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" 2>&1 | tee "$logfile"

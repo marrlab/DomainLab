@@ -5,6 +5,11 @@ from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
 
+try:
+    from backpack import extend
+except:
+    backpack = None
+
 
 def mk_erm(parent_class=AModelClassif, **kwargs):
     """
@@ -41,4 +46,11 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
                 kwargs["net_classifier"] = LayerId()
             super().__init__(**kwargs)
             self._net_invar_feat = net_feat
+
+        def convert4backpack(self):
+            """
+            convert the module to backpack for 2nd order gradients
+            """
+            self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
+            self.net_classifier = extend(self.net_classifier,  use_converter=True)
     return ModelERM
