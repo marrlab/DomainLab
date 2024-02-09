@@ -15,14 +15,12 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 10
-  es: 1
+  epos_min: 200
+  es: 5
   bs: 32
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
-  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
@@ -85,6 +83,7 @@ diva_fbopt_a:
   trainer: fbopt
   gamma_y: 1.0
   ini_setpoint_ratio: 0.99
+  force_setpoint_change_once: True
   str_diva_multiplier_type: gammad_recon
   coeff_ma_output_state: 0.1
   mu_init: 1e-6

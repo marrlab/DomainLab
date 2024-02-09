@@ -5,23 +5,22 @@ output_dir: zoutput/benchmarks/pacs_diva_others
 sampling_seed: 0
 
 startseed: 0
-endseed: 5
+endseed: 6
 
 test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
-  epos: 200
-  es: 10
-  bs: 64
+  epos: 500
+  epos_min: 200
+  es: 5
+  bs: 32
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
-  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
@@ -30,23 +29,6 @@ domainlab_args:
 
 
 Shared params:
-  ini_setpoint_ratio:
-    min: 0.9
-    max: 0.99
-    num: 3
-    distribution: uniform
-
-  k_i_gain:
-    min: 0.0001
-    max: 0.01
-    num: 3
-    distribution: uniform
-
-  mu_init:
-    min: 0.000001
-    max: 0.00001
-    num: 3
-    distribution: loguniform
 
   gamma_y:
     min: 1.0

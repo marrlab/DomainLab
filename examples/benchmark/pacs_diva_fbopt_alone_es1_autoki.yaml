@@ -15,14 +15,12 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 20
-  es: 1
+  epos_min: 200
+  es: 5
   bs: 32
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
-  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
   zx_dim: 16
   zy_dim: 64
   zd_dim: 64
