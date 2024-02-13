@@ -1,10 +1,9 @@
-
-from domainlab.models.model_diva import mk_diva
-from domainlab.utils.utils_classif import mk_dummy_label_list_str
-from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
-from domainlab.compos.pcr.request import RequestVAEBuilderCHW
 from domainlab.arg_parser import mk_parser_main
+from domainlab.compos.pcr.request import RequestVAEBuilderCHW
+from domainlab.compos.vae.utils_request_chain_builder import VAEChainNodeGetter
+from domainlab.models.model_diva import mk_diva
 from domainlab.utils.test_img import mk_rand_xyd
+from domainlab.utils.utils_classif import mk_dummy_label_list_str
 
 
 def test_model_diva():
@@ -19,9 +18,18 @@ def test_model_diva():
     request = RequestVAEBuilderCHW(3, 28, 28, args=margs)
 
     node = VAEChainNodeGetter(request)()
-    model = mk_diva()(node, zd_dim=8, zy_dim=8, zx_dim=8, list_d_tr=list_str_d,
-                      list_str_y=list_str_y, gamma_d=1.0, gamma_y=1.0,
-                      beta_d=1.0, beta_y=1.0, beta_x=1.0)
+    model = mk_diva(list_str_y=list_str_y)(
+        node,
+        zd_dim=8,
+        zy_dim=8,
+        zx_dim=8,
+        list_d_tr=list_str_d,
+        gamma_d=1.0,
+        gamma_y=1.0,
+        beta_d=1.0,
+        beta_y=1.0,
+        beta_x=1.0,
+    )
     imgs, y_s, d_s = mk_rand_xyd(28, y_dim, 2, 2)
     _, _, _, _, _ = model.infer_y_vpicn(imgs)
     model(imgs, y_s, d_s)

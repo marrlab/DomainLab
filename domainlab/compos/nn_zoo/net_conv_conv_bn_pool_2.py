@@ -17,8 +17,7 @@ def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
     :param max_pool_stride:
     """
     conv_net = nn.Sequential(
-        nn.Conv2d(i_channel, 32, kernel_size=5,
-                  stride=conv_stride, bias=False),
+        nn.Conv2d(i_channel, 32, kernel_size=5, stride=conv_stride, bias=False),
         nn.BatchNorm2d(32),
         nn.ReLU(),
         nn.MaxPool2d(2, stride=max_pool_stride),
@@ -33,13 +32,13 @@ def mk_conv_bn_relu_pool(i_channel, conv_stride=1, max_pool_stride=2):
 
 
 class NetConvBnReluPool2L(nn.Module):
-    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h):
+    def __init__(self, isize, conv_stride, dim_out_h):
         """
         :param dim_out_h:
         """
         super().__init__()
+        i_c, i_h, i_w = isize
         self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
-        ###
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
         self.layer_last = nn.Linear(self.hdim, dim_out_h)
 
@@ -47,8 +46,10 @@ class NetConvBnReluPool2L(nn.Module):
         """
         :param tensor_x: image
         """
-        conv_out = self.conv_net(tensor_x)  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
-        flat = conv_out.view(-1, self.hdim)   # 1024 =   64 * (4*4)
+        conv_out = self.conv_net(
+            tensor_x
+        )  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
+        flat = conv_out.view(-1, self.hdim)  # 1024 =   64 * (4*4)
         hidden = self.layer_last(flat)
         return hidden
 
@@ -56,15 +57,17 @@ class NetConvBnReluPool2L(nn.Module):
 class NetConvDense(nn.Module):
     """
     - For direct topic inference
-    - For custom deep_all, which is extracting the path of VAE from encoder
+    - For custom erm, which is extracting the path of VAE from encoder
       until classifier. note in encoder, there is extra layer of hidden to mean
       and scale, in this component, it is replaced with another hidden layer.
     """
-    def __init__(self, i_c, i_h, i_w, conv_stride, dim_out_h, args, dense_layer=None):
+
+    def __init__(self, isize, conv_stride, dim_out_h, args, dense_layer=None):
         """
         :param dim_out_h:
         """
         super().__init__()
+        i_c, i_h, i_w = isize
         self.conv_net = mk_conv_bn_relu_pool(i_c, conv_stride)
         ###
         self.hdim = get_flat_dim(self.conv_net, i_c, i_h, i_w)
@@ -77,7 +80,9 @@ class NetConvDense(nn.Module):
         """
         :param tensor_x: image
         """
-        conv_out = self.conv_net(tensor_x)  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
-        flat = conv_out.view(-1, self.hdim)   # 1024 =   64 * (4*4)
+        conv_out = self.conv_net(
+            tensor_x
+        )  # conv-bn-relu-pool-conv-bn-relu-pool(no activation)
+        flat = conv_out.view(-1, self.hdim)  # 1024 =   64 * (4*4)
         hidden = self.dense_layers(flat)
         return hidden

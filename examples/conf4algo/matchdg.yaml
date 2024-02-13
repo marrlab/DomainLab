@@ -1,0 +1,4 @@
+---  # training with matchdg
+model: jigen
+nname: alexnet
+epochs_ctr: 3

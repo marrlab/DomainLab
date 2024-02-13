@@ -5,8 +5,9 @@ Builder
 """
 from domainlab.compos.nn_zoo.net_classif import ClassifDropoutReluLinear
 from domainlab.compos.vae.a_vae_builder import AbstractVAEBuilderChainNode
-from domainlab.compos.vae.compos.decoder_cond_prior import \
-    LSCondPriorLinearBnReluLinearSoftPlus
+from domainlab.compos.vae.compos.decoder_cond_prior import (
+    LSCondPriorLinearBnReluLinearSoftPlus,
+)
 
 
 class ChainNodeVAEBuilderClassifCondPrior(AbstractVAEBuilderChainNode):
@@ -16,6 +17,7 @@ class ChainNodeVAEBuilderClassifCondPrior(AbstractVAEBuilderChainNode):
         - conditional prior
     2. Bridge pattern: separate abstraction (vae model) and implementation)
     """
+
     def construct_classifier(self, input_dim, output_dim):
         """
         classifier can be used to both classify class-label and domain-label

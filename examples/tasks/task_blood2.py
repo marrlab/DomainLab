@@ -1,59 +1,101 @@
 from torchvision import transforms
+
 from domainlab.tasks.task_folder_mk import mk_task_folder
 from domainlab.tasks.utils_task import ImSize
 
+IMG_SIZE = 224
+
+trans = transforms.Compose(
+    [
+        transforms.Resize((IMG_SIZE, IMG_SIZE)),
+        transforms.RandomResizedCrop(IMG_SIZE, scale=(0.7, 1.0)),
+        transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
+        transforms.RandomGrayscale(),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+    ]
+)
+
+trans_te = transforms.Compose(
+    [
+        transforms.Resize((IMG_SIZE, IMG_SIZE)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+    ]
+)
 
 
-trans = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.RandomResizedCrop(224, scale=(0.7, 1.0)),
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(0.3, 0.3, 0.3, 0.3),
-    transforms.RandomGrayscale(),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406],
-                         [0.229, 0.224, 0.225])
-])
-
-trans_te = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406],
-                         [0.229, 0.224, 0.225])
-])
-
-
-task = mk_task_folder(extensions={"dib": "jpg", "mllmar": "TIF", "amlmatek": "tiff"},
-                      list_str_y=["monocyte", "eosinophil", "basophil"],
-                      dict_domain_folder_name2class={
-                          "dib": {"monocyte": "monocyte",
-                                  # "lymphocyte": "lym",
-                                  "basophil": "basophil",
-                                  "eosinophil": "eosinophil"},
-                          # "neutrophil": "neutrophil"},
-                          "mllmar": {"05-MONO": "monocyte",
-                                     "10-EOS": "eosinophil",
-                                     # "04-LGL": "lym",
-                                     # "11-STAB": "neutrophil"
-                                     "09-BASO":"basophil"},
-                          "amlmatek": {"EOS": "eosinophil",
-                                       "MON": "monocyte",
-                                       # "LYT": "lym",
-                                       # "NGB": "neutrophil"
-                                       "BAS": "basophil"}},
-                      dict_domain_img_trans={
-                          "dib": trans,
-                          "mllmar": trans,
-                          "amlmatek": trans,
-                      },
-                      img_trans_te=trans_te,
-                      isize=ImSize(3, 224, 224),
-                      dict_domain2imgroot={
-                          "amlmatek": "/storage/groups/qscd01/datasets/191024_AML_Matek/AML-Cytomorphology_LMU",
-                          "mllmar": "/storage/groups/qscd01/datasets/190527_MLL_marr/Data",
-                          "dib": "/storage/groups/qscd01/datasets/armingruber/PBC_dataset_normal_DIB/"},
-                      taskna="blood_mon_eos_bas")
+TASK = mk_task_folder(
+    extensions={"acevedo": "jpg", "matek": "tiff", "mll": "tif"},
+    list_str_y=[
+        "basophil",
+        "erythroblast",
+        "metamyelocyte",
+        "myeloblast",
+        "neutrophil_band",
+        "promyelocyte",
+        "eosinophil",
+        "lymphocyte_typical",
+        "monocyte",
+        "myelocyte",
+        "neutrophil_segmented",
+    ],
+    dict_domain_folder_name2class={
+        "acevedo": {
+            "basophil": "basophil",
+            "erythroblast": "erythroblast",
+            "metamyelocyte": "metamyelocyte",
+            "neutrophil_band": "neutrophil_band",
+            "promyelocyte": "promyelocyte",
+            "eosinophil": "eosinophil",
+            "lymphocyte_typical": "lymphocyte_typical",
+            "monocyte": "monocyte",
+            "myelocyte": "myelocyte",
+            "neutrophil_segmented": "neutrophil_segmented",
+        },
+        "matek": {
+            "basophil": "basophil",
+            "erythroblast": "erythroblast",
+            "metamyelocyte": "metamyelocyte",
+            "myeloblast": "myeloblast",
+            "neutrophil_band": "neutrophil_band",
+            "promyelocyte": "promyelocyte",
+            "eosinophil": "eosinophil",
+            "lymphocyte_typical": "lymphocyte_typical",
+            "monocyte": "monocyte",
+            "myelocyte": "myelocyte",
+            "neutrophil_segmented": "neutrophil_segmented",
+        },
+        "mll": {
+            "basophil": "basophil",
+            "erythroblast": "erythroblast",
+            "metamyelocyte": "metamyelocyte",
+            "myeloblast": "myeloblast",
+            "neutrophil_band": "neutrophil_band",
+            "promyelocyte": "promyelocyte",
+            "eosinophil": "eosinophil",
+            "lymphocyte_typical": "lymphocyte_typical",
+            "monocyte": "monocyte",
+            "myelocyte": "myelocyte",
+            "neutrophil_segmented": "neutrophil_segmented",
+        },
+    },
+    dict_domain_img_trans={
+        "acevedo": trans,
+        "mll": trans,
+        "matek": trans,
+    },
+    img_trans_te=trans_te,
+    isize=ImSize(3, IMG_SIZE, IMG_SIZE),
+    dict_domain2imgroot={
+        "matek": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Matek_cropped",
+        "mll": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/MLL_20221220",
+        "acevedo": "/lustre/groups/labs/marr/qscd01/datasets/armingruber/_Domains/Acevedo_cropped",
+    },
+    taskna="blood_mon_eos_bas",
+)
 
 
 def get_task(na=None):
-    return task
+    return TASK

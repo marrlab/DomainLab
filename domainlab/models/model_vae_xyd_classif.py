@@ -1,65 +1,43 @@
 """
-Base Class for XYD VAE
+Base Class for XYD VAE Classify
 """
-import torch
-import torch.distributions as dist
-
 from domainlab.models.a_model_classif import AModelClassif
+from domainlab.models.interface_vae_xyd import InterfaceVAEXYD
 from domainlab.utils.utils_class import store_args
 
 
-class VAEXYDClassif(AModelClassif):
+class VAEXYDClassif(AModelClassif, InterfaceVAEXYD):
     """
-    Base Class for XYD VAE
+    Base Class for DIVA and HDUVA
     """
+
     @store_args
-    def __init__(self, chain_node_builder,
-                 zd_dim, zy_dim, zx_dim,
-                 list_str_y, list_str_d):
+    def __init__(self, chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs):
         """
         :param chain_node_builder: constructed object
         """
-        super().__init__(list_str_y, list_str_d)
-        self.chain_node_builder.init_business(
-            self.zd_dim, self.zx_dim, self.zy_dim)
-        self.i_c = self.chain_node_builder.i_c
-        self.i_h = self.chain_node_builder.i_h
-        self.i_w = self.chain_node_builder.i_w
-        self._init_components()
+        for key, value in kwargs.items():
+            if key == "list_str_y":
+                list_str_y = value
+        super().__init__(net_classifier=None, list_str_y=list_str_y)
+        self.init()
+        self._net_classifier = self.net_classif_y 
 
-    def cal_logit_y(self, tensor_x):
-        """
-        calculate the logit for softmax classification
-        """
+    def extract_semantic_feat(self, tensor_x):
         zy_q_loc = self.encoder.infer_zy_loc(tensor_x)
-        logit_y = self.net_classif_y(zy_q_loc)
-        return logit_y
+        return zy_q_loc
+
+    @property
+    def multiplier4task_loss(self):
+        """
+        the multiplier for task loss is default to 1.0 except for vae family models
+        """
+        return self.gamma_y
 
     def _init_components(self):
-        """
-        q(z|x)
-        p(zy)
-        q_{classif}(zy)
-        """
-        self.add_module("encoder", self.chain_node_builder.build_encoder())
-        self.add_module("decoder", self.chain_node_builder.build_decoder())
-        self.add_module("net_p_zy",
-                        self.chain_node_builder.construct_cond_prior(
-                            self.dim_y, self.zy_dim))
-        self.add_module("net_classif_y",
-                        self.chain_node_builder.construct_classifier(
-                            self.zy_dim, self.dim_y))
-
-    def init_p_zx4batch(self, batch_size, device):
-        """
-        1. Generate pytorch distribution object.
-        2. To be called by trainer
-
-        :param batch_size:
-        :param device:
-        """
-        # p(zx): isotropic gaussian
-        zx_p_loc = torch.zeros(batch_size, self.zx_dim).to(device)
-        zx_p_scale = torch.ones(batch_size, self.zx_dim).to(device)
-        p_zx = dist.Normal(zx_p_loc, zx_p_scale)
-        return p_zx
+        super()._init_components()
+        self.add_module(
+            "net_classif_y",
+            self.chain_node_builder.construct_classifier(self.zy_dim, self.dim_y),
+        )
+        # property setter only for other object, internally, one shoud use _net_classifier

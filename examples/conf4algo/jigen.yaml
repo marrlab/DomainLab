@@ -1,0 +1,6 @@
+---  # training with jigen
+model: jigen
+nname: alexnet
+pperm: 1
+nperm: 100
+grid_len: 3

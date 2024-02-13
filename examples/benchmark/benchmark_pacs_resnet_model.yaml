@@ -1,0 +1,101 @@
+# PACS
+test_domains:
+  - sketch
+
+output_dir: zoutput/benchmarks/pacs_benchmark_resnet50_model_only
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by #(test_domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 8
+# note that num_shared_param_samples is independent from num_param_samples (they are not cartesian
+# product) see details in https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 5  # currently included
+
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  tpath: examples/tasks/task_pacs_aug.py
+  lr: 5e-5
+  epos: 500
+  epos_min: 5
+  warmup: 20
+  es: 2
+  bs: 32
+  npath: examples/nets/resnet50domainbed.py
+
+Shared params:
+  num_shared_param_samples: 9
+  gamma_y:
+    min: 1e4
+    max: 1e8
+    step: 1000
+    distribution: loguniform
+
+  gamma_d:
+    min: 1e4
+    max: 1e8
+    step: 1000
+    distribution: loguniform
+
+  zx_dim:
+    min: 0
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  zd_dim:
+    min: 32
+    max: 96
+    step: 32
+    distribution: uniform
+    datatype: int
+
+  gamma_reg:
+    min: 0.01
+    max: 100
+    step: 0.01
+    distribution: loguniform
+
+erm:  # name
+  model: erm
+
+
+diva:  # name
+  model: diva
+  npath_dom: examples/nets/resnet50domainbed.py
+  shared:
+    - gamma_y
+    - gamma_d
+    - zx_dim
+    - zy_dim
+    - zd_dim
+
+hduva:  # name
+  model: hduva
+  zx_dim: 0
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
+  shared:
+    - gamma_y
+    - zy_dim
+    - zd_dim
+
+dann:  # name
+  model: dann
+  shared:
+    - gamma_reg

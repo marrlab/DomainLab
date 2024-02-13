@@ -1,0 +1,3 @@
+---  # training with erm
+model: erm
+nname: alexnet

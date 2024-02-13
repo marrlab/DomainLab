@@ -1,14 +1,38 @@
-# JiGen
+# Model JiGen
 
-The JiGen method proposed in [https://arxiv.org/abs/2007.01434](https://arxiv.org/abs/1903.06864) by Carlucci et al. extends the understanding of the concept of spatial correlation in the neuronal network by training the network not only on a classification task, but also on solving jigsaw puzzles. 
+<div style="align: center; text-align:center;">
+<figure>  
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/jigen.png?raw=true" style="width:300px;"/> 
+</figure>
+</div>
 
-For the jigsaw puzzles the images are split into $n \times n$ patches and permutated. 
 
-The model is to predict the permutation index which result in the permutated image. 
+The JiGen method extends the understanding of the concept of spatial correlation in the
+neural network by training the network not only on a classification task, but also on solving jigsaw puzzles.
 
-To be able to solve the classification problem and the jigsaw puzzle in parallel, shuffled and ordered images will first be fed into a convolutional network for feature extraction and will then be given to the image classifier and the jigsaw classifier.
+To create a jigsaw puzzle, an image is split into $n \times n$ patches, which are then permuted.
+The goal is training the model to predict the correct permutation, which results in the permuted image.
 
-For the training of classificaiton task the network uses a cross-entropy loss for both tasks while weighting the jigsaw classifier by a hyper parameter. Additionally the relative ratio or probability of shuffling the tiles of one instance from training data set is given by another hyper parameter. 
+To solve the classification problem and the jigsaw puzzle in parallel, the permuted and
+the original images are first fed into a convolutional network for feature extraction and then given
+to two classifiers, one being the image classifier and the other the jigsaw classifier.
 
-The advantage of this method is that is does not require domain label, as the jigsaw puzzle can be solved despite the missing domain labels. 
+For the training of both classification networks, a cross-entropy loss is used. The total loss is then
+given by the loss of the image classification task plus the loss of the jigsaw task, whereby the
+jigsaw loss is weighted by a hyperparameter.
+Another hyperparameter denotes the probability of shuffling the patches of one instance from the training
+data set, i.e. the relative ratio.
 
+The advantage of this method is that it does not require domain labels, as the jigsaw puzzle can be
+solved despite missing domain labels.
+
+### Model parameters
+The following hyperparameters can be specified:
+- `nperm`: number of patches in a permutation
+- `pperm`: relative ratio, as explained above
+- `gamma_reg`: weighting term for the jigsaw classifier
+
+Furthermore, the user can specify a custom grid length via `grid_len`.
+
+_Reference_: Carlucci, Fabio M., et al. "Domain generalization by solving jigsaw puzzles."
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.

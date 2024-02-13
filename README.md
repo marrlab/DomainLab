@@ -1,75 +1,103 @@
-# DomainLab: Playground for Domain Generalization
+# DomainLab: modular python package for training domain invariant neural networks
 
-![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg)
+![GH Actions CI ](https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg)](https://app.codecov.io/gh/marrlab/DomainLab)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86)](https://www.codacy.com/gh/marrlab/DomainLab/dashboard)
+[![Documentation](https://img.shields.io/badge/Documentation-Here)](https://marrlab.github.io/DomainLab/)
+[![pages-build-deployment](https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment)
 
-## Domain Generalization and DomainLab
+## Distribution shifts, domain generalization and DomainLab
 
-Domain Generalization aims at learning domain invariant features by utilizing data from multiple domains so the learned feature can generalize to new unseen domains.
+Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).
 
-## Why a dedicated package
+DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.
 
-Domain generalization algorithm try to learn domain invariant features by adding regularization upon the ERM (Emperical Risk Minimization) loss. A typical setting of evaluating domain generalization algorithm is the so called leave-one-domain-out scheme, where one dataset is collected from each distribution. Each time, one dataset/domain is left as test-set to estimate the generalization performance of a model trained upon the rest of domains/datasets.
+### DomainLab
+DomainLab decouples the following concepts or objects:
+- task $M$: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution $D_1$ and $D_2$). Task offer a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, wich dataset(s) used for testing.  
+- neural network: a map $\phi$ from the input data to the feature space and a map $\varphi$ from feature space to output $\hat{y}$ (e.g. decision variable).
+- model: structural risk in the form of $\ell() + \mu R()$  where
+  - $\ell(Y, \hat{y}=\varphi(\phi(X)))$ is the task specific empirical loss (e.g. cross entropy for classification task).
+  - $R(\phi(X))$ is the penalty loss to boost domain invariant feature extraction using $\phi$.
+  - $\mu$ is the corresponding multiplier to each penalty function factor.
+- trainer:  an object that guides the data flow to model and append further domain invariant losses
+like inter-domain feature alignment.
 
+We offer detailed documentation on how these models and trainers work in our documentation page: https://marrlab.github.io/DomainLab/
 
-Once you came across a claim, that a domain generalization algorithm A can generate a "better" model h upon some datasets D with "better" performance compared to other algorithms, have you ever wondered:
+DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxilliary networks for $R()$.
 
--   Is this mostly attributed to a more "powerful" neural network architecture of model A compared to others? What will happen if I change the backbone neural network of algorithm A from ResNet to AlexNet?
--   Is this mostly attributed the protocol of estimating the generalization performance? e.g. dataset split, Will this algorithm "work" for my datasets?
--   Is this mostly attributed to the "clever" regularization algorithm or a special loss function A has used for the neural network?
-
-To maximally decouple these attributing factors, DomainLab was implemented with software design patterns, where
-
--   Domain generalization algorithms was implemented in a way that keeps the underlying neural network architecture transparent, i.e. the concrete neural network architecture can be replaced like a plugin through specifying a custom neural network architecture implemented in a python file. See [Specify Custom Neural Networks for an algorithm](./docs/doc_custom_nn.md)
-
--   To evaluate a domain generalization algorithm's performance, the user can specify a "Task" in the form of custom python file and feed into the command line argument, thus it is at the user's discretion on how to evaluate an algorithm, so that all domain generalization algorithms could be compared fairly. See [Task Specification](./docs/doc_tasks.md).
-
--   To simply test an algorithm's performance, there is no need to change any code inside this repository, the user only need to extend this repository to fit their custom need.
+<div style="align: center; text-align:center;">
+<figure>  
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:300px;"/> 
+</figure>
+</div>
 
 ## Getting started
+
 ### Installation
+For development version in Github, see [Installation and Dependencies handling](./docs/doc_install.md)
 
--   Install via python-poetry:
-Read the python-poetry documentation https://python-poetry.org/ and use the configuration file in this repository.
+We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it.
 
--   **Or** only install dependencies via pip
-Suppose you have cloned the repository and have changed directory to the cloned repository.
+### Task specification
+We offer various ways for the user to specify a scenario to evaluate the generalization performance via training on a limited number of datasets. See detail in
+[Task Specification](./docs/doc_tasks.md) 
 
-```bash
-pip install -r requirements.txt
+### Example and usage
+
+#### Either clone this repo and use command line
+
+`python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml`
+where the configuration file below can be downloaded [here](https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml)
 ```
-
-### Basic usage
-Suppose you have cloned the repository and the dependencies ready, change directory to the repository:
-DomainLab comes with some minimal toy-dataset to test its basis functionality. To train a domain generalization model with a user-specified task, one can execute a command similar to the following.
-
-```bash
-python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --aname=diva --gamma_y=7e5 --gamma_d=1e5 --nname=alexnet --nname_dom=conv_bn_pool_2
+te_d: caltech                       # domain name of test domain
+tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
+bs: 2                               # batch size
+model: dann_diva                    # combine model DANN with DIVA
+epos: 1                             # number of epochs
+trainer: mldg_dial                  # combine trainer MLDG and DIAL
+gamma_y: 700000.0                   # hyperparameter of diva
+gamma_d: 100000.0                   # hyperparameter of diva
+npath: examples/nets/resnet.py      # neural network for class classification
+npath_dom: examples/nets/resnet.py  # neural network for domain classification
 ```
+See details in [Command line usage](./docs/doc_usage_cmd.md)
 
-where `--tpath` specifies the path of a user specified python file which defines the domain generalization task, see Example in [Task Specification](./docs/doc_tasks.md). `--aname` specifies which algorithm to use, see [Available Algorithms](./docs/doc_algos.md), `--bs` specifies the batch size, `--debug` restrain only running for 2 epochs and save results with prefix 'debug'. For DIVA, the hyper-parameters include `--gamma_y=7e5` which is the relative weight of ERM loss compared to ELBO loss, and `--gamma_d=1e5`, which is the relative weight of domain classification loss compared to ELBO loss.
-`--nname` is to specify which neural network to use for feature extraction for classification, `--nname_dom` is to specify which neural network to use for feature extraction of domains.
-For usage of other arguments, check with
+#### or Programm against DomainLab API
 
-```bash
-python main_out.py --help
+See example here: [Transformer as feature extractor, decorate JIGEN with DANN, training using MLDG decorated by DIAL](https://github.com/marrlab/DomainLab/blob/master/examples/api/jigen_dann_transformer.py)
+
+
+### Benchmark different methods
+DomainLab provides a powerful benchmark functionality.
+To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in [benchmarks documentation and tutorial](./docs/doc_benchmark.md)
+
+One could simply run
+`bash run_benchmark_slurm.sh your_benchmark_configuration.yaml` to launch different experiments with specified configuraiton.
+
+
+For example,  the following result (without any augmentation like flip) is for PACS dataset using ResNet. 
+
+<div style="align: center; text-align:center;">
+<figure>  
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/>
+<div class="caption" style="align: center; text-align:center;">
+<figcaption>Benchmark results plot generated from DomainLab, where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.</figcaption>
+</div>
+</figure>
+</div>
+
+
+### Temporary citation
+
+```bibtex
+@manual{domainlab,
+  title={{DomainLab: modular python package for training domain invariant neural networks}},
+  author={{Xudong Sun, et.al.}},
+  organization={{Institute of AI for Health}},
+  year={2023},
+  url={https://github.com/marrlab/DomainLab},
+  note={temporary citation for domainlab}
+}
 ```
-
-See also [Examples](./docs/doc_examples.md).
-
-### Output structure (results storage) and Performance Measure
-[Output structure and Performance Measure](./docs/doc_output.md)
-
-## Custom Usage
-
-### Define your task
-Do you have your own data that comes from different domains? Create a task for your data and benchmark different domain generlization algorithms according to the following example. See
-[Task Specification](./docs/doc_tasks.md)
-
-### Custom Neural network
-This library decouples the concept of algorithm (model) and neural network architecture where the user could plugin different neural network architectures for the same algorithm. See
-[Specify Custom Neural Networks for an algorithm](./docs/doc_custom_nn.md)
-
-## Software Design Pattern, Extend or Contribution, Credits
-[Extend or Contibute](./docs/doc_extend_contribute.md)

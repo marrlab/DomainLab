@@ -1,0 +1,96 @@
+# test benchmark config.
+
+tpath: examples/tasks/task_blood2.py  # dataset
+
+test_domains:
+  - acevedo
+  - matek
+  - mll
+
+output_dir: zoutput/benchmarks/test_bloodcell_benchmark
+dmem: False
+
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(domains) * num_param_samples * num_seeds (see below)
+#
+num_param_samples: 2
+# TODO set num of param samples
+sampling_seed: 100
+
+# use only 3 epochs to check if results can be aggregated
+epos: 3
+bs: 16
+startseed: 1000
+endseed: 1000  # currently included
+
+# set all parameters to default first
+nname: alexnet
+san_check: False
+
+Task5:  # name
+  model: dann
+
+  hyperparameters:
+    early_stop:
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task6:  # name
+  model: erm
+
+  hyperparameters:
+    early_stop:
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform
+
+Task7: # name
+  model: erm_dial
+
+  hyperparameters:
+    dial_steps_perturb:
+      min: 1
+      max: 10
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.001
+      max: 0.01
+      distribution: loguniform
+
+    early_stop:
+      distribution: categorical
+      datatype: int
+      values:
+        - 1
+        - 5
+        - 10
+
+    gamma_reg:
+      min: 0.01
+      max: 10
+      distribution: loguniform

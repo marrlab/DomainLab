@@ -1,0 +1,3 @@
+---  # training with dann
+model: dann
+nname: alexnet

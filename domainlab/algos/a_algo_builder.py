@@ -1,18 +1,18 @@
+"""
+parent class for combing model, trainer, task, observer
+"""
+import abc
+
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
+from domainlab.utils.logger import Logger
 
 
 class NodeAlgoBuilder(AbstractChainNodeHandler):
     """
     Base class for Algorithm Builder
     """
-    na_prefix = "NodeAlgoBuilder"
 
-    def dset_decoration_args_algo(self, args, ddset):
-        """
-        most algorithms do not need re-organization of data feed flow like JiGen and MatchDG
-        """
-        print("processing dataset for ", args.aname)
-        return ddset
+    na_prefix = "NodeAlgoBuilder"
 
     @property
     def name(self):
@@ -24,8 +24,11 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         na_class = type(self).__name__
         if na_class[:len_prefix] != na_prefix:
             raise RuntimeError(
-                "algorithm builder node class must start with ", na_prefix,
-                "the current class is named: ", na_class)
+                "algorithm builder node class must start with ",
+                na_prefix,
+                "the current class is named: ",
+                na_class,
+            )
         return type(self).__name__[len_prefix:].lower()
 
     def is_myjob(self, request):
@@ -34,5 +37,28 @@ class NodeAlgoBuilder(AbstractChainNodeHandler):
         """
         return request == self.name
 
+    @abc.abstractmethod
     def init_business(self, exp):
-        raise NotImplementedError
+        """
+        combine model, trainer, observer, task
+        """
+
+    def extend(self, node):
+        """
+        Extends the current algorithm builder with a new node.
+
+        This method updates the builder by setting the `next_model` attribute to the specified node.
+
+        Args:
+            node: The node to be added to the algorithm builder.
+        """
+        self.next_model = node
+
+    def init_next_model(self, model, exp):
+        """
+        initialize the next model and decorate with current model
+        """
+        if self.next_model is not None:
+            _, next_model, *_ = self.next_model.init_business(exp)
+            model.extend(next_model)
+        return model

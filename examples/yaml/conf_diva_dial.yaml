@@ -1,0 +1,11 @@
+---  # train diva with diva
+te_d: caltech
+tpath: examples/tasks/task_vlcs.py
+bs: 2
+model: diva
+epos: 3 # 3 epochs
+trainer: dial
+gamma_y: 700000.0 #
+gamma_d: 100000.0 #
+npath: examples/nets/resnet.py  # path of neural network to use
+npath_dom: examples/nets/resnet.py # path of neural network to use

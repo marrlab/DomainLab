@@ -7,14 +7,17 @@ def mkNodeFeatExtractNNBuilderNameAlex(arg_name4net, arg_val):
         """NodeFeatExtractNNBuilderAlex.
         Uniform interface to return AlexNet and other neural network as feature
         extractor from torchvision or external python file"""
-        def init_business(self, dim_out, args, i_c=None, i_h=None, i_w=None,
-                          remove_last_layer=False, flag_pretrain=True):
+
+        def init_business(
+            self, dim_out, args, isize=None, remove_last_layer=False, flag_pretrain=True
+        ):
             """
             initialize **and** return the heavy weight business
             object for doing the real job
             :param request: subclass can override request object
             to be string or function
             :return: the constructed service object
+            i_size is not used at all in this class
             """
             if not remove_last_layer:
                 self.net_feat_extract = Alex4DeepAll(flag_pretrain, dim_out)
@@ -29,4 +32,5 @@ def mkNodeFeatExtractNNBuilderNameAlex(arg_name4net, arg_val):
             """
             arg_name = getattr(args, arg_name4net)
             return arg_name == arg_val
+
     return NodeFeatExtractNNBuilderAlex

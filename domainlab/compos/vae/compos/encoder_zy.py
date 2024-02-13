@@ -12,28 +12,32 @@ class EncoderConnectLastFeatLayer2Z(nn.Module):
     neural network to the latent representation
     This class should be transparent to where to fetch the network
     """
-    def __init__(self, z_dim, flag_pretrain,
-                 i_c, i_h, i_w, args, arg_name,
-                 arg_path_name):
+
+    def __init__(
+        self, z_dim, flag_pretrain, i_c, i_h, i_w, args, arg_name, arg_path_name
+    ):
         """__init__.
         :param hidden_size:
         """
         super().__init__()
         net_builder = FeatExtractNNBuilderChainNodeGetter(
-            args, arg_name, arg_path_name)()  # request
+            args, arg_name, arg_path_name
+        )()  # request
 
         self.net_feat_extract = net_builder.init_business(
-            flag_pretrain=flag_pretrain, dim_out=z_dim,  # @FIXME
-            remove_last_layer=True, args=args, i_c=i_c, i_h=i_h, i_w=i_w)
+            flag_pretrain=flag_pretrain,
+            dim_out=z_dim,
+            remove_last_layer=True,
+            args=args,
+            isize=(i_c, i_h, i_w),
+        )
 
-        size_last_layer_before_z = get_flat_dim(
-            self.net_feat_extract, i_c, i_h, i_w)
+        size_last_layer_before_z = get_flat_dim(self.net_feat_extract, i_c, i_h, i_w)
 
-        self.net_fc_mean = nn.Sequential(
-            nn.Linear(size_last_layer_before_z, z_dim))
+        self.net_fc_mean = nn.Sequential(nn.Linear(size_last_layer_before_z, z_dim))
         self.net_fc_scale = nn.Sequential(
-            nn.Linear(size_last_layer_before_z, z_dim),
-            nn.Softplus())  # for scale calculation
+            nn.Linear(size_last_layer_before_z, z_dim), nn.Softplus()
+        )  # for scale calculation
 
         torch.nn.init.xavier_uniform_(self.net_fc_mean[0].weight)
         self.net_fc_mean[0].bias.data.zero_()

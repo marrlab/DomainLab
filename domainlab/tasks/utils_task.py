@@ -12,7 +12,7 @@ from torch.utils.data import Dataset
 from domainlab.utils.utils_class import store_args
 
 
-class ImSize():
+class ImSize:
     """ImSize."""
 
     @store_args
@@ -20,6 +20,7 @@ class ImSize():
         """
         store channel, height, width
         """
+
     @property
     def c(self):
         """image channel"""
@@ -46,7 +47,7 @@ def mk_onehot(dim, ind):
     return vec
 
 
-def mk_loader(dset, bsize, drop_last=True, shuffle=True):
+def mk_loader(dset, bsize, drop_last=True, shuffle=True, num_workers=int(0)):
     """
     :param bs: batch size
     """
@@ -56,10 +57,10 @@ def mk_loader(dset, bsize, drop_last=True, shuffle=True):
         dataset=dset,
         batch_size=bsize,
         shuffle=shuffle,
-        # shuffle must be true so the last incomplete
-        # batch get used in anohter epoch
-        num_workers=int(0),   # @FIXME:
-        drop_last=drop_last)
+        # @FIXME: shuffle must be true so the last incomplete batch get used in another epoch?
+        num_workers=num_workers,  # @FIXME: num_workers=int(0) can be slow?
+        drop_last=drop_last,
+    )
     return loader
 
 
@@ -67,6 +68,7 @@ class DsetDomainVecDecorator(Dataset):
     """
     decorate a pytorch dataset with a fixed vector representation of domain
     """
+
     def __init__(self, dset, vec_domain, na_domain):
         """
         :param dset: x, y
@@ -104,6 +106,7 @@ class DsetDomainVecDecoratorImgPath(DsetDomainVecDecorator):
     returned currently not in use since it is mostly important
     to print predictions together with path  for the test domain
     """
+
     def __getitem__(self, idx):
         """
         :param idx:
@@ -116,6 +119,7 @@ class DsetClassVecDecorator(Dataset):
     """
     decorate a pytorch dataset with a new class name
     """
+
     def __init__(self, dset, dict_folder_name2class_global, list_str_y):
         """
         :param dset: x, y, *d
@@ -123,15 +127,19 @@ class DsetClassVecDecorator(Dataset):
                 class folder of domain to glbal class
         """
         self.dset = dset
-        self.class2idx = {k:v for (k,v) in self.dset.class_to_idx.items() \
-                          if k in self.dset.list_class_dir}
+        self.class2idx = {
+            k: v
+            for (k, v) in self.dset.class_to_idx.items()
+            if k in self.dset.list_class_dir
+        }
         assert self.class2idx
         self.dict_folder_name2class_global = dict_folder_name2class_global
         self.list_str_y = list_str_y
         # inverst key:value to value:key for backward map
         self.dict_old_idx2old_class = dict((v, k) for k, v in self.class2idx.items())
         dict_class_na_local2vec_new = dict(
-            (k, self.fun_class_local_na2vec_new(k)) for k, v in self.class2idx.items())
+            (k, self.fun_class_local_na2vec_new(k)) for k, v in self.class2idx.items()
+        )
         self.dict_class_na_local2vec_new = dict_class_na_local2vec_new
 
     @property
@@ -175,10 +183,11 @@ class DsetClassVecDecoratorImgPath(DsetClassVecDecorator):
         return tensor, vec_class_new, path[0]
 
 
-class LoaderDomainLabel():
+class LoaderDomainLabel:
     """
     wraps a dataset with domain label and into a loader
     """
+
     def __init__(self, batch_size, dim_d):
         """__init__.
 
@@ -212,14 +221,12 @@ def tensor1hot2ind(tensor_label):
     npa_label_ind = label_ind.numpy()
     return npa_label_ind
 
+
 # @FIXME: this function couples strongly with the task,
 # should be a class method of task
-def img_loader2dir(loader,
-                   folder,
-                   test=False,
-                   list_domain_na=None,
-                   list_class_na=None,
-                   batches=5):
+def img_loader2dir(
+    loader, folder, test=False, list_domain_na=None, list_class_na=None, batches=5
+):
     """
     save images from loader to directory so speculate if loader is correct
     :param loader: pytorch data loader
@@ -238,7 +245,7 @@ def img_loader2dir(loader,
         class_label_ind_batch = tensor1hot2ind(vec_y)
 
         # get domain label
-        # Note 1: test loaders don't return domain labels (see NodeTaskDict.init_business)
+        # Note 1: test loaders don't return domain labels (see NodeTaskDictClassif.init_business)
         # Note 2: for train loaders domain label will be the 0th element of other_vars (see DsetDomainVecDecorator class above)
         has_domain_label_ind = False
         if not test:
@@ -251,7 +258,7 @@ def img_loader2dir(loader,
             class_label_scalar = class_label_ind.item()
 
             if list_class_na is None:
-                str_class_label = "class_"+str(class_label_scalar)
+                str_class_label = "class_" + str(class_label_scalar)
             else:
                 # @FIXME: where is the correspndance between
                 # class ind_label and class str_label?
@@ -268,12 +275,15 @@ def img_loader2dir(loader,
             arr = img[b_ind]
             img_vision = torchvision.transforms.ToPILImage()(arr)
             f_n = "_".join(
-                ["class",
-                 str_class_label,
-                 "domain",
-                 str_domain_label,
-                 "n",
-                 str(counter)])
+                [
+                    "class",
+                    str_class_label,
+                    "domain",
+                    str_domain_label,
+                    "n",
+                    str(counter),
+                ]
+            )
             counter += 1
             path = os.path.join(folder, f_n + ".png")
             img_vision.save(path)

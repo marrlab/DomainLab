@@ -1,7 +1,10 @@
 from domainlab.compos.vae.zoo_vae_builders_classif import (
-    NodeVAEBuilderArg, NodeVAEBuilderImgAlex, NodeVAEBuilderImgConvBnPool)
-from domainlab.compos.vae.zoo_vae_builders_classif_topic import \
-    NodeVAEBuilderImgTopic
+    NodeVAEBuilderArg,
+    NodeVAEBuilderImgAlex,
+    NodeVAEBuilderImgConvBnPool,
+    NodeVAEBuilderUser,
+)
+from domainlab.compos.vae.zoo_vae_builders_classif_topic import NodeVAEBuilderImgTopic
 
 
 class VAEChainNodeGetter(object):
@@ -11,9 +14,9 @@ class VAEChainNodeGetter(object):
     3. heavy weight business objective is returned by selected node
     4. convert Scenario object to request object, so that class can be reused
     """
+
     def __init__(self, request, topic_dim=None):
-        """
-        """
+        """ """
         self.request = request
         self.topic_dim = topic_dim
 
@@ -29,5 +32,6 @@ class VAEChainNodeGetter(object):
             chain = NodeVAEBuilderImgConvBnPool(None)
             chain = NodeVAEBuilderImgAlex(chain)
             chain = NodeVAEBuilderArg(chain)
+            chain = NodeVAEBuilderUser(chain)
         node = chain.handle(self.request)
         return node

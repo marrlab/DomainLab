@@ -9,49 +9,41 @@ class EncoderImg2TopicDistri(nn.Module):
     image to topic distribution  (not image to topic hidden representation
     used by another path)
     """
-    def __init__(self, i_c, i_h, i_w, num_topics,
-                 img_h_dim,
-                 device,
-                 args):
+
+    def __init__(self, isize, num_topics, device, args):
         """__init__.
 
-        :param i_c:
-        :param i_h:
-        :param i_w:
+        :param isize:
         :param num_topics:
         :param device:
         """
         super().__init__()
         self.device = device
-        self.img_h_dim = img_h_dim
 
-        # image->h_image->[alpha,topic]
+        # image->h_topic->(batchnorm, exp)[alpha,topic]
 
-        # @FIXME:
         net_builder = FeatExtractNNBuilderChainNodeGetter(
             args=args,
-            arg_name_of_net="nname_topic_distrib_img2topic",
-            arg_path_of_net="npath_topic_distrib_img2topic")()  # @FIXME
+            arg_name_of_net="nname_encoder_x2topic_h",
+            arg_path_of_net="npath_encoder_x2topic_h",
+        )()
 
-        self.add_module("layer_img2hidden",
-                        net_builder.init_business(
-                            flag_pretrain=True,
-                            remove_last_layer=False,
-                            dim_out=self.img_h_dim,
-                            i_c=i_c, i_h=i_h, i_w=i_w, args=args))
-
-        # self.add_module("layer_img2hidden",
-        #                NetConvDense(i_c, i_h, i_w,
-        #                             conv_stride=conv_stride,
-        #                             args=args,
-        #                             dim_out_h=self.img_h_dim))
+        self.add_module(
+            "layer_img2hidden",
+            net_builder.init_business(
+                flag_pretrain=True,
+                isize=isize,
+                remove_last_layer=False,
+                dim_out=num_topics,
+                args=args,
+            ),
+        )
 
         # h_image->[alpha,topic]
-        self.add_module("layer_hidden2dirichlet",
-                        EncoderH2Dirichlet(
-                            dim_h=self.img_h_dim,
-                            dim_topic=num_topics,
-                            device=self.device))
+        self.add_module(
+            "layer_hidden2dirichlet",
+            EncoderH2Dirichlet(dim_topic=num_topics, device=self.device),
+        )
 
     def forward(self, x):
         """forward.

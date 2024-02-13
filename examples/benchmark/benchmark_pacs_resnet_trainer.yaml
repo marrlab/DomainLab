@@ -1,0 +1,107 @@
+# PACS
+
+test_domains:
+  - sketch
+
+output_dir: zoutput/benchmarks/pacs_benchmark_resnet50_trainer_only
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by #(test_domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 8
+# note that num_shared_param_samples is independent from num_param_samples (they are not cartesian
+# product) see details in https://github.com/marrlab/DomainLab/blob/master/docs/doc_benchmark.md
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 5  # currently included
+
+
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  ## dataset
+  tpath: examples/tasks/task_pacs_aug.py
+  lr: 5e-5
+  epos: 500
+  epos_min: 5
+  es: 2
+  bs: 32
+  npath: examples/nets/resnet50domainbed.py
+
+Shared params:
+  # sample more shared parameters to ensure range being covered in random sampling
+  num_shared_param_samples: 20
+  gamma_reg:
+    min: 0.01
+    max: 100
+    step: 0.01
+    distribution: loguniform
+
+erm:  # name
+  model: erm
+
+matchdg:  # name
+  model: erm
+  trainer: matchdg
+  shared:
+    - gamma_reg
+
+  hyperparameters:
+    # Total number of epochs for contrastive loss
+    epochs_ctr:
+      min: 2
+      max: 10
+      step: 1
+      distribution: uniform
+
+    # factor to magnify cosine similarity
+    tau:
+      min: 0.01
+      max: 1
+      step: 0.01
+      distribution: loguniform
+
+    # Number of epochs before updating the match tensor
+    epos_per_match_update:
+      min: 1
+      max: 20
+      step: 1
+      distribution: uniform
+
+# The only transformation for JiGen allowed is normalization and image resize, no random flip, as the original code shows:
+# https://github.com/fmcarlucci/JigenDG/blob/master/data/JigsawLoader.py
+# adding random flip here will cause jigen to confuse with the image tile reshuffling.
+
+dial: # name
+  model: erm
+  trainer: dial
+  shared:
+    - gamma_reg
+
+  hyperparameters:
+    dial_steps_perturb:
+      min: 1
+      max: 5
+      step: 1
+      distribution: uniform
+
+    dial_noise_scale:
+      min: 0.00001
+      max: 0.1
+      step: 0.00001
+      distribution: loguniform
+
+    dial_epsilon:
+      min: 0.001
+      max: 0.01
+      step: 0.001
+      distribution: loguniform
+
+
+mldg:  # name
+  model: erm
+  trainer: mldg
+  shared:
+    - gamma_reg

@@ -4,11 +4,14 @@ __author__ = "Xudong Sun"
 
 import abc
 
+from domainlab.utils.logger import Logger
+
 
 class Request4Chain(metaclass=abc.ABCMeta):
     """
     define all available fields of request to ensure operation safety
     """
+
     @abc.abstractmethod
     def convert(self, obj):
         """
@@ -46,8 +49,10 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
         :param success_node: successor chain node which implement the AbstractChainNodeHandler
         interface
         """
+        self._task = None
         self._success_node = success_node
         self._parent_node = None
+        self.next_model = None
         if success_node is not None:
             success_node.set_parent(self)
 
@@ -82,24 +87,26 @@ class AbstractChainNodeHandler(metaclass=abc.ABCMeta):
             return self
         if self._success_node is not None:
             return self._success_node.handle(request)
-        err_msg = str(request) + " does not exist"
-        print("available options are")
+        err_msg = "option " + str(request) + " does not exist"
+        logger = Logger.get_logger()
+        logger.info(err_msg)
+        logger.info("available options are")
         self.print_options()
         raise NotImplementedError(err_msg)
 
     def print_options(self):
-        print(self.__class__.__name__)
+        logger = Logger.get_logger()
+        logger.info(str(self.__class__.__name__))
         if self._parent_node is not None:
             self._parent_node.print_options()
 
 
-class DummyBusiness():
+class DummyBusiness:
     message = "dummy business"
 
 
 class DummyChainNodeHandlerBeaver(AbstractChainNodeHandler):
-    """Dummy class to show how to inherit from Chain of Responsibility
-    """
+    """Dummy class to show how to inherit from Chain of Responsibility"""
 
     def init_business(self, *kargs, **kwargs):
         return DummyBusiness()
@@ -113,8 +120,7 @@ class DummyChainNodeHandlerBeaver(AbstractChainNodeHandler):
 
 
 class DummyChainNodeHandlerLazy(AbstractChainNodeHandler):
-    """Dummy class to show how to inherit from Chain of Responsibility
-    """
+    """Dummy class to show how to inherit from Chain of Responsibility"""
 
     def init_business(self, *kargs, **kwargs):
         return DummyBusiness()

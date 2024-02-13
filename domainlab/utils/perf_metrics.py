@@ -1,32 +1,46 @@
 """Classification Performance"""
+import numpy as np
 import torch
-from torchmetrics.classification import (AUC, AUROC, Accuracy, ConfusionMatrix,
-                                         F1Score, Precision, Recall,
-                                         Specificity)
+from torchmetrics.classification import (
+    AUC,
+    AUROC,
+    Accuracy,
+    ConfusionMatrix,
+    F1Score,
+    Precision,
+    Recall,
+    Specificity,
+)
 
 
-class PerfMetricClassif():
+class PerfMetricClassif:
     """Classification Performance metrics"""
-    def __init__(self, num_classes, average='macro'):
+
+    def __init__(self, num_classes, agg_precision_recall_f1="macro"):
         super().__init__()
-        self.acc = Accuracy(num_classes=num_classes, average=average)
-        self.precision = Precision(num_classes=num_classes, average=average)
-        self.recall = Recall(num_classes=num_classes, average=average)
-        self.f1_score = F1Score(num_classes=num_classes, average=average)
-        self.auroc = AUROC(num_classes=num_classes, average=average)
-        self.specificity = Specificity(num_classes=num_classes,
-                                       average=average)
+        self.acc = Accuracy(num_classes=num_classes, average="micro")
+        # NOTE: only micro aggregation make sense for acc
+        self.precision = Precision(
+            num_classes=num_classes, average=agg_precision_recall_f1
+        )
+        # Calculate the metric for each class separately, and average the
+        # metrics across classes (with equal weights for each class).
+        self.recall = Recall(num_classes=num_classes, average=agg_precision_recall_f1)
+        self.f1_score = F1Score(
+            num_classes=num_classes, average=agg_precision_recall_f1
+        )
+        # NOTE: auroc does nto support "micro" as aggregation
+        self.auroc = AUROC(num_classes=num_classes, average=agg_precision_recall_f1)
+        self.specificity = Specificity(
+            num_classes=num_classes, average=agg_precision_recall_f1
+        )
         self.confmat = ConfusionMatrix(num_classes=num_classes)
 
-    def cal_metrics(self, model, loader_te, device, max_batches=None):
+    def cal_metrics(self, model, loader_te, device):
         """
         :param model:
         :param loader_te:
         :param device: for final test, GPU can be used
-        :param max_batches:
-                maximum number of iteration for data loader, used to
-                probe performance with less computation burden.
-                default None, which means to traverse the whole dataset
         """
         self.acc.reset()
         self.precision.reset()
@@ -42,12 +56,10 @@ class PerfMetricClassif():
         self.auroc = self.auroc.to(device)
         self.specificity = self.specificity.to(device)
         self.confmat = self.confmat.to(device)
-        model.eval()
         model_local = model.to(device)
-        if max_batches is None:
-            max_batches = len(loader_te)
+        model_local.eval()
         with torch.no_grad():
-            for i, (x_s, y_s, *_) in enumerate(loader_te):
+            for _, (x_s, y_s, *_) in enumerate(loader_te):
                 x_s, y_s = x_s.to(device), y_s.to(device)
                 _, prob, _, *_ = model_local.infer_y_vpicn(x_s)
                 _, target_label = torch.max(y_s, 1)
@@ -61,8 +73,6 @@ class PerfMetricClassif():
                 self.f1_score.update(prob, target_label)
                 self.auroc.update(prob, target_label)
                 self.confmat.update(prob, target_label)
-                if i > max_batches:
-                    break
 
         acc_y = self.acc.compute()
         precision_y = self.precision.compute()
@@ -71,13 +81,15 @@ class PerfMetricClassif():
         f1_score_y = self.f1_score.compute()
         auroc_y = self.auroc.compute()
         confmat_y = self.confmat.compute()
-        dict_metric = {"acc": acc_y,
-                       "precision": precision_y,
-                       "recall": recall_y,
-                       "specificity": specificity_y,
-                       "f1": f1_score_y,
-                       "auroc": auroc_y,
-                       "confmat": confmat_y}
+        dict_metric = {
+            "acc": acc_y,
+            "precision": precision_y,
+            "recall": recall_y,
+            "specificity": specificity_y,
+            "f1": f1_score_y,
+            "auroc": auroc_y,
+            "confmat": confmat_y,
+        }
         keys = list(dict_metric)
         keys.remove("confmat")
         for key in keys:

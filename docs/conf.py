@@ -15,18 +15,16 @@
 # Incase the project was not installed
 import os
 import sys
-import sphinx_material
 from datetime import datetime
+
+import sphinx_material
 
 sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information -----------------------------------------------------
 
 project = "domainlab"  # @FIXME
-copyright = (
-    f"2021-{datetime.now().year}, Marr Lab."
-    ""
-)
+copyright = f"2021-{datetime.now().year}, Marr Lab." ""
 
 author = "Xudong Sun, et.al."
 
@@ -94,11 +92,11 @@ templates_path = ["_templates"]
 #        '.md': 'recommonmark.parser.CommonMarkParser',
 # }
 
-source_suffix = ['.rst', '.md']
+source_suffix = [".rst", ".md"]
 source_suffix = {
-        '.rst': 'restructuredtext',
-        '.txt': 'markdown',
-        '.md': 'markdown',
+    ".rst": "restructuredtext",
+    ".txt": "markdown",
+    ".md": "markdown",
 }
 
 # The master toctree document.
@@ -114,11 +112,13 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ["setup.py",
-                    "_build",
-                    "Thumbs.db",
-                    ".DS_Store",
-                    "**.ipynb_checkpoints"]
+exclude_patterns = [
+    "setup.py",
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    "**.ipynb_checkpoints",
+]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "default"
@@ -129,10 +129,9 @@ highlight_language = "none"
 # -- HTML theme settings ------------------------------------------------
 html_short_title = "domainlab"  # @FIXME
 html_show_sourcelink = False
-html_sidebars = {"**": ["logo-text.html",
-                        "globaltoc.html",
-                        "localtoc.html",
-                        "searchbox.html"]}
+html_sidebars = {
+    "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
+}
 
 html_theme_path = sphinx_material.html_theme_path()
 html_context = sphinx_material.get_html_context()
@@ -157,30 +156,30 @@ html_theme_options = {
     "master_doc": False,
     "nav_title": "DomainLab",
     "nav_links": [
-        {
-            "href": "readme_link",
-            "internal": True,
-            "title": "Introduction"},
-        {
-            "href": "doc_tasks",
-            "internal": True,
-            "title": "Task Specification"},
+        {"href": "readme_link", "internal": True, "title": "Introduction"},
+        {"href": "doc_tasks", "internal": True, "title": "Task Specification"},
         {
             "href": "doc_custom_nn",
             "internal": True,
-            "title": "Custom Neural Network"},
+            "title": "Specify neural network in commandline",
+        },
+        {
+            "href": "doc_MNIST_classification",
+            "internal": True,
+            "title": "Examples with MNIST",
+        },
         {
             "href": "doc_examples",
             "internal": True,
-            "title": "Examples"},
-        {
-            "href": "doc_output",
-            "internal": True,
-            "title": "Output Structure"},
+            "title": "More commandline examples",
+        },
+        {"href": "doc_benchmark", "internal": True, "title": "Benchmarks tutorial"},
+        {"href": "doc_output", "internal": True, "title": "Output Structure"},
         {
             "href": "doc_extend_contribute",
             "internal": True,
-            "title": "Extend and Contribute"},
+            "title": "Developers note",
+        },
         # {
         #     "href": "https://squidfunk.github.io/mkdocs-material/",
         #     "internal": False,
@@ -188,7 +187,7 @@ html_theme_options = {
         # },
     ],
     "heroes": {
-        "index": "A pytorch platform for domain generalization",
+        "index": "DomainLab for modular domain generalization in deep learning",
         "customization": "Configuration options to personalize your site.",
     },
     "version_dropdown": False,
@@ -241,7 +240,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "domainlab", "domainlab", [author], 1)]   # @FIXME
+man_pages = [(master_doc, "domainlab", "domainlab", [author], 1)]  # @FIXME
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -256,7 +255,7 @@ texinfo_documents = [
         "DomainLab Documentation",
         author,
         "domainlab",
-        "A pytorch platform for domain generalization",
+        "A pytorch platform of modular domain generalization for deep learning",
         "Miscellaneous",
     ),
 ]
