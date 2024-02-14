@@ -1,0 +1,26 @@
+,method,model,params
+0,erm,erm,{}
+1,diva,diva,"{'gamma_y': 6173000, 'gamma_d': 17000, 'zx_dim': 64, 'zy_dim': 64, 'zd_dim': 32}"
+2,diva,diva,"{'gamma_y': 563000, 'gamma_d': 36906000, 'zx_dim': 96, 'zy_dim': 64, 'zd_dim': 96}"
+3,diva,diva,"{'gamma_y': 1871000, 'gamma_d': 50395000, 'zx_dim': 0, 'zy_dim': 32, 'zd_dim': 32}"
+4,diva,diva,"{'gamma_y': 1568000, 'gamma_d': 7257000, 'zx_dim': 64, 'zy_dim': 64, 'zd_dim': 64}"
+5,diva,diva,"{'gamma_y': 114000, 'gamma_d': 12501000, 'zx_dim': 32, 'zy_dim': 64, 'zd_dim': 32}"
+6,diva,diva,"{'gamma_y': 2808000, 'gamma_d': 2936000, 'zx_dim': 96, 'zy_dim': 64, 'zd_dim': 64}"
+7,diva,diva,"{'gamma_y': 183000, 'gamma_d': 285000, 'zx_dim': 64, 'zy_dim': 64, 'zd_dim': 96}"
+8,diva,diva,"{'gamma_y': 12961000, 'gamma_d': 30203000, 'zx_dim': 96, 'zy_dim': 96, 'zd_dim': 64}"
+9,hduva,hduva,"{'gamma_y': 183000, 'zy_dim': 64, 'zd_dim': 96}"
+10,hduva,hduva,"{'gamma_y': 2808000, 'zy_dim': 64, 'zd_dim': 64}"
+11,hduva,hduva,"{'gamma_y': 6173000, 'zy_dim': 64, 'zd_dim': 32}"
+12,hduva,hduva,"{'gamma_y': 563000, 'zy_dim': 64, 'zd_dim': 96}"
+13,hduva,hduva,"{'gamma_y': 1568000, 'zy_dim': 64, 'zd_dim': 64}"
+14,hduva,hduva,"{'gamma_y': 114000, 'zy_dim': 64, 'zd_dim': 32}"
+15,hduva,hduva,"{'gamma_y': 1871000, 'zy_dim': 32, 'zd_dim': 32}"
+16,hduva,hduva,"{'gamma_y': 12961000, 'zy_dim': 96, 'zd_dim': 64}"
+17,dann,dann,{'gamma_reg': 0.46}
+18,dann,dann,{'gamma_reg': 0.03}
+19,dann,dann,{'gamma_reg': 0.56}
+20,dann,dann,{'gamma_reg': 21.400000000000002}
+21,dann,dann,{'gamma_reg': 1.3}
+22,dann,dann,{'gamma_reg': 0.030000000000000002}
+23,dann,dann,{'gamma_reg': 2.9499999999999997}
+24,dann,dann,{'gamma_reg': 3.83}

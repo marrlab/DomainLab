@@ -1,0 +1,26 @@
+,method,model,params
+0,erm,erm,{}
+1,matchdg,erm,"{'epochs_ctr': 10, 'tau': 0.4, 'epos_per_match_update': 10, 'gamma_reg': 0.01}"
+2,matchdg,erm,"{'epochs_ctr': 5, 'tau': 0.02, 'epos_per_match_update': 5, 'gamma_reg': 21.400000000000002}"
+3,matchdg,erm,"{'epochs_ctr': 5, 'tau': 0.14, 'epos_per_match_update': 9, 'gamma_reg': 0.34}"
+4,matchdg,erm,"{'epochs_ctr': 10, 'tau': 0.21000000000000002, 'epos_per_match_update': 1, 'gamma_reg': 0.56}"
+5,matchdg,erm,"{'epochs_ctr': 4, 'tau': 0.02, 'epos_per_match_update': 7, 'gamma_reg': 71.56}"
+6,matchdg,erm,"{'epochs_ctr': 7, 'tau': 0.48000000000000004, 'epos_per_match_update': 6, 'gamma_reg': 7.26}"
+7,matchdg,erm,"{'epochs_ctr': 9, 'tau': 0.23, 'epos_per_match_update': 10, 'gamma_reg': 2.5799999999999996}"
+8,matchdg,erm,"{'epochs_ctr': 6, 'tau': 0.03, 'epos_per_match_update': 9, 'gamma_reg': 30.200000000000003}"
+9,dial,erm,"{'dial_steps_perturb': 5, 'dial_noise_scale': 0.00019, 'dial_epsilon': 0.002, 'gamma_reg': 7.26}"
+10,dial,erm,"{'dial_steps_perturb': 3, 'dial_noise_scale': 5e-05, 'dial_epsilon': 0.006, 'gamma_reg': 1.57}"
+11,dial,erm,"{'dial_steps_perturb': 4, 'dial_noise_scale': 0.00023, 'dial_epsilon': 0.003, 'gamma_reg': 36.91}"
+12,dial,erm,"{'dial_steps_perturb': 2, 'dial_noise_scale': 0.054560000000000004, 'dial_epsilon': 0.004, 'gamma_reg': 1.57}"
+13,dial,erm,"{'dial_steps_perturb': 2, 'dial_noise_scale': 0.0061, 'dial_epsilon': 0.002, 'gamma_reg': 14.69}"
+14,dial,erm,"{'dial_steps_perturb': 5, 'dial_noise_scale': 0.04147000000000001, 'dial_epsilon': 0.004, 'gamma_reg': 0.56}"
+15,dial,erm,"{'dial_steps_perturb': 5, 'dial_noise_scale': 0.00018, 'dial_epsilon': 0.009000000000000001, 'gamma_reg': 30.200000000000003}"
+16,dial,erm,"{'dial_steps_perturb': 4, 'dial_noise_scale': 0.0007100000000000001, 'dial_epsilon': 0.007, 'gamma_reg': 71.56}"
+17,mldg,erm,{'gamma_reg': 3.83}
+18,mldg,erm,{'gamma_reg': 0.5}
+19,mldg,erm,{'gamma_reg': 0.34}
+20,mldg,erm,{'gamma_reg': 2.5799999999999996}
+21,mldg,erm,{'gamma_reg': 1.51}
+22,mldg,erm,{'gamma_reg': 1.3}
+23,mldg,erm,{'gamma_reg': 7.26}
+24,mldg,erm,{'gamma_reg': 1.87}
