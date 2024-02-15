@@ -17,7 +17,7 @@ from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
-from domainlab.utils.utils_seg import dice_loss
+from domainlab.utils.utils_seg import DiceLoss
 
 try:
     from backpack import extend
@@ -113,7 +113,7 @@ class AModelSeg(AModel, metaclass=abc.ABCMeta):
         """
         masks_pred = self.net_seg(tensor_x)
         loss = self.seg_cross_entropy_loss(masks_pred.squeeze(1), tensor_y.float())
-        loss += dice_loss(F.sigmoid(masks_pred.squeeze(1)), tensor_y.float(), multiclass=False)
+        loss += DiceLoss(masks_pred, tensor_y)
         return loss
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):

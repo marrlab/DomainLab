@@ -2,8 +2,16 @@
 from .unet_parts import *
 
 
+class UNET_Feature_Extractor(nn.Module):
+    def __init__(self, net):
+        self.net = net
+
+    def forward(self, x):
+        return self.net.go_down(x)
+        
+
 class UNet(nn.Module):
-    def __init__(self, n_channels, n_classes, bilinear=False):
+    def __init__(self, n_classes, n_channels=3, bilinear=False): # 3: RGB channels
         super(UNet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
@@ -21,16 +29,24 @@ class UNet(nn.Module):
         self.up4 = (Up(128, 64, bilinear))
         self.outc = (OutConv(64, n_classes))
 
+        self.x1 = None
+        self.x2 = None
+        self.x3 = None
+        self.x4 = None
+
+    def go_down(self, x):
+        self.x1 = self.inc(x)
+        self.x2 = self.down1(self.x1)
+        self.x3 = self.down2(self.x2)
+        self.x4 = self.down3(self.x3)
+        self.x5 = self.down4(self.x4)
+
     def forward(self, x):
-        x1 = self.inc(x)
-        x2 = self.down1(x1)
-        x3 = self.down2(x2)
-        x4 = self.down3(x3)
-        x5 = self.down4(x4)
-        x = self.up1(x5, x4)
-        x = self.up2(x, x3)
-        x = self.up3(x, x2)
-        x = self.up4(x, x1)
+        x5 = self.go_down(x)
+        x = self.up1(x5, self.x4)
+        x = self.up2(x, self.x3)
+        x = self.up3(x, self.x2)
+        x = self.up4(x, self.x1)
         logits = self.outc(x)
         return logits
 
@@ -60,4 +76,7 @@ def build_feat_extract_net(dim_y, remove_last_layer):
     remove the last layer or not.
     """
 
-    return UNet(n_channels, n_classes, bilinear=False)
+    small_unet = UNet(dim_y)
+    unet_feature = UNET_Feature_Extractor(small_unet)
+
+    return small_unet, unet_feature
