@@ -68,6 +68,7 @@ def phase_portrait_combined(
     legend1=None,
     legend2=None,
     plot_len=None,
+    skip_first_n=0,
     output_dir=".",
 ):
     """
@@ -83,7 +84,8 @@ def phase_portrait_combined(
         if plot_len is None:
             plot_len = len(x)
         # truncate x and y to the desired length:
-        x, y = x[:plot_len], y[:plot_len]
+        x = x[skip_first_n:(plot_len+skip_first_n)]
+        y = y[skip_first_n:(plot_len+skip_first_n)]
 
         head_w_glob = min((max(x) - min(x)) / 100.0, (max(y) - min(y)) / 100.0)
         for i in range(plot_len - 1):
@@ -123,9 +125,11 @@ def phase_portrait_combined(
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     legend22 = legend2.split(os.sep)[-1]
-    plt.savefig(
-        os.path.join(output_dir, f"phase_portrait_combined_{legend22}.png"), dpi=300
-    )
+
+    fname = os.path.join(output_dir, f"phase_portrait_combined_{legend22}")
+    plt.savefig(fname+".png", dpi=300)
+    plt.savefig(fname+".pdf", format="pdf")
+    plt.savefig(fname+".svg", format="svg")
 
 
 def two_curves_combined(
@@ -161,9 +165,11 @@ def two_curves_combined(
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    plt.savefig(
-        os.path.join(output_dir, f"timecourse_{legend11}_{legend22}.png"), dpi=300
-    )
+
+    fname = os.path.join(output_dir, f"timecourse_{legend11}_{legend22}")
+    plt.savefig(fname+".png", dpi=300)
+    plt.savefig(fname+".pdf", format="pdf")
+    plt.savefig(fname+".svg", format="svg")
 
 
 def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
@@ -185,6 +191,8 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.png"), dpi=300)
+    plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.pdf"), format="pdf")
+    plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.svg"), format="svg")
 
 
 if __name__ == "__main__":
@@ -194,6 +202,7 @@ if __name__ == "__main__":
     parser.add_argument("-legend1", "--legend1", default=None, type=str)
     parser.add_argument("-legend2", "--legend2", default=None, type=str)
     parser.add_argument("-plot_len", "--plot_len", default=None, type=int)
+    parser.add_argument("-skip_first_n", "--skip_first_n", default=None, type=int)
     parser.add_argument("-title", "--title", default=None, type=str)
     parser.add_argument("--output_dir", default=".", type=str)
     parser.add_argument(
@@ -225,6 +234,7 @@ if __name__ == "__main__":
             legend1=args.legend1,
             legend2=args.legend2,
             plot_len=args.plot_len,
+            skip_first_n=args.skip_first_n,
             output_dir=args.output_dir,
         )
     else:
