@@ -6,9 +6,7 @@ sampling_seed: 0
 
 startseed: 0
 endseed: 6
-
-test_domains:
-  - sketch
+test_domains: - sketch
 
 domainlab_args:
   tpath: examples/tasks/task_pacs_aug.py
@@ -49,9 +47,9 @@ diva_feedforward_full:
   model: diva
   trainer: hyperscheduler
   str_diva_multiplier_type: gammad_recon
-  gamma_y: 1.0
   shared:
     - gamma_d
+    - gamma_y
 
 diva_default:
   model: diva
@@ -68,6 +66,3 @@ diva_fixed_penalty:
   shared:
     - gamma_d
     - gamma_y
-
-erm:
-  model: erm
