@@ -83,6 +83,11 @@ def get_xy_from_event_file(
     if sanity_check:
         for i in range(len(x)):
             assert int(x[i]) == x_int[i]
+
+    # write x and y data to a text file:
+    fh = ListFileHandler(event_file + "_backup.txt")
+    fh.write_lists_to_file(x, y)
+
     return x, y
 
 
