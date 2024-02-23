@@ -11,6 +11,33 @@ import numpy as np
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 
 
+class ListFileHandler:
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def write_lists_to_file(self, list1, list2=None):
+        with open(self.file_path, 'w') as file:
+            if list2 is None:
+                for val1 in list1:
+                    file.write(f"{val1}\n")
+            else:
+                for val1, val2 in zip(list1, list2):
+                    file.write(f"{val1} {val2}\n")
+
+    def read_lists_from_file(self):
+        list1 = []
+        list2 = []
+        with open(self.file_path, 'r') as file:
+            for line in file:
+                values = list(map(float, line.strip().split()))
+                if len(values) == 1:
+                    list1.append(values[0])
+                elif len(values) == 2:
+                    list1.append(values[0])
+                    list2.append(values[1])
+        return list1, list2
+
+
 # pylint: disable=too-many-arguments
 def get_xy_from_event_file(
     event_file,
@@ -205,6 +232,7 @@ if __name__ == "__main__":
     parser.add_argument("-skip_first_n", "--skip_first_n", default=None, type=int)
     parser.add_argument("-title", "--title", default=None, type=str)
     parser.add_argument("--output_dir", default=".", type=str)
+    parser.add_argument("--runs_dir", default="runs", type=str)
     parser.add_argument(
         "--phase_portrait",
         action="store_true",
@@ -214,7 +242,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # get event files from all available runs
-    event_files = glob.glob("runs/*/events*")
+    # Tensorboard: * could be the date information, this intermediate directory
+    # always exist
+    # events* means all the event folders
+    event_files = glob.glob(f"{args.runs_dir}/*/events*")
     print(
         "Using the following tensorboard event files:\n{}".format(
             "\n".join(event_files)

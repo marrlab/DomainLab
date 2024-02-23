@@ -1,6 +1,14 @@
 #!/bin/bash
 
+STR_LOSS_ELL = "loss_task/ell"
+
+
+# README:
+# The following scripts will check event files from the 'runs' folder of the working directory.
+# To generate example tensorboard 'runs' folder, one could execute e.g. `sh run_fbopt_mnist_diva_autoki.sh` such that there will be 'runs' folder.
+
 # Phase portraits
+
 # a command line argument can be passed to this script, in order to skip the first few large jumps on the phase plots; if no argument is provided then all points will be plotted:
 # Check if an argument is provided
 if [ $# -eq 0 ]; then
