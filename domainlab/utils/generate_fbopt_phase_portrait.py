@@ -84,10 +84,6 @@ def get_xy_from_event_file(
         for i in range(len(x)):
             assert int(x[i]) == x_int[i]
 
-    # write x and y data to a text file:
-    fh = ListFileHandler(event_file + "_backup.txt")
-    fh.write_lists_to_file(x, y)
-
     return x, y
 
 
@@ -153,6 +149,11 @@ def phase_portrait_combined(
         plt.xlabel(legend1)
         plt.ylabel(legend2)
         plt.title("phase portrait")
+
+        # write x and y data to a text file:
+        txt_name = os.path.join(output_dir, event_files[event_i] + "_backup.txt")
+        fh = ListFileHandler(txt_name)
+        fh.write_lists_to_file(x, y)
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
