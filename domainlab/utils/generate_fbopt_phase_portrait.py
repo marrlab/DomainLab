@@ -245,7 +245,11 @@ if __name__ == "__main__":
     # Tensorboard: * could be the date information, this intermediate directory
     # always exist
     # events* means all the event folders
-    event_files = glob.glob(f"{args.runs_dir}/*/events*")
+    # this  would combine plots from all subfolders in the runs directory (i.e., all graphs combined in each plot):
+    #event_files = glob.glob(f"{args.runs_dir}/*/events*")
+    # this  needs the user to specify a specific run (subfolder in the runs directory):
+    event_files = glob.glob(f"{args.runs_dir}/events*")
+    if not os.path.isdir(args.runs_dir): raise RuntimeError("runs_dir should be a directory.")
     print(
         "Using the following tensorboard event files:\n{}".format(
             "\n".join(event_files)
