@@ -150,15 +150,16 @@ def phase_portrait_combined(
         plt.ylabel(legend2)
         plt.title("phase portrait")
 
-        # write x and y data to a text file:
-        txt_name = os.path.join(output_dir, event_files[event_i] + "_backup.txt")
-        fh = ListFileHandler(txt_name)
-        fh.write_lists_to_file(x, y)
-
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     legend22 = legend2.split(os.sep)[-1]
 
+    # write x and y data to a text file:
+    txt_name = os.path.join(output_dir, f"phase_portrait_combined_{legend22}.txt")
+    fh = ListFileHandler(txt_name)
+    fh.write_lists_to_file(x, y)
+
+    # save figures
     fname = os.path.join(output_dir, f"phase_portrait_combined_{legend22}")
     plt.savefig(fname+".png", dpi=300)
     plt.savefig(fname+".pdf", format="pdf")
@@ -199,6 +200,12 @@ def two_curves_combined(
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
+    # write x and y data to a text file:
+    txt_name = os.path.join(output_dir, f"timecourse_{legend11}_{legend22}.txt")
+    fh = ListFileHandler(txt_name)
+    fh.write_lists_to_file(x, y)
+
+    # save figures
     fname = os.path.join(output_dir, f"timecourse_{legend11}_{legend22}")
     plt.savefig(fname+".png", dpi=300)
     plt.savefig(fname+".pdf", format="pdf")
@@ -221,11 +228,17 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
 
     legend11 = legend1.replace(os.sep, "_")
 
+    # save figures
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.png"), dpi=300)
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.pdf"), format="pdf")
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.svg"), format="svg")
+
+    # write x and y data to a text file:
+    txt_name = os.path.join(output_dir, f"timecourse_{legend11}.txt")
+    fh = ListFileHandler(txt_name)
+    fh.write_lists_to_file(list(range(len(x))), x)
 
 
 if __name__ == "__main__":
