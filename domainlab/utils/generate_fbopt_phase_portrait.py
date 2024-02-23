@@ -223,6 +223,7 @@ if __name__ == "__main__":
     parser.add_argument("-plot_len", "--plot_len", default=None, type=int)
     parser.add_argument("-title", "--title", default=None, type=str)
     parser.add_argument("--output_dir", default=".", type=str)
+    parser.add_argument("--runs_dir", default="runs", type=str)
     parser.add_argument(
         "--phase_portrait",
         action="store_true",
@@ -232,7 +233,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # get event files from all available runs
-    event_files = glob.glob("runs/*/events*")
+    # Tensorboard: * could be the date information, this intermediate directory
+    # always exist
+    # events* means all the event folders
+    event_files = glob.glob(f"{args.runs_dir}/*/events*")
     print(
         "Using the following tensorboard event files:\n{}".format(
             "\n".join(event_files)

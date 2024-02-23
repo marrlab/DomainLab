@@ -1,6 +1,14 @@
 #!/bin/bash
 
+STR_LOSS_ELL = "loss_task/ell"
+
+
+# README:
+# The following scripts will check event files from the 'runs' folder of the working directory.
+# To generate example tensorboard 'runs' folder, one could execute e.g. `sh run_fbopt_mnist_diva_autoki.sh` such that there will be 'runs' folder.
+
 # Phase portraits
+
 python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss (gamma_d)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
