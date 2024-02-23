@@ -9,15 +9,25 @@ STR_LOSS_ELL = "loss_task/ell"
 
 # Phase portraits
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss (gamma_d)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
+# a command line argument can be passed to this script, in order to skip the first few large jumps on the phase plots; if no argument is provided then all points will be plotted:
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+  # Check if an argument is provided
+  skip_n=0
+else
+  # Use the provided argument
+  skip_n=$1
+fi
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss (gamma_d)" --legend1="ell" --plot_len 30 --skip_first_n $skip_n --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="ell" --plot_len 30 --skip_first_n $skip_n --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="ell" --plot_len 30 --skip_first_n $skip_n --output_dir="./figures_diva" --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="loss_task/ell" --plot_len 30 --output_dir="./figures_diva" --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="ell" --plot_len 30 --skip_first_n $skip_n --output_dir="./figures_diva" --phase_portrait
+
+python domainlab/utils/generate_fbopt_phase_portrait.py --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="ell" --plot_len 30 --skip_first_n $skip_n --output_dir="./figures_diva" --phase_portrait
 
 
 # Plot R and the corresponding set point curves (both in the same figure)
