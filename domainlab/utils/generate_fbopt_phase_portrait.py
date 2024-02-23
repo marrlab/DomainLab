@@ -11,6 +11,33 @@ import numpy as np
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 
 
+class ListFileHandler:
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def write_lists_to_file(self, list1, list2=None):
+        with open(self.file_path, 'w') as file:
+            if list2 is None:
+                for val1 in list1:
+                    file.write(f"{val1}\n")
+            else:
+                for val1, val2 in zip(list1, list2):
+                    file.write(f"{val1} {val2}\n")
+
+    def read_lists_from_file(self):
+        list1 = []
+        list2 = []
+        with open(self.file_path, 'r') as file:
+            for line in file:
+                values = list(map(float, line.strip().split()))
+                if len(values) == 1:
+                    list1.append(values[0])
+                elif len(values) == 2:
+                    list1.append(values[0])
+                    list2.append(values[1])
+        return list1, list2
+
+
 # pylint: disable=too-many-arguments
 def get_xy_from_event_file(
     event_file,
