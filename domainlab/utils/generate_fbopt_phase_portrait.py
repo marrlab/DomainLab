@@ -1,14 +1,21 @@
 """
 This file is used for generating phase portrait from tensorboard event files.
 """
-
 import argparse
 import glob
 import os
-
-import matplotlib.pyplot as plt
 import numpy as np
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
+
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['text.usetex'] = True
+plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+font = {'size': 20}
+matplotlib.rc('font', **font)
+
 
 
 class ListFileHandler:
@@ -216,7 +223,7 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
     """
     FIXME: colors parameter is not used
     """
-    plt.figure()
+    fig = plt.figure()
     for event_i in range(len(event_files)):
         x, _ = get_xy_from_event_file(event_files[event_i], plot1=plot1)
         plt.plot(x)
@@ -234,6 +241,9 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.png"), dpi=300)
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.pdf"), format="pdf")
     plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.svg"), format="svg")
+    pdf_page = PdfPages(os.path.join(output_dir, f"timecourse_{legend11}_pdfpage.pdf"))
+    pdf_page.savefig(fig, bbox_inches="tight")
+    pdf_page.close()
 
     # write x and y data to a text file:
     txt_name = os.path.join(output_dir, f"timecourse_{legend11}.txt")
