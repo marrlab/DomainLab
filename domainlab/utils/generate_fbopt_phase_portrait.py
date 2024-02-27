@@ -182,16 +182,18 @@ def two_curves_combined(
     legend2=None,
     output_dir=".",
     title=None,
-):
+    logscale=False):
     """
     FIXME: colors parameter is not used
     """
-    plt.figure()
+    fig = plt.figure()
     for event_i in range(len(event_files)):
         x, y = get_xy_from_event_file(event_files[event_i], plot1=plot1, plot2=plot2)
         plt.plot(x, color="blue")
         plt.plot(y, color="red")
-        plt.xlabel("epoch")
+        if logscale:
+            plt.yscale("log")
+        plt.xlabel("Epoch")
         # plt.ylabel("loss")
         if title is not None:
             plt.title(title)
@@ -213,10 +215,16 @@ def two_curves_combined(
     fh.write_lists_to_file(x, y)
 
     # save figures
+    fname_logscale = "_logscale" if logscale else ""
     fname = os.path.join(output_dir, f"timecourse_{legend11}_{legend22}")
-    plt.savefig(fname+".png", dpi=300)
-    plt.savefig(fname+".pdf", format="pdf")
-    plt.savefig(fname+".svg", format="svg")
+    plt.savefig(fname+fname_logscale+".png", dpi=300)
+    plt.savefig(fname+fname_logscale+".pdf", format="pdf")
+    plt.savefig(fname+fname_logscale+".svg", format="svg")
+    pdf_page = PdfPages(fname+fname_logscale+"_pdfpage.pdf")
+    pdf_page.savefig(fig, bbox_inches="tight")
+    pdf_page.close()
+
+
 
 
 def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
@@ -314,6 +322,18 @@ if __name__ == "__main__":
                 output_dir=args.output_dir,
                 title=args.title,
             )
+            two_curves_combined(
+                event_files,
+                colors,
+                plot1=args.plot1,
+                plot2=args.plot2,
+                legend1=args.legend1,
+                legend2=args.legend2,
+                output_dir=args.output_dir,
+                title=args.title,
+                logscale=True
+            )
+
         else:
             # one curve per plot
             plot_single_curve(
