@@ -5,6 +5,8 @@ OUT_DIR="./figures_diva"
 # Number of points to plot:
 phase_portrait_plot_len=50
 
+LOSS_GAMMA_D="$\mathbb{E}_{q_{\phi_d}(z_d|x)}[\log q_{\omega_d}(d|z_d)]$"
+
 
 # README:
 # The following scripts will check event files from the 'runs' folder of the working directory.
@@ -18,7 +20,6 @@ else
   runs_dir=$1
 fi
 
-# Phase portraits
 
 # a command line argument can be passed to this script, in order to skip the first few large jumps on the phase plots; if no argument is provided then all points will be plotted:
 if [ -z "$2" ]; then
@@ -29,7 +30,11 @@ else
   skip_n=$2
 fi
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss (gamma_d)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
+
+
+
+# Phase portraits
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss $\gamma_d$" --legend1="$\ell$" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
 
@@ -40,8 +45,10 @@ python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --p
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
 
 
+
+
 # Plot R and the corresponding set point curves (both in the same figure)
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_gamma_d" --plot2="lossrs/setpoint_gamma_d" --legend1="loss (gamma_d)" --legend2="setpoint" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_gamma_d" --plot2="lossrs/setpoint_gamma_d" --legend1="loss ($\gamma_d$)" --legend2="setpoint" --output_dir=$OUT_DIR
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_mu_recon" --plot2="lossrs/setpoint_mu_recon" --legend1="reconstruction loss" --legend2="setpoint" --output_dir=$OUT_DIR
 
