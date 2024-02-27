@@ -215,14 +215,16 @@ def two_curves_combined(
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
+    fname_legend = latex_to_nonlatex(legend11)
+    fname_legend += latex_to_nonlatex(legend22)
     # write x and y data to a text file:
-    txt_name = os.path.join(output_dir, prefix+f"{legend11}_{legend22}.txt")
+    txt_name = os.path.join(output_dir, prefix+f"fname_legend.txt")
     fh = ListFileHandler(txt_name)
     fh.write_lists_to_file(x, y)
 
     # save figures
     fname_logscale = "_logscale" if logscale else ""
-    fname = os.path.join(output_dir, prefix+f"{legend11}_{legend22}")
+    fname = os.path.join(output_dir, prefix+f"fname_legend")
     plt.savefig(fname+fname_logscale+".png", dpi=300)
     plt.savefig(fname+fname_logscale+".pdf", format="pdf")
     plt.savefig(fname+fname_logscale+".svg", format="svg")
