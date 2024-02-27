@@ -5,6 +5,7 @@ import argparse
 import glob
 import os
 import numpy as np
+import re
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
 
 import matplotlib
@@ -16,7 +17,9 @@ plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 font = {'size': 20}
 matplotlib.rc('font', **font)
 
-
+def latex_to_nonlatex(latex_string):
+    nonlatex_string = re.sub(r'[{$}]', '', latex_string)
+    return nonlatex_string
 
 class ListFileHandler:
     def __init__(self, file_path):
@@ -161,13 +164,15 @@ def phase_portrait_combined(
         os.makedirs(output_dir)
     legend22 = legend2.split(os.sep)[-1]
 
+    fname_legend = latex_to_nonlatex(legend22)
+
     # write x and y data to a text file:
-    txt_name = os.path.join(output_dir, f"phase_portrait_combined_{legend22}.txt")
+    txt_name = os.path.join(output_dir, f"phase_portrait_{fname_legend}.txt")
     fh = ListFileHandler(txt_name)
     fh.write_lists_to_file(x, y)
 
     # save figures
-    fname = os.path.join(output_dir, f"phase_portrait_combined_{legend22}")
+    fname = os.path.join(output_dir, f"phase_portrait_{fname_legend}")
     plt.savefig(fname+".png", dpi=300)
     plt.savefig(fname+".pdf", format="pdf")
     plt.savefig(fname+".svg", format="svg")
