@@ -25,6 +25,7 @@ def sav2pdfpage(fig, fname):
 
 def latex_to_nonlatex(latex_string):
     nonlatex_string = re.sub(r'[{$}]', '', latex_string)
+    nonlatex_string = nonlatex_string.replace("\\", "")
     return nonlatex_string
 
 class ListFileHandler:
