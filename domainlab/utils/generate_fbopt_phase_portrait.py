@@ -250,14 +250,15 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
         # plt.title("timecourse")
 
     legend11 = legend1.replace(os.sep, "_")
+    fname_legend = latex_to_nonlatex(legend11)
 
     # save figures
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.png"), dpi=300)
-    plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.pdf"), format="pdf")
-    plt.savefig(os.path.join(output_dir, f"timecourse_{legend11}.svg"), format="svg")
-    pdf_page = PdfPages(os.path.join(output_dir, f"timecourse_{legend11}_pdfpage.pdf"))
+    plt.savefig(os.path.join(output_dir, f"timecourse_{fname_legend}.png"), dpi=300)
+    plt.savefig(os.path.join(output_dir, f"timecourse_{fname_legend}.pdf"), format="pdf")
+    plt.savefig(os.path.join(output_dir, f"timecourse_{fname_legend}.svg"), format="svg")
+    pdf_page = PdfPages(os.path.join(output_dir, f"timecourse_{fname_legend}_pdfpage.pdf"))
     pdf_page.savefig(fig, bbox_inches="tight")
     pdf_page.close()
 
