@@ -36,7 +36,7 @@ fi
 # Phase portraits
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="\$R_{\gamma_d}(\cdot)\$" --legend1="\$\ell(\cdot)\$" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="\$\ell(\cdot)\$" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="\$R_{\mu_{recon}}(\cdot)\$" --legend1="\$\ell(\cdot)\$" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
