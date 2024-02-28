@@ -40,7 +40,7 @@ python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --p
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
+# python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
@@ -52,14 +52,14 @@ python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --p
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_mu_recon" --plot2="lossrs/setpoint_mu_recon" --legend1="reconstruction loss" --legend2="setpoint" --output_dir=$OUT_DIR
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_d" --plot2="lossrs/setpoint_beta_d" --legend1="-\$R_{\beta_d}\$" --legend2="setpoint" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_d" --plot2="lossrs/setpoint_beta_d" --legend1="-\$R_{\beta_d}\$" --legend2="setpoint" --output_dir=$OUT_DIR --neg
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_x" --plot2="lossrs/setpoint_beta_x" --legend1="KL (beta_x)" --legend2="setpoint" --output_dir=$OUT_DIR
+# python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_x" --plot2="lossrs/setpoint_beta_x" --legend1="KL (beta_x)" --legend2="setpoint" --output_dir=$OUT_DIR
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_y" --plot2="lossrs/setpoint_beta_y" --legend1="-\$R_{\beta_y}\$" --legend2="setpoint" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_y" --plot2="lossrs/setpoint_beta_y" --legend1="-\$R_{\beta_y}\$" --legend2="setpoint" --output_dir=$OUT_DIR --neg
 
 
- # Other plots (one curve per figure)
+ # One curve per figure
  values=('controller_gain/beta_d' 'controller_gain/beta_y' 'controller_gain/beta_x' 'controller_gain/gamma_d' 'controller_gain/mu_recon' 'dyn_mu/beta_d' 'delta/beta_d' 'dyn_mu/beta_y' 'delta/beta_y' 'dyn_mu/beta_x' 'delta/beta_x' 'dyn_mu/gamma_d' 'delta/gamma_d' 'dyn_mu/mu_recon' 'delta/mu_recon' 'loss_task/penalized' 'loss_task/ell' 'acc/te' 'acc/val' 'acc/sel' 'acc/setpoint')
  # Loop over the array
  for val in "${values[@]}"

@@ -199,15 +199,26 @@ def two_curves_combined(
     output_dir=".",
     title=None,
     logscale=False,
-    prefix="output_r_"):
+    neg=False,
+    prefix="output_r_",
+    plot_len=None):
     """
     FIXME: colors parameter is not used
     """
     fig = plt.figure()
     for event_i in range(len(event_files)):
+        if plot_len is None:
+            plot_len = len(x)
+        # truncate x and y to the desired length:
+        x = x[:plot_len]
+        y = y[:plot_len]
         x, y = get_xy_from_event_file(event_files[event_i], plot1=plot1, plot2=plot2)
-        plt.plot(x, color="blue")
-        plt.plot(y, color="red")
+        if neg:
+            plt.plot(-np.array(x), color="blue")
+            plt.plot(-np.array(y), color="red")
+        else:
+            plt.plot(x, color="blue")
+            plt.plot(y, color="red")
         if logscale:
             plt.yscale("log")
         plt.xlabel("Epoch")
@@ -229,13 +240,13 @@ def two_curves_combined(
     fname_legend = latex_to_nonlatex(legend11)
     fname_legend += latex_to_nonlatex(legend22)
     # write x and y data to a text file:
-    txt_name = os.path.join(output_dir, prefix+f"fname_legend.txt")
+    txt_name = os.path.join(output_dir, prefix+f"{fname_legend}.txt")
     fh = ListFileHandler(txt_name)
     fh.write_lists_to_file(x, y)
 
     # save figures
     fname_logscale = "_logscale" if logscale else ""
-    fname = os.path.join(output_dir, prefix+f"fname_legend")
+    fname = os.path.join(output_dir, prefix+f"{fname_legend}")
     plt.savefig(fname+fname_logscale+".png", dpi=300)
     plt.savefig(fname+fname_logscale+".pdf", format="pdf")
     plt.savefig(fname+fname_logscale+".svg", format="svg")
@@ -246,13 +257,17 @@ def two_curves_combined(
 
 
 
-def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
+def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir=".", plot_len=None):
     """
     FIXME: colors parameter is not used
     """
     fig = plt.figure()
     for event_i in range(len(event_files)):
         x, _ = get_xy_from_event_file(event_files[event_i], plot1=plot1)
+        if plot_len is None:
+            plot_len = len(x)
+        # truncate x and y to the desired length:
+        x = x[:plot_len]
         plt.plot(x)
         plt.xlabel("time")
         if legend1 is None:
@@ -266,15 +281,15 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir="."):
     # save figures
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    plt.savefig(os.path.join(output_dir, f"timecourse_{fname_legend}.png"), dpi=300)
-    plt.savefig(os.path.join(output_dir, f"timecourse_{fname_legend}.pdf"), format="pdf")
-    plt.savefig(os.path.join(output_dir, f"timecourse_{fname_legend}.svg"), format="svg")
-    pdf_page = PdfPages(os.path.join(output_dir, f"timecourse_{fname_legend}_pdfpage.pdf"))
+    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.png"), dpi=300)
+    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.pdf"), format="pdf")
+    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.svg"), format="svg")
+    pdf_page = PdfPages(os.path.join(output_dir, f"single_timecourse_{fname_legend}_pdfpage.pdf"))
     pdf_page.savefig(fig, bbox_inches="tight")
     pdf_page.close()
 
     # write x and y data to a text file:
-    txt_name = os.path.join(output_dir, f"timecourse_{legend11}.txt")
+    txt_name = os.path.join(output_dir, f"single_timecourse_{fname_legend}.txt")
     fh = ListFileHandler(txt_name)
     fh.write_lists_to_file(list(range(len(x))), x)
 
@@ -290,6 +305,11 @@ if __name__ == "__main__":
     parser.add_argument("-title", "--title", default=None, type=str)
     parser.add_argument("--output_dir", default=".", type=str)
     parser.add_argument("--runs_dir", default="runs", type=str)
+    parser.add_argument(
+        "--neg",
+        action="store_true",
+        help="if true, plot negative of a list",
+    )
     parser.add_argument(
         "--phase_portrait",
         action="store_true",
@@ -341,6 +361,7 @@ if __name__ == "__main__":
                 legend2=args.legend2,
                 output_dir=args.output_dir,
                 title=args.title,
+                neg=args.neg
             )
             two_curves_combined(
                 event_files,
@@ -351,6 +372,7 @@ if __name__ == "__main__":
                 legend2=args.legend2,
                 output_dir=args.output_dir,
                 title=args.title,
+                neg=args.neg,
                 logscale=True
             )
 
