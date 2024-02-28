@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x -v
 
 STR_LOSS_ELL="loss_task/ell"
 OUT_DIR="./figures_diva"
@@ -34,25 +34,25 @@ fi
 
 
 # Phase portraits
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="loss $\gamma_d$" --legend1="$\ell$" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_gamma_d" --plot1="loss_task/ell" --legend2="\$R_{\gamma_d}(\cdot)\$" --legend1="$\ell(\cdot)$" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_mu_recon" --plot1="loss_task/ell" --legend2="reconstruction loss" --legend1="$\ell(\cdot)$" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_d" --plot1="loss_task/ell" --legend2="KL (beta_d)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_x" --plot1="loss_task/ell" --legend2="KL (beta_x)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_first_n $skip_n --output_dir=$OUT_DIR --phase_portrait
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot2="lossrd/dyn_beta_y" --plot1="loss_task/ell" --legend2="KL (beta_y)" --legend1="ell" --plot_len $phase_portrait_plot_len --skip_n_steps $skip_n --output_dir=$OUT_DIR --phase_portrait
 
 
 
 
 # Plot R and the corresponding set point curves (both in the same figure)
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_gamma_d" --plot2="lossrs/setpoint_gamma_d" --legend1="loss ($\gamma_d$)" --legend2="setpoint" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_gamma_d" --plot2="lossrs/setpoint_gamma_d" --legend1="$R_\gamma_d$" --legend2="setpoint" --output_dir=$OUT_DIR
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_mu_recon" --plot2="lossrs/setpoint_mu_recon" --legend1="reconstruction loss" --legend2="setpoint" --output_dir=$OUT_DIR
 
-python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_d" --plot2="lossrs/setpoint_beta_d" --legend1="KL (beta_d)" --legend2="setpoint" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_d" --plot2="lossrs/setpoint_beta_d" --legend1="KL (-$R_{beta_d}$)" --legend2="setpoint" --output_dir=$OUT_DIR
 
 python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="lossrd/dyn_beta_x" --plot2="lossrs/setpoint_beta_x" --legend1="KL (beta_x)" --legend2="setpoint" --output_dir=$OUT_DIR
 

@@ -17,6 +17,12 @@ plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 font = {'size': 20}
 matplotlib.rc('font', **font)
 
+
+def sav2pdfpage(fig, fname):
+    pdf_page = PdfPages(fname)
+    pdf_page.savefig(fig, bbox_inches="tight")
+    pdf_page.close()
+
 def latex_to_nonlatex(latex_string):
     nonlatex_string = re.sub(r'[{$}]', '', latex_string)
     return nonlatex_string
@@ -106,14 +112,14 @@ def phase_portrait_combined(
     legend1=None,
     legend2=None,
     plot_len=None,
-    skip_first_n=0,
+    skip_n_steps=1,
     output_dir=".",
 ):
     """
     combined phase portait for multiple (at least one) Tensorboard
     event files in the same plot
     """
-    plt.figure()
+    fig = plt.figure()
 
     for event_i in range(len(event_files)):
         x, y = get_xy_from_event_file(event_files[event_i], plot1=plot1, plot2=plot2)
@@ -122,11 +128,14 @@ def phase_portrait_combined(
         if plot_len is None:
             plot_len = len(x)
         # truncate x and y to the desired length:
-        x = x[skip_first_n:(plot_len+skip_first_n)]
-        y = y[skip_first_n:(plot_len+skip_first_n)]
+        x = x[:plot_len]
+        y = y[:plot_len]
+        # skip every n steps
+        x = x[0::skip_n_steps]
+        y = y[0::skip_n_steps]
 
         head_w_glob = min((max(x) - min(x)) / 100.0, (max(y) - min(y)) / 100.0)
-        for i in range(plot_len - 1):
+        for i in range(len(x) - 1):
             xy_dist = np.sqrt((x[i + 1] - x[i]) ** 2 + (y[i + 1] - y[i]) ** 2)
             head_l = xy_dist / 30.0
             head_w = min(head_l, head_w_glob)
@@ -176,6 +185,7 @@ def phase_portrait_combined(
     plt.savefig(fname+".png", dpi=300)
     plt.savefig(fname+".pdf", format="pdf")
     plt.savefig(fname+".svg", format="svg")
+    sav2pdfpage(fig, fname+"_pdfpage.pdf")
 
 
 def two_curves_combined(
@@ -275,7 +285,7 @@ if __name__ == "__main__":
     parser.add_argument("-legend1", "--legend1", default=None, type=str)
     parser.add_argument("-legend2", "--legend2", default=None, type=str)
     parser.add_argument("-plot_len", "--plot_len", default=None, type=int)
-    parser.add_argument("-skip_first_n", "--skip_first_n", default=None, type=int)
+    parser.add_argument("-skip_n_steps", "--skip_n_steps", default=None, type=int)
     parser.add_argument("-title", "--title", default=None, type=str)
     parser.add_argument("--output_dir", default=".", type=str)
     parser.add_argument("--runs_dir", default="runs", type=str)
@@ -315,7 +325,7 @@ if __name__ == "__main__":
             legend1=args.legend1,
             legend2=args.legend2,
             plot_len=args.plot_len,
-            skip_first_n=args.skip_first_n,
+            skip_n_steps=args.skip_n_steps,
             output_dir=args.output_dir,
         )
     else:
