@@ -139,6 +139,7 @@ def phase_portrait_combined(
             xy_dist = np.sqrt((x[i + 1] - x[i]) ** 2 + (y[i + 1] - y[i]) ** 2)
             head_l = xy_dist / 30.0
             head_w = min(head_l, head_w_glob)
+            head_w = max(head_w, head_w_glob*100/plot_len)
             plt.arrow(
                 x[i],
                 y[i],
