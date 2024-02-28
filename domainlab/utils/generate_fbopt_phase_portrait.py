@@ -134,12 +134,13 @@ def phase_portrait_combined(
         x = x[0::skip_n_steps]
         y = y[0::skip_n_steps]
 
-        head_w_glob = min((max(x) - min(x)) / 100.0, (max(y) - min(y)) / 100.0)
+        head_w_glob = min((max(x) - min(x)) / plot_len, (max(y) - min(y)) / plot_len)
+        head_w_glob *= skip_n_steps
         for i in range(len(x) - 1):
             xy_dist = np.sqrt((x[i + 1] - x[i]) ** 2 + (y[i + 1] - y[i]) ** 2)
-            head_l = xy_dist / 30.0
-            head_w = min(head_l, head_w_glob)
-            head_w = max(head_w, head_w_glob*100/plot_len)
+            head_l = xy_dist / plot_len * skip_n_steps
+            # let width be one tenth of length
+            head_w = min(head_l/10.0, head_w_glob)
             plt.arrow(
                 x[i],
                 y[i],
@@ -168,7 +169,7 @@ def phase_portrait_combined(
             legend2 = plot2
         plt.xlabel(legend1)
         plt.ylabel(legend2)
-        plt.title("phase portrait")
+        plt.title("output portrait")
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -207,12 +208,13 @@ def two_curves_combined(
     """
     fig = plt.figure()
     for event_i in range(len(event_files)):
+        x, y = get_xy_from_event_file(event_files[event_i], plot1=plot1, plot2=plot2)
         if plot_len is None:
             plot_len = len(x)
         # truncate x and y to the desired length:
         x = x[:plot_len]
         y = y[:plot_len]
-        x, y = get_xy_from_event_file(event_files[event_i], plot1=plot1, plot2=plot2)
+
         if neg:
             plt.plot(-np.array(x), color="blue")
             plt.plot(-np.array(y), color="red")
