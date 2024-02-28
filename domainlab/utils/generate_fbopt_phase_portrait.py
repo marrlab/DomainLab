@@ -135,6 +135,9 @@ def phase_portrait_combined(
         x = x[0::skip_n_steps]
         y = y[0::skip_n_steps]
 
+        x = [-ele if ele <0 else ele for ele in x ]
+        y = [-ele if ele <0 else ele for ele in y]
+
         head_w_glob = min((max(x) - min(x)) / plot_len, (max(y) - min(y)) / plot_len)
         head_w_glob *= skip_n_steps
         for i in range(len(x) - 1):
