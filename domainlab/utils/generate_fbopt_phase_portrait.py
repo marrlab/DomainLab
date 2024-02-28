@@ -190,9 +190,9 @@ def phase_portrait_combined(
 
     # save figures
     fname = os.path.join(output_dir, f"phase_portrait_{fname_legend}")
-    plt.savefig(fname+".png", dpi=300)
-    plt.savefig(fname+".pdf", format="pdf")
-    plt.savefig(fname+".svg", format="svg")
+    plt.savefig(fname+".png", dpi=300, bbox_inches="tight")
+    plt.savefig(fname+".pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(fname+".svg", format="svg", bbox_inches="tight")
     sav2pdfpage(fig, fname+"_pdfpage.pdf")
 
 
@@ -255,9 +255,9 @@ def two_curves_combined(
     # save figures
     fname_logscale = "_logscale" if logscale else ""
     fname = os.path.join(output_dir, prefix+f"{fname_legend}")
-    plt.savefig(fname+fname_logscale+".png", dpi=300)
-    plt.savefig(fname+fname_logscale+".pdf", format="pdf")
-    plt.savefig(fname+fname_logscale+".svg", format="svg")
+    plt.savefig(fname+fname_logscale+".png", dpi=300, bbox_inches="tight")
+    plt.savefig(fname+fname_logscale+".pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(fname+fname_logscale+".svg", format="svg", bbox_inches="tight")
     pdf_page = PdfPages(fname+fname_logscale+"_pdfpage.pdf")
     pdf_page.savefig(fig, bbox_inches="tight")
     pdf_page.close()
@@ -289,9 +289,9 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir=".", 
     # save figures
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.png"), dpi=300)
-    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.pdf"), format="pdf")
-    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.svg"), format="svg")
+    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.png"), dpi=300, bbox_inches="tight")
+    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.pdf"), format="pdf", bbox_inches="tight")
+    plt.savefig(os.path.join(output_dir, f"single_timecourse_{fname_legend}.svg"), format="svg", bbox_inches="tight")
     pdf_page = PdfPages(os.path.join(output_dir, f"single_timecourse_{fname_legend}_pdfpage.pdf"))
     pdf_page.savefig(fig, bbox_inches="tight")
     pdf_page.close()
