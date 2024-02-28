@@ -3,7 +3,7 @@
 STR_LOSS_ELL="loss_task/ell"
 OUT_DIR="./figures_diva"
 # Number of points to plot:
-phase_portrait_plot_len=50
+phase_portrait_plot_len=120
 
 LOSS_GAMMA_D="$\mathbb{E}_{q_{\phi_d}(z_d|x)}[\log q_{\omega_d}(d|z_d)]$"
 

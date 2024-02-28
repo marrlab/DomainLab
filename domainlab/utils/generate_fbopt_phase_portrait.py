@@ -157,11 +157,17 @@ def phase_portrait_combined(
         # more visible.
         # length_includes_head=False makes the arrow stick too far out
         # beyond of the point, which let; so, True is used.
-        colors = ["red", "green", "blue", "yellow", "purple"]
-        plt.plot(x[0], y[0], "ko")
 
-        list_color = [colors[i % len(colors)] for i, h in enumerate(x)]
-        plt.scatter(x, y, s=1, c=np.array(list_color))
+        # use finite color
+        # colors = ["red", "green", "blue", "yellow", "purple"]
+        # list_color = [colors[i % len(colors)] for i, h in enumerate(x)]
+        # use numerical color
+        colors = np.arange(0, plot_len, skip_n_steps)
+        plt.plot(x[0], y[0], "ko")
+        # plt.scatter(x, y, s=1, c=np.array(list_color))
+        # size
+        plt.scatter(x, y, s=10, c=colors, cmap='viridis')
+        plt.colorbar()
 
         if legend1 is None:
             legend1 = plot1
