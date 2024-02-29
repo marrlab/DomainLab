@@ -171,6 +171,8 @@ def phase_portrait_combined(
         # plt.scatter(x, y, s=1, c=np.array(list_color))
         # size
         plt.scatter(x, y, s=10, c=colors, cmap='viridis')
+        plt.yscale("log")
+        plt.xscale("log")
         plt.colorbar()
 
         if legend1 is None:
