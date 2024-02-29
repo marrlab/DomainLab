@@ -66,3 +66,11 @@ python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --p
  do
    python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="$val" --legend1="$val" --output_dir=$OUT_DIR
  done
+
+
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="dyn_mu/mu_recon" --legend1="\$\mu_{recon}\$" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="dyn_mu/gamma_d" --legend1="\$\gamma_d\$" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="dyn_mu/beta_y" --legend1="\$\beta_y\$" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="loss_task/ell" --legend1="\$\ell(\cdot)\$" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="loss_task/penalized" --legend1="\$\ell(\cdot)+\mu^TR(\cdot)\$" --output_dir=$OUT_DIR
+python domainlab/utils/generate_fbopt_phase_portrait.py --runs_dir $runs_dir --plot1="controller_gain/beta_y" --legend1="controller gain for \$\beta_y\$" --output_dir=$OUT_DIR

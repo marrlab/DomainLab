@@ -283,7 +283,8 @@ def plot_single_curve(event_files, colors, plot1, legend1=None, output_dir=".", 
         # truncate x and y to the desired length:
         x = x[:plot_len]
         plt.plot(x)
-        plt.xlabel("time")
+        plt.yscale("log")
+        plt.xlabel("Epoch")
         if legend1 is None:
             legend1 = plot1
         plt.ylabel(legend1)
