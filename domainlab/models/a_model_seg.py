@@ -19,12 +19,14 @@ from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.utils_seg import DiceLoss
 
-try:
-    from backpack import extend
-except:
-    backpack = None
 
-loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
+class CModelSeg(AModelSeg):
+    def __init__(self, unet):
+        self.unet = unet
+
+    def cal_task_loss(self, tensor_x, tensor_y):
+        y_hat = self.unet(tensor_x)
+        return DiceLoss(y_hat, tensor_y)
 
 
 class AModelSeg(AModel, metaclass=abc.ABCMeta):

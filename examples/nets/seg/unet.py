@@ -3,6 +3,7 @@ from .unet_parts import *
 
 
 class UNET_Feature_Extractor(nn.Module):
+    # The network is shared between unet feature extractor and the unet
     def __init__(self, net):
         self.net = net
 
@@ -14,20 +15,20 @@ class UNet(nn.Module):
     def __init__(self, n_classes, n_channels=3, bilinear=False): # 3: RGB channels
         super(UNet, self).__init__()
         self.n_channels = n_channels
-        self.n_classes = n_classes
+        self.n_classes = n_classes # in binary seg. the value is 1
         self.bilinear = bilinear
 
-        self.inc = (DoubleConv(n_channels, 64))
+        self.inc = (DoubleConv(self.n_channels, 64))
         self.down1 = (Down(64, 128))
         self.down2 = (Down(128, 256))
         self.down3 = (Down(256, 512))
-        factor = 2 if bilinear else 1
+        factor = 2 if self.bilinear else 1
         self.down4 = (Down(512, 1024 // factor))
-        self.up1 = (Up(1024, 512 // factor, bilinear))
-        self.up2 = (Up(512, 256 // factor, bilinear))
-        self.up3 = (Up(256, 128 // factor, bilinear))
-        self.up4 = (Up(128, 64, bilinear))
-        self.outc = (OutConv(64, n_classes))
+        self.up1 = (Up(1024, 512 // factor, self.bilinear))
+        self.up2 = (Up(512, 256 // factor, self.bilinear))
+        self.up3 = (Up(256, 128 // factor, self.bilinear))
+        self.up4 = (Up(128, 64, self.bilinear))
+        self.outc = (OutConv(64, self.n_classes))
 
         self.x1 = None
         self.x2 = None
@@ -76,7 +77,8 @@ def build_feat_extract_net(dim_y, remove_last_layer):
     remove the last layer or not.
     """
 
-    small_unet = UNet(dim_y)
-    unet_feature = UNET_Feature_Extractor(small_unet)
+    unet = UNet(dim_y) # dim_y: in binary seg. the value is 1
+    # the encoder part of the unet is provided as feature extractor
+    unet_encoder_part = UNET_Feature_Extractor(unet)
 
-    return small_unet, unet_feature
+    return unet, unet_encoder_part
