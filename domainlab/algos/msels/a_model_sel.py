@@ -15,7 +15,7 @@ class AMSel(metaclass=abc.ABCMeta):
         trainer and tr_observer
         """
         self.trainer = None
-        self._tr_obs = None
+        self._observer = None
         self.msel = None
         self._max_es = None
 
@@ -27,11 +27,11 @@ class AMSel(metaclass=abc.ABCMeta):
             self.msel.reset()
 
     @property
-    def tr_obs(self):
+    def observer4msel(self):
         """
         the observer from trainer
         """
-        return self._tr_obs
+        return self._observer
 
     @property
     def max_es(self):
@@ -44,15 +44,15 @@ class AMSel(metaclass=abc.ABCMeta):
             return self.msel.max_es
         return self._max_es
 
-    def accept(self, trainer, tr_obs):
+    def accept(self, trainer, observer4msel):
         """
         Visitor pattern to trainer
         accept trainer and tr_observer
         """
         self.trainer = trainer
-        self._tr_obs = tr_obs
+        self._observer = observer4msel
         if self.msel is not None:
-            self.msel.accept(trainer, tr_obs)
+            self.msel.accept(trainer, observer4msel)
 
     @abc.abstractmethod
     def update(self, clear_counter=False):

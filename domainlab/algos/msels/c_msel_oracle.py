@@ -36,9 +36,9 @@ class MSelOracleVisitor(AMSel):
         """
         self.trainer.model.save("epoch")
         flag = False
-        if self.tr_obs.metric_val is None:
+        if self.observer4msel.metric_val is None:
             return super().update(clear_counter)
-        metric = self.tr_obs.metric_te[self.tr_obs.str_metric4msel]
+        metric = self.observer4msel.metric_te[self.observer4msel.str_metric4msel]
         if metric > self.best_oracle_acc:
             self.best_oracle_acc = metric
             if self.msel is not None:
@@ -62,7 +62,7 @@ class MSelOracleVisitor(AMSel):
             return self.msel.if_stop()
         return False
 
-    def accept(self, trainer, tr_obs):
+    def accept(self, trainer, observer4msel):
         if self.msel is not None:
-            self.msel.accept(trainer, tr_obs)
-        super().accept(trainer, tr_obs)
+            self.msel.accept(trainer, observer4msel)
+        super().accept(trainer, observer4msel)
