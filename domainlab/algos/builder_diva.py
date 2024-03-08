@@ -3,7 +3,9 @@ Builder pattern to build different component for experiment with DIVA
 """
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
+from domainlab.algos.msels.c_msel_setpoint_delay import MSelSetpointDelay
 from domainlab.algos.msels.c_msel_val import MSelValPerf
+from domainlab.algos.msels.c_msel_val_top_k import MSelValPerfTopK
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.observers.c_obvisitor_cleanup import ObVisitorCleanUp
 from domainlab.algos.observers.c_obvisitor_gen import ObVisitorGen
@@ -35,7 +37,8 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         request = RequestVAEBuilderCHW(task.isize.c, task.isize.h, task.isize.w, args)
         node = VAEChainNodeGetter(request)()
         task.get_list_domains_tr_te(args.tr_d, args.te_d)
-        model = mk_diva(list_str_y=task.list_str_y)(
+        model = mk_diva(str_diva_multiplier_type=args.str_diva_multiplier_type, list_str_y=task.list_str_y)(
+
             node,
             zd_dim=args.zd_dim,
             zy_dim=args.zy_dim,
@@ -48,7 +51,9 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
             beta_d=args.beta_d,
         )
         device = get_device(args)
-        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+        model_sel = MSelSetpointDelay(
+            MSelOracleVisitor(MSelValPerfTopK(max_es=args.es))
+        )
         if not args.gen:
             observer = ObVisitor(model_sel)
         else:

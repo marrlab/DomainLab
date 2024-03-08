@@ -76,6 +76,20 @@ def mk_jigen(parent_class=AModelClassif, **kwargs):
             self.n_perm = n_perm
             self.prob_perm = prob_permutation
 
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers which match the order in cal_reg_loss
+            """
+            return ["alpha"]
+
+        @property
+        def dict_multiplier(self):
+            """
+            dictionary of multipliers
+            """
+            return {"alpha": self.alpha}
+
         def dset_decoration_args_algo(self, args, ddset):
             """
             JiGen need to shuffle the tiles of the original image

@@ -57,9 +57,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.observer = None
         self.device = None
         self.aconf = None
+        self.gamma_reg = None
         #
         self.dict_loader_tr = None
         self.loader_tr = None
+        self.loader_tr_no_drop = None
         self.loader_te = None
         self.num_batches = None
         self.flag_update_hyper_per_epoch = None
@@ -84,6 +86,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.inner_trainer = None
         self.loader_tr_source_target = None
         self.flag_initialized = False
+        # fbopt
+        self.mu_iter_start = 0
+        self.flag_setpoint_updated = False
 
     @property
     def model(self):
@@ -134,9 +139,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.observer = observer
         self.device = device
         self.aconf = aconf
+        self.gamma_reg = self.aconf.gamma_reg
         #
         self.dict_loader_tr = task.dict_loader_tr
         self.loader_tr = task.loader_tr
+        self.loader_tr_no_drop = task._loader_tr_no_drop
         self.loader_te = task.loader_te
 
         if flag_accept:
@@ -220,6 +227,15 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if "trainer" not in str(type(self._model)).lower():
             return self._model
         return self._model.get_model()
+
+    def as_model(self):
+        """
+        used for decorator pattern
+
+        It is not necessary to write any function that just copies the pattern
+        self.get_model().do_something()
+        """
+        return self.get_model()
 
     def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """

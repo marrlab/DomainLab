@@ -7,6 +7,7 @@ import warnings
 import yaml
 
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
+from domainlab.algos.trainers.args_fbopt import add_args2parser_fbopt
 from domainlab.algos.trainers.compos.matchdg_args import add_args2parser_matchdg
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
@@ -209,7 +210,6 @@ def mk_parser_main():
         "using --gen_plots. "
         "Default is zoutput/benchmarks/shell_benchmark",
     )
-
     parser.add_argument(
         "--param_idx",
         type=bool,
@@ -223,11 +223,18 @@ def mk_parser_main():
 
     parser.add_argument(
         "--msel",
-        choices=["val", "loss_tr"],
+        choices=["val", "loss_tr", "last"],
         default="val",
         help="model selection for early stop: val, loss_tr, recon, the \
                         elbo and recon only make sense for vae models,\
                         will be ignored by other methods",
+    )
+
+    parser.add_argument(
+        "--msel_tr_loss",
+        choices=["reg", "task"],
+        default="task",
+        help="model selection for tr loss",
     )
 
     parser.add_argument(
@@ -304,6 +311,8 @@ def mk_parser_main():
     arg_group_jigen = add_args2parser_jigen(arg_group_jigen)
     args_group_dial = parser.add_argument_group("dial")
     args_group_dial = add_args2parser_dial(args_group_dial)
+    args_group_fbopt = parser.add_argument_group("fbopt")
+    args_group_fbopt = add_args2parser_fbopt(args_group_fbopt)
     return parser
 
 

@@ -40,9 +40,38 @@ For development version in Github, see [Installation and Dependencies handling](
 
 We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it.
 
+
+#### Guide for Helmholtz GPU cluster
+```
+conda create --name domainlab_py39 python=3.9
+conda activate domainlab_py39
+conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.6 -c pytorch -c conda-forge
+conda install torchmetrics==0.10.3
+git checkout fbopt
+pip install -r requirements_notorch.txt
+conda install tensorboard
+```
+
+#### Download PACS
+
+step 1:
+
+use the following script to download PACS to your local laptop and upload it to your cluster
+
+https://github.com/marrlab/DomainLab/blob/fbopt/data/script/download_pacs.py
+
+step 2:
+make a symbolic link following the example script in https://github.com/marrlab/DomainLab/blob/master/sh_pacs.sh
+
+where `mkdir -p data/pacs` is executed under the repository directory,
+
+`ln -s /dir/to/yourdata/pacs/raw  ./data/pacs/PACS`
+will create a symbolic link under the repository directory
+
 ### Task specification
 We offer various ways for the user to specify a scenario to evaluate the generalization performance via training on a limited number of datasets. See detail in
 [Task Specification](./docs/doc_tasks.md) 
+
 
 ### Example and usage
 

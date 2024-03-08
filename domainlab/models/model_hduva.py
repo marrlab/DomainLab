@@ -70,8 +70,9 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             self.beta_y = dict_rst["beta_y"]
             self.beta_x = dict_rst["beta_x"]
             self.beta_t = dict_rst["beta_t"]
+            self.mu_recon = dict_rst["mu_recon"]
 
-        def hyper_init(self, functor_scheduler):
+        def hyper_init(self, functor_scheduler, trainer=None):
             """hyper_init.
             :param functor_scheduler:
             """
@@ -79,7 +80,8 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             # class build a dictionary {"beta_d":self.beta_d, "beta_y":self.beta_y}
             # constructor signature is def __init__(self, **kwargs):
             return functor_scheduler(
-                trainer=None,
+                trainer=trainer,
+                mu_recon=self.mu_recon,
                 beta_d=self.beta_d,
                 beta_y=self.beta_y,
                 beta_x=self.beta_x,
@@ -101,10 +103,11 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             device,
             zx_dim=0,
             topic_dim=3,
-            multiplier_recon=1.0):
+            mu_recon=1.0,
+        ):
+            # pylint: disable=too-many-arguments, unused-argument
             """ """
             super().__init__(chain_node_builder, zd_dim, zy_dim, zx_dim, **kwargs)
-
             # topic to zd follows Gaussian distribution
             self.add_module(
                 "net_p_zd",
@@ -197,13 +200,27 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
                 zy_p_minus_zy_q,
                 zd_p_minus_q,
                 topic_p_minus_q,
-            ], [
-                self.multiplier_recon,
-                -self.beta_x,
-                -self.beta_y,
-                -self.beta_d,
-                -self.beta_t,
-            ]
+            ], [self.mu_recon, -self.beta_x, -self.beta_y, -self.beta_d, -self.beta_t]
+
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers name which matches the order from cal_reg_loss
+            """
+            return ["mu_recon", "beta_x", "beta_y", "beta_d", "beta_t"]
+
+        @property
+        def dict_multiplier(self):
+            """
+            dictionary of multipliers name
+            """
+            return {
+                "mu_recon": self.mu_recon,
+                "beta_d": self.beta_d,
+                "beta_x": self.beta_x,
+                "beta_y": self.beta_y,
+                "beta_t": self.beta_t,
+            }
 
         def extract_semantic_feat(self, tensor_x):
             """

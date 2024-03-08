@@ -36,15 +36,15 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = [0.0 for _ in range(10)]
         self.epo_task_loss_tr = 0
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         self.before_epoch()
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
             self.tr_batch(tensor_x, tensor_y, tensor_d, others, ind_batch, epoch)
-        return self.after_epoch(epoch)
+        return self.after_epoch(epoch, flag_info)
 
-    def after_epoch(self, epoch):
+    def after_epoch(self, epoch, flag_info):
         """
         observer collect information
         """
@@ -53,7 +53,7 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = list_divide(self.epo_reg_loss_tr, self.counter_batch)
         assert self.epo_loss_tr is not None
         assert not math.isnan(self.epo_loss_tr)
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         assert flag_stop is not None
         return flag_stop
 
