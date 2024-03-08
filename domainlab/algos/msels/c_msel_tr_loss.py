@@ -1,5 +1,5 @@
 """
-Model Selection should be decoupled from
+AMSel.accept ---> Trainer
 """
 import math
 

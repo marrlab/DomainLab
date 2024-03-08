@@ -57,5 +57,5 @@ class MSelValPerfTopK(MSelValPerf):
                     f"{self._sel_model_te_acc} to {metric_te_current} to ensure consistency"
                 )
             self._sel_model_te_acc = metric_te_current
-            return True
+            return True # if metric_val_current > acc_min:
         return flag_super
