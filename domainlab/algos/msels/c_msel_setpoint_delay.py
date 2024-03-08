@@ -1,16 +1,14 @@
 """
-Multiobjective Model Selection
+logs the best up-to-event selected model at each event when setpoint shrinks
 """
-import copy
-
 from domainlab.algos.msels.a_model_sel import AMSel
 from domainlab.utils.logger import Logger
 
 
 class MSelSetpointDelay(AMSel):
     """
-    1. Model selection using validation performance
-    2. Only update if setpoint has been decreased
+    This class decorate another model selection object, it logs the current
+    selected performance from the decoratee each time the setpoint shrinks
     """
 
     def __init__(self, msel):
@@ -51,5 +49,6 @@ class MSelSetpointDelay(AMSel):
             )
             logger.info(log_message)
             self._oracle_last_setpoint_sel_te_acc = self.sel_model_te_acc
+        # let decoratee decide if model should be selected or not
         flag = self.msel.update(clear_counter)
         return flag
