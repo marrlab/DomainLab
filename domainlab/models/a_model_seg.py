@@ -20,7 +20,7 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 from domainlab.utils.utils_seg import DiceLoss
 
 
-class CModelSeg(AModelSeg):
+class ModelSeg(AModelSeg):
     def __init__(self, unet):
         self.unet = unet
 

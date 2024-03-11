@@ -36,7 +36,7 @@ class ToySegmentationDataset(Dataset):
         return self.images[idx], self.masks[idx]
 
 
-task = mk_task_dset(isize=ImSize(3, 64, 64), dim_y=10, taskna="custom_task")
+task = mk_task_dset(isize=ImSize(1, 64, 64), dim_y=2, taskna="custom_task") # FIXME: remove dim_y
 task.add_domain(
     name="domain1",
     dset_tr=ToySegmentationDataset(10),
