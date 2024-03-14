@@ -75,9 +75,14 @@ We offer various ways for the user to specify a scenario to evaluate the general
 
 ### Example and usage
 
-#### Either clone this repo and use command line
+#### Command line
+
+`domainlab -c ./examples/conf/vlcs_diva_mldg_dial.yaml` (if you install via pip)
+
+or if you clone this the code repository for DomainLab
 
 `python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml`
+
 where the configuration file below can be downloaded [here](https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml)
 ```
 te_d: caltech                       # domain name of test domain
