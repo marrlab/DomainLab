@@ -58,4 +58,4 @@ class MSelValPerfTopK(MSelValPerf):
                 )
             self._sel_model_te_acc = metric_te_current
             return True # if metric_val_current > acc_min:
-        return flag_super
+        return flag_super # flag_super is flag from super()=MSelValPerf
