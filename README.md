@@ -12,7 +12,7 @@ pip install -r requirements_notorch.txt
 conda install tensorboard # install tensorboard
 ```
 
-#### Data preparation: download PACS
+#### Data preparation: download the domain generalization dataset PACS
 
 step 1:
 
