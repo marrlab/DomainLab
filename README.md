@@ -1,5 +1,5 @@
 # M-HOF-Opt: Multi-Objective Hierarchical Output Feedback Optimization via Multiplier Induced Loss Landscape Scheduling
-M-HOF-Opt is implemented in [DomainLab](https://github.com/marrlab/DomainLab).
+M-HOF-Opt is implemented in [DomainLab](https://github.com/marrlab/DomainLab). If you meet any problems, feel free to report them at https://github.com/marrlab/DomainLab/issues
 
 #### Example dependencies installation
 ```
