@@ -1,4 +1,40 @@
 # M-HOF-Opt: Multi-Objective Hierarchical Output Feedback Optimization via Multiplier Induced Loss Landscape Scheduling
+When a neural network parameterized loss con-
+sists of many terms, the combinatorial choice
+of weight multipliers during the optimization
+process forms a challenging problem. To ad-
+dress this, we proposed a probabilistic graphi-
+cal model (PGM) for the joint model param-
+eter and multiplier evolution process, with a
+hypervolume based likelihood that promotes
+multi-objective descent of each loss term. The
+corresponding parameter and multiplier esti-
+mation as a sequential decision process is then
+cast into an optimal control problem, where
+the multi-objective descent goal is dispatched
+hierarchically into a series of constraint opti-
+mization sub-problems. The subproblem con-
+straint automatically adapts itself according
+to Pareto dominance and serves as the set-
+point for the low level multiplier controller to
+schedule loss landscapes via output feedback of
+each loss term. Our method is multiplier-free
+and operates at the timescale of epochs, thus
+saves dramatic computational resources com-
+pared to full training cycle multiplier tuning.
+We applied it to domain invariant variational
+auto-encoding with 6 loss terms on the PACS
+domain generalization task, and observed ro-
+bust performance across a range of controller
+hyperparameters, as well as different multiplier
+initial conditions, outperforming other multi-
+plier scheduling methods. We offered modular
+implementation of our method a admitting cus-
+tom definition of many loss terms for applying
+our multi-objective hierarchical output feed-
+back training scheme to other deep learning
+fields.
+
 M-HOF-Opt is implemented in [DomainLab](https://github.com/marrlab/DomainLab). If you meet any problems, feel free to report them at https://github.com/marrlab/DomainLab/issues
 
 ## Dependencies and Data Preparation
