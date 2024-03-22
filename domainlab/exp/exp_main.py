@@ -10,7 +10,6 @@ from domainlab.exp.exp_utils import AggWriter
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
 from domainlab.utils.logger import Logger
 from domainlab.utils.sanity_check import SanityCheck
-
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"  # debug
 
 
@@ -96,6 +95,7 @@ class Exp:
             f"Experiment finished at epoch: {self.epoch_counter} "
             f"with time: {t_c - t_0} at {t_c}"
         )
+        self.experiment_duration = t_c - t_0
         self.trainer.post_tr()
 
     def clean_up(self):
