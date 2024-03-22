@@ -179,7 +179,7 @@ class AggWriter(ExpModelPersistVisitor):
         confmat_filename = dict_cols.get("mname", None)  # return None if not found
         # @FIXME: strong dependency on host attribute name
         dict_cols.update({epos_name: self.host.epoch_counter})
-        if hasattr(self.host, "experiment_duration"): 
+        if self.host.experiment_duration is not None: 
             dict_cols.update({"experiment_duration": self.host.experiment_duration})
         else: 
             print("Does not have attribute")

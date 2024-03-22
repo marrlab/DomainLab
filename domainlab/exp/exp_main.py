@@ -56,6 +56,7 @@ class Exp:
             self.trainer.init_business(self.model, self.task, observer, device, args)
         self.visitor = visitor(self)  # visitor depends on task initialization first
         # visitor must be initialized last after trainer is initialized
+        self.experiment_duration = None
         self.model.set_saver(self.visitor)
 
     def execute(self, num_epochs=None):
