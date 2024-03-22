@@ -39,13 +39,13 @@ class MSelValPerf(MSelTrLoss):
         """
         return self._best_te_metric
 
-    def update(self, clear_counter=False):
+    def _update(self, clear_counter=False):
         """
         if the best model should be updated
         """
         flag = True
         if self.observer4msel.metric_val is None:
-            return super().update(clear_counter)
+            return super()._update(clear_counter)
         metric = self.observer4msel.metric_val[self.observer4msel.str_metric4msel]
         if self.observer4msel.metric_te is not None:
             metric_te_current = self.observer4msel.metric_te[self.observer4msel.str_metric4msel]

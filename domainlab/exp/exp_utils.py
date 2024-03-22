@@ -169,6 +169,7 @@ class AggWriter(ExpModelPersistVisitor):
             # algorithm configuration for instance
             "mname": "mname_" + self.model_name,
             "commit": "commit_" + self.git_tag,
+            "model_selection_epoch" : None
         }
         return dict_cols, epos_name
 

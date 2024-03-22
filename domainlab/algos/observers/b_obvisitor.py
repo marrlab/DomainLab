@@ -53,7 +53,7 @@ class ObVisitor(AObVisitor):
                     self.loader_te, self.device
                 )
                 self.metric_te = metric_te
-        if self.model_sel.update():
+        if self.model_sel.update(epoch):
             logger.info("better model found")
             self.host_trainer.model.save()
             logger.info("persisted")
@@ -102,8 +102,10 @@ class ObVisitor(AObVisitor):
             metric_te.update({"acc_oracle": -1})
         if hasattr(self, "model_sel"):
             metric_te.update({"acc_val": self.model_sel.best_val_acc})
+            metric_te.update({"model_selection_epoch": self.model_sel.model_selection_epoch})
         else:
             metric_te.update({"acc_val": -1})
+            metric_te.update({"model_selection_epoch": -1})
         self.dump_prediction(model_ld, metric_te)
         # save metric to one line in csv result file
         self.host_trainer.model.visitor(metric_te)
