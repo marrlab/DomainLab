@@ -66,7 +66,7 @@ def mk_exp(
             model_sel.msel._best_val_acc = 1.0
     observer = ObVisitor(model_sel)
     exp = Exp(conf, task, model=model, observer=observer)
-    model_sel.update(clear_counter=True)
+    model_sel.update(epoch=1, clear_counter=True)
     return exp
 
 
