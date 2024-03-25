@@ -96,6 +96,8 @@ For example,  the following result (without any augmentation like flip) is for P
 
 ### Citation
 
+Source: https://arxiv.org/pdf/2403.14356.pdf
+
 ```bibtex
 @misc{sun2024domainlab,
   title={DomainLab: A modular Python package for domain generalization in deep learning},
