@@ -61,13 +61,13 @@ class AMSel(metaclass=abc.ABCMeta):
         level above the observer + visitor pattern to get information about the epoch
         """
         update = self.base_update(clear_counter)
-        if update: 
+        if update:
             self._model_selection_epoch = epoch
 
         return update
 
     @abc.abstractmethod
-    def base_update(self, clear_counter=False): 
+    def base_update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
         if the best model should be updated
@@ -87,7 +87,7 @@ class AMSel(metaclass=abc.ABCMeta):
             if self._val_threshold is not None and acc_val < self._val_threshold:
                 return False
         return self.early_stop()
-    
+
     def early_stop(self):
         """
         check if trainer should stop
@@ -135,5 +135,8 @@ class AMSel(metaclass=abc.ABCMeta):
     
     @property
     def val_threshold(self):
+        """
+        the treshold below which we don't stop early
+        """
         return self._val_threshold
     

@@ -247,7 +247,7 @@ def mk_parser_main():
     parser.add_argument(
         "--val_threshold",
         type=float,
-        default=None, 
+        default=None,
         help="Accuracy threshold before early stopping can be applied"
     )
 
