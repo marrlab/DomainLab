@@ -28,7 +28,7 @@ class MSelTrLoss(AMSel):
     def max_es(self):
         return self._max_es
 
-    def update(self, clear_counter=False):
+    def base_update(self, clear_counter=False):
         """
         if the best model should be updated
         """

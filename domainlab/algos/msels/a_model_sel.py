@@ -18,6 +18,7 @@ class AMSel(metaclass=abc.ABCMeta):
         self._observer = None
         self.msel = None
         self._max_es = None
+        self._model_selection_epoch = None
 
     def reset(self):
         """
@@ -54,8 +55,18 @@ class AMSel(metaclass=abc.ABCMeta):
         if self.msel is not None:
             self.msel.accept(trainer, observer4msel)
 
+    def update(self, epoch, clear_counter=False):
+        """
+        level above the observer + visitor pattern to get information about the epoch
+        """
+        update = self.base_update(clear_counter)
+        if update:
+            self._model_selection_epoch = epoch
+
+        return update
+
     @abc.abstractmethod
-    def update(self, clear_counter=False):
+    def base_update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
         if the best model should be updated
@@ -100,4 +111,13 @@ class AMSel(metaclass=abc.ABCMeta):
         """
         if self.msel is not None:
             return self.msel.sel_model_te_acc
+        return -1
+
+    @property
+    def model_selection_epoch(self):
+        """
+        the epoch when the model was selected
+        """
+        if self._model_selection_epoch is not None:
+            return self._model_selection_epoch
         return -1
