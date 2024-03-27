@@ -244,6 +244,13 @@ def mk_parser_main():
 
     parser.add_argument("--task", metavar="ta", type=str, help="task name")
 
+    parser.add_argument(
+        "--val_threshold",
+        type=float,
+        default=None,
+        help="Accuracy threshold before early stopping can be applied"
+    )
+
     arg_group_task = parser.add_argument_group("task args")
 
     arg_group_task.add_argument(

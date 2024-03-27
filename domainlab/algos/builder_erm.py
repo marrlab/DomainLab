@@ -24,7 +24,7 @@ class NodeAlgoBuilderERM(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+        model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es), val_threshold=args.val_threshold)
         observer = ObVisitor(model_sel)
 
         builder = FeatExtractNNBuilderChainNodeGetter(
