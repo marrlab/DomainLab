@@ -60,13 +60,13 @@ class AMSel(metaclass=abc.ABCMeta):
         level above the observer + visitor pattern to get information about the epoch
         """
         update = self.base_update(clear_counter)
-        if update: 
+        if update:
             self._model_selection_epoch = epoch
 
         return update
 
     @abc.abstractmethod
-    def base_update(self, clear_counter=False): 
+    def base_update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
         if the best model should be updated
@@ -112,7 +112,7 @@ class AMSel(metaclass=abc.ABCMeta):
         if self.msel is not None:
             return self.msel.sel_model_te_acc
         return -1
-    
+
     @property
     def model_selection_epoch(self):
         """
