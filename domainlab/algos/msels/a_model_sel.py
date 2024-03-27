@@ -123,7 +123,7 @@ class AMSel(metaclass=abc.ABCMeta):
         if self.msel is not None:
             return self.msel.sel_model_te_acc
         return -1
-    
+
     @property
     def model_selection_epoch(self):
         """
