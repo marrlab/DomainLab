@@ -11,11 +11,11 @@ class MSelOracleVisitor(AMSel):
     how the final model is selected
     """
 
-    def __init__(self, msel=None):
+    def __init__(self, msel=None, val_threshold = None):
         """
         Decorator pattern
         """
-        super().__init__()
+        super().__init__(val_threshold)
         self.best_oracle_acc = 0
         self.msel = msel
 
@@ -52,14 +52,14 @@ class MSelOracleVisitor(AMSel):
             return self.msel.base_update(clear_counter)
         return flag
 
-    def if_stop(self):
+    def early_stop(self):
         """
         if should early stop
         oracle model selection does not intervene how models get selected
         by the innermost model selection
         """
         if self.msel is not None:
-            return self.msel.if_stop()
+            return self.msel.early_stop()
         return False
 
     def accept(self, trainer, observer4msel):

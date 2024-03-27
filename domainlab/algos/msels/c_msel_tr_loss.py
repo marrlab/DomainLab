@@ -13,8 +13,8 @@ class MSelTrLoss(AMSel):
     2. Visitor pattern to trainer
     """
 
-    def __init__(self, max_es):
-        super().__init__()
+    def __init__(self, max_es, val_threshold = None):
+        super().__init__(val_threshold)
         # NOTE: super() must come first otherwise it will overwrite existing
         # values!
         self.reset()
@@ -50,7 +50,7 @@ class MSelTrLoss(AMSel):
                 self.es_c = 0
         return flag
 
-    def if_stop(self):
+    def early_stop(self):
         """
         if should early stop
         """

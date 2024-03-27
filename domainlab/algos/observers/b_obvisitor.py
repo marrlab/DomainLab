@@ -57,7 +57,7 @@ class ObVisitor(AObVisitor):
             logger.info("better model found")
             self.host_trainer.model.save()
             logger.info("persisted")
-        flag_stop = self.model_sel.if_stop()
+        flag_stop = self.model_sel.if_stop(self.metric_val["acc"])
         flag_enough = epoch >= self.host_trainer.aconf.epos_min
         return flag_stop & flag_enough
 

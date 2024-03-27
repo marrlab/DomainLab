@@ -50,6 +50,7 @@ class Exp:
             self.model = model
         self.epochs = self.args.epos
         self.epoch_counter = 1
+        self.val_threshold = args.val_threshold 
         if observer is None:
             observer = observer_default
         if not self.trainer.flag_initialized:

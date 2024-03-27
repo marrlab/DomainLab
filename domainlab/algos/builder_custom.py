@@ -104,7 +104,7 @@ def make_basic_trainer(class_name_model):
             task = exp.task
             args = exp.args
             device = get_device(args)
-            model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+            model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es), val_threshold=args.val_threshold)
             observer = ObVisitor(model_sel)
             model = class_name_model(net_classifier=None, list_str_y=task.list_str_y)
             model = self.init_next_model(model, exp)
