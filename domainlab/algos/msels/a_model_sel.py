@@ -132,7 +132,7 @@ class AMSel(metaclass=abc.ABCMeta):
         if self._model_selection_epoch is not None:
             return self._model_selection_epoch
         return -1
-  
+
     @property
     def val_threshold(self):
         """
