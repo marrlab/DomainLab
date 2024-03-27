@@ -94,15 +94,15 @@ For example,  the following result (without any augmentation like flip) is for P
 </div>
 
 
-### Temporary citation
+### Citation
+
+Source: https://arxiv.org/pdf/2403.14356.pdf
 
 ```bibtex
-@manual{domainlab,
-  title={{DomainLab: modular python package for training domain invariant neural networks}},
-  author={{Xudong Sun, et.al.}},
-  organization={{Institute of AI for Health}},
-  year={2023},
-  url={https://github.com/marrlab/DomainLab},
-  note={temporary citation for domainlab}
+@misc{sun2024domainlab,
+  title={DomainLab: A modular Python package for domain generalization in deep learning},
+  author={Sun, Xudong and Feistner, Carla and Gossmann, Alexej and Schwarz, George and Umer, Rao Muhammad and Beer, Lisa and Rockenschaub, Patrick and Shrestha, Rahul Babu and Gruber, Armin and Chen, Nutan and others},
+  journal={https://arxiv.org/pdf/2403.14356.pdf},
+  year={2024}
 }
 ```
