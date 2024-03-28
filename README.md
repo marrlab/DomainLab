@@ -45,6 +45,19 @@ We offer various ways for the user to specify a scenario to evaluate the general
 [Task Specification](./docs/doc_tasks.md) 
 
 ### Example and usage
+#### Available arguments
+
+The following command tells which arguments/hyperparameters/multipliers are available to be set by the user and which model they are associated with
+
+```shell
+python main_out.py --help
+```
+
+or 
+
+```shell
+domainlab --help
+```
 
 #### Command line
 
