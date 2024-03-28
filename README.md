@@ -55,7 +55,7 @@ python main_out.py --help
 
 or 
 
-```shell
+```
 domainlab --help
 ```
 
