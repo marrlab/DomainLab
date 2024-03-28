@@ -82,7 +82,7 @@ One could simply run
 `bash run_benchmark_slurm.sh your_benchmark_configuration.yaml` to launch different experiments with specified configuraiton.
 
 
-For example,  the following result (without any augmentation like flip) is for PACS dataset using ResNet. 
+For example,  the following result (without any augmentation like flip) is for PACS dataset using ResNet. The reader should note that using different neural network, whether pre-trained or not, what kind of preprocessinga and augmentation to use can lead to very different result distributions, which is one of the features DomainLab provide: the above factors get decoupled in DomainLab. 
 
 <div style="align: center; text-align:center;">
 <figure>  
