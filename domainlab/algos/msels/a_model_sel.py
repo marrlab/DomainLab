@@ -139,4 +139,3 @@ class AMSel(metaclass=abc.ABCMeta):
         the treshold below which we don't stop early
         """
         return self._val_threshold
-    
