@@ -10,7 +10,7 @@ class AMSel(metaclass=abc.ABCMeta):
     Abstract Model Selection
     """
 
-    def __init__(self):
+    def __init__(self, val_threshold = None):
         """
         trainer and tr_observer
         """
@@ -19,6 +19,7 @@ class AMSel(metaclass=abc.ABCMeta):
         self.msel = None
         self._max_es = None
         self._model_selection_epoch = None
+        self._val_threshold = val_threshold
 
     def reset(self):
         """
@@ -73,9 +74,9 @@ class AMSel(metaclass=abc.ABCMeta):
         return boolean
         """
 
-    def if_stop(self):
+    def if_stop(self, acc_val):
         """
-        check if trainer should stop
+        check if trainer should stop and additionally tests for validation threshold
         return boolean
         """
         # NOTE: since if_stop is not abstract, one has to
@@ -83,7 +84,17 @@ class AMSel(metaclass=abc.ABCMeta):
         # only if the child class has a decorator which will
         # dispatched.
         if self.msel is not None:
-            return self.msel.if_stop()
+            if self._val_threshold is not None and acc_val < self._val_threshold:
+                return False
+        return self.early_stop()
+
+    def early_stop(self):
+        """
+        check if trainer should stop
+        return boolean
+        """
+        if self.msel is not None:
+            return self.msel.early_stop()
         raise NotImplementedError
 
     @property
@@ -121,3 +132,10 @@ class AMSel(metaclass=abc.ABCMeta):
         if self._model_selection_epoch is not None:
             return self._model_selection_epoch
         return -1
+
+    @property
+    def val_threshold(self):
+        """
+        the treshold below which we don't stop early
+        """
+        return self._val_threshold

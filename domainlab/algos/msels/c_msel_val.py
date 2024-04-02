@@ -11,8 +11,8 @@ class MSelValPerf(MSelTrLoss):
     2. Visitor pattern to trainer
     """
 
-    def __init__(self, max_es):
-        super().__init__(max_es)  # construct self.observer4msel (observer)
+    def __init__(self, max_es, val_threshold = None):
+        super().__init__(max_es, val_threshold)  # construct self.observer4msel (observer)
         self.reset()
 
     def reset(self):
