@@ -9,7 +9,7 @@ To run DomainLab, the minimum necessary parameters are:
 
 1. **Task Specification (```--tpath``` or ```--task```):** This is to specify a task. You can eiter give a path to as Python file which specifies the task, or use a predfined set. You can find more about specifying tasks [here](./doc_tasks.md). 
 2. **Test Domain (```--te_d```):** Specifies the domain(s) used for testing. Can be a single domain or multiple domains.
-3. **Model Selection (```--model```):** Chooses the algorithm or model for the training (e.g., erm, diva). This also includes hyperparameters for the model, e.g., ```--gamma_d``` and ```--gamma_y``` for diva.
+3. **Model Choice (```--model```):** Chooses the algorithm or model for the training (e.g., erm, diva). This also includes hyperparameters for the model, e.g., ```--gamma_d``` and ```--gamma_y``` for diva.
 4. **Neural Network (```--nname``` or ```--npath```):** Specifies which neural network is used for feature extraction, either through a path or predefined options. 
 
 ### Example Command
