@@ -20,6 +20,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         self.list_d_tr = None
         self.visitor = None
         self._net_invar_feat = None
+        self.id = str(id(self)) + "_model"
 
     def extend(self, model):
         """
