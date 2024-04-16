@@ -20,7 +20,6 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         self.list_d_tr = None
         self.visitor = None
         self._net_invar_feat = None
-        self.id = str(id(self)) + "_model"
 
     def extend(self, model):
         """
@@ -179,3 +178,27 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         if self._decoratee is not None:
             return self._decoratee.dset_decoration_args_algo(args, ddset)
         return ddset
+    
+    @property
+    def p_na_prefix(self):
+        """
+        common prefix for Models
+        """
+        return "Model"
+
+    @property
+    def name(self):
+        """
+        get the name of the algorithm
+        """
+        na_prefix = self.p_na_prefix
+        len_prefix = len(na_prefix)
+        na_class = type(self).__name__
+        if na_class[:len_prefix] != na_prefix:
+            raise RuntimeError(
+                "Trainer builder node class must start with ",
+                na_prefix,
+                "the current class is named: ",
+                na_class,
+            )
+        return type(self).__name__[len_prefix:].lower()

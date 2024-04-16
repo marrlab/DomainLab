@@ -85,14 +85,14 @@ def mk_dann(parent_class=AModelClassif, **kwargs):
             dict_rst = fun_scheduler(
                 epoch
             )  # the __call__ method of hyperparameter scheduler
-            self.alpha = dict_rst[self.id + "_alpha"]
+            self.alpha = dict_rst[self.name + "_alpha"]
 
         def hyper_init(self, functor_scheduler):
             """hyper_init.
             :param functor_scheduler:
             """
             parameters = {}
-            parameters[self.id + "_alpha"] = self.alpha
+            parameters[self.name + "_alpha"] = self.alpha
             return functor_scheduler(trainer=None, **parameters)
 
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
