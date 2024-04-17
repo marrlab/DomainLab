@@ -75,7 +75,7 @@ TASK = mk_task_folder(
         },
         "mll": {
             "basophil": "basophil",
-            "erythroblast": "nomoblast",
+            "erythroblast": "normoblast",
             "metamyelocyte": "metamyelocyte",
             "myeloblast": "myeloblast",
             "neutrophil_band": "neutrophil_band",
