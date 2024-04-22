@@ -18,7 +18,7 @@ def test_run_experiment():
     config["startseed"] = 1
     config["endseed"] = 1
     config["test_domains"] = ["caltech"]
-    param_file = "data/ztest_files/test_parameter_samples.csv"
+    param_file = "domainlab/zdata/ztest_files/test_parameter_samples.csv"
     param_index = 0
     out_file = "zoutput/benchmarks/demo_benchmark/rule_results/0.csv"
 
@@ -41,7 +41,7 @@ def test_run_experiment_parameter_doubling_error():
     config["endseed"] = 1
     config["test_domains"] = ["caltech"]
     config["diva"]["gamma_y"] = 1e4
-    param_file = "data/ztest_files/test_parameter_samples.csv"
+    param_file = "domainlab/zdata/ztest_files/test_parameter_samples.csv"
     param_index = 0
     out_file = "zoutput/benchmarks/demo_benchmark/rule_results/0.csv"
 
@@ -58,7 +58,7 @@ def test_run_experiment_parameter_doubling_error():
     config["endseed"] = 1
     config["test_domains"] = ["caltech"]
     config["domainlab_args"]["gamma_y"] = 1e4
-    param_file = "data/ztest_files/test_parameter_samples.csv"
+    param_file = "domainlab/zdata/ztest_files/test_parameter_samples.csv"
     param_index = 0
     out_file = "zoutput/benchmarks/demo_benchmark/rule_results/0.csv"
 

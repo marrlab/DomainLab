@@ -52,9 +52,9 @@ chain = mk_task_folder(
     ),
     isize=ImSize(3, 224, 224),
     dict_domain2imgroot={
-        "caltech": os.path.join(path_this_file, "../../data/vlcs_mini/caltech/"),
-        "sun": os.path.join(path_this_file, "../../data/vlcs_mini/sun/"),
-        "labelme": os.path.join(path_this_file, "../../data/vlcs_mini/labelme/"),
+        "caltech": os.path.join(path_this_file, "../zdata/vlcs_mini/caltech/"),
+        "sun": os.path.join(path_this_file, "../zdata/vlcs_mini/sun/"),
+        "labelme": os.path.join(path_this_file, "../zdata/vlcs_mini/labelme/"),
     },
     taskna="e_mini_vlcs",
 )
