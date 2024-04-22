@@ -202,3 +202,10 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
                 na_class,
             )
         return type(self).__name__[len_prefix:].lower()
+    
+    def print_parameters(self):
+        """
+        Function to print all parameters of the object. Can also be used to print the parameters of the child classes
+        """
+        params = vars(self)
+        print(f"Parameters of {type(self).__name__}: {params}")
