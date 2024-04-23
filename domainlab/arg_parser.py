@@ -13,6 +13,8 @@ from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.utils.logger import Logger
 
 class StoreDictKeyPair(argparse.Action):
+    """Class used for arg parsing where values are provided in a key value format"""
+
     def __call__(self, parser, namespace, values, option_string=None):
         try:
             if "=" in values:
