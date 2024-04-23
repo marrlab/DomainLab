@@ -14,9 +14,7 @@ def get_gamma_reg(args, model_name):
             return gamma_reg[model_name]
         if 'default' in gamma_reg:
             return gamma_reg['default']
-        else:
-            raise ValueError("""If a gamma_reg dict is specified, 
-                             but no value set for every model and trainer,
+        raise ValueError("""If a gamma_reg dict is specified,
+                              but no value set for every model and trainer,
                               a default value must be specified.""")
-    else: 
-        return gamma_reg  # Return the single value if it's not a dictionary
+    return gamma_reg  # Return the single value if it's not a dictionary
