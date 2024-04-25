@@ -104,7 +104,7 @@ python main_out.py --help
 ```
 
 ## Example
-DomainLab comes with some minimal toy-dataset to test its basis functionality, see [a minimal subsample of the VLCS dataset](../data/vlcs_mini) and [an example configuration file for vlcs_mini](../examples/tasks/task_vlcs.py).
+DomainLab comes with some minimal toy-dataset to test its basis functionality, see [a minimal subsample of the VLCS dataset](./zdata/vlcs_mini) and [an example configuration file for vlcs_mini](../examples/tasks/task_vlcs.py).
 
 To train a domain invariant model on the vlcs_mini task:
 
