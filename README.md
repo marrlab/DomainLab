@@ -8,24 +8,37 @@
 
 ## Distribution shifts, domain generalization and DomainLab
 
-Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).
+Neural networks trained using data from a specific distribution (domain) usually fail to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, cohorts, batches, vendors) so the learned feature can be generalized to new unseen domains (distributions).
 
-DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.
+DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented and designed by maximal decoupling of different software components thus enhancing maximal code reuse.
 
 ### DomainLab
 DomainLab decouples the following concepts or objects:
-- task $M$: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution $D_1$ and $D_2$). Task offer a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, wich dataset(s) used for testing.  
-- neural network: a map $\phi$ from the input data to the feature space and a map $\varphi$ from feature space to output $\hat{y}$ (e.g. decision variable).
+- task $M$: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution $D_1$ and $D_2$). The task offers a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, and which dataset(s) is used for testing.  
+- neural network: a map $\phi$ from the input data to the feature space and a map $\varphi$ from the feature space to output $\hat{y}$ (e.g. decision variable).
 - model: structural risk in the form of $\ell() + \mu R()$  where
-  - $\ell(Y, \hat{y}=\varphi(\phi(X)))$ is the task specific empirical loss (e.g. cross entropy for classification task).
+  - $\ell(Y, \hat{y}=\varphi(\phi(X)))$ is the task-specific empirical loss (e.g. cross entropy for classification task).
   - $R(\phi(X))$ is the penalty loss to boost domain invariant feature extraction using $\phi$.
   - $\mu$ is the corresponding multiplier to each penalty function factor.
 - trainer:  an object that guides the data flow to model and append further domain invariant losses
 like inter-domain feature alignment.
 
-We offer detailed documentation on how these models and trainers work in our documentation page: https://marrlab.github.io/DomainLab/
+We offer detailed documentation on how these models and trainers work on our documentation page: https://marrlab.github.io/DomainLab/
 
-DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code `Trainer A(Trainer B(Model C(Model D(network E), network E, network F)))` which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxilliary networks for $R()$.
+DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like the line of code below
+
+```
+Trainer A(
+		  Trainer B(Model C(
+						    Model D(network E),
+							network E,
+							network F
+						   )
+				   )
+	     )
+```
+
+which correspond to $\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()$, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxiliary networks for $R()$.
 
 <div style="align: center; text-align:center;">
 <figure>  
@@ -36,7 +49,7 @@ DomainLab makes it possible to combine models with models, trainers with models,
 ## Getting started
 
 ### Installation
-For development version in Github, see [Installation and Dependencies handling](./docs/doc_install.md)
+For the development version in Github, see [Installation and Dependencies handling](./docs/doc_install.md)
 
 We also offer a PyPI version here https://pypi.org/project/domainlab/  which one could install via `pip install domainlab` and it is recommended to create a virtual environment for it.
 
