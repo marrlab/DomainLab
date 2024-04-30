@@ -110,7 +110,7 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
         # dset.path2imgs
         dict_folder_name2class_global = self._dict_domain_folder_name2class[na_domain]
         dset = DsetClassVecDecoratorImgPath(
-            dset, dict_folder_name2class_global, self.list_str_y
+            dset, dict_folder_name2class_global, self._dict_domain_folder_name2class[na_domain].values()
         )
         # Always use the DsetInMemDecorator at the last step
         # since it does not have other needed attributes in bewteen
