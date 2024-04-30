@@ -152,6 +152,8 @@ class DsetSubFolder(DatasetFolder):
         if not flag_user_input_classes_in_folder:
             logger.info(f"user provided class names: {self.list_class_dir}")
             logger.info(f"subfolder names from folder: {mdir} {classes}")
+            unmatched_names = set(self.list_class_dir) - set(classes)
+            logger.info(f"unmatched names: {unmatched_names}")
             raise RuntimeError(
                 "user provided class names does not match the subfolder names"
             )
