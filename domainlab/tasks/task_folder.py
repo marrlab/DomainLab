@@ -58,6 +58,10 @@ class NodeTaskFolder(NodeTaskDictClassif):
                 trans = self.img_trans_te
         else:
             trans = transforms.ToTensor()
+
+        print("Creating DsetSubFolder")
+        print(f"Mapping: {self._dict_domain_folder_name2class}")
+        list_transformed = [self._dict_domain_folder_name2class[item] for item in self.list_str_y]
         dset = DsetSubFolder(
             root=self.dict_domain2imgroot[na_domain],
             list_class_dir=self.list_str_y,
