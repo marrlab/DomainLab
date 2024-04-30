@@ -86,7 +86,7 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
             )
         logger = Logger.get_logger()
         logger.info(f"reading domain: {na_domain}")
-        domain_class_dirs = self._dict_domain_folder_name2class[na_domain].keys()
+        domain_class_dirs = self._dict_domain_folder_name2class[na_domain].values()
         if self._dict_domain_img_trans:
             trans = self._dict_domain_img_trans[na_domain]
             if na_domain not in self.list_domain_tr:
