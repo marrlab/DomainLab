@@ -196,7 +196,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         na_class = type(self).__name__
         if na_class[:len_prefix] != na_prefix:
             raise RuntimeError(
-                "Trainer builder node class must start with ",
+                "Model builder node class must start with ",
                 na_prefix,
                 "the current class is named: ",
                 na_class,

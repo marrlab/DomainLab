@@ -13,8 +13,8 @@ def test_store_dict_key_pair_single_value():
 def test_store_dict_key_pair_dict_value():
     """Test to parse a dict for the gamma_reg"""
     parser = mk_parser_main()
-    args = parser.parse_args(['--gamma_reg', 'dann=1.0,diva=2.0'])
-    assert args.gamma_reg == {'dann': 1.0, 'diva': 2.0}
+    args = parser.parse_args(['--gamma_reg', 'dann=1.0,jigen=2.0'])
+    assert args.gamma_reg == {'dann': 1.0, 'jigen': 2.0}
 
 def test_get_gamma_reg_single_value():
     """Test to retrieve a single gamma_reg parameter which is applied to all objects"""
@@ -25,8 +25,8 @@ def test_get_gamma_reg_single_value():
 def test_get_gamma_reg_dict_value():
     """Test to retrieve a dict of gamma_reg parameters for different objects"""
     parser = mk_parser_main()
-    args = parser.parse_args(['--gamma_reg', 'default=5.0,dann=1.0,diva=2.0'])
+    args = parser.parse_args(['--gamma_reg', 'default=5.0,dann=1.0,jigen=2.0'])
     print(args)
     assert get_gamma_reg(args, 'dann') == 1.0
-    assert get_gamma_reg(args, 'diva') == 2.0
+    assert get_gamma_reg(args, 'jigen') == 2.0
     assert get_gamma_reg(args, 'nonexistent') == 5.0
