@@ -95,6 +95,9 @@ class NodeTaskFolderClassNaMismatch(NodeTaskFolder):
             trans = transforms.ToTensor()
 
         ext = None if self.extensions is None else self.extensions[na_domain]
+        print("Creating DsetSubFolder")
+        print(f"Mapping: {self._dict_domain_folder_name2class}")
+        list_transformed = [self._dict_domain_folder_name2class[item] for item in self.list_str_y]
         dset = DsetSubFolder(
             root=self.dict_domain2imgroot[na_domain],
             list_class_dir=list(domain_class_dirs),
