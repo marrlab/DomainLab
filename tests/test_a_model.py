@@ -53,7 +53,7 @@ def test_model_name_invalid():
     Test an invalid model name
     """
     model = InvalidTest()
-    with pytest.raises(RuntimeError, match="Model builder node class must start with"): 
+    with pytest.raises(RuntimeError, match="Model builder node class must start with"):
         _ = model.name
 
 
