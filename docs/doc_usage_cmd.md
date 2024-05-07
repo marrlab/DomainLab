@@ -38,7 +38,8 @@ To run DomainLab, the minimum necessary parameters are:
         default: 0.1 # every other instance that is not listed below will get this value assigned
         dann: 0.05
         diva: 0.2
-      ```- **Early Stopping (`--es`):** Steps for early stopping.
+      ```
+- **Early Stopping (`--es`):** Steps for early stopping.
 - **Random Seed (`--seed`):** Seed for reproducibility.
 - **CUDA Options (`--nocu`, `--device`):** Configure CUDA usage and device settings.
 - **Generated Images (`--gen`):** Option to save generated images.

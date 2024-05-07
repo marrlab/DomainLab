@@ -74,7 +74,7 @@ class AMSel(metaclass=abc.ABCMeta):
         return boolean
         """
 
-    def if_stop(self, acc_val):
+    def if_stop(self, acc_val = None):
         """
         check if trainer should stop and additionally tests for validation threshold
         return boolean
@@ -83,7 +83,7 @@ class AMSel(metaclass=abc.ABCMeta):
         # be careful to always override it in child class
         # only if the child class has a decorator which will
         # dispatched.
-        if self.msel is not None:
+        if self.msel is not None and acc_val is not None:
             if self._val_threshold is not None and acc_val < self._val_threshold:
                 return False
         return self.early_stop()
