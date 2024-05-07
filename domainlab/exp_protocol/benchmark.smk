@@ -1,3 +1,6 @@
+# config variable (dictionary) is defined by snakemake framework which include all entries in the yaml file
+# to add entries for variable "config" do snakemake --config new_key=value
+# e.g. snakemake --config yaml_file=$CONFIGFILE
 import os
 import sys
 from pathlib import Path

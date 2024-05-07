@@ -58,6 +58,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.device = None
         self.aconf = None
         #
+        self.dict_loader_tr = None
         self.loader_tr = None
         self.loader_te = None
         self.num_batches = None
@@ -134,6 +135,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.device = device
         self.aconf = aconf
         #
+        self.dict_loader_tr = task.dict_loader_tr
         self.loader_tr = task.loader_tr
         self.loader_te = task.loader_te
 

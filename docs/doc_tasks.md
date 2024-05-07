@@ -17,7 +17,7 @@ here in the example, 3 domains are defined to be named "domain1", "domain2", "do
 ## Possibility 2: TaskPathList
 The user need to provide a python file indicating the root directories where images (data) from  each domain are located, and for each domain, the user shall provide a plain text file indicating the file names.
 
-An example python file can be found in the [examples directory of the repository](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/demo_task_path_list_small.py) with the corresponding data be found at [the data directory of the repository](https://github.com/marrlab/DomainLab/tree/master/data), where the text file indicating which file correspond to which class label (starting from 1) can be found at [example text file](https://github.com/marrlab/DomainLab/blob/master/data/pacs_split/art_painting_10.txt).
+An example python file can be found in the [examples directory of the repository](https://github.com/marrlab/DomainLab/blob/master/examples/tasks/demo_task_path_list_small.py) with the corresponding data be found at [the data directory of the repository](https://github.com/marrlab/DomainLab/tree/master/domainlab/zdata), where the text file indicating which file correspond to which class label (starting from 1) can be found at [example text file](https://github.com/marrlab/DomainLab/blob/master/domainlab/zdata/pacs_split/art_painting_10.txt).
 The user should specify the location of the python file via command line arguments `--tpath`
 
 ```shell

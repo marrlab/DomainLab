@@ -1,6 +1,7 @@
 te_d: caltech                       # domain name of test domain
 tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
 bs: 2                               # batch size
+val_threshold: 0.8                  # threashold before which training does not stop
 model: dann_diva                    # combine model DANN with DIVA
 epos: 1                             # number of epochs
 trainer: mldg_dial                  # combine trainer MLDG and DIAL
