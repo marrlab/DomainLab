@@ -1,0 +1,94 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/dial
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 0
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_aug.py
+  dmem: False
+  lr: 5e-5
+  epos: 500
+  epos_min: 200
+  es: 5
+  bs: 32
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.990
+    max: 0.999
+    num: 2
+    distribution: uniform
+
+  coeff_ma_output_state:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 10
+      - 1000
+      - 1
+      - 100
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    distribution: uniform
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 3
+    distribution: uniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    step: 0.000001
+    num: 3
+    distribution: loguniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+
+
+# Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small
+
+diva_fbopt_full:
+  model: erm
+  trainer: fbopt_dial
+  force_setpoint_change_once: True
+  gamma_y: 1.0
+  ini_setpoint_ratio: 0.99
+  mu_init: 1e-6
+  k_i_gain_ratio: 0.5
+  mu_clip: 10
+  coeff_ma_output_state: 0.0
+  coeff_ma_setpoint: 0.0
