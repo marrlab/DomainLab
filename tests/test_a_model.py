@@ -18,7 +18,7 @@ class ModelTest(AModel):
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0
-    
+
     @property
     def metric4msel(self):
         return ""
@@ -53,7 +53,8 @@ def test_model_name_invalid():
     Test an invalid model name
     """
     model = InvalidTest()
-    with pytest.raises(RuntimeError, match="Model builder node class must start with"): model.name
+    with pytest.raises(RuntimeError, match="Model builder node class must start with"): 
+        _ = model.name
 
 
 def test_print_parameters(capsys):
