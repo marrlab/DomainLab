@@ -315,6 +315,7 @@ from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
+from domainlab.algos.trainers.train_fishr import TrainerFishr
 
 
 <div class="viewcode-block" id="TrainerChainNodeGetter"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.zoo_trainer.TrainerChainNodeGetter">[docs]</a>class TrainerChainNodeGetter(object):
@@ -356,6 +357,7 @@ from domainlab.algos.trainers.train_mldg import TrainerMLDG
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
+        chain = TrainerFishr(chain)
         chain = TrainerHyperScheduler(chain)
         node = chain.handle(self.request)
         head = node

@@ -344,14 +344,21 @@
 <p>Abstract Model Selection</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.a_model_sel.</span></span><span class="sig-name descname"><span class="pre">AMSel</span></span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.a_model_sel.</span></span><span class="sig-name descname"><span class="pre">AMSel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Abstract Model Selection</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.accept">
-<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_obs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.accept" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer4msel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.accept" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visitor pattern to trainer
 accept trainer and tr_observer</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.base_update">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.base_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.base_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>observer + visitor pattern to trainer
+if the best model should be updated
+return boolean</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.best_te_metric">
@@ -364,15 +371,31 @@ accept trainer and tr_observer</p>
 <dd><p>decoratee best val acc</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.if_stop">
-<span class="sig-name descname"><span class="pre">if_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.if_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.if_stop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.early_stop">
+<span class="sig-name descname"><span class="pre">early_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.early_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.early_stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>check if trainer should stop
+return boolean</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.if_stop">
+<span class="sig-name descname"><span class="pre">if_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acc_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.if_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.if_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if trainer should stop and additionally tests for validation threshold
 return boolean</p>
 </dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.max_es">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_es</span></span><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.max_es" title="Permalink to this definition">¶</a></dt>
 <dd><p>maximum early stop</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.model_selection_epoch">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_selection_epoch</span></span><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.model_selection_epoch" title="Permalink to this definition">¶</a></dt>
+<dd><p>the epoch when the model was selected</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.observer4msel">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observer4msel</span></span><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.observer4msel" title="Permalink to this definition">¶</a></dt>
+<dd><p>the observer from trainer</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.reset">
@@ -384,17 +407,15 @@ return boolean</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sel_model_te_acc</span></span><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.sel_model_te_acc" title="Permalink to this definition">¶</a></dt>
 <dd><p>the selected model test accuaracy</p>
 </dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.tr_obs">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tr_obs</span></span><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.tr_obs" title="Permalink to this definition">¶</a></dt>
-<dd><p>the observer from trainer</p>
-</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.update">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>observer + visitor pattern to trainer
-if the best model should be updated
-return boolean</p>
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/a_model_sel.html#AMSel.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>level above the observer + visitor pattern to get information about the epoch</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel.val_threshold">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">val_threshold</span></span><a class="headerlink" href="#domainlab.algos.msels.a_model_sel.AMSel.val_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>the treshold below which we don’t stop early</p>
 </dd></dl>
 </dd></dl>
 </section>
@@ -403,19 +424,24 @@ return boolean</p>
 <p>Model Selection should be decoupled from</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_oracle.</span></span><span class="sig-name descname"><span class="pre">MSelOracleVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_oracle.</span></span><span class="sig-name descname"><span class="pre">MSelOracleVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.a_model_sel.AMSel" title="domainlab.algos.msels.a_model_sel.AMSel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AMSel</span></code></a></p>
 <p>save best out-of-domain test acc model, but do not affect
 how the final model is selected</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.accept">
-<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tr_obs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.accept" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">accept</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observer4msel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor.accept"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.accept" title="Permalink to this definition">¶</a></dt>
 <dd><p>Visitor pattern to trainer
 accept trainer and tr_observer</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.if_stop">
-<span class="sig-name descname"><span class="pre">if_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor.if_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.if_stop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.base_update">
+<span class="sig-name descname"><span class="pre">base_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor.base_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.base_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the best model should be updated</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.early_stop">
+<span class="sig-name descname"><span class="pre">early_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor.early_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.early_stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>if should early stop
 oracle model selection does not intervene how models get selected
 by the innermost model selection</p>
@@ -425,27 +451,27 @@ by the innermost model selection</p>
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">oracle_last_setpoint_sel_te_acc</span></span><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.oracle_last_setpoint_sel_te_acc" title="Permalink to this definition">¶</a></dt>
 <dd><p>last setpoint acc</p>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>if the best model should be updated</p>
-</dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.msels.c_msel_tr_loss">
 <span id="domainlab-algos-msels-c-msel-tr-loss-module"></span><h2 id="module-domainlab.algos.msels.c_msel_tr_loss">domainlab.algos.msels.c_msel_tr_loss module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_tr_loss" title="Permalink to this heading">¶</a></h2>
-<p>Model Selection should be decoupled from</p>
+<p>AMSel.accept —&gt; Trainer</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_tr_loss.</span></span><span class="sig-name descname"><span class="pre">MSelTrLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_es</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_tr_loss.</span></span><span class="sig-name descname"><span class="pre">MSelTrLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_es</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.a_model_sel.AMSel" title="domainlab.algos.msels.a_model_sel.AMSel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AMSel</span></code></a></p>
 <ol class="arabic simple">
 <li><p>Model selection using sum of loss across training domains</p></li>
 <li><p>Visitor pattern to trainer</p></li>
 </ol>
 <dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop">
-<span class="sig-name descname"><span class="pre">if_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss.if_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.base_update">
+<span class="sig-name descname"><span class="pre">base_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss.base_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.base_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the best model should be updated</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.early_stop">
+<span class="sig-name descname"><span class="pre">early_stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss.early_stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.early_stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>if should early stop</p>
 </dd></dl>
 <dl class="py property">
@@ -458,11 +484,6 @@ by the innermost model selection</p>
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>reset observer via reset model selector</p>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>if the best model should be updated</p>
-</dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.msels.c_msel_val">
@@ -470,12 +491,17 @@ by the innermost model selection</p>
 <p>Model Selection should be decoupled from</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_val.MSelValPerf">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_val.</span></span><span class="sig-name descname"><span class="pre">MSelValPerf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_es</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_val.html#MSelValPerf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_val.</span></span><span class="sig-name descname"><span class="pre">MSelValPerf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_es</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_val.html#MSelValPerf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss" title="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSelTrLoss</span></code></a></p>
 <ol class="arabic simple">
 <li><p>Model selection using validation performance</p></li>
 <li><p>Visitor pattern to trainer</p></li>
 </ol>
+<dl class="py method">
+<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_val.MSelValPerf.base_update">
+<span class="sig-name descname"><span class="pre">base_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_val.html#MSelValPerf.base_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf.base_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>if the best model should be updated</p>
+</dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_val.MSelValPerf.best_te_metric">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">best_te_metric</span></span><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf.best_te_metric" title="Permalink to this definition">¶</a></dt>
@@ -495,11 +521,6 @@ by the innermost model selection</p>
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_val.MSelValPerf.sel_model_te_acc">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sel_model_te_acc</span></span><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf.sel_model_te_acc" title="Permalink to this definition">¶</a></dt>
 <dd><p>the selected model test accuaracy</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_val.MSelValPerf.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_counter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_val.html#MSelValPerf.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>if the best model should be updated</p>
 </dd></dl>
 </dd></dl>
 </section>

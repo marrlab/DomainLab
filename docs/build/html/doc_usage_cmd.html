@@ -49,7 +49,7 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Basic usage &#8212; domainlab  documentation</title>
+    <title>DomainLab Usage Guide &#8212; domainlab  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/material.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -98,7 +98,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Basic usage </span>
+          <span class="md-header-nav__topic"> DomainLab Usage Guide </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -297,17 +297,39 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-usage-cmd--page-root" class="md-nav__link">Basic usage</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#doc-usage-cmd--page-root" class="md-nav__link">DomainLab Usage Guide</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#further-usage" class="md-nav__link">Further usage</a>
+        <li class="md-nav__item"><a href="#essential-commands" class="md-nav__link">Essential Commands</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#example-command" class="md-nav__link">Example Command</a>
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#custom-neural-network" class="md-nav__link">Custom Neural network</a>
+        <li class="md-nav__item"><a href="#optional-commands" class="md-nav__link">Optional Commands</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#advanced-configuration" class="md-nav__link">Advanced Configuration</a>
         </li>
-        <li class="md-nav__item"><a href="#output-structure-results-storage-and-performance-measure" class="md-nav__link">Output structure (results storage) and Performance Measure</a>
+        <li class="md-nav__item"><a href="#task-specific-arguments" class="md-nav__link">Task-Specific Arguments</a>
         </li>
-        <li class="md-nav__item"><a href="#software-design-pattern-extend-or-contribution" class="md-nav__link">Software Design Pattern, Extend or Contribution</a>
+        <li class="md-nav__item"><a href="#model-specific-hyperparameters" class="md-nav__link">Model-Specific Hyperparameters</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#vae-model-parameters" class="md-nav__link">VAE Model Parameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#matchdg-parameters" class="md-nav__link">MatchDG Parameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#jigen-parameters" class="md-nav__link">Jigen Parameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#dial-parameters" class="md-nav__link">DIAL Parameters</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#example" class="md-nav__link">Example</a>
+        </li>
+        <li class="md-nav__item"><a href="#further-resources" class="md-nav__link">Further Resources</a>
+        </li></ul>
+            </nav>
         </li>
   </ul>
 </nav>
@@ -318,42 +340,139 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="basic-usage">
-<h1 id="doc-usage-cmd--page-root">Basic usage<a class="headerlink" href="#doc-usage-cmd--page-root" title="Permalink to this heading">¶</a></h1>
-<p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <span class="xref myst">A minimal subsample of the VLCS dataset</span> and <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">an example configuration file for vlcs_mini</span></a></p>
-<p>Suppose you have cloned the repository and have the dependencies ready, change directory to this repository:</p>
-<p>To train a domain invariant model on the vlcs_mini task</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="domainlab-usage-guide">
+<h1 id="doc-usage-cmd--page-root">DomainLab Usage Guide<a class="headerlink" href="#doc-usage-cmd--page-root" title="Permalink to this heading">¶</a></h1>
+<p>Given the repository and the dependencies are set up, here is how can use DomainLab:</p>
+<section id="essential-commands">
+<h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permalink to this heading">¶</a></h2>
+<p>To run DomainLab, the minimum necessary parameters are:</p>
+<ol class="arabic simple">
+<li><p><strong>Task Specification (<code class="docutils literal notranslate"><span class="pre">--tpath</span></code> or <code class="docutils literal notranslate"><span class="pre">--task</span></code>):</strong> This is to specify a task. You can eiter give a path to as Python file which specifies the task, or use a predfined set. You can find more about specifying tasks <a class="reference internal" href="doc_tasks.html"><span class="doc std std-doc">here</span></a>.</p></li>
+<li><p><strong>Test Domain (<code class="docutils literal notranslate"><span class="pre">--te_d</span></code>):</strong> Specifies the domain(s) used for testing. Can be a single domain or multiple domains.</p></li>
+<li><p><strong>Model Choice (<code class="docutils literal notranslate"><span class="pre">--model</span></code>):</strong> Chooses the algorithm or model for the training (e.g., erm, diva). This also includes hyperparameters for the model, e.g., <code class="docutils literal notranslate"><span class="pre">--gamma_d</span></code> and <code class="docutils literal notranslate"><span class="pre">--gamma_y</span></code> for diva.</p></li>
+<li><p><strong>Neural Network (<code class="docutils literal notranslate"><span class="pre">--nname</span></code> or <code class="docutils literal notranslate"><span class="pre">--npath</span></code>):</strong> Specifies which neural network is used for feature extraction, either through a path or predefined options.</p></li>
+</ol>
+<section id="example-command">
+<h3 id="example-command">Example Command<a class="headerlink" href="#example-command" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">main_out.py</span> <span class="pre">--te_d</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">2</span>  <span class="pre">--task=mnistcolor10</span> <span class="pre">--model=diva</span> <span class="pre">--nname=conv_bn_pool_2</span>  <span class="pre">--gamma_y=7e5</span> <span class="pre">--gamma_d=1e5</span></code></p>
+</section>
+</section>
+<section id="optional-commands">
+<h2 id="optional-commands">Optional Commands<a class="headerlink" href="#optional-commands" title="Permalink to this heading">¶</a></h2>
+<section id="advanced-configuration">
+<h3 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Learning Rate (<code class="docutils literal notranslate"><span class="pre">--lr</span></code>):</strong> Set the training learning rate.</p></li>
+<li><p><strong>Regularization (<code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>):</strong> Weight of regularization loss.</p></li>
+<li><p><strong>Early Stopping (<code class="docutils literal notranslate"><span class="pre">--es</span></code>):</strong> Steps for early stopping.</p></li>
+<li><p><strong>Random Seed (<code class="docutils literal notranslate"><span class="pre">--seed</span></code>):</strong> Seed for reproducibility.</p></li>
+<li><p><strong>CUDA Options (<code class="docutils literal notranslate"><span class="pre">--nocu</span></code>, <code class="docutils literal notranslate"><span class="pre">--device</span></code>):</strong> Configure CUDA usage and device settings.</p></li>
+<li><p><strong>Generated Images (<code class="docutils literal notranslate"><span class="pre">--gen</span></code>):</strong> Option to save generated images.</p></li>
+<li><p><strong>Model Preservation (<code class="docutils literal notranslate"><span class="pre">--keep_model</span></code>):</strong> Choose not to delete the model at the end of training.</p></li>
+<li><p><strong>Epochs (<code class="docutils literal notranslate"><span class="pre">--epos</span></code>, <code class="docutils literal notranslate"><span class="pre">--epos_min</span></code>):</strong> Configure maximum and minimum numbers of epochs.</p></li>
+<li><p><strong>Test Interval (<code class="docutils literal notranslate"><span class="pre">--epo_te</span></code>):</strong> Set intervals for testing performance.</p></li>
+<li><p><strong>Hyperparameter Warm-Up (<code class="docutils literal notranslate"><span class="pre">-w</span></code> or <code class="docutils literal notranslate"><span class="pre">--warmup</span></code>):</strong> Epochs for hyperparameter warm-up.</p></li>
+<li><p><strong>Debugging (<code class="docutils literal notranslate"><span class="pre">--debug</span></code>):</strong> Enable debug mode for verbose output.</p></li>
+<li><p><strong>Memory Debugging (<code class="docutils literal notranslate"><span class="pre">--dmem</span></code>):</strong> Memory usage debugging.</p></li>
+<li><p><strong>Output Suppression (<code class="docutils literal notranslate"><span class="pre">--no_dump</span></code>):</strong> Suppress saving the confusion matrix.</p></li>
+<li><p><strong>Trainer Selection (<code class="docutils literal notranslate"><span class="pre">--trainer</span></code>):</strong> Specify which trainer to use.</p></li>
+<li><p><strong>Output Directory (<code class="docutils literal notranslate"><span class="pre">--out</span></code>):</strong> Directory to store outputs.</p></li>
+<li><p><strong>Data Path (<code class="docutils literal notranslate"><span class="pre">--dpath</span></code>):</strong> Path for storing the downloaded dataset.</p></li>
+<li><p><strong>Additional Neural Network Options:</strong></p>
+<ul>
+<li><p>Custom Argument Values (<code class="docutils literal notranslate"><span class="pre">--npath_argna2val</span></code>, <code class="docutils literal notranslate"><span class="pre">--nname_argna2val</span></code>)</p></li>
+<li><p>Domain Feature Extraction Network (<code class="docutils literal notranslate"><span class="pre">--npath_dom</span></code>, <code class="docutils literal notranslate"><span class="pre">--nname_dom</span></code>)</p></li>
+<li><p>Custom Algorithm Path (<code class="docutils literal notranslate"><span class="pre">--apath</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>Experiment and Aggregation Tags (<code class="docutils literal notranslate"><span class="pre">--exptag</span></code>, <code class="docutils literal notranslate"><span class="pre">--aggtag</span></code>):</strong> Tags for experiment tracking and result aggregation.</p></li>
+<li><p><strong>Benchmarking and Plotting:</strong></p>
+<ul>
+<li><p>Partial Benchmark Aggregation (<code class="docutils literal notranslate"><span class="pre">--agg_partial_bm</span></code>)</p></li>
+<li><p>Plot Generation (<code class="docutils literal notranslate"><span class="pre">--gen_plots</span></code>, <code class="docutils literal notranslate"><span class="pre">--outp_dir</span></code>, <code class="docutils literal notranslate"><span class="pre">--param_idx</span></code>)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="task-specific-arguments">
+<h3 id="task-specific-arguments">Task-Specific Arguments<a class="headerlink" href="#task-specific-arguments" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Batch Size (<code class="docutils literal notranslate"><span class="pre">--bs</span></code>):</strong> Loader batch size for mixed domains.</p></li>
+<li><p><strong>Training-Validation Split (<code class="docutils literal notranslate"><span class="pre">--split</span></code>):</strong> Proportion of training, a value between 0 and 1.</p></li>
+<li><p><strong>Training Domain (<code class="docutils literal notranslate"><span class="pre">--tr_d</span></code>):</strong> Specify training domain names.</p></li>
+<li><p><strong>Sanity Check (<code class="docutils literal notranslate"><span class="pre">--san_check</span></code>):</strong> Save images from the dataset as a sanity check.</p></li>
+<li><p><strong>Sanity Check Image Count (<code class="docutils literal notranslate"><span class="pre">--san_num</span></code>):</strong> Number of images for the sanity check.</p></li>
+<li><p><strong>Logging Level (<code class="docutils literal notranslate"><span class="pre">--loglevel</span></code>):</strong> Set the log level of the logger.</p></li>
+<li><p><strong>Shuffling (<code class="docutils literal notranslate"><span class="pre">--shuffling_off</span></code>):</strong> Disable shuffling of the training dataloader for the dataset.</p></li>
+</ul>
+</section>
+<section id="model-specific-hyperparameters">
+<h3 id="model-specific-hyperparameters">Model-Specific Hyperparameters<a class="headerlink" href="#model-specific-hyperparameters" title="Permalink to this heading">¶</a></h3>
+<section id="vae-model-parameters">
+<h4 id="vae-model-parameters">VAE Model Parameters<a class="headerlink" href="#vae-model-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Latent Space Dimensions (<code class="docutils literal notranslate"><span class="pre">--zd_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">--zx_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">--zy_dim</span></code>):</strong> Set the size of latent spaces for domain, unobserved, and class features.</p></li>
+<li><p><strong>Topic Dimension (<code class="docutils literal notranslate"><span class="pre">--topic_dim</span></code>):</strong> Number of topics for HDUVA.</p></li>
+<li><p><strong>Networks for HDUVA Model:</strong></p>
+<ul>
+<li><p>Image to Topic Distribution (<code class="docutils literal notranslate"><span class="pre">--nname_encoder_x2topic_h</span></code>, <code class="docutils literal notranslate"><span class="pre">--npath_encoder_x2topic_h</span></code>)</p></li>
+<li><p>Image and Topic to ZD (<code class="docutils literal notranslate"><span class="pre">--nname_encoder_sandwich_x2h4zd</span></code>, <code class="docutils literal notranslate"><span class="pre">--npath_encoder_sandwich_x2h4zd</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>Hyperparameters for DIVA and HDUVA (<code class="docutils literal notranslate"><span class="pre">--gamma_y</span></code>, <code class="docutils literal notranslate"><span class="pre">--gamma_d</span></code>, <code class="docutils literal notranslate"><span class="pre">--beta_t</span></code>, <code class="docutils literal notranslate"><span class="pre">--beta_d</span></code>, <code class="docutils literal notranslate"><span class="pre">--beta_x</span></code>, <code class="docutils literal notranslate"><span class="pre">--beta_y</span></code>):</strong> Multipliers for various classifiers and loss components.</p></li>
+</ul>
+</section>
+<section id="matchdg-parameters">
+<h4 id="matchdg-parameters">MatchDG Parameters<a class="headerlink" href="#matchdg-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Cosine Similarity Factor (<code class="docutils literal notranslate"><span class="pre">--tau</span></code>):</strong> Magnify cosine similarity.</p></li>
+<li><p><strong>Match Tensor Update Frequency (<code class="docutils literal notranslate"><span class="pre">--epos_per_match_update</span></code>):</strong> Epochs before updating the match tensor.</p></li>
+<li><p><strong>Epochs for CTR (<code class="docutils literal notranslate"><span class="pre">--epochs_ctr</span></code>):</strong> Total epochs for CTR.</p></li>
+</ul>
+</section>
+<section id="jigen-parameters">
+<h4 id="jigen-parameters">Jigen Parameters<a class="headerlink" href="#jigen-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Permutation Settings (<code class="docutils literal notranslate"><span class="pre">--nperm</span></code>, <code class="docutils literal notranslate"><span class="pre">--pperm</span></code>, <code class="docutils literal notranslate"><span class="pre">--jigen_ppath</span></code>):</strong> Configure image tile permutations.</p></li>
+<li><p><strong>Grid Length (<code class="docutils literal notranslate"><span class="pre">--grid_len</span></code>):</strong> Length of image in tile units.</p></li>
+</ul>
+</section>
+<section id="dial-parameters">
+<h4 id="dial-parameters">DIAL Parameters<a class="headerlink" href="#dial-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><strong>Adversarial Image Generation (<code class="docutils literal notranslate"><span class="pre">--dial_steps_perturb</span></code>, <code class="docutils literal notranslate"><span class="pre">--dial_noise_scale</span></code>, <code class="docutils literal notranslate"><span class="pre">--dial_lr</span></code>, <code class="docutils literal notranslate"><span class="pre">--dial_epsilon</span></code>):</strong> Configure parameters for generating adversarial images.</p></li>
+</ul>
+<p>For a comprehensive understanding of all available commands, use:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="example">
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <span class="xref myst">a minimal subsample of the VLCS dataset</span> and <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">an example configuration file for vlcs_mini</span></a>.</p>
+<p>To train a domain invariant model on the vlcs_mini task:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--config<span class="o">=</span>examples/yaml/demo_config_single_run_diva.yaml
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">--tpath</span></code> specifies the path of a user specified python file which defines the domain generalization task <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">see here</span></a>, <code class="docutils literal notranslate"><span class="pre">--te_d</span></code> specifies the test domain name (or index starting from 0), <code class="docutils literal notranslate"><span class="pre">--config</span></code> specifies the configurations of the domain generalization algorithms, <a class="reference download internal" download="" href="_downloads/79dff157bfbc0773edb46ea14b42e885/demo_config_single_run_diva.yaml"><span class="xref download myst">see here</span></a></p>
-<section id="further-usage">
-<h2 id="further-usage">Further usage<a class="headerlink" href="#further-usage" title="Permalink to this heading">¶</a></h2>
-<p>Alternatively, in a verbose mode without using the algorithm configuration file:</p>
+<p>In more detail, in a verbose mode without using the algorithm configuration file:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">--model</span></code> specifies which algorithm to use, <code class="docutils literal notranslate"><span class="pre">--bs</span></code> specifies the batch size, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> restrain only running for 2 epochs and save results with prefix ‘debug’. For DIVA, the hyper-parameters include <code class="docutils literal notranslate"><span class="pre">--gamma_y=7e5</span></code> which is the relative weight of ERM loss compared to ELBO loss, and <code class="docutils literal notranslate"><span class="pre">--gamma_d=1e5</span></code>, which is the relative weight of domain classification loss compared to ELBO loss.
-<code class="docutils literal notranslate"><span class="pre">--nname</span></code> is to specify which neural network to use for feature extraction for classification, <code class="docutils literal notranslate"><span class="pre">--nname_dom</span></code> is to specify which neural network to use for feature extraction of domains.
-For usage of other arguments, check with</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
-</pre></div>
-</div>
-<p>See also <a class="reference internal" href="doc_examples.html"><span class="doc std std-doc">Examples</span></a>.</p>
+<code class="docutils literal notranslate"><span class="pre">--nname</span></code> is to specify which neural network to use for feature extraction for classification, <code class="docutils literal notranslate"><span class="pre">--nname_dom</span></code> is to specify which neural network to use for feature extraction of domains.</p>
+<p>See <a class="reference internal" href="doc_examples.html"><span class="doc std std-doc">more examples</span></a>.</p>
 </section>
+<section id="further-resources">
+<h2 id="further-resources">Further Resources<a class="headerlink" href="#further-resources" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Custom Neural Networks:</strong> <a class="reference internal" href="doc_custom_nn.html"><span class="doc std std-doc">Guide on specifying custom neural networks</span></a></p></li>
+<li><p><strong>Output and Performance:</strong> <a class="reference internal" href="doc_output.html"><span class="doc std std-doc">Understanding the output structure and performance measures</span></a></p></li>
+<li><p><strong>Extending DomainLab:</strong> <a class="reference internal" href="doc_extend_contribute.html"><span class="doc std std-doc">Guide for extending or contributing to DomainLab</span></a></p></li>
+</ul>
 </section>
-<section id="custom-neural-network">
-<h1 id="custom-neural-network">Custom Neural network<a class="headerlink" href="#custom-neural-network" title="Permalink to this heading">¶</a></h1>
-<p>where the user could plugin different neural network architectures for the same algorithm. See
-<a class="reference internal" href="doc_custom_nn.html"><span class="doc std std-doc">Specify Custom Neural Networks for an algorithm</span></a></p>
-</section>
-<section id="output-structure-results-storage-and-performance-measure">
-<h1 id="output-structure-results-storage-and-performance-measure">Output structure (results storage) and Performance Measure<a class="headerlink" href="#output-structure-results-storage-and-performance-measure" title="Permalink to this heading">¶</a></h1>
-<p><a class="reference internal" href="doc_output.html"><span class="doc std std-doc">Output structure and Performance Measure</span></a></p>
-</section>
-<section id="software-design-pattern-extend-or-contribution">
-<h1 id="software-design-pattern-extend-or-contribution">Software Design Pattern, Extend or Contribution<a class="headerlink" href="#software-design-pattern-extend-or-contribution" title="Permalink to this heading">¶</a></h1>
-<p><a class="reference internal" href="doc_extend_contribute.html"><span class="doc std std-doc">Extend or Contibute</span></a></p>
 </section>
 
 

@@ -317,13 +317,17 @@
         </li>
         <li class="md-nav__item"><a href="#example-and-usage" class="md-nav__link">Example and usage</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#either-clone-this-repo-and-use-command-line" class="md-nav__link">Either clone this repo and use command line</a>
+        <li class="md-nav__item"><a href="#available-arguments-for-commandline" class="md-nav__link">Available arguments for commandline</a>
+        </li>
+        <li class="md-nav__item"><a href="#command-line-configuration-file" class="md-nav__link">Command line configuration file</a>
         </li>
         <li class="md-nav__item"><a href="#or-programm-against-domainlab-api" class="md-nav__link">or Programm against DomainLab API</a>
         </li></ul>
             </nav>
         </li>
         <li class="md-nav__item"><a href="#benchmark-different-methods" class="md-nav__link">Benchmark different methods</a>
+        </li>
+        <li class="md-nav__item"><a href="#citation" class="md-nav__link">Citation</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -351,17 +355,17 @@
 <a class="reference external" href="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment"><img alt="pages-build-deployment" src="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment/badge.svg"/></a></p>
 <section id="distribution-shifts-domain-generalization-and-domainlab">
 <h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Permalink to this heading">¶</a></h3>
-<p>Neural networks trained using data from a specific distribution (domain) usually fails to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, corhorts, batches, vendors) so the learned feature can generalize to new unseen domains (distributions).</p>
-<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented, designed by maximal decoupling of different software components thus enhances maximal code reuse.</p>
+<p>Neural networks trained using data from a specific distribution (domain) usually fail to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, cohorts, batches, vendors) so the learned feature can be generalized to new unseen domains (distributions).</p>
+<p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented and designed by maximal decoupling of different software components thus enhancing maximal code reuse.</p>
 <section id="domainlab">
 <h4 id="domainlab">DomainLab<a class="headerlink" href="#domainlab" title="Permalink to this heading">¶</a></h4>
 <p>DomainLab decouples the following concepts or objects:</p>
 <ul class="simple">
-<li><p>task <span class="math notranslate nohighlight">\(M\)</span>: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution <span class="math notranslate nohighlight">\(D_1\)</span> and <span class="math notranslate nohighlight">\(D_2\)</span>). Task offer a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, wich dataset(s) used for testing.</p></li>
-<li><p>neural network: a map <span class="math notranslate nohighlight">\(\phi\)</span> from the input data to the feature space and a map <span class="math notranslate nohighlight">\(\varphi\)</span> from feature space to output <span class="math notranslate nohighlight">\(\hat{y}\)</span> (e.g. decision variable).</p></li>
+<li><p>task <span class="math notranslate nohighlight">\(M\)</span>: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution <span class="math notranslate nohighlight">\(D_1\)</span> and <span class="math notranslate nohighlight">\(D_2\)</span>). The task offers a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, and which dataset(s) is used for testing.</p></li>
+<li><p>neural network: a map <span class="math notranslate nohighlight">\(\phi\)</span> from the input data to the feature space and a map <span class="math notranslate nohighlight">\(\varphi\)</span> from the feature space to output <span class="math notranslate nohighlight">\(\hat{y}\)</span> (e.g. decision variable).</p></li>
 <li><p>model: structural risk in the form of <span class="math notranslate nohighlight">\(\ell() + \mu R()\)</span>  where</p>
 <ul>
-<li><p><span class="math notranslate nohighlight">\(\ell(Y, \hat{y}=\varphi(\phi(X)))\)</span> is the task specific empirical loss (e.g. cross entropy for classification task).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ell(Y, \hat{y}=\varphi(\phi(X)))\)</span> is the task-specific empirical loss (e.g. cross entropy for classification task).</p></li>
 <li><p><span class="math notranslate nohighlight">\(R(\phi(X))\)</span> is the penalty loss to boost domain invariant feature extraction using <span class="math notranslate nohighlight">\(\phi\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mu\)</span> is the corresponding multiplier to each penalty function factor.</p></li>
 </ul>
@@ -369,8 +373,19 @@
 <li><p>trainer:  an object that guides the data flow to model and append further domain invariant losses
 like inter-domain feature alignment.</p></li>
 </ul>
-<p>We offer detailed documentation on how these models and trainers work in our documentation page: <a class="reference external" href="https://marrlab.github.io/DomainLab/">https://marrlab.github.io/DomainLab/</a></p>
-<p>DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like line of code <code class="docutils literal notranslate"><span class="pre">Trainer</span> <span class="pre">A(Trainer</span> <span class="pre">B(Model</span> <span class="pre">C(Model</span> <span class="pre">D(network</span> <span class="pre">E),</span> <span class="pre">network</span> <span class="pre">E,</span> <span class="pre">network</span> <span class="pre">F)))</span></code> which correspond to <span class="math notranslate nohighlight">\(\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()\)</span>, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxilliary networks for <span class="math notranslate nohighlight">\(R()\)</span>.</p>
+<p>We offer detailed documentation on how these models and trainers work on our documentation page: <a class="reference external" href="https://marrlab.github.io/DomainLab/">https://marrlab.github.io/DomainLab/</a></p>
+<p>DomainLab makes it possible to combine models with models, trainers with models, and trainers with trainers in a decorator pattern like the line of code below</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Trainer A(
+                  Trainer B(Model C(
+                                                    Model D(network E),
+                                                        network E,
+                                                        network F
+                                                   )
+                                   )
+             )
+</pre></div>
+</div>
+<p>which correspond to <span class="math notranslate nohighlight">\(\ell() + \mu_a R_a() + \mu_b R_b + \mu_c R_c() + \mu_d R_d()\)</span>, where Model C and Model D share neural network E, but Model C has an extra neural network F. All models share the same neural network for feature extraction, but can have different auxiliary networks for <span class="math notranslate nohighlight">\(R()\)</span>.</p>
 <div style="align: center; text-align:center;">
 <figure>
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/invarfeat4dg.png?raw=true" style="width:300px;"/>
@@ -382,7 +397,7 @@ like inter-domain feature alignment.</p></li>
 <h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h3>
 <section id="installation">
 <h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h4>
-<p>For development version in Github, see <span class="xref myst">Installation and Dependencies handling</span></p>
+<p>For the development version in Github, see <span class="xref myst">Installation and Dependencies handling</span></p>
 <p>We also offer a PyPI version here <a class="reference external" href="https://pypi.org/project/domainlab/">https://pypi.org/project/domainlab/</a>  which one could install via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">domainlab</span></code> and it is recommended to create a virtual environment for it.</p>
 </section>
 <section id="task-specification">
@@ -392,10 +407,23 @@ like inter-domain feature alignment.</p></li>
 </section>
 <section id="example-and-usage">
 <h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Permalink to this heading">¶</a></h4>
-<section id="either-clone-this-repo-and-use-command-line">
-<h5 id="either-clone-this-repo-and-use-command-line">Either clone this repo and use command line<a class="headerlink" href="#either-clone-this-repo-and-use-command-line" title="Permalink to this heading">¶</a></h5>
-<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main_out.py</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code>
-where the configuration file below can be downloaded <a class="reference external" href="https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml">here</a></p>
+<section id="available-arguments-for-commandline">
+<h5 id="available-arguments-for-commandline">Available arguments for commandline<a class="headerlink" href="#available-arguments-for-commandline" title="Permalink to this heading">¶</a></h5>
+<p>The following command tells which arguments/hyperparameters/multipliers are available to be set by the user and which model they are associated with</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>domainlab --help
+</pre></div>
+</div>
+</section>
+<section id="command-line-configuration-file">
+<h5 id="command-line-configuration-file">Command line configuration file<a class="headerlink" href="#command-line-configuration-file" title="Permalink to this heading">¶</a></h5>
+<p><code class="docutils literal notranslate"><span class="pre">domainlab</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code> (if you install via pip)</p>
+<p>or if you clone this the code repository for DomainLab</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main_out.py</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code></p>
+<p>where the configuration file below can be downloaded <a class="reference external" href="https://raw.githubusercontent.com/marrlab/DomainLab/master/examples/conf/vlcs_diva_mldg_dial.yaml">here</a></p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>te_d: caltech                       # domain name of test domain
 tpath: examples/tasks/task_vlcs.py  # python file path to specify the task
 bs: 2                               # batch size
@@ -421,7 +449,7 @@ npath_dom: examples/nets/resnet.py  # neural network for domain classification
 To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <span class="xref myst">benchmarks documentation and tutorial</span></p>
 <p>One could simply run
 <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">run_benchmark_slurm.sh</span> <span class="pre">your_benchmark_configuration.yaml</span></code> to launch different experiments with specified configuraiton.</p>
-<p>For example,  the following result (without any augmentation like flip) is for PACS dataset using ResNet.</p>
+<p>For example,  the following result (without any augmentation like flip) is for PACS dataset using ResNet. The reader should note that using different neural network, whether pre-trained or not, what kind of preprocessinga and augmentation to use can lead to very different result distributions, which is one of the features DomainLab provide: the above factors get decoupled in DomainLab.</p>
 <div style="align: center; text-align:center;">
 <figure>
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/stochastic_variation_two_rows.png?raw=true" style="width:800px;"/>
@@ -429,7 +457,20 @@ To benchmark several algorithms(combination of neural networks, models, trainers
 <figcaption>Benchmark results plot generated from DomainLab, where each rectangle represent one model trainer combination, each bar inside the rectangle represent a unique hyperparameter index associated with that method combination, each dot represent a random seeds.</figcaption>
 </div>
 </figure>
-</div></section>
+</div>
+</section>
+<section id="citation">
+<h4 id="citation">Citation<a class="headerlink" href="#citation" title="Permalink to this heading">¶</a></h4>
+<p>Source: <a class="reference external" href="https://arxiv.org/pdf/2403.14356.pdf">https://arxiv.org/pdf/2403.14356.pdf</a></p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">sun2024domainlab</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{DomainLab: A modular Python package for domain generalization in deep learning}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Sun, Xudong and Feistner, Carla and Gossmann, Alexej and Schwarz, George and Umer, Rao Muhammad and Beer, Lisa and Rockenschaub, Patrick and Shrestha, Rahul Babu and Gruber, Armin and Chen, Nutan and others}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{https://arxiv.org/pdf/2403.14356.pdf}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2024}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 </section>

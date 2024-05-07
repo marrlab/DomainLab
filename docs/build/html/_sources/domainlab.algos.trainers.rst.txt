@@ -52,6 +52,14 @@ domainlab.algos.trainers.train\_dial module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.train\_fishr module
+--------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_fishr
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_hyper\_scheduler module
 -------------------------------------------------------
 

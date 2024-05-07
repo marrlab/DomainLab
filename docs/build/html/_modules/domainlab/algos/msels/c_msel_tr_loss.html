@@ -308,7 +308,7 @@
             
   <h1 id="modules-domainlab-algos-msels-c-msel-tr-loss--page-root">Source code for domainlab.algos.msels.c_msel_tr_loss</h1><div class="highlight"><pre>
 <span></span>"""
-Model Selection should be decoupled from
+AMSel.accept ---&gt; Trainer
 """
 import math
 
@@ -322,8 +322,8 @@ from domainlab.utils.logger import Logger
     2. Visitor pattern to trainer
     """
 
-    def __init__(self, max_es):
-        super().__init__()
+    def __init__(self, max_es, val_threshold = None):
+        super().__init__(val_threshold)
         # NOTE: super() must come first otherwise it will overwrite existing
         # values!
         self.reset()
@@ -337,7 +337,7 @@ from domainlab.utils.logger import Logger
     def max_es(self):
         return self._max_es
 
-<div class="viewcode-block" id="MSelTrLoss.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.update">[docs]</a>    def update(self, clear_counter=False):
+<div class="viewcode-block" id="MSelTrLoss.base_update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.base_update">[docs]</a>    def base_update(self, clear_counter=False):
         """
         if the best model should be updated
         """
@@ -359,7 +359,7 @@ from domainlab.utils.logger import Logger
                 self.es_c = 0
         return flag</div>
 
-<div class="viewcode-block" id="MSelTrLoss.if_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.if_stop">[docs]</a>    def if_stop(self):
+<div class="viewcode-block" id="MSelTrLoss.early_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss.early_stop">[docs]</a>    def early_stop(self):
         """
         if should early stop
         """

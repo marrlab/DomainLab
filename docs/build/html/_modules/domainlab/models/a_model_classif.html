@@ -327,6 +327,13 @@ from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
+try:
+    from backpack import extend
+except:
+    backpack = None
+
+loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
+
 
 <div class="viewcode-block" id="AModelClassif"><a class="viewcode-back" href="../../../domainlab.models.html#domainlab.models.a_model_classif.AModelClassif">[docs]</a>class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
@@ -456,7 +463,7 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
             y_target = tensor_y
         else:
             _, y_target = tensor_y.max(dim=1)
-        lc_y = F.cross_entropy(logit_y, y_target, reduction="none")
+        lc_y = loss_cross_entropy_extended(logit_y, y_target)
         # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y</div>
 
