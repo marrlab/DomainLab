@@ -56,7 +56,6 @@ fi
 
 # Create a timestamped output directory
 results_dir="${output_dir}_$(timestamp)"
-mkdir -p "$results_dir"
 
 
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)

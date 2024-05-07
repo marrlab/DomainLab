@@ -20,6 +20,15 @@ else
       export DOMAINLAB_CUDA_START_SEED=$2
 fi
 
+# Extract output_dir from the YAML configuration file
+output_dir=$(awk '/output_dir:/ {print $2}' "$CONFIGFILE")
+if [ -z "$output_dir" ]; then
+  echo "Error: output_dir not specified in $CONFIGFILE"
+  exit 1
+fi
+
+# Create a timestamped output directory
+results_dir="${output_dir}_$(timestamp)"
 
 # ensure all runs sample the same hyperparameters
 export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
@@ -32,4 +41,4 @@ echo "Configuration file: $CONFIGFILE"
 echo "starting seed is: $DOMAINLAB_CUDA_START_SEED"
 echo "verbose log: $logfile"
 # Helmholtz
-snakemake --profile "examples/yaml/slurm" --config yaml_file=$CONFIGFILE --keep-going --keep-incomplete --notemp --cores 3 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" 2>&1 | tee "$logfile"
+snakemake --profile "examples/yaml/slurm" --config yaml_file=$CONFIGFILE --keep-going --keep-incomplete --notemp --cores 3 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --config output_dir="$results_dir" 2>&1 | tee "$logfile"
