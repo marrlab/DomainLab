@@ -1,9 +1,9 @@
 """
 unit test for hyperparameter parsing
 """
+import pytest
 from domainlab.arg_parser import mk_parser_main
 from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
-import pytest
 
 def test_store_dict_key_pair_single_value():
     """Test to parse a single gamma_reg parameter"""

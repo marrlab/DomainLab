@@ -1,15 +1,11 @@
 """
 Test argparser functionality
 """
-
 import os
 import sys
-
 import pytest
-
-from domainlab.arg_parser import apply_dict_to_args, mk_parser_main, parse_cmd_args, ParseValuesOrKeyValuePairs
-import argparse
-
+from domainlab.arg_parser import apply_dict_to_args, mk_parser_main, parse_cmd_args
+from domainlab.arg_parser import ParseValuesOrKeyValuePairs
 
 def test_parse_cmd_args_warning():
     """Call argparser for command line"""

@@ -1,11 +1,7 @@
 """
 Test a model functionality
 """
-
 import pytest
-from io import StringIO
-import sys
-from torch import nn
 from domainlab.models.a_model import AModel
 
 class ModelTest(AModel):
@@ -22,6 +18,10 @@ class ModelTest(AModel):
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0
+    
+    @property
+    def metric4msel(self):
+        return ""
 
 
 class InvalidTest(AModel):
@@ -34,6 +34,10 @@ class InvalidTest(AModel):
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         return 0
+
+    @property
+    def metric4msel(self):
+        return ""
 
 
 def test_model_name_valid():
@@ -49,8 +53,7 @@ def test_model_name_invalid():
     Test an invalid model name
     """
     model = InvalidTest()
-    with pytest.raises(RuntimeError, match="Model builder node class must start with"):
-        model.name
+    with pytest.raises(RuntimeError, match="Model builder node class must start with"): model.name
 
 
 def test_print_parameters(capsys):
@@ -61,4 +64,5 @@ def test_print_parameters(capsys):
     model.print_parameters()
     captured = capsys.readouterr()
     assert "Parameters of ModelTest:" in captured.out
-    assert "'test_param': 42" in captured.out    
+    assert "'test_param': 42" in captured.out
+  

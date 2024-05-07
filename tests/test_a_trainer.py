@@ -31,4 +31,4 @@ def test_print_parameters(capsys):
     trainer.print_parameters()
     captured = capsys.readouterr()
     assert "Parameters of TrainerTest:" in captured.out
-    assert "'test_param': 42" in captured.out    
+    assert "'test_param': 42" in captured.out
