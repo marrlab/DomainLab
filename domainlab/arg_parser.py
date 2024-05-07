@@ -12,21 +12,24 @@ from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.utils.logger import Logger
 
-class StoreDictKeyPair(argparse.Action):
+class ParseValuesOrKeyValuePairs(argparse.Action):
     """Class used for arg parsing where values are provided in a key value format"""
 
     def __call__(self, parser, namespace, values, option_string=None):
-        try:
-            if "=" in values:
-                my_dict = {}
-                for kv in values.split(","):
-                    k, v = kv.split("=")
-                    my_dict[k.strip()] = float(v.strip())  # Assuming values are floats
-                setattr(namespace, self.dest, my_dict)
-            else:
-                setattr(namespace, self.dest, float(values))  # Single float value
-        except ValueError:
-            raise argparse.ArgumentError(self, f"Invalid value for {self.dest}: {values}")
+        if "=" in values:
+            my_dict = {}
+            for kv in values.split(","):
+                k, v = kv.split("=")
+                try:
+                    my_dict[k.strip()] = float(v.strip())
+                except ValueError:
+                    raise ValueError(f"Invalid value in key-value pair: '{kv}', must be float")
+            setattr(namespace, self.dest, my_dict)
+        else:
+            try:
+                setattr(namespace, self.dest, float(values))
+            except ValueError:
+                raise ValueError(f"Invalid value for {self.dest}: '{values}', must be float")
 
 def mk_parser_main():
     """
@@ -49,7 +52,7 @@ def mk_parser_main():
         "--gamma_reg",
         default=0.1,
         help="weight of regularization loss, can specify per model as 'dann=1.0,diva=2.0'",
-        action=StoreDictKeyPair
+        action=ParseValuesOrKeyValuePairs
     )
 
     parser.add_argument("--es", type=int, default=1, help="early stop steps")

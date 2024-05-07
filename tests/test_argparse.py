@@ -7,7 +7,8 @@ import sys
 
 import pytest
 
-from domainlab.arg_parser import apply_dict_to_args, mk_parser_main, parse_cmd_args
+from domainlab.arg_parser import apply_dict_to_args, mk_parser_main, parse_cmd_args, ParseValuesOrKeyValuePairs
+import argparse
 
 
 def test_parse_cmd_args_warning():
@@ -54,3 +55,31 @@ def test_apply_dict_to_args():
     apply_dict_to_args(args, data, extend=True)
     assert args.a == 1
     assert args.model == "diva"
+
+def test_store_dict_key_value_valid():
+    """Testing to parse valid gamma_reg value"""
+    parser = mk_parser_main()
+    parser.add_argument("--keypair", action=ParseValuesOrKeyValuePairs)
+    namespace = parser.parse_args(["--keypair", "1"])
+    assert namespace.keypair == 1.0
+
+def test_store_dict_key_value_pair_valid():
+    """Testing to parse valid gamma_reg key value paris"""
+    parser = mk_parser_main()
+    parser.add_argument("--keypair", action=ParseValuesOrKeyValuePairs)
+    namespace = parser.parse_args(["--keypair", "value1=1,value2=2"])
+    assert namespace.keypair == {"value1": 1.0, "value2": 2.0}
+
+def test_store_dict_key_value_invalid():
+    """Testing to parse invalid gamma_reg value"""
+    parser = mk_parser_main()
+    parser.add_argument("--keypair", action=ParseValuesOrKeyValuePairs)
+    with pytest.raises(ValueError):
+        parser.parse_args(["--keypair", "invalid"])
+
+def test_store_dict_key_value_pair_invalid():
+    """Testing to parse invalid gamma_reg key value pairs"""
+    parser = mk_parser_main()
+    parser.add_argument("--keypair", action=ParseValuesOrKeyValuePairs)
+    with pytest.raises(ValueError):
+        parser.parse_args(["--keypair", "value1=1,value2=invalid"])
