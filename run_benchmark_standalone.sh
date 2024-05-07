@@ -47,6 +47,17 @@ else
       export NUMBER_GPUS=$4
 fi
 
+# Extract output_dir from the YAML configuration file
+output_dir=$(awk '/output_dir:/ {print $2}' "$CONFIGFILE")
+if [ -z "$output_dir" ]; then
+  echo "Error: output_dir not specified in $CONFIGFILE"
+  exit 1
+fi
+
+# Create a timestamped output directory
+results_dir="${output_dir}_$(timestamp)"
+mkdir -p "$results_dir"
+
 
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)
 # -p: print shell commands
@@ -61,7 +72,7 @@ fi
 snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going --summary  # this will give us a clue first what jobs will be run
 
 # second submit the jobs, make sure you have more than 4 cores on your laptop, otherwise adjust the cores
-snakemake --config yaml_file=$CONFIGFILE --rerun-incomplete --resources nvidia_gpu=$NUMBER_GPUS --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" 2>&1 | tee "$logfile"
+snakemake --config yaml_file=$CONFIGFILE --rerun-incomplete --resources nvidia_gpu=$NUMBER_GPUS --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --config output_dir="$results_dir" 2>&1 | tee "$logfile"
 
 
 # snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
