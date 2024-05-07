@@ -5,6 +5,7 @@ import torch
 from torch.autograd import Variable
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerDIAL(TrainerBasic):
@@ -49,7 +50,7 @@ class TrainerDIAL(TrainerBasic):
         tensor_x_adv = self.gen_adversarial(self.device, tensor_x, tensor_y)
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
         loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
-        return [loss_dial], [self.aconf.gamma_reg]
+        return [loss_dial], [get_gamma_reg(self.aconf, self.name)]
 
     def hyper_init(self, functor_scheduler, trainer):
         """

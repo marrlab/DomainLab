@@ -17,6 +17,7 @@ from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.dsets.utils_wrapdset_patches import WrapDsetPatches
 from domainlab.models.model_jigen import mk_jigen
 from domainlab.utils.utils_cuda import get_device
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
@@ -31,7 +32,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerfTopK(max_es=args.es)))
+        msel = MSelSetpointDelay(MSelOracleVisitor(MSelValPerfTopK(max_es=args.es)), val_threshold=args.val_threshold)
         observer = ObVisitor(msel)
         observer = ObVisitorCleanUp(observer)
 
@@ -58,7 +59,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         model = mk_jigen(
             list_str_y=task.list_str_y,
             net_classifier=net_classifier)(
-            coeff_reg=args.gamma_reg,
+            coeff_reg=get_gamma_reg(args, 'jigen'),
             net_encoder=net_encoder,
             net_classifier_permutation=net_classifier_perm,
             n_perm=args.nperm,

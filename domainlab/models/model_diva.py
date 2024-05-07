@@ -100,9 +100,9 @@ def mk_diva(
             :param fun_scheduler:
             """
             dict_rst = fun_scheduler(epoch)
-            self.beta_d = dict_rst["beta_d"]
-            self.beta_y = dict_rst["beta_y"]
-            self.beta_x = dict_rst["beta_x"]
+            self.beta_d = dict_rst[self.name + "_beta_d"]
+            self.beta_y = dict_rst[self.name + "_beta_x"]
+            self.beta_x = dict_rst[self.name + "_beta_y"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -110,11 +110,12 @@ def mk_diva(
 
             :param functor_scheduler: the class name of the scheduler
             """
+            parameters = {}
+            parameters[self.name + "_beta_d"] = self.beta_d
+            parameters[self.name + "_beta_y"] = self.beta_y
+            parameters[self.name + "_beta_x"] = self.beta_x
             return functor_scheduler(
-                trainer=trainer,
-                beta_d=self.beta_d,
-                beta_y=self.beta_y,
-                beta_x=self.beta_x,
+                trainer=trainer, **parameters
             )
 
         @property

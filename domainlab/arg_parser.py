@@ -13,6 +13,21 @@ from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.utils.logger import Logger
 
+class StoreDictKeyPair(argparse.Action):
+    """Class used for arg parsing where values are provided in a key value format"""
+
+    def __call__(self, parser, namespace, values, option_string=None):
+        try:
+            if "=" in values:
+                my_dict = {}
+                for kv in values.split(","):
+                    k, v = kv.split("=")
+                    my_dict[k.strip()] = float(v.strip())  # Assuming values are floats
+                setattr(namespace, self.dest, my_dict)
+            else:
+                setattr(namespace, self.dest, float(values))  # Single float value
+        except ValueError:
+            raise argparse.ArgumentError(self, f"Invalid value for {self.dest}: {values}")
 
 def mk_parser_main():
     """
@@ -32,7 +47,10 @@ def mk_parser_main():
     parser.add_argument("--lr", type=float, default=1e-4, help="learning rate")
 
     parser.add_argument(
-        "--gamma_reg", type=float, default=0.1, help="weight of regularization loss"
+        "--gamma_reg",
+        default=0.1,
+        help="weight of regularization loss, can specify per model as 'dann=1.0,diva=2.0'",
+        action=StoreDictKeyPair
     )
 
     parser.add_argument("--es", type=int, default=1, help="early stop steps")
@@ -251,6 +269,13 @@ def mk_parser_main():
 
     parser.add_argument("--task", metavar="ta", type=str, help="task name")
 
+    parser.add_argument(
+        "--val_threshold",
+        type=float,
+        default=None,
+        help="Accuracy threshold before early stopping can be applied"
+    )
+
     arg_group_task = parser.add_argument_group("task args")
 
     arg_group_task.add_argument(
@@ -301,7 +326,10 @@ def mk_parser_main():
     arg_group_task.add_argument(
         "--loglevel", type=str, default="DEBUG", help="sets the loglevel of the logger"
     )
-
+    arg_group_task.add_argument(
+        "--shuffling_off", action="store_true", default=False,
+        help="disable shuffling of the training dataloader for the dataset"
+    )
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group("vae")
     arg_group_vae = add_args2parser_vae(arg_group_vae)

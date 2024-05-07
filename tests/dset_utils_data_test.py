@@ -3,7 +3,7 @@ from domainlab.dsets.utils_data import DsetInMemDecorator
 
 
 def test_dset_in_mem_decorator():
-    dset = DsetMNISTColorSoloDefault(path="../data", ind_color=1)
+    dset = DsetMNISTColorSoloDefault(path="../domainlab/zdata", ind_color=1)
     dset_in_memory = DsetInMemDecorator(dset=dset)
     dset_in_memory.__len__()
     dset_in_memory.__getitem__(0)

@@ -61,12 +61,11 @@ class ObVisitor(AObVisitor):
                     self.loader_te, self.device
                 )
                 self.metric_te = metric_te
-        if self.model_sel.update(flag_info):
+        if self.model_sel.update(epoch, flag_info):
             logger.info("better model found")
             self.host_trainer.model.save()
             logger.info("persisted")
-        flag_stop = self.model_sel.if_stop()
-
+        flag_stop = self.model_sel.if_stop(self.metric_val["acc"])
         flag_enough = epoch >= self.host_trainer.aconf.epos_min
 
         self.flag_setpoint_changed_once |= flag_info
@@ -116,6 +115,7 @@ class ObVisitor(AObVisitor):
             metric_te.update({"acc_oracle": -1})
         if hasattr(self, "model_sel"):
             metric_te.update({"acc_val": self.model_sel.best_val_acc})
+            metric_te.update({"model_selection_epoch": self.model_sel.model_selection_epoch})
         else:
             metric_te.update({"acc_val": -1})
 

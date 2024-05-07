@@ -33,7 +33,7 @@ def utils_run_experiment(yaml_name, list_test_domains, no_run=True):
     config["startseed"] = 1
     config["endseed"] = 1
     config["test_domains"] = list_test_domains
-    param_file = "data/ztest_files/test_parameter_samples.csv"
+    param_file = "domainlab/zdata/ztest_files/test_parameter_samples.csv"
     param_index = 0
     out_file = "zoutput/benchmarks/demo_benchmark/rule_results/0.csv"
 
