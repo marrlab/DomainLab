@@ -39,7 +39,7 @@ def gen_benchmark_plots(
     skip_gen: Skips the actual plotting, used to speed up testing.
     """
     raw_df = pd.read_csv(
-        agg_results,
+        agg_results,  # path to csv file
         index_col=False,
         converters={COLNAME_PARAM: literal_eval},
         # literal_eval can safe evaluate python expression
@@ -524,7 +524,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                 y=obj,
                 ax=axes[num],
                 showfliers=False,
-                boxprops={"facecolor": (0.4, 0.6, 0.8, 0.5)},
+                boxprops={"facecolor": 'none', 'edgecolor': 'black'},
+                # boxprops={"facecolor": (0.4, 0.6, 0.8, 0.5)},
             )
             sns.swarmplot(
                 data=dataframe[dataframe[COLNAME_METHOD] == algo],
@@ -535,8 +536,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
             )
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
-            axes[num].set_ylim([-0.1, 1.1])
-            axes[num].set_xlabel(algo)
+            axes[num].set_ylim([-0.01, 1.01])
+            axes[num].set_xlabel(algo, fontsize=20)
             if num != 0:
                 axes[num].set_ylabel("")
         else:
@@ -564,11 +565,13 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                 ),
             )
             axes.legend([], [], frameon=False)
-            axes.set_ylim([-0.1, 1.1])
+            axes.set_ylim([-0.01, 1.01])
             axes.set_xlabel(algo)
         plt.tight_layout()
         if file is not None:
-            plt.savefig(file + "/stochastic_variation.png", dpi=300)
+            plt.savefig(file + "/stochastic_variation.png", dpi=600)
+            plt.savefig(file + "/stochastic_variation.pdf", format="pdf")
+            plt.savefig(file + "/stochastic_variation.svg", format="svg")
 
 
 def boxplot_systematic(dataframe_in, obj, file=None):

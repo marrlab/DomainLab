@@ -14,8 +14,6 @@ except:
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
-_bce_extended = extend(nn.CrossEntropyLoss(reduction='none'))
-
 
 class TrainerFishr(TrainerBasic):
     """
