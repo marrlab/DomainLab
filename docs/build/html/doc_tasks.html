@@ -352,9 +352,14 @@ The user should specify the location of the python file via command line argumen
 <h3 id="data-organization">Data organization<a class="headerlink" href="#data-organization" title="Permalink to this heading">¶</a></h3>
 <p>To give an example, suppose we have a classification task to classify between car, dog, human, chair and bird and there are 3 data sources (domains) with folder name “folder_a”, “folder_b” and “folder_c” respectively as shown below.</p>
 <p>In each folder, the images are organized in sub-folders by their class. For example, “/path/to/3rd_domain/folder_c/dog” folder contains all the images of class “dog” from the 3rd domain.</p>
-<p>It might be the case that across the different data sources the same class is named differently. For example, in the 1st data source, the class dog is stored in sub-folder named
-“hund”, in the 2nd data source, the dog is stored in sub-folder named “husky” and in the 3rd data source, the dog is stored in sub-folder named “dog”.</p>
-<p>It might also be the case that some classes exist in one data source but does not exist in another data source. For example, folder “/path/to/2nd_domain/folder_b” does not have a sub-folder for class “human”.</p>
+<p>It might be the case that the same classes are named differently across the different data sources. For example, in the 1st data source, the class dog is stored in a sub-folder named “hund”, in the 2nd data source, the dog is stored in a sub-folder named “husky”, and in the 3rd data source, the dog is stored in a sub-folder called “dog”.</p>
+<p>In that case, we can use <code class="docutils literal notranslate"><span class="pre">dict_domain_folder_name2class</span></code> to map the corresponding subfolders to the correct domain. The <code class="docutils literal notranslate"><span class="pre">dict_domain_folder_name2class</span></code> parameter is a dictionary where:</p>
+<ul class="simple">
+<li><p>Key: The name of a subfolder in a specific domain.</p></li>
+<li><p>Value: The corresponding user-defined class name.</p></li>
+</ul>
+<p>This is also shown in the example below, where the dictionary maps the different subfolder names to ‘car’ and ‘chair’, which are the user defined classes. A more complex example of such a mapping can be found <a class="reference download internal" download="" href="_downloads/8c3453d7f5ede473ef436dd89659bc6e/task_blood3.py"><span class="xref download myst">here</span></a>.</p>
+<p>It might also be the case that some classes exist in one data source but do not exist in another data source. For example, folder “/path/to/2nd_domain/folder_b” does not have a sub-folder for the class “human”. In that case, we don’t add the entry into the <code class="docutils literal notranslate"><span class="pre">dict_domain_folder_name2class</span></code> mapping.</p>
 <p>Folder structure of the 1st domain:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    ── /path/to/1st_domain/folder_a
        ├── auto
@@ -440,24 +445,24 @@ The user should specify the location of the python file via command line argumen
 <span class="nb">print</span><span class="p">(</span><span class="n">mk_task_folder</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>extensions: a python dictionary with key as the domain name
+<p><code class="docutils literal notranslate"><span class="pre">extensions</span></code>: a python dictionary with key as the domain name
 and value as the file extensions of the image.</p>
-<p>list_str_y: a python list with user defined class names where
+<p><code class="docutils literal notranslate"><span class="pre">list_str_y</span></code>: a python list with user defined class names where
 the order of the list matters.</p>
-<p>dict_domain_folder_name2class: a python dictionary, with key
+<p><code class="docutils literal notranslate"><span class="pre">dict_domain_folder_name2class</span></code>: a python dictionary, with key
 as the user specified domain name, value as a dictionary to map the
 sub-folder name of each domain’s class folder into the user defined
 common class name.</p>
-<p>dict_domain_img_trans: a python dictionary with keys as the user
+<p><code class="docutils literal notranslate"><span class="pre">dict_domain_img_trans</span></code>: a python dictionary with keys as the user
 specified domain name, value as a user defined torchvision transform.
 This feature allows carrying out different transformation (composition) to different
 domains at training time.</p>
-<p>img_trans_te: at test or inference time, we do not have knowledge
+<p><code class="docutils literal notranslate"><span class="pre">img_trans_te</span></code>: at test or inference time, we do not have knowledge
 of domain information so only a unique transform (composition) is allowed.</p>
-<p>isize: domainlab.tasks.ImSize(image channel, image height, image width)</p>
-<p>dict_domain2imgroot: a python dictionary with keys as user specified domain names and values
+<p><code class="docutils literal notranslate"><span class="pre">isize</span></code>: domainlab.tasks.ImSize(image channel, image height, image width)</p>
+<p><code class="docutils literal notranslate"><span class="pre">dict_domain2imgroot</span></code>: a python dictionary with keys as user specified domain names and values
 as the absolute path to each domain’s data.</p>
-<p>taskna: user defined task name</p>
+<p><code class="docutils literal notranslate"><span class="pre">taskna</span></code>: user defined task name</p>
 </section>
 </section>
 </section>

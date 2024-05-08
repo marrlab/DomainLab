@@ -311,7 +311,7 @@
         </li>
         <li class="md-nav__item"><a href="#running-a-benchmark" class="md-nav__link">Running a benchmark</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#benchmark-on-a-standalone-machine-with-or-without-gpu" class="md-nav__link">Benchmark on a standalone machine (with or without GPU)</a>
+        <li class="md-nav__item"><a href="#benchmark-on-a-standalone-machine-computation-node-with-or-without-gpu" class="md-nav__link">Benchmark on a standalone machine/computation node (with or without GPU)</a>
         </li>
         <li class="md-nav__item"><a href="#benchmark-on-a-hpc-cluster-with-slurm" class="md-nav__link">Benchmark on a HPC cluster with slurm</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -384,12 +384,12 @@ example.</p>
 <h2 id="running-a-benchmark">Running a benchmark<a class="headerlink" href="#running-a-benchmark" title="Permalink to this heading">¶</a></h2>
 <p>For the execution of a benchmark we provide two scripts in our repository:</p>
 <ul class="simple">
-<li><p>local version for running the benchmark on a standalone machine:
+<li><p>running the benchmark on a standalone machine (computation node):
 <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_standalone.sh">run_benchmark_standalone.sh</a></p></li>
-<li><p>cluster version for running the benchmark on a slurm cluster: <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm.sh">run_benchmark_slurm.sh</a></p></li>
+<li><p>launching the benchmark on the login node of a slurm cluster (benchmark will be dispatched to computation node via DomainLab scripts): <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm.sh">run_benchmark_slurm.sh</a></p></li>
 </ul>
-<section id="benchmark-on-a-standalone-machine-with-or-without-gpu">
-<h3 id="benchmark-on-a-standalone-machine-with-or-without-gpu">Benchmark on a standalone machine (with or without GPU)<a class="headerlink" href="#benchmark-on-a-standalone-machine-with-or-without-gpu" title="Permalink to this heading">¶</a></h3>
+<section id="benchmark-on-a-standalone-machine-computation-node-with-or-without-gpu">
+<h3 id="benchmark-on-a-standalone-machine-computation-node-with-or-without-gpu">Benchmark on a standalone machine/computation node (with or without GPU)<a class="headerlink" href="#benchmark-on-a-standalone-machine-computation-node-with-or-without-gpu" title="Permalink to this heading">¶</a></h3>
 <p>To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab
 folder, one can execute (we assume you have a machine with 4 cores or more)</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: this has only been tested on Linux based systems and may not work on Windows</span>
