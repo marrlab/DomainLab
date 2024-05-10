@@ -36,11 +36,11 @@ example.
 
 ## Running a benchmark
 For the execution of a benchmark we provide two scripts in our repository:
-- local version for running the benchmark on a standalone machine:
+- running the benchmark on a standalone machine (computation node):
 [run_benchmark_standalone.sh](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_standalone.sh)
-- cluster version for running the benchmark on a slurm cluster: [run_benchmark_slurm.sh](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm.sh)
+- launching the benchmark on the login node of a slurm cluster (benchmark will be dispatched to computation node via DomainLab scripts): [run_benchmark_slurm.sh](https://github.com/marrlab/DomainLab/blob/master/run_benchmark_slurm.sh)
 
-### Benchmark on a standalone machine (with or without GPU)
+### Benchmark on a standalone machine/computation node (with or without GPU)
 To run the benchmark with a specific configuration on a standalone machine, inside the DomainLab
 folder, one can execute (we assume you have a machine with 4 cores or more)
 ```shell
