@@ -56,10 +56,25 @@ Shared params:
     step: 1e-5
     distribution: uniform
 
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+
 # Test fbopt with different hyperparameter configurations
 
 dial_fbopt:
-  model: erm
+  model: diva
   trainer: fbopt_dial
   shared:
     - ini_setpoint_ratio
