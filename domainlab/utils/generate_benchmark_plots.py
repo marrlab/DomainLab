@@ -15,13 +15,16 @@ from domainlab.utils.logger import Logger
 matplotlib.use("Agg")
 
 # header of the csv file:
-# param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc
+# 0,              1,       2,      3,    4,    5,    6,    7,      8,   9,        10,     11,          12, 13,    14,         15,      17,                    18,                  19
+# param_index, method, mname, commit, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc, acc_oracle, acc_val, model_selection_epoch, experiment_duration
+
 
 COLNAME_METHOD = "method"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
 G_DF_TASK_COL = 1  # column in which the method name is saved
 G_DF_PLOT_COL_METRIC_START = 9  # first 0-6 columns are not metric
+G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
 
 
 def gen_benchmark_plots(
@@ -87,8 +90,7 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
     ['param_index','task',' algo',' epos',' te_d',' seed',' params',' acc','precision',...]
     """
     os.makedirs(output_dir, exist_ok=True)
-    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:]
-
+    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:G_DF_PLOT_COL_METRIC_END]
     # boxplots
     for objective in obj:
         boxplot(
@@ -265,7 +267,7 @@ def scatterplot_matrix(
         but also between the parameter setups
     """
     dataframe = dataframe_in.copy()
-    index = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
+    index = list(range(G_DF_PLOT_COL_METRIC_START, G_DF_PLOT_COL_METRIC_END))
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(
@@ -278,7 +280,7 @@ def scatterplot_matrix(
 
         g_p = sns.pairplot(data=dataframe_, hue="label", corner=True, kind=kind)
     else:
-        index_ = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
+        index_ = list(range(G_DF_PLOT_COL_METRIC_START, G_DF_PLOT_COL_METRIC_END))
         index_.insert(0, G_DF_TASK_COL)
         dataframe_ = dataframe.iloc[:, index_]
 
@@ -415,7 +417,7 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     else:
         dataframe.insert(0, "label", dataframe[COLNAME_METHOD])
     # we need "G_DF_PLOT_COL_METRIC_START + 1" as we did insert the columns 'label' at index 0
-    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, dataframe.shape[1]))
+    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, G_DF_PLOT_COL_METRIC_END))
     num_lines = len(dataframe["label"].unique())
     _, axis = plt.subplots(
         figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True)
