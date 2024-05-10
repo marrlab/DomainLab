@@ -52,4 +52,4 @@ jobs:
           bash -x -v run_benchmark_standalone.sh examples/benchmark/demo_shared_hyper_grid.yaml
           cat zoutput/benchmarks/mnist_benchmark_grid/hyperparameters.csv
           cat zoutput/benchmarks/mnist_benchmark_grid/results.csv
-          python main_out.py --agg_partial_bm zoutput/benchmarks/mnist_shared_grid
+          python main_out.py --agg_partial_bm zoutput/benchmarks/mnist_benchmark_grid
