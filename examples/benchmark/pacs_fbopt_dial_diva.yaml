@@ -10,20 +10,20 @@ test_domains:
   - sketch
 
 domainlab_args:
-  tpath: examples/tasks/task_pacs_path_list.py
+  tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
-  epos: 1
+  epos: 500
+  epos_min: 200
   es: 5
-  bs: 64
-  san_check: True
+  bs: 32
+  san_check: False
   npath: examples/nets/resnet50domainbed.py
-  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
-  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
-  exp_shoulder_clip: 10
-  mu_clip: 10_000
-  coeff_ma: 0.5
-  no_tensorboard: False
+  npath_dom: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
 
 
 
@@ -81,3 +81,5 @@ dial_fbopt:
     - k_i_gain
     - dial_lr 
     - dial_epsilon
+    - gamma_y
+    - gamma_d
