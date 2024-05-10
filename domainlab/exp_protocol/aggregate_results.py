@@ -43,6 +43,7 @@ def agg_from_directory(input_dir: str, output_file: str):
 
 def agg_main(bm_dir: str, skip_plotting: bool = False):
     """Aggregates partial results and generate plots."""
+    bm_dir.rstrip("/")
     agg_output = f"{bm_dir}/results.csv"
     agg_input = f"{bm_dir}/rule_results"
     agg_from_directory(agg_input, agg_output)
