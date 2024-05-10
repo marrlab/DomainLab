@@ -58,7 +58,7 @@ Shared params:
 
 # Test fbopt with different hyperparameter configurations
 
-dann_fbopt:
+dial_fbopt:
   model: erm
   trainer: fbopt_dial
   shared:
