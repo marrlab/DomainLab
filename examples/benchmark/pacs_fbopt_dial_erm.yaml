@@ -1,0 +1,68 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt_pacs
+
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_path_list.py
+  dmem: False
+  lr: 5e-5
+  epos: 1
+  es: 5
+  bs: 64
+  san_check: True
+  npath: examples/nets/resnet50domainbed.py
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
+  exp_shoulder_clip: 10
+  mu_clip: 10_000
+  coeff_ma: 0.5
+  no_tensorboard: False
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.5
+    max: 0.99
+    num: 2
+    step: 0.05
+    distribution: uniform
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    step: 0.0001
+    distribution: uniform
+  
+  dial_lr: 
+    min: 1e-5
+    max: 1e-3
+    num: 2
+    step: 1e-5
+    distribution: uniform
+
+  dial_epsilon: 
+    min: 1e-5
+    max: 1e-3
+    num: 2
+    step: 1e-5
+    distribution: uniform
+
+# Test fbopt with different hyperparameter configurations
+
+dann_fbopt:
+  model: erm
+  trainer: fbopt_dial
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain
+    - dial_lr 
+    - dial_epsilon
