@@ -90,7 +90,8 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
     ['param_index','task',' algo',' epos',' te_d',' seed',' params',' acc','precision',...]
     """
     os.makedirs(output_dir, exist_ok=True)
-    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:G_DF_PLOT_COL_METRIC_END]
+    pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:pos_numeric_end]
     # boxplots
     for objective in obj:
         boxplot(
@@ -267,7 +268,8 @@ def scatterplot_matrix(
         but also between the parameter setups
     """
     dataframe = dataframe_in.copy()
-    index = list(range(G_DF_PLOT_COL_METRIC_START, G_DF_PLOT_COL_METRIC_END))
+    pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+    index = list(range(G_DF_PLOT_COL_METRIC_START, pos_numeric_end))
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(
@@ -280,7 +282,8 @@ def scatterplot_matrix(
 
         g_p = sns.pairplot(data=dataframe_, hue="label", corner=True, kind=kind)
     else:
-        index_ = list(range(G_DF_PLOT_COL_METRIC_START, G_DF_PLOT_COL_METRIC_END))
+        pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+        index_ = list(range(G_DF_PLOT_COL_METRIC_START, pos_numeric_end))
         index_.insert(0, G_DF_TASK_COL)
         dataframe_ = dataframe.iloc[:, index_]
 
@@ -417,7 +420,8 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     else:
         dataframe.insert(0, "label", dataframe[COLNAME_METHOD])
     # we need "G_DF_PLOT_COL_METRIC_START + 1" as we did insert the columns 'label' at index 0
-    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, G_DF_PLOT_COL_METRIC_END))
+    pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, pos_numeric_end))
     num_lines = len(dataframe["label"].unique())
     _, axis = plt.subplots(
         figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True)
