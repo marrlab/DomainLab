@@ -53,4 +53,23 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             """
             self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
             self.net_classifier = extend(self.net_classifier,  use_converter=True)
+    
+        def hyper_update(self, epoch, fun_scheduler):
+            """hyper_update.
+
+            :param epoch:
+            :param fun_scheduler:
+            """
+            pass
+
+        def hyper_init(self, functor_scheduler, trainer=None):
+            """
+            initiate a scheduler object via class name and things inside this model
+
+            :param functor_scheduler: the class name of the scheduler
+            """
+            return functor_scheduler(
+                trainer=trainer
+            )
+
     return ModelERM
