@@ -44,10 +44,11 @@ jobs:
     - name: check if readme yaml works
       run: rm -r zoutput && python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml
     - name: test if examples in markdown works
-      run: bash -x -v ci_run_examples.sh
+      run: bash -x -v scripts/ci_run_examples.sh
     - name: test if benchmark works
       run: | 
           pip install snakemake==7.32.0 && pip install pulp==2.7.0
+          echo "insert a shebang line (#!/bin/bash -x -v) at the beginning of the bash script"
           sed -i '1s/^/#!\/bin\/bash -x -v\n/' run_benchmark_standalone.sh
           bash -x -v run_benchmark_standalone.sh examples/benchmark/demo_shared_hyper_grid.yaml
           cat zoutput/benchmarks/mnist_benchmark_grid/hyperparameters.csv
