@@ -50,14 +50,18 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             self._net_invar_feat = net_feat
 
         def convert4backpack(self):
-            """
-            Convert the module to backpack for 2nd order gradients
-            """
+            print("Extending model components...")
             if extend is not None:
+                if hasattr(self._net_invar_feat, 'parameters'):
+                    print("Net features before extend:", self._net_invar_feat)
                 self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
+                
+                if hasattr(self.net_classifier, 'parameters'):
+                    print("Net classifier before extend:", self.net_classifier)
                 self.net_classifier = extend(self.net_classifier, use_converter=True)
             else:
                 print("Backpack's extend function is not available.")
+
 
     
         def hyper_update(self, epoch, fun_scheduler):
