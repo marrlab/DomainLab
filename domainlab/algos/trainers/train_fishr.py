@@ -156,10 +156,15 @@ class TrainerFishr(TrainerBasic):
         loss = self.model.cal_task_loss(tensor_x.clone(), vec_y)
         loss = loss.sum()
 
-        with backpack(Variance()):
+        if backpack is None:
             loss.backward(
                 inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
             )
+        else:
+            with backpack(Variance()):
+                loss.backward(
+                    inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
+                )
 
         for name, param in self.model.named_parameters():
             print(name)
