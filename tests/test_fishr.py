@@ -10,3 +10,10 @@ def test_deepall_mldg():
     """
     args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=fishr --nname=alexnet"
     utils_test_algo(args)
+
+def test_fishr_resnet():
+    """
+    resnet
+    """
+    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=fishr --npath=examples/nets/resnet.py"
+    utils_test_algo(args)
