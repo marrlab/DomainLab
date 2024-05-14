@@ -86,5 +86,12 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             return functor_scheduler(
                 trainer=trainer
             )
+        
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers which match the order in cal_reg_loss
+            """
+            return []
 
     return ModelERM
