@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt_pacs
+output_dir: zoutput/benchmarks/benchmark_fbopt_dial_diva_pacs
 
 sampling_seed: 0
 startseed: 0
@@ -16,7 +16,7 @@ domainlab_args:
   epos: 500
   epos_min: 200
   es: 5
-  bs: 32
+  bs: 16
   san_check: False
   npath: examples/nets/resnet50domainbed.py
   npath_dom: examples/nets/resnet50domainbed.py
@@ -79,6 +79,15 @@ dial_fbopt:
   shared:
     - ini_setpoint_ratio
     - k_i_gain
+    - dial_lr 
+    - dial_epsilon
+    - gamma_y
+    - gamma_d
+
+dial:
+  model: diva
+  trainer: dial
+  shared:
     - dial_lr 
     - dial_epsilon
     - gamma_y
