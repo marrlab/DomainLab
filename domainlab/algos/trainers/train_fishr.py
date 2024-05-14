@@ -9,6 +9,7 @@ from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
+
 class TrainerFishr(TrainerBasic):
     """
     The goal is to minimize the variance of the domain-level variance of the gradients.

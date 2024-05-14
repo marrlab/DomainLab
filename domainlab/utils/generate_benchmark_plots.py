@@ -15,13 +15,16 @@ from domainlab.utils.logger import Logger
 matplotlib.use("Agg")
 
 # header of the csv file:
-# param_index, task, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc
+# 0,              1,       2,      3,    4,    5,    6,    7,      8,   9,        10,     11,          12, 13,    14,         15,      17,                    18,                  19
+# param_index, method, mname, commit, algo, epos, te_d, seed, params, acc, precision, recall, specificity, f1, auroc, acc_oracle, acc_val, model_selection_epoch, experiment_duration
+
 
 COLNAME_METHOD = "method"
 COLNAME_IDX_PARAM = "param_index"
 COLNAME_PARAM = "params"
 G_DF_TASK_COL = 1  # column in which the method name is saved
 G_DF_PLOT_COL_METRIC_START = 9  # first 0-6 columns are not metric
+G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
 
 
 def gen_benchmark_plots(
@@ -39,7 +42,7 @@ def gen_benchmark_plots(
     skip_gen: Skips the actual plotting, used to speed up testing.
     """
     raw_df = pd.read_csv(
-        agg_results,
+        agg_results,  # path to csv file
         index_col=False,
         converters={COLNAME_PARAM: literal_eval},
         # literal_eval can safe evaluate python expression
@@ -87,8 +90,8 @@ def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
     ['param_index','task',' algo',' epos',' te_d',' seed',' params',' acc','precision',...]
     """
     os.makedirs(output_dir, exist_ok=True)
-    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:]
-
+    pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+    obj = dataframe.columns[G_DF_PLOT_COL_METRIC_START:pos_numeric_end]
     # boxplots
     for objective in obj:
         boxplot(
@@ -265,7 +268,8 @@ def scatterplot_matrix(
         but also between the parameter setups
     """
     dataframe = dataframe_in.copy()
-    index = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
+    pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+    index = list(range(G_DF_PLOT_COL_METRIC_START, pos_numeric_end))
     if distinguish_param_setups:
         dataframe_ = dataframe.iloc[:, index]
         dataframe_.insert(
@@ -278,7 +282,8 @@ def scatterplot_matrix(
 
         g_p = sns.pairplot(data=dataframe_, hue="label", corner=True, kind=kind)
     else:
-        index_ = list(range(G_DF_PLOT_COL_METRIC_START, dataframe.shape[1]))
+        pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+        index_ = list(range(G_DF_PLOT_COL_METRIC_START, pos_numeric_end))
         index_.insert(0, G_DF_TASK_COL)
         dataframe_ = dataframe.iloc[:, index_]
 
@@ -415,7 +420,8 @@ def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     else:
         dataframe.insert(0, "label", dataframe[COLNAME_METHOD])
     # we need "G_DF_PLOT_COL_METRIC_START + 1" as we did insert the columns 'label' at index 0
-    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, dataframe.shape[1]))
+    pos_numeric_end = min(G_DF_PLOT_COL_METRIC_END, dataframe.shape[1])
+    index = list(range(G_DF_PLOT_COL_METRIC_START + 1, pos_numeric_end))
     num_lines = len(dataframe["label"].unique())
     _, axis = plt.subplots(
         figsize=(9, 9 + (0.28 * num_lines)), subplot_kw=dict(polar=True)
@@ -524,7 +530,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                 y=obj,
                 ax=axes[num],
                 showfliers=False,
-                boxprops={"facecolor": (0.4, 0.6, 0.8, 0.5)},
+                boxprops={"facecolor": 'none', 'edgecolor': 'black'},
+                # boxprops={"facecolor": (0.4, 0.6, 0.8, 0.5)},
             )
             sns.swarmplot(
                 data=dataframe[dataframe[COLNAME_METHOD] == algo],
@@ -535,8 +542,8 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
             )
             # remove legend, set ylim, set x-label and remove y-label
             axes[num].legend([], [], frameon=False)
-            axes[num].set_ylim([-0.1, 1.1])
-            axes[num].set_xlabel(algo)
+            axes[num].set_ylim([-0.01, 1.01])
+            axes[num].set_xlabel(algo, fontsize=20)
             if num != 0:
                 axes[num].set_ylabel("")
         else:
@@ -564,11 +571,13 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                 ),
             )
             axes.legend([], [], frameon=False)
-            axes.set_ylim([-0.1, 1.1])
+            axes.set_ylim([-0.01, 1.01])
             axes.set_xlabel(algo)
         plt.tight_layout()
         if file is not None:
-            plt.savefig(file + "/stochastic_variation.png", dpi=300)
+            plt.savefig(file + "/stochastic_variation.png", dpi=600)
+            plt.savefig(file + "/stochastic_variation.pdf", format="pdf")
+            plt.savefig(file + "/stochastic_variation.svg", format="svg")
 
 
 def boxplot_systematic(dataframe_in, obj, file=None):

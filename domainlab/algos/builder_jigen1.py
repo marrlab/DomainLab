@@ -29,7 +29,7 @@ class NodeAlgoBuilderJiGen(NodeAlgoBuilder):
         task = exp.task
         args = exp.args
         device = get_device(args)
-        msel = MSelOracleVisitor(msel=MSelValPerf(max_es=args.es))
+        msel = MSelOracleVisitor(msel=MSelValPerf(max_es=args.es), val_threshold=args.val_threshold)
         observer = ObVisitor(msel)
         observer = ObVisitorCleanUp(observer)
 
