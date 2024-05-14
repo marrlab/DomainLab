@@ -4,6 +4,7 @@ Emperical risk minimization
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
+import traceback
 
 try:
     from backpack import extend
@@ -52,9 +53,13 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
         def convert4backpack(self):
             print("Extending model components...")
             if extend is not None:
-                if hasattr(self._net_invar_feat, 'parameters'):
-                    print("Net features before extend:", self._net_invar_feat)
-                self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
+                try:
+                    if hasattr(self._net_invar_feat, 'parameters'):
+                        print("Net features before extend:", self._net_invar_feat)
+                    self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
+                except Exception as e:
+                    print("An error occurred:", e)
+                    traceback.print_exc()
                 
                 if hasattr(self.net_classifier, 'parameters'):
                     print("Net classifier before extend:", self.net_classifier)
