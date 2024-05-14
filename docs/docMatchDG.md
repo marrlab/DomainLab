@@ -9,28 +9,28 @@ The authors of the paper motivate their approach by looking at the data-generati
 
 
 <div style="align: center; text-align:center;">
- <img src="figs/matchDG_causality.png" style="width:200px;"/> 
+ <img src="figs/matchDG_causality.png" style="width:200px;"/>
  <div class="caption">Figure 1: Structural causal model for the data-generating process. Observed variables are shaded; dashed arrows denote correlated nodes. Object may not be observed. (Image source: Figure 2 of Domain Generalization using Causal Matching https://arxiv.org/pdf/2006.07500.pdf) </div>
 </div>
 
 
 ## Network
 
-Before defining the network, one needs to define three sets: 
-- $\mathcal{X}$: image space with $x \in \mathcal{X}$ 
+Before defining the network, one needs to define three sets:
+- $\mathcal{X}$: image space with $x \in \mathcal{X}$
 - $\mathcal{C}$: causal feature space with $x_C \in \mathcal{C}$
-- $\mathcal{Y}$: label space with $y \in \mathcal{Y}$ 
+- $\mathcal{Y}$: label space with $y \in \mathcal{Y}$
 
-For the classification the goal is to classify an object only based on its causal features $x_C$, hence we define a network $h: \mathcal{C} \rightarrow \mathcal{Y}$. Since $x_C$ for an image $x$ is unknown, one needs to learn a representation function $\phi: \mathcal{X} \rightarrow \mathcal{C}$. By assumption for two images $x_j^{(d)}$ and $x_k^{(d')}$ of the same class, but from different domains $\text{ dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right)$ is small to enforce that the features in $\phi(x) \in \mathcal{C}$ are affected by the associated object and not the domain. This motivates the definition of a match function $\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}$, 
+For the classification the goal is to classify an object only based on its causal features $x_C$, hence we define a network $h: \mathcal{C} \rightarrow \mathcal{Y}$. Since $x_C$ for an image $x$ is unknown, one needs to learn a representation function $\phi: \mathcal{X} \rightarrow \mathcal{C}$. By assumption for two images $x_j^{(d)}$ and $x_k^{(d')}$ of the same class, but from different domains $\text{ dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right)$ is small to enforce that the features in $\phi(x) \in \mathcal{C}$ are affected by the associated object and not the domain. This motivates the definition of a match function $\Omega:  \mathcal{X} \times \mathcal{X} \rightarrow \{0, 1\}$,
 
 $$
 \Omega(x_j, x_k) = \begin{cases}
 1 \quad & \text{$x_j$ and $x_k$ correspond to the same object} \\
 0 & \text{otherwise}
-\end{cases} 
+\end{cases}
 $$
 
-by using 
+by using
 
 $$
 \sum_{\substack{\Omega(x_j, x_k) = 1,\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right) = 0.
@@ -38,7 +38,7 @@ $$
 
 Together the networks form the desired classifier $f = h \circ \phi : \mathcal{X} \rightarrow \mathcal{Y}$.
 
- 
+
 ## Training
 
 **Initialisation:** first of all match pairs of same-class data points from different domains are constructed. Given a data point, another data point with the same label from a different domain is selected randomly. The matching across domains is done relative to a base domain, which is chosen as the domain with the highest number of samples for that class. This leads to a matched data matrix $\mathcal{M}$ of size $(N', K)$ with $N'$ sum of the size of base domains over all classes and $K$ number ob domains.
@@ -60,7 +60,7 @@ $$
 \underset{h, \phi}{\text{arg min}} ~ \sum_{d \in D} \sum_{i=1}^{n_d} ~ l\left(h(\phi(x_i^{(d)})), y_i^{(d)}\right) + \gamma_{\text{reg}} \sum_{\substack{\Omega(x_j, x_k) = 1,\\ d \neq d'}} \text{dist}\left(\phi(x_j^{(d)}), \phi(x_k^{(d')})\right).
 $$
 
-The training of $h$ and $\phi$ is performed from scratch. The trained network $\phi^*$ from phase 1 is only used to update the matched data matrix using yielding $\Omega$. 
+The training of $h$ and $\phi$ is performed from scratch. The trained network $\phi^*$ from phase 1 is only used to update the matched data matrix using yielding $\Omega$.
 
 ---
 

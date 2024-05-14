@@ -6,6 +6,7 @@ from torch.nn import functional as F
 
 class ClassifDropoutReluLinear(nn.Module):
     """first apply dropout, then relu, then linearly fully connected, without activation"""
+
     def __init__(self, z_dim, target_dim):
         """
         :param z_dim:

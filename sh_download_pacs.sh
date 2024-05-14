@@ -1,3 +1,3 @@
-mkdir -p data/pacs
-cd data/script
-python download_pacs.py
+mkdir -p domainlab/zdata/pacs
+cd domainlab/zdata/script
+python3 download_pacs.py

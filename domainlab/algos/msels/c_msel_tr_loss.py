@@ -1,7 +1,8 @@
 """
-Model Selection should be decoupled from
+AMSel.accept ---> Trainer
 """
 import math
+
 from domainlab.algos.msels.a_model_sel import AMSel
 from domainlab.utils.logger import Logger
 
@@ -11,8 +12,9 @@ class MSelTrLoss(AMSel):
     1. Model selection using sum of loss across training domains
     2. Visitor pattern to trainer
     """
-    def __init__(self, max_es):
-        super().__init__()
+
+    def __init__(self, max_es, val_threshold = None):
+        super().__init__(val_threshold)
         # NOTE: super() must come first otherwise it will overwrite existing
         # values!
         self.reset()
@@ -26,11 +28,11 @@ class MSelTrLoss(AMSel):
     def max_es(self):
         return self._max_es
 
-    def update(self, clear_counter=False):
+    def base_update(self, clear_counter=False):
         """
         if the best model should be updated
         """
-        loss = self.trainer.epo_loss_tr   # @FIXME
+        loss = self.trainer.epo_loss_tr  # @FIXME
         assert loss is not None
         assert not math.isnan(loss)
         flag = True
@@ -48,7 +50,7 @@ class MSelTrLoss(AMSel):
                 self.es_c = 0
         return flag
 
-    def if_stop(self):
+    def early_stop(self):
         """
         if should early stop
         """

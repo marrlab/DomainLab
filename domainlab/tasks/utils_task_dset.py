@@ -2,6 +2,7 @@
 task specific dataset operation
 """
 import random
+
 from torch.utils.data import Dataset
 
 
@@ -9,6 +10,7 @@ class DsetIndDecorator4XYD(Dataset):
     """
     For dataset of x, y, d,  decorate it wih index
     """
+
     def __init__(self, dset):
         """
         :param dset: x,y,d
@@ -17,7 +19,8 @@ class DsetIndDecorator4XYD(Dataset):
         if len(tuple_m) < 3:
             raise RuntimeError(
                 "dataset to be wrapped should output at least x, y, and d; got length ",
-                len(tuple_m))
+                len(tuple_m),
+            )
         self.dset = dset
 
     def __getitem__(self, index):
@@ -37,6 +40,7 @@ class DsetZip(Dataset):
     to avoid always the same match, the second dataset does not use the same idx in __get__item()
     but instead, a random one
     """
+
     def __init__(self, dset1, dset2, name=None):
         """
         :param dset1: x1, y1, *d1
@@ -56,7 +60,16 @@ class DsetZip(Dataset):
         idx2 = idx2 % self.len2
         tensor_x_1, vec_y_1, vec_d_1, *others_1 = self.dset1.__getitem__(idx)
         tensor_x_2, vec_y_2, vec_d_2, *others_2 = self.dset2.__getitem__(idx2)
-        return tensor_x_1, vec_y_1, vec_d_1, others_1, tensor_x_2, vec_y_2, vec_d_2, others_2
+        return (
+            tensor_x_1,
+            vec_y_1,
+            vec_d_1,
+            others_1,
+            tensor_x_2,
+            vec_y_2,
+            vec_d_2,
+            others_2,
+        )
 
     def __len__(self):
         len1 = self.dset1.__len__()

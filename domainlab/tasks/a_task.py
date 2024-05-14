@@ -1,8 +1,8 @@
 """
 Base class for Task
 """
-from abc import abstractmethod
 import warnings
+from abc import abstractmethod
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 from domainlab.tasks.task_utils import parse_domain_id
@@ -13,6 +13,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
     """
     Domain Generalization Classification Task
     """
+
     def __init__(self, succ=None):
         super().__init__(succ)
         self._loader_tr = None
@@ -26,16 +27,21 @@ class NodeTaskDG(AbstractChainNodeHandler):
         self.dict_dset_tr = {}  # versatile variable: which domains to use as training
         self.dict_dset_te = {}  # versatile
         self.dict_dset_val = {}  # versatile
+        self.dict_loader_tr = {}
         self.dict_domain_class_count = {}
         self.dim_d_tr = None  # public, only used for diva
         self._im_size = None
         self._dict_domains2imgroot = {}
-        self._dict_domain_folder_name2class = {}  # {"domain1": {"class1":car, "class2":dog}}
+        self._dict_domain_folder_name2class = (
+            {}
+        )  # {"domain1": {"class1":car, "class2":dog}}
         self._dict_domain_img_trans = {}
         self.dict_att = {}
         self.img_trans_te = None
         self.dict_domain2imgroot = {}
-        self._dict_domain2filepath_list_im_tr = {}  # {"photo": "xxx/yyy/file_of_path2imgs"}
+        self._dict_domain2filepath_list_im_tr = (
+            {}
+        )  # {"photo": "xxx/yyy/file_of_path2imgs"}
         self._dict_domain2filepath_list_im_val = {}
         self._dict_domain2filepath_list_im_te = {}
         self.dict_class_label_ind2name = None
@@ -145,14 +151,14 @@ class NodeTaskDG(AbstractChainNodeHandler):
         assert set(list_domain_te).issubset(set(list_domains))
 
         if tr_id is None:
-            list_domain_tr = [did for did in list_domains if
-                              did not in list_domain_te]
+            list_domain_tr = [did for did in list_domains if did not in list_domain_te]
         else:
             list_domain_tr = parse_domain_id(tr_id, list_domains)
         if not set(list_domain_tr).issubset(set(list_domains)):
             raise RuntimeError(
                 f"training domain {list_domain_tr} is not \
-                subset of available domains {list_domains}")
+                subset of available domains {list_domains}"
+            )
 
         if set(list_domain_tr) & set(list_domain_te):
             logger = Logger.get_logger()
@@ -163,7 +169,7 @@ class NodeTaskDG(AbstractChainNodeHandler):
             warnings.warn(
                 "The sets of training and test domains overlap -- "
                 "be aware of data leakage or training to the test!",
-                RuntimeWarning
+                RuntimeWarning,
             )
 
         self.dim_d_tr = len(list_domain_tr)
@@ -176,5 +182,5 @@ class NodeTaskDG(AbstractChainNodeHandler):
         """
         strout = "list of domains: \n"
         strout += str(self.get_list_domains())
-        strout += (f"\n input tensor size: {self.isize}")
+        strout += f"\n input tensor size: {self.isize}"
         return strout

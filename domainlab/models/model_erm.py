@@ -1,12 +1,17 @@
 """
 Emperical risk minimization
 """
+from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
-from domainlab.compos.nn_zoo.nn import LayerId
+
+try:
+    from backpack import extend
+except:
+    backpack = None
 
 
-def mk_erm(parent_class=AModelClassif):
+def mk_erm(parent_class=AModelClassif, **kwargs):
     """
     Instantiate a Deepall (ERM) model
 
@@ -34,19 +39,18 @@ def mk_erm(parent_class=AModelClassif):
         """
         anonymous
         """
-        def __init__(self, net=None, net_feat=None, net_classifier=None, list_str_y=None):
-            if net_feat is None and net_classifier is None and net is not None:
+
+        def __init__(self, net=None, net_feat=None):
+            if net is not None:
                 net_feat = net
-                net_classifier = LayerId()
-                dim_y = list(net.modules())[-1].out_features
-            elif net_classifier is not None:
-                dim_y = list(net_classifier.modules())[-1].out_features
-            else:
-                raise RuntimeError("specify either a whole network for classification or separate \
-                        feature and classifier")
-            if list_str_y is None:
-                list_str_y = [f"class{i}" for i in range(dim_y)]
-            super().__init__(list_str_y)
-            self._net_classifier = net_classifier
+                kwargs["net_classifier"] = LayerId()
+            super().__init__(**kwargs)
             self._net_invar_feat = net_feat
+
+        def convert4backpack(self):
+            """
+            convert the module to backpack for 2nd order gradients
+            """
+            self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
+            self.net_classifier = extend(self.net_classifier,  use_converter=True)
     return ModelERM

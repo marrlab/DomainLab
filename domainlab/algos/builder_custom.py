@@ -1,16 +1,18 @@
 from domainlab.algos.a_algo_builder import NodeAlgoBuilder
-from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.msels.c_msel_oracle import MSelOracleVisitor
+from domainlab.algos.msels.c_msel_val import MSelValPerf
 from domainlab.algos.observers.b_obvisitor import ObVisitor
 from domainlab.algos.trainers.zoo_trainer import TrainerChainNodeGetter
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.utils.utils_cuda import get_device
+from domainlab.compos.nn_zoo.nn import LayerId
 
 
 def make_basic_trainer(class_name_model):
     """make_basic_trainer.
     :param class_name_model:
     """
+
     class NodeAlgoBuilderCustom(NodeAlgoBuilder):
         """NodeAlgoBuilderCustom."""
 
@@ -43,20 +45,21 @@ def make_basic_trainer(class_name_model):
             :param argname: nname_argna2val or "npath_argna2val", hard coded
             """
             if getattr(args, argname) is None:
-                setattr(args, prefix+val_arg_na, None)
+                setattr(args, prefix + val_arg_na, None)
                 return
             list_args = getattr(args, argname)
             ind = list_args.index(val_arg_na)
-            if ind+1 >= len(list_args):  # list of args always even length
-                raise RuntimeError("\n nname_argna2val or npath_argna2val should \
+            if ind + 1 >= len(list_args):  # list of args always even length
+                raise RuntimeError(
+                    f"\n nname_argna2val or npath_argna2val should \
                                    \n always be specified in pairs instead of \
                                    odd number:\
-                                   \n %s" % (
-                                       str(list_args)))
-            val = list_args[ind+1]
+                                   \n {str(list_args)}"
+                )
+            val = list_args[ind + 1]
             # add attributes to namespaces args, the attributes are provided by
             # user in the custom model file
-            setattr(args, prefix+val_arg_na, val)
+            setattr(args, prefix + val_arg_na, val)
 
         def set_nets_from_dictionary(self, args, task, model):
             """set_nets_from_dictionary.
@@ -67,24 +70,32 @@ def make_basic_trainer(class_name_model):
             –apath=examples/algos/demo_custom_model.py
             –model=custom –nname_argna2val net1 –nname_argna2val alexnet
             """
-            for key_module_na, val_arg_na in \
-                    model.dict_net_module_na2arg_na.items():
+            for key_module_na, val_arg_na in model.dict_net_module_na2arg_na.items():
                 #
-                if args.nname_argna2val is None and \
-                        args.npath_argna2val is None:
-                    raise RuntimeError("either specify nname_argna2val or \
-                                        npath_argna2val")
+                if args.nname_argna2val is None and args.npath_argna2val is None:
+                    raise RuntimeError(
+                        "either specify nname_argna2val or \
+                                        npath_argna2val"
+                    )
                 self._set_args(args, val_arg_na, "nname", "nname_argna2val")
                 self._set_args(args, val_arg_na, "npath", "npath_argna2val")
                 #
                 builder = FeatExtractNNBuilderChainNodeGetter(
-                    args, arg_name_of_net="nname"+val_arg_na,
-                    arg_path_of_net="npath"+val_arg_na)()
+                    args,
+                    arg_name_of_net="nname" + val_arg_na,
+                    arg_path_of_net="npath" + val_arg_na,
+                )()
                 net = builder.init_business(
-                    flag_pretrain=True, dim_out=task.dim_y,
-                    remove_last_layer=False, args=args,
-                    isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w))
+                    flag_pretrain=True,
+                    dim_out=task.dim_y,
+                    remove_last_layer=False,
+                    args=args,
+                    isize=(task.isize.i_c, task.isize.i_h, task.isize.i_w),
+                )
                 model.add_module("%s" % (key_module_na), net)
+            # FIXME: this is just a stub to let net_aux be invariant feature
+            model._net_invar_feat = model.net_aux
+            model._net_classifier = LayerId()
 
         def init_business(self, exp):
             """
@@ -93,12 +104,14 @@ def make_basic_trainer(class_name_model):
             task = exp.task
             args = exp.args
             device = get_device(args)
-            model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+            model_sel = MSelOracleVisitor(MSelValPerf(max_es=args.es),
+                                          val_threshold=args.val_threshold)
             observer = ObVisitor(model_sel)
-            model = class_name_model(list_str_y=task.list_str_y)
+            model = class_name_model(net_classifier=None, list_str_y=task.list_str_y)
             model = self.init_next_model(model, exp)
             self.set_nets_from_dictionary(args, task, model)
             trainer = self.get_trainer(args)
             trainer.init_business(model, task, observer, device, args)
             return trainer, model, observer, device
+
     return NodeAlgoBuilderCustom

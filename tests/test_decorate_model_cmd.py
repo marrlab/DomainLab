@@ -13,6 +13,7 @@ def test_cmd_model_erm_decorator_diva():
         --gamma_y=10e5 --gamma_d=1e5"
     utils_test_algo(args)
 
+
 def test_cmd_model_dann_decorator_diva():
     """
     trainer decorator
