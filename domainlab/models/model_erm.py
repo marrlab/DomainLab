@@ -7,8 +7,10 @@ from domainlab.utils.override_interface import override_interface
 
 try:
     from backpack import extend
-except:
-    backpack = None
+except ImportError as e:
+    print(f"Failed to import 'extend' from backpack: {e}")
+    extend = None  # Ensure extend is defined to avoid NameError later in the code
+
 
 
 def mk_erm(parent_class=AModelClassif, **kwargs):
@@ -47,12 +49,16 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             super().__init__(**kwargs)
             self._net_invar_feat = net_feat
 
-        def convert4backpack(self):
-            """
-            convert the module to backpack for 2nd order gradients
-            """
+    def convert4backpack(self):
+        """
+        Convert the module to backpack for 2nd order gradients
+        """
+        if extend is not None:
             self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
-            self.net_classifier = extend(self.net_classifier,  use_converter=True)
+            self.net_classifier = extend(self.net_classifier, use_converter=True)
+        else:
+            print("Backpack's extend function is not available.")
+
     
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
