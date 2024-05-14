@@ -244,6 +244,13 @@ def mk_parser_main():
 
     parser.add_argument("--task", metavar="ta", type=str, help="task name")
 
+    parser.add_argument(
+        "--val_threshold",
+        type=float,
+        default=None,
+        help="Accuracy threshold before early stopping can be applied"
+    )
+
     arg_group_task = parser.add_argument_group("task args")
 
     arg_group_task.add_argument(
@@ -294,7 +301,10 @@ def mk_parser_main():
     arg_group_task.add_argument(
         "--loglevel", type=str, default="DEBUG", help="sets the loglevel of the logger"
     )
-
+    arg_group_task.add_argument(
+        "--shuffling_off", action="store_true", default=False,
+        help="disable shuffling of the training dataloader for the dataset"
+    )
     # args for variational auto encoder
     arg_group_vae = parser.add_argument_group("vae")
     arg_group_vae = add_args2parser_vae(arg_group_vae)

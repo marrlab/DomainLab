@@ -1,5 +1,12 @@
 # Model JiGen
 
+<div style="align: center; text-align:center;">
+<figure>  
+<img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/jigen.png?raw=true" style="width:300px;"/> 
+</figure>
+</div>
+
+
 The JiGen method extends the understanding of the concept of spatial correlation in the
 neural network by training the network not only on a classification task, but also on solving jigsaw puzzles.
 
