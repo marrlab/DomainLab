@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Source the common functions script
 source scripts/common_benchmark_functions.sh
