@@ -56,8 +56,6 @@ fbopt_irm_erm:
   trainer: fbopt_irm
   shared:
     - ini_setpoint_ratio
-    - k_i_gain
-    - gamma_reg
 
 irm_erm:
   model: erm
