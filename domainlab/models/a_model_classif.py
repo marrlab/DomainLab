@@ -20,11 +20,10 @@ from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
 
 try:
     from backpack import extend
-    loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
-except ImportError:
-    # Handle the case where backpack is not available
-    loss_cross_entropy_extended = nn.CrossEntropyLoss(reduction="none")
-    print("Backpack could not be imported. Using standard nn.CrossEntropyLoss.")
+except:
+    backpack = None
+
+loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """

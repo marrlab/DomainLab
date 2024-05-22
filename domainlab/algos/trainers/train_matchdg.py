@@ -95,7 +95,7 @@ class TrainerMatchDG(AbstractTrainer):
 
         logger.info("\n\nPhase erm+ctr \n\n")
         self.flag_erm = True
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         return flag_stop
 
     def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e, others=None):
