@@ -206,10 +206,6 @@ class HyperSchedulerFeedback:
             self.writer.add_scalar(f"controller_gain/{key}", dict_gain[key], miter)
             ind = list_str_multiplier_na.index(key)
             self.writer.add_scalar(f"delta/{key}", self.delta_epsilon_r[ind], miter)
-        
-        print(f"Epo Reg Loss: {epo_reg_loss}")
-        print(f"Setpoint: {self.get_setpoint4r()}")
-        print(f"List: {list_str_multiplier_na}")
 
         if list_str_multiplier_na:
             for i, (reg_dyn, reg_set) in enumerate(
