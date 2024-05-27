@@ -1,34 +1,52 @@
-#!/bin/bash
+set -e
 
-# Source the common functions script
-source scripts/common_benchmark_functions.sh
+timestamp() {
+#  date +"%T" # current time
+  date +"%Y-%m-%d_%H-%M-%S"
+}
 
-CONFIGFILE=$1
-logfile=$(create_log_file)
-echo "Configuration file: $CONFIGFILE"
+
+logdir="zoutput/logs"
+mkdir -p $logdir
+logfile="$logdir/$(timestamp).out"
 echo "verbose log: $logfile"
 
-# Configuring DOMAINLAB_CUDA_START_SEED
-DOMAINLAB_CUDA_START_SEED=${2:-0}
-export DOMAINLAB_CUDA_START_SEED
-echo "argument 2: DOMAINLAB_CUDA_START_SEED=$DOMAINLAB_CUDA_START_SEED"
 
-# Configuring DOMAINLAB_CUDA_HYPERPARAM_SEED
-DOMAINLAB_CUDA_HYPERPARAM_SEED=${3:-0}
-export DOMAINLAB_CUDA_HYPERPARAM_SEED
-echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED=$DOMAINLAB_CUDA_HYPERPARAM_SEED"
+CONFIGFILE=$1
+
+
+
+echo "argument 2=$2"
+if [ -z "$2" ]
+then
+      echo "argument 2: DOMAINLAB_CUDA_START_SEED empty"
+      echo "empty string will be hashed into 0"
+fi
+
+export DOMAINLAB_CUDA_START_SEED=$2
+
+
+echo "argument 3: $3"
+
+if [ -z "$3" ]
+then
+      echo "argument 3: DOMAINLAB_CUDA_HYPERPARAM_SEED empty, will set to 0"
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=0
+else
+      export DOMAINLAB_CUDA_HYPERPARAM_SEED=$3
+fi
+
 
 echo "argument 4: NUMBER_GPUS=$4"
-NUMBER_GPUS=${4:-1}
-export NUMBER_GPUS
-echo "argument 4: NUMBER_GPUS set to ${NUMBER_GPUS}"
+if [ -z "$4" ]
+then
+      export NUMBER_GPUS=1
+      echo "argument 4: NUMBER_GPUS set to 1"
+      echo "argument 4: NUMBER_GPUS=$NUMBER_GPUS"
+else
+      export NUMBER_GPUS=$4
+fi
 
-results_dir=$(extract_output_dir "$CONFIGFILE")
-
-echo "Starting seed is: $DOMAINLAB_CUDA_START_SEED"
-echo "Hyperparameter seed is: $DOMAINLAB_CUDA_HYPERPARAM_SEED"
-echo "Number of GPUs: $NUMBER_GPUS"
-echo "Results will be stored in: $results_dir"
 
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)
 # -p: print shell commands
@@ -37,11 +55,13 @@ echo "Results will be stored in: $results_dir"
 # -- configfile: configuration yaml file of the benchmark
 
 
+
+
 # first display all tasks
 snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --keep-going --summary  # this will give us a clue first what jobs will be run
 
 # second submit the jobs, make sure you have more than 4 cores on your laptop, otherwise adjust the cores
-snakemake --config yaml_file="$CONFIGFILE" --rerun-incomplete --resources nvidia_gpu="$NUMBER_GPUS" --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --config output_dir="$results_dir" 2>&1 | tee "$logfile"
+snakemake --config yaml_file=$CONFIGFILE --rerun-incomplete --resources nvidia_gpu=$NUMBER_GPUS --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" 2>&1 | tee "$logfile"
 
 
 # snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
