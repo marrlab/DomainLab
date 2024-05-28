@@ -123,7 +123,7 @@ def mk_diva(
             """
             list of multipliers name
             """
-            return ["mu_recon", "beta_d", "beta_x", "beta_y", "gamma_d"]
+            return [f"{self.name}_mu_recon", f"{self.name}_beta_d", f"{self.name}_beta_x", f"{self.name}_beta_y", f"{self.name}_gamma_d"]
 
         @property
         def dict_multiplier(self):
@@ -131,11 +131,11 @@ def mk_diva(
             list of multipliers name, which correspond to cal_reg_loss
             """
             return {
-                "mu_recon": self.mu_recon,
-                "beta_d": self.beta_d,
-                "beta_x": self.beta_x,
-                "beta_y": self.beta_y,
-                "gamma_d": self.gamma_d,
+                f"{self.name}_mu_recon": self.mu_recon,
+                f"{self.name}_beta_d": self.beta_d,
+                f"{self.name}_beta_x": self.beta_x,
+                f"{self.name}_beta_y": self.beta_y,
+                f"{self.name}_gamma_d": self.gamma_d,
             }
 
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
@@ -187,11 +187,11 @@ def mk_diva(
             :param fun_scheduler:
             """
             dict_rst = fun_scheduler(epoch)
-            self.beta_d = dict_rst["beta_d"]
-            self.beta_y = dict_rst["beta_y"]
-            self.beta_x = dict_rst["beta_x"]
-            self.gamma_d = dict_rst["gamma_d"]
-            self.mu_recon = dict_rst["mu_recon"]
+            self.beta_d = dict_rst[self.name + "_beta_d"]
+            self.beta_y = dict_rst[self.name + "_beta_x"]
+            self.beta_x = dict_rst[self.name + "_beta_y"]
+            self.gamma_d = dict_rst[self.name + "_gamma_d"]
+            self.mu_recon = dict_rst[self.name + "_mu_recon"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -199,13 +199,14 @@ def mk_diva(
 
             :param functor_scheduler: the class name of the scheduler
             """
+            parameters = {}
+            parameters[self.name + "_beta_d"] = self.beta_d
+            parameters[self.name + "_beta_y"] = self.beta_y
+            parameters[self.name + "_beta_x"] = self.beta_x
+            parameters[self.name + "_gamma_d"] = self.gamma_d
+            parameters[self.name + "_mu_recon"] = self.mu_recon
             return functor_scheduler(
-                trainer=trainer,
-                beta_d=self.beta_d,
-                beta_y=self.beta_y,
-                beta_x=self.beta_x,
-                gamma_d=self.gamma_d,
-                mu_recon=self.mu_recon,
+                trainer=trainer, **parameters
             )
 
     class ModelDIVAGammadReconPerPixel(ModelDIVAGammadRecon):
@@ -238,10 +239,10 @@ def mk_diva(
             :param fun_scheduler:
             """
             dict_rst = fun_scheduler(epoch)
-            self.beta_d = dict_rst["beta_d"]
-            self.beta_y = dict_rst["beta_y"]
-            self.beta_x = dict_rst["beta_x"]
-            self.gamma_d = dict_rst["gamma_d"]
+            self.beta_d = dict_rst[self.name + "_beta_d"]
+            self.beta_y = dict_rst[self.name + "_beta_x"]
+            self.beta_x = dict_rst[self.name + "_beta_y"]
+            self.gamma_d = dict_rst[self.name + "_gamma_d"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -249,12 +250,14 @@ def mk_diva(
 
             :param functor_scheduler: the class name of the scheduler
             """
+            parameters = {}
+            parameters[self.name + "_beta_d"] = self.beta_d
+            parameters[self.name + "_beta_y"] = self.beta_y
+            parameters[self.name + "_beta_x"] = self.beta_x
+            parameters[self.name + "_gamma_d"] = self.gamma_d
+            parameters[self.name + "_mu_recon"] = self.mu_recon
             return functor_scheduler(
-                trainer=trainer,
-                beta_d=self.beta_d,
-                beta_y=self.beta_y,
-                beta_x=self.beta_x,
-                gamma_d=self.gamma_d,
+                trainer=trainer, **parameters
             )
 
     class ModelDIVADefault(ModelDIVA):
