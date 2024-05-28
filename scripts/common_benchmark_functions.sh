@@ -10,7 +10,6 @@ create_log_file() {
     local logdir="zoutput/logs"
     mkdir -p "$logdir"
     local logfile="$logdir/$(timestamp).out"
-    echo "verbose log: $logfile"
     echo "$logfile"
 }
 
