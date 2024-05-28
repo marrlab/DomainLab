@@ -59,7 +59,7 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             :param epoch:
             :param fun_scheduler:
             """
-            pass
+            ...
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -70,7 +70,7 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             return functor_scheduler(
                 trainer=trainer
             )
-        
+    
         @property
         def list_str_multiplier_na(self):
             """

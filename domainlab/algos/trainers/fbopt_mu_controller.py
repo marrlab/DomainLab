@@ -230,7 +230,7 @@ class HyperSchedulerFeedback:
                 self.writer.add_scalar(
                     f"x_ell_y_r/loss_{list_str_multiplier_na[i]}", reg_dyn, epo_task_loss
                 )
-        else: 
+        else:
             logger.info("No multiplier provided")
         self.writer.add_scalar("loss_task/penalized", epo_loss_tr, miter)
         self.writer.add_scalar("loss_task/ell", epo_task_loss, miter)

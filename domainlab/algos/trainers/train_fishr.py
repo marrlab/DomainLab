@@ -160,7 +160,7 @@ class TrainerFishr(TrainerBasic):
             loss.backward(
                 inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
             )
-          
+    
         dict_variance = OrderedDict(
             [(name, weights.variance.clone())
              for name, weights in self.model.named_parameters()
