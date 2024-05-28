@@ -45,11 +45,6 @@ snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk"
 # second submit the jobs, make sure you have more than 4 cores on your laptop, otherwise adjust the cores
 snakemake --config yaml_file="$CONFIGFILE" --rerun-incomplete --resources nvidia_gpu="$NUMBER_GPUS" --cores 4 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --config output_dir="$results_dir" 2>&1 | tee "$logfile"
 
-
-snakemake_exit_code=${PIPESTATUS[0]}
-echo "Snakemake exited with code: $snakemake_exit_code"
-exit $snakemake_exit_code
-
 # snakemake --rerun-incomplete --cores 1 -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 # snakemake -np -s "domainlab/exp_protocol/benchmark.smk" --configfile "examples/yaml/demo_benchmark.yaml"
 
