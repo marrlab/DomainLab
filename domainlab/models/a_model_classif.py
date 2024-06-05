@@ -17,14 +17,7 @@ from domainlab.utils.perf import PerfClassif
 from domainlab.utils.perf_metrics import PerfMetricClassif
 from domainlab.utils.utils_class import store_args
 from domainlab.utils.utils_classif import get_label_na, logit2preds_vpic
-
-try:
-    from backpack import extend
-except:
-    backpack = None
-
-loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
-
+from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
@@ -103,6 +96,11 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         :param list_str_y: list of fixed order, each element is a class label
         """
         super().__init__()
+        self.backpack_wrapper = BackpackWrapper()
+        # Extend the loss function with backpack's extend method
+        self.loss_cross_entropy_extended = self.backpack_wrapper.extend_loss_function(
+            nn.CrossEntropyLoss(reduction='none')
+        )
         for key, value in kwargs.items():
             if key == "list_str_y":
                 list_str_y = value
@@ -154,7 +152,7 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
             y_target = tensor_y
         else:
             _, y_target = tensor_y.max(dim=1)
-        lc_y = loss_cross_entropy_extended(logit_y, y_target)
+        lc_y = self.loss_cross_entropy_extended(logit_y, y_target)
         # cross entropy always return a scalar, no need for inside instance reduction
         return lc_y
 
