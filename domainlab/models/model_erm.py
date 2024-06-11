@@ -54,13 +54,12 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             self.net_classifier = extend(self.net_classifier,  use_converter=True)
 
         def hyper_update(self, _epoch, _fun_scheduler):
-            """hyper_update.
+            """
+            Method necessary to combine with hyperparameter scheduler
 
             :param epoch:
             :param fun_scheduler:
             """
-            """Method necessary to combine with hyperparameter scheduler"""
-            return
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
