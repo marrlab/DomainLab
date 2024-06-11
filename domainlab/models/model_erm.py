@@ -53,7 +53,7 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
             self.net_classifier = extend(self.net_classifier,  use_converter=True)
 
-        def hyper_update(self, _epoch, _fun_scheduler):
+        def hyper_update(self, epoch, fun_scheduler): # noqa: F841  # pylint: disable=unused-argument
             """
             Method necessary to combine with hyperparameter scheduler
 
