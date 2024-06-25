@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the common functions script
-source scripts/common_benchmark_functions.sh
+source scripts/sh_benchmark_utils.sh
 
 # CONFIGFILE="examples/yaml/test_helm_benchmark.yaml"
 CONFIGFILE=$1

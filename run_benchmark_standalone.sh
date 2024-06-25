@@ -3,7 +3,7 @@
 set -e
 
 # Source the common functions script
-source scripts/common_benchmark_functions.sh
+source scripts/sh_benchmark_utils.sh
 
 CONFIGFILE=$1
 logfile=$(create_log_file)
