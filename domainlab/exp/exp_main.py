@@ -59,6 +59,7 @@ class Exp:
         # visitor must be initialized last after trainer is initialized
         self.experiment_duration = None
         self.model.set_saver(self.visitor)
+        self.model.save()
 
     def execute(self, num_epochs=None):
         """
