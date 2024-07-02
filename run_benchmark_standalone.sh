@@ -10,7 +10,12 @@ logfile=$(create_log_file)
 echo "Configuration file: $CONFIGFILE"
 echo "verbose log: $logfile"
 
-# Configuring DOMAINLAB_CUDA_START_SEED
+# Check if the second argument is empty and provide feedback
+if [ -z "$2" ]; then
+    echo "argument 2: DOMAINLAB_CUDA_START_SEED empty, will set to 0"
+fi
+# Set DOMAINLAB_CUDA_START_SEED to the second command-line argument if provided,
+# otherwise, default to 0.
 DOMAINLAB_CUDA_START_SEED=${2:-0}
 export DOMAINLAB_CUDA_START_SEED
 echo "argument 2: DOMAINLAB_CUDA_START_SEED=$DOMAINLAB_CUDA_START_SEED"
