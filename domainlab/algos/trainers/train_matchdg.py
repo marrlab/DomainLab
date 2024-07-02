@@ -13,6 +13,7 @@ from domainlab.algos.trainers.compos.matchdg_utils import (
 )
 from domainlab.tasks.utils_task_dset import DsetIndDecorator4XYD
 from domainlab.utils.logger import Logger
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerMatchDG(AbstractTrainer):
@@ -36,7 +37,7 @@ class TrainerMatchDG(AbstractTrainer):
         self.base_domain_size = get_base_domain_size4match_dg(self.task)
         self.epo_loss_tr = 0
         self.flag_erm = flag_erm
-        self.lambda_ctr = self.aconf.gamma_reg
+        self.lambda_ctr = get_gamma_reg(aconf, self.name)
         self.mk_match_tensor(epoch=0)
         self.flag_match_tensor_sweep_over = False
         self.tuple_tensor_ref_domain2each_y = None
