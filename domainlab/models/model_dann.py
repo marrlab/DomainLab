@@ -79,7 +79,10 @@ def mk_dann(parent_class=AModelClassif, **kwargs):
 
         @property
         def list_str_multiplier_na(self):
-            return ["alpha"]
+            """
+            name of the multiplier
+            """
+            return [self.name + "_alpha"]
 
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.

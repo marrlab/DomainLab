@@ -206,27 +206,32 @@ class HyperSchedulerFeedback:
             self.writer.add_scalar(f"controller_gain/{key}", dict_gain[key], miter)
             ind = list_str_multiplier_na.index(key)
             self.writer.add_scalar(f"delta/{key}", self.delta_epsilon_r[ind], miter)
-        for i, (reg_dyn, reg_set) in enumerate(
-            zip(epo_reg_loss, self.get_setpoint4r())
-        ):
-            self.writer.add_scalar(
-                f"lossrd/dyn_{list_str_multiplier_na[i]}", reg_dyn, miter
-            )
-            self.writer.add_scalar(
-                f"lossrs/setpoint_{list_str_multiplier_na[i]}", reg_set, miter
-            )
 
-            self.writer.add_scalars(
-                f"loss_rds/loss_{list_str_multiplier_na[i]}_w_setpoint",
-                {
-                    f"lossr/loss_{list_str_multiplier_na[i]}": reg_dyn,
-                    f"lossr/setpoint_{list_str_multiplier_na[i]}": reg_set,
-                },
-                miter,
-            )
-            self.writer.add_scalar(
-                f"x_ell_y_r/loss_{list_str_multiplier_na[i]}", reg_dyn, epo_task_loss
-            )
+        if list_str_multiplier_na:
+            for i, (reg_dyn, reg_set) in enumerate(
+                zip(epo_reg_loss, self.get_setpoint4r())
+            ):
+
+                self.writer.add_scalar(
+                    f"lossrd/dyn_{list_str_multiplier_na[i]}", reg_dyn, miter
+                )
+                self.writer.add_scalar(
+                    f"lossrs/setpoint_{list_str_multiplier_na[i]}", reg_set, miter
+                )
+
+                self.writer.add_scalars(
+                    f"loss_rds/loss_{list_str_multiplier_na[i]}_w_setpoint",
+                    {
+                        f"lossr/loss_{list_str_multiplier_na[i]}": reg_dyn,
+                        f"lossr/setpoint_{list_str_multiplier_na[i]}": reg_set,
+                    },
+                    miter,
+                )
+                self.writer.add_scalar(
+                    f"x_ell_y_r/loss_{list_str_multiplier_na[i]}", reg_dyn, epo_task_loss
+                )
+        else:
+            logger.info("No multiplier provided")
         self.writer.add_scalar("loss_task/penalized", epo_loss_tr, miter)
         self.writer.add_scalar("loss_task/ell", epo_task_loss, miter)
         acc_te = 0

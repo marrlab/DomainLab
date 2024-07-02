@@ -18,8 +18,8 @@ domainlab_args:
   es: 5
   bs: 32
   san_check: False
-  npath: examples/nets/resnet50domainbed.py
-  npath_dom: examples/nets/resnet50domainbed.py
+  nname: alexnet
+  nname_dom: alexnet
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
@@ -63,6 +63,4 @@ fishr_erm:
   model: erm
   trainer: fishr
   shared:
-    - ini_setpoint_ratio
-    - k_i_gain
     - gamma_reg

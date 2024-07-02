@@ -4,15 +4,11 @@ Emperical risk minimization
 from domainlab.compos.nn_zoo.nn import LayerId
 from domainlab.models.a_model_classif import AModelClassif
 from domainlab.utils.override_interface import override_interface
-import traceback
 
 try:
     from backpack import extend
-except ImportError as e:
-    print(f"Failed to import 'extend' from backpack: {e}")
-    extend = None  # Ensure extend is defined to avoid NameError later in the code
-
-
+except:
+    backpack = None
 
 def mk_erm(parent_class=AModelClassif, **kwargs):
     """
@@ -51,31 +47,19 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             self._net_invar_feat = net_feat
 
         def convert4backpack(self):
-            print("Extending model components...")
-            if extend is not None:
-                try:
-                    if hasattr(self._net_invar_feat, 'parameters'):
-                        print("Net features before extend:", self._net_invar_feat)
-                    self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
-                except Exception as e:
-                    print("An error occurred:", e)
-                    traceback.print_exc()
-                
-                if hasattr(self.net_classifier, 'parameters'):
-                    print("Net classifier before extend:", self.net_classifier)
-                self.net_classifier = extend(self.net_classifier, use_converter=True)
-            else:
-                print("Backpack's extend function is not available.")
+            """
+            convert the module to backpack for 2nd order gradients
+            """
+            self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
+            self.net_classifier = extend(self.net_classifier,  use_converter=True)
 
-
-    
-        def hyper_update(self, epoch, fun_scheduler):
-            """hyper_update.
+        def hyper_update(self, epoch, fun_scheduler): # pylint: disable=unused-argument
+            """
+            Method necessary to combine with hyperparameter scheduler
 
             :param epoch:
             :param fun_scheduler:
             """
-            pass
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """
@@ -86,5 +70,12 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             return functor_scheduler(
                 trainer=trainer
             )
+
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers which match the order in cal_reg_loss
+            """
+            return []
 
     return ModelERM
