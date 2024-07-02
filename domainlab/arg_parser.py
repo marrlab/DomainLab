@@ -30,7 +30,6 @@ class ParseValuesOrKeyValuePairs(argparse.Action):
                 ValueError: If the values cannot be parsed to float.
         """
         if "=" in values:
-            my_dict = {}        if "=" in values:
             my_dict = {}
             for kv in values.split(","):
                 k, v = kv.split("=")
