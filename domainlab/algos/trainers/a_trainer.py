@@ -132,7 +132,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             self._decoratee.init_business(
                 model, task, observer, device, aconf, flag_accept
             )
-        self.model = model
+            self.model = self._decoratee
+        else:
+            self.model = model
         self.task = task
         self.task.init_business(trainer=self, args=aconf)
         self.model.list_d_tr = self.task.list_domain_tr
@@ -272,3 +274,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if self._decoratee is not None:
             return self._decoratee.dset_decoration_args_algo(args, ddset)
         return ddset
+
+    def print_parameters(self):
+        """
+        Function to print all parameters of the object. 
+        Can be used to print the parameters of any child class
+        """
+        params = vars(self)
+        print(f"Parameters of {type(self).__name__}: {params}")
