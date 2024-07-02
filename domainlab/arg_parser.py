@@ -51,7 +51,10 @@ def mk_parser_main():
     parser.add_argument(
         "--gamma_reg",
         default=0.1,
-        help="weight of regularization loss, can specify per model as 'dann=1.0,diva=2.0'",
+        help="weight of regularization loss in the form of $$\ell(\cdot) + \mu \times R(\cdot)$$ \
+        can specify per model as 'default=3.0, dann=1.0,jigen=2.0', where default refer to gamma for trainer \
+        note diva is implemented $$\ell(\cdot) + \mu \times R(\cdot)$$ \
+        so diva does not have gamma_reg",
         action=ParseValuesOrKeyValuePairs
     )
 
