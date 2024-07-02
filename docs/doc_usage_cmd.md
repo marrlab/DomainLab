@@ -29,7 +29,7 @@ To run DomainLab, the minimum necessary parameters are:
 
   - **Command Line Usage:**
     - For a single value: `python script.py --gamma_reg=0.1`
-    - For multiple values: `python script.py --gamma_reg='default=0.1,dann=0.05,diva=0.2'`
+    - For multiple values: `python script.py --gamma_reg='default=0.1,dann=0.05,jigen=0.2'`
 
   - **YAML Configuration:**
     - For a single value:
