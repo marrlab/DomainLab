@@ -43,7 +43,7 @@ To run DomainLab, the minimum necessary parameters are:
       ```yaml
       gamma_reg:
         dann: 0.05
-        diva: 0.2
+        jigen: 0.2
         default: 0.1 # value for every other instance
       ```  
 
