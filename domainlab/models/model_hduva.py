@@ -66,10 +66,10 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             dict_rst = fun_scheduler(
                 epoch
             )  # the __call__ function of hyper-para-scheduler object
-            self.beta_d = dict_rst["beta_d"]
-            self.beta_y = dict_rst["beta_y"]
-            self.beta_x = dict_rst["beta_x"]
-            self.beta_t = dict_rst["beta_t"]
+            self.beta_d = dict_rst[self.name + "_beta_d"]
+            self.beta_y = dict_rst[self.name + "_beta_y"]
+            self.beta_x = dict_rst[self.name + "_beta_x"]
+            self.beta_t = dict_rst[self.name + "_beta_t"]
 
         def hyper_init(self, functor_scheduler):
             """hyper_init.
@@ -78,12 +78,13 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             # calling the constructor of the hyper-parameter-scheduler class, so that this scheduler
             # class build a dictionary {"beta_d":self.beta_d, "beta_y":self.beta_y}
             # constructor signature is def __init__(self, **kwargs):
+            parameters = {}
+            parameters[self.name + "_beta_d"] = self.beta_d
+            parameters[self.name + "_beta_y"] = self.beta_y
+            parameters[self.name + "_beta_x"] = self.beta_x
+            parameters[self.name + "_beta_t"] = self.beta_t
             return functor_scheduler(
-                trainer=None,
-                beta_d=self.beta_d,
-                beta_y=self.beta_y,
-                beta_x=self.beta_x,
-                beta_t=self.beta_t,
+                trainer=None, **parameters
             )
 
         @store_args
