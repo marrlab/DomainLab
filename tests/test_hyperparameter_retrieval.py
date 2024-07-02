@@ -29,7 +29,9 @@ def test_get_gamma_reg_dict_value():
     args = parser.parse_args(['--gamma_reg', 'default=5.0,dann=1.0,jigen=2.0'])
     assert get_gamma_reg(args, 'dann') == 1.0
     assert get_gamma_reg(args, 'jigen') == 2.0
-    assert get_gamma_reg(args, 'nonexistent') == 5.0
+    assert get_gamma_reg(args, 'nonexistent') == 5.0  # if we implement other model/trainers, 
+    # since not specified in command line arguments, the new model/trainer called "nonexistent" should 
+    # get the default value 5.0. 
 
 def test_exception():
     """Test to not specify a default value"""
