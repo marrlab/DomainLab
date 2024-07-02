@@ -15,8 +15,22 @@ from domainlab.utils.logger import Logger
 class ParseValuesOrKeyValuePairs(argparse.Action):
     """Class used for arg parsing where values are provided in a key value format"""
 
-    def __call__(self, parser, namespace, values, option_string=None):
+    def __call__(self, parser: argparse.ArgumentParser,
+    namespace: argparse.Namespace, values: str, option_string: str = None):
+        """
+            Handle parsing of key value pairs, or a single value instead
+
+            Args:
+                parser (argparse.ArgumentParser): The ArgumentParser object.
+                namespace (argparse.Namespace): The namespace object to store parsed values.
+                values (str): The string containing key=value pairs or a single float value.
+                option_string (str, optional): The option string that triggered this action (unused).
+
+            Raises:
+                ValueError: If the values cannot be parsed to float.
+        """
         if "=" in values:
+            my_dict = {}        if "=" in values:
             my_dict = {}
             for kv in values.split(","):
                 k, v = kv.split("=")

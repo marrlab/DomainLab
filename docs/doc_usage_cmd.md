@@ -43,9 +43,11 @@ To run DomainLab, the minimum necessary parameters are:
       ```yaml
       gamma_reg:
         dann: 0.05
-        diva: 0.2
+        dial: 0.2
         default: 0.1 # value for every other instance
       ```  
+Gamma reg is available for the trainers, as well as the 
+dann and jigen model. 
 
 - **Early Stopping (`--es`):** Steps for early stopping.
 - **Random Seed (`--seed`):** Seed for reproducibility.
