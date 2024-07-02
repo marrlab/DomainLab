@@ -13,7 +13,8 @@ from domainlab.tasks.utils_task import ImSize
 # change this to absolute directory where you have the raw images from PACS,
 G_PACS_RAW_PATH = "data/pacs/PACS"
 # domainlab repository contain already the file names in
-# domainlab/zdata/pacs_split folder of domainlab, but PACS dataset is too big to put into domainlab folder
+# domainlab/zdata/pacs_split folder of domainlab, 
+# but PACS dataset is too big to put into domainlab folder
 
 
 def get_task(na=None):
