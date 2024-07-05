@@ -4,7 +4,7 @@ output_dir: zoutput/benchmarks/benchmark_fbopt_fishr_erm_pacs
 
 sampling_seed: 0
 startseed: 0
-endseed: 2
+endseed: 0
 
 test_domains:
   - sketch
@@ -13,8 +13,8 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
-  epos: 500
-  epos_min: 200
+  epos: 10
+  epos_min: 2
   es: 5
   bs: 32
   san_check: False
