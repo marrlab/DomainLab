@@ -32,4 +32,7 @@ echo "Number of GPUs: $NUMBER_GPUS"
 echo "Results will be stored in: $results_dir"
 
 # Helmholtz
-snakemake --config logdir="zoutput/benchmark/logs" --profile "examples/yaml/slurm" --config yaml_file="$CONFIGFILE" --keep-going --keep-incomplete --notemp --cores 3 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --config output_dir="$results_dir" 2>&1 | tee "$logfile"
+export logdir="${results_dir}/slurm_logs/"
+echo "slurm logs going into ${logdir}"
+# snakemake --config logdir="zoutput/benchmark/logs" does not seem to work
+snakemake --profile "examples/yaml/slurm" --config yaml_file="$CONFIGFILE" --keep-going --keep-incomplete --notemp --cores 3 -s "domainlab/exp_protocol/benchmark.smk" --configfile "$CONFIGFILE" --config output_dir="$results_dir" 2>&1 | tee "$logfile"
