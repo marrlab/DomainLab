@@ -566,7 +566,15 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         """
         if self._decoratee is not None:
             return self._decoratee.dset_decoration_args_algo(args, ddset)
-        return ddset</div></div>
+        return ddset</div>
+
+<div class="viewcode-block" id="AbstractTrainer.print_parameters"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.print_parameters">[docs]</a>    def print_parameters(self):
+        """
+        Function to print all parameters of the object. 
+        Can be used to print the parameters of any child class
+        """
+        params = vars(self)
+        print(f"Parameters of {type(self).__name__}: {params}")</div></div>
 </pre></div>
 
           </article>

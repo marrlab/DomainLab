@@ -419,13 +419,13 @@ hyperparameter sampling and pytorch.</p>
 <h4 id="check-errors-for-slurm-runs">Check errors for slurm runs<a class="headerlink" href="#check-errors-for-slurm-runs" title="Permalink to this heading">¶</a></h4>
 <p>The following script will help to find out which job has failed and the error message, so that you could direct to the
 specific log file</p>
-<div class="highlight-cluster notranslate"><div class="highlight"><pre><span></span>bash ./sh_list_error.sh ./zoutput/slurm_logs
+<div class="highlight-cluster notranslate"><div class="highlight"><pre><span></span>bash ./sh_list_error.sh ./zoutput/benchmarks/[output folder of the sepcifed benchmark in the yaml file]/slurm_logs
 </pre></div>
 </div>
 </section>
 <section id="map-between-slurm-job-id-and-sampled-hyperparameter-index">
 <h4 id="map-between-slurm-job-id-and-sampled-hyperparameter-index">Map between slurm job id and sampled hyperparameter index<a class="headerlink" href="#map-between-slurm-job-id-and-sampled-hyperparameter-index" title="Permalink to this heading">¶</a></h4>
-<p>suppose the slurm job id is 14144163, one could the corresponding log file in <code class="docutils literal notranslate"><span class="pre">./zoutput/slurm_logs</span></code> folder via
+<p>suppose the slurm job id is 14144163, one could the corresponding log file in <code class="docutils literal notranslate"><span class="pre">./zoutput/[output</span> <span class="pre">folder</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">sepcifed</span> <span class="pre">benchmark</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">yaml</span> <span class="pre">file]/slurm_logs</span></code> folder via
 <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">.</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">"14144163"</span></code></p>
 <p>the results can be
 <code class="docutils literal notranslate"><span class="pre">run_experiment-index=41-14144163.err</span></code>

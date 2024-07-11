@@ -361,9 +361,43 @@
 <h2 id="optional-commands">Optional Commands<a class="headerlink" href="#optional-commands" title="Permalink to this heading">¶</a></h2>
 <section id="advanced-configuration">
 <h3 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this heading">¶</a></h3>
-<ul class="simple">
+<ul>
 <li><p><strong>Learning Rate (<code class="docutils literal notranslate"><span class="pre">--lr</span></code>):</strong> Set the training learning rate.</p></li>
-<li><p><strong>Regularization (<code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>):</strong> Weight of regularization loss.</p></li>
+<li><p><strong>Regularization (<code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>):</strong> Sets the weight of the regularization
+loss. This parameter can be configured either as
+a single value applied to individual classes,
+or using a dictionary to specify different
+weights for different models and trainers.</p>
+<ul>
+<li><p><strong>Command Line Usage:</strong></p>
+<ul class="simple">
+<li><p>For a single value: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">script.py</span> <span class="pre">--gamma_reg=0.1</span></code></p></li>
+<li><p>For multiple values: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">script.py</span> <span class="pre">--gamma_reg='default=0.1,dann=0.05,jigen=0.2'</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>YAML Configuration:</strong></p>
+<ul>
+<li><p>For a single value:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">gamma_reg</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+</pre></div>
+</div>
+</li>
+<li><p>For different values:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">gamma_reg</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">dann</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">  </span><span class="nt">dial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w"> </span><span class="c1"># value for every other instance</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Gamma reg is available for the trainers, as well as the
+dann and jigen model.</p>
+<ul class="simple">
 <li><p><strong>Early Stopping (<code class="docutils literal notranslate"><span class="pre">--es</span></code>):</strong> Steps for early stopping.</p></li>
 <li><p><strong>Random Seed (<code class="docutils literal notranslate"><span class="pre">--seed</span></code>):</strong> Seed for reproducibility.</p></li>
 <li><p><strong>CUDA Options (<code class="docutils literal notranslate"><span class="pre">--nocu</span></code>, <code class="docutils literal notranslate"><span class="pre">--device</span></code>):</strong> Configure CUDA usage and device settings.</p></li>

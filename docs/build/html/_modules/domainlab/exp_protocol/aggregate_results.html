@@ -352,6 +352,7 @@ from domainlab.utils.generate_benchmark_plots import gen_benchmark_plots
 
 <div class="viewcode-block" id="agg_main"><a class="viewcode-back" href="../../../domainlab.exp_protocol.html#domainlab.exp_protocol.aggregate_results.agg_main">[docs]</a>def agg_main(bm_dir: str, skip_plotting: bool = False):
     """Aggregates partial results and generate plots."""
+    bm_dir.rstrip("/")
     agg_output = f"{bm_dir}/results.csv"
     agg_input = f"{bm_dir}/rule_results"
     agg_from_directory(agg_input, agg_output)

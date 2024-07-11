@@ -68,6 +68,14 @@ domainlab.algos.trainers.train\_hyper\_scheduler module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.train\_irm module
+------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_irm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_matchdg module
 ----------------------------------------------
 

@@ -36,6 +36,14 @@ domainlab.utils.hyperparameter\_gridsearch module
    :undoc-members:
    :show-inheritance:
 
+domainlab.utils.hyperparameter\_retrieval module
+------------------------------------------------
+
+.. automodule:: domainlab.utils.hyperparameter_retrieval
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.utils.hyperparameter\_sampling module
 -----------------------------------------------
 
