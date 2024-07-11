@@ -10,8 +10,8 @@ cluster:
     -c 2
     --mem=160G
     --job-name=smk-{rule}-{wildcards}
-    --output=zoutput/$logdir/{rule}/{rule}-{wildcards}-%j.out
-    --error=zoutput/$logdir/{rule}/{rule}-{wildcards}-%j.err
+    --output=$logdir/{rule}/{rule}-{wildcards}-%j.out
+    --error=$logdir/{rule}/{rule}-{wildcards}-%j.err
 default-resources:
   - partition=gpu_p
   - qos=gpu_normal
