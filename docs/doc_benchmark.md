@@ -74,10 +74,10 @@ hyperparameter sampling and pytorch.
 The following script will help to find out which job has failed and the error message, so that you could direct to the
 specific log file
 ```cluster
-bash ./sh_list_error.sh ./zoutput/slurm_logs
+bash ./sh_list_error.sh ./zoutput/benchmarks/[output folder of the sepcifed benchmark in the yaml file]/slurm_logs
 ```
 #### Map between slurm job id and sampled hyperparameter index
-suppose the slurm job id is 14144163, one could the corresponding log file in `./zoutput/slurm_logs` folder via
+suppose the slurm job id is 14144163, one could the corresponding log file in `./zoutput/[output folder of the sepcifed benchmark in the yaml file]/slurm_logs` folder via
 `find . | grep -i "14144163"`
 
 the results can be
