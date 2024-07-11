@@ -72,8 +72,8 @@ rule parameter_sampling:
         expand("{path}", path=config_path)
     output:
         dest=expand("{output_dir}/hyperparameters.csv", output_dir=config["output_dir"])
-    resources:
-        log_dir="slurm_logs_test"
+    # resources:
+    #    log_dir="slurm_logs_test"
     params:
         sampling_seed=os.environ["DOMAINLAB_CUDA_HYPERPARAM_SEED"]
     run:
@@ -109,8 +109,6 @@ rule parameter_sampling:
 rule run_experiment:
     input:
         param_file=rules.parameter_sampling.output
-    resources:
-        log_dir="slurm_logs_test"
     output:
         # snakemake keyword temporary for temporary directory
         # like f-string in python {index} is generated in the run block as wildcards
@@ -163,8 +161,8 @@ rule agg_results:
     # put different csv file in a big csv file
     input:
         exp_results=experiment_result_files
-    resources:
-        log_dir="slurm_logs_test"
+    # resources:
+    #    log_dir="slurm_logs_test"
     output:
         out_file=expand("{output_dir}/results.csv", output_dir=config["output_dir"])
     run:
