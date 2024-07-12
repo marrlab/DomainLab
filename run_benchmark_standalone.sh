@@ -6,9 +6,7 @@ set -e
 source scripts/sh_benchmark_utils.sh
 
 CONFIGFILE=$1
-logfile=$(create_log_file)
 echo "Configuration file: $CONFIGFILE"
-echo "verbose log: $logfile"
 
 # Check if the second argument is empty and provide feedback
 if [ -z "$2" ]; then
@@ -36,6 +34,12 @@ echo "Starting seed is: $DOMAINLAB_CUDA_START_SEED"
 echo "Hyperparameter seed is: $DOMAINLAB_CUDA_HYPERPARAM_SEED"
 echo "Number of GPUs: $NUMBER_GPUS"
 echo "Results will be stored in: $results_dir"
+
+logfile=$(create_log_file "$results_dir")
+echo "verbose log: $logfile"
+
+# copy yaml file into the results folder
+cp $CONFIGFILE $results_dir
 
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)
 # -p: print shell commands
