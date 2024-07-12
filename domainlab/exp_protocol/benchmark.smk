@@ -109,6 +109,7 @@ rule parameter_sampling:
 rule run_experiment:
     input:
         param_file=rules.parameter_sampling.output
+    shell: "cat {input}"
     output:
         # snakemake keyword temporary for temporary directory
         # like f-string in python {index} is generated in the run block as wildcards
