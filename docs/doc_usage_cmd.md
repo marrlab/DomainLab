@@ -21,7 +21,34 @@ To run DomainLab, the minimum necessary parameters are:
 ### Advanced Configuration
 
 - **Learning Rate (`--lr`):** Set the training learning rate.
-- **Regularization (`--gamma_reg`):** Weight of regularization loss.
+- **Regularization (`--gamma_reg`):** Sets the weight of the regularization
+ loss. This parameter can be configured either as
+ a single value applied to individual classes,
+ or using a dictionary to specify different
+ weights for different models and trainers.
+
+  - **Command Line Usage:**
+    - For a single value: `python script.py --gamma_reg=0.1`
+    - For multiple values: `python script.py --gamma_reg='default=0.1,dann=0.05,jigen=0.2'`
+
+  - **YAML Configuration:**
+    - For a single value:
+
+      ```yaml
+      gamma_reg: 0.1
+      ```
+
+    - For different values:
+
+      ```yaml
+      gamma_reg:
+        dann: 0.05
+        dial: 0.2
+        default: 0.1 # value for every other instance
+      ```  
+Gamma reg is available for the trainers, as well as the 
+dann and jigen model. 
+
 - **Early Stopping (`--es`):** Steps for early stopping.
 - **Random Seed (`--seed`):** Seed for reproducibility.
 - **CUDA Options (`--nocu`, `--device`):** Configure CUDA usage and device settings.

@@ -9,7 +9,7 @@ timestamp() {
 
 # Function to create a log file with a timestamp in the name
 create_log_file() {
-    local logdir="zoutput/logs"
+    local logdir="$1/snakemake_scheduler_logs"
     mkdir -p "$logdir"
     local logfile="$logdir/$(timestamp).out"
     echo "$logfile"
