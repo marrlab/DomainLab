@@ -38,6 +38,9 @@ echo "Results will be stored in: $results_dir"
 logfile=$(create_log_file "$results_dir")
 echo "verbose log: $logfile"
 
+# copy yaml file into the results folder
+cp $CONFIGFILE $results_dir
+
 # -n: dry-run  (A dry run is a software testing process where the effects of a possible failure are intentionally mitigated, For example, there is rsync utility for transfer data over some interface, but user can try rsync with dry-run option to check syntax and test communication without data transferring.)
 # -p: print shell commands
 # -d: specify working directory. This should be the DomainLab dir
