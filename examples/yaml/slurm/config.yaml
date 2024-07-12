@@ -1,6 +1,8 @@
 # This yaml file has been adapted from https://github.com/jdblischak/smk-simple-slurm
 cluster:
   mkdir -p $logdir/{rule} &&
+  export parentfolder=$(dirname "$logdir") &&
+  export outputfolder=$(basename "$parentfolder")" &&
   sbatch
     --partition=gpu_p
     --qos=gpu_normal
@@ -9,7 +11,7 @@ cluster:
     -t 48:00:00
     -c 2
     --mem=160G
-    --job-name=smk-{rule}-{wildcards}
+    --job-name=outputfolder-{rule}-{wildcards}
     --output=$logdir/{rule}/{rule}-{wildcards}-%j.out
     --error=$logdir/{rule}/{rule}-{wildcards}-%j.err
 default-resources:
