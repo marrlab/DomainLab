@@ -7,7 +7,8 @@ epos: 1                             # number of epochs
 trainer: mldg_dial                  # combine trainer MLDG and DIAL
 gamma_reg: 
   default: 1.0
-  dann: 1.5     
+  dann: 1.5
+# in this case, mldg and dial get the default gamma_reg value 1.0
 gamma_y: 700000.0                   # hyperparameter of diva
 gamma_d: 100000.0                   # hyperparameter of diva
 npath: examples/nets/resnet.py      # neural network for class classification
