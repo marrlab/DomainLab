@@ -109,7 +109,6 @@ rule parameter_sampling:
 rule run_experiment:
     input:
         param_file=rules.parameter_sampling.output
-    shell: "cat {input}"
     output:
         # snakemake keyword temporary for temporary directory
         # like f-string in python {index} is generated in the run block as wildcards
@@ -123,6 +122,7 @@ rule run_experiment:
     resources:
         nvidia_gpu=1
     run:
+        shell("cat {input}")
         from domainlab.exp_protocol.run_experiment import run_experiment
         # import sys
         # pos = None
