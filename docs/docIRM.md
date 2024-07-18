@@ -1,4 +1,4 @@
-# Invariant Risk Minimization (IRM)
+# Trainer IRM (Invariant Risk Minimization)
 
 Decompose a classification task into feature extraction $\Phi(\cdot)$ and classificaiton layer $w(\cdot)$, then the task loss is
 
