@@ -5,9 +5,7 @@ source scripts/sh_benchmark_utils.sh
 
 # CONFIGFILE="examples/yaml/test_helm_benchmark.yaml"
 CONFIGFILE=$1
-logfile=$(create_log_file)
 echo "Configuration file: $CONFIGFILE"
-echo "verbose log: $logfile"
 
 # Check if the second argument is empty and provide feedback
 if [ -z "$2" ]; then
@@ -30,6 +28,10 @@ echo "Starting seed is: $DOMAINLAB_CUDA_START_SEED"
 echo "Hyperparameter seed is: $DOMAINLAB_CUDA_HYPERPARAM_SEED"
 echo "Number of GPUs: $NUMBER_GPUS"
 echo "Results will be stored in: $results_dir"
+
+logfile=$(create_log_file "$results_dir")
+echo "verbose log: $logfile"
+
 
 # Helmholtz
 export logdir="${results_dir}/slurm_logs/"
