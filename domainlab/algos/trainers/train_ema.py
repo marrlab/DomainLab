@@ -22,22 +22,14 @@ class TrainerMA(TrainerBasic):
     def move_average(self, dict_data, epoch):
         """
         for each epoch, convex combine the weights for each layer
+        Paper:
+        Ensemble of Averages: Improving Model Selection and
+        Boosting Performance in Domain Generalization
+        Devansh Arpit, Huan Wang, Yingbo Zhou, Caiming Xiong
+        Salesforce Research, USA
         """
-        if self.ma_weight_previous_model_params is None:
-            """
-            Paper:
-            Ensemble of Averages: Improving Model Selection and
-            Boosting Performance in Domain Generalization
-            Devansh Arpit, Huan Wang, Yingbo Zhou, Caiming Xiong
-            Salesforce Research, USA
-
-            """
-            if epoch < 2:
-                # see https://arxiv.org/pdf/2110.10832#page=13.16, figure 5
-                self.ma_weight_previous_model_params = 0
-            else:
-                self.ma_weight_previous_model_params = epoch / (epoch + 1)
-            # weight on previous model decrease as training goes on
+        self.ma_weight_previous_model_params = epoch / (epoch + 1)
+        # weight on previous model decrease as training goes on
         dict_ema_para_curr_iter = {}
         for key, data in dict_data.items():
             # data = data.view(1, -1)  # make it rank 1 tensor (a.k.a. vector)
