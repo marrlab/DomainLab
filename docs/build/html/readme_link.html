@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -285,6 +284,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html" class="md-nav__link">Invariant Risk Minimization (IRM)</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -345,20 +351,20 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="introduction">
-<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="readme-link--page-root">Introduction<a class="headerlink" href="#readme-link--page-root" title="Permalink to this headline">¶</a></h1>
 <section class="tex2jax_ignore mathjax_ignore" id="domainlab-modular-python-package-for-training-domain-invariant-neural-networks">
-<h2 id="domainlab-modular-python-package-for-training-domain-invariant-neural-networks">DomainLab: modular python package for training domain invariant neural networks<a class="headerlink" href="#domainlab-modular-python-package-for-training-domain-invariant-neural-networks" title="Permalink to this heading">¶</a></h2>
+<h2 id="domainlab-modular-python-package-for-training-domain-invariant-neural-networks">DomainLab: modular python package for training domain invariant neural networks<a class="headerlink" href="#domainlab-modular-python-package-for-training-domain-invariant-neural-networks" title="Permalink to this headline">¶</a></h2>
 <p><img alt="GH Actions CI " src="https://github.com/marrlab/DomainLab/actions/workflows/ci.yml/badge.svg?branch=master"/>
 <a class="reference external" href="https://app.codecov.io/gh/marrlab/DomainLab"><img alt="codecov" src="https://codecov.io/gh/marrlab/DomainLab/branch/master/graph/badge.svg"/></a>
 <a class="reference external" href="https://www.codacy.com/gh/marrlab/DomainLab/dashboard"><img alt="Codacy Badge" src="https://app.codacy.com/project/badge/Grade/bc22a1f9afb742efb02b87284e04dc86"/></a>
 <a class="reference external" href="https://marrlab.github.io/DomainLab/"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-Here"/></a>
 <a class="reference external" href="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment"><img alt="pages-build-deployment" src="https://github.com/marrlab/DomainLab/actions/workflows/pages/pages-build-deployment/badge.svg"/></a></p>
 <section id="distribution-shifts-domain-generalization-and-domainlab">
-<h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Permalink to this heading">¶</a></h3>
+<h3 id="distribution-shifts-domain-generalization-and-domainlab">Distribution shifts, domain generalization and DomainLab<a class="headerlink" href="#distribution-shifts-domain-generalization-and-domainlab" title="Permalink to this headline">¶</a></h3>
 <p>Neural networks trained using data from a specific distribution (domain) usually fail to generalize to novel distributions (domains). Domain generalization aims at learning domain invariant features by utilizing data from multiple domains (data sites, cohorts, batches, vendors) so the learned feature can be generalized to new unseen domains (distributions).</p>
 <p>DomainLab is a software platform with state-of-the-art domain generalization algorithms implemented and designed by maximal decoupling of different software components thus enhancing maximal code reuse.</p>
 <section id="domainlab">
-<h4 id="domainlab">DomainLab<a class="headerlink" href="#domainlab" title="Permalink to this heading">¶</a></h4>
+<h4 id="domainlab">DomainLab<a class="headerlink" href="#domainlab" title="Permalink to this headline">¶</a></h4>
 <p>DomainLab decouples the following concepts or objects:</p>
 <ul class="simple">
 <li><p>task <span class="math notranslate nohighlight">\(M\)</span>: In DomainLab, a task is a container for datasets from different domains. (e.g. from distribution <span class="math notranslate nohighlight">\(D_1\)</span> and <span class="math notranslate nohighlight">\(D_2\)</span>). The task offers a static protocol to evaluate the generalization performance of a neural network: which dataset(s) is used for training, and which dataset(s) is used for testing.</p></li>
@@ -394,21 +400,21 @@ like inter-domain feature alignment.</p></li>
 </section>
 </section>
 <section id="getting-started">
-<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h3>
+<h3 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
 <section id="installation">
-<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h4>
+<h4 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
 <p>For the development version in Github, see <span class="xref myst">Installation and Dependencies handling</span></p>
 <p>We also offer a PyPI version here <a class="reference external" href="https://pypi.org/project/domainlab/">https://pypi.org/project/domainlab/</a>  which one could install via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">domainlab</span></code> and it is recommended to create a virtual environment for it.</p>
 </section>
 <section id="task-specification">
-<h4 id="task-specification">Task specification<a class="headerlink" href="#task-specification" title="Permalink to this heading">¶</a></h4>
+<h4 id="task-specification">Task specification<a class="headerlink" href="#task-specification" title="Permalink to this headline">¶</a></h4>
 <p>We offer various ways for the user to specify a scenario to evaluate the generalization performance via training on a limited number of datasets. See detail in
 <span class="xref myst">Task Specification</span></p>
 </section>
 <section id="example-and-usage">
-<h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Permalink to this heading">¶</a></h4>
+<h4 id="example-and-usage">Example and usage<a class="headerlink" href="#example-and-usage" title="Permalink to this headline">¶</a></h4>
 <section id="available-arguments-for-commandline">
-<h5 id="available-arguments-for-commandline">Available arguments for commandline<a class="headerlink" href="#available-arguments-for-commandline" title="Permalink to this heading">¶</a></h5>
+<h5 id="available-arguments-for-commandline">Available arguments for commandline<a class="headerlink" href="#available-arguments-for-commandline" title="Permalink to this headline">¶</a></h5>
 <p>The following command tells which arguments/hyperparameters/multipliers are available to be set by the user and which model they are associated with</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--help
 </pre></div>
@@ -419,7 +425,7 @@ like inter-domain feature alignment.</p></li>
 </div>
 </section>
 <section id="command-line-configuration-file">
-<h5 id="command-line-configuration-file">Command line configuration file<a class="headerlink" href="#command-line-configuration-file" title="Permalink to this heading">¶</a></h5>
+<h5 id="command-line-configuration-file">Command line configuration file<a class="headerlink" href="#command-line-configuration-file" title="Permalink to this headline">¶</a></h5>
 <p><code class="docutils literal notranslate"><span class="pre">domainlab</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code> (if you install via pip)</p>
 <p>or if you clone this the code repository for DomainLab</p>
 <p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">main_out.py</span> <span class="pre">-c</span> <span class="pre">./examples/conf/vlcs_diva_mldg_dial.yaml</span></code></p>
@@ -439,12 +445,12 @@ npath_dom: examples/nets/resnet.py  # neural network for domain classification
 <p>See details in <span class="xref myst">Command line usage</span></p>
 </section>
 <section id="or-programm-against-domainlab-api">
-<h5 id="or-programm-against-domainlab-api">or Programm against DomainLab API<a class="headerlink" href="#or-programm-against-domainlab-api" title="Permalink to this heading">¶</a></h5>
+<h5 id="or-programm-against-domainlab-api">or Programm against DomainLab API<a class="headerlink" href="#or-programm-against-domainlab-api" title="Permalink to this headline">¶</a></h5>
 <p>See example here: <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/api/jigen_dann_transformer.py">Transformer as feature extractor, decorate JIGEN with DANN, training using MLDG decorated by DIAL</a></p>
 </section>
 </section>
 <section id="benchmark-different-methods">
-<h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Permalink to this heading">¶</a></h4>
+<h4 id="benchmark-different-methods">Benchmark different methods<a class="headerlink" href="#benchmark-different-methods" title="Permalink to this headline">¶</a></h4>
 <p>DomainLab provides a powerful benchmark functionality.
 To benchmark several algorithms(combination of neural networks, models, trainers and associated hyperparameters), a single line command along with a benchmark configuration files is sufficient. See details in <span class="xref myst">benchmarks documentation and tutorial</span></p>
 <p>One could simply run
@@ -460,7 +466,7 @@ To benchmark several algorithms(combination of neural networks, models, trainers
 </div>
 </section>
 <section id="citation">
-<h4 id="citation">Citation<a class="headerlink" href="#citation" title="Permalink to this heading">¶</a></h4>
+<h4 id="citation">Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h4>
 <p>Source: <a class="reference external" href="https://arxiv.org/pdf/2403.14356.pdf">https://arxiv.org/pdf/2403.14356.pdf</a></p>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">sun2024domainlab</span><span class="p">,</span>
 <span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{DomainLab: A modular Python package for domain generalization in deep learning}</span><span class="p">,</span>
@@ -498,7 +504,7 @@ To benchmark several algorithms(combination of neural networks, models, trainers
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

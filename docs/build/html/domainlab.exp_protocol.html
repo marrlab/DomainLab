@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -294,6 +293,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html" class="md-nav__link">Invariant Risk Minimization (IRM)</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -330,12 +336,12 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-exp-protocol-package">
-<h1 id="domainlab-exp-protocol--page-root">domainlab.exp_protocol package<a class="headerlink" href="#domainlab-exp-protocol--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="domainlab-exp-protocol--page-root">domainlab.exp_protocol package<a class="headerlink" href="#domainlab-exp-protocol--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-domainlab.exp_protocol.aggregate_results">
-<span id="domainlab-exp-protocol-aggregate-results-module"></span><h2 id="module-domainlab.exp_protocol.aggregate_results">domainlab.exp_protocol.aggregate_results module<a class="headerlink" href="#module-domainlab.exp_protocol.aggregate_results" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-exp-protocol-aggregate-results-module"></span><h2 id="module-domainlab.exp_protocol.aggregate_results">domainlab.exp_protocol.aggregate_results module<a class="headerlink" href="#module-domainlab.exp_protocol.aggregate_results" title="Permalink to this headline">¶</a></h2>
 <p>Functions to join the csv result files generate by different jobs of the benchmarks into
 a single csv file.</p>
 <dl class="py function">
@@ -354,7 +360,7 @@ a single csv file.</p>
 <dd><p>Aggregrates the results of the snakemake benchmark.</p>
 <p>Combines csv files with identical columns into a single csv file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_files</strong> – List of csv files with identical header.</p></li>
 <li><p><strong>output_file</strong> – Output csv file.</p></li>
@@ -364,7 +370,7 @@ a single csv file.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.exp_protocol.run_experiment">
-<span id="domainlab-exp-protocol-run-experiment-module"></span><h2 id="module-domainlab.exp_protocol.run_experiment">domainlab.exp_protocol.run_experiment module<a class="headerlink" href="#module-domainlab.exp_protocol.run_experiment" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-exp-protocol-run-experiment-module"></span><h2 id="module-domainlab.exp_protocol.run_experiment">domainlab.exp_protocol.run_experiment module<a class="headerlink" href="#module-domainlab.exp_protocol.run_experiment" title="Permalink to this headline">¶</a></h2>
 <p>Runs one task for a single hyperparameter sample for each leave-out-domain
 and each random seed.</p>
 <dl class="py function">
@@ -391,7 +397,7 @@ and each random seed.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>config</strong> – dictionary from the benchmark yaml</p></li>
 <li><p><strong>param_file</strong> – path to the csv with the parameter samples</p></li>
@@ -408,7 +414,7 @@ in the resulting pandas dataframe
 </dd></dl>
 </section>
 <section id="module-domainlab.exp_protocol">
-<span id="module-contents"></span><h2 id="module-domainlab.exp_protocol">Module contents<a class="headerlink" href="#module-domainlab.exp_protocol" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.exp_protocol">Module contents<a class="headerlink" href="#module-domainlab.exp_protocol" title="Permalink to this headline">¶</a></h2>
 </section>
 </section>
 
@@ -459,7 +465,7 @@ in the resulting pandas dataframe
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

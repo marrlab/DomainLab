@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -283,6 +282,13 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html" class="md-nav__link">Invariant Risk Minimization (IRM)</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -341,10 +347,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="domainlab-usage-guide">
-<h1 id="doc-usage-cmd--page-root">DomainLab Usage Guide<a class="headerlink" href="#doc-usage-cmd--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-usage-cmd--page-root">DomainLab Usage Guide<a class="headerlink" href="#doc-usage-cmd--page-root" title="Permalink to this headline">¶</a></h1>
 <p>Given the repository and the dependencies are set up, here is how can use DomainLab:</p>
 <section id="essential-commands">
-<h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permalink to this heading">¶</a></h2>
+<h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permalink to this headline">¶</a></h2>
 <p>To run DomainLab, the minimum necessary parameters are:</p>
 <ol class="arabic simple">
 <li><p><strong>Task Specification (<code class="docutils literal notranslate"><span class="pre">--tpath</span></code> or <code class="docutils literal notranslate"><span class="pre">--task</span></code>):</strong> This is to specify a task. You can eiter give a path to as Python file which specifies the task, or use a predfined set. You can find more about specifying tasks <a class="reference internal" href="doc_tasks.html"><span class="doc std std-doc">here</span></a>.</p></li>
@@ -353,14 +359,14 @@
 <li><p><strong>Neural Network (<code class="docutils literal notranslate"><span class="pre">--nname</span></code> or <code class="docutils literal notranslate"><span class="pre">--npath</span></code>):</strong> Specifies which neural network is used for feature extraction, either through a path or predefined options.</p></li>
 </ol>
 <section id="example-command">
-<h3 id="example-command">Example Command<a class="headerlink" href="#example-command" title="Permalink to this heading">¶</a></h3>
+<h3 id="example-command">Example Command<a class="headerlink" href="#example-command" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">main_out.py</span> <span class="pre">--te_d</span> <span class="pre">0</span> <span class="pre">1</span> <span class="pre">2</span>  <span class="pre">--task=mnistcolor10</span> <span class="pre">--model=diva</span> <span class="pre">--nname=conv_bn_pool_2</span>  <span class="pre">--gamma_y=7e5</span> <span class="pre">--gamma_d=1e5</span></code></p>
 </section>
 </section>
 <section id="optional-commands">
-<h2 id="optional-commands">Optional Commands<a class="headerlink" href="#optional-commands" title="Permalink to this heading">¶</a></h2>
+<h2 id="optional-commands">Optional Commands<a class="headerlink" href="#optional-commands" title="Permalink to this headline">¶</a></h2>
 <section id="advanced-configuration">
-<h3 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this heading">¶</a></h3>
+<h3 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h3>
 <ul>
 <li><p><strong>Learning Rate (<code class="docutils literal notranslate"><span class="pre">--lr</span></code>):</strong> Set the training learning rate.</p></li>
 <li><p><strong>Regularization (<code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>):</strong> Sets the weight of the regularization
@@ -429,7 +435,7 @@ dann and jigen model.</p>
 </ul>
 </section>
 <section id="task-specific-arguments">
-<h3 id="task-specific-arguments">Task-Specific Arguments<a class="headerlink" href="#task-specific-arguments" title="Permalink to this heading">¶</a></h3>
+<h3 id="task-specific-arguments">Task-Specific Arguments<a class="headerlink" href="#task-specific-arguments" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><strong>Batch Size (<code class="docutils literal notranslate"><span class="pre">--bs</span></code>):</strong> Loader batch size for mixed domains.</p></li>
 <li><p><strong>Training-Validation Split (<code class="docutils literal notranslate"><span class="pre">--split</span></code>):</strong> Proportion of training, a value between 0 and 1.</p></li>
@@ -441,9 +447,9 @@ dann and jigen model.</p>
 </ul>
 </section>
 <section id="model-specific-hyperparameters">
-<h3 id="model-specific-hyperparameters">Model-Specific Hyperparameters<a class="headerlink" href="#model-specific-hyperparameters" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-specific-hyperparameters">Model-Specific Hyperparameters<a class="headerlink" href="#model-specific-hyperparameters" title="Permalink to this headline">¶</a></h3>
 <section id="vae-model-parameters">
-<h4 id="vae-model-parameters">VAE Model Parameters<a class="headerlink" href="#vae-model-parameters" title="Permalink to this heading">¶</a></h4>
+<h4 id="vae-model-parameters">VAE Model Parameters<a class="headerlink" href="#vae-model-parameters" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><strong>Latent Space Dimensions (<code class="docutils literal notranslate"><span class="pre">--zd_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">--zx_dim</span></code>, <code class="docutils literal notranslate"><span class="pre">--zy_dim</span></code>):</strong> Set the size of latent spaces for domain, unobserved, and class features.</p></li>
 <li><p><strong>Topic Dimension (<code class="docutils literal notranslate"><span class="pre">--topic_dim</span></code>):</strong> Number of topics for HDUVA.</p></li>
@@ -457,7 +463,7 @@ dann and jigen model.</p>
 </ul>
 </section>
 <section id="matchdg-parameters">
-<h4 id="matchdg-parameters">MatchDG Parameters<a class="headerlink" href="#matchdg-parameters" title="Permalink to this heading">¶</a></h4>
+<h4 id="matchdg-parameters">MatchDG Parameters<a class="headerlink" href="#matchdg-parameters" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><strong>Cosine Similarity Factor (<code class="docutils literal notranslate"><span class="pre">--tau</span></code>):</strong> Magnify cosine similarity.</p></li>
 <li><p><strong>Match Tensor Update Frequency (<code class="docutils literal notranslate"><span class="pre">--epos_per_match_update</span></code>):</strong> Epochs before updating the match tensor.</p></li>
@@ -465,14 +471,14 @@ dann and jigen model.</p>
 </ul>
 </section>
 <section id="jigen-parameters">
-<h4 id="jigen-parameters">Jigen Parameters<a class="headerlink" href="#jigen-parameters" title="Permalink to this heading">¶</a></h4>
+<h4 id="jigen-parameters">Jigen Parameters<a class="headerlink" href="#jigen-parameters" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><strong>Permutation Settings (<code class="docutils literal notranslate"><span class="pre">--nperm</span></code>, <code class="docutils literal notranslate"><span class="pre">--pperm</span></code>, <code class="docutils literal notranslate"><span class="pre">--jigen_ppath</span></code>):</strong> Configure image tile permutations.</p></li>
 <li><p><strong>Grid Length (<code class="docutils literal notranslate"><span class="pre">--grid_len</span></code>):</strong> Length of image in tile units.</p></li>
 </ul>
 </section>
 <section id="dial-parameters">
-<h4 id="dial-parameters">DIAL Parameters<a class="headerlink" href="#dial-parameters" title="Permalink to this heading">¶</a></h4>
+<h4 id="dial-parameters">DIAL Parameters<a class="headerlink" href="#dial-parameters" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><strong>Adversarial Image Generation (<code class="docutils literal notranslate"><span class="pre">--dial_steps_perturb</span></code>, <code class="docutils literal notranslate"><span class="pre">--dial_noise_scale</span></code>, <code class="docutils literal notranslate"><span class="pre">--dial_lr</span></code>, <code class="docutils literal notranslate"><span class="pre">--dial_epsilon</span></code>):</strong> Configure parameters for generating adversarial images.</p></li>
 </ul>
@@ -484,7 +490,7 @@ dann and jigen model.</p>
 </section>
 </section>
 <section id="example">
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>DomainLab comes with some minimal toy-dataset to test its basis functionality, see <span class="xref myst">a minimal subsample of the VLCS dataset</span> and <a class="reference download internal" download="" href="_downloads/adcf8c984b69173567c65fba4c00b880/task_vlcs.py"><span class="xref download myst">an example configuration file for vlcs_mini</span></a>.</p>
 <p>To train a domain invariant model on the vlcs_mini task:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--config<span class="o">=</span>examples/yaml/demo_config_single_run_diva.yaml
@@ -500,7 +506,7 @@ dann and jigen model.</p>
 <p>See <a class="reference internal" href="doc_examples.html"><span class="doc std std-doc">more examples</span></a>.</p>
 </section>
 <section id="further-resources">
-<h2 id="further-resources">Further Resources<a class="headerlink" href="#further-resources" title="Permalink to this heading">¶</a></h2>
+<h2 id="further-resources">Further Resources<a class="headerlink" href="#further-resources" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>Custom Neural Networks:</strong> <a class="reference internal" href="doc_custom_nn.html"><span class="doc std std-doc">Guide on specifying custom neural networks</span></a></p></li>
 <li><p><strong>Output and Performance:</strong> <a class="reference internal" href="doc_output.html"><span class="doc std std-doc">Understanding the output structure and performance measures</span></a></p></li>
@@ -532,7 +538,7 @@ dann and jigen model.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
