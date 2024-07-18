@@ -89,6 +89,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         # fbopt
         self.mu_iter_start = 0
         self.flag_setpoint_updated = False
+        # moving average
+        self.ma_weight_previous_model_params = None
+        self._ma_dict_para_persist = {}
+        self._ma_iter = 0
+
 
     @property
     def model(self):
@@ -277,7 +282,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
 
     def print_parameters(self):
         """
-        Function to print all parameters of the object. 
+        Function to print all parameters of the object.
         Can be used to print the parameters of any child class
         """
         params = vars(self)

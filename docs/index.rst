@@ -19,6 +19,7 @@ Welcome to domainlab's documentation!
    docDIAL
    docFishr
    doc_mldg
+   docIRM
 
 
 Indices and tables

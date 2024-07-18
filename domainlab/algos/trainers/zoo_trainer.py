@@ -2,6 +2,7 @@
 select trainer
 """
 from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.algos.trainers.train_ema import TrainerMA
 from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.train_fbopt_b import TrainerFbOpt
 from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
@@ -47,6 +48,7 @@ class TrainerChainNodeGetter(object):
             )
 
         chain = TrainerBasic(None)
+        chain = TrainerMA(chain)
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
