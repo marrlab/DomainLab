@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -365,9 +366,9 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-package">
-<h1 id="domainlab--page-root">domainlab package<a class="headerlink" href="#domainlab--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab--page-root">domainlab package<a class="headerlink" href="#domainlab--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="subpackages">
-<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.algos.html">domainlab.algos package</a><ul>
@@ -398,6 +399,7 @@
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.hyper_scheduler">domainlab.algos.trainers.hyper_scheduler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_ema">domainlab.algos.trainers.train_ema module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_fishr">domainlab.algos.trainers.train_fishr module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_hyper_scheduler">domainlab.algos.trainers.train_hyper_scheduler module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_irm">domainlab.algos.trainers.train_irm module</a></li>
@@ -561,15 +563,15 @@
 </div>
 </section>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.arg_parser">
-<span id="domainlab-arg-parser-module"></span><h2 id="module-domainlab.arg_parser">domainlab.arg_parser module<a class="headerlink" href="#module-domainlab.arg_parser" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-arg-parser-module"></span><h2 id="module-domainlab.arg_parser">domainlab.arg_parser module<a class="headerlink" href="#module-domainlab.arg_parser" title="Permalink to this heading">¶</a></h2>
 <p>Command line arguments</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.arg_parser.ParseValuesOrKeyValuePairs">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.arg_parser.</span></span><span class="sig-name descname"><span class="pre">ParseValuesOrKeyValuePairs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_strings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">help</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metavar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/arg_parser.html#ParseValuesOrKeyValuePairs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.arg_parser.ParseValuesOrKeyValuePairs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></p>
 <p>Class used for arg parsing where values are provided in a key value format</p>
 </dd></dl>
 <dl class="py function">
@@ -591,7 +593,7 @@ extend is not set.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.cli">
-<span id="domainlab-cli-module"></span><h2 id="module-domainlab.cli">domainlab.cli module<a class="headerlink" href="#module-domainlab.cli" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-cli-module"></span><h2 id="module-domainlab.cli">domainlab.cli module<a class="headerlink" href="#module-domainlab.cli" title="Permalink to this heading">¶</a></h2>
 <p>command-line interface (CLI) for the domainlab package</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.cli.domainlab_cli">
@@ -600,7 +602,7 @@ extend is not set.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.mk_exp">
-<span id="domainlab-mk-exp-module"></span><h2 id="module-domainlab.mk_exp">domainlab.mk_exp module<a class="headerlink" href="#module-domainlab.mk_exp" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-mk-exp-module"></span><h2 id="module-domainlab.mk_exp">domainlab.mk_exp module<a class="headerlink" href="#module-domainlab.mk_exp" title="Permalink to this heading">¶</a></h2>
 <p>make an experiment</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.mk_exp.mk_exp">
@@ -624,7 +626,7 @@ params refer to the documentation found in “domainlab.models.model_[NameOfMode
 </dd></dl>
 </section>
 <section id="module-domainlab">
-<span id="module-contents"></span><h2 id="module-domainlab">Module contents<a class="headerlink" href="#module-domainlab" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab">Module contents<a class="headerlink" href="#module-domainlab" title="Permalink to this heading">¶</a></h2>
 <p>globals for the whole package</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.g_list_model_penalized_reg_agg">
@@ -681,7 +683,7 @@ params refer to the documentation found in “domainlab.models.model_[NameOfMode
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="#" />
@@ -397,7 +398,11 @@
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.after_batch">after_batch() (domainlab.algos.trainers.a_trainer.AbstractTrainer method)</a>
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.after_epoch">after_epoch() (domainlab.algos.trainers.train_basic.TrainerBasic method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA.after_epoch">(domainlab.algos.trainers.train_ema.TrainerMA method)</a>
 </li>
+      </ul></li>
       <li><a href="domainlab.exp_protocol.html#domainlab.exp_protocol.aggregate_results.agg_from_directory">agg_from_directory() (in module domainlab.exp_protocol.aggregate_results)</a>
 </li>
       <li><a href="domainlab.exp_protocol.html#domainlab.exp_protocol.aggregate_results.agg_main">agg_main() (in module domainlab.exp_protocol.aggregate_results)</a>
@@ -882,6 +887,13 @@
 
       <ul>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.trainers.train_ema
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_ema">module</a>
 </li>
       </ul></li>
       <li>
@@ -2328,6 +2340,8 @@
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial</a>
 </li>
+        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_ema">domainlab.algos.trainers.train_ema</a>
+</li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_fishr">domainlab.algos.trainers.train_fishr</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_hyper_scheduler">domainlab.algos.trainers.train_hyper_scheduler</a>
@@ -2559,6 +2573,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA.move_average">move_average() (domainlab.algos.trainers.train_ema.TrainerMA method)</a>
+</li>
       <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor">MSelOracleVisitor (class in domainlab.algos.msels.c_msel_oracle)</a>
 </li>
       <li><a href="domainlab.algos.msels.html#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss">MSelTrLoss (class in domainlab.algos.msels.c_msel_tr_loss)</a>
@@ -2909,6 +2925,8 @@
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_irm.TrainerIRM">TrainerIRM (class in domainlab.algos.trainers.train_irm)</a>
 </li>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA">TrainerMA (class in domainlab.algos.trainers.train_ema)</a>
+</li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG">TrainerMatchDG (class in domainlab.algos.trainers.train_matchdg)</a>
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG">TrainerMLDG (class in domainlab.algos.trainers.train_mldg)</a>
@@ -3086,7 +3104,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

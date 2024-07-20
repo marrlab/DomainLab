@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -345,7 +346,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="trainer-irm-invariant-risk-minimization">
-<h1 id="docirm--page-root">Trainer IRM (Invariant Risk Minimization)<a class="headerlink" href="#docirm--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="docirm--page-root">Trainer IRM (Invariant Risk Minimization)<a class="headerlink" href="#docirm--page-root" title="Permalink to this heading">¶</a></h1>
 <p>Decompose a classification task into feature extraction <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> and classificaiton layer <span class="math notranslate nohighlight">\(w(\cdot)\)</span>, then the task loss is</p>
 <p><span class="math notranslate nohighlight">\(\ell^{(d)} (w \circ \Phi) = \mathbb{E}_{(X, Y) \sim \mathcal{D}_d}[\ell(w \circ \Phi(X), Y)]\)</span>
 where we use <span class="math notranslate nohighlight">\(\ell\)</span> to denote the cross entropy for a classification task, and <span class="math notranslate nohighlight">\(\mathcal{D}_d\)</span> for distribution of domain <span class="math notranslate nohighlight">\(d\)</span>.</p>
@@ -356,7 +357,7 @@ where we use <span class="math notranslate nohighlight">\(\ell\)</span> to denot
 <p>The feature extractor <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> then get optimized under this constraint.</p>
 <p>Thus IRM forms a bi-level optimization by jointly optimize <span class="math notranslate nohighlight">\(\Phi\)</span> and <span class="math notranslate nohighlight">\(w\)</span> which is hard to solve, so in practice IRMv1 is used.</p>
 <section id="irmv1">
-<h2 id="irmv1">IRMv1<a class="headerlink" href="#irmv1" title="Permalink to this headline">¶</a></h2>
+<h2 id="irmv1">IRMv1<a class="headerlink" href="#irmv1" title="Permalink to this heading">¶</a></h2>
 <p>In DomainLab, we write the loss function as $<span class="math notranslate nohighlight">\(\ell(\cdot) + \lambda R(\cdot)\)</span>$, which result in the optmization below:</p>
 <div class="math notranslate nohighlight">
 \[\min_{\Phi, w} \sum_{d} \ell^{(d)}(w \circ \Phi) + \lambda \sum_{d} \|\nabla_{w|w=1.0} \ell^{(d)}(w \circ \Phi)\|^2\]</div>
@@ -402,7 +403,7 @@ In detail: the squared gradient norm via inner product between <span class="math
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

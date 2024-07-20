@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -341,12 +342,12 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-algos-msels-package">
-<h1 id="domainlab-algos-msels--page-root">domainlab.algos.msels package<a class="headerlink" href="#domainlab-algos-msels--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-algos-msels--page-root">domainlab.algos.msels package<a class="headerlink" href="#domainlab-algos-msels--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.algos.msels.a_model_sel">
-<span id="domainlab-algos-msels-a-model-sel-module"></span><h2 id="module-domainlab.algos.msels.a_model_sel">domainlab.algos.msels.a_model_sel module<a class="headerlink" href="#module-domainlab.algos.msels.a_model_sel" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-msels-a-model-sel-module"></span><h2 id="module-domainlab.algos.msels.a_model_sel">domainlab.algos.msels.a_model_sel module<a class="headerlink" href="#module-domainlab.algos.msels.a_model_sel" title="Permalink to this heading">¶</a></h2>
 <p>Abstract Model Selection</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.a_model_sel.AMSel">
@@ -426,12 +427,12 @@ return boolean</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.msels.c_msel_oracle">
-<span id="domainlab-algos-msels-c-msel-oracle-module"></span><h2 id="module-domainlab.algos.msels.c_msel_oracle">domainlab.algos.msels.c_msel_oracle module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_oracle" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-msels-c-msel-oracle-module"></span><h2 id="module-domainlab.algos.msels.c_msel_oracle">domainlab.algos.msels.c_msel_oracle module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_oracle" title="Permalink to this heading">¶</a></h2>
 <p>Model Selection should be decoupled from</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_oracle.</span></span><span class="sig-name descname"><span class="pre">MSelOracleVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_oracle.html#MSelOracleVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_oracle.MSelOracleVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.a_model_sel.AMSel" title="domainlab.algos.msels.a_model_sel.AMSel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.msels.a_model_sel.AMSel</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.a_model_sel.AMSel" title="domainlab.algos.msels.a_model_sel.AMSel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AMSel</span></code></a></p>
 <p>save best out-of-domain test acc model, but do not affect
 how the final model is selected</p>
 <dl class="py method">
@@ -460,12 +461,12 @@ by the innermost model selection</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.msels.c_msel_tr_loss">
-<span id="domainlab-algos-msels-c-msel-tr-loss-module"></span><h2 id="module-domainlab.algos.msels.c_msel_tr_loss">domainlab.algos.msels.c_msel_tr_loss module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_tr_loss" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-msels-c-msel-tr-loss-module"></span><h2 id="module-domainlab.algos.msels.c_msel_tr_loss">domainlab.algos.msels.c_msel_tr_loss module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_tr_loss" title="Permalink to this heading">¶</a></h2>
 <p>AMSel.accept —&gt; Trainer</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_tr_loss.</span></span><span class="sig-name descname"><span class="pre">MSelTrLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_es</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_tr_loss.html#MSelTrLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.a_model_sel.AMSel" title="domainlab.algos.msels.a_model_sel.AMSel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.msels.a_model_sel.AMSel</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.a_model_sel.AMSel" title="domainlab.algos.msels.a_model_sel.AMSel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AMSel</span></code></a></p>
 <ol class="arabic simple">
 <li><p>Model selection using sum of loss across training domains</p></li>
 <li><p>Visitor pattern to trainer</p></li>
@@ -493,12 +494,12 @@ by the innermost model selection</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.msels.c_msel_val">
-<span id="domainlab-algos-msels-c-msel-val-module"></span><h2 id="module-domainlab.algos.msels.c_msel_val">domainlab.algos.msels.c_msel_val module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_val" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-msels-c-msel-val-module"></span><h2 id="module-domainlab.algos.msels.c_msel_val">domainlab.algos.msels.c_msel_val module<a class="headerlink" href="#module-domainlab.algos.msels.c_msel_val" title="Permalink to this heading">¶</a></h2>
 <p>Model Selection should be decoupled from</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.msels.c_msel_val.MSelValPerf">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.msels.c_msel_val.</span></span><span class="sig-name descname"><span class="pre">MSelValPerf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_es</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/msels/c_msel_val.html#MSelValPerf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.msels.c_msel_val.MSelValPerf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss" title="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss" title="domainlab.algos.msels.c_msel_tr_loss.MSelTrLoss"><code class="xref py py-class docutils literal notranslate"><span class="pre">MSelTrLoss</span></code></a></p>
 <ol class="arabic simple">
 <li><p>Model selection using validation performance</p></li>
 <li><p>Visitor pattern to trainer</p></li>
@@ -531,7 +532,7 @@ by the innermost model selection</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.msels">
-<span id="module-contents"></span><h2 id="module-domainlab.algos.msels">Module contents<a class="headerlink" href="#module-domainlab.algos.msels" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.algos.msels">Module contents<a class="headerlink" href="#module-domainlab.algos.msels" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -582,7 +583,7 @@ by the innermost model selection</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

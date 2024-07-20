@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -348,17 +349,17 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-dsets-package">
-<h1 id="domainlab-dsets--page-root">domainlab.dsets package<a class="headerlink" href="#domainlab-dsets--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-dsets--page-root">domainlab.dsets package<a class="headerlink" href="#domainlab-dsets--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.dsets.a_dset_mnist_color_rgb_solo">
-<span id="domainlab-dsets-a-dset-mnist-color-rgb-solo-module"></span><h2 id="module-domainlab.dsets.a_dset_mnist_color_rgb_solo">domainlab.dsets.a_dset_mnist_color_rgb_solo module<a class="headerlink" href="#module-domainlab.dsets.a_dset_mnist_color_rgb_solo" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-a-dset-mnist-color-rgb-solo-module"></span><h2 id="module-domainlab.dsets.a_dset_mnist_color_rgb_solo">domainlab.dsets.a_dset_mnist_color_rgb_solo module<a class="headerlink" href="#module-domainlab.dsets.a_dset_mnist_color_rgb_solo" title="Permalink to this heading">¶</a></h2>
 <p>Color MNIST with single color</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.a_dset_mnist_color_rgb_solo.</span></span><span class="sig-name descname"><span class="pre">ADsetMNISTColorRGBSolo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path='zoutput'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_step=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_scheme='both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_transform=&lt;function</span> <span class="pre">mk_fun_label2onehot.&lt;locals&gt;.fun_label2onehot&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_transforms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_split='train'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_rand_color=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/a_dset_mnist_color_rgb_solo.html#ADsetMNISTColorRGBSolo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>Color MNIST with single color
 1. nominal domains: color palettes/range/spectrum
 2. subdomains: color(foreground, background)
@@ -379,11 +380,11 @@ foreground+background color</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets.dset_img_path_list">
-<span id="domainlab-dsets-dset-img-path-list-module"></span><h2 id="module-domainlab.dsets.dset_img_path_list">domainlab.dsets.dset_img_path_list module<a class="headerlink" href="#module-domainlab.dsets.dset_img_path_list" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-dset-img-path-list-module"></span><h2 id="module-domainlab.dsets.dset_img_path_list">domainlab.dsets.dset_img_path_list module<a class="headerlink" href="#module-domainlab.dsets.dset_img_path_list" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_img_path_list.DsetImPathList">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.dset_img_path_list.</span></span><span class="sig-name descname"><span class="pre">DsetImPathList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path2filelist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_img</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_img_path_list.html#DsetImPathList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_img_path_list.DsetImPathList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_img_path_list.DsetImPathList.get_list_tuple_img_label">
 <span class="sig-name descname"><span class="pre">get_list_tuple_img_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_img_path_list.html#DsetImPathList.get_list_tuple_img_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_img_path_list.DsetImPathList.get_list_tuple_img_label" title="Permalink to this definition">¶</a></dt>
@@ -391,11 +392,11 @@ foreground+background color</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets.dset_mnist_color_solo_default">
-<span id="domainlab-dsets-dset-mnist-color-solo-default-module"></span><h2 id="module-domainlab.dsets.dset_mnist_color_solo_default">domainlab.dsets.dset_mnist_color_solo_default module<a class="headerlink" href="#module-domainlab.dsets.dset_mnist_color_solo_default" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-dset-mnist-color-solo-default-module"></span><h2 id="module-domainlab.dsets.dset_mnist_color_solo_default">domainlab.dsets.dset_mnist_color_solo_default module<a class="headerlink" href="#module-domainlab.dsets.dset_mnist_color_solo_default" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_mnist_color_solo_default.DsetMNISTColorSoloDefault">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.dset_mnist_color_solo_default.</span></span><span class="sig-name descname"><span class="pre">DsetMNISTColorSoloDefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path='zoutput'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset_step=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_scheme='both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_transform=&lt;function</span> <span class="pre">mk_fun_label2onehot.&lt;locals&gt;.fun_label2onehot&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_transforms=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_split='train'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_rand_color=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_mnist_color_solo_default.html#DsetMNISTColorSoloDefault"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_mnist_color_solo_default.DsetMNISTColorSoloDefault" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo" title="domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo" title="domainlab.dsets.a_dset_mnist_color_rgb_solo.ADsetMNISTColorRGBSolo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ADsetMNISTColorRGBSolo</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_mnist_color_solo_default.DsetMNISTColorSoloDefault.get_background_color">
 <span class="sig-name descname"><span class="pre">get_background_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_mnist_color_solo_default.html#DsetMNISTColorSoloDefault.get_background_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_mnist_color_solo_default.DsetMNISTColorSoloDefault.get_background_color" title="Permalink to this definition">¶</a></dt>
@@ -415,28 +416,28 @@ foreground+background color</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets.dset_poly_domains_mnist_color_default">
-<span id="domainlab-dsets-dset-poly-domains-mnist-color-default-module"></span><h2 id="module-domainlab.dsets.dset_poly_domains_mnist_color_default">domainlab.dsets.dset_poly_domains_mnist_color_default module<a class="headerlink" href="#module-domainlab.dsets.dset_poly_domains_mnist_color_default" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-dset-poly-domains-mnist-color-default-module"></span><h2 id="module-domainlab.dsets.dset_poly_domains_mnist_color_default">domainlab.dsets.dset_poly_domains_mnist_color_default module<a class="headerlink" href="#module-domainlab.dsets.dset_poly_domains_mnist_color_default" title="Permalink to this heading">¶</a></h2>
 <p>merge several solo-color mnist to form a mixed dataset</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.dset_poly_domains_mnist_color_default.</span></span><span class="sig-name descname"><span class="pre">DsetMNISTColorMix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_domains</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_poly_domains_mnist_color_default.html#DsetMNISTColorMix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>merge several solo-color mnist to form a mixed dataset</p>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMixNoDomainLabel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.dset_poly_domains_mnist_color_default.</span></span><span class="sig-name descname"><span class="pre">DsetMNISTColorMixNoDomainLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_domains</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_poly_domains_mnist_color_default.html#DsetMNISTColorMixNoDomainLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMixNoDomainLabel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix" title="domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix" title="domainlab.dsets.dset_poly_domains_mnist_color_default.DsetMNISTColorMix"><code class="xref py py-class docutils literal notranslate"><span class="pre">DsetMNISTColorMix</span></code></a></p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets.dset_subfolder">
-<span id="domainlab-dsets-dset-subfolder-module"></span><h2 id="module-domainlab.dsets.dset_subfolder">domainlab.dsets.dset_subfolder module<a class="headerlink" href="#module-domainlab.dsets.dset_subfolder" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-dset-subfolder-module"></span><h2 id="module-domainlab.dsets.dset_subfolder">domainlab.dsets.dset_subfolder module<a class="headerlink" href="#module-domainlab.dsets.dset_subfolder" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/pytorch/vision/blob/bb5af1d77658133af8be8c9b1a13139722315c3a/torchvision/datasets/folder.py#L93">https://github.com/pytorch/vision/blob/bb5af1d77658133af8be8c9b1a13139722315c3a/torchvision/datasets/folder.py#L93</a>
 <a class="reference external" href="https://pytorch.org/vision/stable/_modules/torchvision/datasets/folder.html#DatasetFolder.fetch_img_paths">https://pytorch.org/vision/stable/_modules/torchvision/datasets/folder.html#DatasetFolder.fetch_img_paths</a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.dset_subfolder.DsetSubFolder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.dset_subfolder.</span></span><span class="sig-name descname"><span class="pre">DsetSubFolder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_class_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_valid_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_subfolder.html#DsetSubFolder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_subfolder.DsetSubFolder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchvision.datasets.folder.DatasetFolder</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetFolder</span></code></p>
 <p>Only use user provided class names, ignore the other subfolders
 :param list_class_dir: list of class directories to use as classes</p>
 </dd></dl>
@@ -444,7 +445,7 @@ foreground+background color</p>
 <dt class="sig sig-object py" id="domainlab.dsets.dset_subfolder.fetch_img_paths">
 <span class="sig-prename descclassname"><span class="pre">domainlab.dsets.dset_subfolder.</span></span><span class="sig-name descname"><span class="pre">fetch_img_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_to_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_valid_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/dset_subfolder.html#fetch_img_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.dset_subfolder.fetch_img_paths" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_dir</strong> – path to fetch images in string format</p></li>
 <li><p><strong>class_to_idx</strong> – given list of strings as class names</p></li>
@@ -467,15 +468,15 @@ Returns: bool: True if the filename ends with one of given extensions</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets.utils_color_palette">
-<span id="domainlab-dsets-utils-color-palette-module"></span><h2 id="module-domainlab.dsets.utils_color_palette">domainlab.dsets.utils_color_palette module<a class="headerlink" href="#module-domainlab.dsets.utils_color_palette" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-utils-color-palette-module"></span><h2 id="module-domainlab.dsets.utils_color_palette">domainlab.dsets.utils_color_palette module<a class="headerlink" href="#module-domainlab.dsets.utils_color_palette" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.dsets.utils_data">
-<span id="domainlab-dsets-utils-data-module"></span><h2 id="module-domainlab.dsets.utils_data">domainlab.dsets.utils_data module<a class="headerlink" href="#module-domainlab.dsets.utils_data" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-utils-data-module"></span><h2 id="module-domainlab.dsets.utils_data">domainlab.dsets.utils_data module<a class="headerlink" href="#module-domainlab.dsets.utils_data" title="Permalink to this heading">¶</a></h2>
 <p>Utilities for dataset</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_data.DsetInMemDecorator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">DsetInMemDecorator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#DsetInMemDecorator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.DsetInMemDecorator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>fetch all items of a dataset into memory</p>
 </dd></dl>
 <dl class="py function">
@@ -493,7 +494,7 @@ index to onehot</p>
 <dt class="sig sig-object py" id="domainlab.dsets.utils_data.plot_ds">
 <span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_data.</span></span><span class="sig-name descname"><span class="pre">plot_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_data.html#plot_ds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_data.plot_ds" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dset</strong> – </p></li>
 <li><p><strong>f_name</strong> – </p></li>
@@ -513,7 +514,7 @@ index to onehot</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets.utils_wrapdset_patches">
-<span id="domainlab-dsets-utils-wrapdset-patches-module"></span><h2 id="module-domainlab.dsets.utils_wrapdset_patches">domainlab.dsets.utils_wrapdset_patches module<a class="headerlink" href="#module-domainlab.dsets.utils_wrapdset_patches" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-dsets-utils-wrapdset-patches-module"></span><h2 id="module-domainlab.dsets.utils_wrapdset_patches">domainlab.dsets.utils_wrapdset_patches module<a class="headerlink" href="#module-domainlab.dsets.utils_wrapdset_patches" title="Permalink to this heading">¶</a></h2>
 <p>upon a task, if Jigen is chosen as the model, then task’s dataset has to be decorated with image tile permutation
 note that task’s dataset already include standard image
 transformations like random croped resized, or flip, and normalization. See also the JiGen paper’s implementation here:
@@ -521,7 +522,7 @@ transformations like random croped resized, or flip, and normalization. See also
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.dsets.utils_wrapdset_patches.</span></span><span class="sig-name descname"><span class="pre">WrapDsetPatches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_perms2classify</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_no_perm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_do_not_weave_tiles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/dsets/utils_wrapdset_patches.html#WrapDsetPatches"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>given dataset of images, return permuations of tiles of images re-weaved</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.dsets.utils_wrapdset_patches.WrapDsetPatches.get_tile">
@@ -531,7 +532,7 @@ transformations like random croped resized, or flip, and normalization. See also
 </dd></dl>
 </section>
 <section id="module-domainlab.dsets">
-<span id="module-contents"></span><h2 id="module-domainlab.dsets">Module contents<a class="headerlink" href="#module-domainlab.dsets" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.dsets">Module contents<a class="headerlink" href="#module-domainlab.dsets" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -582,7 +583,7 @@ transformations like random croped resized, or flip, and normalization. See also
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

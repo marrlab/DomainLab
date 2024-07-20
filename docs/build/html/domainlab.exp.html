@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -338,12 +339,12 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-exp-package">
-<h1 id="domainlab-exp--page-root">domainlab.exp package<a class="headerlink" href="#domainlab-exp--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-exp--page-root">domainlab.exp package<a class="headerlink" href="#domainlab-exp--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.exp.exp_cuda_seed">
-<span id="domainlab-exp-exp-cuda-seed-module"></span><h2 id="module-domainlab.exp.exp_cuda_seed">domainlab.exp.exp_cuda_seed module<a class="headerlink" href="#module-domainlab.exp.exp_cuda_seed" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-exp-exp-cuda-seed-module"></span><h2 id="module-domainlab.exp.exp_cuda_seed">domainlab.exp.exp_cuda_seed module<a class="headerlink" href="#module-domainlab.exp.exp_cuda_seed" title="Permalink to this heading">¶</a></h2>
 <p>Random seed should be set from command line to ensure reproducibility:
 <a class="reference external" href="https://pytorch.org/docs/stable/notes/randomness.html">https://pytorch.org/docs/stable/notes/randomness.html</a>
 <a class="reference external" href="https://discuss.pytorch.org/t/difference-between-torch-manual-seed-and-torch-cuda-manual-seed/13848/6">https://discuss.pytorch.org/t/difference-between-torch-manual-seed-and-torch-cuda-manual-seed/13848/6</a></p>
@@ -353,7 +354,7 @@
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.exp.exp_main">
-<span id="domainlab-exp-exp-main-module"></span><h2 id="module-domainlab.exp.exp_main">domainlab.exp.exp_main module<a class="headerlink" href="#module-domainlab.exp.exp_main" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-exp-exp-main-module"></span><h2 id="module-domainlab.exp.exp_main">domainlab.exp.exp_main module<a class="headerlink" href="#module-domainlab.exp.exp_main" title="Permalink to this heading">¶</a></h2>
 <p>experiment</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.exp.exp_main.Exp">
@@ -374,7 +375,7 @@ check performance by loading persisted model</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.exp.exp_utils">
-<span id="domainlab-exp-exp-utils-module"></span><h2 id="module-domainlab.exp.exp_utils">domainlab.exp.exp_utils module<a class="headerlink" href="#module-domainlab.exp.exp_utils" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-exp-exp-utils-module"></span><h2 id="module-domainlab.exp.exp_utils">domainlab.exp.exp_utils module<a class="headerlink" href="#module-domainlab.exp.exp_utils" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt>This module contains 3 classes inheriting:</dt><dd><p>ExpProtocolAggWriter(AggWriter(ExpModelPersistVisitor))</p>
 </dd>
@@ -382,7 +383,7 @@ check performance by loading persisted model</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.exp.exp_utils.AggWriter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.exp.exp_utils.</span></span><span class="sig-name descname"><span class="pre">AggWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#AggWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.AggWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.exp.exp_utils.ExpModelPersistVisitor" title="domainlab.exp.exp_utils.ExpModelPersistVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.exp.exp_utils.ExpModelPersistVisitor</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.exp.exp_utils.ExpModelPersistVisitor" title="domainlab.exp.exp_utils.ExpModelPersistVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpModelPersistVisitor</span></code></a></p>
 <ol class="arabic simple">
 <li><p>aggregate results to text file.</p></li>
 <li><p>all dependencies are in the constructor</p></li>
@@ -392,7 +393,7 @@ check performance by loading persisted model</p>
 <span class="sig-name descname"><span class="pre">confmat_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">confmat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confmat_filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#AggWriter.confmat_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.AggWriter.confmat_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save confusion matrix as a figure</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>confmat</strong> – confusion matrix.</p>
 </dd>
 </dl>
@@ -417,7 +418,7 @@ change in the future will not break the software</p>
 <dt class="sig sig-object py" id="domainlab.exp.exp_utils.AggWriter.to_file">
 <span class="sig-name descname"><span class="pre">to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_line</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#AggWriter.to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.AggWriter.to_file" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>str_line</strong> – </p>
 </dd>
 </dl>
@@ -442,7 +443,7 @@ the save function is the same class so to ensure load will ways work</p>
 <dt class="sig sig-object py" id="domainlab.exp.exp_utils.ExpModelPersistVisitor.mk_model_na">
 <span class="sig-name descname"><span class="pre">mk_model_na</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dd_cut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">19</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#ExpModelPersistVisitor.mk_model_na"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.ExpModelPersistVisitor.mk_model_na" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>tag</strong> – for git commit hash for example</p>
 </dd>
 </dl>
@@ -464,7 +465,7 @@ the save function is the same class so to ensure load will ways work</p>
 <dt class="sig sig-object py" id="domainlab.exp.exp_utils.ExpModelPersistVisitor.save">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#ExpModelPersistVisitor.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.ExpModelPersistVisitor.save" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>model</strong> – </p>
 </dd>
 </dl>
@@ -473,7 +474,7 @@ the save function is the same class so to ensure load will ways work</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.exp.exp_utils.ExpProtocolAggWriter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.exp.exp_utils.</span></span><span class="sig-name descname"><span class="pre">ExpProtocolAggWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#ExpProtocolAggWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.ExpProtocolAggWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.exp.exp_utils.AggWriter" title="domainlab.exp.exp_utils.AggWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.exp.exp_utils.AggWriter</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.exp.exp_utils.AggWriter" title="domainlab.exp.exp_utils.AggWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">AggWriter</span></code></a></p>
 <p>AggWriter tailored to experimental protocol
 Output contains additionally index, exp task, te_d and params.</p>
 <dl class="py method">
@@ -481,7 +482,7 @@ Output contains additionally index, exp task, te_d and params.</p>
 <span class="sig-name descname"><span class="pre">confmat_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">confmat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confmat_filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/exp/exp_utils.html#ExpProtocolAggWriter.confmat_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.exp.exp_utils.ExpProtocolAggWriter.confmat_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save confusion matrix as a figure</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>confmat</strong> – confusion matrix.</p>
 </dd>
 </dl>
@@ -499,7 +500,7 @@ Output contains additionally index, exp task, te_d and params.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.exp">
-<span id="module-contents"></span><h2 id="module-domainlab.exp">Module contents<a class="headerlink" href="#module-domainlab.exp" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.exp">Module contents<a class="headerlink" href="#module-domainlab.exp" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -550,7 +551,7 @@ Output contains additionally index, exp task, te_d and params.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

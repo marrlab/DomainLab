@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -354,9 +355,9 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-algos-package">
-<h1 id="domainlab-algos--page-root">domainlab.algos package<a class="headerlink" href="#domainlab-algos--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-algos--page-root">domainlab.algos package<a class="headerlink" href="#domainlab-algos--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="subpackages">
-<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.algos.msels.html">domainlab.algos.msels package</a><ul>
@@ -395,6 +396,7 @@
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.hyper_scheduler">domainlab.algos.trainers.hyper_scheduler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_ema">domainlab.algos.trainers.train_ema module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_fishr">domainlab.algos.trainers.train_fishr module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_hyper_scheduler">domainlab.algos.trainers.train_hyper_scheduler module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_irm">domainlab.algos.trainers.train_irm module</a></li>
@@ -408,15 +410,15 @@
 </div>
 </section>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.algos.a_algo_builder">
-<span id="domainlab-algos-a-algo-builder-module"></span><h2 id="module-domainlab.algos.a_algo_builder">domainlab.algos.a_algo_builder module<a class="headerlink" href="#module-domainlab.algos.a_algo_builder" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-a-algo-builder-module"></span><h2 id="module-domainlab.algos.a_algo_builder">domainlab.algos.a_algo_builder module<a class="headerlink" href="#module-domainlab.algos.a_algo_builder" title="Permalink to this heading">¶</a></h2>
 <p>parent class for combing model, trainer, task, observer</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.a_algo_builder.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/a_algo_builder.html#NodeAlgoBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
 <p>Base class for Algorithm Builder</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder.extend">
@@ -424,7 +426,7 @@
 <dd><p>Extends the current algorithm builder with a new node.</p>
 <p>This method updates the builder by setting the <cite>next_model</cite> attribute to the specified node.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>node</strong> – The node to be added to the algorithm builder.</p>
 </dd>
 </dl>
@@ -443,7 +445,7 @@
 <dt class="sig sig-object py" id="domainlab.algos.a_algo_builder.NodeAlgoBuilder.is_myjob">
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/a_algo_builder.html#NodeAlgoBuilder.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>request</strong> – string</p>
 </dd>
 </dl>
@@ -460,12 +462,12 @@
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_api_model">
-<span id="domainlab-algos-builder-api-model-module"></span><h2 id="module-domainlab.algos.builder_api_model">domainlab.algos.builder_api_model module<a class="headerlink" href="#module-domainlab.algos.builder_api_model" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-api-model-module"></span><h2 id="module-domainlab.algos.builder_api_model">domainlab.algos.builder_api_model module<a class="headerlink" href="#module-domainlab.algos.builder_api_model" title="Permalink to this heading">¶</a></h2>
 <p>build algorithm from API coded model with custom backbone</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_api_model.NodeAlgoBuilderAPIModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_api_model.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderAPIModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_api_model.html#NodeAlgoBuilderAPIModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_api_model.NodeAlgoBuilderAPIModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.a_algo_builder.NodeAlgoBuilder</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
 <p>build algorithm from API coded model with custom backbone</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.builder_api_model.NodeAlgoBuilderAPIModel.init_business">
@@ -475,7 +477,7 @@
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_custom">
-<span id="domainlab-algos-builder-custom-module"></span><h2 id="module-domainlab.algos.builder_custom">domainlab.algos.builder_custom module<a class="headerlink" href="#module-domainlab.algos.builder_custom" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-custom-module"></span><h2 id="module-domainlab.algos.builder_custom">domainlab.algos.builder_custom module<a class="headerlink" href="#module-domainlab.algos.builder_custom" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.algos.builder_custom.make_basic_trainer">
 <span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_custom.</span></span><span class="sig-name descname"><span class="pre">make_basic_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_name_model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_custom.html#make_basic_trainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_custom.make_basic_trainer" title="Permalink to this definition">¶</a></dt>
@@ -484,12 +486,12 @@
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_dann">
-<span id="domainlab-algos-builder-dann-module"></span><h2 id="module-domainlab.algos.builder_dann">domainlab.algos.builder_dann module<a class="headerlink" href="#module-domainlab.algos.builder_dann" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-dann-module"></span><h2 id="module-domainlab.algos.builder_dann">domainlab.algos.builder_dann module<a class="headerlink" href="#module-domainlab.algos.builder_dann" title="Permalink to this heading">¶</a></h2>
 <p>builder for Domain Adversarial Neural Network: accept different training scheme</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_dann.NodeAlgoBuilderDANN">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_dann.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderDANN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_dann.html#NodeAlgoBuilderDANN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_dann.NodeAlgoBuilderDANN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.a_algo_builder.NodeAlgoBuilder</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.builder_dann.NodeAlgoBuilderDANN.init_business">
 <span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_dann.html#NodeAlgoBuilderDANN.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_dann.NodeAlgoBuilderDANN.init_business" title="Permalink to this definition">¶</a></dt>
@@ -504,12 +506,12 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_diva">
-<span id="domainlab-algos-builder-diva-module"></span><h2 id="module-domainlab.algos.builder_diva">domainlab.algos.builder_diva module<a class="headerlink" href="#module-domainlab.algos.builder_diva" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-diva-module"></span><h2 id="module-domainlab.algos.builder_diva">domainlab.algos.builder_diva module<a class="headerlink" href="#module-domainlab.algos.builder_diva" title="Permalink to this heading">¶</a></h2>
 <p>Builder pattern to build different component for experiment with DIVA</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_diva.NodeAlgoBuilderDIVA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_diva.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderDIVA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_diva.html#NodeAlgoBuilderDIVA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_diva.NodeAlgoBuilderDIVA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.a_algo_builder.NodeAlgoBuilder</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
 <p>Builder pattern to build different component for experiment with DIVA</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.builder_diva.NodeAlgoBuilderDIVA.get_trainer">
@@ -524,12 +526,12 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_erm">
-<span id="domainlab-algos-builder-erm-module"></span><h2 id="module-domainlab.algos.builder_erm">domainlab.algos.builder_erm module<a class="headerlink" href="#module-domainlab.algos.builder_erm" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-erm-module"></span><h2 id="module-domainlab.algos.builder_erm">domainlab.algos.builder_erm module<a class="headerlink" href="#module-domainlab.algos.builder_erm" title="Permalink to this heading">¶</a></h2>
 <p>builder for erm</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_erm.NodeAlgoBuilderERM">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_erm.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderERM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_erm.html#NodeAlgoBuilderERM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_erm.NodeAlgoBuilderERM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.a_algo_builder.NodeAlgoBuilder</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
 <p>builder for erm</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.builder_erm.NodeAlgoBuilderERM.init_business">
@@ -539,12 +541,12 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_hduva">
-<span id="domainlab-algos-builder-hduva-module"></span><h2 id="module-domainlab.algos.builder_hduva">domainlab.algos.builder_hduva module<a class="headerlink" href="#module-domainlab.algos.builder_hduva" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-hduva-module"></span><h2 id="module-domainlab.algos.builder_hduva">domainlab.algos.builder_hduva module<a class="headerlink" href="#module-domainlab.algos.builder_hduva" title="Permalink to this heading">¶</a></h2>
 <p>build hduva model, get trainer from cmd arguments</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_hduva.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderHDUVA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_hduva.html#NodeAlgoBuilderHDUVA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.a_algo_builder.NodeAlgoBuilder</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA.init_business">
 <span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_hduva.html#NodeAlgoBuilderHDUVA.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_hduva.NodeAlgoBuilderHDUVA.init_business" title="Permalink to this definition">¶</a></dt>
@@ -553,12 +555,12 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.builder_jigen1">
-<span id="domainlab-algos-builder-jigen1-module"></span><h2 id="module-domainlab.algos.builder_jigen1">domainlab.algos.builder_jigen1 module<a class="headerlink" href="#module-domainlab.algos.builder_jigen1" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-builder-jigen1-module"></span><h2 id="module-domainlab.algos.builder_jigen1">domainlab.algos.builder_jigen1 module<a class="headerlink" href="#module-domainlab.algos.builder_jigen1" title="Permalink to this heading">¶</a></h2>
 <p>builder for JiGen</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.builder_jigen1.</span></span><span class="sig-name descname"><span class="pre">NodeAlgoBuilderJiGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_jigen1.html#NodeAlgoBuilderJiGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.a_algo_builder.NodeAlgoBuilder</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.a_algo_builder.NodeAlgoBuilder" title="domainlab.algos.a_algo_builder.NodeAlgoBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen.init_business">
 <span class="sig-name descname"><span class="pre">init_business</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/builder_jigen1.html#NodeAlgoBuilderJiGen.init_business"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.builder_jigen1.NodeAlgoBuilderJiGen.init_business" title="Permalink to this definition">¶</a></dt>
@@ -567,7 +569,7 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.utils">
-<span id="domainlab-algos-utils-module"></span><h2 id="module-domainlab.algos.utils">domainlab.algos.utils module<a class="headerlink" href="#module-domainlab.algos.utils" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-utils-module"></span><h2 id="module-domainlab.algos.utils">domainlab.algos.utils module<a class="headerlink" href="#module-domainlab.algos.utils" title="Permalink to this heading">¶</a></h2>
 <p>network builder utils</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.algos.utils.split_net_feat_last">
@@ -576,7 +578,7 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.zoo_algos">
-<span id="domainlab-algos-zoo-algos-module"></span><h2 id="module-domainlab.algos.zoo_algos">domainlab.algos.zoo_algos module<a class="headerlink" href="#module-domainlab.algos.zoo_algos" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-algos-zoo-algos-module"></span><h2 id="module-domainlab.algos.zoo_algos">domainlab.algos.zoo_algos module<a class="headerlink" href="#module-domainlab.algos.zoo_algos" title="Permalink to this heading">¶</a></h2>
 <p>chain of responsibility pattern for algorithm selection</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.zoo_algos.AlgoBuilderChainNodeGetter">
@@ -592,7 +594,7 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos">
-<span id="module-contents"></span><h2 id="module-domainlab.algos">Module contents<a class="headerlink" href="#module-domainlab.algos" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.algos">Module contents<a class="headerlink" href="#module-domainlab.algos" title="Permalink to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -643,7 +645,7 @@ note that net_encoder can also be a method like extract_semantic_feat</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

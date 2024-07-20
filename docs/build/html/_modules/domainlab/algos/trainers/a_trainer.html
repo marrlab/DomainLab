@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,6 +54,7 @@
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -399,6 +400,10 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         self.inner_trainer = None
         self.loader_tr_source_target = None
         self.flag_initialized = False
+        # moving average
+        self.ma_weight_previous_model_params = None
+        self._ma_dict_para_persist = {}
+        self._ma_iter = 0
 
     @property
     def model(self):
@@ -576,7 +581,7 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
 <div class="viewcode-block" id="AbstractTrainer.print_parameters"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.print_parameters">[docs]</a>    def print_parameters(self):
         """
-        Function to print all parameters of the object. 
+        Function to print all parameters of the object.
         Can be used to print the parameters of any child class
         """
         params = vars(self)
@@ -605,7 +610,7 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

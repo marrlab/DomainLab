@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,6 +55,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -335,12 +336,12 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="benchmark-yaml-files">
-<h1 id="doc-benchmark-yaml--page-root">Benchmark yaml files<a class="headerlink" href="#doc-benchmark-yaml--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-benchmark-yaml--page-root">Benchmark yaml files<a class="headerlink" href="#doc-benchmark-yaml--page-root" title="Permalink to this heading">¶</a></h1>
 <p>yaml files are a powerful tool to specify the details of a benchmark.
 The following examples on how a yaml file could look like will lead you through constructing your own yaml file for a benchmark.</p>
 <p>We will start with the general setting of the yaml file and then continue with the description of how to define the sampling/gridsearch for the hyperparameters.</p>
 <section id="general-setup-of-the-yaml-file">
-<h2 id="general-setup-of-the-yaml-file">General setup of the yaml file<a class="headerlink" href="#general-setup-of-the-yaml-file" title="Permalink to this headline">¶</a></h2>
+<h2 id="general-setup-of-the-yaml-file">General setup of the yaml file<a class="headerlink" href="#general-setup-of-the-yaml-file" title="Permalink to this heading">¶</a></h2>
 <p>One may start with a very general setup of the file, defining all fixed information like task description, test and training domains, used algorithms …</p>
 <p>At the top level, we need to decide whether the random sampling or grid search shall be used.</p>
 <p>For random samples we need to define the total number of hyperparameter samples in each sampling task (<code class="docutils literal notranslate"><span class="pre">num_param_samples</span></code>) and a sampling seed for the hyperparameters (<code class="docutils literal notranslate"><span class="pre">sampling_seed</span></code>).</p>
@@ -482,11 +483,11 @@ The following examples on how a yaml file could look like will lead you through 
 </div>
 </section>
 <section id="sampling-description">
-<h2 id="sampling-description">Sampling description<a class="headerlink" href="#sampling-description" title="Permalink to this headline">¶</a></h2>
+<h2 id="sampling-description">Sampling description<a class="headerlink" href="#sampling-description" title="Permalink to this heading">¶</a></h2>
 <p>There are two possible ways of choosing your hyperparameters for the benchmark in domainlab, rand sampling and grid search. The decision about which method to use was already done in the previous section be either setting <code class="docutils literal notranslate"><span class="pre">num_param_samples</span></code> (for random sampling) or <code class="docutils literal notranslate"><span class="pre">mode:</span> <span class="pre">grid</span></code> (for gridsearch).</p>
 <p>For filling in the sampling description for the into the <code class="docutils literal notranslate"><span class="pre">Shared</span> <span class="pre">params</span></code> and the <code class="docutils literal notranslate"><span class="pre">hyperparameter</span></code> section you have the following options:</p>
 <section id="uniform-and-loguniform-distribution">
-<h3 id="uniform-and-loguniform-distribution">uniform and loguniform distribution<a class="headerlink" href="#uniform-and-loguniform-distribution" title="Permalink to this headline">¶</a></h3>
+<h3 id="uniform-and-loguniform-distribution">uniform and loguniform distribution<a class="headerlink" href="#uniform-and-loguniform-distribution" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>uniform samples in the interval [min, max]</p></li>
 </ol>
@@ -511,7 +512,7 @@ The following examples on how a yaml file could look like will lead you through 
 </div>
 </section>
 <section id="normal-and-lognormal-distribution">
-<h3 id="normal-and-lognormal-distribution">normal and lognormal distribution<a class="headerlink" href="#normal-and-lognormal-distribution" title="Permalink to this headline">¶</a></h3>
+<h3 id="normal-and-lognormal-distribution">normal and lognormal distribution<a class="headerlink" href="#normal-and-lognormal-distribution" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p>normal samples with mean and standard deviation</p></li>
 </ol>
@@ -536,7 +537,7 @@ The following examples on how a yaml file could look like will lead you through 
 </div>
 </section>
 <section id="cathegorical-hyperparameters">
-<h3 id="cathegorical-hyperparameters">cathegorical hyperparameters<a class="headerlink" href="#cathegorical-hyperparameters" title="Permalink to this headline">¶</a></h3>
+<h3 id="cathegorical-hyperparameters">cathegorical hyperparameters<a class="headerlink" href="#cathegorical-hyperparameters" title="Permalink to this heading">¶</a></h3>
 <p>choose the values of the hyperparameter from a predefined list. If one uses grid search, then all values from the list are used as grid points</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nperm</span><span class="p">:</span><span class="w">                          </span><span class="c1"># name of the hyperparameter</span>
 <span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">categorical</span><span class="w">   </span><span class="c1"># name of the distribution</span>
@@ -549,7 +550,7 @@ The following examples on how a yaml file could look like will lead you through 
 </div>
 </section>
 <section id="referenced-hperparameters">
-<h3 id="referenced-hperparameters">Referenced hperparameters<a class="headerlink" href="#referenced-hperparameters" title="Permalink to this headline">¶</a></h3>
+<h3 id="referenced-hperparameters">Referenced hperparameters<a class="headerlink" href="#referenced-hperparameters" title="Permalink to this heading">¶</a></h3>
 <p>If one hyperparameter does directly depend on another hyperparameter you can add a reference to the other parameter. For gridsearch num will be taken from the reference, therefore it cannot be specified here.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">zy_dim</span><span class="p">:</span><span class="w">                         </span><span class="c1"># name of the hyperparameter</span>
 <span class="w">    </span><span class="nt">reference</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2 * zx_dim</span><span class="w">       </span><span class="c1"># formular to be evaluated in python</span>
@@ -557,7 +558,7 @@ The following examples on how a yaml file could look like will lead you through 
 </div>
 </section>
 <section id="special-arguments-in-the-sampling-description">
-<h3 id="special-arguments-in-the-sampling-description">Special Arguments in the Sampling description<a class="headerlink" href="#special-arguments-in-the-sampling-description" title="Permalink to this headline">¶</a></h3>
+<h3 id="special-arguments-in-the-sampling-description">Special Arguments in the Sampling description<a class="headerlink" href="#special-arguments-in-the-sampling-description" title="Permalink to this heading">¶</a></h3>
 <ol class="arabic simple">
 <li><p><strong>datatype:</strong> specify the datatype of the samples, if <code class="docutils literal notranslate"><span class="pre">int</span></code>, the values are rounded to the next integer. This works will all distributions mentioned above.</p>
 <ul class="simple">
@@ -590,7 +591,7 @@ The following examples on how a yaml file could look like will lead you through 
 </section>
 </section>
 <section id="combination-of-shared-and-task-specific-hyperparameter-samples">
-<h2 id="combination-of-shared-and-task-specific-hyperparameter-samples">Combination of Shared and Task Specific Hyperparameter Samples<a class="headerlink" href="#combination-of-shared-and-task-specific-hyperparameter-samples" title="Permalink to this headline">¶</a></h2>
+<h2 id="combination-of-shared-and-task-specific-hyperparameter-samples">Combination of Shared and Task Specific Hyperparameter Samples<a class="headerlink" href="#combination-of-shared-and-task-specific-hyperparameter-samples" title="Permalink to this heading">¶</a></h2>
 <p>it is possible to have all sorts of combinations:</p>
 <ol class="arabic simple">
 <li><p>a task which includes shared and task specific sampled hyperparameters</p></li>
@@ -674,7 +675,7 @@ The following examples on how a yaml file could look like will lead you through 
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
