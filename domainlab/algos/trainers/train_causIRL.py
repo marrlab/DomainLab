@@ -7,7 +7,13 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
 class TrainerCausIRL(TrainerBasic):
+    """
+    causal matching
+    """
     def my_cdist(self, x1, x2):
+        """
+        distance for Gaussian
+        """
         x1_norm = x1.pow(2).sum(dim=-1, keepdim=True)
         x2_norm = x2.pow(2).sum(dim=-1, keepdim=True)
         res = torch.addmm(x2_norm.transpose(-2, -1),
@@ -17,15 +23,21 @@ class TrainerCausIRL(TrainerBasic):
 
     def gaussian_kernel(self, x, y, gamma=[0.001, 0.01, 0.1, 1, 10, 100,
                                            1000]):
-        D = self.my_cdist(x, y)
-        K = torch.zeros_like(D)
+        """
+        kernel for MMD
+        """
+        dist = self.my_cdist(x, y)
+        K = torch.zeros_like(dist)
 
         for g in gamma:
-            K.add_(torch.exp(D.mul(-g)))
+            K.add_(torch.exp(dist.mul(-g)))
 
         return K
 
     def mmd(self, x, y):
+        """
+        maximum mean discrepancy
+        """
         if self.kernel_type == "gaussian":
             Kxx = self.gaussian_kernel(x, x).mean()
             Kyy = self.gaussian_kernel(y, y).mean()
