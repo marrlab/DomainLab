@@ -54,6 +54,7 @@ class TrainerHyperScheduler(TrainerBasic):
                 total_steps=self.aconf.warmup,
                 flag_update_epoch=True,
             )
+        super().before_tr()
 
     def tr_epoch(self, epoch):
         """
