@@ -19,7 +19,7 @@ class TrainerIRM(TrainerBasic):
     For more details, see section 3.2 and Appendix D of :
     Arjovsky et al., “Invariant Risk Minimization.”
     """
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         list_loaders = list(self.dict_loader_tr.values())
         loaders_zip = zip(*list_loaders)
         self.model.train()
@@ -46,7 +46,7 @@ class TrainerIRM(TrainerBasic):
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
 
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         return flag_stop
 
     def _cal_phi(self, tensor_x):

@@ -1,0 +1,122 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/mnist_diva_fbopt_and_baselines
+
+sampling_seed: 0
+startseed: 0
+endseed: 10
+
+test_domains:
+  - 0
+
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [1, 2]
+  dmem: False
+  lr: 0.001
+  epos: 5000
+  epos_min: 500
+  es: 5
+  bs: 64
+  zx_dim: 0
+  zy_dim: 32
+  zd_dim: 32
+  nname: conv_bn_pool_2
+  nname_dom: conv_bn_pool_2
+  nname_encoder_x2topic_h: conv_bn_pool_2
+  nname_encoder_sandwich_x2h4zd: conv_bn_pool_2
+  san_check: False
+  coeff_ma: 0.5
+  no_tensorboard: False
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.9
+    max: 0.99
+    num: 3
+    distribution: uniform
+
+  k_i_gain:
+    min: 1e-4
+    max: 1e-3
+    num: 2
+    distribution: loguniform
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 5
+    distribution: uniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    num: 3
+    distribution: loguniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1000
+      - 100
+      - 10
+      - 1
+
+# Test fbopt with different hyperparameter configurations
+
+diva_fbopt_a:
+  model: diva
+  trainer: fbopt
+  str_diva_multiplier_type: gammad_recon
+  gamma_y: 1.0
+  init_setpoint_ratio: 0.99
+  exp_shoulder_clip: 1
+  mu_init: 1e-6
+  shared:
+    - k_i_gain_ratio
+    - mu_clip
+
+diva_feedforward_a:
+  model: diva
+  trainer: hyperscheduler
+  str_diva_multiplier_type: gammad_recon
+  gamma_y: 1.0
+  shared:
+    - gamma_d
+
+diva_default:
+  model: diva
+  trainer: hyperscheduler
+  str_diva_multiplier_type: default
+  shared:
+    - gamma_d
+    - gamma_y
+
+diva_fixed_penalty:
+  model: diva
+  trainer: basic
+  str_diva_multiplier_type: default
+  shared:
+    - gamma_d
+    - gamma_y
+
+erm:
+  model: erm
