@@ -29,7 +29,8 @@ class TrainerMA(TrainerBasic):
         Salesforce Research, USA
         """
         self.ma_weight_previous_model_params = epoch / (epoch + 1)
-        # weight on previous model decrease as training goes on
+        # 1/2, 2/3, 3/4, 4/5, 
+        # weight on previous model converges to 1 as training goes on
         dict_ema_para_curr_iter = {}
         for key, data in dict_data.items():
             # data = data.view(1, -1)  # make it rank 1 tensor (a.k.a. vector)
