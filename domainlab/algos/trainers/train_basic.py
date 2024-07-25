@@ -98,7 +98,8 @@ class TrainerBasic(AbstractTrainer):
         list_mu_tr_normalized = list_mu_tr
         if self.list_reg_over_task_ratio:
             list_mu_tr_normalized = \
-                [mu / reg_over_task_ratio for (mu, reg_over_task_ratio)
+                [mu / reg_over_task_ratio if reg_over_task_ratio != 0
+                 else mu for (mu, reg_over_task_ratio)
                  in zip(list_mu_tr, self.list_reg_over_task_ratio)]
         tensor_batch_reg_loss_penalized = self.model.list_inner_product(
             list_reg_tr_batch, list_mu_tr_normalized
