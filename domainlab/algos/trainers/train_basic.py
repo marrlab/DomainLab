@@ -94,9 +94,12 @@ class TrainerBasic(AbstractTrainer):
         list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others
         )
-        list_mu_tr_normalized = \
-            [mu / reg_over_task_ratio for (mu, reg_over_task_ratio)
-             in zip(list_mu_tr, self.list_reg_over_task_ratio)]
+
+        list_mu_tr_normalized = list_mu_tr
+        if self.list_reg_over_task_ratio:
+            list_mu_tr_normalized = \
+                [mu / reg_over_task_ratio for (mu, reg_over_task_ratio)
+                 in zip(list_mu_tr, self.list_reg_over_task_ratio)]
         tensor_batch_reg_loss_penalized = self.model.list_inner_product(
             list_reg_tr_batch, list_mu_tr_normalized
         )
