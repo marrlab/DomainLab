@@ -191,8 +191,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         before training, probe model performance
         """
-        with torch.no_grad():
-            self.cal_reg_loss_over_task_loss_ratio()
+        self.cal_reg_loss_over_task_loss_ratio()
 
     def cal_reg_loss_over_task_loss_ratio(self):
         list_accum_reg_loss = []
