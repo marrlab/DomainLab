@@ -87,7 +87,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.flag_initialized = False
         # moving average
         self.ma_weight_previous_model_params = None
-        self._ma_dict_para_persist = {}
+        self._dict_previous_para_persist = {}
         self._ma_iter = 0
         #
         self.list_reg_over_task_ratio = None
