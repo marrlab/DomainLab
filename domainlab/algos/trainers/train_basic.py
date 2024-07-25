@@ -97,6 +97,7 @@ class TrainerBasic(AbstractTrainer):
 
         list_mu_tr_normalized = list_mu_tr
         if self.list_reg_over_task_ratio:
+            assert len(list_mu_tr) == len(self.list_reg_over_task_ratio)
             list_mu_tr_normalized = \
                 [mu / reg_over_task_ratio if reg_over_task_ratio != 0
                  else mu for (mu, reg_over_task_ratio)
