@@ -55,7 +55,7 @@ class TrainerHyperScheduler(TrainerBasic):
                 flag_update_epoch=True,
             )
 
-    def tr_epoch(self, epoch, flag_info=False):
+    def tr_epoch(self, epoch):
         """
         update hyper-parameters only per epoch
         """

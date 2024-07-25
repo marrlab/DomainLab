@@ -25,6 +25,7 @@ except:
 
 loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
 
+
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have

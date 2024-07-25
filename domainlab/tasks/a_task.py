@@ -17,7 +17,6 @@ class NodeTaskDG(AbstractChainNodeHandler):
     def __init__(self, succ=None):
         super().__init__(succ)
         self._loader_tr = None
-        self._loader_tr_no_drop = None
         self._loader_te = None
         self._loader_val = None
         self._list_domains = None

@@ -43,7 +43,7 @@ class TrainerMatchDG(AbstractTrainer):
         self.tuple_tensor_ref_domain2each_y = None
         self.tuple_tensor_refdomain2each = None
 
-    def tr_epoch(self, epoch, flag_info=False):
+    def tr_epoch(self, epoch):
         """
         # data in one batch comes from two sources: one part from loader,
         # the other part from match tensor
@@ -95,7 +95,7 @@ class TrainerMatchDG(AbstractTrainer):
 
         logger.info("\n\nPhase erm+ctr \n\n")
         self.flag_erm = True
-        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
+        flag_stop = self.observer.update(epoch)  # notify observer
         return flag_stop
 
     def tr_batch(self, epoch, batch_idx, x_e, y_e, d_e, others=None):

@@ -16,7 +16,6 @@ class MatchPair:
     """
     match different input
     """
-
     @store_args
     def __init__(
         self,

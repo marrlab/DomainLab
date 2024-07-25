@@ -77,13 +77,6 @@ def mk_dann(parent_class=AModelClassif, **kwargs):
                 self.extract_semantic_feat
             )
 
-        @property
-        def list_str_multiplier_na(self):
-            """
-            name of the multiplier
-            """
-            return [self.name + "_alpha"]
-
         def hyper_update(self, epoch, fun_scheduler):
             """hyper_update.
             :param epoch:
@@ -94,13 +87,13 @@ def mk_dann(parent_class=AModelClassif, **kwargs):
             )  # the __call__ method of hyperparameter scheduler
             self.alpha = dict_rst[self.name + "_alpha"]
 
-        def hyper_init(self, functor_scheduler, trainer=None):
+        def hyper_init(self, functor_scheduler):
             """hyper_init.
-            :param functor_scheduler: name of the scheduler class
+            :param functor_scheduler:
             """
             parameters = {}
             parameters[self.name + "_alpha"] = self.alpha
-            return functor_scheduler(trainer=trainer, **parameters)
+            return functor_scheduler(trainer=None, **parameters)
 
         def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others):
             _ = others

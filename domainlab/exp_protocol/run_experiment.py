@@ -143,11 +143,6 @@ def run_experiment(
     gpu_ind = param_index % num_gpus
     args.device = str(gpu_ind)
 
-    logger.info("*** begin args")
-    for k, v in vars(args).items():
-        logger.info(f"{k} : {v}")
-    logger.info("*** end args")
-
     if torch.cuda.is_available():
         torch.cuda.init()
         logger.info("before experiment loop: ")

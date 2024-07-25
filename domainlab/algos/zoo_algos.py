@@ -5,7 +5,6 @@ from domainlab.algos.builder_api_model import NodeAlgoBuilderAPIModel
 from domainlab.algos.builder_dann import NodeAlgoBuilderDANN
 from domainlab.algos.builder_diva import NodeAlgoBuilderDIVA
 from domainlab.algos.builder_erm import NodeAlgoBuilderERM
-from domainlab.algos.builder_fbopt_dial import NodeAlgoBuilderFbOptDial
 from domainlab.algos.builder_hduva import NodeAlgoBuilderHDUVA
 from domainlab.algos.builder_jigen1 import NodeAlgoBuilderJiGen
 from domainlab.utils.u_import import import_path
@@ -46,7 +45,6 @@ class AlgoBuilderChainNodeGetter:
         chain = NodeAlgoBuilderJiGen(chain)
         chain = NodeAlgoBuilderHDUVA(chain)
         chain = NodeAlgoBuilderAPIModel(chain)
-        chain = NodeAlgoBuilderFbOptDial(chain)
         chain = self.register_external_node(chain)
         node = chain.handle(self.model)
         head = node

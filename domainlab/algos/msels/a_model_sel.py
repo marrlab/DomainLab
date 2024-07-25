@@ -125,11 +125,6 @@ class AMSel(metaclass=abc.ABCMeta):
         return -1
 
     @property
-    def oracle_last_setpoint_sel_te_acc(self):
-        if self.msel is not None:
-            return self.msel.oracle_last_setpoint_sel_te_acc
-        return -1
-
     def model_selection_epoch(self):
         """
         the epoch when the model was selected
