@@ -59,13 +59,13 @@ class Exp:
         # visitor must be initialized last after trainer is initialized
         self.experiment_duration = None
         self.model.set_saver(self.visitor)
-        self.visitor.save()   # self.model.save() cause CI infinite loop? 
-
+        
     def execute(self, num_epochs=None):
         """
         train model
         check performance by loading persisted model
         """
+        self.model.save()  # cause CI infinite loop when put in initializer? 
         if num_epochs is None:
             num_epochs = self.epochs + 1
         t_0 = datetime.datetime.now()
