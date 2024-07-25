@@ -29,29 +29,33 @@ class TrainerMA(TrainerBasic):
         Salesforce Research, USA
         """
         self.ma_weight_previous_model_params = epoch / (epoch + 1)
-        # 1/2, 2/3, 3/4, 4/5, 
+        # 1/2, 2/3, 3/4, 4/5,
         # weight on previous model converges to 1 as training goes on
-        dict_ema_para_curr_iter = {}
+        dict_return_ema_para_curr_iter = {}
         for key, data in dict_data.items():
             # data = data.view(1, -1)  # make it rank 1 tensor (a.k.a. vector)
             if self._ma_iter == 0:
                 previous_data = torch.zeros_like(data)
+                local_data_convex = data
             else:
-                previous_data = self._ma_dict_para_persist[key]
-
-            local_data_convex = \
-                self.ma_weight_previous_model_params * previous_data + \
-                (1 - self.ma_weight_previous_model_params) * data
-            # correction by 1/(1 - self.rho)
+                previous_data = self._dict_previous_para_persist[key]
+                local_data_convex = \
+                    self.ma_weight_previous_model_params * previous_data + \
+                    (1 - self.ma_weight_previous_model_params) * data
+            # correction by 1/(1 - self.ma_weight_previous_model_params)
             # so that the gradients amplitude backpropagated in data is
-            # independent of self.rho
-            dict_ema_para_curr_iter[key] = \
-                local_data_convex / (1 - self.ma_weight_previous_model_params)
-            self._ma_dict_para_persist[key] = \
+            # independent of self.ma_weight_previous_model_params
+            # We did not do this because 1-rho will be almost zero as
+            # epochs goes on, which will expand the neural network weights
+            # to overflow
+            # dict_return_ema_para_curr_iter[key] = \
+            #    local_data_convex / (1 - self.ma_weight_previous_model_params)
+            dict_return_ema_para_curr_iter[key] = local_data_convex
+            self._dict_previous_para_persist[key] = \
                 local_data_convex.clone().detach()  # used as previous data
 
         self._ma_iter += 1
-        return dict_ema_para_curr_iter
+        return dict_return_ema_para_curr_iter
 
     def after_epoch(self, epoch):
         torch_model = self.get_model()
