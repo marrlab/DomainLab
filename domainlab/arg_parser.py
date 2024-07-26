@@ -117,9 +117,9 @@ def mk_parser_main():
         "-nb4ratio",
         "--nb4reg_over_task_ratio",
         type=int,
-        default=1,
+        default=0,
         help="number of batches for estimating reg loss over task loss ratio \
-        default 1",
+        default 0",
     )
 
     parser.add_argument("--debug", action="store_true", default=False)
