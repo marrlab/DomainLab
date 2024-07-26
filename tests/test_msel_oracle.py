@@ -66,7 +66,6 @@ def mk_exp(
 
     parser = mk_parser_main()
     conf = parser.parse_args(str_arg.split())
-    device = get_device(conf)
     if alone:
         model_sel = MSelOracleVisitor()
     else:
@@ -107,7 +106,7 @@ def test_msel_oracle():
     task = mk_task()
     model = mk_model(task)
     # make trainer for model
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
+    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=2)
     exp.execute(num_epochs=2)
 
     del exp
@@ -120,7 +119,7 @@ def test_msel_oracle1():
     task = mk_task()
     model = mk_model(task)
     exp = mk_exp(
-        task, model, trainer="mldg", test_domain="domain1", batchsize=32, alone=False
+        task, model, trainer="mldg", test_domain="domain1", batchsize=2, alone=False
     )
 
     exp.execute(num_epochs=2)
@@ -136,7 +135,7 @@ def test_msel_oracle2():
     model = mk_model(task)
 
     # make trainer for model
-    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
+    exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=2)
     exp.execute(num_epochs=2)
 
 
@@ -152,7 +151,7 @@ def test_msel_oracle3():
         model,
         trainer="mldg",
         test_domain="domain1",
-        batchsize=32,
+        batchsize=2,
         alone=False,
         force_best_val=True,
     )
@@ -172,7 +171,7 @@ def test_msel_oracle4():
         model,
         trainer="mldg",
         test_domain="domain1",
-        batchsize=32,
+        batchsize=2,
         alone=False,
         msel_loss_tr=True,
     )
