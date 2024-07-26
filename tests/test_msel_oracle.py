@@ -42,6 +42,7 @@ def test_msel_oracle2():
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=2)
     exp.execute(num_epochs=2)
+    del exp
 
 
 def test_msel_oracle3():
