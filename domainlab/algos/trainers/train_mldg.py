@@ -35,6 +35,7 @@ class TrainerMLDG(AbstractTrainer):
             flag_accept=False,
         )
         self.prepare_ziped_loader()
+        super().before_tr()
 
     def prepare_ziped_loader(self):
         """
