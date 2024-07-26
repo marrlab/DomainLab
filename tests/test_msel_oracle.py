@@ -13,7 +13,7 @@ def test_msel_oracle():
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=2)
     exp.execute(num_epochs=2)
-
+    exp.clean_up()
     del exp
 
 
@@ -29,6 +29,7 @@ def test_msel_oracle1():
 
     exp.execute(num_epochs=2)
     exp.trainer.observer.model_sel.msel.update(epoch=1, clear_counter=True)
+    exp.clean_up()
     del exp
 
 
@@ -42,6 +43,7 @@ def test_msel_oracle2():
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=2)
     exp.execute(num_epochs=2)
+    exp.clean_up()
     del exp
 
 
@@ -62,4 +64,5 @@ def test_msel_oracle3():
         force_best_val=True,
     )
     exp.execute(num_epochs=2)
+    exp.clean_up()
     del exp
