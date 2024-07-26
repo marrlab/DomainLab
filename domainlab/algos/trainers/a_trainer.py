@@ -199,7 +199,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
-            if ind_batch >= self.aconf.nb4ratio:
+            if ind_batch >= self.aconf.nb4reg_over_task_ratio:
                 break
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
