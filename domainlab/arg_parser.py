@@ -113,6 +113,15 @@ def mk_parser_main():
                         Set to 0 to turn warmup off.",
     )
 
+    parser.add_argument(
+        "-nb4ratio",
+        "--nb4reg_over_task_ratio",
+        type=int,
+        default=0,
+        help="number of batches for estimating reg loss over task loss ratio \
+        default 0",
+    )
+
     parser.add_argument("--debug", action="store_true", default=False)
     parser.add_argument("--dmem", action="store_true", default=False)
     parser.add_argument(
