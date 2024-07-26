@@ -105,13 +105,7 @@ def test_msel_oracle():
     """
     # specify backbone to use
     task = mk_task()
-    backbone = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-    num_final_in = backbone.fc.in_features
-    backbone.fc = nn.Linear(num_final_in, task.dim_y)
-
-    # specify model to use
-    model = mk_erm(list_str_y=task.list_str_y)(backbone)
-
+    model = mk_model(task)
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
     exp.execute(num_epochs=2)
@@ -124,16 +118,7 @@ def test_msel_oracle1():
     return trainer, model, observer
     """
     task = mk_task()
-   # specify backbone to use
-    backbone = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-    num_final_in = backbone.fc.in_features
-    backbone.fc = nn.Linear(num_final_in, task.dim_y)
-
-    # specify model to use
-    model = mk_erm(list_str_y=task.list_str_y)(backbone)
-
-    # make trainer for model
-
+    model = mk_model(task)
     exp = mk_exp(
         task, model, trainer="mldg", test_domain="domain1", batchsize=32, alone=False
     )
@@ -148,13 +133,7 @@ def test_msel_oracle2():
     return trainer, model, observer
     """
     task = mk_task()
-    # specify backbone to use
-    backbone = torchvisionmodels.resnet.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
-    num_final_in = backbone.fc.in_features
-    backbone.fc = nn.Linear(num_final_in, task.dim_y)
-
-    # specify model to use
-    model = mk_erm(list_str_y=task.list_str_y)(backbone)
+    model = mk_model(task)
 
     # make trainer for model
     exp = mk_exp(task, model, trainer="mldg", test_domain="domain1", batchsize=32)
