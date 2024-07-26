@@ -23,4 +23,5 @@ def test_msel_oracle4():
     exp.execute(num_epochs=2)
     exp.trainer.observer.model_sel.msel.best_loss = 0
     exp.trainer.observer.model_sel.msel.update(epoch=1, clear_counter=True)
+    exp.clean_up()
     del exp
