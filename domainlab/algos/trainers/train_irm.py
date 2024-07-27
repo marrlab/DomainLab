@@ -66,5 +66,6 @@ class TrainerIRM(TrainerBasic):
         loss_2 = F.cross_entropy(phi[1::2] * dummy_w_scale, y[1::2])
         grad_1 = autograd.grad(loss_1, [dummy_w_scale], create_graph=True)[0]
         grad_2 = autograd.grad(loss_2, [dummy_w_scale], create_graph=True)[0]
-        loss_irm = torch.sum(grad_1 * grad_2)
-        return [loss_irm], [self.aconf.gamma_reg]
+        loss_irm_scalar = torch.sum(grad_1 * grad_2)  # scalar
+        loss_irm_tensor = loss_irm_scalar.expand(tensor_x.shape[0])
+        return [loss_irm_tensor], [self.aconf.gamma_reg]
