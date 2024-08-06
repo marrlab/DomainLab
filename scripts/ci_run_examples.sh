@@ -3,6 +3,20 @@ set -e  # exit upon first error
 # >> append content
 # > erase original content
 
+
+files=("docs/docDIAL.md" "docs/docFishr.md")
+
+for file in "${files[@]}"
+do
+echo "Processing $file"
+echo "#!/bin/bash -x -v" > sh_temp_algo.sh  
+sed -n '/```shell/,/```/ p' $file | sed '/^```/ d' >> ./sh_temp_algo.sh
+bash -x -v -e sh_temp_also.sh
+# Add your commands to process each file here
+done
+
+
+
 # echo "#!/bin/bash -x -v" > sh_temp_example.sh
 sed -n '/```shell/,/```/ p' docs/doc_examples.md | sed '/^```/ d' >> ./sh_temp_example.sh
 split -l 5 sh_temp_example.sh sh_example_split
