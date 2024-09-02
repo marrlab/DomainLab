@@ -4,7 +4,7 @@ set -e  # exit upon first error
 # > erase original content
 
 
-files=("docs/docDIAL.md" "docs/docIRM.md")
+files=("docs/docDIAL.md" "docs/docIRM.md" "docs/doc_examples.md")
 
 for file in "${files[@]}"
 do
