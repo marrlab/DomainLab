@@ -28,6 +28,6 @@ In detail: the squared gradient norm via inner product between $\nabla_{w|w=1} \
 
 # Examples
 ```
-python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=irm --nname=conv_bn_pool_2
+python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=irm --nname=conv_bn_pool_2 --agas
 
 ```
