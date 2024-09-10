@@ -14,6 +14,7 @@ echo "#!/bin/bash -x -v" > sh_temp_algo.sh
 # remove code marker ```
 # we use >> here to append to keep the header #!/bin/bash -x -v
 sed -n '/```shell/,/```/ p' $file | sed '/^```/ d' >> ./sh_temp_algo.sh
+cat sh_temp_algo.sh
 bash -x -v -e sh_temp_algo.sh
 # Add your commands to process each file here
 echo "finished with $file"
