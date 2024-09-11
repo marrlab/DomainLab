@@ -26,4 +26,8 @@ where $\lambda$ is a hyperparameter that controls the trade-off between the empi
 In practice, one could simply divide one mini-batch into two subsets, let $i$ and $j$ to index these two subsets, multiply  subset $i$ and subset $j$ forms an unbiased estimation of the L2 norm of gradient.
 In detail: the squared gradient norm via inner product between $\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, i)}), Y^{(d, i)})$ of dimension dim(Grad) with $\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, j)}), Y^{(d, j)})$ of dimension dim(Grad) For more details, see section 3.2 and Appendix D of : Arjovsky et al., “Invariant Risk Minimization.”
 
+# Examples
+```shell
+python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=irm --nname=conv_bn_pool_2
 
+```

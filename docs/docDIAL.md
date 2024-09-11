@@ -72,3 +72,9 @@ This procedure yields to the following availability of hyperparameter:
 - `--dial_epsilon`: pixel wise threshold to perturb images
 - `--gamma_reg`: ? ($\epsilon$ in the paper)
 - `--lr`: learning rate ($\alpha$ in the paper)
+
+# Examples
+
+```
+python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=dial --nname=conv_bn_pool_2
+```
