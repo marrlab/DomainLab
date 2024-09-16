@@ -13,6 +13,17 @@ def test_irm():
     utils_test_algo(args)
 
 
+def test_irm_scheduler():
+    """
+    train with Invariant Risk Minimization
+    """
+    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
+        --trainer=hyperscheduler_irm --nname=alexnet"
+    utils_test_algo(args)
+
+
+
+
 def test_irm_mnist():
     """
     train with Invariant Risk Minimization
