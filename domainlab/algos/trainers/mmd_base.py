@@ -2,10 +2,10 @@
 Alexej, Xudong
 """
 import torch
-from domainlab.algos.trainers.mmd_base import TrainerMMDBase
+from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
-class TrainerCoral(TrainerMMDBase):
+class TrainerMMDBase(TrainerBasic):
     """
     causal matching
     """
@@ -31,7 +31,7 @@ class TrainerCoral(TrainerMMDBase):
         """
         kernel for MMD
         """
-        gamma=[0.001, 0.01, 0.1, 1, 10, 100, 1000]
+        gamma = [0.001, 0.01, 0.1, 1, 10, 100, 1000]
         dist = self.my_cdist(x, y)
         tensor = torch.zeros_like(dist)
         for g in gamma:
@@ -46,28 +46,3 @@ class TrainerCoral(TrainerMMDBase):
         kyy = self.gaussian_kernel(y, y).mean()
         kxy = self.gaussian_kernel(x, y).mean()
         return kxx + kyy - 2 * kxy
-
-    def tr_epoch(self, epoch):
-        list_loaders = list(self.dict_loader_tr.values())
-        loaders_zip = zip(*list_loaders)
-        self.model.train()
-        self.model.convert4backpack()
-        self.epo_loss_tr = 0
-
-        for ind_batch, tuple_data_domains_batch in enumerate(loaders_zip):
-            self.optimizer.zero_grad()
-            list_dict_var_grads, list_loss_erm = self.var_grads_and_loss(tuple_data_domains_batch)
-            dict_layerwise_var_var_grads = self.variance_between_dict(list_dict_var_grads)
-            dict_layerwise_var_var_grads_sum = \
-                {key: val.sum() for key, val in dict_layerwise_var_var_grads.items()}
-            loss_fishr = sum(dict_layerwise_var_var_grads_sum.values())
-            loss = sum(list_loss_erm) + get_gamma_reg(self.aconf, self.name) * loss_fishr
-            loss.backward()
-            self.optimizer.step()
-            self.epo_loss_tr += loss.detach().item()
-            self.after_batch(epoch, ind_batch)
-
-        flag_stop = self.observer.update(epoch)  # notify observer
-        return flag_stop
-
-
