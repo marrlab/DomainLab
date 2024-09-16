@@ -4,7 +4,7 @@ Domain Adaptation
 [au] Alexej, Xudong
 """
 from domainlab.algos.trainers.mmd_base import TrainerMMDBase
-from domainlab.utils.hyperparameter_retrieval import get_gamma_reg¬
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerCoral(TrainerMMDBase):
@@ -12,6 +12,9 @@ class TrainerCoral(TrainerMMDBase):
     cross domain MMD
     """
     def cross_domain_mmd(self, tuple_data_domains_batch):
+        """
+        domain-pairwise mmd
+        """
         penalty = 0
         list_loss_erm = []
         num_domains = len(tuple_data_domains_batch)
