@@ -72,7 +72,7 @@ For more details, see the reference below or the domainlab code.
 
 
 
-# Examples
+## Examples
 ```
 python main_out.py --te_d=0 --task=mini_vlcs --model=erm --trainer=fishr --nname=alexnet --bs=2 --nocu
 ```
