@@ -4,10 +4,8 @@ basic trainer
 import math
 from operator import add
 
-import torch
-
 from domainlab import g_tensor_batch_agg
-from domainlab.algos.trainers.a_trainer import AbstractTrainer, mk_opt
+from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
 
 def list_divide(list_val, scalar):
@@ -24,6 +22,7 @@ class TrainerBasic(AbstractTrainer):
         check the performance of randomly initialized weight
         """
         self.model.evaluate(self.loader_te, self.device)
+        super().before_tr()
 
     def before_epoch(self):
         """
@@ -95,8 +94,16 @@ class TrainerBasic(AbstractTrainer):
         list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others
         )
+
+        list_mu_tr_normalized = list_mu_tr
+        if self.list_reg_over_task_ratio:
+            assert len(list_mu_tr) == len(self.list_reg_over_task_ratio)
+            list_mu_tr_normalized = \
+                [mu / reg_over_task_ratio if reg_over_task_ratio != 0
+                 else mu for (mu, reg_over_task_ratio)
+                 in zip(list_mu_tr, self.list_reg_over_task_ratio)]
         tensor_batch_reg_loss_penalized = self.model.list_inner_product(
-            list_reg_tr_batch, list_mu_tr
+            list_reg_tr_batch, list_mu_tr_normalized
         )
         assert len(tensor_batch_reg_loss_penalized.shape) == 1
         loss_erm_agg = g_tensor_batch_agg(loss_task)
