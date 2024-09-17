@@ -78,3 +78,19 @@ This procedure yields to the following availability of hyperparameter:
 ```
 python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=dial --nname=conv_bn_pool_2
 ```
+
+
+
+## Adversarial images training
+```shell
+python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --model=erm --trainer=dial --nname=conv_bn_pool_2
+```
+### Train DIVA model with DIAL trainer
+
+```shell
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5 --trainer=dial
+```
+### Set hyper-parameters for trainer as well
+```shell
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=diva --nname=conv_bn_pool_2 --nname_dom=conv_bn_pool_2 --gamma_y=7e5 --gamma_d=1e5 --trainer=dial --dial_steps_perturb=1
+```

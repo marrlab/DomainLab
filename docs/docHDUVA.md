@@ -52,16 +52,6 @@ Alternatively, one could use an existing neural network in DomainLab using `nnam
 
 ## Hyperparameter for warmup
 Finally, the number of epochs for hyper-parameter warm-up can be specified via the argument `warmup`.
-## Examples
-### use hduva on color mnist, train on 2 domains
-```shell
-python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --model=hduva  --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
-```
-
-### hduva is domain-unsupervised, so it works also with a single domain
-```shell
-python main_out.py --tr_d 0  --te_d 3 4 --bs=2 --task=mnistcolor10 --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
-```
 
 
 
@@ -74,3 +64,46 @@ Please cite our paper if you find it useful!
   year={2021}
 }
 ```
+
+
+
+## Examples
+
+### hduva use custom net for sandwich encoder
+```shell
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --npath_encoder_sandwich_x2h4zd=examples/nets/resnet.py
+```
+
+### hduva use custom net for topic encoder
+```shell
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --npath_encoder_x2topic_h=examples/nets/resnet.py --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
+```
+
+### hduva use custom net for classification encoder
+```shell
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --npath=examples/nets/resnet.py --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
+```
+
+### use hduva on color mnist, train on 2 domains
+```shell
+python main_out.py --tr_d 0 1 2 --te_d 3 --bs=2 --task=mnistcolor10 --model=hduva  --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
+```
+
+### hduva is domain-unsupervised, so it works also with a single domain
+```shell
+python main_out.py --tr_d 0  --te_d 3 4 --bs=2 --task=mnistcolor10 --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
+```
+
+### hduva with implemented neural network
+```shell
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
+```
+
+### hduva use alex net
+```shell
+python main_out.py --te_d=caltech --bs=2 --task=mini_vlcs --model=hduva --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=alexnet
+```
+
+
+
+
