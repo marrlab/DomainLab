@@ -73,7 +73,7 @@ This procedure yields to the following availability of hyperparameter:
 - `--gamma_reg`: ? ($\epsilon$ in the paper)
 - `--lr`: learning rate ($\alpha$ in the paper)
 
-# Examples
+## Examples
 
 ```
 python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=dial --nname=conv_bn_pool_2
@@ -81,7 +81,6 @@ python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=dial --nna
 
 
 
-## Adversarial images training
 ```shell
 python main_out.py --te_d=0 --task=mnistcolor10 --keep_model --model=erm --trainer=dial --nname=conv_bn_pool_2
 ```
