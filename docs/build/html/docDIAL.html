@@ -285,12 +285,8 @@
         <li class="md-nav__item"><a href="#network-structure" class="md-nav__link">network structure</a>
         </li>
         <li class="md-nav__item"><a href="#loss-function-and-gradient-reversal-layer" class="md-nav__link">loss function and gradient reversal layer</a>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#train-diva-model-with-dial-trainer" class="md-nav__link">Train DIVA model with DIAL trainer</a>
         </li>
@@ -330,18 +326,11 @@
       <a href="#loss-function-and-gradient-reversal-layer" class="md-nav__link">loss function and gradient reversal layer</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
       <a href="#examples" class="md-nav__link">Examples</a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a>
       
     
     </li></ul>
@@ -357,13 +346,6 @@
     <li class="md-nav__item">
     
     
-      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
@@ -371,21 +353,7 @@
     <li class="md-nav__item">
     
     
-      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -419,12 +387,8 @@
         <li class="md-nav__item"><a href="#network-structure" class="md-nav__link">network structure</a>
         </li>
         <li class="md-nav__item"><a href="#loss-function-and-gradient-reversal-layer" class="md-nav__link">loss function and gradient reversal layer</a>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
-              <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#train-diva-model-with-dial-trainer" class="md-nav__link">Train DIVA model with DIAL trainer</a>
         </li>
@@ -487,14 +451,11 @@ The adversarial domain is weighted by the parameter <span class="math notranslat
 <li><p><code class="docutils literal notranslate"><span class="pre">--lr</span></code>: learning rate (<span class="math notranslate nohighlight">\(\alpha\)</span> in the paper)</p></li>
 </ul>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="examples">
-<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=dial --nname=conv_bn_pool_2
 </pre></div>
 </div>
-<section id="adversarial-images-training">
-<h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>dial<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>

@@ -274,13 +274,6 @@
     <li class="md-nav__item">
     
     
-      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
       
     
@@ -288,21 +281,7 @@
     <li class="md-nav__item">
     
     
-      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
       <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -321,10 +300,10 @@
         <li class="md-nav__item"><a href="#docirm--page-root" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#irmv1" class="md-nav__link">IRMv1</a>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li></ul>
+            </nav>
         </li>
   </ul>
 </nav>
@@ -335,14 +314,14 @@
       <a href="#irmv1" class="md-nav__link">IRMv1</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
       <a href="#examples" class="md-nav__link">Examples</a>
       
+    
+    </li></ul>
     
     </li>
     <li class="md-nav__item">
@@ -369,10 +348,10 @@
         <li class="md-nav__item"><a href="#docirm--page-root" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#irmv1" class="md-nav__link">IRMv1</a>
-        </li></ul>
-            </nav>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li></ul>
+            </nav>
         </li>
   </ul>
 </nav>
@@ -403,12 +382,12 @@ where we use <span class="math notranslate nohighlight">\(\ell\)</span> to denot
 <p>In practice, one could simply divide one mini-batch into two subsets, let <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span> to index these two subsets, multiply  subset <span class="math notranslate nohighlight">\(i\)</span> and subset <span class="math notranslate nohighlight">\(j\)</span> forms an unbiased estimation of the L2 norm of gradient.
 In detail: the squared gradient norm via inner product between <span class="math notranslate nohighlight">\(\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, i)}), Y^{(d, i)})\)</span> of dimension dim(Grad) with <span class="math notranslate nohighlight">\(\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, j)}), Y^{(d, j)})\)</span> of dimension dim(Grad) For more details, see section 3.2 and Appendix D of : Arjovsky et al., “Invariant Risk Minimization.”</p>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="examples">
-<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>irm<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
+</section>
 </section>
 
 
