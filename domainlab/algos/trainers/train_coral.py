@@ -15,7 +15,7 @@ class TrainerCoral(TrainerMMDBase):
         """
         domain-pairwise mmd
         """
-        penalty = 0
+        loss_mmd = 0
         list_loss_erm = []
         num_domains = len(tuple_data_domains_batch)
         for ind_domain_a in range(num_domains):
@@ -23,10 +23,9 @@ class TrainerCoral(TrainerMMDBase):
             feat_a = self.model.extract_semantic_feat(data_a)
             list_loss_erm.append(self.get_model().cal_task_loss(data_a, y_a))
             for ind_domain_b in range(ind_domain_a, num_domains):
-                data_b, y_b, *_ = tuple_data_domains_batch[ind_domain_b]
+                data_b, *_ = tuple_data_domains_batch[ind_domain_b]
                 feat_b = self.model.extract_semantic_feat(data_b)
-                penalty += self.mmd(feat_a, feat_b)
-            list_loss_erm.append(self.cal_task_loss(data_a))
+                loss_mmd += self.mmd(feat_a, feat_b)
         return list_loss_erm, loss_mmd
 
     def tr_epoch(self, epoch):
