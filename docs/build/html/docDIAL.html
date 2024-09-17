@@ -174,8 +174,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -290,6 +288,18 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#train-diva-model-with-dial-trainer" class="md-nav__link">Train DIVA model with DIAL trainer</a>
+        </li>
+        <li class="md-nav__item"><a href="#set-hyper-parameters-for-trainer-as-well" class="md-nav__link">Set hyper-parameters for trainer as well</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
       <ul class="md-nav__list"> 
@@ -326,7 +336,28 @@
     <li class="md-nav__item">
     
     
+      <a href="#examples" class="md-nav__link">Examples</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -340,7 +371,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -374,6 +419,18 @@
         <li class="md-nav__item"><a href="#network-structure" class="md-nav__link">network structure</a>
         </li>
         <li class="md-nav__item"><a href="#loss-function-and-gradient-reversal-layer" class="md-nav__link">loss function and gradient reversal layer</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#adversarial-images-training" class="md-nav__link">Adversarial images training</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#train-diva-model-with-dial-trainer" class="md-nav__link">Train DIVA model with DIAL trainer</a>
+        </li>
+        <li class="md-nav__item"><a href="#set-hyper-parameters-for-trainer-as-well" class="md-nav__link">Set hyper-parameters for trainer as well</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -429,6 +486,30 @@ The adversarial domain is weighted by the parameter <span class="math notranslat
 <li><p><code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>: ? (<span class="math notranslate nohighlight">\(\epsilon\)</span> in the paper)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--lr</span></code>: learning rate (<span class="math notranslate nohighlight">\(\alpha\)</span> in the paper)</p></li>
 </ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="examples">
+<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mnistcolor10 --model=erm --trainer=dial --nname=conv_bn_pool_2
+</pre></div>
+</div>
+<section id="adversarial-images-training">
+<h2 id="adversarial-images-training">Adversarial images training<a class="headerlink" href="#adversarial-images-training" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>dial<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+<section id="train-diva-model-with-dial-trainer">
+<h3 id="train-diva-model-with-dial-trainer">Train DIVA model with DIAL trainer<a class="headerlink" href="#train-diva-model-with-dial-trainer" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--trainer<span class="o">=</span>dial
+</pre></div>
+</div>
+</section>
+<section id="set-hyper-parameters-for-trainer-as-well">
+<h3 id="set-hyper-parameters-for-trainer-as-well">Set hyper-parameters for trainer as well<a class="headerlink" href="#set-hyper-parameters-for-trainer-as-well" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--trainer<span class="o">=</span>dial<span class="w"> </span>--dial_steps_perturb<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 

@@ -174,8 +174,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -276,6 +274,13 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer Fishr </label>
     
@@ -299,6 +304,8 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
   </ul>
 </nav>
       <ul class="md-nav__list"> 
@@ -314,6 +321,13 @@
     <li class="md-nav__item">
     
     
+      <a href="#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="doc_mldg.html" class="md-nav__link">Trainer MLDG</a>
       
     
@@ -321,7 +335,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -359,6 +387,8 @@
             </nav>
         </li></ul>
             </nav>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
         </li>
   </ul>
 </nav>
@@ -430,12 +460,18 @@ Further on, we use <span class="math notranslate nohighlight">\( \textnormal{Var
 The Hessian is then approximated by the Fisher Information Matrix, which
 again is approximated by an empirical estimator for computational efficiency.
 For more details, see the reference below or the domainlab code.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="examples">
+<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d=0 --task=mini_vlcs --model=erm --trainer=fishr --nname=alexnet --bs=2 --nocu
+</pre></div>
+</div>
 <p><em>Reference:</em>
 Rame, Alexandre, Corentin Dancette, and Matthieu Cord. “Fishr:
 Invariant gradient variances for out-of-distribution generalization.”
 International Conference on Machine Learning. PMLR, 2022.</p>
-</section>
-</section>
 </section>
 
 

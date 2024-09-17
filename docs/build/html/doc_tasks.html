@@ -170,8 +170,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -272,7 +270,21 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -286,7 +298,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -322,6 +348,36 @@
         <li class="md-nav__item"><a href="#data-organization" class="md-nav__link">Data organization</a>
         </li>
         <li class="md-nav__item"><a href="#specify-the-task-with-domainlab-api" class="md-nav__link">Specify the task with domainlab API</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
+        </li>
+        <li class="md-nav__item"><a href="#user-defined-tasks" class="md-nav__link">User defined tasks</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#folder-task" class="md-nav__link">Folder Task</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#folder-task-with-implemented-neural-network" class="md-nav__link">Folder Task with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#folder-task-with-externally-user-defined-neural-network" class="md-nav__link">Folder Task with externally user defined neural network</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#imagepath-task" class="md-nav__link">ImagePath Task</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#imagepath-task-with-implemented-algorithm" class="md-nav__link">ImagePath Task with implemented algorithm</a>
+        </li>
+        <li class="md-nav__item"><a href="#imagepath-task-with-externally-user-defined-neural-network" class="md-nav__link">ImagePath Task with externally user defined neural network</a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#custom-algorithm-defined-in-external-python-file" class="md-nav__link">Custom algorithm defined in external python file</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class" class="md-nav__link">make a sanity check for the dataset using 8 instances from each domain and from each class</a>
+        </li>
+        <li class="md-nav__item"><a href="#sanity-check-on-only-2-train-domains-and-2-test-domain2" class="md-nav__link">sanity check on only 2 train domains and 2 test domain2</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -477,6 +533,63 @@ of domain information so only a unique transform (composition) is allowed.</p>
 <p><code class="docutils literal notranslate"><span class="pre">dict_domain2imgroot</span></code>: a python dictionary with keys as user specified domain names and values
 as the absolute path to each domain’s data.</p>
 <p><code class="docutils literal notranslate"><span class="pre">taskna</span></code>: user defined task name</p>
+</section>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="user-defined-tasks">
+<h2 id="user-defined-tasks">User defined tasks<a class="headerlink" href="#user-defined-tasks" title="Permalink to this heading">¶</a></h2>
+<section id="folder-task">
+<h3 id="folder-task">Folder Task<a class="headerlink" href="#folder-task" title="Permalink to this heading">¶</a></h3>
+<section id="folder-task-with-implemented-neural-network">
+<h4 id="folder-task-with-implemented-neural-network">Folder Task with implemented neural network<a class="headerlink" href="#folder-task-with-implemented-neural-network" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname_dom<span class="o">=</span>alexnet<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
+</pre></div>
+</div>
+</section>
+<section id="folder-task-with-externally-user-defined-neural-network">
+<h4 id="folder-task-with-externally-user-defined-neural-network">Folder Task with externally user defined neural network<a class="headerlink" href="#folder-task-with-externally-user-defined-neural-network" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/task_vlcs.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
+</pre></div>
+</div>
+</section>
+</section>
+<section id="imagepath-task">
+<h3 id="imagepath-task">ImagePath Task<a class="headerlink" href="#imagepath-task" title="Permalink to this heading">¶</a></h3>
+<section id="imagepath-task-with-implemented-algorithm">
+<h4 id="imagepath-task-with-implemented-algorithm">ImagePath Task with implemented algorithm<a class="headerlink" href="#imagepath-task-with-implemented-algorithm" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname_dom<span class="o">=</span>alexnet<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
+</pre></div>
+</div>
+</section>
+<section id="imagepath-task-with-externally-user-defined-neural-network">
+<h4 id="imagepath-task-with-externally-user-defined-neural-network">ImagePath Task with externally user defined neural network<a class="headerlink" href="#imagepath-task-with-externally-user-defined-neural-network" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="custom-algorithm-defined-in-external-python-file">
+<h2 id="custom-algorithm-defined-in-external-python-file">Custom algorithm defined in external python file<a class="headerlink" href="#custom-algorithm-defined-in-external-python-file" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">3</span><span class="w"> </span>--apath<span class="o">=</span>examples/models/demo_custom_model.py<span class="w"> </span>--model<span class="o">=</span>custom<span class="w"> </span>--nname_argna2val<span class="w"> </span>my_custom_arg_name<span class="w"> </span>--nname_argna2val<span class="w"> </span>alexnet
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">3</span><span class="w"> </span>--apath<span class="o">=</span>examples/models/demo_custom_model.py<span class="w"> </span>--model<span class="o">=</span>custom<span class="w"> </span>--npath_argna2val<span class="w"> </span>my_custom_arg_name<span class="w"> </span>--npath_argna2val<span class="w"> </span>examples/nets/resnet.py
+</pre></div>
+</div>
+<section id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">
+<h3 id="make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class">make a sanity check for the dataset using 8 instances from each domain and from each class<a class="headerlink" href="#make-a-sanity-check-for-the-dataset-using-8-instances-from-each-domain-and-from-each-class" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">4</span>
+</pre></div>
+</div>
+</section>
+<section id="sanity-check-on-only-2-train-domains-and-2-test-domain2">
+<h3 id="sanity-check-on-only-2-train-domains-and-2-test-domain2">sanity check on only 2 train domains and 2 test domain2<a class="headerlink" href="#sanity-check-on-only-2-train-domains-and-2-test-domain2" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--san_check<span class="w"> </span>--san_num<span class="o">=</span><span class="m">4</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>

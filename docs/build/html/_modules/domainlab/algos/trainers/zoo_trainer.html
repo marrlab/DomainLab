@@ -169,8 +169,6 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -273,7 +271,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -287,7 +299,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -327,11 +353,13 @@ select trainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.algos.trainers.train_ema import TrainerMA
 from domainlab.algos.trainers.train_dial import TrainerDIAL
-from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
+from domainlab.algos.trainers.train_hyper_scheduler \
+    import TrainerHyperScheduler
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
 from domainlab.algos.trainers.train_fishr import TrainerFishr
 from domainlab.algos.trainers.train_irm import TrainerIRM
+from domainlab.algos.trainers.train_causIRL import TrainerCausalIRL
 
 
 <div class="viewcode-block" id="TrainerChainNodeGetter"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.zoo_trainer.TrainerChainNodeGetter">[docs]</a>class TrainerChainNodeGetter(object):
@@ -377,6 +405,7 @@ from domainlab.algos.trainers.train_irm import TrainerIRM
         chain = TrainerFishr(chain)
         chain = TrainerIRM(chain)
         chain = TrainerHyperScheduler(chain)
+        chain = TrainerCausalIRL(chain)
         node = chain.handle(self.request)
         head = node
         while self._list_str_trainer:

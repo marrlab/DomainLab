@@ -174,8 +174,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -280,6 +278,18 @@
         <li class="md-nav__item"><a href="#network" class="md-nav__link">Network</a>
         </li>
         <li class="md-nav__item"><a href="#training" class="md-nav__link">Training</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#trainer-matchdg-with-custom-neural-network" class="md-nav__link">trainer matchdg with custom neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#training-hduva-with-matchdg" class="md-nav__link">training hduva with matchdg</a>
+        </li>
+        <li class="md-nav__item"><a href="#training-implemented-neural-network-with-matchdg" class="md-nav__link">training implemented neural network with matchdg</a>
+        </li>
+        <li class="md-nav__item"><a href="#trainer-matchdg-with-mnist" class="md-nav__link">trainer matchdg with mnist</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -313,6 +323,13 @@
       <a href="#training" class="md-nav__link">Training</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#examples" class="md-nav__link">Examples</a>
+      
+    
     </li></ul>
     
     </li>
@@ -326,7 +343,21 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -340,7 +371,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -374,6 +419,18 @@
         <li class="md-nav__item"><a href="#network" class="md-nav__link">Network</a>
         </li>
         <li class="md-nav__item"><a href="#training" class="md-nav__link">Training</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#trainer-matchdg-with-custom-neural-network" class="md-nav__link">trainer matchdg with custom neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#training-hduva-with-matchdg" class="md-nav__link">training hduva with matchdg</a>
+        </li>
+        <li class="md-nav__item"><a href="#training-implemented-neural-network-with-matchdg" class="md-nav__link">training implemented neural network with matchdg</a>
+        </li>
+        <li class="md-nav__item"><a href="#trainer-matchdg-with-mnist" class="md-nav__link">trainer matchdg with mnist</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -446,7 +503,35 @@ l(x_j, x_k) = -\log\left(\frac{ \exp\left( \frac{\text{sim}(j, k)}{\tau} \right)
 <li><p><code class="docutils literal notranslate"><span class="pre">--epochs_ctr</span></code>: number of epochs for minimizing the contrastive loss in phase 1.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--epos_per_match_update</span></code>: Number of epochs before updating the match tensor. (<span class="math notranslate nohighlight">\(t\)</span> from phase 1)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--gamma_reg</span></code>: weight for the regularization term in phase 2. (<span class="math notranslate nohighlight">\(\gamma_\text{reg}\)</span> from phase 2)</p></li>
+<li></li>
 </ul>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<section id="trainer-matchdg-with-custom-neural-network">
+<h3 id="trainer-matchdg-with-custom-neural-network">trainer matchdg with custom neural network<a class="headerlink" href="#trainer-matchdg-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
+</pre></div>
+</div>
+</section>
+<section id="training-hduva-with-matchdg">
+<h3 id="training-hduva-with-matchdg">training hduva with matchdg<a class="headerlink" href="#training-hduva-with-matchdg" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="training-implemented-neural-network-with-matchdg">
+<h3 id="training-implemented-neural-network-with-matchdg">training implemented neural network with matchdg<a class="headerlink" href="#training-implemented-neural-network-with-matchdg" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--nname<span class="o">=</span>alexnet
+</pre></div>
+</div>
+</section>
+<section id="trainer-matchdg-with-mnist">
+<h3 id="trainer-matchdg-with-mnist">trainer matchdg with mnist<a class="headerlink" href="#trainer-matchdg-with-mnist" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">2</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 

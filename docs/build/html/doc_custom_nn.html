@@ -170,8 +170,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -272,7 +270,21 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -286,7 +298,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -318,6 +344,16 @@
         <li class="md-nav__item"><a href="#model-erm-with-custom-neural-network" class="md-nav__link">model ‘erm’ with custom neural network</a>
         </li>
         <li class="md-nav__item"><a href="#trainer-matchdg-with-custom-neural-network" class="md-nav__link">trainer ‘matchdg’ with custom neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#id1" class="md-nav__link">model erm with custom neural network</a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#larger-images" class="md-nav__link">Larger images:</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-erm-with-implemented-neural-network" class="md-nav__link">model erm with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#model-dann-with-implemented-neural-network" class="md-nav__link">model dann with implemented neural network</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -352,6 +388,27 @@
 <section id="trainer-matchdg-with-custom-neural-network">
 <h3 id="trainer-matchdg-with-custom-neural-network">trainer ‘matchdg’ with custom neural network<a class="headerlink" href="#trainer-matchdg-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3 id="id1">model erm with custom neural network<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="larger-images">
+<h2 id="larger-images">Larger images:<a class="headerlink" href="#larger-images" title="Permalink to this heading">¶</a></h2>
+<section id="model-erm-with-implemented-neural-network">
+<h3 id="model-erm-with-implemented-neural-network">model erm with implemented neural network<a class="headerlink" href="#model-erm-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--nname<span class="o">=</span>alexnet
+</pre></div>
+</div>
+</section>
+<section id="model-dann-with-implemented-neural-network">
+<h3 id="model-dann-with-implemented-neural-network">model dann with implemented neural network<a class="headerlink" href="#model-dann-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>dann<span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
 </section>

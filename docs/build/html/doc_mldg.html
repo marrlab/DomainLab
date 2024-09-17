@@ -172,8 +172,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -274,7 +272,21 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -296,6 +308,12 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#id1" class="md-nav__link">Meta Learning Domain Generalization</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
       <ul class="md-nav__list"> 
@@ -311,7 +329,28 @@
     <li class="md-nav__item">
     
     
+      <a href="#examples" class="md-nav__link">Examples</a>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#id1" class="md-nav__link">Meta Learning Domain Generalization</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -342,6 +381,12 @@
         </li></ul>
             </nav>
         </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#id1" class="md-nav__link">Meta Learning Domain Generalization</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -356,6 +401,15 @@
 <section id="meta-learning-domain-generalization">
 <h2 id="meta-learning-domain-generalization">Meta Learning Domain Generalization<a class="headerlink" href="#meta-learning-domain-generalization" title="Permalink to this heading">¶</a></h2>
 <p>Li, Da, et al. “Learning to generalize: Meta-learning for domain generalization.” Proceedings of the AAAI conference on artificial intelligence. Vol. 32. No. 1. 2018.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="examples">
+<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<section id="id1">
+<h2 id="id1">Meta Learning Domain Generalization<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>mldg<span class="w"> </span>--nname<span class="o">=</span>alexnet
+</pre></div>
+</div>
 </section>
 </section>
 

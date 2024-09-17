@@ -174,8 +174,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -260,6 +258,14 @@
         <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">Model JiGen</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-jigen-with-implemented-neural-network" class="md-nav__link">model jigen with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#sannity-check-with-jigen-tile-shuffling" class="md-nav__link">sannity check with jigen tile shuffling</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -270,6 +276,13 @@
     
     
       <a href="#model-parameters" class="md-nav__link">Model parameters</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#examples" class="md-nav__link">Examples</a>
       
     
     </li></ul>
@@ -299,7 +312,21 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -313,7 +340,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -341,6 +382,14 @@
         <li class="md-nav__item"><a href="#docjigen--page-root" class="md-nav__link">Model JiGen</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#model-parameters" class="md-nav__link">Model parameters</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#model-jigen-with-implemented-neural-network" class="md-nav__link">model jigen with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#sannity-check-with-jigen-tile-shuffling" class="md-nav__link">sannity check with jigen tile shuffling</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -385,6 +434,21 @@ solved despite missing domain labels.</p>
 <p>Furthermore, the user can specify a custom grid length via <code class="docutils literal notranslate"><span class="pre">grid_len</span></code>.</p>
 <p><em>Reference</em>: Carlucci, Fabio M., et al. “Domain generalization by solving jigsaw puzzles.”
 Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.</p>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<section id="model-jigen-with-implemented-neural-network">
+<h3 id="model-jigen-with-implemented-neural-network">model jigen with implemented neural network<a class="headerlink" href="#model-jigen-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>jigen<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--pperm<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nperm<span class="o">=</span><span class="m">100</span><span class="w"> </span>--grid_len<span class="o">=</span><span class="m">3</span>
+</pre></div>
+</div>
+</section>
+<section id="sannity-check-with-jigen-tile-shuffling">
+<h3 id="sannity-check-with-jigen-tile-shuffling">sannity check with jigen tile shuffling<a class="headerlink" href="#sannity-check-with-jigen-tile-shuffling" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>jigen<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--pperm<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nperm<span class="o">=</span><span class="m">100</span><span class="w"> </span>--grid_len<span class="o">=</span><span class="m">3</span><span class="w"> </span>--san_check
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 

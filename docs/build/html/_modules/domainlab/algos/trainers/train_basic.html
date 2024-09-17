@@ -169,8 +169,6 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -273,7 +271,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -287,7 +299,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -327,10 +353,8 @@ basic trainer
 import math
 from operator import add
 
-import torch
-
 from domainlab import g_tensor_batch_agg
-from domainlab.algos.trainers.a_trainer import AbstractTrainer, mk_opt
+from domainlab.algos.trainers.a_trainer import AbstractTrainer
 
 
 <div class="viewcode-block" id="list_divide"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.list_divide">[docs]</a>def list_divide(list_val, scalar):
@@ -346,7 +370,8 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer, mk_opt
         """
         check the performance of randomly initialized weight
         """
-        self.model.evaluate(self.loader_te, self.device)</div>
+        self.model.evaluate(self.loader_te, self.device)
+        super().before_tr()</div>
 
 <div class="viewcode-block" id="TrainerBasic.before_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.before_epoch">[docs]</a>    def before_epoch(self):
         """
@@ -418,8 +443,16 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer, mk_opt
         list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others
         )
+
+        list_mu_tr_normalized = list_mu_tr
+        if self.list_reg_over_task_ratio:
+            assert len(list_mu_tr) == len(self.list_reg_over_task_ratio)
+            list_mu_tr_normalized = \
+                [mu / reg_over_task_ratio if reg_over_task_ratio != 0
+                 else mu for (mu, reg_over_task_ratio)
+                 in zip(list_mu_tr, self.list_reg_over_task_ratio)]
         tensor_batch_reg_loss_penalized = self.model.list_inner_product(
-            list_reg_tr_batch, list_mu_tr
+            list_reg_tr_batch, list_mu_tr_normalized
         )
         assert len(tensor_batch_reg_loss_penalized.shape) == 1
         loss_erm_agg = g_tensor_batch_agg(loss_task)

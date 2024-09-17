@@ -156,3 +156,50 @@ of domain information so only a unique transform (composition) is allowed.
 as the absolute path to each domain's data.
 
 `taskna`: user defined task name
+
+
+
+## Examples
+
+## User defined tasks
+
+### Folder Task
+#### Folder Task with implemented neural network
+```shell
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --nname=alexnet --model=diva --nname_dom=alexnet --gamma_y=7e5 --gamma_d=1e5
+```
+
+#### Folder Task with externally user defined neural network
+```shell
+python main_out.py --te_d=caltech --tpath=examples/tasks/task_vlcs.py --debug --bs=2 --npath=examples/nets/resnet.py --model=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
+```
+
+### ImagePath Task
+#### ImagePath Task with implemented algorithm
+```shell
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --nname=alexnet --model=diva --nname_dom=alexnet --gamma_y=7e5 --gamma_d=1e5
+```
+
+#### ImagePath Task with externally user defined neural network
+```shell
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --model=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
+```
+
+## Custom algorithm defined in external python file
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --model=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
+```
+
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --model=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
+```
+
+
+### make a sanity check for the dataset using 8 instances from each domain and from each class
+```shell
+python main_out.py --te_d=0 --task=mini_vlcs --debug --bs=2 --model=diva --nname=alexnet --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5 --san_check --san_num=4
+```
+### sanity check on only 2 train domains and 2 test domain2
+```shell
+python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --debug --bs=2 --model=erm --nname=conv_bn_pool_2 --san_check --san_num=4
+```

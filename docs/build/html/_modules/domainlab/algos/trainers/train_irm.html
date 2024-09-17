@@ -169,8 +169,6 @@
             
             <li class="md-tabs__item"><a href="../../../../doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="../../../../doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="../../../../doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="../../../../doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -273,7 +271,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -287,7 +299,21 @@
     <li class="md-nav__item">
     
     
+      <a href="../../../../doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -389,8 +415,9 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
         loss_2 = F.cross_entropy(phi[1::2] * dummy_w_scale, y[1::2])
         grad_1 = autograd.grad(loss_1, [dummy_w_scale], create_graph=True)[0]
         grad_2 = autograd.grad(loss_2, [dummy_w_scale], create_graph=True)[0]
-        loss_irm = torch.sum(grad_1 * grad_2)
-        return [loss_irm], [self.aconf.gamma_reg]</div>
+        loss_irm_scalar = torch.sum(grad_1 * grad_2)  # scalar
+        loss_irm_tensor = loss_irm_scalar.expand(tensor_x.shape[0])
+        return [loss_irm_tensor], [self.aconf.gamma_reg]</div>
 </pre></div>
 
           </article>

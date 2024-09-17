@@ -174,8 +174,6 @@
             
             <li class="md-tabs__item"><a href="doc_MNIST_classification.html" class="md-tabs__link">Examples with MNIST</a></li>
             
-            <li class="md-tabs__item"><a href="doc_examples.html" class="md-tabs__link">More commandline examples</a></li>
-            
             <li class="md-tabs__item"><a href="doc_benchmark.html" class="md-tabs__link">Benchmarks tutorial</a></li>
             
             <li class="md-tabs__item"><a href="doc_output.html" class="md-tabs__link">Output Structure</a></li>
@@ -256,6 +254,24 @@
         <li class="md-nav__item"><a href="#model-hyperparameters" class="md-nav__link">Model hyperparameters</a>
         </li>
         <li class="md-nav__item"><a href="#hyperparameter-for-warmup" class="md-nav__link">Hyperparameter for warmup</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-sandwich-encoder" class="md-nav__link">hduva use custom net for sandwich encoder</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-topic-encoder" class="md-nav__link">hduva use custom net for topic encoder</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-classification-encoder" class="md-nav__link">hduva use custom net for classification encoder</a>
+        </li>
+        <li class="md-nav__item"><a href="#use-hduva-on-color-mnist-train-on-2-domains" class="md-nav__link">use hduva on color mnist, train on 2 domains</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain" class="md-nav__link">hduva is domain-unsupervised, so it works also with a single domain</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-with-implemented-neural-network" class="md-nav__link">hduva with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-use-alex-net" class="md-nav__link">hduva use alex net</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -303,6 +319,13 @@
       <a href="#hyperparameter-for-warmup" class="md-nav__link">Hyperparameter for warmup</a>
       
     
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="#examples" class="md-nav__link">Examples</a>
+      
+    
     </li></ul>
     
     </li>
@@ -344,7 +367,21 @@
     <li class="md-nav__item">
     
     
+      <a href="docDIAL.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docFishr.html" class="md-nav__link">Trainer Fishr</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docFishr.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -358,7 +395,21 @@
     <li class="md-nav__item">
     
     
+      <a href="doc_mldg.html#examples" class="md-nav__link">Examples</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="docIRM.html#examples" class="md-nav__link">Examples</a>
       
     
     </li>
@@ -396,6 +447,24 @@
         <li class="md-nav__item"><a href="#model-hyperparameters" class="md-nav__link">Model hyperparameters</a>
         </li>
         <li class="md-nav__item"><a href="#hyperparameter-for-warmup" class="md-nav__link">Hyperparameter for warmup</a>
+        </li>
+        <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-sandwich-encoder" class="md-nav__link">hduva use custom net for sandwich encoder</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-topic-encoder" class="md-nav__link">hduva use custom net for topic encoder</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-use-custom-net-for-classification-encoder" class="md-nav__link">hduva use custom net for classification encoder</a>
+        </li>
+        <li class="md-nav__item"><a href="#use-hduva-on-color-mnist-train-on-2-domains" class="md-nav__link">use hduva on color mnist, train on 2 domains</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain" class="md-nav__link">hduva is domain-unsupervised, so it works also with a single domain</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-with-implemented-neural-network" class="md-nav__link">hduva with implemented neural network</a>
+        </li>
+        <li class="md-nav__item"><a href="#hduva-use-alex-net" class="md-nav__link">hduva use alex net</a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -470,6 +539,51 @@ image to a hidden representation (same size as <code class="docutils literal not
 }
 </pre></div>
 </div>
+</section>
+<section id="examples">
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<section id="hduva-use-custom-net-for-sandwich-encoder">
+<h3 id="hduva-use-custom-net-for-sandwich-encoder">hduva use custom net for sandwich encoder<a class="headerlink" href="#hduva-use-custom-net-for-sandwich-encoder" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--npath_encoder_sandwich_x2h4zd<span class="o">=</span>examples/nets/resnet.py
+</pre></div>
+</div>
+</section>
+<section id="hduva-use-custom-net-for-topic-encoder">
+<h3 id="hduva-use-custom-net-for-topic-encoder">hduva use custom net for topic encoder<a class="headerlink" href="#hduva-use-custom-net-for-topic-encoder" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--npath_encoder_x2topic_h<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="hduva-use-custom-net-for-classification-encoder">
+<h3 id="hduva-use-custom-net-for-classification-encoder">hduva use custom net for classification encoder<a class="headerlink" href="#hduva-use-custom-net-for-classification-encoder" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="use-hduva-on-color-mnist-train-on-2-domains">
+<h3 id="use-hduva-on-color-mnist-train-on-2-domains">use hduva on color mnist, train on 2 domains<a class="headerlink" href="#use-hduva-on-color-mnist-train-on-2-domains" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--te_d<span class="w"> </span><span class="m">3</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w">  </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain">
+<h3 id="hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain">hduva is domain-unsupervised, so it works also with a single domain<a class="headerlink" href="#hduva-is-domain-unsupervised-so-it-works-also-with-a-single-domain" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--tr_d<span class="w"> </span><span class="m">0</span><span class="w">  </span>--te_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="hduva-with-implemented-neural-network">
+<h3 id="hduva-with-implemented-neural-network">hduva with implemented neural network<a class="headerlink" href="#hduva-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>conv_bn_pool_2
+</pre></div>
+</div>
+</section>
+<section id="hduva-use-alex-net">
+<h3 id="hduva-use-alex-net">hduva use alex net<a class="headerlink" href="#hduva-use-alex-net" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--model<span class="o">=</span>hduva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--nname_encoder_x2topic_h<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_encoder_sandwich_x2h4zd<span class="o">=</span>alexnet
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
