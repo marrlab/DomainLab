@@ -7,9 +7,10 @@ where we use $\ell$ to denote the cross entropy for a classification task, and $
 
 The idea of IRM is to choose classifier $w$ to be in the intersection of optimal classifiers for each domain $$d$$.
 
-$$w \in {\argmin}_{\bar{w}} \ell^{(d)}(\bar{w} \circ \Phi) \quad \forall d$$
+$$w \in {\arg\min}_{\bar{w}} \ell^{(d)}(\bar{w} \circ \Phi) \quad \forall d$$
 
-regardless of feature extractor $$\Phi(\cdot)$$, this serves as a constraint on the choice of classifiers $w$.
+regardless of feature extractor $\Phi(\cdot)$, 
+this serves as a constraint on the choice of classifiers $w$.
 
 The feature extractor $\Phi(\cdot)$ then get optimized under this constraint.
 
