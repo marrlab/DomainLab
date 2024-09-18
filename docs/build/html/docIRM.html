@@ -390,8 +390,9 @@
 where we use <span class="math notranslate nohighlight">\(\ell\)</span> to denote the cross entropy for a classification task, and <span class="math notranslate nohighlight">\(\mathcal{D}_d\)</span> for distribution of domain <span class="math notranslate nohighlight">\(d\)</span>.</p>
 <p>The idea of IRM is to choose classifier <span class="math notranslate nohighlight">\(w\)</span> to be in the intersection of optimal classifiers for each domain $<span class="math notranslate nohighlight">\(d\)</span>$.</p>
 <div class="math notranslate nohighlight">
-\[w \in {\argmin}_{\bar{w}} \ell^{(d)}(\bar{w} \circ \Phi) \quad \forall d\]</div>
-<p>regardless of feature extractor $<span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span><span class="math notranslate nohighlight">\(, this serves as a constraint on the choice of classifiers \)</span>w$.</p>
+\[w \in {\arg\min}_{\bar{w}} \ell^{(d)}(\bar{w} \circ \Phi) \quad \forall d\]</div>
+<p>regardless of feature extractor <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span>,
+this serves as a constraint on the choice of classifiers <span class="math notranslate nohighlight">\(w\)</span>.</p>
 <p>The feature extractor <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> then get optimized under this constraint.</p>
 <p>Thus IRM forms a bi-level optimization by jointly optimize <span class="math notranslate nohighlight">\(\Phi\)</span> and <span class="math notranslate nohighlight">\(w\)</span> which is hard to solve, so in practice IRMv1 is used.</p>
 <section id="irmv1">
