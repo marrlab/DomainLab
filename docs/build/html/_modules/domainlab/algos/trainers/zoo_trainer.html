@@ -296,6 +296,27 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -332,6 +353,7 @@ from domainlab.algos.trainers.train_mldg import TrainerMLDG
 from domainlab.algos.trainers.train_fishr import TrainerFishr
 from domainlab.algos.trainers.train_irm import TrainerIRM
 from domainlab.algos.trainers.train_causIRL import TrainerCausalIRL
+from domainlab.algos.trainers.train_coral import TrainerCoral
 
 
 <div class="viewcode-block" id="TrainerChainNodeGetter"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.zoo_trainer.TrainerChainNodeGetter">[docs]</a>class TrainerChainNodeGetter(object):
@@ -378,6 +400,7 @@ from domainlab.algos.trainers.train_causIRL import TrainerCausalIRL
         chain = TrainerIRM(chain)
         chain = TrainerHyperScheduler(chain)
         chain = TrainerCausalIRL(chain)
+        chain = TrainerCoral(chain)
         node = chain.handle(self.request)
         head = node
         while self._list_str_trainer:

@@ -294,6 +294,27 @@
       
     
     </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_irl.html" class="md-nav__link">Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
+      
+    
+    </li>
   </ul>
   
 
@@ -644,6 +665,8 @@
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.hyperparameter_sampling.create_samples_from_shared_samples">create_samples_from_shared_samples() (in module domainlab.utils.hyperparameter_sampling)</a>
 </li>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_coral.TrainerCoral.cross_domain_mmd">cross_domain_mmd() (domainlab.algos.trainers.train_coral.TrainerCoral method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -883,6 +906,13 @@
 </li>
       </ul></li>
       <li>
+    domainlab.algos.trainers.mmd_base
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.mmd_base">module</a>
+</li>
+      </ul></li>
+      <li>
     domainlab.algos.trainers.train_basic
 
       <ul>
@@ -894,6 +924,13 @@
 
       <ul>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_causIRL">module</a>
+</li>
+      </ul></li>
+      <li>
+    domainlab.algos.trainers.train_coral
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_coral">module</a>
 </li>
       </ul></li>
       <li>
@@ -1197,6 +1234,8 @@
         <li><a href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_domain_topic">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     domainlab.compos.vae.compos.encoder_domain_topic_img2topic
 
@@ -1204,8 +1243,6 @@
         <li><a href="domainlab.compos.vae.compos.html#module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd
 
@@ -1902,8 +1939,12 @@
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_gated.GatedDense">GatedDense (class in domainlab.compos.nn_zoo.net_gated)</a>
 </li>
-      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.gaussian_kernel">gaussian_kernel() (domainlab.algos.trainers.train_causIRL.TrainerCausalIRL method)</a>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.mmd_base.TrainerMMDBase.gaussian_kernel">gaussian_kernel() (domainlab.algos.trainers.mmd_base.TrainerMMDBase method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.gaussian_kernel">(domainlab.algos.trainers.train_causIRL.TrainerCausalIRL method)</a>
 </li>
+      </ul></li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL.gen_adversarial">gen_adversarial() (domainlab.algos.trainers.train_dial.TrainerDIAL method)</a>
 </li>
       <li><a href="domainlab.utils.html#domainlab.utils.generate_benchmark_plots.gen_benchmark_plots">gen_benchmark_plots() (in module domainlab.utils.generate_benchmark_plots)</a>
@@ -2282,8 +2323,12 @@
 </li>
       <li><a href="domainlab.compos.html#domainlab.compos.builder_nn_conv_bn_relu_2.mkNodeFeatExtractNNBuilderNameConvBnRelu2">mkNodeFeatExtractNNBuilderNameConvBnRelu2() (in module domainlab.compos.builder_nn_conv_bn_relu_2)</a>
 </li>
-      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.mmd">mmd() (domainlab.algos.trainers.train_causIRL.TrainerCausalIRL method)</a>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.mmd_base.TrainerMMDBase.mmd">mmd() (domainlab.algos.trainers.mmd_base.TrainerMMDBase method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.mmd">(domainlab.algos.trainers.train_causIRL.TrainerCausalIRL method)</a>
 </li>
+      </ul></li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.model">model (domainlab.algos.trainers.a_trainer.AbstractTrainer property)</a>
 </li>
       <li><a href="domainlab.exp.html#domainlab.exp.exp_utils.ExpModelPersistVisitor.model_dir">model_dir (domainlab.exp.exp_utils.ExpModelPersistVisitor attribute)</a>
@@ -2354,9 +2399,13 @@
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.hyper_scheduler">domainlab.algos.trainers.hyper_scheduler</a>
 </li>
+        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.mmd_base">domainlab.algos.trainers.mmd_base</a>
+</li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_basic">domainlab.algos.trainers.train_basic</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_causIRL">domainlab.algos.trainers.train_causIRL</a>
+</li>
+        <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_coral">domainlab.algos.trainers.train_coral</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#module-domainlab.algos.trainers.train_dial">domainlab.algos.trainers.train_dial</a>
 </li>
@@ -2607,8 +2656,12 @@
         <li><a href="domainlab.models.html#domainlab.models.model_vae_xyd_classif.VAEXYDClassif.multiplier4task_loss">(domainlab.models.model_vae_xyd_classif.VAEXYDClassif property)</a>
 </li>
       </ul></li>
-      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.my_cdist">my_cdist() (domainlab.algos.trainers.train_causIRL.TrainerCausalIRL method)</a>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.mmd_base.TrainerMMDBase.my_cdist">my_cdist() (domainlab.algos.trainers.mmd_base.TrainerMMDBase method)</a>
+
+      <ul>
+        <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.my_cdist">(domainlab.algos.trainers.train_causIRL.TrainerCausalIRL method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -2926,6 +2979,8 @@
       <ul>
         <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_basic.TrainerBasic.tr_epoch">(domainlab.algos.trainers.train_basic.TrainerBasic method)</a>
 </li>
+        <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_coral.TrainerCoral.tr_epoch">(domainlab.algos.trainers.train_coral.TrainerCoral method)</a>
+</li>
         <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_fishr.TrainerFishr.tr_epoch">(domainlab.algos.trainers.train_fishr.TrainerFishr method)</a>
 </li>
         <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_hyper_scheduler.TrainerHyperScheduler.tr_epoch">(domainlab.algos.trainers.train_hyper_scheduler.TrainerHyperScheduler method)</a>
@@ -2943,6 +2998,8 @@
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.zoo_trainer.TrainerChainNodeGetter">TrainerChainNodeGetter (class in domainlab.algos.trainers.zoo_trainer)</a>
 </li>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_coral.TrainerCoral">TrainerCoral (class in domainlab.algos.trainers.train_coral)</a>
+</li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_dial.TrainerDIAL">TrainerDIAL (class in domainlab.algos.trainers.train_dial)</a>
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_fishr.TrainerFishr">TrainerFishr (class in domainlab.algos.trainers.train_fishr)</a>
@@ -2956,6 +3013,8 @@
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_matchdg.TrainerMatchDG">TrainerMatchDG (class in domainlab.algos.trainers.train_matchdg)</a>
 </li>
       <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.train_mldg.TrainerMLDG">TrainerMLDG (class in domainlab.algos.trainers.train_mldg)</a>
+</li>
+      <li><a href="domainlab.algos.trainers.html#domainlab.algos.trainers.mmd_base.TrainerMMDBase">TrainerMMDBase (class in domainlab.algos.trainers.mmd_base)</a>
 </li>
       <li><a href="domainlab.compos.nn_zoo.html#domainlab.compos.nn_zoo.net_adversarial.Flatten.training">training (domainlab.compos.nn_zoo.net_adversarial.Flatten attribute)</a>
 

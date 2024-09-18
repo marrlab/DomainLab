@@ -36,6 +36,14 @@ domainlab.algos.trainers.hyper\_scheduler module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.mmd\_base module
+-----------------------------------------
+
+.. automodule:: domainlab.algos.trainers.mmd_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.train\_basic module
 --------------------------------------------
 
@@ -48,6 +56,14 @@ domainlab.algos.trainers.train\_causIRL module
 ----------------------------------------------
 
 .. automodule:: domainlab.algos.trainers.train_causIRL
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.trainers.train\_coral module
+--------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_coral
    :members:
    :undoc-members:
    :show-inheritance:
