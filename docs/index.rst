@@ -22,6 +22,8 @@ Welcome to domainlab's documentation!
    doc_mldg
    docIRM
    docMA
+   doc_coral
+   doc_irl
 
 
 Indices and tables
