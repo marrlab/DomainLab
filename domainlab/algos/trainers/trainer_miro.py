@@ -37,16 +37,15 @@ class TrainerMiro(TrainerBasic):
             VarianceEncoder(shape) for shape in shapes
         ])
 
+
+    def extract_intermediate_features(self, tensor_x):
+        """
+        extract features for each layer of the neural network
+        """
+
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
-        # from domainbed, x are tuple of different domains
-        all_x = torch.cat(x) # cat the 0th dim
-        all_y = torch.cat(y)
         # inter_layer_feats are features for each layer
-        feat, inter_layer_feats = self.featurizer(all_x, ret_feats=True)
-        logit = self.classifier(feat)
-        loss = F.cross_entropy(logit, all_y)
-
-
+        feat, inter_layer_feats = self.extract_intermediate_features(tensor_x)
         # orcale model
         with torch.no_grad():
             _, pre_feats = self.pre_featurizer(all_x, ret_feats=True)
