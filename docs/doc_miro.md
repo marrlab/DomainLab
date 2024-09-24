@@ -43,3 +43,22 @@ $$\sum_i <|X_i-m(Y_i)|_{|\Sigma^{-1}|(Y_i)} + \log det(\Sigma(Y_i))>_{p(Y|X)}$$
 
 
 ## MIRO
+
+MIRO try to match the pre-trained model's features layer by layer to the target neural network we want to train for domain invariance in terms of mutual information. They use a constant identity encoder on feature from target neural network, then a population variance $\Sigma$ (forced to be diagonal). 
+
+Let $z$ denote the intermediate features of each layer, let $f_0$ be the pre-trained model, $f$ be the target neural network. Let $x$ be the input data.
+
+$$z_f=f(x)$$
+
+$$z_{f_0}=f^{(0)}(x)$$
+
+the lower bound  for Mutual information for instance $i$ is
+
+
+$$\log|\Sigma| + ||z^{(i)}_{f_0}-id(z^{i})||_{\Sigma}^{-1}$$
+
+where $id$ is the mean map
+
+For diagonal $\Sigma$, determinant is simply multiplication of all diagonal values,
+$\log|\Sigma|=\sum_{k} \log \sigma_k + ||z_k^{(i)}_{f_0}-z_k^{i}||{\sigma_K}^{-1}$
+
