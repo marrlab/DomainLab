@@ -32,4 +32,14 @@ To optimize the lower bound, one can iterate
 
 #### Laplace approximation
 
-decoding posterior: $$p(X|Y)\sim Gaussian(Y|[\Sigma^{-1}]_{ij}=\frac{\partial^2 \log p(x|y)}{\partial x_i\partial x_j}$$ when |Y| is large
+decoding posterior: $$p(X|Y) \sim Gaussian(Y|[\Sigma^{-1}]_{ij}=\frac{\partial^2 \log p(x|y)}{\partial x_i\partial x_j}$$ when |Y| is large (large deviation from zero contains more information, which must be explained by non-typical $X$)
+
+#### Linear Gaussian
+
+
+The bound $H(X)+<\log q(X|Y)>_{p(x,y)}$ becomes
+
+$$\sum_i <|X_i-m(Y_i)|_{|\Sigma^{-1}|(Y_i)} + \log det(\Sigma(Y_i))>_{p(Y|X)}$$
+
+
+## MIRO
