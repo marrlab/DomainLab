@@ -14,8 +14,8 @@ results = pd.read_csv("./blood3_benchmark_results.csv",
 
 fig, ax = plt.subplots(figsize=(9,5),nrows= 3,ncols= 3, sharex=True, sharey=False)
 
-row_index = results[" te_d"] == " mll"
-row_index = row_index & (results[" method"] == ' erm')
+row_index = results["te_d"] == " mll"
+row_index = row_index & (results["method"] == 'erm')
 mean = results.loc[row_index," acc"].mean()
 std = results.loc[row_index," acc"].std()
 
@@ -32,12 +32,12 @@ std = results.loc[row_index," f1"].std()
 ax[2,0].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
 row_index = None
-row_index = results[" te_d"] == " mll"
+row_index = results["te_d"] == " mll"
 
 ax[0,0] = sns.boxplot(
             data = results.loc[row_index,:],
             x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
+            order = ['erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
             y = " acc",
             hue = " te_d",
             showmeans=False,
