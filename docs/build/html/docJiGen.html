@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -351,13 +350,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -396,7 +388,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="model-jigen">
-<h1 id="docjigen--page-root">Model JiGen<a class="headerlink" href="#docjigen--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="docjigen--page-root">Model JiGen<a class="headerlink" href="#docjigen--page-root" title="Permalink to this headline">¶</a></h1>
 <div style="align: center; text-align:center;">
 <figure>
 <img src="https://github.com/marrlab/DomainLab/blob/master/docs/figs/jigen.png?raw=true" style="width:300px;"/>
@@ -417,7 +409,7 @@ data set, i.e. the relative ratio.</p>
 <p>The advantage of this method is that it does not require domain labels, as the jigsaw puzzle can be
 solved despite missing domain labels.</p>
 <section id="model-parameters">
-<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this heading">¶</a></h2>
+<h2 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this headline">¶</a></h2>
 <p>The following hyperparameters can be specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">nperm</span></code>: number of patches in a permutation</p></li>
@@ -429,15 +421,15 @@ solved despite missing domain labels.</p>
 Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.</p>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <section id="model-jigen-with-implemented-neural-network">
-<h3 id="model-jigen-with-implemented-neural-network">model jigen with implemented neural network<a class="headerlink" href="#model-jigen-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-jigen-with-implemented-neural-network">model jigen with implemented neural network<a class="headerlink" href="#model-jigen-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>jigen<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--pperm<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nperm<span class="o">=</span><span class="m">100</span><span class="w"> </span>--grid_len<span class="o">=</span><span class="m">3</span>
 </pre></div>
 </div>
 </section>
 <section id="sannity-check-with-jigen-tile-shuffling">
-<h3 id="sannity-check-with-jigen-tile-shuffling">sannity check with jigen tile shuffling<a class="headerlink" href="#sannity-check-with-jigen-tile-shuffling" title="Permalink to this heading">¶</a></h3>
+<h3 id="sannity-check-with-jigen-tile-shuffling">sannity check with jigen tile shuffling<a class="headerlink" href="#sannity-check-with-jigen-tile-shuffling" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>sketch<span class="w"> </span>--tpath<span class="o">=</span>examples/tasks/demo_task_path_list_small.py<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>jigen<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--pperm<span class="o">=</span><span class="m">1</span><span class="w"> </span>--nperm<span class="o">=</span><span class="m">100</span><span class="w"> </span>--grid_len<span class="o">=</span><span class="m">3</span><span class="w"> </span>--san_check
 </pre></div>
 </div>
@@ -492,7 +484,7 @@ Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognitio
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -309,13 +308,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -348,10 +340,10 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="model-specification">
-<h1 id="doc-trainer--page-root">Model Specification<a class="headerlink" href="#doc-trainer--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-trainer--page-root">Model Specification<a class="headerlink" href="#doc-trainer--page-root" title="Permalink to this headline">¶</a></h1>
 <p>When developing new trainers, you can extend the <code class="docutils literal notranslate"><span class="pre">TrainerBasic</span></code> class. This allows you to build upon established training routines while introducing specialized behaviors tailored to your model.</p>
 <section id="steps-to-extend-trainerbasic">
-<h2 id="steps-to-extend-trainerbasic">Steps to Extend <code class="docutils literal notranslate"><span class="pre">TrainerBasic</span></code><a class="headerlink" href="#steps-to-extend-trainerbasic" title="Permalink to this heading">¶</a></h2>
+<h2 id="steps-to-extend-trainerbasic">Steps to Extend <code class="docutils literal notranslate"><span class="pre">TrainerBasic</span></code><a class="headerlink" href="#steps-to-extend-trainerbasic" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Extend the class</strong>: Begin by inheriting from <a class="reference download internal" download="" href="_downloads/787bbb3e79a331bf1599f3708ac2dcd9/train_basic.py"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">TrainerBasic</span></code></span></a>.</p></li>
 <li><p><strong>Customize Key Methods</strong>: You have several methods that you can override to customize the trainer’s behavior. Here’s a brief overview of what they do:</p>
@@ -368,7 +360,7 @@
 </ol>
 </section>
 <section id="example-implementation">
-<h2 id="example-implementation">Example Implementation<a class="headerlink" href="#example-implementation" title="Permalink to this heading">¶</a></h2>
+<h2 id="example-implementation">Example Implementation<a class="headerlink" href="#example-implementation" title="Permalink to this headline">¶</a></h2>
 <p>Here is a simple example of a custom trainer that logs additional details at the start of each training:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCustomTrainer</span><span class="p">(</span><span class="n">TrainerBasic</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">before_tr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -413,7 +405,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -321,13 +320,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -378,9 +370,9 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-compos-vae-package">
-<h1 id="domainlab-compos-vae--page-root">domainlab.compos.vae package<a class="headerlink" href="#domainlab-compos-vae--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="domainlab-compos-vae--page-root">domainlab.compos.vae package<a class="headerlink" href="#domainlab-compos-vae--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="subpackages">
-<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<h2 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="domainlab.compos.vae.compos.html">domainlab.compos.vae.compos package</a><ul>
@@ -404,15 +396,15 @@
 </div>
 </section>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-domainlab.compos.vae.a_model_builder">
-<span id="domainlab-compos-vae-a-model-builder-module"></span><h2 id="module-domainlab.compos.vae.a_model_builder">domainlab.compos.vae.a_model_builder module<a class="headerlink" href="#module-domainlab.compos.vae.a_model_builder" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-a-model-builder-module"></span><h2 id="module-domainlab.compos.vae.a_model_builder">domainlab.compos.vae.a_model_builder module<a class="headerlink" href="#module-domainlab.compos.vae.a_model_builder" title="Permalink to this headline">¶</a></h2>
 <p>Integrate Chain-of-Responsibility and Builder Patter to construct VAE encoder and decoder</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.a_model_builder.AbstractModelBuilderChainNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.a_model_builder.</span></span><span class="sig-name descname"><span class="pre">AbstractModelBuilderChainNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">success_node</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/a_model_builder.html#AbstractModelBuilderChainNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.a_model_builder.AbstractModelBuilderChainNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></a></p>
 <p>to ensure chain of responsibility node AbstractChainNodeHandler always
 work even some node can not start their heavy weight business object, avoid override the
 initializer so that node construction is always light weight.</p>
@@ -425,13 +417,13 @@ initializer so that node construction is always light weight.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.a_vae_builder">
-<span id="domainlab-compos-vae-a-vae-builder-module"></span><h2 id="module-domainlab.compos.vae.a_vae_builder">domainlab.compos.vae.a_vae_builder module<a class="headerlink" href="#module-domainlab.compos.vae.a_vae_builder" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-a-vae-builder-module"></span><h2 id="module-domainlab.compos.vae.a_vae_builder">domainlab.compos.vae.a_vae_builder module<a class="headerlink" href="#module-domainlab.compos.vae.a_vae_builder" title="Permalink to this headline">¶</a></h2>
 <p>Integrate Chain-of-Responsibility and Builder Patter to construct VAE
 encoder and decoder</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.a_vae_builder.</span></span><span class="sig-name descname"><span class="pre">AbstractVAEBuilderChainNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/a_vae_builder.html#AbstractVAEBuilderChainNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractChainNodeHandler</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="domainlab.compos.pcr.html#domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler" title="domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.pcr.p_chain_handler.AbstractChainNodeHandler</span></code></a></p>
 <p>to ensure chain of responsibility node AbstractChainNodeHandler always
 work even some node can not start their heavy weight business object,
 avoid override the
@@ -454,7 +446,7 @@ initializer so that node construction is always light weight.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.c_vae_adaptor_model_recon">
-<span id="domainlab-compos-vae-c-vae-adaptor-model-recon-module"></span><h2 id="module-domainlab.compos.vae.c_vae_adaptor_model_recon">domainlab.compos.vae.c_vae_adaptor_model_recon module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_adaptor_model_recon" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-c-vae-adaptor-model-recon-module"></span><h2 id="module-domainlab.compos.vae.c_vae_adaptor_model_recon">domainlab.compos.vae.c_vae_adaptor_model_recon module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_adaptor_model_recon" title="Permalink to this headline">¶</a></h2>
 <p>This adaptor couples intensively with the  heavy-weight model class
 The model class can be refactored, we do want to use the trained old-version model,
 which we only need to change this adaptor class.</p>
@@ -498,14 +490,14 @@ we only need to change this method.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.c_vae_builder_classif">
-<span id="domainlab-compos-vae-c-vae-builder-classif-module"></span><h2 id="module-domainlab.compos.vae.c_vae_builder_classif">domainlab.compos.vae.c_vae_builder_classif module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_builder_classif" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-c-vae-builder-classif-module"></span><h2 id="module-domainlab.compos.vae.c_vae_builder_classif">domainlab.compos.vae.c_vae_builder_classif module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_builder_classif" title="Permalink to this headline">¶</a></h2>
 <p>Builder
 1. classifier for domain <strong>and</strong> class
 2. p(z_y|y) <strong>and</strong> p(z_d|d)</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.c_vae_builder_classif.</span></span><span class="sig-name descname"><span class="pre">ChainNodeVAEBuilderClassifCondPrior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/c_vae_builder_classif.html#ChainNodeVAEBuilderClassifCondPrior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode" title="domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractVAEBuilderChainNode</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode" title="domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.a_vae_builder.AbstractVAEBuilderChainNode</span></code></a></p>
 <ol class="arabic simple">
 <li><dl class="simple">
 <dt>This class defines common methods shared by child classes:</dt><dd><ul class="simple">
@@ -546,7 +538,7 @@ we only need to change this method.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.c_vae_recon">
-<span id="domainlab-compos-vae-c-vae-recon-module"></span><h2 id="module-domainlab.compos.vae.c_vae_recon">domainlab.compos.vae.c_vae_recon module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_recon" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-c-vae-recon-module"></span><h2 id="module-domainlab.compos.vae.c_vae_recon">domainlab.compos.vae.c_vae_recon module<a class="headerlink" href="#module-domainlab.compos.vae.c_vae_recon" title="Permalink to this headline">¶</a></h2>
 <p>Adaptor is vital for data generation so this class can be decoupled from model class.
 The model class can be refactored, we do want to use the trained old-version model, which we
 only need to change adaptor class.</p>
@@ -567,10 +559,10 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">recon_cf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">na_cf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_cf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx2fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_p_zy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_p_zd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/c_vae_recon.html#ReconVAEXYD.recon_cf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.c_vae_recon.ReconVAEXYD.recon_cf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Countefactual reconstruction:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param na_cf<span class="colon">:</span></dt>
+<dt class="field-odd">param na_cf</dt>
 <dd class="field-odd"><p>name of counterfactual, ‘y’ or ‘d’</p>
 </dd>
-<dt class="field-even">param dim_cf<span class="colon">:</span></dt>
+<dt class="field-even">param dim_cf</dt>
 <dd class="field-even"><p>dimension of counterfactual factor</p>
 </dd>
 </dl>
@@ -580,7 +572,7 @@ only need to change adaptor class.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.utils_request_chain_builder">
-<span id="domainlab-compos-vae-utils-request-chain-builder-module"></span><h2 id="module-domainlab.compos.vae.utils_request_chain_builder">domainlab.compos.vae.utils_request_chain_builder module<a class="headerlink" href="#module-domainlab.compos.vae.utils_request_chain_builder" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-utils-request-chain-builder-module"></span><h2 id="module-domainlab.compos.vae.utils_request_chain_builder">domainlab.compos.vae.utils_request_chain_builder module<a class="headerlink" href="#module-domainlab.compos.vae.utils_request_chain_builder" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.utils_request_chain_builder.VAEChainNodeGetter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.utils_request_chain_builder.</span></span><span class="sig-name descname"><span class="pre">VAEChainNodeGetter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/utils_request_chain_builder.html#VAEChainNodeGetter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.utils_request_chain_builder.VAEChainNodeGetter" title="Permalink to this definition">¶</a></dt>
@@ -594,12 +586,12 @@ only need to change adaptor class.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.zoo_vae_builders_classif">
-<span id="domainlab-compos-vae-zoo-vae-builders-classif-module"></span><h2 id="module-domainlab.compos.vae.zoo_vae_builders_classif">domainlab.compos.vae.zoo_vae_builders_classif module<a class="headerlink" href="#module-domainlab.compos.vae.zoo_vae_builders_classif" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-zoo-vae-builders-classif-module"></span><h2 id="module-domainlab.compos.vae.zoo_vae_builders_classif">domainlab.compos.vae.zoo_vae_builders_classif module<a class="headerlink" href="#module-domainlab.compos.vae.zoo_vae_builders_classif" title="Permalink to this headline">¶</a></h2>
 <p>Chain node VAE builders</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.</span></span><span class="sig-name descname"><span class="pre">ChainNodeVAEBuilderClassifCondPriorBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#ChainNodeVAEBuilderClassifCondPriorBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior" title="domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChainNodeVAEBuilderClassifCondPrior</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior" title="domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.c_vae_builder_classif.ChainNodeVAEBuilderClassifCondPrior</span></code></a></p>
 <p>base class of AE builder</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.build_decoder">
@@ -616,7 +608,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">config_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#ChainNodeVAEBuilderClassifCondPriorBase.config_img"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.config_img" title="Permalink to this definition">¶</a></dt>
 <dd><p>config_img.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>flag</strong> – </p></li>
 <li><p><strong>request</strong> – </p></li>
@@ -629,7 +621,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#ChainNodeVAEBuilderClassifCondPriorBase.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><p>is_myjob.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> – </p>
 </dd>
 </dl>
@@ -638,7 +630,7 @@ only need to change adaptor class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.</span></span><span class="sig-name descname"><span class="pre">NodeVAEBuilderArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChainNodeVAEBuilderClassifCondPriorBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase</span></code></a></p>
 <p>Build encoder decoder according to commandline arguments</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg.build_encoder">
@@ -655,7 +647,7 @@ only need to change adaptor class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.</span></span><span class="sig-name descname"><span class="pre">NodeVAEBuilderImgAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderImgAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool" title="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeVAEBuilderImgConvBnPool</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool" title="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.build_encoder">
 <span class="sig-name descname"><span class="pre">build_encoder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderImgAlex.build_encoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.build_encoder" title="Permalink to this definition">¶</a></dt>
@@ -666,7 +658,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderImgAlex.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgAlex.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><p>is_myjob.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> – </p>
 </dd>
 </dl>
@@ -675,7 +667,7 @@ only need to change adaptor class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.</span></span><span class="sig-name descname"><span class="pre">NodeVAEBuilderImgConvBnPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderImgConvBnPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChainNodeVAEBuilderClassifCondPriorBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.build_encoder">
 <span class="sig-name descname"><span class="pre">build_encoder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderImgConvBnPool.build_encoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.build_encoder" title="Permalink to this definition">¶</a></dt>
@@ -686,7 +678,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderImgConvBnPool.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderImgConvBnPool.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><p>is_myjob.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> – </p>
 </dd>
 </dl>
@@ -695,7 +687,7 @@ only need to change adaptor class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.</span></span><span class="sig-name descname"><span class="pre">NodeVAEBuilderUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderUser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChainNodeVAEBuilderClassifCondPriorBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase" title="domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.ChainNodeVAEBuilderClassifCondPriorBase</span></code></a></p>
 <p>Build encoders according to test_mk_exp file</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.build_encoder">
@@ -707,7 +699,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif.html#NodeVAEBuilderUser.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderUser.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><p>is_myjob.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> – </p>
 </dd>
 </dl>
@@ -715,19 +707,19 @@ only need to change adaptor class.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.zoo_vae_builders_classif_topic">
-<span id="domainlab-compos-vae-zoo-vae-builders-classif-topic-module"></span><h2 id="module-domainlab.compos.vae.zoo_vae_builders_classif_topic">domainlab.compos.vae.zoo_vae_builders_classif_topic module<a class="headerlink" href="#module-domainlab.compos.vae.zoo_vae_builders_classif_topic" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-compos-vae-zoo-vae-builders-classif-topic-module"></span><h2 id="module-domainlab.compos.vae.zoo_vae_builders_classif_topic">domainlab.compos.vae.zoo_vae_builders_classif_topic module<a class="headerlink" href="#module-domainlab.compos.vae.zoo_vae_builders_classif_topic" title="Permalink to this headline">¶</a></h2>
 <p>Chain node VAE builders</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif_topic.</span></span><span class="sig-name descname"><span class="pre">NodeVAEBuilderImgTopic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">successor_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif_topic.html#NodeVAEBuilderImgTopic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg" title="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeVAEBuilderArg</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg" title="domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.zoo_vae_builders_classif.NodeVAEBuilderArg</span></code></a></p>
 <p>NodeVAEBuilderImgTopic.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic.build_decoder">
 <span class="sig-name descname"><span class="pre">build_decoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif_topic.html#NodeVAEBuilderImgTopic.build_decoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic.build_decoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>build_decoder.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>topic_dim</strong> – </p>
 </dd>
 </dl>
@@ -737,7 +729,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">build_encoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif_topic.html#NodeVAEBuilderImgTopic.build_encoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic.build_encoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>build_encoder.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>device</strong> – </p></li>
 <li><p><strong>topic_dim</strong> – </p></li>
@@ -750,7 +742,7 @@ only need to change adaptor class.</p>
 <span class="sig-name descname"><span class="pre">is_myjob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/zoo_vae_builders_classif_topic.html#NodeVAEBuilderImgTopic.is_myjob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.zoo_vae_builders_classif_topic.NodeVAEBuilderImgTopic.is_myjob" title="Permalink to this definition">¶</a></dt>
 <dd><p>is_myjob.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>request</strong> – </p>
 </dd>
 </dl>
@@ -758,7 +750,7 @@ only need to change adaptor class.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae">
-<span id="module-contents"></span><h2 id="module-domainlab.compos.vae">Module contents<a class="headerlink" href="#module-domainlab.compos.vae" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.compos.vae">Module contents<a class="headerlink" href="#module-domainlab.compos.vae" title="Permalink to this headline">¶</a></h2>
 </section>
 </section>
 
@@ -809,7 +801,7 @@ only need to change adaptor class.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

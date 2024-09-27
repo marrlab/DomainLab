@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -309,13 +308,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -362,7 +354,7 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="specify-neural-network-in-command-line">
-<h1 id="doc-custom-nn--page-root">Specify neural network in command line<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-custom-nn--page-root">Specify neural network in command line<a class="headerlink" href="#doc-custom-nn--page-root" title="Permalink to this headline">¶</a></h1>
 <p>To use a custom neural network in command line with DomainLab, the user has to implement the following signature in a python file and specify the file path via <code class="docutils literal notranslate"><span class="pre">--npath</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_feat_extract_net</span><span class="p">(</span><span class="n">dim_y</span><span class="p">,</span> <span class="n">remove_last_layer</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 </pre></div>
@@ -371,36 +363,36 @@
 <p>See examples below from <code class="docutils literal notranslate"><span class="pre">--npath=examples/nets/resnet.py</span></code> where the examples can be found in the examples folder of the code repository.
 <a class="reference external" href="https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py">https://github.com/marrlab/DomainLab/blob/master/examples/nets/resnet.py</a></p>
 <section id="example-use-case">
-<h2 id="example-use-case">Example use case<a class="headerlink" href="#example-use-case" title="Permalink to this heading">¶</a></h2>
+<h2 id="example-use-case">Example use case<a class="headerlink" href="#example-use-case" title="Permalink to this headline">¶</a></h2>
 <section id="model-erm-with-custom-neural-network">
-<h3 id="model-erm-with-custom-neural-network">model ‘erm’ with custom neural network<a class="headerlink" href="#model-erm-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-erm-with-custom-neural-network">model ‘erm’ with custom neural network<a class="headerlink" href="#model-erm-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="trainer-matchdg-with-custom-neural-network">
-<h3 id="trainer-matchdg-with-custom-neural-network">trainer ‘matchdg’ with custom neural network<a class="headerlink" href="#trainer-matchdg-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="trainer-matchdg-with-custom-neural-network">trainer ‘matchdg’ with custom neural network<a class="headerlink" href="#trainer-matchdg-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>matchdg<span class="w"> </span>--epochs_ctr<span class="o">=</span><span class="m">3</span><span class="w"> </span>--epos<span class="o">=</span><span class="m">6</span><span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 <section id="id1">
-<h3 id="id1">model erm with custom neural network<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<h3 id="id1">model erm with custom neural network<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py
 </pre></div>
 </div>
 </section>
 </section>
 <section id="larger-images">
-<h2 id="larger-images">Larger images:<a class="headerlink" href="#larger-images" title="Permalink to this heading">¶</a></h2>
+<h2 id="larger-images">Larger images:<a class="headerlink" href="#larger-images" title="Permalink to this headline">¶</a></h2>
 <section id="model-erm-with-implemented-neural-network">
-<h3 id="model-erm-with-implemented-neural-network">model erm with implemented neural network<a class="headerlink" href="#model-erm-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-erm-with-implemented-neural-network">model erm with implemented neural network<a class="headerlink" href="#model-erm-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
 </section>
 <section id="model-dann-with-implemented-neural-network">
-<h3 id="model-dann-with-implemented-neural-network">model dann with implemented neural network<a class="headerlink" href="#model-dann-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-dann-with-implemented-neural-network">model dann with implemented neural network<a class="headerlink" href="#model-dann-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">8</span><span class="w"> </span>--model<span class="o">=</span>dann<span class="w"> </span>--nname<span class="o">=</span>alexnet
 </pre></div>
 </div>
@@ -431,7 +423,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

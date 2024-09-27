@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -315,24 +314,24 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-irl--page-root" class="md-nav__link">Causal IRL</a>
-        </li>
-        <li class="md-nav__item"><a href="#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#doc-irl--page-root" class="md-nav__link">Causal IRL</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
+        </li>
         <li class="md-nav__item"><a href="#example" class="md-nav__link">Example</a>
         </li></ul>
             </nav>
         </li>
   </ul>
 </nav>
-      
-    
-    </li>
+      <ul class="md-nav__list"> 
     <li class="md-nav__item">
     
     
       <a href="#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      <ul class="md-nav__list"> 
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -356,10 +355,10 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#doc-irl--page-root" class="md-nav__link">Causal IRL</a>
-        </li>
-        <li class="md-nav__item"><a href="#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#doc-irl--page-root" class="md-nav__link">Causal IRL</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
+        </li>
         <li class="md-nav__item"><a href="#example" class="md-nav__link">Example</a>
         </li></ul>
             </nav>
@@ -374,13 +373,13 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="causal-irl">
-<h1 id="doc-irl--page-root">Causal IRL<a class="headerlink" href="#doc-irl--page-root" title="Permalink to this heading">¶</a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="invariant-causal-mechanisms-through-distribution-matching">
-<h1 id="invariant-causal-mechanisms-through-distribution-matching">Invariant Causal Mechanisms through Distribution Matching<a class="headerlink" href="#invariant-causal-mechanisms-through-distribution-matching" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-irl--page-root">Causal IRL<a class="headerlink" href="#doc-irl--page-root" title="Permalink to this headline">¶</a></h1>
+<section id="invariant-causal-mechanisms-through-distribution-matching">
+<h2 id="invariant-causal-mechanisms-through-distribution-matching">Invariant Causal Mechanisms through Distribution Matching<a class="headerlink" href="#invariant-causal-mechanisms-through-distribution-matching" title="Permalink to this headline">¶</a></h2>
 <p>Source: <a class="reference external" href="https://arxiv.org/pdf/2206.11646">https://arxiv.org/pdf/2206.11646</a></p>
+</section>
 <section id="example">
-<h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h2>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d 0 --tr_d 3 7 --bs=32 --debug --task=mnistcolor10 --model=erm --nname=conv_bn_pool_2 --trainer=causalirl"
 </pre></div>
 </div>
@@ -423,7 +422,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

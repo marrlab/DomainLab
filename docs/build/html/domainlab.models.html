@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -320,13 +319,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -383,17 +375,17 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-models-package">
-<h1 id="domainlab-models--page-root">domainlab.models package<a class="headerlink" href="#domainlab-models--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="domainlab-models--page-root">domainlab.models package<a class="headerlink" href="#domainlab-models--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-domainlab.models.a_model">
-<span id="domainlab-models-a-model-module"></span><h2 id="module-domainlab.models.a_model">domainlab.models.a_model module<a class="headerlink" href="#module-domainlab.models.a_model" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-a-model-module"></span><h2 id="module-domainlab.models.a_model">domainlab.models.a_model module<a class="headerlink" href="#module-domainlab.models.a_model" title="Permalink to this headline">¶</a></h2>
 <p>operations that all kinds of models should have</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.a_model.</span></span><span class="sig-name descname"><span class="pre">AModel</span></span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
 <p>operations that all models (classification, segmentation, seq2seq)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model.AModel.cal_loss">
@@ -410,13 +402,13 @@
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cal_task_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.cal_task_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.cal_task_loss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the task loss</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tensor_x</strong> – input</p></li>
 <li><p><strong>tensor_y</strong> – label</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>task loss</p>
 </dd>
 </dl>
@@ -445,7 +437,7 @@ there are extra action like reshape the tensor</p>
 <span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">others</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model.html#AModel.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model.AModel.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>forward.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – </p></li>
 <li><p><strong>y</strong> – </p></li>
@@ -527,12 +519,12 @@ for classification, both feature extractor and classifier has to be reset</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.a_model_classif">
-<span id="domainlab-models-a-model-classif-module"></span><h2 id="module-domainlab.models.a_model_classif">domainlab.models.a_model_classif module<a class="headerlink" href="#module-domainlab.models.a_model_classif" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-a-model-classif-module"></span><h2 id="module-domainlab.models.a_model_classif">domainlab.models.a_model_classif module<a class="headerlink" href="#module-domainlab.models.a_model_classif" title="Permalink to this headline">¶</a></h2>
 <p>operations that all claasification model should have</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.a_model_classif.</span></span><span class="sig-name descname"><span class="pre">AModelClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model.AModel" title="domainlab.models.a_model.AModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModel</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model.AModel" title="domainlab.models.a_model.AModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.models.a_model.AModel</span></code></a></p>
 <p>operations that all classification model should have</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.cal_logit_y">
@@ -558,13 +550,13 @@ classification is used here by default but could be modified by
 subclasses
 as necessary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tensor_x</strong> – input</p></li>
 <li><p><strong>tensor_y</strong> – label</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>task loss</p>
 </dd>
 </dl>
@@ -598,10 +590,10 @@ as necessary.</p>
 <dt class="sig sig-object py" id="domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn">
 <span class="sig-name descname"><span class="pre">infer_y_vpicn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/a_model_classif.html#AModelClassif.infer_y_vpicn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.a_model_classif.AModelClassif.infer_y_vpicn" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>tensor</strong> – input</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>vpicn
 v: vector of one-hot class label,
 p: vector of probability,
@@ -641,7 +633,7 @@ n: list of name of class</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.args_jigen">
-<span id="domainlab-models-args-jigen-module"></span><h2 id="module-domainlab.models.args_jigen">domainlab.models.args_jigen module<a class="headerlink" href="#module-domainlab.models.args_jigen" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-args-jigen-module"></span><h2 id="module-domainlab.models.args_jigen">domainlab.models.args_jigen module<a class="headerlink" href="#module-domainlab.models.args_jigen" title="Permalink to this headline">¶</a></h2>
 <p>hyper-parameters for JiGen</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.args_jigen.add_args2parser_jigen">
@@ -650,14 +642,14 @@ n: list of name of class</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.args_vae">
-<span id="domainlab-models-args-vae-module"></span><h2 id="module-domainlab.models.args_vae">domainlab.models.args_vae module<a class="headerlink" href="#module-domainlab.models.args_vae" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-args-vae-module"></span><h2 id="module-domainlab.models.args_vae">domainlab.models.args_vae module<a class="headerlink" href="#module-domainlab.models.args_vae" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.args_vae.add_args2parser_vae">
 <span class="sig-prename descclassname"><span class="pre">domainlab.models.args_vae.</span></span><span class="sig-name descname"><span class="pre">add_args2parser_vae</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/args_vae.html#add_args2parser_vae"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.args_vae.add_args2parser_vae" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </section>
 <section id="module-domainlab.models.interface_vae_xyd">
-<span id="domainlab-models-interface-vae-xyd-module"></span><h2 id="module-domainlab.models.interface_vae_xyd">domainlab.models.interface_vae_xyd module<a class="headerlink" href="#module-domainlab.models.interface_vae_xyd" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-interface-vae-xyd-module"></span><h2 id="module-domainlab.models.interface_vae_xyd">domainlab.models.interface_vae_xyd module<a class="headerlink" href="#module-domainlab.models.interface_vae_xyd" title="Permalink to this headline">¶</a></h2>
 <p>Base Class for XYD VAE</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.interface_vae_xyd.InterfaceVAEXYD">
@@ -676,7 +668,7 @@ n: list of name of class</p>
 <li><p>To be called by trainer</p></li>
 </ol>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_size</strong> – </p></li>
 <li><p><strong>device</strong> – </p></li>
@@ -687,11 +679,11 @@ n: list of name of class</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_custom">
-<span id="domainlab-models-model-custom-module"></span><h2 id="module-domainlab.models.model_custom">domainlab.models.model_custom module<a class="headerlink" href="#module-domainlab.models.model_custom" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-custom-module"></span><h2 id="module-domainlab.models.model_custom">domainlab.models.model_custom module<a class="headerlink" href="#module-domainlab.models.model_custom" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_custom.</span></span><span class="sig-name descname"><span class="pre">AModelCustom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_custom.html#AModelCustom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_custom.AModelCustom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.models.a_model_classif.AModelClassif</span></code></a></p>
 <p>AModelCustom.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.model_custom.AModelCustom.dict_net_module_na2arg_na">
@@ -707,7 +699,7 @@ being the commandline argument name</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_dann">
-<span id="domainlab-models-model-dann-module"></span><h2 id="module-domainlab.models.model_dann">domainlab.models.model_dann module<a class="headerlink" href="#module-domainlab.models.model_dann" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-dann-module"></span><h2 id="module-domainlab.models.model_dann">domainlab.models.model_dann module<a class="headerlink" href="#module-domainlab.models.model_dann" title="Permalink to this headline">¶</a></h2>
 <p>construct feature extractor, task neural network (e.g. classification) and domain classification
 network</p>
 <dl class="py function">
@@ -726,16 +718,16 @@ The journal of machine learning research 17.1 (2016): 2096-2030.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parent_class</strong> (<a class="reference internal" href="#domainlab.models.a_model.AModel" title="domainlab.models.a_model.AModel"><em>AModel</em></a><em>, </em><em>optional</em>) – Class object determining the task</p></li>
 <li><p><strong>AModelClassif.</strong> (<em>type. Defaults to</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>model inheriting from parent class</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ModelDAN</p>
 </dd>
 </dl>
@@ -755,7 +747,7 @@ output: prediction of training domain)</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_diva">
-<span id="domainlab-models-model-diva-module"></span><h2 id="module-domainlab.models.model_diva">domainlab.models.model_diva module<a class="headerlink" href="#module-domainlab.models.model_diva" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-diva-module"></span><h2 id="module-domainlab.models.model_diva">domainlab.models.model_diva module<a class="headerlink" href="#module-domainlab.models.model_diva" title="Permalink to this headline">¶</a></h2>
 <p>DIVA</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_diva.mk_diva">
@@ -775,13 +767,13 @@ Medical Imaging with Deep Learning. PMLR, 2020.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>parent_class</strong> – Class object determining the task type. Defaults to VAEXYDClassif.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>model inheriting from parent class.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ModelDIVA</p>
 </dd>
 </dl>
@@ -807,7 +799,7 @@ beta_y: weighting term for class encoder</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_erm">
-<span id="domainlab-models-model-erm-module"></span><h2 id="module-domainlab.models.model_erm">domainlab.models.model_erm module<a class="headerlink" href="#module-domainlab.models.model_erm" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-erm-module"></span><h2 id="module-domainlab.models.model_erm">domainlab.models.model_erm module<a class="headerlink" href="#module-domainlab.models.model_erm" title="Permalink to this headline">¶</a></h2>
 <p>Emperical risk minimization</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_erm.mk_erm">
@@ -820,13 +812,13 @@ domains are pooled together during training.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>parent_class</strong> (<a class="reference internal" href="#domainlab.models.a_model.AModel" title="domainlab.models.a_model.AModel"><em>AModel</em></a><em>, </em><em>optional</em>) – Class object determining the task type. Defaults to AModelClassif.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>model inheriting from parent class</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ModelERM</p>
 </dd>
 </dl>
@@ -840,7 +832,7 @@ domains are pooled together during training.</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_hduva">
-<span id="domainlab-models-model-hduva-module"></span><h2 id="module-domainlab.models.model_hduva">domainlab.models.model_hduva module<a class="headerlink" href="#module-domainlab.models.model_hduva" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-hduva-module"></span><h2 id="module-domainlab.models.model_hduva">domainlab.models.model_hduva module<a class="headerlink" href="#module-domainlab.models.model_hduva" title="Permalink to this headline">¶</a></h2>
 <p>Hierarchical Domain Unsupervised Variational Auto-Encoding</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_hduva.mk_hduva">
@@ -865,13 +857,13 @@ arXiv preprint arXiv:2101.09436 (2021).</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>parent_class</strong> – Class object determining the task type. Defaults to VAEXYDClassif.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>model inheriting from parent class.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ModelHDUVA</p>
 </dd>
 </dl>
@@ -894,7 +886,7 @@ topic_dim: size of latent space for topics (int, defaults to 3)</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_jigen">
-<span id="domainlab-models-model-jigen-module"></span><h2 id="module-domainlab.models.model_jigen">domainlab.models.model_jigen module<a class="headerlink" href="#module-domainlab.models.model_jigen" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-jigen-module"></span><h2 id="module-domainlab.models.model_jigen">domainlab.models.model_jigen module<a class="headerlink" href="#module-domainlab.models.model_jigen" title="Permalink to this headline">¶</a></h2>
 <p>Jigen Model Similar to DANN model</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="domainlab.models.model_jigen.mk_jigen">
@@ -913,16 +905,16 @@ Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognitio
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parent_class</strong> (<a class="reference internal" href="#domainlab.models.a_model.AModel" title="domainlab.models.a_model.AModel"><em>AModel</em></a><em>, </em><em>optional</em>) – Class object determining the task</p></li>
 <li><p><strong>AModelClassif.</strong> (<em>type. Defaults to</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>model inheriting from parent class</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ModelJiGen</p>
 </dd>
 </dl>
@@ -945,12 +937,12 @@ prob_permutation: probability of shuffling image tiles</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models.model_vae_xyd_classif">
-<span id="domainlab-models-model-vae-xyd-classif-module"></span><h2 id="module-domainlab.models.model_vae_xyd_classif">domainlab.models.model_vae_xyd_classif module<a class="headerlink" href="#module-domainlab.models.model_vae_xyd_classif" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-models-model-vae-xyd-classif-module"></span><h2 id="module-domainlab.models.model_vae_xyd_classif">domainlab.models.model_vae_xyd_classif module<a class="headerlink" href="#module-domainlab.models.model_vae_xyd_classif" title="Permalink to this headline">¶</a></h2>
 <p>Base Class for XYD VAE Classify</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.models.model_vae_xyd_classif.</span></span><span class="sig-name descname"><span class="pre">VAEXYDClassif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chain_node_builder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/models/model_vae_xyd_classif.html#VAEXYDClassif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.models.model_vae_xyd_classif.VAEXYDClassif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">AModelClassif</span></code></a>, <a class="reference internal" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="domainlab.models.interface_vae_xyd.InterfaceVAEXYD"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceVAEXYD</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.models.a_model_classif.AModelClassif" title="domainlab.models.a_model_classif.AModelClassif"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.models.a_model_classif.AModelClassif</span></code></a>, <a class="reference internal" href="#domainlab.models.interface_vae_xyd.InterfaceVAEXYD" title="domainlab.models.interface_vae_xyd.InterfaceVAEXYD"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.models.interface_vae_xyd.InterfaceVAEXYD</span></code></a></p>
 <p>Base Class for DIVA and HDUVA</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.models.model_vae_xyd_classif.VAEXYDClassif.extract_semantic_feat">
@@ -969,7 +961,7 @@ prob_permutation: probability of shuffling image tiles</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.models">
-<span id="module-contents"></span><h2 id="module-domainlab.models">Module contents<a class="headerlink" href="#module-domainlab.models" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.models">Module contents<a class="headerlink" href="#module-domainlab.models" title="Permalink to this headline">¶</a></h2>
 </section>
 </section>
 
@@ -1020,7 +1012,7 @@ prob_permutation: probability of shuffling image tiles</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

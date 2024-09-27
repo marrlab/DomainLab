@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -321,13 +320,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -368,12 +360,12 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-algos-observers-package">
-<h1 id="domainlab-algos-observers--page-root">domainlab.algos.observers package<a class="headerlink" href="#domainlab-algos-observers--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="domainlab-algos-observers--page-root">domainlab.algos.observers package<a class="headerlink" href="#domainlab-algos-observers--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
 <section id="module-domainlab.algos.observers.a_observer">
-<span id="domainlab-algos-observers-a-observer-module"></span><h2 id="module-domainlab.algos.observers.a_observer">domainlab.algos.observers.a_observer module<a class="headerlink" href="#module-domainlab.algos.observers.a_observer" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-a-observer-module"></span><h2 id="module-domainlab.algos.observers.a_observer">domainlab.algos.observers.a_observer module<a class="headerlink" href="#module-domainlab.algos.observers.a_observer" title="Permalink to this headline">¶</a></h2>
 <p>interface for observer + visitor</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.a_observer.AObVisitor">
@@ -413,14 +405,14 @@
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers.b_obvisitor">
-<span id="domainlab-algos-observers-b-obvisitor-module"></span><h2 id="module-domainlab.algos.observers.b_obvisitor">domainlab.algos.observers.b_obvisitor module<a class="headerlink" href="#module-domainlab.algos.observers.b_obvisitor" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-b-obvisitor-module"></span><h2 id="module-domainlab.algos.observers.b_obvisitor">domainlab.algos.observers.b_obvisitor module<a class="headerlink" href="#module-domainlab.algos.observers.b_obvisitor" title="Permalink to this headline">¶</a></h2>
 <p>observer and visitor pattern, responsible train, validation, test
 dispatch performance evaluation to model,
 dispatch model selection to model selection object</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.b_obvisitor.</span></span><span class="sig-name descname"><span class="pre">ObVisitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_sel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/b_obvisitor.html#ObVisitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.b_obvisitor.ObVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.a_observer.AObVisitor" title="domainlab.algos.observers.a_observer.AObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AObVisitor</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.a_observer.AObVisitor" title="domainlab.algos.observers.a_observer.AObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.observers.a_observer.AObVisitor</span></code></a></p>
 <p>Observer + Visitor pattern for model selection</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.b_obvisitor.ObVisitor.accept">
@@ -460,11 +452,11 @@ dispatch model selection to model selection object</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers.c_obvisitor_cleanup">
-<span id="domainlab-algos-observers-c-obvisitor-cleanup-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_cleanup">domainlab.algos.observers.c_obvisitor_cleanup module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_cleanup" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-c-obvisitor-cleanup-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_cleanup">domainlab.algos.observers.c_obvisitor_cleanup module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_cleanup" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.c_obvisitor_cleanup.</span></span><span class="sig-name descname"><span class="pre">ObVisitorCleanUp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_cleanup.html#ObVisitorCleanUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.a_observer.AObVisitor" title="domainlab.algos.observers.a_observer.AObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AObVisitor</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.a_observer.AObVisitor" title="domainlab.algos.observers.a_observer.AObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.observers.a_observer.AObVisitor</span></code></a></p>
 <p>decorator of observer, instead of using if and else to decide clean up or not, we use decorator</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_cleanup.ObVisitorCleanUp.accept">
@@ -493,11 +485,11 @@ dispatch model selection to model selection object</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers.c_obvisitor_gen">
-<span id="domainlab-algos-observers-c-obvisitor-gen-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_gen">domainlab.algos.observers.c_obvisitor_gen module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_gen" title="Permalink to this heading">¶</a></h2>
+<span id="domainlab-algos-observers-c-obvisitor-gen-module"></span><h2 id="module-domainlab.algos.observers.c_obvisitor_gen">domainlab.algos.observers.c_obvisitor_gen module<a class="headerlink" href="#module-domainlab.algos.observers.c_obvisitor_gen" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.algos.observers.c_obvisitor_gen.</span></span><span class="sig-name descname"><span class="pre">ObVisitorGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_sel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/algos/observers/c_obvisitor_gen.html#ObVisitorGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.b_obvisitor.ObVisitor" title="domainlab.algos.observers.b_obvisitor.ObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObVisitor</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.algos.observers.b_obvisitor.ObVisitor" title="domainlab.algos.observers.b_obvisitor.ObVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.algos.observers.b_obvisitor.ObVisitor</span></code></a></p>
 <p>For Generative Models</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.algos.observers.c_obvisitor_gen.ObVisitorGen.after_all">
@@ -507,7 +499,7 @@ dispatch model selection to model selection object</p>
 </dd></dl>
 </section>
 <section id="module-domainlab.algos.observers">
-<span id="module-contents"></span><h2 id="module-domainlab.algos.observers">Module contents<a class="headerlink" href="#module-domainlab.algos.observers" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.algos.observers">Module contents<a class="headerlink" href="#module-domainlab.algos.observers" title="Permalink to this headline">¶</a></h2>
 </section>
 </section>
 
@@ -558,7 +550,7 @@ dispatch model selection to model selection object</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -55,7 +55,6 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -372,13 +371,6 @@
       
     
     </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="doc_irl.html#invariant-causal-mechanisms-through-distribution-matching" class="md-nav__link">Invariant Causal Mechanisms through Distribution Matching</a>
-      
-    
-    </li>
   </ul>
   
 
@@ -431,9 +423,9 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="model-diva">
-<h1 id="doc-diva--page-root">Model DIVA<a class="headerlink" href="#doc-diva--page-root" title="Permalink to this heading">¶</a></h1>
+<h1 id="doc-diva--page-root">Model DIVA<a class="headerlink" href="#doc-diva--page-root" title="Permalink to this headline">¶</a></h1>
 <section id="domain-invariant-variational-autoencoders">
-<h2 id="domain-invariant-variational-autoencoders">Domain Invariant Variational Autoencoders<a class="headerlink" href="#domain-invariant-variational-autoencoders" title="Permalink to this heading">¶</a></h2>
+<h2 id="domain-invariant-variational-autoencoders">Domain Invariant Variational Autoencoders<a class="headerlink" href="#domain-invariant-variational-autoencoders" title="Permalink to this headline">¶</a></h2>
 <p>DIVA addresses the domain generalization problem with a variational autoencoder
 with three latent variables, using three independent encoders.</p>
 <p>By encouraging the network to store each the domain,
@@ -456,7 +448,7 @@ However, DIVA always needs domain labels and does not support a fully unsupervis
 Since it is not always clear which different domains actually exist, this can lead to problems and a
 decreased performance.</p>
 <section id="model-parameters">
-<h3 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-parameters">Model parameters<a class="headerlink" href="#model-parameters" title="Permalink to this headline">¶</a></h3>
 <p>The following hyperparameters can be specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">zd_dim</span></code>: size of latent space for domain-specific information</p></li>
@@ -473,36 +465,36 @@ decreased performance.</p>
 </section>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <section id="model-diva-with-implemented-neural-network">
-<h3 id="model-diva-with-implemented-neural-network">model diva with implemented neural network<a class="headerlink" href="#model-diva-with-implemented-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-diva-with-implemented-neural-network">model diva with implemented neural network<a class="headerlink" href="#model-diva-with-implemented-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>alexnet<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="model-diva-with-custom-neural-network">
-<h3 id="model-diva-with-custom-neural-network">model diva with custom neural network<a class="headerlink" href="#model-diva-with-custom-neural-network" title="Permalink to this heading">¶</a></h3>
+<h3 id="model-diva-with-custom-neural-network">model diva with custom neural network<a class="headerlink" href="#model-diva-with-custom-neural-network" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span>caltech<span class="w"> </span>--task<span class="o">=</span>mini_vlcs<span class="w"> </span>--debug<span class="w"> </span>--bs<span class="o">=</span><span class="m">2</span><span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--npath<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--npath_dom<span class="o">=</span>examples/nets/resnet.py<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="generation-of-images">
-<h3 id="generation-of-images">generation of images<a class="headerlink" href="#generation-of-images" title="Permalink to this heading">¶</a></h3>
+<h3 id="generation-of-images">generation of images<a class="headerlink" href="#generation-of-images" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>10e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5<span class="w"> </span>--gen
 </pre></div>
 </div>
 </section>
 </section>
 <section id="colored-version-of-mnist">
-<h2 id="colored-version-of-mnist">Colored version of MNIST<a class="headerlink" href="#colored-version-of-mnist" title="Permalink to this heading">¶</a></h2>
+<h2 id="colored-version-of-mnist">Colored version of MNIST<a class="headerlink" href="#colored-version-of-mnist" title="Permalink to this headline">¶</a></h2>
 <section id="leave-one-domain-out">
-<h3 id="leave-one-domain-out">leave one domain out<a class="headerlink" href="#leave-one-domain-out" title="Permalink to this heading">¶</a></h3>
+<h3 id="leave-one-domain-out">leave one domain out<a class="headerlink" href="#leave-one-domain-out" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--keep_model<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>10e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
 </section>
 <section id="choose-train-and-test">
-<h3 id="choose-train-and-test">choose train and test<a class="headerlink" href="#choose-train-and-test" title="Permalink to this heading">¶</a></h3>
+<h3 id="choose-train-and-test">choose train and test<a class="headerlink" href="#choose-train-and-test" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>--tr_d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>diva<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--nname_dom<span class="o">=</span>conv_bn_pool_2<span class="w"> </span>--gamma_y<span class="o">=</span>7e5<span class="w"> </span>--gamma_d<span class="o">=</span>1e5
 </pre></div>
 </div>
@@ -559,7 +551,7 @@ DIVA: Domain Invariant Variational Autoencoders, <a class="reference external" h
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
