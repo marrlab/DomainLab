@@ -11,6 +11,7 @@ Given variational distribution of $q(x|y)$ as decoder (i.e. $Y$ encodes informat
 
 
 Since
+
 $$KL\left(p(X|Y)|q(X|Y)\right)=<\log p(X|Y)>_{p(X|Y)}-<\log q(X,Y)>_{p(X|Y)} >0$$
 
 We have
@@ -32,7 +33,11 @@ To optimize the lower bound, one can iterate
 
 #### Laplace approximation
 
-decoding posterior: $$p(X|Y) \sim Gaussian(Y|[\Sigma^{-1}]_{ij}=\frac{\partial^2 \log p(x|y)}{\partial x_i\partial x_j}$$ when |Y| is large (large deviation from zero contains more information, which must be explained by non-typical $X$)
+decoding posterior: 
+
+$$p(X|Y) \sim Gaussian(Y|[\Sigma^{-1}]_{ij}=\frac{\partial^2 \log p(x|y)}{\partial x_i\partial x_j})$$ 
+
+when $|Y|$ is large (large deviation from zero contains more information, which must be explained by non-typical $X$)
 
 #### Linear Gaussian
 
@@ -60,5 +65,6 @@ $$\log|\Sigma| + ||z^{(i)}_{f_0}-id(z^{i})||_{\Sigma}^{-1}$$
 where $id$ is the mean map
 
 For diagonal $\Sigma$, determinant is simply multiplication of all diagonal values,
-$\log|\Sigma|=\sum_{k} \log \sigma_k + ||z_k^{(i)}_{f_0}-z_k^{i}||{\sigma_K}^{-1}$
+
+$$\log|\Sigma|=\sum_{k} \log \sigma_k + ||{z_k}^{(i)}_{f_0}-z_k^{i}||{\sigma_k}^{-1}$$
 
