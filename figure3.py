@@ -2,6 +2,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 import pandas as pd
 
+method_order4plot = ['erm', 'diva', 'hduva', 'dann', 'dial', 'mldg']
 
 from ast import literal_eval  # literal_eval can safe evaluate python expression
 COLNAME_PARAM = "params"
@@ -16,30 +17,30 @@ fig, ax = plt.subplots(figsize=(9,5),nrows= 3,ncols= 3, sharex=True, sharey=Fals
 
 row_index = results["te_d"] == " mll"
 row_index = row_index & (results["method"] == 'erm')
-mean = results.loc[row_index," acc"].mean()
-std = results.loc[row_index," acc"].std()
+mean = results.loc[row_index,"acc"].mean()
+std = results.loc[row_index,"acc"].std()
 
 ax[0,0].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
-mean = results.loc[row_index," auroc"].mean()
-std = results.loc[row_index," auroc"].std()
+mean = results.loc[row_index,"auroc"].mean()
+std = results.loc[row_index,"auroc"].std()
 
 ax[1,0].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
-mean = results.loc[row_index," f1"].mean()
-std = results.loc[row_index," f1"].std()
+mean = results.loc[row_index,"f1"].mean()
+std = results.loc[row_index,"f1"].std()
 
 ax[2,0].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
 row_index = None
-row_index = results["te_d"] == " mll"
+row_index = results["te_d"] == "mll"
 
 ax[0,0] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = ['erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " acc",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "acc",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -51,15 +52,15 @@ ax[0,0] = sns.boxplot(
             ax=ax[0,0])
 
 ax[0,0] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " acc",
+             x = "method",
+             order = method_order4plot,
+            y = "acc",
                         edgecolor=(0,0,0),
                         color=(1,1,1,0.5),
                         linewidth=1,
             ax = ax[0,0]
                     )
-breakpoint()
+
 
 ax[0,0].set_title("MLL")
 ax[0,0].legend().remove()
@@ -72,10 +73,10 @@ ax[0,0].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
 
 ax[1,0] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " auroc",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "auroc",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -90,9 +91,9 @@ ax[1,0] = sns.boxplot(
 
 
 ax[1,0] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " auroc",
+             x = "method",
+             order = method_order4plot,
+            y = "auroc",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -108,10 +109,10 @@ ax[1,0].set_yticks([0.7,0.8,0.9,1.0])
 
 ax[2,0] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " f1",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "f1",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -123,9 +124,9 @@ ax[2,0] = sns.boxplot(
                 ax = ax[2,0])
 
 ax[2,0] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " f1",
+             x = "method",
+             order = method_order4plot,
+            y = "f1",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -141,32 +142,32 @@ ax[2,0].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
 
 
 #####################################################
-row_index = results[" te_d"] == " matek"
-row_index = row_index & (results[" method"] == ' erm')
-mean = results.loc[row_index," acc"].mean()
-std = results.loc[row_index," acc"].std()
+row_index = results["te_d"] == " matek"
+row_index = row_index & (results["method"] == ' erm')
+mean = results.loc[row_index,"acc"].mean()
+std = results.loc[row_index,"acc"].std()
 
 ax[0,1].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
-mean = results.loc[row_index," auroc"].mean()
-std = results.loc[row_index," auroc"].std()
+mean = results.loc[row_index,"auroc"].mean()
+std = results.loc[row_index,"auroc"].std()
 
 ax[1,1].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
-mean = results.loc[row_index," f1"].mean()
-std = results.loc[row_index," f1"].std()
+mean = results.loc[row_index,"f1"].mean()
+std = results.loc[row_index,"f1"].std()
 
 ax[2,1].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
 row_index = None
-row_index = results[" te_d"] == " matek"
+row_index = results["te_d"] == "matek"
 
 ax[0,1] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " acc",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "acc",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -180,9 +181,9 @@ ax[0,1] = sns.boxplot(
 
 
 ax[0,1] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " acc",
+             x = "method",
+             order = method_order4plot,
+            y = "acc",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -200,10 +201,10 @@ ax[0,1].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
 
 ax[1,1] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " auroc",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "auroc",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -215,9 +216,9 @@ ax[1,1] = sns.boxplot(
                 ax = ax[1,1])
 
 ax[1,1] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " auroc",
+             x = "method",
+             order = method_order4plot,
+            y = "auroc",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -233,10 +234,10 @@ ax[1,1].set_yticks([0.7,0.8,0.9,1.0])
 
 ax[2,1] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " f1",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "f1",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -248,9 +249,9 @@ ax[2,1] = sns.boxplot(
                 ax = ax[2,1])
 
 ax[2,1] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " f1",
+             x = "method",
+             order = method_order4plot,
+            y = "f1",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -265,33 +266,33 @@ ax[2,1].set_ylim(0.1,0.7)
 ax[2,1].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
 
 #####################################################
-row_index = results[" te_d"] == " acevedo"
-row_index = row_index & (results[" method"] == ' erm')
-mean = results.loc[row_index," acc"].mean()
-std = results.loc[row_index," acc"].std()
+row_index = results["te_d"] == "acevedo"
+row_index = row_index & (results["method"] == ' erm')
+mean = results.loc[row_index,"acc"].mean()
+std = results.loc[row_index,"acc"].std()
 
 ax[0,2].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
-mean = results.loc[row_index," auroc"].mean()
-std = results.loc[row_index," auroc"].std()
+mean = results.loc[row_index,"auroc"].mean()
+std = results.loc[row_index,"auroc"].std()
 
 ax[1,2].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
-mean = results.loc[row_index," f1"].mean()
-std = results.loc[row_index," f1"].std()
+mean = results.loc[row_index,"f1"].mean()
+std = results.loc[row_index,"f1"].std()
 
 ax[2,2].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
 
 row_index = None
-row_index = results[" te_d"] == " acevedo"
+row_index = results["te_d"] == "acevedo"
 
 ax[0,2] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " acc",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "acc",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -303,9 +304,9 @@ ax[0,2] = sns.boxplot(
                 ax = ax[0,2])
 
 ax[0,2] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " acc",
+             x = "method",
+             order = method_order4plot,
+            y = "acc",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -324,10 +325,10 @@ ax[0,2].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
 
 ax[1,2] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " auroc",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "auroc",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -339,9 +340,9 @@ ax[1,2] = sns.boxplot(
                 ax = ax[1,2])
 
 ax[1,2] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " auroc",
+             x = "method",
+             order = method_order4plot,
+            y = "auroc",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
@@ -357,10 +358,10 @@ ax[1,2].set_yticks([0.7,0.8,0.9,1.0])
 
 ax[2,2] = sns.boxplot(
             data = results.loc[row_index,:],
-            x = " method",
-            order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " f1",
-            hue = " te_d",
+            x = "method",
+            order = method_order4plot,
+            y = "f1",
+            hue = "te_d",
             showmeans=False,
             meanline=False,
             medianprops={'visible': True},
@@ -372,9 +373,9 @@ ax[2,2] = sns.boxplot(
                 ax = ax[2,2])
 
 ax[2,2] = sns.stripplot(data = results.loc[row_index,:],
-             x = " method",
-             order = [' erm', ' diva', ' hduva', ' dann', ' dial', ' mldg'],
-            y = " f1",
+             x = "method",
+             order = method_order4plot,
+            y = "f1",
                         edgecolor=(0,0,0),
                       color=(1,1,1,0.5),
                         linewidth=1,
