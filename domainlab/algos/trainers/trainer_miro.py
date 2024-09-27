@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
+
 def get_shapes(model, input_shape):
     # get shape of intermediate features
     with torch.no_grad():
@@ -17,7 +18,6 @@ def get_shapes(model, input_shape):
     return shapes
 
 
-
 class TrainerMiro(TrainerBasic):
     """Mutual-Information Regularization with Oracle"""
     def register(self):
@@ -25,8 +25,6 @@ class TrainerMiro(TrainerBasic):
         for n, m in self.network.named_modules():
                     if n in feat_layers:
                         m.register_forward_hook(self.hook)
-
-    def train_batch(self, x, y, **kwargs):
 
     def _init(self):
         shapes = get_shapes(self.pre_featurizer, self.input_shape)
@@ -36,7 +34,6 @@ class TrainerMiro(TrainerBasic):
         self.var_encoders = nn.ModuleList([
             VarianceEncoder(shape) for shape in shapes
         ])
-
 
     def extract_intermediate_features(self, tensor_x):
         """
@@ -88,48 +85,11 @@ class URResNet(torch.nn.Module):
     """
 
     def __init__(self, input_shape, hparams, preserve_readout=False, freeze=None, feat_layers=None):
-        assert input_shape == (3, 224, 224), input_shape
         super().__init__()
-
-        self.network, self.n_outputs = get_backbone(hparams.model, preserve_readout, hparams.pretrained)
-
-        if hparams.model == "resnet18":
-            block_names = BLOCKNAMES["resnet"]
-        elif hparams.model.startswith("resnet50"):
-            block_names = BLOCKNAMES["resnet"]
-        elif hparams.model.startswith("clip_resnet"):
-            block_names = BLOCKNAMES["clipresnet"]
-        elif hparams.model.startswith("clip_vit"):
-            block_names = BLOCKNAMES["clipvit"]
-        elif hparams.model == "swag_regnety_16gf":
-            block_names = BLOCKNAMES["regnety"]
-        elif hparams.model.startswith("vit"):
-            block_names = BLOCKNAMES["vit"]
-        else:
-            raise ValueError(hparams.model)
 
         self._features = []
         self.feat_layers = self.build_feature_hooks(feat_layers, block_names)
-        self.blocks = build_blocks(self.network, block_names)
 
-        self.freeze(freeze)
-
-        if not preserve_readout:
-            self.dropout = nn.Dropout(hparams["resnet_dropout"])
-        else:
-            self.dropout = nn.Identity()
-            assert hparams["resnet_dropout"] == 0.0
-
-        self.hparams = hparams
-        self.freeze_bn()
-
-    def freeze(self, freeze):
-        if freeze is not None:
-            if freeze == "all":
-                freeze_(self.network)
-            else:
-                for block in self.blocks[:freeze+1]:
-                    freeze_(block)
 
     def hook(self, module, input, output):
         self._features.append(output)
@@ -161,42 +121,3 @@ class URResNet(torch.nn.Module):
                 m.register_forward_hook(self.hook)
 
         return feat_layers
-
-    def forward(self, x, ret_feats=False):
-        """Encode x into a feature vector of size n_outputs."""
-        self.clear_features()
-        out = self.dropout(self.network(x))
-        if ret_feats:
-            return out, self._features
-        else:
-            return out
-
-    def clear_features(self):
-        self._features.clear()
-
-    def train(self, mode=True):
-        """
-        Override the default train() to freeze the BN parameters
-        """
-        super().train(mode)
-        self.freeze_bn()
-
-    def freeze_bn(self):
-        for m in self.network.modules():
-            if isinstance(m, nn.BatchNorm2d):
-                m.eval()
-        yield
-
-    # Tail for the zip
-    def zip_tail():
-        if not first_stopped:
-            raise ValueError('zip_equal: first iterable is longer')
-        for _ in chain.from_iterable(rest):
-            raise ValueError('zip_equal: first iterable is shorter')
-            yield
-
-    # Put the pieces together
-    iterables = iter(iterables)
-    first = chain(next(iterables), first_tail())
-    rest = list(map(iter, iterables))
-    return chain(zip(first, *rest), zip_tail())
