@@ -15,12 +15,11 @@ results = pd.read_csv("./blood3_benchmark_results.csv",
 
 fig, ax = plt.subplots(figsize=(9,5),nrows= 3,ncols= 3, sharex=True, sharey=False)
 
-row_index = results["te_d"] == " mll"
+row_index = results["te_d"] == "mll"
 row_index = row_index & (results["method"] == 'erm')
 mean = results.loc[row_index,"acc"].mean()
 std = results.loc[row_index,"acc"].std()
-
-ax[0,0].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
+ax[0,0].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1, label='baseline')
 
 mean = results.loc[row_index,"auroc"].mean()
 std = results.loc[row_index,"auroc"].std()
@@ -63,7 +62,18 @@ ax[0,0] = sns.stripplot(data = results.loc[row_index,:],
 
 
 ax[0,0].set_title("MLL")
-ax[0,0].legend().remove()
+# ax[0,0].legend().remove()
+
+# legend baseline
+handles, labels = ax[0,0].get_legend_handles_labels()
+# Filter for only the axhspan label
+filtered_handles = [handles[labels.index('baseline')]]
+filtered_labels = ['baseline']
+# Add legend with filtered handles and labels
+ax[0,0].legend(filtered_handles, filtered_labels, loc='upper left', bbox_to_anchor=(0, 1.05))
+
+
+
 ax[0,0].set_xlabel("")
 ax[0,0].set_ylabel("Accuracy")
 ax[0,0].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
@@ -142,8 +152,8 @@ ax[2,0].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
 
 
 #####################################################
-row_index = results["te_d"] == " matek"
-row_index = row_index & (results["method"] == ' erm')
+row_index = results["te_d"] == "matek"
+row_index = row_index & (results["method"] == 'erm')
 mean = results.loc[row_index,"acc"].mean()
 std = results.loc[row_index,"acc"].std()
 
@@ -267,12 +277,15 @@ ax[2,1].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
 
 #####################################################
 row_index = results["te_d"] == "acevedo"
-row_index = row_index & (results["method"] == ' erm')
+row_index = row_index & (results["method"] == 'erm')
 mean = results.loc[row_index,"acc"].mean()
 std = results.loc[row_index,"acc"].std()
 
 ax[0,2].axhspan(mean-std, mean+std, facecolor="black", alpha=0.1)
 
+
+print(row_index)
+print(std)
 mean = results.loc[row_index,"auroc"].mean()
 std = results.loc[row_index,"auroc"].std()
 
@@ -388,6 +401,7 @@ ax[2,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[2,2].set_ylim(0.1,0.7)
 ax[2,2].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
+
 plt.subplots_adjust()
 plt.savefig("results_all_median_transposed.png",bbox_inches='tight')
 plt.savefig("results_all_median_transposed.svg",bbox_inches='tight')
