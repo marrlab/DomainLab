@@ -68,7 +68,7 @@ ax[0,0].set_title("MLL")
 handles, labels = ax[0,0].get_legend_handles_labels()
 # Filter for only the axhspan label
 filtered_handles = [handles[labels.index('baseline')]]
-filtered_labels = ['baseline']
+filtered_labels = ['ERM as baseline']
 # Add legend with filtered handles and labels
 ax[0,0].legend(filtered_handles, filtered_labels, loc='upper left', bbox_to_anchor=(0, 1.05))
 
@@ -207,7 +207,8 @@ ax[0,1].set_ylabel("")
 ax[0,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
 
 ax[0,1].set_ylim(0.3,1.0)
-ax[0,1].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
+#ax[0,1].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
+ax[0,1].set_yticks([])
 
 ax[1,1] = sns.boxplot(
             data = results.loc[row_index,:],
@@ -240,7 +241,8 @@ ax[1,1].set_ylabel("")
 ax[1,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
 
 ax[1,1].set_ylim(0.7,1.0)
-ax[1,1].set_yticks([0.7,0.8,0.9,1.0])
+#ax[1,1].set_yticks([0.7,0.8,0.9,1.0])
+ax[1,1].set_yticks([])
 
 ax[2,1] = sns.boxplot(
             data = results.loc[row_index,:],
@@ -273,7 +275,8 @@ ax[2,1].set_ylabel("")
 ax[2,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
 
 ax[2,1].set_ylim(0.1,0.7)
-ax[2,1].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
+#ax[2,1].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
+ax[2,1].set_yticks([])
 
 #####################################################
 row_index = results["te_d"] == "acevedo"
@@ -333,7 +336,8 @@ ax[0,2].set_ylabel("")
 ax[0,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
 
 ax[0,2].set_ylim(0.3,1.0)
-ax[0,2].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
+# ax[0,2].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
+ax[0,2].set_yticks([])
 
 
 ax[1,2] = sns.boxplot(
@@ -367,7 +371,8 @@ ax[1,2].set_ylabel("")
 ax[1,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
 
 ax[1,2].set_ylim(0.7,1.0)
-ax[1,2].set_yticks([0.7,0.8,0.9,1.0])
+# ax[1,2].set_yticks([0.7,0.8,0.9,1.0])
+ax[1,2].set_yticks([])
 
 ax[2,2] = sns.boxplot(
             data = results.loc[row_index,:],
@@ -400,7 +405,8 @@ ax[2,2].set_ylabel("")
 ax[2,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
 
 ax[2,2].set_ylim(0.1,0.7)
-ax[2,2].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
+# ax[2,2].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
+ax[2,2].set_yticks([])
 
 plt.subplots_adjust()
 plt.savefig("results_all_median_transposed.png",bbox_inches='tight')
