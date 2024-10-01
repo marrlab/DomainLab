@@ -3,6 +3,12 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 method_order4plot = ['erm', 'diva', 'hduva', 'dann', 'dial', 'mldg']
+x_tick_labels = ['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG']
+
+method_order4plot = ['diva', 'hduva', 'dann', 'dial', 'mldg']
+x_tick_labels = ['DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG']
+
+
 
 from ast import literal_eval  # literal_eval can safe evaluate python expression
 COLNAME_PARAM = "params"
@@ -76,7 +82,7 @@ ax[0,0].legend(filtered_handles, filtered_labels, loc='upper left', bbox_to_anch
 
 ax[0,0].set_xlabel("")
 ax[0,0].set_ylabel("Accuracy")
-ax[0,0].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[0,0].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[0,0].set_ylim(0.3,1.0)
 ax[0,0].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
@@ -112,7 +118,7 @@ ax[1,0] = sns.stripplot(data = results.loc[row_index,:],
 ax[1,0].legend().remove()
 ax[1,0].set_xlabel("")
 ax[1,0].set_ylabel("AUROC")
-ax[1,0].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[1,0].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[1,0].set_ylim(0.7,1.0)
 ax[1,0].set_yticks([0.7,0.8,0.9,1.0])
@@ -145,7 +151,7 @@ ax[2,0] = sns.stripplot(data = results.loc[row_index,:],
 ax[2,0].legend().remove()
 ax[2,0].set_xlabel("")
 ax[2,0].set_ylabel("F1-macro")
-ax[2,0].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[2,0].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[2,0].set_ylim(0.1,0.7)
 ax[2,0].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
@@ -204,7 +210,7 @@ ax[0,1].legend().remove()
 ax[0,1].set_title("Matek")
 ax[0,1].set_xlabel("")
 ax[0,1].set_ylabel("")
-ax[0,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[0,1].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[0,1].set_ylim(0.3,1.0)
 #ax[0,1].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
@@ -239,7 +245,7 @@ ax[1,1] = sns.stripplot(data = results.loc[row_index,:],
 ax[1,1].legend().remove()
 ax[1,1].set_xlabel("")
 ax[1,1].set_ylabel("")
-ax[1,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[1,1].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[1,1].set_ylim(0.7,1.0)
 #ax[1,1].set_yticks([0.7,0.8,0.9,1.0])
@@ -274,7 +280,7 @@ ax[2,1] = sns.stripplot(data = results.loc[row_index,:],
 ax[2,1].legend().remove()
 ax[2,1].set_xlabel("")
 ax[2,1].set_ylabel("")
-ax[2,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[2,1].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[2,1].set_ylim(0.1,0.7)
 #ax[2,1].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
@@ -336,7 +342,7 @@ ax[0,2].legend().remove()
 ax[0,2].set_title("Acevedo")
 ax[0,2].set_xlabel("")
 ax[0,2].set_ylabel("")
-ax[0,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[0,2].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[0,2].set_ylim(0.3,1.0)
 # ax[0,2].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
@@ -372,7 +378,7 @@ ax[1,2] = sns.stripplot(data = results.loc[row_index,:],
 ax[1,2].legend().remove()
 ax[1,2].set_xlabel("")
 ax[1,2].set_ylabel("")
-ax[1,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[1,2].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[1,2].set_ylim(0.7,1.0)
 # ax[1,2].set_yticks([0.7,0.8,0.9,1.0])
@@ -407,7 +413,7 @@ ax[2,2] = sns.stripplot(data = results.loc[row_index,:],
 ax[2,2].legend().remove()
 ax[2,2].set_xlabel("")
 ax[2,2].set_ylabel("")
-ax[2,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotation=90)
+ax[2,2].set_xticklabels(x_tick_labels, rotation=90)
 
 ax[2,2].set_ylim(0.1,0.7)
 # ax[2,2].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
