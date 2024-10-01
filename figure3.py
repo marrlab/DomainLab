@@ -208,7 +208,8 @@ ax[0,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[0,1].set_ylim(0.3,1.0)
 #ax[0,1].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
-ax[0,1].set_yticks([])
+#ax[0,1].set_yticks([])
+ax[0,1].set_yticklabels([])
 
 ax[1,1] = sns.boxplot(
             data = results.loc[row_index,:],
@@ -242,7 +243,8 @@ ax[1,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[1,1].set_ylim(0.7,1.0)
 #ax[1,1].set_yticks([0.7,0.8,0.9,1.0])
-ax[1,1].set_yticks([])
+# ax[1,1].set_yticks([])
+ax[1,1].set_yticklabels([])
 
 ax[2,1] = sns.boxplot(
             data = results.loc[row_index,:],
@@ -276,7 +278,8 @@ ax[2,1].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[2,1].set_ylim(0.1,0.7)
 #ax[2,1].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
-ax[2,1].set_yticks([])
+#ax[2,1].set_yticks([])
+ax[2,1].set_yticklabels([])
 
 #####################################################
 row_index = results["te_d"] == "acevedo"
@@ -337,7 +340,8 @@ ax[0,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[0,2].set_ylim(0.3,1.0)
 # ax[0,2].set_yticks([0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
-ax[0,2].set_yticks([])
+#ax[0,2].set_yticks([])
+ax[0,2].set_yticklabels([])
 
 
 ax[1,2] = sns.boxplot(
@@ -372,7 +376,8 @@ ax[1,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[1,2].set_ylim(0.7,1.0)
 # ax[1,2].set_yticks([0.7,0.8,0.9,1.0])
-ax[1,2].set_yticks([])
+# ax[1,2].set_yticks([])
+ax[1,2].set_yticklabels([])
 
 ax[2,2] = sns.boxplot(
             data = results.loc[row_index,:],
@@ -406,7 +411,8 @@ ax[2,2].set_xticklabels(['ERM', 'DIVA', 'HDUVA', 'DANN', 'DIAL', 'MLDG'], rotati
 
 ax[2,2].set_ylim(0.1,0.7)
 # ax[2,2].set_yticks([0.1,0.2,0.3,0.4,0.5,0.6,0.7])
-ax[2,2].set_yticks([])
+# ax[2,2].set_yticks([])
+ax[2,2].set_yticklabels([])
 
 plt.subplots_adjust()
 plt.savefig("results_all_median_transposed.png",bbox_inches='tight')
