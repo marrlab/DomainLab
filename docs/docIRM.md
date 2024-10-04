@@ -7,9 +7,10 @@ where we use $\ell$ to denote the cross entropy for a classification task, and $
 
 The idea of IRM is to choose classifier $w$ to be in the intersection of optimal classifiers for each domain $$d$$.
 
-$$w \in {\argmin}_{\bar{w}} \ell^{(d)}(\bar{w} \circ \Phi) \quad \forall d$$
+$$w \in {\arg\min}_{\bar{w}} \ell^{(d)}(\bar{w} \circ \Phi) \quad \forall d$$
 
-regardless of feature extractor $$\Phi(\cdot)$$, this serves as a constraint on the choice of classifiers $w$.
+regardless of feature extractor $\Phi(\cdot)$, 
+this serves as a constraint on the choice of classifiers $w$.
 
 The feature extractor $\Phi(\cdot)$ then get optimized under this constraint.
 
@@ -21,7 +22,7 @@ In DomainLab, we write the loss function as $$\ell(\cdot) + \lambda R(\cdot)$$, 
 
 $$\min_{\Phi, w} \sum_{d} \ell^{(d)}(w \circ \Phi) + \lambda \sum_{d} \|\nabla_{w|w=1.0} \ell^{(d)}(w \circ \Phi)\|^2$$
 
-where $\lambda$ is a hyperparameter that controls the trade-off between the empirical risk and the penalty. One interpretation can be the penalty encourages the representation $\Phi$ to be small evaluated at $w = 1.0$ across all domains.
+where $\lambda$ is a hyperparameter that controls the trade-off between the empirical risk and the penalty. One interpretation can be the penalty encourages the representation $\Phi$ to be orthogonal to the gradient of the loss (e.g. cross entropy) at $w = 1.0$ across all domains.
 
 In practice, one could simply divide one mini-batch into two subsets, let $i$ and $j$ to index these two subsets, multiply  subset $i$ and subset $j$ forms an unbiased estimation of the L2 norm of gradient.
 In detail: the squared gradient norm via inner product between $\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, i)}), Y^{(d, i)})$ of dimension dim(Grad) with $\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, j)}), Y^{(d, j)})$ of dimension dim(Grad) For more details, see section 3.2 and Appendix D of : Arjovsky et al., “Invariant Risk Minimization.”
