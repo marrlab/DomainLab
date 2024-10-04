@@ -31,7 +31,7 @@ jobs:
     - name: test if api works
       run: poetry run python examples/api/jigen_dann_transformer.py
     - name: Generate coverage report
-      run: rm -r zoutput && poetry run pytest --cov=domainlab tests/ --cov-report=xml
+      run: rm -rf zoutput && poetry run pytest --maxfail=1 -vvv --tb=short --cov=domainlab tests/ --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
@@ -41,7 +41,7 @@ jobs:
       env:
         CODECOV_TOKEN: 02ecb3ac-b7ce-4ea4-90a2-961c3d1a1030
     - name: check if readme yaml works
-      run: rm -r zoutput && python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml
+      run: rm -rf zoutput && python main_out.py -c ./examples/conf/vlcs_diva_mldg_dial.yaml
     - name: test if examples in markdown works
       run: bash -x -v scripts/ci_run_examples.sh
     - name: test if benchmark works
