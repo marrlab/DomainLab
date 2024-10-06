@@ -35,7 +35,7 @@ Shared params:
     step: 0.05
     distribution: uniform
 
- k_i_gain_ratio:
+  k_i_gain_ratio:
     min: 0.1
     max: 1
     num: 3
