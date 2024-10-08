@@ -53,6 +53,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         super().__init__(successor_node)
         self._model = None
+        # decoratee can be both model or trainer
         self._decoratee = extend
         self.task = None
         self.observer = None

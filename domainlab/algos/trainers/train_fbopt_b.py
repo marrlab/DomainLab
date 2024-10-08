@@ -66,7 +66,7 @@ class TrainerFbOpt(TrainerBasic):
                     vec_y.to(self.device),
                     vec_d.to(self.device),
                 )
-                tuple_reg_loss = self.model.cal_reg_loss(tensor_x, vec_y, vec_d, others)
+                tuple_reg_loss = self.decoratee.cal_reg_loss(tensor_x, vec_y, vec_d, others)
                 p_loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
                 # NOTE: first [0] extract the loss, second [0] get the list
                 list_b_reg_loss = tuple_reg_loss[0]
@@ -127,6 +127,7 @@ class TrainerFbOpt(TrainerBasic):
             ],
             self.epo_task_loss_tr,
         )  # setpoing w.r.t. random initialization of neural network
+        # FIXME: check if self.epo_reg_loss_tr is zero!!
         self.hyper_scheduler.set_k_i_gain(self.epo_reg_loss_tr)
 
     @property

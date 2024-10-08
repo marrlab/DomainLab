@@ -52,7 +52,7 @@ class HyperSchedulerFeedback:
 
         self.k_i_control = [trainer.aconf.k_i_gain for i in
                             range(len(self.mmu))]
-        self.k_i_gain_ratio = None
+        self.k_i_gain_ratio = trainer.aconf.k_i_gain_ratio
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
 
@@ -71,7 +71,10 @@ class HyperSchedulerFeedback:
 
     def set_k_i_gain(self, epo_reg_loss):
         if self.k_i_gain_ratio is None:
-            return
+            if self.k_i_control:
+                return
+            raise RuntimeError("set either direct k_i_control value or \
+                               set k_i_gain_ratio, can not be both empty!")
         # NOTE: do not use self.cal_delta4control!!!! which will change
         # class member variables self.delta_epsilon_r!
         list_setpoint = self.get_setpoint4r()
@@ -79,9 +82,12 @@ class HyperSchedulerFeedback:
         delta_epsilon_r = [a - b for a, b in zip(epo_reg_loss, list_setpoint)]
 
         # to calculate self.delta_epsilon_r
+        list_active = [self.activation_clip for i in range(len(delta_epsilon_r))]
+
         k_i_gain_saturate = [
-            a / b for a, b in zip(self.activation_clip, delta_epsilon_r)
+            a / b for a, b in zip(list_active, delta_epsilon_r)
         ]
+
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
