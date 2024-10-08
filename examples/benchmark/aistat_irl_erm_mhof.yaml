@@ -1,0 +1,64 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt_fishr_erm_pacs
+
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_aug.py
+  dmem: False
+  lr: 5e-5
+  epos: 500
+  epos_min: 200
+  es: 5
+  bs: 32
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.5
+    max: 0.99
+    num: 2
+    step: 0.05
+    distribution: uniform
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 3
+    distribution: uniform
+
+  gamma_reg:
+    min: 0.01
+    max: 1e4
+    num: 4
+    distribution: loguniform
+
+
+# Test fbopt with different hyperparameter configurations
+
+fbopt_irm_erm:
+  model: erm
+  trainer: fbopt_causalirl
+  shared:
+    - ini_setpoint_ratio
+    - k_i_gain_ratio
+
+irm_erm:
+  model: erm
+  trainer: causalirl
+  shared:
+    - gamma_reg
