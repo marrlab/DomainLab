@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_fbopt_fishr_erm_pacs
+output_dir: zoutput/benchmarks/benchmark_mhof_causal_irl_erm_pacs
 
 sampling_seed: 0
 startseed: 0
