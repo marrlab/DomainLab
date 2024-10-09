@@ -37,7 +37,7 @@ class TrainerIRM(TrainerBasic):
                 list_domain_loss_erm.append(
                     self.model.cal_task_loss(tensor_x, tensor_y))
                 list_1ele_loss_irm, _ = \
-                    self._cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+                    self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
                 list_domain_reg += list_1ele_loss_irm
             loss = torch.sum(torch.stack(list_domain_loss_erm)) + \
                 self.aconf.gamma_reg * torch.sum(torch.stack(list_domain_reg))
