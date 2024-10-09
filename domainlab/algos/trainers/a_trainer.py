@@ -312,6 +312,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         list_boolean_zero = [torch.all(torch.eq(list_loss_tensor[i], 0)).item() for i in range(len(list_mu))]
         list_loss_tensor = [list_loss_tensor[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
         list_mu = [list_mu[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
+        if self.dict_multiplier:
+            list_mu = list(self.dict_multiplier.values())
         return list_loss_tensor, list_mu
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):

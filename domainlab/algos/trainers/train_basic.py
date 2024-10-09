@@ -80,7 +80,7 @@ class TrainerBasic(AbstractTrainer):
             tensor_d.to(self.device),
         )
         self.optimizer.zero_grad()
-        loss = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        loss, *_ = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
         loss.backward()
         self.optimizer.step()
         self.after_batch(epoch, ind_batch)
