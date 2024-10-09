@@ -14,7 +14,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 200
+  epos_min: 20
   es: 5
   bs: 32
   san_check: False
@@ -64,9 +64,11 @@ fbopt_irm_erm:
   shared:
     - ini_setpoint_ratio
     - k_i_gain_ratio
+    - nb4reg_over_task_ratio
 
 irm_erm:
   model: erm
   trainer: irm
   shared:
     - gamma_reg
+    - nb4reg_over_task_ratio
