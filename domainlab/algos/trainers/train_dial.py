@@ -51,11 +51,3 @@ class TrainerDIAL(TrainerBasic):
         tensor_x_batch_adv_no_grad = Variable(tensor_x_adv, requires_grad=False)
         loss_dial = self.model.cal_task_loss(tensor_x_batch_adv_no_grad, tensor_y)
         return [loss_dial], [get_gamma_reg(self.aconf, self.name)]
-
-    def hyper_init(self, functor_scheduler, trainer):
-        """
-        initialize both trainer's multiplier and model's multiplier
-        """
-        fun_scheduler = super().hyper_init(functor_scheduler, trainer)
-        return fun_scheduler
-        # FIXME: register also the trainer hyperpars: return functor_scheduler(trainer=trainer, gamma_reg=self.gamma_reg)
