@@ -28,6 +28,14 @@ domainlab_args:
 
 
 Shared params:
+  nb4reg_over_task_ratio:
+    distribution: categorical   # name of the distribution
+    datatype: int
+    values:                     # concrete values to choose from
+      - 0
+      - 1
+      - 100
+      
   ini_setpoint_ratio:
     min: 0.5
     max: 0.99
