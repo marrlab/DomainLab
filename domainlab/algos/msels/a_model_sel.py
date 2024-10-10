@@ -130,6 +130,7 @@ class AMSel(metaclass=abc.ABCMeta):
             return self.msel.oracle_last_setpoint_sel_te_acc
         return -1
 
+    @property
     def model_selection_epoch(self):
         """
         the epoch when the model was selected
