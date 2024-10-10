@@ -221,8 +221,6 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
-            if ind_batch >= self.aconf.nb4reg_over_task_ratio:
-                return
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
                 tensor_y.to(self.device),
@@ -230,6 +228,10 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             )
             list_reg_loss_tensor, list_mu = \
                 self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+
+            if ind_batch >= self.aconf.nb4reg_over_task_ratio:
+                return list_mu
+
             list_reg_loss_tensor = [torch.sum(tensor).detach().item()
                                     for tensor in list_reg_loss_tensor]
             if ind_batch == 0:
@@ -313,9 +315,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             list_reg_loss_trainer_tensor
         list_mu = list_mu_model + list_mu_trainer
         # ERM return a tensor of all zeros, delete here
-        list_boolean_zero = [torch.all(torch.eq(list_loss_tensor[i], 0)).item() for i in range(len(list_mu))]
-        list_loss_tensor = [list_loss_tensor[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
-        list_mu = [list_mu[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
+        if len(list_mu) > 1:
+            list_boolean_zero = [torch.all(torch.eq(list_loss_tensor[i], 0)).item()
+                                 for i in range(len(list_mu))]
+            list_loss_tensor = [list_loss_tensor[i] for (i, flag) in
+                                enumerate(list_boolean_zero) if not flag]
+            list_mu = [list_mu[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
         if self.dict_multiplier:
             list_mu = list(self.dict_multiplier.values())
         return list_loss_tensor, list_mu
