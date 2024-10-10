@@ -65,3 +65,10 @@ irm_erm:
   shared:
     - gamma_reg
     - nb4reg_over_task_ratio
+
+irm_erm_dep_dom:
+  model: erm
+  trainer: irmsepdom
+  shared:
+    - gamma_reg
+    - nb4reg_over_task_ratio
