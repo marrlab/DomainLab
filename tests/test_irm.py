@@ -12,6 +12,16 @@ def test_irm():
         --trainer=irm --nname=alexnet"
     utils_test_algo(args)
 
+def test_irm_sepdom():
+    """
+    train with Invariant Risk Minimization
+    """
+    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
+        --trainer=irmsepdom --nname=alexnet"
+    utils_test_algo(args)
+
+
+
 
 def test_irm_scheduler():
     """
