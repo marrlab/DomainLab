@@ -168,11 +168,6 @@ html_theme_options = {
             "internal": True,
             "title": "Examples with MNIST",
         },
-        {
-            "href": "doc_examples",
-            "internal": True,
-            "title": "More commandline examples",
-        },
         {"href": "doc_benchmark", "internal": True, "title": "Benchmarks tutorial"},
         {"href": "doc_output", "internal": True, "title": "Output Structure"},
         {

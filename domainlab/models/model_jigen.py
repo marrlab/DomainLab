@@ -81,14 +81,14 @@ def mk_jigen(parent_class=AModelClassif, **kwargs):
             """
             list of multipliers which match the order in cal_reg_loss
             """
-            return ["alpha"]
+            return [self.name + "_alpha"]
 
         @property
         def dict_multiplier(self):
             """
             dictionary of multipliers
             """
-            return {"alpha": self.alpha}
+            return {f"{self.name}_alpha": self.alpha}
 
         def dset_decoration_args_algo(self, args, ddset):
             """

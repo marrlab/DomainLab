@@ -9,10 +9,10 @@ def test_benchm_plots():
     test benchmark plots
     """
     gen_benchmark_plots(
-        "data/ztest_files/aggret_res_test1",
+        "domainlab/zdata/ztest_files/aggret_res_test1",
         "zoutput/benchmark_plots_test/outp1",
         use_param_index=False,
     )
     gen_benchmark_plots(
-        "data/ztest_files/aggret_res_test2", "zoutput/benchmark_plots_test/outp2"
+        "domainlab/zdata/ztest_files/aggret_res_test2", "zoutput/benchmark_plots_test/outp2"
     )

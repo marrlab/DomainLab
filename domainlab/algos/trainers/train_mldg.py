@@ -10,6 +10,7 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.tasks.utils_task import mk_loader
 from domainlab.tasks.utils_task_dset import DsetZip
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerMLDG(AbstractTrainer):
@@ -34,6 +35,7 @@ class TrainerMLDG(AbstractTrainer):
             flag_accept=False,
         )
         self.prepare_ziped_loader()
+        super().before_tr()
 
     def prepare_ziped_loader(self):
         """
@@ -50,7 +52,7 @@ class TrainerMLDG(AbstractTrainer):
         ddset_mix = DsetZip(ddset_source, ddset_target)
         self.loader_tr_source_target = mk_loader(ddset_mix, self.aconf.bs)
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         self.model.train()
         self.epo_loss_tr = 0
         self.prepare_ziped_loader()
@@ -108,7 +110,7 @@ class TrainerMLDG(AbstractTrainer):
             loss = (
                 loss_source_task.sum()
                 + source_reg_tr.sum()
-                + self.aconf.gamma_reg * loss_look_forward.sum()
+                + get_gamma_reg(self.aconf, self.name) * loss_look_forward.sum()
             )
             #
             loss.backward()
@@ -116,5 +118,5 @@ class TrainerMLDG(AbstractTrainer):
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         return flag_stop

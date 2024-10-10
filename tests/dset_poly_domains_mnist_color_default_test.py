@@ -7,5 +7,5 @@ from domainlab.dsets.utils_data import plot_ds
 
 
 def test_color_mnist():
-    dset = DsetMNISTColorMix(n_domains=3, path="./output/")
+    dset = DsetMNISTColorMix(n_domains=3, path="./zoutput/testsoutput")
     plot_ds(dset, "color_mix.png")

@@ -10,7 +10,6 @@ try:
 except:
     backpack = None
 
-
 def mk_erm(parent_class=AModelClassif, **kwargs):
     """
     Instantiate a Deepall (ERM) model
@@ -53,4 +52,30 @@ def mk_erm(parent_class=AModelClassif, **kwargs):
             """
             self._net_invar_feat = extend(self._net_invar_feat, use_converter=True)
             self.net_classifier = extend(self.net_classifier,  use_converter=True)
+
+        def hyper_update(self, epoch, fun_scheduler): # pylint: disable=unused-argument
+            """
+            Method necessary to combine with hyperparameter scheduler
+
+            :param epoch:
+            :param fun_scheduler:
+            """
+
+        def hyper_init(self, functor_scheduler, trainer=None):
+            """
+            initiate a scheduler object via class name and things inside this model
+
+            :param functor_scheduler: the class name of the scheduler
+            """
+            return functor_scheduler(
+                trainer=trainer
+            )
+
+        @property
+        def list_str_multiplier_na(self):
+            """
+            list of multipliers which match the order in cal_reg_loss
+            """
+            return []
+
     return ModelERM

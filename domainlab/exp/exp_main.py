@@ -10,7 +10,6 @@ from domainlab.exp.exp_utils import AggWriter
 from domainlab.tasks.zoo_tasks import TaskChainNodeGetter
 from domainlab.utils.logger import Logger
 from domainlab.utils.sanity_check import SanityCheck
-
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"  # debug
 
 
@@ -51,19 +50,22 @@ class Exp:
             self.model = model
         self.epochs = self.args.epos
         self.epoch_counter = 1
+        self.val_threshold = args.val_threshold
         if observer is None:
             observer = observer_default
         if not self.trainer.flag_initialized:
             self.trainer.init_business(self.model, self.task, observer, device, args)
         self.visitor = visitor(self)  # visitor depends on task initialization first
         # visitor must be initialized last after trainer is initialized
+        self.experiment_duration = None
         self.model.set_saver(self.visitor)
-
+        
     def execute(self, num_epochs=None):
         """
         train model
         check performance by loading persisted model
         """
+        self.model.save()  # cause CI infinite loop when put in initializer? 
         if num_epochs is None:
             num_epochs = self.epochs + 1
         t_0 = datetime.datetime.now()
@@ -96,6 +98,7 @@ class Exp:
             f"Experiment finished at epoch: {self.epoch_counter} "
             f"with time: {t_c - t_0} at {t_c}"
         )
+        self.experiment_duration = t_c - t_0
         self.trainer.post_tr()
 
     def clean_up(self):

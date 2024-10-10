@@ -72,6 +72,10 @@ For more details, see the reference below or the domainlab code.
 
 
 
+## Examples
+```
+python main_out.py --te_d=0 --task=mini_vlcs --model=erm --trainer=fishr --nname=alexnet --bs=2 --nocu
+```
 
 
 
@@ -79,3 +83,4 @@ _Reference:_
 Rame, Alexandre, Corentin Dancette, and Matthieu Cord. "Fishr:
 Invariant gradient variances for out-of-distribution generalization."
 International Conference on Machine Learning. PMLR, 2022.
+

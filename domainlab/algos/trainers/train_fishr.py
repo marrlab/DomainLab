@@ -13,6 +13,7 @@ except:
     backpack = None
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerFishr(TrainerBasic):
@@ -25,7 +26,7 @@ class TrainerFishr(TrainerBasic):
         "Fishr: Invariant gradient variances for out-of-distribution generalization."
         International Conference on Machine Learning. PMLR, 2022.
     """
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         list_loaders = list(self.dict_loader_tr.values())
         loaders_zip = zip(*list_loaders)
         self.model.train()
@@ -39,13 +40,13 @@ class TrainerFishr(TrainerBasic):
             dict_layerwise_var_var_grads_sum = \
                 {key: val.sum() for key, val in dict_layerwise_var_var_grads.items()}
             loss_fishr = sum(dict_layerwise_var_var_grads_sum.values())
-            loss = sum(list_loss_erm) + self.aconf.gamma_reg * loss_fishr
+            loss = sum(list_loss_erm) + get_gamma_reg(self.aconf, self.name) * loss_fishr
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
 
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         return flag_stop
 
     def var_grads_and_loss(self, tuple_data_domains_batch):
@@ -159,10 +160,6 @@ class TrainerFishr(TrainerBasic):
             loss.backward(
                 inputs=list(self.model.parameters()), retain_graph=True, create_graph=True
             )
-
-        for name, param in self.model.named_parameters():
-            print(name)
-            print(".grad.shape:             ", param.variance.shape)
 
         dict_variance = OrderedDict(
             [(name, weights.variance.clone())

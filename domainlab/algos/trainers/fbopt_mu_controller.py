@@ -50,8 +50,9 @@ class HyperSchedulerFeedback:
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
 
-        self.k_i_control = trainer.aconf.k_i_gain
-        self.k_i_gain_ratio = None
+        self.k_i_control = [trainer.aconf.k_i_gain for i in
+                            range(len(self.mmu))]
+        self.k_i_gain_ratio = trainer.aconf.k_i_gain_ratio
         self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
         self.delta_epsilon_r = None
 
@@ -70,7 +71,10 @@ class HyperSchedulerFeedback:
 
     def set_k_i_gain(self, epo_reg_loss):
         if self.k_i_gain_ratio is None:
-            return
+            if self.k_i_control:
+                return
+            raise RuntimeError("set either direct k_i_control value or \
+                               set k_i_gain_ratio, can not be both empty!")
         # NOTE: do not use self.cal_delta4control!!!! which will change
         # class member variables self.delta_epsilon_r!
         list_setpoint = self.get_setpoint4r()
@@ -78,13 +82,16 @@ class HyperSchedulerFeedback:
         delta_epsilon_r = [a - b for a, b in zip(epo_reg_loss, list_setpoint)]
 
         # to calculate self.delta_epsilon_r
+        list_active = [self.activation_clip for i in range(len(delta_epsilon_r))]
+
         k_i_gain_saturate = [
-            a / b for a, b in zip(self.activation_clip, delta_epsilon_r)
+            a / b for a, b in zip(list_active, delta_epsilon_r)
         ]
+
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
-        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        self.k_i_control = [self.k_i_gain_ratio * ele for ele in k_i_gain_saturate]
         warnings.warn(
             f"hyperparameter k_i_gain disabled! \
                       replace with {self.k_i_control}"
@@ -162,7 +169,7 @@ class HyperSchedulerFeedback:
         """
         setpoint = self.get_setpoint4r()
         activation = [
-            self.k_i_control * val if setpoint[i] > 0 else self.k_i_control * (-val)
+            self.k_i_control[i] * val if setpoint[i] > 0 else self.k_i_control[i] * (-val)
             for i, val in enumerate(self.delta_epsilon_r)
         ]
         if self.activation_clip is not None:
@@ -206,27 +213,32 @@ class HyperSchedulerFeedback:
             self.writer.add_scalar(f"controller_gain/{key}", dict_gain[key], miter)
             ind = list_str_multiplier_na.index(key)
             self.writer.add_scalar(f"delta/{key}", self.delta_epsilon_r[ind], miter)
-        for i, (reg_dyn, reg_set) in enumerate(
-            zip(epo_reg_loss, self.get_setpoint4r())
-        ):
-            self.writer.add_scalar(
-                f"lossrd/dyn_{list_str_multiplier_na[i]}", reg_dyn, miter
-            )
-            self.writer.add_scalar(
-                f"lossrs/setpoint_{list_str_multiplier_na[i]}", reg_set, miter
-            )
 
-            self.writer.add_scalars(
-                f"loss_rds/loss_{list_str_multiplier_na[i]}_w_setpoint",
-                {
-                    f"lossr/loss_{list_str_multiplier_na[i]}": reg_dyn,
-                    f"lossr/setpoint_{list_str_multiplier_na[i]}": reg_set,
-                },
-                miter,
-            )
-            self.writer.add_scalar(
-                f"x_ell_y_r/loss_{list_str_multiplier_na[i]}", reg_dyn, epo_task_loss
-            )
+        if list_str_multiplier_na:
+            for i, (reg_dyn, reg_set) in enumerate(
+                zip(epo_reg_loss, self.get_setpoint4r())
+            ):
+
+                self.writer.add_scalar(
+                    f"lossrd/dyn_{list_str_multiplier_na[i]}", reg_dyn, miter
+                )
+                self.writer.add_scalar(
+                    f"lossrs/setpoint_{list_str_multiplier_na[i]}", reg_set, miter
+                )
+
+                self.writer.add_scalars(
+                    f"loss_rds/loss_{list_str_multiplier_na[i]}_w_setpoint",
+                    {
+                        f"lossr/loss_{list_str_multiplier_na[i]}": reg_dyn,
+                        f"lossr/setpoint_{list_str_multiplier_na[i]}": reg_set,
+                    },
+                    miter,
+                )
+                self.writer.add_scalar(
+                    f"x_ell_y_r/loss_{list_str_multiplier_na[i]}", reg_dyn, epo_task_loss
+                )
+        else:
+            logger.info("No multiplier provided")
         self.writer.add_scalar("loss_task/penalized", epo_loss_tr, miter)
         self.writer.add_scalar("loss_task/ell", epo_task_loss, miter)
         acc_te = 0

@@ -31,31 +31,31 @@ def get_task(na=None):
         # ## the text file below only need to specify the relative path
         # ## training
         dict_d2filepath_list_img_tr={
-            "art_painting": "data/pacs_split/art_painting_10.txt",
-            "cartoon": "data/pacs_split/cartoon_10.txt",
-            "photo": "data/pacs_split/photo_10.txt",
-            "sketch": "data/pacs_split/sketch_10.txt",
+            "art_painting": "domainlab/zdata/pacs_split/art_painting_10.txt",
+            "cartoon": "domainlab/zdata/pacs_split/cartoon_10.txt",
+            "photo": "domainlab/zdata/pacs_split/photo_10.txt",
+            "sketch": "domainlab/zdata/pacs_split/sketch_10.txt",
         },
         # ## testing
         dict_d2filepath_list_img_te={
-            "art_painting": "data/pacs_split/art_painting_10.txt",
-            "cartoon": "data/pacs_split/cartoon_10.txt",
-            "photo": "data/pacs_split/photo_10.txt",
-            "sketch": "data/pacs_split/sketch_10.txt",
+            "art_painting": "domainlab/zdata/pacs_split/art_painting_10.txt",
+            "cartoon": "domainlab/zdata/pacs_split/cartoon_10.txt",
+            "photo": "domainlab/zdata/pacs_split/photo_10.txt",
+            "sketch": "domainlab/zdata/pacs_split/sketch_10.txt",
         },
         # ## validation
         dict_d2filepath_list_img_val={
-            "art_painting": "data/pacs_split/art_painting_10.txt",
-            "cartoon": "data/pacs_split/cartoon_10.txt",
-            "photo": "data/pacs_split/photo_10.txt",
-            "sketch": "data/pacs_split/sketch_10.txt",
+            "art_painting": "domainlab/zdata/pacs_split/art_painting_10.txt",
+            "cartoon": "domainlab/zdata/pacs_split/cartoon_10.txt",
+            "photo": "domainlab/zdata/pacs_split/photo_10.txt",
+            "sketch": "domainlab/zdata/pacs_split/sketch_10.txt",
         },
         # ## specify root folder storing the images of each domain:
         dict_domain2imgroot={
-            "art_painting": "data/pacs_mini_10",
-            "cartoon": "data/pacs_mini_10",
-            "photo": "data/pacs_mini_10",
-            "sketch": "data/pacs_mini_10",
+            "art_painting": "domainlab/zdata/pacs_mini_10",
+            "cartoon": "domainlab/zdata/pacs_mini_10",
+            "photo": "domainlab/zdata/pacs_mini_10",
+            "sketch": "domainlab/zdata/pacs_mini_10",
         },
         # ## specify the pytorch transformation you want to apply to the image
         img_trans_tr=transforms.Compose(

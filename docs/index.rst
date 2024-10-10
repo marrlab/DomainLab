@@ -1,3 +1,4 @@
+
 .. domainlab documentation master file, created by
    sphinx-quickstart on Tue Jul 26 16:30:46 2022.
    You can adapt this file completely to your liking, but it should at least
@@ -19,6 +20,10 @@ Welcome to domainlab's documentation!
    docDIAL
    docFishr
    doc_mldg
+   docIRM
+   docMA
+   doc_coral
+   doc_irl
 
 
 Indices and tables

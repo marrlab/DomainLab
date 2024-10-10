@@ -69,3 +69,29 @@ This procedure yields to the following availability of hyperparameter:
 - `--epochs_ctr`: number of epochs for minimizing the contrastive loss in phase 1.
 - `--epos_per_match_update`: Number of epochs before updating the match tensor. ($t$ from phase 1)
 - `--gamma_reg`: weight for the regularization term in phase 2. ($\gamma_\text{reg}$ from phase 2)
+- 
+## Examples
+
+### trainer matchdg with custom neural network
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --bs=2 --model=erm --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
+```
+
+
+### training hduva with matchdg
+
+```shell
+python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --bs=2 --model=hduva --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=conv_bn_pool_2 --gamma_y=7e5 --nname_encoder_x2topic_h=conv_bn_pool_2 --nname_encoder_sandwich_x2h4zd=conv_bn_pool_2
+```
+
+### training implemented neural network with matchdg
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=matchdg --epochs_ctr=3 --epos=6 --nname=alexnet
+```
+
+### trainer matchdg with mnist
+```shell
+ python main_out.py --te_d 0 1 2 --tr_d 3 7 --task=mnistcolor10 --model=erm --trainer=matchdg --nname=conv_bn_pool_2 --epochs_ctr=2 --epos=6
+```
+
+

@@ -66,11 +66,11 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             dict_rst = fun_scheduler(
                 epoch
             )  # the __call__ function of hyper-para-scheduler object
-            self.beta_d = dict_rst["beta_d"]
-            self.beta_y = dict_rst["beta_y"]
-            self.beta_x = dict_rst["beta_x"]
-            self.beta_t = dict_rst["beta_t"]
-            self.mu_recon = dict_rst["mu_recon"]
+            self.beta_d = dict_rst[self.name + "_beta_d"]
+            self.beta_y = dict_rst[self.name + "_beta_y"]
+            self.beta_x = dict_rst[self.name + "_beta_x"]
+            self.beta_t = dict_rst[self.name + "_beta_t"]
+            self.mu_recon = dict_rst[self.name + "_mu_recon"]
 
         def hyper_init(self, functor_scheduler, trainer=None):
             """hyper_init.
@@ -79,13 +79,14 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             # calling the constructor of the hyper-parameter-scheduler class, so that this scheduler
             # class build a dictionary {"beta_d":self.beta_d, "beta_y":self.beta_y}
             # constructor signature is def __init__(self, **kwargs):
+            parameters = {}
+            parameters[self.name + "_beta_d"] = self.beta_d
+            parameters[self.name + "_beta_y"] = self.beta_y
+            parameters[self.name + "_beta_x"] = self.beta_x
+            parameters[self.name + "_beta_t"] = self.beta_t
+            parameters[self.name + "_mu_recon"] = self.mu_recon
             return functor_scheduler(
-                trainer=trainer,
-                mu_recon=self.mu_recon,
-                beta_d=self.beta_d,
-                beta_y=self.beta_y,
-                beta_x=self.beta_x,
-                beta_t=self.beta_t,
+                trainer=trainer, **parameters
             )
 
         @store_args
@@ -207,7 +208,7 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             """
             list of multipliers name which matches the order from cal_reg_loss
             """
-            return ["mu_recon", "beta_x", "beta_y", "beta_d", "beta_t"]
+            return [f"{self.name}_mu_recon", f"{self.name}_beta_d", f"{self.name}_beta_x", f"{self.name}_beta_y", f"{self.name}_beta_t"]
 
         @property
         def dict_multiplier(self):
@@ -215,11 +216,11 @@ def mk_hduva(parent_class=VAEXYDClassif, **kwargs):
             dictionary of multipliers name
             """
             return {
-                "mu_recon": self.mu_recon,
-                "beta_d": self.beta_d,
-                "beta_x": self.beta_x,
-                "beta_y": self.beta_y,
-                "beta_t": self.beta_t,
+                f"{self.name}_mu_recon": self.mu_recon,
+                f"{self.name}_beta_d": self.beta_d,
+                f"{self.name}_beta_x": self.beta_x,
+                f"{self.name}_beta_y": self.beta_y,
+                f"{self.name}_beta_t": self.beta_t,
             }
 
         def extract_semantic_feat(self, tensor_x):

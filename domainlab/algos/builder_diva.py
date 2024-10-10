@@ -52,7 +52,7 @@ class NodeAlgoBuilderDIVA(NodeAlgoBuilder):
         )
         device = get_device(args)
         model_sel = MSelSetpointDelay(
-            MSelOracleVisitor(MSelValPerfTopK(max_es=args.es))
+            MSelOracleVisitor(MSelValPerfTopK(max_es=args.es)), val_threshold=args.val_threshold
         )
         if not args.gen:
             observer = ObVisitor(model_sel)

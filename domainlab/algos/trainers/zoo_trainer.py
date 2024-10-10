@@ -2,12 +2,18 @@
 select trainer
 """
 from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.algos.trainers.train_ema import TrainerMA
 from domainlab.algos.trainers.train_dial import TrainerDIAL
 from domainlab.algos.trainers.train_fbopt_b import TrainerFbOpt
-from domainlab.algos.trainers.train_hyper_scheduler import TrainerHyperScheduler
+from domainlab.algos.trainers.train_hyper_scheduler \
+    import TrainerHyperScheduler
 from domainlab.algos.trainers.train_matchdg import TrainerMatchDG
 from domainlab.algos.trainers.train_mldg import TrainerMLDG
 from domainlab.algos.trainers.train_fishr import TrainerFishr
+from domainlab.algos.trainers.train_irm import TrainerIRM
+from domainlab.algos.trainers.train_irm_sep_dom import TrainerIRMSepDom
+from domainlab.algos.trainers.train_causIRL import TrainerCausalIRL
+from domainlab.algos.trainers.train_coral import TrainerCoral
 
 
 class TrainerChainNodeGetter(object):
@@ -46,12 +52,17 @@ class TrainerChainNodeGetter(object):
             )
 
         chain = TrainerBasic(None)
+        chain = TrainerMA(chain)
         chain = TrainerDIAL(chain)
         chain = TrainerMatchDG(chain)
         chain = TrainerMLDG(chain)
         chain = TrainerFishr(chain)
+        chain = TrainerIRM(chain)
+        chain = TrainerIRMSepDom(chain)
         chain = TrainerHyperScheduler(chain)
         chain = TrainerFbOpt(chain)
+        chain = TrainerCausalIRL(chain)
+        chain = TrainerCoral(chain)
         node = chain.handle(self.request)
         head = node
         while self._list_str_trainer:

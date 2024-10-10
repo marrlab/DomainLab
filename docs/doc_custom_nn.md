@@ -23,3 +23,23 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --
 ```shell
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=matchdg --epochs_ctr=3 --epos=6 --npath=examples/nets/resnet.py
 ```
+
+
+### model erm with custom neural network
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=erm --npath=examples/nets/resnet.py
+```
+
+## Larger images:
+
+### model erm with implemented neural network
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=erm --nname=alexnet
+```
+
+### model dann with implemented neural network
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=dann --nname=alexnet
+```
+
+

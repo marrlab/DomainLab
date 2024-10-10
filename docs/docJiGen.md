@@ -36,3 +36,17 @@ Furthermore, the user can specify a custom grid length via `grid_len`.
 
 _Reference_: Carlucci, Fabio M., et al. "Domain generalization by solving jigsaw puzzles."
 Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.
+
+
+## Examples
+
+### model jigen with implemented neural network
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3
+```
+
+
+### sannity check with jigen tile shuffling
+```shell
+python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=8 --model=jigen --nname=alexnet --pperm=1 --nperm=100 --grid_len=3 --san_check
+```

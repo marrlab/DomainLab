@@ -11,8 +11,8 @@ class MSelSetpointDelay(AMSel):
     selected performance from the decoratee each time the setpoint shrinks
     """
 
-    def __init__(self, msel):
-        super().__init__()
+    def __init__(self, msel, val_threshold = None):
+        super().__init__(val_threshold)
         # NOTE: super() has to come first always otherwise self.msel will be overwritten to be None
         self.msel = msel
         self._oracle_last_setpoint_sel_te_acc = 0.0
@@ -24,7 +24,7 @@ class MSelSetpointDelay(AMSel):
         """
         return self._oracle_last_setpoint_sel_te_acc
 
-    def update(self, clear_counter=False):
+    def base_update(self, clear_counter=False):
         """
         if the best model should be updated
         currently, clear_counter is set via

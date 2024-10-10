@@ -36,9 +36,9 @@ def test_fun():
         ),
         isize=ImSize(3, 224, 224),
         dict_domain2imgroot={
-            "caltech": "data/vlcs_mini/caltech/",
-            "sun": "data/vlcs_mini/sun/",
-            "labelme": "data/vlcs_mini/labelme/",
+            "caltech": "domainlab/zdata/vlcs_mini/caltech/",
+            "sun": "domainlab/zdata/vlcs_mini/sun/",
+            "labelme": "domainlab/zdata/vlcs_mini/labelme/",
         },
         taskna="mini_vlcs",
         succ=None,
@@ -99,9 +99,9 @@ def test_mk_task_folder():
         },
         isize=ImSize(3, 224, 224),
         dict_domain2imgroot={
-            "caltech": "data/vlcs_mini/caltech/",
-            "sun": "data/vlcs_mini/sun/",
-            "labelme": "data/vlcs_mini/labelme/",
+            "caltech": "domainlab/zdata/vlcs_mini/caltech/",
+            "sun": "domainlab/zdata/vlcs_mini/sun/",
+            "labelme": "domainlab/zdata/vlcs_mini/labelme/",
         },
         taskna="mini_vlcs",
     )
@@ -133,9 +133,9 @@ def test_none_extensions():
         ),
         isize=ImSize(3, 224, 224),
         dict_domain2imgroot={
-            "caltech": "data/vlcs_mini/caltech/",
-            "labelme": "data/vlcs_mini/labelme/",
-            "sun": "data/vlcs_mini/sun/",
+            "caltech": "domainlab/zdata/vlcs_mini/caltech/",
+            "labelme": "domainlab/zdata/vlcs_mini/labelme/",
+            "sun": "domainlab/zdata/vlcs_mini/sun/",
         },
         taskna="mini_vlcs",
         succ=None,
@@ -169,8 +169,8 @@ def test_none_extensions():
         ),
         isize=ImSize(3, 224, 224),
         dict_domain2imgroot={
-            "caltech": "data/mixed_codec/caltech/",
-            "sun": "data/mixed_codec/sun/",
+            "caltech": "domainlab/zdata/mixed_codec/caltech/",
+            "sun": "domainlab/zdata/mixed_codec/sun/",
         },
         taskna="mixed_codec",
         succ=None,
@@ -208,8 +208,8 @@ def test_none_extensions():
         ),
         isize=ImSize(3, 224, 224),
         dict_domain2imgroot={
-            "caltech": "data/mixed_codec/caltech/",
-            "sun": "data/mixed_codec/sun/",
+            "caltech": "domainlab/zdata/mixed_codec/caltech/",
+            "sun": "domainlab/zdata/mixed_codec/sun/",
         },
         taskna="mixed_codec",
         succ=None,
@@ -231,8 +231,8 @@ def pacs_node():
     node.extensions = ("jpg",)
     node.list_str_y = ["dog", "elephant"]
     node.dict_domain2imgroot = {
-        "cartoon": "data/pacs_mini_10/cartoon/",
-        "photo": "data/pacs_mini_10/photo/",
+        "cartoon": "domainlab/zdata/pacs_mini_10/cartoon/",
+        "photo": "domainlab/zdata/pacs_mini_10/photo/",
     }
     return node
 
