@@ -35,13 +35,22 @@ Shared params:
       - 0
       - 1
       - 100
-      
-  ini_setpoint_ratio:
-    min: 0.5
-    max: 0.99
-    num: 2
-    step: 0.05
-    distribution: uniform
+
+  mu_init:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1
+      - 0.001
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1
+      - 10
+      - 100
+      - 1000
 
   k_i_gain_ratio:
     min: 0.1
@@ -61,22 +70,17 @@ Shared params:
 fbopt_irm_erm:
   model: erm
   trainer: fbopt_irm
+  ini_setpoint_ratio: 0.99
+
   shared:
-    - ini_setpoint_ratio
     - k_i_gain_ratio
     - nb4reg_over_task_ratio
+    - mu_clip
+    - mu_init
 
 irm_erm:
   model: erm
   trainer: irm
-  shared:
-    - gamma_reg
-    - nb4reg_over_task_ratio
-
-
-irm_erm_dep_dom:
-  model: erm
-  trainer: irmsepdom
   shared:
     - gamma_reg
     - nb4reg_over_task_ratio
