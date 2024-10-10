@@ -211,6 +211,10 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         return list_str
 
     def cal_reg_loss_over_task_loss_ratio(self):
+        """
+        estimate the scale of each loss term, match each loss term to the major
+        loss via a ratio, this ratio will be multiplied with multiplier
+        """
         list_accum_reg_loss = []
         loss_task_agg = 0
         list_mu = None
@@ -218,7 +222,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             self.loader_tr
         ):
             if ind_batch >= self.aconf.nb4reg_over_task_ratio:
-                break
+                return
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
                 tensor_y.to(self.device),
