@@ -1,7 +1,13 @@
 .ropeproject
-./zdpath
-./zoutput
+/zdpath
+/zoutput
 tests/__pycache__/
 *.pyc
 .vscode/
-data/pacs
+domainlab/zdata/pacs
+/data/
+/.snakemake/
+/dist 
+/domainlab.egg-info
+/runs
+/slurm_errors.txt

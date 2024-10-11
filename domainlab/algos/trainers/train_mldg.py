@@ -10,6 +10,7 @@ from domainlab.algos.trainers.a_trainer import AbstractTrainer
 from domainlab.algos.trainers.train_basic import TrainerBasic
 from domainlab.tasks.utils_task import mk_loader
 from domainlab.tasks.utils_task_dset import DsetZip
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerMLDG(AbstractTrainer):
@@ -34,6 +35,7 @@ class TrainerMLDG(AbstractTrainer):
             flag_accept=False,
         )
         self.prepare_ziped_loader()
+        super().before_tr()
 
     def prepare_ziped_loader(self):
         """
@@ -108,7 +110,7 @@ class TrainerMLDG(AbstractTrainer):
             loss = (
                 loss_source_task.sum()
                 + source_reg_tr.sum()
-                + self.aconf.gamma_reg * loss_look_forward.sum()
+                + get_gamma_reg(self.aconf, self.name) * loss_look_forward.sum()
             )
             #
             loss.backward()
