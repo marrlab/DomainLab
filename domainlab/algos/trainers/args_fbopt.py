@@ -9,7 +9,9 @@ def add_args2parser_fbopt(parser):
     """
 
     parser.add_argument(
-        "--k_i_gain", type=float, default=0.001, help="PID control gain for integrator"
+        "--k_i_gain", type=float, default=0.001,
+        help="PID control gain for integrator, if k_i_gain_ratio is not None, \
+        then this value will be overwriten"
     )
 
     parser.add_argument(
@@ -29,33 +31,39 @@ def add_args2parser_fbopt(parser):
     )
 
     parser.add_argument(
-        "--mu_init", type=float, default=0.001, help="initial beta for multiplication"
+        "--mu_init", type=float, default=0.001,
+        help="initial value for each component of the multiplier vector"
     )
 
     parser.add_argument(
-        "--coeff_ma", type=float, default=0.5, help="exponential moving average"
+        "--coeff_ma", type=float, default=0.5,
+        help="exponential moving average"
     )
 
     parser.add_argument(
         "--coeff_ma_output_state",
         type=float,
         default=0.1,
-        help="state exponential moving average of \
-                        reguarlization loss",
+        help="output (reguarization loss) exponential moving average",
     )
 
     parser.add_argument(
         "--coeff_ma_setpoint",
         type=float,
         default=0.9,
-        help="setpoint average coeff for previous setpoint",
+        help="setpoint average (coeff for previous setpoint)",
     )
 
     parser.add_argument(
         "--exp_shoulder_clip",
         type=float,
         default=5,
-        help="clip before exponential operation",
+        help="clip delta(control error): \
+        R(reg-loss)-b(setpoint) before exponential operation: \
+        exp[clip(R-b, exp_shoulder_clip)].\
+        exponential magnifies control error, so this argument \
+        defines the maximum rate of change of multipliers \
+        exp(5)=148",
     )
 
     parser.add_argument(
@@ -77,8 +85,8 @@ def add_args2parser_fbopt(parser):
         "--force_setpoint_change_once",
         action="store_true",
         default=False,
-        help="train until the setpoint changed at least once \
-                        up to maximum epos specified",
+        help="continue trainiing until the setpoint changed at least once: \
+              up to maximum epos specified",
     )
 
     parser.add_argument(
@@ -102,6 +110,7 @@ def add_args2parser_fbopt(parser):
         help="disable setpoint update",
     )
 
+    # FIXME: change arguments from str to boolean
     parser.add_argument(
         "--overshoot_rewind",
         type=str,
@@ -113,14 +122,14 @@ def add_args2parser_fbopt(parser):
         "--setpoint_rewind",
         type=str,
         default="no",
-        help="setpoing_rewind, for benchmark, use yes or no",
+        help="rewind setpoint, for benchmark, use yes or no",
     )
 
     parser.add_argument(
         "--str_diva_multiplier_type",
         type=str,
         default="gammad_recon",
-        help="which penalty to tune",
+        help="which penalty to tune, only useful to DIVA model",
     )
 
     return parser
