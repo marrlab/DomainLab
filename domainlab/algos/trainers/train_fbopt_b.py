@@ -122,6 +122,7 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_task_loss_tr,
             self.epo_loss_tr,
         ) = self.eval_r_loss()
+
         self.hyper_scheduler.set_setpoint(
             [
                 ele * self.aconf.ini_setpoint_ratio
@@ -172,6 +173,13 @@ class TrainerFbOpt(TrainerBasic):
 
         if self._decoratee is not None:
             flag = self._decoratee.tr_epoch(epoch, self.flag_setpoint_updated)
+            # self._decoratee.tr_epoch here will call
+            # self._decoratee.after_epoch to log the losses, but it only sotre
+            # the value into self._decoratee,
+            # so we have to mannually copy the value here
+            self.epo_loss_tr = self._decoratee.epo_loss_tr
+            self.epo_reg_loss_tr = self._decoratee.epo_reg_loss_tr
+            self.epo_task_loss_tr = self._decoratee.epo_task_loss_tr
         else:
             flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?

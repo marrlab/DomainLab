@@ -33,10 +33,12 @@ class TrainerIRM(TrainerBasic):
         with torch.enable_grad():
             phi = self._cal_phi(tensor_x)
             dummy_w_scale = torch.tensor(1.).to(tensor_x.device).requires_grad_()
+            # interleave instances inside a minibatch
             loss_1 = F.cross_entropy(phi[::2] * dummy_w_scale, y[::2])
             loss_2 = F.cross_entropy(phi[1::2] * dummy_w_scale, y[1::2])
             grad_1 = autograd.grad(loss_1, [dummy_w_scale], create_graph=True)[0]
             grad_2 = autograd.grad(loss_2, [dummy_w_scale], create_graph=True)[0]
             loss_irm_scalar = torch.sum(grad_1 * grad_2)  # scalar
+            loss_irm_scalar = torch.square(loss_irm_scalar)
             loss_irm_tensor = loss_irm_scalar.expand(tensor_x.shape[0])
             return [loss_irm_tensor], [self.aconf.gamma_reg]
