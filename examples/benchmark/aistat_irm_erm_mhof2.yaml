@@ -46,7 +46,6 @@ Shared params:
     distribution: categorical
     datatype: float
     values:
-      - 1
       - 10
       - 100
       - 1000
@@ -73,6 +72,7 @@ Shared params:
       - 1
       - 10
       - 100
+      - 1000
 
     # 1778 is the largest gamma_reg using this sampling
 
@@ -84,11 +84,11 @@ fbopt_irm_erm:
   trainer: fbopt_irm
   ini_setpoint_ratio: 0.99
   force_setpoint_change_once: True
-  mu_clip: 10000
   shared:
     - k_i_gain_ratio
     - nb4reg_over_task_ratio
     - mu_init
+    - mu_clip
     - exp_shoulder_clip
 
 irm_erm:
