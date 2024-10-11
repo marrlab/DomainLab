@@ -122,6 +122,7 @@ rule run_experiment:
     resources:
         nvidia_gpu=1
     run:
+        shell("cat {input}")
         from domainlab.exp_protocol.run_experiment import run_experiment
         # import sys
         # pos = None
