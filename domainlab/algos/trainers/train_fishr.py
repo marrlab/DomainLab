@@ -8,6 +8,7 @@ from torch import nn
 from domainlab.algos.trainers.backpack_wrapper import BackpackWrapper
 
 from domainlab.algos.trainers.train_basic import TrainerBasic
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class TrainerFishr(TrainerBasic):
@@ -42,7 +43,7 @@ class TrainerFishr(TrainerBasic):
             dict_layerwise_var_var_grads_sum = \
                 {key: val.sum() for key, val in dict_layerwise_var_var_grads.items()}
             loss_fishr = sum(dict_layerwise_var_var_grads_sum.values())
-            loss = sum(list_loss_erm) + self.aconf.gamma_reg * loss_fishr
+            loss = sum(list_loss_erm) + get_gamma_reg(self.aconf, self.name) * loss_fishr
             loss.backward()
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()

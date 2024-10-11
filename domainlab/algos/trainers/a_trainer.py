@@ -3,6 +3,7 @@ Base Class for trainer
 """
 import abc
 
+import torch
 from torch import optim
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
@@ -84,6 +85,12 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.inner_trainer = None
         self.loader_tr_source_target = None
         self.flag_initialized = False
+        # moving average
+        self.ma_weight_previous_model_params = None
+        self._dict_previous_para_persist = {}
+        self._ma_iter = 0
+        #
+        self.list_reg_over_task_ratio = None
 
     @property
     def model(self):
@@ -180,11 +187,46 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         return
 
-    @abc.abstractmethod
     def before_tr(self):
         """
         before training, probe model performance
         """
+        self.cal_reg_loss_over_task_loss_ratio()
+
+    def cal_reg_loss_over_task_loss_ratio(self):
+        """
+        estimate the scale of each loss term, match each loss term to the major
+        loss via a ratio, this ratio will be multiplied with multiplier
+        """
+        list_accum_reg_loss = []
+        loss_task_agg = 0
+        for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
+            self.loader_tr
+        ):
+            if ind_batch >= self.aconf.nb4reg_over_task_ratio:
+                return
+            tensor_x, tensor_y, tensor_d = (
+                tensor_x.to(self.device),
+                tensor_y.to(self.device),
+                tensor_d.to(self.device),
+            )
+            list_reg_loss_tensor, _ = \
+                self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+            list_reg_loss_tensor = [torch.sum(tensor).detach().item()
+                                    for tensor in list_reg_loss_tensor]
+            if ind_batch == 0:
+                list_accum_reg_loss = list_reg_loss_tensor
+            else:
+                list_accum_reg_loss = [reg_loss_accum_tensor + reg_loss_tensor
+                                       for reg_loss_accum_tensor,
+                                       reg_loss_tensor in
+                                       zip(list_accum_reg_loss,
+                                           list_reg_loss_tensor)]
+            tensor_loss_task = self.model.cal_task_loss(tensor_x, tensor_y)
+            tensor_loss_task = torch.sum(tensor_loss_task).detach().item()
+            loss_task_agg += tensor_loss_task
+        self.list_reg_over_task_ratio = [reg_loss / loss_task_agg
+                                         for reg_loss in list_accum_reg_loss]
 
     def post_tr(self):
         """
@@ -229,19 +271,20 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         combine losses of current trainer with self._model.cal_reg_loss, which
         can be either a trainer or a model
         """
-        list_reg_model, list_mu_model = self.decoratee.cal_reg_loss(
+        list_reg_loss_model_tensor, list_mu_model = \
+            self.decoratee.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+        assert len(list_reg_loss_model_tensor) == len(list_mu_model)
+
+        list_reg_loss_trainer_tensor, list_mu_trainer = self._cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others
         )
-        assert len(list_reg_model) == len(list_mu_model)
-
-        list_reg_trainer, list_mu_trainer = self._cal_reg_loss(
-            tensor_x, tensor_y, tensor_d, others
-        )
-        assert len(list_reg_trainer) == len(list_mu_trainer)
-
-        list_loss = list_reg_model + list_reg_trainer
+        assert len(list_reg_loss_trainer_tensor) == len(list_mu_trainer)
+        # extend the length of list: extend number of regularization loss
+        # tensor: the element of list is tensor
+        list_loss_tensor = list_reg_loss_model_tensor + \
+            list_reg_loss_trainer_tensor
         list_mu = list_mu_model + list_mu_trainer
-        return list_loss, list_mu
+        return list_loss_tensor, list_mu
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
@@ -258,3 +301,11 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         if self._decoratee is not None:
             return self._decoratee.dset_decoration_args_algo(args, ddset)
         return ddset
+
+    def print_parameters(self):
+        """
+        Function to print all parameters of the object.
+        Can be used to print the parameters of any child class
+        """
+        params = vars(self)
+        print(f"Parameters of {type(self).__name__}: {params}")
