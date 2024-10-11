@@ -81,7 +81,7 @@ class SetpointRewinder:
         self.counter = None
         self.epo_ma = None
         self.ref = None
-        self.coeff_ma = 0.5
+        self.coeff_ma_setpoint_rewinder = 0.5
         self.setpoint_rewind = host.flag_setpoint_rewind
 
     def reset(self, epo_reg_loss):
@@ -98,7 +98,7 @@ class SetpointRewinder:
         """
         if self.ref is None:
             self.reset(epo_reg_loss)
-        self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma)
+        self.epo_ma = list_ma(self.epo_ma, epo_reg_loss, self.coeff_ma_setpoint_rewinder)
         list_comparison_increase = [a < b for a, b in zip(self.ref, self.epo_ma)]
         list_comparison_above_setpoint = [
             a < b for a, b in zip(self.host.setpoint4R, self.epo_ma)
@@ -146,7 +146,7 @@ class FbOptSetpointController:
             else:
                 state = DominateAllComponent()
         self.transition_to(state)
-        self.flag_setpoint_rewind = args.setpoint_rewind == "yes"
+        self.flag_setpoint_rewind = args.setpoint_rewind
         self.setpoint_rewinder = SetpointRewinder(self)
         self.state_task_loss = 0.0
         self.state_epo_reg_loss = [

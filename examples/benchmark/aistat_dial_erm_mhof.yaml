@@ -70,6 +70,7 @@ fbopt_dial_erm:
   model: erm
   trainer: fbopt_dial
   nb4reg_over_task_ratio: 0
+  force_setpoint_change_once: True
   shared:
     - k_i_gain_ratio
     - mu_init

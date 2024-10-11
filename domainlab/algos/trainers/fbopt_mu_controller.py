@@ -53,13 +53,13 @@ class HyperSchedulerFeedback:
         self.k_i_control = [trainer.aconf.k_i_gain for i in
                             range(len(self.mmu))]
         self.k_i_gain_ratio = trainer.aconf.k_i_gain_ratio
-        self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
+        self.overshoot_rewind = not trainer.aconf.no_overshoot_rewind
         self.delta_epsilon_r = None
 
         # NOTE: this value will be set according to initial evaluation of
         # neural network
         self.activation_clip = trainer.aconf.exp_shoulder_clip
-        self.coeff_ma = trainer.aconf.coeff_ma
+        self.coeff4newval_ma_delta = trainer.aconf.coeff_ma
         # NOTE:
         # print(copy.deepcopy(self.model))
         # TypeError: cannot pickle '_thread.lock' object
@@ -125,7 +125,8 @@ class HyperSchedulerFeedback:
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
             self.delta_epsilon_r = self.cal_delta_integration(
-                self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma
+                self.delta_epsilon_r, delta_epsilon_r,
+                self.coeff4newval_ma_delta
             )
 
     def cal_delta_integration(self, list_old, list_new, coeff):
