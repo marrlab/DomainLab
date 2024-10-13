@@ -1,0 +1,102 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/mhof_combo_irm_dial_pacs
+
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_aug.py
+  dmem: False
+  lr: 5e-5
+  epos: 100
+  epos_min: 10
+  es: 5
+  bs: 32
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+
+
+Shared params:
+  nb4reg_over_task_ratio:
+    distribution: categorical   # name of the distribution
+    datatype: int
+    values:                     # concrete values to choose from
+      - 0
+      - 100
+
+  mu_init:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.000001
+      - 0.001
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 10
+      - 100
+      - 1000
+
+  exp_shoulder_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1
+      - 5
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 2
+    distribution: uniform
+
+  gamma_reg:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+      - 100
+      - 1000
+
+
+fbopt_irm_dial_erm:
+  model: erm
+  trainer: fbopt_irm_dial
+  ini_setpoint_ratio: 0.99
+  force_setpoint_change_once: True
+  shared:
+    - k_i_gain_ratio
+    - nb4reg_over_task_ratio
+    - mu_init
+    - mu_clip
+    - exp_shoulder_clip
+
+irm_dial:
+  model: erm
+  trainer: irm_dial
+  shared:
+    - gamma_reg
+    - nb4reg_over_task_ratio
+
+irm_dial_feedforward_full:
+  model: erm
+  trainer: hyperscheduler_irm_dial
+  shared:
+    - gamma_reg
+    - nb4reg_over_task_ratio
