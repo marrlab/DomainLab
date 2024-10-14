@@ -28,14 +28,14 @@ class VarianceEncoder(nn.Module):
         # FIXME:  the neural network should be responsible for
         # returning the shape
         if channelwise:
+            # each channel get a variance, this
+            # can save a lot of computation
             if len(inter_layer_feat_shape) == 4:
                 # [B, C, H, W]
                 b_shape = (1, inter_layer_feat_shape[1], 1, 1)
             elif len(inter_layer_feat_shape) == 3:
                 # CLIP-ViT: [H*W+1, B, C]
                 b_shape = (1, 1, inter_layer_feat_shape[2])
-            else:
-                raise ValueError()
 
         self.b = nn.Parameter(torch.full(b_shape, init))
 

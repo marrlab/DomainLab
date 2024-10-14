@@ -6,15 +6,6 @@ import torch
 from torch import nn
 
 
-def get_shapes(model, input_shape):
-    # get shape of intermediate features
-    with torch.no_grad():
-        dummy = torch.rand(1, *input_shape).to(next(model.parameters()).device)
-        _, feats = model(dummy, ret_feats=True)
-        shapes = [f.shape for f in feats]
-    return shapes
-
-
 class TrainerMiroModelWraper():
     """Mutual-Information Regularization with Oracle"""
     def __init__(self):
@@ -24,30 +15,42 @@ class TrainerMiroModelWraper():
         self.ref_model = None
 
     def get_shapes(self, input_shape):
-        return get_shapes(self.guest_model, input_shape)
+        # get shape of intermediate features
+        self.clear_features()
+        with torch.no_grad():
+            dummy = torch.rand(*input_shape).to(next(self.guest_model.parameters()).device)
+            self.guest_model(dummy)
+        shapes = [feat.shape for feat in self._features]
+        return shapes
 
     def accept(self, guest_model):
         self.guest_model = guest_model
         self.ref_model = copy.deepcopy(guest_model)
         self.register_feature_storage_hook()
 
-    def register_feature_storage_hook(self, feat_layers):
+    def register_feature_storage_hook(self, feat_layers=None):
         # memorize features for each layer in self._feautres list
-        for name, module in self.guest_model.named_modules():
-            if name in feat_layers:
-                module.register_forward_hook(self.hook)
+        if feat_layers is None:
+            module = list(self.guest_model.children())[-1]
+            module.register_forward_hook(self.hook)
+            module_ref = list(self.ref_model.children())[-1]
+            module_ref.register_forward_hook(self.hook_ref)
+        else:
+            for name, module in self.guest_model.named_modules():
+                if name in feat_layers:
+                    module.register_forward_hook(self.hook)
 
-        for name, module in self.ref_model.named_modules():
-            if name in feat_layers:
-                module.register_forward_hook(self.hook_ref)
+            for name, module in self.ref_model.named_modules():
+                if name in feat_layers:
+                    module.register_forward_hook(self.hook_ref)
 
     def hook(self, module, input, output):
-        self._features.append(output)
+        self._features.append(output.detach())
 
     def hook_ref(self, module, input, output):
-        self._features_ref.append(output)
+        self._features_ref.append(output.detach())
 
-    def extract_intermediate_features(self, tensor_x):
+    def extract_intermediate_features(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         extract features for each layer of the neural network
         """
@@ -58,6 +61,7 @@ class TrainerMiroModelWraper():
     def clear_features(self):
         self._features.clear()
 
-    def cal_feat_layers_ref_model(self, tensor_x):
+    def cal_feat_layers_ref_model(self, tensor_x, tensor_y, tensor_d, others=None):
         self._features_ref.clear()
         self.ref_model(tensor_x)
+        return self._features_ref
