@@ -15,7 +15,8 @@ jobs:
     - name: Clean up after test
       if: always()
       run: |
-        rm -r zoutput
+        if [ -d "zoutput" ]; then
+          rm -r zoutput
     - name: Check out repository
       uses: actions/checkout@v2
     - name: Set up Python
