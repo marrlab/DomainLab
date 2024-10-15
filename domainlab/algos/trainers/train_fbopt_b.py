@@ -106,6 +106,7 @@ class TrainerFbOpt(TrainerBasic):
 
     def before_tr(self):
         if hasattr(self.decoratee, "before_tr"):
+            # initialize self.decoratee.dict_multiplier
             self.decoratee.before_tr()
         self.flag_setpoint_updated = False
         if self.aconf.force_feedforward:
