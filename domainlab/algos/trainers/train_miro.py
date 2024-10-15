@@ -17,7 +17,8 @@ class TrainerMiro(TrainerBasic):
     """Mutual-Information Regularization with Oracle"""
     def before_tr(self):
         self.model_wraper = TrainerMiroModelWraper()
-        self.model_wraper.accept(self.model)
+        self.model_wraper.accept(self.model,
+                                 name_feat_layers2extract=self.aconf.layers2extract_feats)
         self.mean_encoders = None
         self.var_encoders = None
         super().before_tr()
@@ -58,5 +59,5 @@ class TrainerMiro(TrainerBasic):
             mean_ref = list_batch_inter_feat_ref[ind_layer]
             mean_ref = mean_ref.to(device)
             vlb = (mean - mean_ref).pow(2).div(var) + var.log()
-            reg_loss += vlb.mean(axis=-1) / 2.
+            reg_loss += vlb.mean(dim=tuple(range(1, vlb.dim()))) / 2.
         return [reg_loss], [self.aconf.gamma_reg]

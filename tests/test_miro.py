@@ -1,13 +1,34 @@
 """
 end-end test for mutual information regulation
 """
+import pytest
 from tests.utils_test import utils_test_algo
 
 
-def test_irm():
+def test_miro():
     """
     train with MIRO
     """
     args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
         --trainer=miro --nname=alexnet"
     utils_test_algo(args)
+
+def test_miro2():
+    """
+    train with MIRO
+    """
+    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
+        --trainer=miro --nname=alexnet \
+        --layers2extract_feats _net_invar_feat.net_torchvision.features.1"
+    utils_test_algo(args)
+
+def test_miro3():
+    """
+    train with MIRO
+    """
+    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
+        --trainer=miro --nname=alexnet \
+        --layers2extract_feats features"
+    with pytest.raises(RuntimeError):
+        utils_test_algo(args)
+        raise RuntimeError("This is a runtime error")

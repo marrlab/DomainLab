@@ -13,6 +13,7 @@ class TrainerMiroModelWraper():
         self._features_ref = []
         self.guest_model = None
         self.ref_model = None
+        self.flag_module_found = False
 
     def get_shapes(self, input_shape):
         # get shape of intermediate features
@@ -23,10 +24,10 @@ class TrainerMiroModelWraper():
         shapes = [feat.shape for feat in self._features]
         return shapes
 
-    def accept(self, guest_model):
+    def accept(self, guest_model, name_feat_layers2extract=None):
         self.guest_model = guest_model
         self.ref_model = copy.deepcopy(guest_model)
-        self.register_feature_storage_hook()
+        self.register_feature_storage_hook(name_feat_layers2extract)
 
     def register_feature_storage_hook(self, feat_layers=None):
         # memorize features for each layer in self._feautres list
@@ -39,6 +40,10 @@ class TrainerMiroModelWraper():
             for name, module in self.guest_model.named_modules():
                 if name in feat_layers:
                     module.register_forward_hook(self.hook)
+                    self.flag_module_found = True
+
+            if not self.flag_module_found:
+                raise RuntimeError(f"{feat_layers} not found in model!")
 
             for name, module in self.ref_model.named_modules():
                 if name in feat_layers:
