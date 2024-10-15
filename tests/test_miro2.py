@@ -8,7 +8,7 @@ def test_miro2():
     """
     train with MIRO
     """
-    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
-        --trainer=miro --nname=alexnet \
-        --layers2extract_feats _net_invar_feat.net_torchvision.features.1"
+    args = "--te_d=2 --tr_d 0 1 --task=mnistcolor10 --debug --bs=100 --model=erm \
+        --trainer=miro --nname=conv_bn_pool_2 \
+        --layers2extract_feats _net_invar_feat.conv_net.5"
     utils_test_algo(args)
