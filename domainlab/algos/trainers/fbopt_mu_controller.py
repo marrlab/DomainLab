@@ -91,7 +91,11 @@ class HyperSchedulerFeedback:
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
-        self.k_i_control = [self.k_i_gain_ratio * ele for ele in k_i_gain_saturate]
+        # self.k_i_control = [self.k_i_gain_ratio * ele for ele in k_i_gain_saturate]
+        # k_I should be the same for each component, the control error already
+        # make the multiplier magnification different
+        self.k_i_control = [self.k_i_gain_ratio * k_i_gain_saturate_min for i
+                            in range(len(delta_epsilon_r))]
         warnings.warn(
             f"hyperparameter k_i_gain disabled! \
                       replace with {self.k_i_control}"

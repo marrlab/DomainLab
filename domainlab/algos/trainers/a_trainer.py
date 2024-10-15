@@ -323,7 +323,16 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             list_mu = [list_mu[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
         if self.dict_multiplier:
             list_mu = list(self.dict_multiplier.values())
-        return list_loss_tensor, list_mu
+
+        list_loss_tensor_normalized = list_loss_tensor
+        if self.list_reg_over_task_ratio:
+            assert len(list_mu) == len(self.list_reg_over_task_ratio)
+            list_loss_tensor_normalized = \
+                [reg_loss / reg_over_task_ratio if reg_over_task_ratio != 0
+                 else reg_loss for (reg_loss, reg_over_task_ratio)
+                 in zip(list_loss_tensor, self.list_reg_over_task_ratio)]
+
+        return list_loss_tensor_normalized, list_mu
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """

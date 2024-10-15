@@ -117,6 +117,7 @@ class TrainerFbOpt(TrainerBasic):
         if self.aconf.tr_with_init_mu:
             self.tr_with_init_mu()
 
+        # evaluate regularization loss list
         (
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
