@@ -32,4 +32,4 @@ def test_model_diva():
     )
     imgs, y_s, d_s = mk_rand_xyd(28, y_dim, 2, 2)
     _, _, _, _, _ = model.infer_y_vpicn(imgs)
-    model(imgs, y_s, d_s)
+    model.cal_loss(imgs, y_s, d_s)
