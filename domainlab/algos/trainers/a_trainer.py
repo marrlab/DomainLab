@@ -91,6 +91,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self._ma_iter = 0
         #
         self.list_reg_over_task_ratio = None
+        # MIRO
+        self.input_tensor_shape = None
 
     @property
     def model(self):
@@ -203,6 +205,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
+            self.input_tensor_shape = tensor_x.shape
             if ind_batch >= self.aconf.nb4reg_over_task_ratio:
                 return
             tensor_x, tensor_y, tensor_d = (

@@ -1,4 +1,4 @@
-# Causal IRL
+# Trainer Causal IRL
 ## Invariant Causal Mechanisms through Distribution Matching
 
 Source: https://arxiv.org/pdf/2206.11646 
