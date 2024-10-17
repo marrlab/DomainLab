@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_mhof_irm_erm_pacs
+output_dir: zoutput/benchmarks/only_mhof_combo_irm_dial_pacs
 
 sampling_seed: 0
 startseed: 0
@@ -13,7 +13,7 @@ domainlab_args:
   tpath: examples/tasks/task_pacs_aug.py
   dmem: False
   lr: 5e-5
-  epos: 500
+  epos: 100
   epos_min: 10
   es: 5
   bs: 32
@@ -33,7 +33,6 @@ Shared params:
     datatype: int
     values:                     # concrete values to choose from
       - 0
-      - 1
       - 100
 
   mu_init:
@@ -47,7 +46,6 @@ Shared params:
     distribution: categorical
     datatype: float
     values:
-      - 1
       - 10
       - 100
       - 1000
@@ -57,39 +55,45 @@ Shared params:
     datatype: float
     values:
       - 1
-      - 2
       - 5
 
   k_i_gain_ratio:
     min: 0.1
     max: 1
-    num: 3
+    num: 2
     distribution: uniform
 
   gamma_reg:
-    min: 0.01
-    max: 1e4
-    num: 4
-    distribution: loguniform
-    # 1778 is the largest gamma_reg using this sampling
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.01
+      - 0.1
+      - 1
+      - 10
+      - 100
+      - 1000
+
+  gamma_reg:
+    distribution: categorical
+    datatype: str
+    values:
+      - "SliderAnyComponent()"
+      - "SliderAllComponent()"
+      - "DominateAnyComponent()"
 
 
-# Test fbopt with different hyperparameter configurations
-
-fbopt_irm_erm:
+fbopt_irm_dial_erm:
   model: erm
-  trainer: fbopt_irm
+  trainer: fbopt_irm_dial
   ini_setpoint_ratio: 0.99
   force_setpoint_change_once: True
+  coeff_ma_setpoint: 0.0
+  tr_with_init_mu: True
+  nb4reg_over_task_ratio: 0
   shared:
     - k_i_gain_ratio
-    - nb4reg_over_task_ratio
-    - mu_clip
     - mu_init
-
-irm_erm:
-  model: erm
-  trainer: irm
-  shared:
-    - gamma_reg
-    - nb4reg_over_task_ratio
+    - mu_clip
+    - exp_shoulder_clip
+    - str_setpoint_ada

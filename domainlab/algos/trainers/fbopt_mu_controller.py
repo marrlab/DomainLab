@@ -50,15 +50,16 @@ class HyperSchedulerFeedback:
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
         self.set_point_controller = FbOptSetpointController(args=self.trainer.aconf)
 
-        self.k_i_control = trainer.aconf.k_i_gain
-        self.k_i_gain_ratio = None
-        self.overshoot_rewind = trainer.aconf.overshoot_rewind == "yes"
+        self.k_i_control = [trainer.aconf.k_i_gain for i in
+                            range(len(self.mmu))]
+        self.k_i_gain_ratio = trainer.aconf.k_i_gain_ratio
+        self.overshoot_rewind = not trainer.aconf.no_overshoot_rewind
         self.delta_epsilon_r = None
 
         # NOTE: this value will be set according to initial evaluation of
         # neural network
         self.activation_clip = trainer.aconf.exp_shoulder_clip
-        self.coeff_ma = trainer.aconf.coeff_ma
+        self.coeff4newval_ma_delta = trainer.aconf.coeff_ma
         # NOTE:
         # print(copy.deepcopy(self.model))
         # TypeError: cannot pickle '_thread.lock' object
@@ -70,7 +71,10 @@ class HyperSchedulerFeedback:
 
     def set_k_i_gain(self, epo_reg_loss):
         if self.k_i_gain_ratio is None:
-            return
+            if self.k_i_control:
+                return
+            raise RuntimeError("set either direct k_i_control value or \
+                               set k_i_gain_ratio, can not be both empty!")
         # NOTE: do not use self.cal_delta4control!!!! which will change
         # class member variables self.delta_epsilon_r!
         list_setpoint = self.get_setpoint4r()
@@ -78,13 +82,22 @@ class HyperSchedulerFeedback:
         delta_epsilon_r = [a - b for a, b in zip(epo_reg_loss, list_setpoint)]
 
         # to calculate self.delta_epsilon_r
+        list_active = [self.activation_clip for i in range(len(delta_epsilon_r))]
+
         k_i_gain_saturate = [
-            a / b for a, b in zip(self.activation_clip, delta_epsilon_r)
+            a / b for a, b in zip(list_active, delta_epsilon_r)
         ]
+
+        # FIXME: add max K_I gain here if initial delta is too small
+
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
-        self.k_i_control = self.k_i_gain_ratio * k_i_gain_saturate_min
+        # self.k_i_control = [self.k_i_gain_ratio * ele for ele in k_i_gain_saturate]
+        # k_I should be the same for each component, the control error already
+        # make the multiplier magnification different
+        self.k_i_control = [self.k_i_gain_ratio * k_i_gain_saturate_min for i
+                            in range(len(delta_epsilon_r))]
         warnings.warn(
             f"hyperparameter k_i_gain disabled! \
                       replace with {self.k_i_control}"
@@ -118,7 +131,8 @@ class HyperSchedulerFeedback:
             # self.delta_epsilon_r is the previous time step.
             # delta_epsilon_r is the current time step
             self.delta_epsilon_r = self.cal_delta_integration(
-                self.delta_epsilon_r, delta_epsilon_r, self.coeff_ma
+                self.delta_epsilon_r, delta_epsilon_r,
+                self.coeff4newval_ma_delta
             )
 
     def cal_delta_integration(self, list_old, list_new, coeff):
@@ -162,7 +176,7 @@ class HyperSchedulerFeedback:
         """
         setpoint = self.get_setpoint4r()
         activation = [
-            self.k_i_control * val if setpoint[i] > 0 else self.k_i_control * (-val)
+            self.k_i_control[i] * val if setpoint[i] > 0 else self.k_i_control[i] * (-val)
             for i, val in enumerate(self.delta_epsilon_r)
         ]
         if self.activation_clip is not None:

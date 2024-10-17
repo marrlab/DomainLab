@@ -43,7 +43,7 @@ class TrainerFbOpt(TrainerBasic):
             this class name will be created inside model
         """
         # model.hyper_init will register the hyper-parameters of the model to scheduler
-        self.hyper_scheduler = self.model.hyper_init(scheduler, trainer=self)
+        self.hyper_scheduler = self.decoratee.hyper_init(scheduler, trainer=self)
 
     def eval_r_loss(self):
         """
@@ -66,8 +66,10 @@ class TrainerFbOpt(TrainerBasic):
                     vec_y.to(self.device),
                     vec_d.to(self.device),
                 )
-                tuple_reg_loss = self.model.cal_reg_loss(tensor_x, vec_y, vec_d, others)
-                p_loss, *_ = self.model.cal_loss(tensor_x, vec_y, vec_d, others)
+                tuple_reg_loss = self.decoratee.cal_reg_loss(tensor_x, vec_y, vec_d, others)
+                p_loss, *_ = self.decoratee.cal_loss(tensor_x, vec_y, vec_d, others)
+                if p_loss.dim() > 0:
+                    p_loss = p_loss.sum()
                 # NOTE: first [0] extract the loss, second [0] get the list
                 list_b_reg_loss = tuple_reg_loss[0]
                 list_b_reg_loss_sumed = [
@@ -82,7 +84,7 @@ class TrainerFbOpt(TrainerBasic):
                 )
                 # sum will kill the dimension of the mini batch
                 epo_task_loss += b_task_loss
-                epo_p_loss += p_loss.sum().detach().item()
+                epo_p_loss += p_loss.detach().item()
                 counter += 1.0
         return (
             list_divide(epo_reg_loss, counter),
@@ -103,6 +105,9 @@ class TrainerFbOpt(TrainerBasic):
         return super().after_batch(epoch, ind_batch)
 
     def before_tr(self):
+        if hasattr(self.decoratee, "before_tr"):
+            # initialize self.decoratee.dict_multiplier
+            self.decoratee.before_tr()
         self.flag_setpoint_updated = False
         if self.aconf.force_feedforward:
             self.set_scheduler(scheduler=HyperSchedulerWarmupLinear)
@@ -110,14 +115,23 @@ class TrainerFbOpt(TrainerBasic):
             self.set_scheduler(scheduler=HyperSchedulerFeedback)
 
         self.set_model_with_mu()  # very small value
-        if self.aconf.tr_with_init_mu:
-            self.tr_with_init_mu()
 
+        # evaluate regularization loss list
         (
             self.epo_reg_loss_tr,
             self.epo_task_loss_tr,
             self.epo_loss_tr,
         ) = self.eval_r_loss()
+
+        if self.aconf.tr_with_init_mu:
+            self.tr_with_init_mu()
+            # evaluate regularization loss list
+            (
+                self.epo_reg_loss_tr,
+                self.epo_task_loss_tr,
+                self.epo_loss_tr,
+            ) = self.eval_r_loss()
+
         self.hyper_scheduler.set_setpoint(
             [
                 ele * self.aconf.ini_setpoint_ratio
@@ -126,7 +140,7 @@ class TrainerFbOpt(TrainerBasic):
                 for ele in self.epo_reg_loss_tr
             ],
             self.epo_task_loss_tr,
-        )  # setpoing w.r.t. random initialization of neural network
+        )  # setpoint w.r.t. random initialization of neural network
         self.hyper_scheduler.set_k_i_gain(self.epo_reg_loss_tr)
 
     @property
@@ -134,7 +148,7 @@ class TrainerFbOpt(TrainerBasic):
         """
         return the name of multipliers
         """
-        return self.model.list_str_multiplier_na
+        return self.decoratee.list_str_multiplier_na
 
     def tr_with_init_mu(self):
         """
@@ -146,7 +160,7 @@ class TrainerFbOpt(TrainerBasic):
         """
         set model multipliers
         """
-        self.model.hyper_update(
+        self.decoratee.hyper_update(
             epoch=None, fun_scheduler=HyperSetter(self.hyper_scheduler.mmu)
         )
 
@@ -162,12 +176,19 @@ class TrainerFbOpt(TrainerBasic):
             miter=epoch,
         )
         self.set_model_with_mu()
-        if hasattr(self.model, "dict_multiplier"):
+        if hasattr(self.decoratee, "dict_multiplier"):
             logger = Logger.get_logger()
-            logger.info(f"current multiplier: {self.model.dict_multiplier}")
+            logger.info(f"current multiplier: {self.decoratee.dict_multiplier}")
 
         if self._decoratee is not None:
             flag = self._decoratee.tr_epoch(epoch, self.flag_setpoint_updated)
+            # self._decoratee.tr_epoch here will call
+            # self._decoratee.after_epoch to log the losses, but it only sotre
+            # the value into self._decoratee,
+            # so we have to mannually copy the value here
+            self.epo_loss_tr = self._decoratee.epo_loss_tr
+            self.epo_reg_loss_tr = self._decoratee.epo_reg_loss_tr
+            self.epo_task_loss_tr = self._decoratee.epo_task_loss_tr
         else:
             flag = super().tr_epoch(epoch, self.flag_setpoint_updated)
         # is it good to update setpoint after we know the new value of each loss?

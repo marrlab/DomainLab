@@ -14,7 +14,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 200
+  epos_min: 20
   es: 5
   bs: 16
   san_check: False
@@ -28,13 +28,6 @@ domainlab_args:
 
 
 Shared params:
-  ini_setpoint_ratio:
-    min: 0.9
-    max: 0.99
-    num: 2
-    step: 0.05
-    distribution: uniform
-
   k_i_gain_ratio:
     min: 0.01
     max: 0.90
@@ -78,16 +71,15 @@ dial_fbopt:
   trainer: fbopt_dial
   gamma_y: 1.0
   shared:
-    - ini_setpoint_ratio
     - k_i_gain_ratio
     - dial_lr 
     - dial_epsilon
 
-# dial:
-# model: diva
-# trainer: dial
-# shared:
-# - dial_lr 
-# - dial_epsilon
-# - gamma_y
-# - gamma_d
+dial_diva:
+  model: diva
+  trainer: dial
+  shared:
+    - dial_lr 
+    - dial_epsilon
+    - gamma_y
+    - gamma_d

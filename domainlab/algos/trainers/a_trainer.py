@@ -53,6 +53,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         super().__init__(successor_node)
         self._model = None
+        # decoratee can be both model or trainer
         self._decoratee = extend
         self.task = None
         self.observer = None
@@ -96,6 +97,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self._ma_iter = 0
         #
         self.list_reg_over_task_ratio = None
+        # mhof
+        self.dict_multiplier = {}
 
 
     @property
@@ -199,7 +202,13 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         before training, probe model performance
         """
-        self.cal_reg_loss_over_task_loss_ratio()
+        list_mu = self.cal_reg_loss_over_task_loss_ratio()
+        self.dict_multiplier = {'mu4regloss'+str(i): value for i, value in enumerate(list_mu)}
+
+    @property
+    def list_str_multiplier_na(self):
+        list_str = list(self.dict_multiplier.keys())
+        return list_str
 
     def cal_reg_loss_over_task_loss_ratio(self):
         """
@@ -208,18 +217,21 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         list_accum_reg_loss = []
         loss_task_agg = 0
+        list_mu = None
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
-            if ind_batch >= self.aconf.nb4reg_over_task_ratio:
-                return
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
                 tensor_y.to(self.device),
                 tensor_d.to(self.device),
             )
-            list_reg_loss_tensor, _ = \
+            list_reg_loss_tensor, list_mu = \
                 self.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
+
+            if ind_batch >= self.aconf.nb4reg_over_task_ratio:
+                return list_mu
+
             list_reg_loss_tensor = [torch.sum(tensor).detach().item()
                                     for tensor in list_reg_loss_tensor]
             if ind_batch == 0:
@@ -235,6 +247,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             loss_task_agg += tensor_loss_task
         self.list_reg_over_task_ratio = [reg_loss / loss_task_agg
                                          for reg_loss in list_accum_reg_loss]
+        return list_mu
 
     def post_tr(self):
         """
@@ -301,7 +314,25 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         list_loss_tensor = list_reg_loss_model_tensor + \
             list_reg_loss_trainer_tensor
         list_mu = list_mu_model + list_mu_trainer
-        return list_loss_tensor, list_mu
+        # ERM return a tensor of all zeros, delete here
+        if len(list_mu) > 1:
+            list_boolean_zero = [torch.all(torch.eq(list_loss_tensor[i], 0)).item()
+                                 for i in range(len(list_mu))]
+            list_loss_tensor = [list_loss_tensor[i] for (i, flag) in
+                                enumerate(list_boolean_zero) if not flag]
+            list_mu = [list_mu[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
+        if self.dict_multiplier:
+            list_mu = list(self.dict_multiplier.values())
+
+        list_loss_tensor_normalized = list_loss_tensor
+        if self.list_reg_over_task_ratio:
+            assert len(list_mu) == len(self.list_reg_over_task_ratio)
+            list_loss_tensor_normalized = \
+                [reg_loss / reg_over_task_ratio if reg_over_task_ratio != 0
+                 else reg_loss for (reg_loss, reg_over_task_ratio)
+                 in zip(list_loss_tensor, self.list_reg_over_task_ratio)]
+
+        return list_loss_tensor_normalized, list_mu
 
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
@@ -326,3 +357,23 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         params = vars(self)
         print(f"Parameters of {type(self).__name__}: {params}")
+
+    def hyper_init(self, functor_scheduler, trainer):
+        """
+        initialize both trainer's multiplier and model's multiplier
+        """
+        if not self.dict_multiplier:
+            raise RuntimeError("self.dict_multiplier empty!")
+        return functor_scheduler(
+            trainer=trainer, **self.dict_multiplier
+        )
+
+    def hyper_update(self, epoch, fun_scheduler):
+        """hyper_update.
+
+        :param epoch:
+        :param fun_scheduler:
+        """
+        dict_rst = fun_scheduler(epoch)
+        for key in self.dict_multiplier:
+            self.dict_multiplier[key] = dict_rst[key]

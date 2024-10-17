@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/benchmark_mhof_irm_erm_pacs
+output_dir: zoutput/benchmarks/benchmark_mhof_dial
 
 sampling_seed: 0
 startseed: 0
@@ -14,7 +14,7 @@ domainlab_args:
   dmem: False
   lr: 5e-5
   epos: 500
-  epos_min: 10
+  epos_min: 200
   es: 5
   bs: 32
   san_check: False
@@ -33,9 +33,8 @@ Shared params:
     datatype: int
     values:                     # concrete values to choose from
       - 0
-      - 1
       - 100
-
+ 
   mu_init:
     distribution: categorical
     datatype: float
@@ -52,14 +51,6 @@ Shared params:
       - 100
       - 1000
 
-  exp_shoulder_clip:
-    distribution: categorical
-    datatype: float
-    values:
-      - 1
-      - 2
-      - 5
-
   k_i_gain_ratio:
     min: 0.1
     max: 1
@@ -71,25 +62,23 @@ Shared params:
     max: 1e4
     num: 4
     distribution: loguniform
-    # 1778 is the largest gamma_reg using this sampling
 
 
 # Test fbopt with different hyperparameter configurations
 
-fbopt_irm_erm:
+fbopt_dial_erm:
   model: erm
-  trainer: fbopt_irm
-  ini_setpoint_ratio: 0.99
+  trainer: fbopt_dial
+  nb4reg_over_task_ratio: 0
   force_setpoint_change_once: True
   shared:
     - k_i_gain_ratio
-    - nb4reg_over_task_ratio
-    - mu_clip
     - mu_init
+    - mu_clip
 
-irm_erm:
+dial_erm:
   model: erm
-  trainer: irm
+  nb4reg_over_task_ratio: 0
+  trainer: dial
   shared:
     - gamma_reg
-    - nb4reg_over_task_ratio
