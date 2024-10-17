@@ -311,4 +311,12 @@ class DominateAllComponent(SliderAllComponent):
                 {self.host.state_task_loss}"
             )
             self.host.setpoint4ell = self.host.state_task_loss
+
+        if flag1 & flag2:
+            logger = Logger.get_logger(logger_name="main_out_logger", loglevel="INFO")
+            logger.info(
+                "!!!!!!!!!In DominantAllComponent: \
+                besides each components of reg loss shrinks \
+                task loss also decreased which forms dominance!"
+            )
         return flag1 & flag2, list_pos
