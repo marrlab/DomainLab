@@ -25,7 +25,7 @@ class TrainerHyperScheduler(TrainerBasic):
             flag_update_epoch: if hyper-parameters should be changed per epoch
             flag_update_batch: if hyper-parameters should be changed per batch
         """
-        self.hyper_scheduler = self.model.hyper_init(scheduler)
+        self.hyper_scheduler = self.decoratee.hyper_init(scheduler, trainer=self)
         # let model register its hyper-parameters to the scheduler
         self.flag_update_hyper_per_epoch = flag_update_epoch
         self.flag_update_hyper_per_batch = flag_update_batch
@@ -37,12 +37,14 @@ class TrainerHyperScheduler(TrainerBasic):
         should be set to epoch*self.num_batches + ind_batch
         """
         if self.flag_update_hyper_per_batch:
-            self.model.hyper_update(
+            self.decoratee.hyper_update(
                 epoch * self.num_batches + ind_batch, self.hyper_scheduler
             )
         return super().before_batch(epoch, ind_batch)
 
     def before_tr(self):
+        if hasattr(self.decoratee, "before_tr"):
+            self.decoratee.before_tr()
         if self.hyper_scheduler is None:
             logger = Logger.get_logger()
             logger.warning(
@@ -55,10 +57,13 @@ class TrainerHyperScheduler(TrainerBasic):
                 flag_update_epoch=True,
             )
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         """
         update hyper-parameters only per epoch
         """
         if self.flag_update_hyper_per_epoch:
-            self.model.hyper_update(epoch, self.hyper_scheduler)
+            self.decoratee.hyper_update(epoch, self.hyper_scheduler)
+        if hasattr(self.decoratee, "dict_multiplier"):
+            logger = Logger.get_logger()
+            logger.info(f"---before epoch, current multiplier: {self.decoratee.dict_multiplier}")
         return super().tr_epoch(epoch)

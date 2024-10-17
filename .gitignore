@@ -1,7 +1,11 @@
 .ropeproject
-./zdpath
-./zoutput
+/zdpath
+/zoutput
 tests/__pycache__/
 *.pyc
 .vscode/
-data/pacs
+domainlab/zdata/pacs
+/data/
+/dist 
+/domainlab.egg-info
+/runs

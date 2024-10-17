@@ -13,6 +13,7 @@ from domainlab.compos.utils_conv_get_flat_dim import get_flat_dim
 from domainlab.compos.zoo_nn import FeatExtractNNBuilderChainNodeGetter
 from domainlab.models.model_dann import mk_dann
 from domainlab.utils.utils_cuda import get_device
+from domainlab.utils.hyperparameter_retrieval import get_gamma_reg
 
 
 class NodeAlgoBuilderDANN(NodeAlgoBuilder):
@@ -29,7 +30,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         args = exp.args
         task.get_list_domains_tr_te(args.tr_d, args.te_d)
         device = get_device(args)
-        msel = MSelOracleVisitor(MSelValPerf(max_es=args.es))
+        msel = MSelOracleVisitor(MSelValPerf(max_es=args.es), val_threshold=args.val_threshold)
         observer = ObVisitor(msel)
         observer = ObVisitorCleanUp(observer)
 
@@ -55,7 +56,7 @@ class NodeAlgoBuilderDANN(NodeAlgoBuilder):
         model = mk_dann(list_str_y=task.list_str_y,
                         net_classifier=net_classifier)(
             list_d_tr=task.list_domain_tr,
-            alpha=args.gamma_reg,
+            alpha=get_gamma_reg(args, 'dann'),
             net_encoder=net_encoder,
             net_discriminator=net_discriminator,
             builder=self)
