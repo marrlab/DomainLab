@@ -28,6 +28,8 @@ class ObVisitor(AObVisitor):
         self.metric_val = None
         self.perf_metric = None
 
+        self.flag_setpoint_changed_once = False
+
     @property
     def str_metric4msel(self):
         """
@@ -35,7 +37,13 @@ class ObVisitor(AObVisitor):
         """
         return self.host_trainer.str_metric4msel
 
-    def update(self, epoch):
+    def reset(self):
+        """
+        reset observer via reset model selector
+        """
+        self.model_sel.reset()
+
+    def update(self, epoch, flag_info=False):
         logger = Logger.get_logger()
         logger.info(f"epoch: {epoch}")
         self.epo = epoch
@@ -53,13 +61,18 @@ class ObVisitor(AObVisitor):
                     self.loader_te, self.device
                 )
                 self.metric_te = metric_te
-        if self.model_sel.update(epoch):
+        if self.model_sel.update(epoch, flag_info):
             logger.info("better model found")
             self.host_trainer.model.save()
             logger.info("persisted")
         acc = self.metric_te.get("acc")
         flag_stop = self.model_sel.if_stop(acc)
         flag_enough = epoch >= self.host_trainer.aconf.epos_min
+
+        self.flag_setpoint_changed_once |= flag_info
+        if self.host_trainer.aconf.force_setpoint_change_once:
+            return flag_stop & flag_enough & self.flag_setpoint_changed_once
+
         return flag_stop & flag_enough
 
     def accept(self, trainer):
@@ -106,7 +119,15 @@ class ObVisitor(AObVisitor):
             metric_te.update({"model_selection_epoch": self.model_sel.model_selection_epoch})
         else:
             metric_te.update({"acc_val": -1})
-            metric_te.update({"model_selection_epoch": -1})
+
+        if hasattr(self, "model_sel") and hasattr(
+            self.model_sel, "oracle_last_setpoint_sel_te_acc"
+        ):
+            metric_te.update(
+                {"acc_setpoint": self.model_sel.oracle_last_setpoint_sel_te_acc}
+            )
+        else:
+            metric_te.update({"acc_setpoint": -1})
         self.dump_prediction(model_ld, metric_te)
         # save metric to one line in csv result file
         self.host_trainer.model.visitor(metric_te)

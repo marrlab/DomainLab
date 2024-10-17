@@ -14,6 +14,15 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
     operations that all models (classification, segmentation, seq2seq)
     """
 
+    def set_params(self, dict_params):
+        """
+        set
+        """
+        # FIXME: net1.load_state_dict(net2.state_dict()) contains more information than model.named_parameters() like optimizer status
+        # but I dont know another method to set neural network weights without using load_state_dict
+        # FIXME: dict_params lack some keys compared to self.state_dict(), why?
+        self.load_state_dict(dict_params, strict=False)
+
     def __init__(self):
         super().__init__()
         self._decoratee = None
