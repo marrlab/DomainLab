@@ -74,6 +74,14 @@ Shared params:
       - 100
       - 1000
 
+  gamma_reg:
+    distribution: categorical
+    datatype: str
+    values:
+      - "SliderAnyComponent()"
+      - "SliderAllComponent()"
+      - "DominateAnyComponent()"
+
 
 fbopt_irm_dial_erm:
   model: erm
@@ -88,3 +96,4 @@ fbopt_irm_dial_erm:
     - mu_init
     - mu_clip
     - exp_shoulder_clip
+    - str_setpoint_ada
