@@ -80,10 +80,11 @@ fbopt_irm_dial_erm:
   trainer: fbopt_irm_dial
   ini_setpoint_ratio: 0.99
   force_setpoint_change_once: True
+  coeff_ma_setpoint: 0.0
   tr_with_init_mu: True
+  nb4reg_over_task_ratio: 0
   shared:
     - k_i_gain_ratio
-    - nb4reg_over_task_ratio
     - mu_init
     - mu_clip
     - exp_shoulder_clip

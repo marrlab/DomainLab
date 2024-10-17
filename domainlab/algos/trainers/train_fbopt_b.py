@@ -115,8 +115,6 @@ class TrainerFbOpt(TrainerBasic):
             self.set_scheduler(scheduler=HyperSchedulerFeedback)
 
         self.set_model_with_mu()  # very small value
-        if self.aconf.tr_with_init_mu:
-            self.tr_with_init_mu()
 
         # evaluate regularization loss list
         (
@@ -124,6 +122,15 @@ class TrainerFbOpt(TrainerBasic):
             self.epo_task_loss_tr,
             self.epo_loss_tr,
         ) = self.eval_r_loss()
+
+        if self.aconf.tr_with_init_mu:
+            self.tr_with_init_mu()
+            # evaluate regularization loss list
+            (
+                self.epo_reg_loss_tr,
+                self.epo_task_loss_tr,
+                self.epo_loss_tr,
+            ) = self.eval_r_loss()
 
         self.hyper_scheduler.set_setpoint(
             [

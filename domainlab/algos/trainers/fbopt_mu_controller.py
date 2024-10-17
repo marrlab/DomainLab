@@ -88,6 +88,8 @@ class HyperSchedulerFeedback:
             a / b for a, b in zip(list_active, delta_epsilon_r)
         ]
 
+        # FIXME: add max K_I gain here if initial delta is too small
+
         k_i_gain_saturate_min = min(k_i_gain_saturate)
         # NOTE: here we override the commandline arguments specification
         # for k_i_control, so k_i_control is not a hyperparameter anymore
