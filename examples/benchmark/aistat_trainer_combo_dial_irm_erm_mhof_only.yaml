@@ -74,7 +74,7 @@ Shared params:
       - 100
       - 1000
 
-  gamma_reg:
+  str_setpoint_ada:
     distribution: categorical
     datatype: str
     values:
