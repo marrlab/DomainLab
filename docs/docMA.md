@@ -1,4 +1,5 @@
-# Simple Moving Average
+# Trainer SMV
+## Simple Moving Average
 For each epoch, convex combine the weights for each layey from Paper: Ensemble of Averages: Improving Model Selection and
 Boosting Performance in Domain Generalization, Devansh Arpit, Huan Wang, Yingbo Zhou, Caiming Xiong, Salesforce Research, USA
 
