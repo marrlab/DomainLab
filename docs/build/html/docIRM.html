@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,19 +48,18 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Trainer IRM (Invariant Risk Minimization) &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <title>Trainer IRM &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Simple Moving Average" href="docMA.html" />
+    <link rel="next" title="Trainer SMV" href="docMA.html" />
     <link rel="prev" title="Trainer MLDG" href="doc_mldg.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
@@ -101,7 +99,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Trainer IRM (Invariant Risk Minimization) </span>
+          <span class="md-header-nav__topic"> Trainer IRM </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -111,7 +109,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -288,16 +286,18 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer IRM (Invariant Risk Minimization) </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer IRM </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Trainer IRM</a>
       
         
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docirm--page-root" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docirm--page-root" class="md-nav__link">Trainer IRM</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#invariant-risk-minimization" class="md-nav__link">Invariant Risk Minimization</a>
+        </li>
         <li class="md-nav__item"><a href="#irmv1" class="md-nav__link">IRMv1</a>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
@@ -307,6 +307,13 @@
   </ul>
 </nav>
       <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#invariant-risk-minimization" class="md-nav__link">Invariant Risk Minimization</a>
+      
+    
+    </li>
     <li class="md-nav__item">
     
     
@@ -326,21 +333,28 @@
     <li class="md-nav__item">
     
     
-      <a href="docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -356,10 +370,12 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#docirm--page-root" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#docirm--page-root" class="md-nav__link">Trainer IRM</a><nav class="md-nav">
               <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#invariant-risk-minimization" class="md-nav__link">Invariant Risk Minimization</a>
+        </li>
         <li class="md-nav__item"><a href="#irmv1" class="md-nav__link">IRMv1</a>
         </li>
         <li class="md-nav__item"><a href="#examples" class="md-nav__link">Examples</a>
@@ -375,8 +391,10 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="trainer-irm-invariant-risk-minimization">
-<h1 id="docirm--page-root">Trainer IRM (Invariant Risk Minimization)<a class="headerlink" href="#docirm--page-root" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="trainer-irm">
+<h1 id="docirm--page-root">Trainer IRM<a class="headerlink" href="#docirm--page-root" title="Link to this heading">¶</a></h1>
+<section id="invariant-risk-minimization">
+<h2 id="invariant-risk-minimization">Invariant Risk Minimization<a class="headerlink" href="#invariant-risk-minimization" title="Link to this heading">¶</a></h2>
 <p>Decompose a classification task into feature extraction <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> and classificaiton layer <span class="math notranslate nohighlight">\(w(\cdot)\)</span>, then the task loss is</p>
 <p><span class="math notranslate nohighlight">\(\ell^{(d)} (w \circ \Phi) = \mathbb{E}_{(X, Y) \sim \mathcal{D}_d}[\ell(w \circ \Phi(X), Y)]\)</span>
 where we use <span class="math notranslate nohighlight">\(\ell\)</span> to denote the cross entropy for a classification task, and <span class="math notranslate nohighlight">\(\mathcal{D}_d\)</span> for distribution of domain <span class="math notranslate nohighlight">\(d\)</span>.</p>
@@ -387,8 +405,9 @@ where we use <span class="math notranslate nohighlight">\(\ell\)</span> to denot
 this serves as a constraint on the choice of classifiers <span class="math notranslate nohighlight">\(w\)</span>.</p>
 <p>The feature extractor <span class="math notranslate nohighlight">\(\Phi(\cdot)\)</span> then get optimized under this constraint.</p>
 <p>Thus IRM forms a bi-level optimization by jointly optimize <span class="math notranslate nohighlight">\(\Phi\)</span> and <span class="math notranslate nohighlight">\(w\)</span> which is hard to solve, so in practice IRMv1 is used.</p>
+</section>
 <section id="irmv1">
-<h2 id="irmv1">IRMv1<a class="headerlink" href="#irmv1" title="Permalink to this headline">¶</a></h2>
+<h2 id="irmv1">IRMv1<a class="headerlink" href="#irmv1" title="Link to this heading">¶</a></h2>
 <p>In DomainLab, we write the loss function as $<span class="math notranslate nohighlight">\(\ell(\cdot) + \lambda R(\cdot)\)</span>$, which result in the optmization below:</p>
 <div class="math notranslate nohighlight">
 \[\min_{\Phi, w} \sum_{d} \ell^{(d)}(w \circ \Phi) + \lambda \sum_{d} \|\nabla_{w|w=1.0} \ell^{(d)}(w \circ \Phi)\|^2\]</div>
@@ -397,7 +416,7 @@ this serves as a constraint on the choice of classifiers <span class="math notra
 In detail: the squared gradient norm via inner product between <span class="math notranslate nohighlight">\(\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, i)}), Y^{(d, i)})\)</span> of dimension dim(Grad) with <span class="math notranslate nohighlight">\(\nabla_{w|w=1} \ell(w \circ \Phi(X^{(d, j)}), Y^{(d, j)})\)</span> of dimension dim(Grad) For more details, see section 3.2 and Appendix D of : Arjovsky et al., “Invariant Risk Minimization.”</p>
 </section>
 <section id="examples">
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>main_out.py<span class="w"> </span>--te_d<span class="o">=</span><span class="m">0</span><span class="w"> </span>--task<span class="o">=</span>mnistcolor10<span class="w"> </span>--model<span class="o">=</span>erm<span class="w"> </span>--trainer<span class="o">=</span>irm<span class="w"> </span>--nname<span class="o">=</span>conv_bn_pool_2
 </pre></div>
 </div>
@@ -423,17 +442,17 @@ In detail: the squared gradient norm via inner product between <span class="math
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Trainer MLDG </span>
+                      class="md-footer-nav__direction"> "Previous" </span> Trainer MLDG </span>
               </div>
             </a>
           
           
-            <a href="docMA.html" title="Simple Moving Average"
+            <a href="docMA.html" title="Trainer SMV"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Simple Moving Average </span>
+                class="md-footer-nav__direction"> "Next" </span> Trainer SMV </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -451,7 +470,7 @@ In detail: the squared gradient norm via inner product between <span class="math
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

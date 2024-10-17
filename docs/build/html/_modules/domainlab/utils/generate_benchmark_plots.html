@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.utils.generate_benchmark_plots &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -361,7 +366,9 @@ G_DF_PLOT_COL_METRIC_START = 9  # first 0-6 columns are not metric
 G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
 
 
-<div class="viewcode-block" id="gen_benchmark_plots"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.gen_benchmark_plots">[docs]</a>def gen_benchmark_plots(
+<div class="viewcode-block" id="gen_benchmark_plots">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.gen_benchmark_plots">[docs]</a>
+def gen_benchmark_plots(
     agg_results: str, output_dir: str, use_param_index: bool = True
 ):
     """
@@ -391,7 +398,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
     gen_plots(raw_df, output_dir, use_param_index)</div>
 
 
-<div class="viewcode-block" id="round_vals_in_dict"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.round_vals_in_dict">[docs]</a>def round_vals_in_dict(df_column_in, use_param_index):
+
+<div class="viewcode-block" id="round_vals_in_dict">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.round_vals_in_dict">[docs]</a>
+def round_vals_in_dict(df_column_in, use_param_index):
     """
     replaces the dictionary by a string containing only the significant digits of the hyperparams
     or (if use_param_index = True) by the parameter index
@@ -418,7 +428,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
     return df_column_out</div>
 
 
-<div class="viewcode-block" id="gen_plots"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.gen_plots">[docs]</a>def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
+
+<div class="viewcode-block" id="gen_plots">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.gen_plots">[docs]</a>
+def gen_plots(dataframe: pd.DataFrame, output_dir: str, use_param_index: bool):
     """
     dataframe: dataframe with columns
     ['param_index','task',' algo',' epos',' te_d',' seed',' params',' acc','precision',...]
@@ -590,7 +603,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
                     )</div>
 
 
-<div class="viewcode-block" id="scatterplot_matrix"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.scatterplot_matrix">[docs]</a>def scatterplot_matrix(
+
+<div class="viewcode-block" id="scatterplot_matrix">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.scatterplot_matrix">[docs]</a>
+def scatterplot_matrix(
     dataframe_in, use_param_index, file=None, kind="reg", distinguish_param_setups=True
 ):
     """
@@ -641,7 +657,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
         plt.savefig(file, dpi=300)</div>
 
 
-<div class="viewcode-block" id="scatterplot"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.scatterplot">[docs]</a>def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=False):
+
+<div class="viewcode-block" id="scatterplot">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.scatterplot">[docs]</a>
+def scatterplot(dataframe_in, obj, file=None, kde=True, distinguish_hyperparam=False):
     """
     dataframe: dataframe containing the data with columns
         [algo, epos, te_d, seed, params, obj1, ..., obj2]
@@ -727,14 +746,20 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
         plt.savefig(file, dpi=300)</div>
 
 
-<div class="viewcode-block" id="max_0_x"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.max_0_x">[docs]</a>def max_0_x(x_arg):
+
+<div class="viewcode-block" id="max_0_x">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.max_0_x">[docs]</a>
+def max_0_x(x_arg):
     """
     max(0, x_arg)
     """
     return max(0, x_arg)</div>
 
 
-<div class="viewcode-block" id="radar_plot"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.radar_plot">[docs]</a>def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
+
+<div class="viewcode-block" id="radar_plot">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.radar_plot">[docs]</a>
+def radar_plot(dataframe_in, file=None, distinguish_hyperparam=True):
     """
     dataframe_in: dataframe containing the data with columns
         [algo, epos, te_d, seed, params, obj1, ..., obj2]
@@ -823,7 +848,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
         plt.savefig(file, dpi=300)</div>
 
 
-<div class="viewcode-block" id="boxplot"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.boxplot">[docs]</a>def boxplot(dataframe_in, obj, file=None):
+
+<div class="viewcode-block" id="boxplot">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.boxplot">[docs]</a>
+def boxplot(dataframe_in, obj, file=None):
     """
     generate the boxplots
     dataframe_in: dataframe containing the data with columns
@@ -835,7 +863,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
     boxplot_systematic(dataframe_in, obj, file=file)</div>
 
 
-<div class="viewcode-block" id="boxplot_stochastic"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.boxplot_stochastic">[docs]</a>def boxplot_stochastic(dataframe_in, obj, file=None):
+
+<div class="viewcode-block" id="boxplot_stochastic">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.boxplot_stochastic">[docs]</a>
+def boxplot_stochastic(dataframe_in, obj, file=None):
     """
     generate boxplot for stochastic variation
     dataframe_in: dataframe containing the data with columns
@@ -914,7 +945,10 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
             plt.savefig(file + "/stochastic_variation.svg", format="svg")</div>
 
 
-<div class="viewcode-block" id="boxplot_systematic"><a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.boxplot_systematic">[docs]</a>def boxplot_systematic(dataframe_in, obj, file=None):
+
+<div class="viewcode-block" id="boxplot_systematic">
+<a class="viewcode-back" href="../../../domainlab.utils.html#domainlab.utils.generate_benchmark_plots.boxplot_systematic">[docs]</a>
+def boxplot_systematic(dataframe_in, obj, file=None):
     """
     generate boxplot for ssystemtic variation
     dataframe_in: dataframe containing the data with columns
@@ -997,6 +1031,7 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
 
     if file is not None:
         plt.savefig(file + "/systematic_variation.png", dpi=300)</div>
+
 </pre></div>
 
           </article>
@@ -1021,7 +1056,7 @@ G_DF_PLOT_COL_METRIC_END = 17  # first 0-6 columns are not metric
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

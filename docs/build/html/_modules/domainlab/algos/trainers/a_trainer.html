@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.algos.trainers.a_trainer &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -343,7 +348,9 @@ from torch import optim
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
 
-<div class="viewcode-block" id="mk_opt"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.mk_opt">[docs]</a>def mk_opt(model, aconf):
+<div class="viewcode-block" id="mk_opt">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.mk_opt">[docs]</a>
+def mk_opt(model, aconf):
     """
     create optimizer
     """
@@ -363,7 +370,10 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
     return optimizer</div>
 
 
-<div class="viewcode-block" id="AbstractTrainer"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer">[docs]</a>class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
+
+<div class="viewcode-block" id="AbstractTrainer">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer">[docs]</a>
+class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
     """
     Algorithm director that controls the data flow
     """
@@ -375,11 +385,14 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         """
         return "Trainer"
 
-<div class="viewcode-block" id="AbstractTrainer.extend"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.extend">[docs]</a>    def extend(self, trainer):
+<div class="viewcode-block" id="AbstractTrainer.extend">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.extend">[docs]</a>
+    def extend(self, trainer):
         """
         extend current trainer with another trainer
         """
         self._decoratee = trainer</div>
+
 
     def __init__(self, successor_node=None, extend=None):
         """__init__.
@@ -425,6 +438,8 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         self._ma_iter = 0
         #
         self.list_reg_over_task_ratio = None
+        # MIRO
+        self.input_tensor_shape = None
 
     @property
     def model(self):
@@ -458,7 +473,9 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
             return self.model
         return self._decoratee
 
-<div class="viewcode-block" id="AbstractTrainer.init_business"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.init_business">[docs]</a>    def init_business(self, model, task, observer, device, aconf, flag_accept=True):
+<div class="viewcode-block" id="AbstractTrainer.init_business">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.init_business">[docs]</a>
+    def init_business(self, model, task, observer, device, aconf, flag_accept=True):
         """
         model, task, observer, device, aconf
         """
@@ -495,46 +512,69 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         self.reset()
         self.flag_initialized = True</div>
 
-<div class="viewcode-block" id="AbstractTrainer.reset"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.reset">[docs]</a>    def reset(self):
+
+<div class="viewcode-block" id="AbstractTrainer.reset">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.reset">[docs]</a>
+    def reset(self):
         """
         make a new optimizer to clear internal state
         """
         self.optimizer = mk_opt(self.model, self.aconf)</div>
 
-<div class="viewcode-block" id="AbstractTrainer.tr_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.tr_epoch">[docs]</a>    @abc.abstractmethod
+
+<div class="viewcode-block" id="AbstractTrainer.tr_epoch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.tr_epoch">[docs]</a>
+    @abc.abstractmethod
     def tr_epoch(self, epoch):
         """
         :param epoch:
         """</div>
 
-<div class="viewcode-block" id="AbstractTrainer.before_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_batch">[docs]</a>    def before_batch(self, epoch, ind_batch):
+
+<div class="viewcode-block" id="AbstractTrainer.before_batch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_batch">[docs]</a>
+    def before_batch(self, epoch, ind_batch):
         """
         :param epoch:
         :param ind_batch:
         """
         return</div>
 
-<div class="viewcode-block" id="AbstractTrainer.after_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.after_batch">[docs]</a>    def after_batch(self, epoch, ind_batch):
+
+<div class="viewcode-block" id="AbstractTrainer.after_batch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.after_batch">[docs]</a>
+    def after_batch(self, epoch, ind_batch):
         """
         :param epoch:
         :param ind_batch:
         """
         return</div>
 
-<div class="viewcode-block" id="AbstractTrainer.before_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_tr">[docs]</a>    def before_tr(self):
+
+<div class="viewcode-block" id="AbstractTrainer.before_tr">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.before_tr">[docs]</a>
+    def before_tr(self):
         """
         before training, probe model performance
         """
         self.cal_reg_loss_over_task_loss_ratio()</div>
 
-<div class="viewcode-block" id="AbstractTrainer.cal_reg_loss_over_task_loss_ratio"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.cal_reg_loss_over_task_loss_ratio">[docs]</a>    def cal_reg_loss_over_task_loss_ratio(self):
+
+<div class="viewcode-block" id="AbstractTrainer.cal_reg_loss_over_task_loss_ratio">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.cal_reg_loss_over_task_loss_ratio">[docs]</a>
+    def cal_reg_loss_over_task_loss_ratio(self):
+        """
+        estimate the scale of each loss term, match each loss term to the major
+        loss via a ratio, this ratio will be multiplied with multiplier
+        """
         list_accum_reg_loss = []
         loss_task_agg = 0
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
+            self.input_tensor_shape = tensor_x.shape
             if ind_batch &gt;= self.aconf.nb4reg_over_task_ratio:
-                break
+                return
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
                 tensor_y.to(self.device),
@@ -558,11 +598,15 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         self.list_reg_over_task_ratio = [reg_loss / loss_task_agg
                                          for reg_loss in list_accum_reg_loss]</div>
 
-<div class="viewcode-block" id="AbstractTrainer.post_tr"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.post_tr">[docs]</a>    def post_tr(self):
+
+<div class="viewcode-block" id="AbstractTrainer.post_tr">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.post_tr">[docs]</a>
+    def post_tr(self):
         """
         after training
         """
         self.observer.after_all()</div>
+
 
     @property
     def name(self):
@@ -581,13 +625,18 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
             )
         return type(self).__name__[len_prefix:].lower()
 
-<div class="viewcode-block" id="AbstractTrainer.is_myjob"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.is_myjob">[docs]</a>    def is_myjob(self, request):
+<div class="viewcode-block" id="AbstractTrainer.is_myjob">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.is_myjob">[docs]</a>
+    def is_myjob(self, request):
         """
         :param request: string
         """
         return request == self.name</div>
 
-<div class="viewcode-block" id="AbstractTrainer.get_model"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.get_model">[docs]</a>    def get_model(self):
+
+<div class="viewcode-block" id="AbstractTrainer.get_model">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.get_model">[docs]</a>
+    def get_model(self):
         """
         recursively get the "real" model from trainer
         """
@@ -595,7 +644,10 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
             return self._model
         return self._model.get_model()</div>
 
-<div class="viewcode-block" id="AbstractTrainer.cal_reg_loss"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.cal_reg_loss">[docs]</a>    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
+
+<div class="viewcode-block" id="AbstractTrainer.cal_reg_loss">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.cal_reg_loss">[docs]</a>
+    def cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         decorate trainer regularization loss
         combine losses of current trainer with self._model.cal_reg_loss, which
@@ -616,13 +668,16 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
         list_mu = list_mu_model + list_mu_trainer
         return list_loss_tensor, list_mu</div>
 
+
     def _cal_reg_loss(self, tensor_x, tensor_y, tensor_d, others=None):
         """
         interface for each trainer to implement
         """
         return [], []
 
-<div class="viewcode-block" id="AbstractTrainer.dset_decoration_args_algo"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.dset_decoration_args_algo">[docs]</a>    def dset_decoration_args_algo(self, args, ddset):
+<div class="viewcode-block" id="AbstractTrainer.dset_decoration_args_algo">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.dset_decoration_args_algo">[docs]</a>
+    def dset_decoration_args_algo(self, args, ddset):
         """
         decorate dataset to get extra entries in load item, for instance,
         jigen need permutation index
@@ -632,13 +687,18 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
             return self._decoratee.dset_decoration_args_algo(args, ddset)
         return ddset</div>
 
-<div class="viewcode-block" id="AbstractTrainer.print_parameters"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.print_parameters">[docs]</a>    def print_parameters(self):
+
+<div class="viewcode-block" id="AbstractTrainer.print_parameters">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.a_trainer.AbstractTrainer.print_parameters">[docs]</a>
+    def print_parameters(self):
         """
         Function to print all parameters of the object.
         Can be used to print the parameters of any child class
         """
         params = vars(self)
-        print(f"Parameters of {type(self).__name__}: {params}")</div></div>
+        print(f"Parameters of {type(self).__name__}: {params}")</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -663,7 +723,7 @@ from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

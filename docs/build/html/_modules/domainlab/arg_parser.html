@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.arg_parser &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/material.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/material.css?v=79c92029" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -342,11 +347,14 @@ import yaml
 
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.algos.trainers.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.args_miro import add_args2parser_miro
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.utils.logger import Logger
 
-<div class="viewcode-block" id="ParseValuesOrKeyValuePairs"><a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.ParseValuesOrKeyValuePairs">[docs]</a>class ParseValuesOrKeyValuePairs(argparse.Action):
+<div class="viewcode-block" id="ParseValuesOrKeyValuePairs">
+<a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.ParseValuesOrKeyValuePairs">[docs]</a>
+class ParseValuesOrKeyValuePairs(argparse.Action):
     """Class used for arg parsing where values are provided in a key value format"""
 
     def __call__(self, parser: argparse.ArgumentParser,
@@ -378,7 +386,10 @@ from domainlab.utils.logger import Logger
             except ValueError:
                 raise ValueError(f"Invalid value for {self.dest}: '{values}', must be float")</div>
 
-<div class="viewcode-block" id="mk_parser_main"><a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.mk_parser_main">[docs]</a>def mk_parser_main():
+
+<div class="viewcode-block" id="mk_parser_main">
+<a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.mk_parser_main">[docs]</a>
+def mk_parser_main():
     """
     Args for command line definition
     """
@@ -690,6 +701,8 @@ from domainlab.utils.logger import Logger
     arg_group_vae = add_args2parser_vae(arg_group_vae)
     arg_group_matchdg = parser.add_argument_group("matchdg")
     arg_group_matchdg = add_args2parser_matchdg(arg_group_matchdg)
+    arg_group_miro = parser.add_argument_group("miro")
+    arg_group_miro = add_args2parser_miro(arg_group_miro)
     arg_group_jigen = parser.add_argument_group("jigen")
     arg_group_jigen = add_args2parser_jigen(arg_group_jigen)
     args_group_dial = parser.add_argument_group("dial")
@@ -697,7 +710,10 @@ from domainlab.utils.logger import Logger
     return parser</div>
 
 
-<div class="viewcode-block" id="apply_dict_to_args"><a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.apply_dict_to_args">[docs]</a>def apply_dict_to_args(args, data: dict, extend=False):
+
+<div class="viewcode-block" id="apply_dict_to_args">
+<a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.apply_dict_to_args">[docs]</a>
+def apply_dict_to_args(args, data: dict, extend=False):
     """
     Tries to apply the data to the args dict of DomainLab.
     Unknown keys are silently ignored as long as
@@ -726,7 +742,10 @@ from domainlab.utils.logger import Logger
             raise ValueError("Unsupported key: ", key)</div>
 
 
-<div class="viewcode-block" id="parse_cmd_args"><a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.parse_cmd_args">[docs]</a>def parse_cmd_args():
+
+<div class="viewcode-block" id="parse_cmd_args">
+<a class="viewcode-back" href="../../domainlab.html#domainlab.arg_parser.parse_cmd_args">[docs]</a>
+def parse_cmd_args():
     """
     get args from command line
     """
@@ -745,6 +764,7 @@ from domainlab.utils.logger import Logger
         warnings.warn("no algorithm conf specified, going to use default")
 
     return args</div>
+
 </pre></div>
 
           </article>
@@ -769,7 +789,7 @@ from domainlab.utils.logger import Logger
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

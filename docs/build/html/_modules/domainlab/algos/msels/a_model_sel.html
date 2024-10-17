@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.algos.msels.a_model_sel &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -339,7 +344,9 @@ Abstract Model Selection
 import abc
 
 
-<div class="viewcode-block" id="AMSel"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel">[docs]</a>class AMSel(metaclass=abc.ABCMeta):
+<div class="viewcode-block" id="AMSel">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel">[docs]</a>
+class AMSel(metaclass=abc.ABCMeta):
     """
     Abstract Model Selection
     """
@@ -355,12 +362,15 @@ import abc
         self._model_selection_epoch = None
         self._val_threshold = val_threshold
 
-<div class="viewcode-block" id="AMSel.reset"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.reset">[docs]</a>    def reset(self):
+<div class="viewcode-block" id="AMSel.reset">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.reset">[docs]</a>
+    def reset(self):
         """
         reset observer via reset model selector
         """
         if self.msel is not None:
             self.msel.reset()</div>
+
 
     @property
     def observer4msel(self):
@@ -380,7 +390,9 @@ import abc
             return self.msel.max_es
         return self._max_es
 
-<div class="viewcode-block" id="AMSel.accept"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.accept">[docs]</a>    def accept(self, trainer, observer4msel):
+<div class="viewcode-block" id="AMSel.accept">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.accept">[docs]</a>
+    def accept(self, trainer, observer4msel):
         """
         Visitor pattern to trainer
         accept trainer and tr_observer
@@ -390,7 +402,10 @@ import abc
         if self.msel is not None:
             self.msel.accept(trainer, observer4msel)</div>
 
-<div class="viewcode-block" id="AMSel.update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.update">[docs]</a>    def update(self, epoch, clear_counter=False):
+
+<div class="viewcode-block" id="AMSel.update">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.update">[docs]</a>
+    def update(self, epoch, clear_counter=False):
         """
         level above the observer + visitor pattern to get information about the epoch
         """
@@ -400,7 +415,10 @@ import abc
 
         return update</div>
 
-<div class="viewcode-block" id="AMSel.base_update"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.base_update">[docs]</a>    @abc.abstractmethod
+
+<div class="viewcode-block" id="AMSel.base_update">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.base_update">[docs]</a>
+    @abc.abstractmethod
     def base_update(self, clear_counter=False):
         """
         observer + visitor pattern to trainer
@@ -408,7 +426,10 @@ import abc
         return boolean
         """</div>
 
-<div class="viewcode-block" id="AMSel.if_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.if_stop">[docs]</a>    def if_stop(self, acc_val = None):
+
+<div class="viewcode-block" id="AMSel.if_stop">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.if_stop">[docs]</a>
+    def if_stop(self, acc_val = None):
         """
         check if trainer should stop and additionally tests for validation threshold
         return boolean
@@ -422,7 +443,10 @@ import abc
                 return False
         return self.early_stop()</div>
 
-<div class="viewcode-block" id="AMSel.early_stop"><a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.early_stop">[docs]</a>    def early_stop(self):
+
+<div class="viewcode-block" id="AMSel.early_stop">
+<a class="viewcode-back" href="../../../../domainlab.algos.msels.html#domainlab.algos.msels.a_model_sel.AMSel.early_stop">[docs]</a>
+    def early_stop(self):
         """
         check if trainer should stop
         return boolean
@@ -430,6 +454,7 @@ import abc
         if self.msel is not None:
             return self.msel.early_stop()
         raise NotImplementedError</div>
+
 
     @property
     def best_val_acc(self):
@@ -473,6 +498,7 @@ import abc
         the treshold below which we don't stop early
         """
         return self._val_threshold</div>
+
 </pre></div>
 
           </article>
@@ -497,7 +523,7 @@ import abc
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

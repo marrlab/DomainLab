@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.algos.trainers.train_causIRL &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -340,11 +345,15 @@ import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
-<div class="viewcode-block" id="TrainerCausalIRL"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL">[docs]</a>class TrainerCausalIRL(TrainerBasic):
+<div class="viewcode-block" id="TrainerCausalIRL">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL">[docs]</a>
+class TrainerCausalIRL(TrainerBasic):
     """
     causal matching
     """
-<div class="viewcode-block" id="TrainerCausalIRL.my_cdist"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.my_cdist">[docs]</a>    def my_cdist(self, x1, x2):
+<div class="viewcode-block" id="TrainerCausalIRL.my_cdist">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.my_cdist">[docs]</a>
+    def my_cdist(self, x1, x2):
         """
         distance for Gaussian
         """
@@ -362,7 +371,10 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
                           x2.transpose(-2, -1), alpha=-2).add_(x1_norm)
         return res.clamp_min_(1e-30)</div>
 
-<div class="viewcode-block" id="TrainerCausalIRL.gaussian_kernel"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.gaussian_kernel">[docs]</a>    def gaussian_kernel(self, x, y):
+
+<div class="viewcode-block" id="TrainerCausalIRL.gaussian_kernel">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.gaussian_kernel">[docs]</a>
+    def gaussian_kernel(self, x, y):
         """
         kernel for MMD
         """
@@ -373,7 +385,10 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
             tensor.add_(torch.exp(dist.mul(-g)))
         return tensor</div>
 
-<div class="viewcode-block" id="TrainerCausalIRL.mmd"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.mmd">[docs]</a>    def mmd(self, x, y):
+
+<div class="viewcode-block" id="TrainerCausalIRL.mmd">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.mmd">[docs]</a>
+    def mmd(self, x, y):
         """
         maximum mean discrepancy
         """
@@ -382,7 +397,10 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
         kxy = self.gaussian_kernel(x, y).mean()
         return kxx + kyy - 2 * kxy</div>
 
-<div class="viewcode-block" id="TrainerCausalIRL.tr_batch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.tr_batch">[docs]</a>    def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
+
+<div class="viewcode-block" id="TrainerCausalIRL.tr_batch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_causIRL.TrainerCausalIRL.tr_batch">[docs]</a>
+    def tr_batch(self, tensor_x, tensor_y, tensor_d, others, ind_batch, epoch):
         """
         optimize neural network one step upon a mini-batch of data
         """
@@ -408,7 +426,9 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
         loss.backward()
         self.optimizer.step()
         self.after_batch(epoch, ind_batch)
-        self.counter_batch += 1</div></div>
+        self.counter_batch += 1</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -433,7 +453,7 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

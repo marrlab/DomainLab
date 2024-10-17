@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.algos.trainers.train_ema &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/material.css?v=79c92029" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -348,12 +353,16 @@ import torch
 from domainlab.algos.trainers.train_basic import TrainerBasic
 
 
-<div class="viewcode-block" id="TrainerMA"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA">[docs]</a>class TrainerMA(TrainerBasic):
+<div class="viewcode-block" id="TrainerMA">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA">[docs]</a>
+class TrainerMA(TrainerBasic):
     """
     initializer of this class goes to one block/section in the abstract class
     initializer, otherwise it will break the class inheritance.
     """
-<div class="viewcode-block" id="TrainerMA.move_average"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA.move_average">[docs]</a>    def move_average(self, dict_data, epoch):
+<div class="viewcode-block" id="TrainerMA.move_average">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA.move_average">[docs]</a>
+    def move_average(self, dict_data, epoch):
         """
         for each epoch, convex combine the weights for each layer
         Paper:
@@ -391,13 +400,18 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
         self._ma_iter += 1
         return dict_return_ema_para_curr_iter</div>
 
-<div class="viewcode-block" id="TrainerMA.after_epoch"><a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA.after_epoch">[docs]</a>    def after_epoch(self, epoch):
+
+<div class="viewcode-block" id="TrainerMA.after_epoch">
+<a class="viewcode-back" href="../../../../domainlab.algos.trainers.html#domainlab.algos.trainers.train_ema.TrainerMA.after_epoch">[docs]</a>
+    def after_epoch(self, epoch):
         torch_model = self.get_model()
         dict_para = torch_model.state_dict()  # only for trainable parameters
         new_dict_para = self.move_average(dict_para, epoch)
         # without deepcopy, this seems to work
         torch_model.load_state_dict(new_dict_para)
-        super().after_epoch(epoch)</div></div>
+        super().after_epoch(epoch)</div>
+</div>
+
 </pre></div>
 
           </article>
@@ -422,7 +436,7 @@ from domainlab.algos.trainers.train_basic import TrainerBasic
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

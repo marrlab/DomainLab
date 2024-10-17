@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -49,18 +48,17 @@
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
   
-    <title>Simple Moving Average &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <title>Trainer SMV &#8212; domainlab  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Deep CORAL" href="doc_coral.html" />
-    <link rel="prev" title="Trainer IRM (Invariant Risk Minimization)" href="docIRM.html" />
+    <link rel="next" title="Trainer CORAL" href="doc_coral.html" />
+    <link rel="prev" title="Trainer IRM" href="docIRM.html" />
   
     <link rel="apple-touch-icon" href="_static/images/apple-icon-152x152.png"/>
   
@@ -99,7 +97,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">DomainLab</span>
-          <span class="md-header-nav__topic"> Simple Moving Average </span>
+          <span class="md-header-nav__topic"> Trainer SMV </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -109,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -285,7 +283,7 @@
     <li class="md-nav__item">
     
     
-      <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
@@ -293,29 +291,50 @@
     
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    <label class="md-nav__link md-nav__link--active" for="__toc"> Simple Moving Average </label>
+    <label class="md-nav__link md-nav__link--active" for="__toc"> Trainer SMV </label>
     
-      <a href="#" class="md-nav__link md-nav__link--active">Simple Moving Average</a>
+      <a href="#" class="md-nav__link md-nav__link--active">Trainer SMV</a>
       
         
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docma--page-root" class="md-nav__link">Trainer SMV</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#simple-moving-average" class="md-nav__link">Simple Moving Average</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
+      <ul class="md-nav__list"> 
+    <li class="md-nav__item">
+    
+    
+      <a href="#simple-moving-average" class="md-nav__link">Simple Moving Average</a>
+      
+    
+    </li></ul>
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -331,7 +350,14 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
+        <li class="md-nav__item"><a href="#docma--page-root" class="md-nav__link">Trainer SMV</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#simple-moving-average" class="md-nav__link">Simple Moving Average</a>
+        </li></ul>
+            </nav>
+        </li>
   </ul>
 </nav>
               </div>
@@ -341,14 +367,17 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section class="tex2jax_ignore mathjax_ignore" id="simple-moving-average">
-<h1 id="docma--page-root">Simple Moving Average<a class="headerlink" href="#docma--page-root" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="trainer-smv">
+<h1 id="docma--page-root">Trainer SMV<a class="headerlink" href="#docma--page-root" title="Link to this heading">¶</a></h1>
+<section id="simple-moving-average">
+<h2 id="simple-moving-average">Simple Moving Average<a class="headerlink" href="#simple-moving-average" title="Link to this heading">¶</a></h2>
 <p>For each epoch, convex combine the weights for each layey from Paper: Ensemble of Averages: Improving Model Selection and
 Boosting Performance in Domain Generalization, Devansh Arpit, Huan Wang, Yingbo Zhou, Caiming Xiong, Salesforce Research, USA</p>
 <p>Example:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python main_out.py --te_d 0 1 --tr_d 3 5 --task=mnistcolor10 --epos=2 --bs=2 --model=erm --nname=conv_bn_pool_2 --trainer=ma
 </pre></div>
 </div>
+</section>
 </section>
 
 
@@ -361,7 +390,7 @@ Boosting Performance in Domain Generalization, Devansh Arpit, Huan Wang, Yingbo 
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="docIRM.html" title="Trainer IRM (Invariant Risk Minimization)"
+            <a href="docIRM.html" title="Trainer IRM"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -370,17 +399,17 @@ Boosting Performance in Domain Generalization, Devansh Arpit, Huan Wang, Yingbo 
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> Trainer IRM (Invariant Risk Minimization) </span>
+                      class="md-footer-nav__direction"> "Previous" </span> Trainer IRM </span>
               </div>
             </a>
           
           
-            <a href="doc_coral.html" title="Deep CORAL"
+            <a href="doc_coral.html" title="Trainer CORAL"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Deep CORAL </span>
+                class="md-footer-nav__direction"> "Next" </span> Trainer CORAL </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -398,7 +427,7 @@ Boosting Performance in Domain Generalization, Devansh Arpit, Huan Wang, Yingbo 
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

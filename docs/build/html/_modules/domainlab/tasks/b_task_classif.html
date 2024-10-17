@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,12 +48,11 @@
   
   
     <title>domainlab.tasks.b_task_classif &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/material.css?v=79c92029" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -106,7 +104,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="../../../search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -284,28 +282,35 @@
     <li class="md-nav__item">
     
     
-      <a href="../../../docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="../../../docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="../../../docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="../../../doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="../../../doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="../../../doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="../../../doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -341,19 +346,26 @@ from domainlab.tasks.a_task_classif import NodeTaskDGClassif
 from domainlab.tasks.b_task import NodeTaskDict
 
 
-<div class="viewcode-block" id="NodeTaskDictClassif"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif">[docs]</a>class NodeTaskDictClassif(NodeTaskDict, NodeTaskDGClassif):
+<div class="viewcode-block" id="NodeTaskDictClassif">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif">[docs]</a>
+class NodeTaskDictClassif(NodeTaskDict, NodeTaskDGClassif):
     """
     Use dictionaries to create train and test domain split
     """
 
-<div class="viewcode-block" id="NodeTaskDictClassif.init_business"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">[docs]</a>    def init_business(self, args, trainer=None):
+<div class="viewcode-block" id="NodeTaskDictClassif.init_business">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.init_business">[docs]</a>
+    def init_business(self, args, trainer=None):
         """
         create a dictionary of datasets
         """
         super().init_business(args=args, trainer=trainer)
         self.count_domain_class()</div>
 
-<div class="viewcode-block" id="NodeTaskDictClassif.count_domain_class"><a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class">[docs]</a>    def count_domain_class(self):
+
+<div class="viewcode-block" id="NodeTaskDictClassif.count_domain_class">
+<a class="viewcode-back" href="../../../domainlab.tasks.html#domainlab.tasks.b_task_classif.NodeTaskDictClassif.count_domain_class">[docs]</a>
+    def count_domain_class(self):
         """
         iterate all domains and count the class label distribution for each
         return a double dictionary {"domain1": {"class1":3, "class2": 4,...}, ....}
@@ -365,6 +377,7 @@ from domainlab.tasks.b_task import NodeTaskDict
             dict_class_count = self._count_class_one_hot(dset)
             self.dict_domain_class_count[key] = dict_class_count</div>
 
+
     def _count_class_one_hot(self, dset):
         labels_count = torch.zeros(self.dim_y, dtype=torch.long)
         for _, target, *_ in dset:
@@ -375,6 +388,7 @@ from domainlab.tasks.b_task import NodeTaskDict
         for name, count in zip(self.list_str_y, list_count):
             dict_class_count[name] = count
         return dict_class_count</div>
+
 </pre></div>
 
           </article>
@@ -399,7 +413,7 @@ from domainlab.tasks.b_task import NodeTaskDict
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

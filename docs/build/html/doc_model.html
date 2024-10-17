@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,12 +49,11 @@
   
   
     <title>Model Specification &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -107,7 +105,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -283,28 +281,35 @@
     <li class="md-nav__item">
     
     
-      <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -320,7 +325,7 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#doc-model--page-root" class="md-nav__link">Model Specification</a><nav class="md-nav">
               <ul class="md-nav__list">
@@ -348,29 +353,29 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section class="tex2jax_ignore mathjax_ignore" id="model-specification">
-<h1 id="doc-model--page-root">Model Specification<a class="headerlink" href="#doc-model--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="doc-model--page-root">Model Specification<a class="headerlink" href="#doc-model--page-root" title="Link to this heading">¶</a></h1>
 <p>Domainlab is built to easily extend to other models. There exist two options. One is to implement a new model from scratch and add it to the existing models; the other is to extend the custom model abstract class. This guide outlines the necessary steps to add a new model to the domain generalization framework for both approaches mentioned above.</p>
 <section id="option-1-extend-the-custom-model-class">
-<h2 id="option-1-extend-the-custom-model-class">Option 1: Extend the Custom Model Class<a class="headerlink" href="#option-1-extend-the-custom-model-class" title="Permalink to this headline">¶</a></h2>
+<h2 id="option-1-extend-the-custom-model-class">Option 1: Extend the Custom Model Class<a class="headerlink" href="#option-1-extend-the-custom-model-class" title="Link to this heading">¶</a></h2>
 <p>Create a new model by extending <code class="docutils literal notranslate"><span class="pre">AModelCustom</span></code>.</p>
 <p>Because <code class="docutils literal notranslate"><span class="pre">AModelCustom</span></code> extends <code class="docutils literal notranslate"><span class="pre">AModelClassif</span></code>, the only function a custom model needs to extend is <code class="docutils literal notranslate"><span class="pre">dict_net_module_na2arg_na</span></code>, which returns a dictionary with the key being the Pytorch module name and value being the command-line argument name. In addition, it is necessary to specify a function called <code class="docutils literal notranslate"><span class="pre">get_node_na</span></code> in the same Python file, which returns the custom algorithm builder as shown <a class="reference download internal" download="" href="_downloads/0ed1306036a337154e3ac44d90ad563f/demo_custom_model.py"><span class="xref download myst">here</span></a>.</p>
-<p>To run the custom model, follow the examples <span class="xref myst">here</span> under ‘Custom algorithm defined in external python file’. It also shows an example of using additional command line arguments.</p>
+<p>To run the custom model, follow the examples <a class="reference internal" href="#./doc_examples.md"><span class="xref myst">here</span></a> under ‘Custom algorithm defined in external python file’. It also shows an example of using additional command line arguments.</p>
 </section>
 <section id="option-2-add-alongside-existing-models">
-<h2 id="option-2-add-alongside-existing-models">Option 2: Add alongside existing models<a class="headerlink" href="#option-2-add-alongside-existing-models" title="Permalink to this headline">¶</a></h2>
+<h2 id="option-2-add-alongside-existing-models">Option 2: Add alongside existing models<a class="headerlink" href="#option-2-add-alongside-existing-models" title="Link to this heading">¶</a></h2>
 <p>If the repository is cloned and it is possible to add files to the source code, one can extend one of the other base classes: <code class="docutils literal notranslate"><span class="pre">AModel</span></code> or <code class="docutils literal notranslate"><span class="pre">AModelClassif</span></code>.</p>
 <section id="step-1-implement-required-abstract-methods">
-<h3 id="step-1-implement-required-abstract-methods">Step 1: Implement Required Abstract Methods<a class="headerlink" href="#step-1-implement-required-abstract-methods" title="Permalink to this headline">¶</a></h3>
+<h3 id="step-1-implement-required-abstract-methods">Step 1: Implement Required Abstract Methods<a class="headerlink" href="#step-1-implement-required-abstract-methods" title="Link to this heading">¶</a></h3>
 <p>Implement all abstract methods from the base class. For <code class="docutils literal notranslate"><span class="pre">AModel</span></code>, it is required to implement the following methods:</p>
 <p><code class="docutils literal notranslate"><span class="pre">cal_task_loss(self,</span> <span class="pre">tensor_x,</span> <span class="pre">tensor_y)</span></code>: Computes the loss for the primary task, which for classification could be cross-entropy. <br/>
 <code class="docutils literal notranslate"><span class="pre">_cal_reg_loss(self,</span> <span class="pre">tensor_x,</span> <span class="pre">tensor_y,</span> <span class="pre">tensor_d,</span> <span class="pre">others=None)</span></code>: Calculates the task independent regularization loss.</p>
 </section>
 <section id="step-2-add-additional-arguments">
-<h3 id="step-2-add-additional-arguments">Step 2: Add Additional Arguments<a class="headerlink" href="#step-2-add-additional-arguments" title="Permalink to this headline">¶</a></h3>
+<h3 id="step-2-add-additional-arguments">Step 2: Add Additional Arguments<a class="headerlink" href="#step-2-add-additional-arguments" title="Link to this heading">¶</a></h3>
 <p>If additional arguments for the model are needed,  it is possible to specify a Python file with functionality for the argument parsing, as done <a class="reference download internal" download="" href="_downloads/38eb4fbd65747daf247610589ffb7bad/args_vae.py"><span class="xref download myst">here</span></a>. The specified function needs to be applied in the  <a class="reference download internal" download="" href="_downloads/25fbedf99b4dc9ee004c01a6a15a86d9/arg_parser.py"><span class="xref download myst">arg_parser.py</span></a> in the domainlab root directory in order to add the parameters to the argument dictionary.</p>
 </section>
 <section id="step-3-create-a-builder">
-<h3 id="step-3-create-a-builder">Step 3: Create a Builder<a class="headerlink" href="#step-3-create-a-builder" title="Permalink to this headline">¶</a></h3>
+<h3 id="step-3-create-a-builder">Step 3: Create a Builder<a class="headerlink" href="#step-3-create-a-builder" title="Link to this heading">¶</a></h3>
 <p>After specifying the model and retrieving the correct parameters, we can create functionality to create the model. To do so, we need to create a NodeAlgoBuilder. For that, we create a class that inherits from <code class="docutils literal notranslate"><span class="pre">NodeAlgoBuilder</span></code> and extend the <code class="docutils literal notranslate"><span class="pre">init_business(exp)</span></code> method. We must create the trainer, model, observer, and device in this method. See <a class="reference download internal" download="" href="_downloads/2f376598c3b5b81b337a965d3b3c6c48/builder_dann.py"><span class="xref download myst">here</span></a> for an example.</p>
 <p>After that, we can add the builder into the chain that creates all specified models <a class="reference download internal" download="" href="_downloads/66998052aef9f6ce3e376943da89480b/zoo_algos.py"><span class="xref download myst">here</span></a>.</p>
 </section>
@@ -400,7 +405,7 @@
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

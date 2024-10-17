@@ -185,15 +185,6 @@ python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_smal
 python main_out.py --te_d=sketch --tpath=examples/tasks/demo_task_path_list_small.py --debug --bs=2 --npath=examples/nets/resnet.py --model=diva --npath_dom=examples/nets/resnet.py --gamma_y=7e5 --gamma_d=1e5
 ```
 
-## Custom algorithm defined in external python file
-```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --model=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
-```
-
-```shell
-python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --model=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
-```
-
 
 ### make a sanity check for the dataset using 8 instances from each domain and from each class
 ```shell

@@ -28,6 +28,14 @@ domainlab.algos.trainers.args\_dial module
    :undoc-members:
    :show-inheritance:
 
+domainlab.algos.trainers.args\_miro module
+------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.args_miro
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 domainlab.algos.trainers.hyper\_scheduler module
 ------------------------------------------------
 
@@ -112,6 +120,30 @@ domainlab.algos.trainers.train\_matchdg module
 ----------------------------------------------
 
 .. automodule:: domainlab.algos.trainers.train_matchdg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.trainers.train\_miro module
+-------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_miro
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.trainers.train\_miro\_model\_wraper module
+----------------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_miro_model_wraper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+domainlab.algos.trainers.train\_miro\_utils module
+--------------------------------------------------
+
+.. automodule:: domainlab.algos.trainers.train_miro_utils
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -50,12 +49,11 @@
   
   
     <title>domainlab.compos.vae.compos package &#8212; domainlab  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/material.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -109,7 +107,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" action="search.html" method="get" name="search">
-      <input type="text" class="md-search__input" name="q" placeholder="Search"
+      <input type="text" class="md-search__input" name="q" placeholder=""Search""
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
@@ -296,28 +294,35 @@
     <li class="md-nav__item">
     
     
-      <a href="docIRM.html" class="md-nav__link">Trainer IRM (Invariant Risk Minimization)</a>
+      <a href="docIRM.html" class="md-nav__link">Trainer IRM</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="docMA.html" class="md-nav__link">Simple Moving Average</a>
+      <a href="docMA.html" class="md-nav__link">Trainer SMV</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_coral.html" class="md-nav__link">Deep CORAL</a>
+      <a href="doc_coral.html" class="md-nav__link">Trainer CORAL</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="doc_irl.html" class="md-nav__link">Causal IRL</a>
+      <a href="doc_irl.html" class="md-nav__link">Trainer Causal IRL</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
+      <a href="doc_miro.html" class="md-nav__link">MIRO: Mutual-Information Regularization</a>
       
     
     </li>
@@ -333,35 +338,149 @@
               <div class="md-sidebar__inner">
                 
 <nav class="md-nav md-nav--secondary">
-    <label class="md-nav__title" for="__toc">Contents</label>
+    <label class="md-nav__title" for="__toc">"Contents"</label>
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#domainlab-compos-vae-compos--page-root" class="md-nav__link">domainlab.compos.vae.compos package</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv" class="md-nav__link">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv" class="md-nav__link">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv" class="md-nav__link">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv module</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ydx" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv.concat_ydx()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_cond_prior" class="md-nav__link">domainlab.compos.vae.compos.decoder_cond_prior module</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ytdx" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv.concat_ytdx()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_losses" class="md-nav__link">domainlab.compos.vae.compos.decoder_losses module</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder" class="md-nav__link">domainlab.compos.vae.compos.encoder module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv" class="md-nav__link">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">DecoderConcatLatentFCReshapeConvGatedConv</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_dirichlet" class="md-nav__link">domainlab.compos.vae.compos.encoder_dirichlet module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_cond_prior" class="md-nav__link">domainlab.compos.vae.compos.decoder_cond_prior module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">LSCondPriorLinearBnReluLinearSoftPlus</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">LSCondPriorLinearBnReluLinearSoftPlus.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_domain_topic" class="md-nav__link">domainlab.compos.vae.compos.encoder_domain_topic module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.decoder_losses" class="md-nav__link">domainlab.compos.vae.compos.decoder_losses module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.decoder_losses.NLLPixelLogistic256" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NLLPixelLogistic256</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic" class="md-nav__link">domainlab.compos.vae.compos.encoder_domain_topic_img2topic module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder" class="md-nav__link">domainlab.compos.vae.compos.encoder module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">LSEncoderConvBnReluPool</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">LSEncoderConvBnReluPool.forward()</span></code></a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd" class="md-nav__link">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd module</a>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">LSEncoderLinear</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">LSEncoderLinear.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_xyd_parallel" class="md-nav__link">domainlab.compos.vae.compos.encoder_xyd_parallel module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_dirichlet" class="md-nav__link">domainlab.compos.vae.compos.encoder_dirichlet module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderH2Dirichlet</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderH2Dirichlet.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_xydt_elevator" class="md-nav__link">domainlab.compos.vae.compos.encoder_xydt_elevator module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_domain_topic" class="md-nav__link">domainlab.compos.vae.compos.encoder_domain_topic module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDirZd</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDirZd.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_zy" class="md-nav__link">domainlab.compos.vae.compos.encoder_zy module</a>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic" class="md-nav__link">domainlab.compos.vae.compos.encoder_domain_topic_img2topic module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDistri</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderImg2TopicDistri.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd" class="md-nav__link">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderSandwichTopicImg2Zd</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderSandwichTopicImg2Zd.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_xyd_parallel" class="md-nav__link">domainlab.compos.vae.compos.encoder_xyd_parallel module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallel</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallel.forward()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.infer_zy_loc" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallel.infer_zy_loc()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelAlex" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallelAlex</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallelConvBnReluPool</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelExtern" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallelExtern</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDEncoderParallelUser</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_xydt_elevator" class="md-nav__link">domainlab.compos.vae.compos.encoder_xydt_elevator module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderArg</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderElevator</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderElevator.forward()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.infer_zy_loc" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">XYDTEncoderElevator.infer_zy_loc()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos.encoder_zy" class="md-nav__link">domainlab.compos.vae.compos.encoder_zy module</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderConnectLastFeatLayer2Z</span></code></a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.forward" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">EncoderConnectLastFeatLayer2Z.forward()</span></code></a>
+        </li></ul>
+            </nav>
+        </li></ul>
+            </nav>
         </li>
         <li class="md-nav__item"><a href="#module-domainlab.compos.vae.compos" class="md-nav__link">Module contents</a>
         </li></ul>
@@ -377,38 +496,38 @@
           <article class="md-content__inner md-typeset" role="main">
             
   <section id="domainlab-compos-vae-compos-package">
-<h1 id="domainlab-compos-vae-compos--page-root">domainlab.compos.vae.compos package<a class="headerlink" href="#domainlab-compos-vae-compos--page-root" title="Permalink to this headline">¶</a></h1>
+<h1 id="domainlab-compos-vae-compos--page-root">domainlab.compos.vae.compos package<a class="headerlink" href="#domainlab-compos-vae-compos--page-root" title="Link to this heading">¶</a></h1>
 <section id="submodules">
-<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv">
-<span id="domainlab-compos-vae-compos-decoder-concat-vec-reshape-conv-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-decoder-concat-vec-reshape-conv-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv" title="Link to this heading">¶</a></h2>
 <p>decoder which takes concatenated latent representation</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.</span></span><span class="sig-name descname"><span class="pre">DecoderConcatLatentFcReshapeConv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_fun_nll_p_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_fc_z2flat_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_p_x_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_p_x_log_var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.</span></span><span class="sig-name descname"><span class="pre">DecoderConcatLatentFcReshapeConv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_fun_nll_p_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_fc_z2flat_img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_p_x_mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_p_x_log_var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Latent vector re-arranged to image-size directly,
 then convolute to get the textures of the original image</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale">
-<span class="sig-name descname"><span class="pre">cal_p_x_pars_loc_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec_z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cal_p_x_pars_loc_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec_z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.cal_p_x_pars_loc_scale" title="Link to this definition">¶</a></dt>
 <dd><p>compute mean and variance of each pixel
 :param z:</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ydx">
-<span class="sig-name descname"><span class="pre">concat_ydx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.concat_ydx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ydx" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">concat_ydx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.concat_ydx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ydx" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ytdx">
-<span class="sig-name descname"><span class="pre">concat_ytdx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.concat_ytdx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ytdx" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">concat_ytdx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.concat_ytdx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.concat_ytdx" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv.html#DecoderConcatLatentFcReshapeConv.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.forward" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>z</strong> – </p></li>
 <li><p><strong>img</strong> – </p></li>
@@ -416,54 +535,42 @@ then convolute to get the textures of the original image</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv">
-<span id="domainlab-compos-vae-compos-decoder-concat-vec-reshape-conv-gated-conv-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-decoder-concat-vec-reshape-conv-gated-conv-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv" title="Link to this heading">¶</a></h2>
 <p>Bridge Pattern: Separation of interface and implementation.
 This class is using one implementation to feed into parent class constructor.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.</span></span><span class="sig-name descname"><span class="pre">DecoderConcatLatentFCReshapeConvGatedConv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv_gated_conv.html#DecoderConcatLatentFCReshapeConvGatedConv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv" title="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.</span></span><span class="sig-name descname"><span class="pre">DecoderConcatLatentFCReshapeConvGatedConv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_concat_vec_reshape_conv_gated_conv.html#DecoderConcatLatentFCReshapeConvGatedConv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv" title="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv.DecoderConcatLatentFcReshapeConv"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecoderConcatLatentFcReshapeConv</span></code></a></p>
 <p>Bridge Pattern: Separation of interface and implementation.
 This class is using implementation to feed into parent class constructor.
 Latent vector re-arranged to image-size directly, then convolute
 to get the textures of the original image</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_concat_vec_reshape_conv_gated_conv.DecoderConcatLatentFCReshapeConvGatedConv.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.decoder_cond_prior">
-<span id="domainlab-compos-vae-compos-decoder-cond-prior-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_cond_prior">domainlab.compos.vae.compos.decoder_cond_prior module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_cond_prior" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-decoder-cond-prior-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_cond_prior">domainlab.compos.vae.compos.decoder_cond_prior module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_cond_prior" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_cond_prior.</span></span><span class="sig-name descname"><span class="pre">LSCondPriorLinearBnReluLinearSoftPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyper_prior_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_cond_prior.html#LSCondPriorLinearBnReluLinearSoftPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_cond_prior.</span></span><span class="sig-name descname"><span class="pre">LSCondPriorLinearBnReluLinearSoftPlus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyper_prior_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_cond_prior.html#LSCondPriorLinearBnReluLinearSoftPlus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Location-Scale: from hyper-prior to current layer prior distribution</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyper_prior</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_cond_prior.html#LSCondPriorLinearBnReluLinearSoftPlus.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hyper_prior</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_cond_prior.html#LSCondPriorLinearBnReluLinearSoftPlus.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.forward" title="Link to this definition">¶</a></dt>
 <dd><p>from hyper-prior value to current latent variable distribution</p>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_cond_prior.LSCondPriorLinearBnReluLinearSoftPlus.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.decoder_losses">
-<span id="domainlab-compos-vae-compos-decoder-losses-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_losses">domainlab.compos.vae.compos.decoder_losses module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_losses" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-decoder-losses-module"></span><h2 id="module-domainlab.compos.vae.compos.decoder_losses">domainlab.compos.vae.compos.decoder_losses module<a class="headerlink" href="#module-domainlab.compos.vae.compos.decoder_losses" title="Link to this heading">¶</a></h2>
 <p>Upon pixel wise mean and variance</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.decoder_losses.NLLPixelLogistic256">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_losses.</span></span><span class="sig-name descname"><span class="pre">NLLPixelLogistic256</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduce_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.00390625</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_losses.html#NLLPixelLogistic256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_losses.NLLPixelLogistic256" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.decoder_losses.</span></span><span class="sig-name descname"><span class="pre">NLLPixelLogistic256</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reduce_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.00390625</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/decoder_losses.html#NLLPixelLogistic256"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.decoder_losses.NLLPixelLogistic256" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Compute pixel wise negative likelihood of image,
 given pixel wise mean and variance.
@@ -474,122 +581,102 @@ c.d.f.(x_{i,j}+bin_size/scale) - c.d.f.(x_{i,j})
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder">
-<span id="domainlab-compos-vae-compos-encoder-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder">domainlab.compos.vae.compos.encoder module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder">domainlab.compos.vae.compos.encoder module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder" title="Link to this heading">¶</a></h2>
 <p>Pytorch image: i_channel, i_h, i_w
 Location-Scale Encoder: SoftPlus</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder.</span></span><span class="sig-name descname"><span class="pre">LSEncoderConvBnReluPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderConvBnReluPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder.</span></span><span class="sig-name descname"><span class="pre">LSEncoderConvBnReluPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderConvBnReluPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Location-Scale Encoder with Convolution,
 Batch Normalization, Relu and Pooling.
 Softplus for scale</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderConvBnReluPool.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderConvBnReluPool.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.forward" title="Link to this definition">¶</a></dt>
 <dd><p>.
 :param img:</p>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderConvBnReluPool.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder.LSEncoderLinear">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder.</span></span><span class="sig-name descname"><span class="pre">LSEncoderLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder.</span></span><span class="sig-name descname"><span class="pre">LSEncoderLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Location-Scale Encoder with DenseNet as feature extractor
 Softplus for scale</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder.LSEncoderLinear.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderLinear.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder.html#LSEncoderLinear.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear.forward" title="Link to this definition">¶</a></dt>
 <dd><p>.
 :param hidden:</p>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder.LSEncoderLinear.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder.LSEncoderLinear.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_dirichlet">
-<span id="domainlab-compos-vae-compos-encoder-dirichlet-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_dirichlet">domainlab.compos.vae.compos.encoder_dirichlet module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_dirichlet" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-dirichlet-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_dirichlet">domainlab.compos.vae.compos.encoder_dirichlet module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_dirichlet" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_dirichlet.</span></span><span class="sig-name descname"><span class="pre">EncoderH2Dirichlet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim_topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_dirichlet.html#EncoderH2Dirichlet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_dirichlet.</span></span><span class="sig-name descname"><span class="pre">EncoderH2Dirichlet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim_topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_dirichlet.html#EncoderH2Dirichlet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>hidden representation to Dirichlet Distribution</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_dirichlet.html#EncoderH2Dirichlet.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hidden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_dirichlet.html#EncoderH2Dirichlet.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.forward" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>hidden</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_dirichlet.EncoderH2Dirichlet.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_domain_topic">
-<span id="domainlab-compos-vae-compos-encoder-domain-topic-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_domain_topic">domainlab.compos.vae.compos.encoder_domain_topic module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_domain_topic" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-domain-topic-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_domain_topic">domainlab.compos.vae.compos.encoder_domain_topic module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_domain_topic" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_domain_topic.</span></span><span class="sig-name descname"><span class="pre">EncoderImg2TopicDirZd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_topics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic.html#EncoderImg2TopicDirZd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_domain_topic.</span></span><span class="sig-name descname"><span class="pre">EncoderImg2TopicDirZd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_topics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic.html#EncoderImg2TopicDirZd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic.html#EncoderImg2TopicDirZd.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic.html#EncoderImg2TopicDirZd.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.forward" title="Link to this definition">¶</a></dt>
 <dd><p>forward.
 :param img:</p>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic.EncoderImg2TopicDirZd.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic">
-<span id="domainlab-compos-vae-compos-encoder-domain-topic-img2topic-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic">domainlab.compos.vae.compos.encoder_domain_topic_img2topic module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-domain-topic-img2topic-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic">domainlab.compos.vae.compos.encoder_domain_topic_img2topic module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img2topic" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_domain_topic_img2topic.</span></span><span class="sig-name descname"><span class="pre">EncoderImg2TopicDistri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_topics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img2topic.html#EncoderImg2TopicDistri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_domain_topic_img2topic.</span></span><span class="sig-name descname"><span class="pre">EncoderImg2TopicDistri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_topics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img2topic.html#EncoderImg2TopicDistri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>image to topic distribution  (not image to topic hidden representation
 used by another path)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img2topic.html#EncoderImg2TopicDistri.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img2topic.html#EncoderImg2TopicDistri.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.forward" title="Link to this definition">¶</a></dt>
 <dd><p>forward.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img2topic.EncoderImg2TopicDistri.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd">
-<span id="domainlab-compos-vae-compos-encoder-domain-topic-img-topic2zd-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-domain-topic-img-topic2zd-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.</span></span><span class="sig-name descname"><span class="pre">EncoderSandwichTopicImg2Zd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_topics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_h_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img_topic2zd.html#EncoderSandwichTopicImg2Zd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.</span></span><span class="sig-name descname"><span class="pre">EncoderSandwichTopicImg2Zd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_topics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_h_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img_topic2zd.html#EncoderSandwichTopicImg2Zd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>sandwich encoder: (img, s)-&gt;zd</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_topic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img_topic2zd.html#EncoderSandwichTopicImg2Zd.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_topic</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_domain_topic_img_topic2zd.html#EncoderSandwichTopicImg2Zd.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.forward" title="Link to this definition">¶</a></dt>
 <dd><p>forward.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – </p></li>
 <li><p><strong>topic</strong> – </p></li>
@@ -597,143 +684,107 @@ used by another path)</p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_domain_topic_img_topic2zd.EncoderSandwichTopicImg2Zd.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_xyd_parallel">
-<span id="domainlab-compos-vae-compos-encoder-xyd-parallel-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_xyd_parallel">domainlab.compos.vae.compos.encoder_xyd_parallel module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_xyd_parallel" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-xyd-parallel-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_xyd_parallel">domainlab.compos.vae.compos.encoder_xyd_parallel module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_xyd_parallel" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_infer_zd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_infer_zd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>calculate zx, zy, zd vars independently (without order, parallel):
 x-&gt;zx, x-&gt;zy, x-&gt;zd</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallel.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallel.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.forward" title="Link to this definition">¶</a></dt>
 <dd><p>encode img into 3 latent variables separately/parallel
 :param img:
 :return q_zd, zd_q, q_zx, zx_q, q_zy, zy_q</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.infer_zy_loc">
-<span class="sig-name descname"><span class="pre">infer_zy_loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallel.infer_zy_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.infer_zy_loc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">infer_zy_loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallel.infer_zy_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.infer_zy_loc" title="Link to this definition">¶</a></dt>
 <dd><p>Used by VAE model to predict class label</p>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelAlex">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelAlex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelAlex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelAlex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelAlex" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYDEncoderParallel</span></code></a></p>
 <p>This class only reimplemented constructor of parent class,
 at the end of the constructor of this class, the parent
 class contructor is called</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelAlex.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelAlex.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelConvBnReluPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelConvBnReluPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelConvBnReluPool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelConvBnReluPool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYDEncoderParallel</span></code></a></p>
 <p>This class only reimplemented constructor of parent class</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelConvBnReluPool.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelExtern">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelExtern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelExtern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelExtern" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelExtern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conv_stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelExtern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelExtern" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYDEncoderParallel</span></code></a></p>
 <p>This class only reimplemented constructor of parent class,
 at the end of the constructor of this class, the parent
 class contructor is called</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelExtern.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelExtern.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_class_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_class_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelUser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xyd_parallel.</span></span><span class="sig-name descname"><span class="pre">XYDEncoderParallelUser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_class_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_class_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xyd_parallel.html#XYDEncoderParallelUser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel" title="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYDEncoderParallel</span></code></a></p>
 <p>This class only reimplemented constructor of parent class</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xyd_parallel.XYDEncoderParallelUser.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_xydt_elevator">
-<span id="domainlab-compos-vae-compos-encoder-xydt-elevator-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_xydt_elevator">domainlab.compos.vae.compos.encoder_xydt_elevator module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_xydt_elevator" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-xydt-elevator-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_xydt_elevator">domainlab.compos.vae.compos.encoder_xydt_elevator module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_xydt_elevator" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xydt_elevator.</span></span><span class="sig-name descname"><span class="pre">XYDTEncoderArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator" title="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator"><code class="xref py py-class docutils literal notranslate"><span class="pre">domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xydt_elevator.</span></span><span class="sig-name descname"><span class="pre">XYDTEncoderArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topic_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zd_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zx_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zy_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderArg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator" title="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYDTEncoderElevator</span></code></a></p>
 <p>This class only reimplemented constructor of parent class</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderArg.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xydt_elevator.</span></span><span class="sig-name descname"><span class="pre">XYDTEncoderElevator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_infer_zd_topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderElevator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_xydt_elevator.</span></span><span class="sig-name descname"><span class="pre">XYDTEncoderElevator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net_infer_zd_topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_infer_zy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderElevator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>x-&gt;zx, x-&gt;zy, x-&gt;s, (x,s)-&gt;zd</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderElevator.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderElevator.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.forward" title="Link to this definition">¶</a></dt>
 <dd><p>encode img into 3 latent variables separately/parallel
 :param img:
 :return q_zd, zd_q, q_zx, zx_q, q_zy, zy_q</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.infer_zy_loc">
-<span class="sig-name descname"><span class="pre">infer_zy_loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderElevator.infer_zy_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.infer_zy_loc" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">infer_zy_loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_xydt_elevator.html#XYDTEncoderElevator.infer_zy_loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.infer_zy_loc" title="Link to this definition">¶</a></dt>
 <dd><p>Used by VAE model to predict class label</p>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_xydt_elevator.XYDTEncoderElevator.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos.encoder_zy">
-<span id="domainlab-compos-vae-compos-encoder-zy-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_zy">domainlab.compos.vae.compos.encoder_zy module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_zy" title="Permalink to this headline">¶</a></h2>
+<span id="domainlab-compos-vae-compos-encoder-zy-module"></span><h2 id="module-domainlab.compos.vae.compos.encoder_zy">domainlab.compos.vae.compos.encoder_zy module<a class="headerlink" href="#module-domainlab.compos.vae.compos.encoder_zy" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_zy.</span></span><span class="sig-name descname"><span class="pre">EncoderConnectLastFeatLayer2Z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_path_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_zy.html#EncoderConnectLastFeatLayer2Z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">domainlab.compos.vae.compos.encoder_zy.</span></span><span class="sig-name descname"><span class="pre">EncoderConnectLastFeatLayer2Z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag_pretrain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg_path_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_zy.html#EncoderConnectLastFeatLayer2Z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Connect the last layer of a feature extraction
 neural network to the latent representation
 This class should be transparent to where to fetch the network</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_zy.html#EncoderConnectLastFeatLayer2Z.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.forward" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/domainlab/compos/vae/compos/encoder_zy.html#EncoderConnectLastFeatLayer2Z.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.forward" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> – </p>
 </dd>
 </dl>
 </dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#domainlab.compos.vae.compos.encoder_zy.EncoderConnectLastFeatLayer2Z.training" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 </dd></dl>
 </section>
 <section id="module-domainlab.compos.vae.compos">
-<span id="module-contents"></span><h2 id="module-domainlab.compos.vae.compos">Module contents<a class="headerlink" href="#module-domainlab.compos.vae.compos" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2 id="module-domainlab.compos.vae.compos">Module contents<a class="headerlink" href="#module-domainlab.compos.vae.compos" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -756,7 +807,7 @@ This class should be transparent to where to fetch the network</p>
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> domainlab.compos.vae package </span>
+                      class="md-footer-nav__direction"> "Previous" </span> domainlab.compos.vae package </span>
               </div>
             </a>
           
@@ -766,7 +817,7 @@ This class should be transparent to where to fetch the network</p>
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> domainlab.dsets package </span>
+                class="md-footer-nav__direction"> "Next" </span> domainlab.dsets package </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
@@ -784,7 +835,7 @@ This class should be transparent to where to fetch the network</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

@@ -42,4 +42,11 @@ python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=erm --
 python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=8 --model=dann --nname=alexnet
 ```
 
+## Custom algorithm defined in external python file
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --model=custom --nname_argna2val my_custom_arg_name --nname_argna2val alexnet
+```
 
+```shell
+python main_out.py --te_d=caltech --task=mini_vlcs --debug --bs=3 --apath=examples/models/demo_custom_model.py --model=custom --npath_argna2val my_custom_arg_name --npath_argna2val examples/nets/resnet.py
+```
