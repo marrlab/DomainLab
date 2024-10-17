@@ -91,6 +91,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self._ma_iter = 0
         #
         self.list_reg_over_task_ratio = None
+        # MIRO
+        self.input_tensor_shape = None
 
     @property
     def model(self):
@@ -194,13 +196,18 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.cal_reg_loss_over_task_loss_ratio()
 
     def cal_reg_loss_over_task_loss_ratio(self):
+        """
+        estimate the scale of each loss term, match each loss term to the major
+        loss via a ratio, this ratio will be multiplied with multiplier
+        """
         list_accum_reg_loss = []
         loss_task_agg = 0
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
+            self.input_tensor_shape = tensor_x.shape
             if ind_batch >= self.aconf.nb4reg_over_task_ratio:
-                break
+                return
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
                 tensor_y.to(self.device),
