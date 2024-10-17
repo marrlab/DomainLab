@@ -139,6 +139,14 @@ def add_args2parser_fbopt(parser):
 
     # this arg is only used when model is set to be "diva"
     parser.add_argument(
+        "--str_setpoint_ada",
+        type=str,
+        default="DominateAllComponent()",
+        help="which setpoint adaptation criteria to use",
+    )
+
+    # this arg is only used when model is set to be "diva"
+    parser.add_argument(
         "--str_diva_multiplier_type",
         type=str,
         default="gammad_recon",
