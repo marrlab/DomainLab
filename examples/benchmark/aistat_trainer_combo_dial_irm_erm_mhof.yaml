@@ -1,6 +1,6 @@
 mode: grid
 
-output_dir: zoutput/benchmarks/mhof_combo_irm_dial_pacs
+output_dir: zoutput/benchmarks/mhof_trainer_combo_irm_dial_pacs
 
 sampling_seed: 0
 startseed: 0
@@ -23,8 +23,6 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-
-
 
 
 Shared params:
@@ -67,6 +65,7 @@ Shared params:
     distribution: categorical
     datatype: float
     values:
+      - 0.001
       - 0.01
       - 0.1
       - 1
@@ -74,30 +73,31 @@ Shared params:
       - 100
       - 1000
 
-
-fbopt_irm_dial_erm:
-  model: erm
-  trainer: fbopt_irm_dial
-  ini_setpoint_ratio: 0.99
-  force_setpoint_change_once: True
-  tr_with_init_mu: True
-  shared:
-    - k_i_gain_ratio
-    - nb4reg_over_task_ratio
-    - mu_init
-    - mu_clip
-    - exp_shoulder_clip
-
-irm_dial:
+fixed_multplier_irm_dial:
   model: erm
   trainer: irm_dial
   shared:
     - gamma_reg
     - nb4reg_over_task_ratio
 
-irm_dial_feedforward_full:
+feedforward_irm_dial:
   model: erm
   trainer: hyperscheduler_irm_dial
   shared:
     - gamma_reg
     - nb4reg_over_task_ratio
+
+mhof_irm_dial_erm:
+  model: erm
+  trainer: fbopt_irm_dial
+  ini_setpoint_ratio: 0.9
+  force_setpoint_change_once: True
+  coeff_ma_setpoint: 0.0
+  tr_with_init_mu: True
+  nb4reg_over_task_ratio: 0
+  str_setpoint_ada: "SliderAnyComponent()"
+  shared:
+    - k_i_gain_ratio
+    - mu_init
+    - mu_clip
+    - exp_shoulder_clip
