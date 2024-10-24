@@ -5,6 +5,8 @@
 
 Barber, David, and Felix Agakov. "The im algorithm: a variational approach to information maximization." Advances in neural information processing systems 16, no. 320 (2004): 201.
 
+$$H(Y|X):=E_X[{\langle \log p(Y|X)\rangle}_{p(Y|X)}]$$
+
 $$I(X,Y)=H(Y)-H(Y|X)=-{\langle\log p_y(Y)\rangle}_{p_y(Y)}+{\langle\log p(Y|X)\rangle}_{p(X,Y)}$$
 
 Given variational distribution of $q(x|y)$ as decoder (i.e. $Y$ encodes information from $X$)
@@ -12,11 +14,11 @@ Given variational distribution of $q(x|y)$ as decoder (i.e. $Y$ encodes informat
 
 Since
 
-$$KL\left(p(X|Y)|q(X|Y)\right)={\langle\log p(X|Y)\rangle}_{p(X|Y)}-\langle{\log q(X,Y)\rangle}_{p(X|Y)} >0$$
+$$KL\left(p(X|Y)|q(X|Y)\right):={\langle\log p(X|Y)\rangle}_{p(X|Y)}-\langle{\log q(X|Y)\rangle}_{p(X|Y)} >0$$
 
 We have
 
-$${\langle\log p(X|Y)\rangle}_{p(X|Y)}>{\langle\log q(X,Y)\rangle}_{p(X|Y)}$$
+$${\langle\log p(X|Y)\rangle}_{p(X|Y)}>{\langle\log q(X|Y)\rangle}_{p(X|Y)}$$
 
 Then
 
