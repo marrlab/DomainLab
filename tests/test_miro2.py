@@ -10,5 +10,5 @@ def test_miro2():
     """
     args = "--te_d=2 --tr_d 0 1 --task=mnistcolor10 --debug --bs=100 --model=erm \
         --trainer=miro --nname=conv_bn_pool_2 \
-        --layers2extract_feats _net_invar_feat.conv_net.5"
+        --layers2extract_feats _net_invar_feat.conv_net.5 --no_dump"
     utils_test_algo(args)

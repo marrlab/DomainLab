@@ -11,7 +11,7 @@ def test_miro3():
     """
     args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
         --trainer=miro --nname=alexnet \
-        --layers2extract_feats features"
+        --layers2extract_feats features --no_dump"
     with pytest.raises(RuntimeError):
         utils_test_algo(args)
         raise RuntimeError("This is a runtime error")
