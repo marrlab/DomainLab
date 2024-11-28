@@ -2,10 +2,10 @@
 
 test_domains:
   - acevedo
-#- mll
-#- matek
+  - mll
+  - matek
 
-output_dir: zoutput/benchmarks/blood
+output_dir: zoutput/benchmarks/blood3nov2024
 # number of hyperparameter samples per task.
 # Thus, the total runs of each task are given
 # by len(domains) * num_param_samples * num_seeds (see below)
@@ -13,7 +13,7 @@ num_param_samples: 8
 sampling_seed: 0
 
 startseed: 0
-endseed: 5  # currently included
+endseed: 2  # currently included
 
 
 
@@ -29,7 +29,6 @@ domainlab_args:
   es: 1
   bs: 32
   npath: examples/nets/resnet50domainbed.py
-  san_check: True
 
 Shared params:
   num_shared_param_samples: 8
