@@ -8,10 +8,42 @@ import yaml
 
 from domainlab.algos.trainers.args_dial import add_args2parser_dial
 from domainlab.algos.trainers.compos.matchdg_args import add_args2parser_matchdg
+from domainlab.algos.trainers.args_miro import add_args2parser_miro
 from domainlab.models.args_jigen import add_args2parser_jigen
 from domainlab.models.args_vae import add_args2parser_vae
 from domainlab.utils.logger import Logger
 
+class ParseValuesOrKeyValuePairs(argparse.Action):
+    """Class used for arg parsing where values are provided in a key value format"""
+
+    def __call__(self, parser: argparse.ArgumentParser,
+    namespace: argparse.Namespace, values: str, option_string: str = None):
+        """
+            Handle parsing of key value pairs, or a single value instead
+
+            Args:
+                parser (argparse.ArgumentParser): The ArgumentParser object.
+                namespace (argparse.Namespace): The namespace object to store parsed values.
+                values (str): The string containing key=value pairs or a single float value.
+                option_string (str, optional): The option string that triggered this action (unused).
+
+            Raises:
+                ValueError: If the values cannot be parsed to float.
+        """
+        if "=" in values:
+            my_dict = {}
+            for kv in values.split(","):
+                k, v = kv.split("=")
+                try:
+                    my_dict[k.strip()] = float(v.strip())
+                except ValueError:
+                    raise ValueError(f"Invalid value in key-value pair: '{kv}', must be float")
+            setattr(namespace, self.dest, my_dict)
+        else:
+            try:
+                setattr(namespace, self.dest, float(values))
+            except ValueError:
+                raise ValueError(f"Invalid value for {self.dest}: '{values}', must be float")
 
 def mk_parser_main():
     """
@@ -31,7 +63,13 @@ def mk_parser_main():
     parser.add_argument("--lr", type=float, default=1e-4, help="learning rate")
 
     parser.add_argument(
-        "--gamma_reg", type=float, default=0.1, help="weight of regularization loss"
+        "--gamma_reg",
+        default=0.1,
+        help="weight of regularization loss in the form of $$\ell(\cdot) + \mu \times R(\cdot)$$ \
+        can specify per model as 'default=3.0, dann=1.0,jigen=2.0', where default refer to gamma for trainer \
+        note diva is implemented $$\ell(\cdot) + \mu \times R(\cdot)$$ \
+        so diva does not have gamma_reg",
+        action=ParseValuesOrKeyValuePairs
     )
 
     parser.add_argument("--es", type=int, default=1, help="early stop steps")
@@ -74,6 +112,15 @@ def mk_parser_main():
         default=100,
         help="number of epochs for hyper-parameter warm-up. \
                         Set to 0 to turn warmup off.",
+    )
+
+    parser.add_argument(
+        "-nb4ratio",
+        "--nb4reg_over_task_ratio",
+        type=int,
+        default=1,
+        help="number of batches for estimating reg loss over task loss ratio \
+        default 1",
     )
 
     parser.add_argument("--debug", action="store_true", default=False)
@@ -310,6 +357,8 @@ def mk_parser_main():
     arg_group_vae = add_args2parser_vae(arg_group_vae)
     arg_group_matchdg = parser.add_argument_group("matchdg")
     arg_group_matchdg = add_args2parser_matchdg(arg_group_matchdg)
+    arg_group_miro = parser.add_argument_group("miro")
+    arg_group_miro = add_args2parser_miro(arg_group_miro)
     arg_group_jigen = parser.add_argument_group("jigen")
     arg_group_jigen = add_args2parser_jigen(arg_group_jigen)
     args_group_dial = parser.add_argument_group("dial")

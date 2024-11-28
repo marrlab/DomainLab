@@ -103,14 +103,15 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return self._decoratee.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         return None, None
 
-    def forward(self, tensor_x, tensor_y, tensor_d, others=None):
+    def forward(self, tensor_x):
         """forward.
 
         :param x:
         :param y:
         :param d:
         """
-        return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        out = self.extract_semantic_feat(tensor_x)
+        return out
 
     def extract_semantic_feat(self, tensor_x):
         """
@@ -178,3 +179,35 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
         if self._decoratee is not None:
             return self._decoratee.dset_decoration_args_algo(args, ddset)
         return ddset
+
+    @property
+    def p_na_prefix(self):
+        """
+        common prefix for Models
+        """
+        return "Model"
+
+    @property
+    def name(self):
+        """
+        get the name of the algorithm
+        """
+        na_prefix = self.p_na_prefix
+        len_prefix = len(na_prefix)
+        na_class = type(self).__name__
+        if na_class[:len_prefix] != na_prefix:
+            raise RuntimeError(
+                "Model builder node class must start with ",
+                na_prefix,
+                "the current class is named: ",
+                na_class,
+            )
+        return type(self).__name__[len_prefix:].lower()
+
+    def print_parameters(self):
+        """
+        Function to print all parameters of the object.
+        Can be used to print the parameters of every child class.
+        """
+        params = vars(self)
+        print(f"Parameters of {type(self).__name__}: {params}")

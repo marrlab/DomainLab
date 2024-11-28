@@ -3,14 +3,24 @@ set -e  # exit upon first error
 # >> append content
 # > erase original content
 
-# echo "#!/bin/bash -x -v" > sh_temp_example.sh
-sed -n '/```shell/,/```/ p' docs/doc_examples.md | sed '/^```/ d' >> ./sh_temp_example.sh
-split -l 5 sh_temp_example.sh sh_example_split
-for file in sh_example_split*;
-do (echo "#!/bin/bash -x -v" > "$file"_exe && cat "$file" >> "$file"_exe && bash -x -v "$file"_exe && rm -r zoutput);
+
+files=("docs/docDIAL.md" "docs/docIRM.md" "docs/doc_examples.md" "docs/docHDUVA.md")
+
+for file in "${files[@]}"
+do
+echo "Processing $file"
+# no need to remove sh_temp_algo.sh since the following line overwrite it each time
+echo "#!/bin/bash -x -v" > sh_temp_algo.sh  
+# remove code marker ```
+# we use >> here to append to keep the header #!/bin/bash -x -v
+sed -n '/```shell/,/```/ p' $file | sed '/^```/ d' >> ./sh_temp_algo.sh
+cat sh_temp_algo.sh
+bash -x -v -e sh_temp_algo.sh
+# Add your commands to process each file here
+echo "finished with $file"
 done
-# bash -x -v -e sh_temp_example.sh
-echo "general examples done"
+
+
 
 echo "#!/bin/bash -x -v" > sh_temp_mnist.sh
 sed -n '/```shell/,/```/ p' docs/doc_MNIST_classification.md | sed '/^```/ d' >> ./sh_temp_mnist.sh
