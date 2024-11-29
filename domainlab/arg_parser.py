@@ -258,6 +258,13 @@ def mk_parser_main():
     )
 
     parser.add_argument(
+        "--opt",
+        type=str,
+        default="Adam",
+        help="name of pytorch optimizer",
+    )
+
+    parser.add_argument(
         "--param_idx",
         type=bool,
         default=True,

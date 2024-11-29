@@ -14,7 +14,8 @@ def mk_opt(model, aconf):
     create optimizer
     """
     if model._decoratee is None:
-        optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+        class_opt = getattr(optim, aconf.opt)
+        optimizer = class_opt(model.parameters(), lr=aconf.lr)
     else:
         var1 = model.parameters()
         var2 = model._decoratee.parameters()
