@@ -23,6 +23,7 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
+  opt: AdamW
 
 
 Shared params:
