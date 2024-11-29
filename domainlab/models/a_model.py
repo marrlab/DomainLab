@@ -112,14 +112,15 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
             return self._decoratee.cal_reg_loss(tensor_x, tensor_y, tensor_d, others)
         return None, None
 
-    def forward(self, tensor_x, tensor_y, tensor_d, others=None):
+    def forward(self, tensor_x):
         """forward.
 
         :param x:
         :param y:
         :param d:
         """
-        return self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        out = self.extract_semantic_feat(tensor_x)
+        return out
 
     def extract_semantic_feat(self, tensor_x):
         """
@@ -214,7 +215,7 @@ class AModel(nn.Module, metaclass=abc.ABCMeta):
 
     def print_parameters(self):
         """
-        Function to print all parameters of the object. 
+        Function to print all parameters of the object.
         Can be used to print the parameters of every child class.
         """
         params = vars(self)

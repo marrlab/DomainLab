@@ -1,4 +1,4 @@
-# Deep CORAL
+# Trainer CORAL
 ## Deep CORAL: Correlation Alignment for Deep Domain Adaptation
 
 nonlinear transformation that aligns correlations of

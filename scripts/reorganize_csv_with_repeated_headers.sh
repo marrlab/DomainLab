@@ -4,7 +4,7 @@
 input_file=$1
 
 # Define the output CSV file
-output_file="merged_data.csv"
+output_file="$1_header_cleaned.csv"
 
 # Check if the input file exists
 if [ ! -f "$input_file" ]; then

@@ -24,6 +24,7 @@ Welcome to domainlab's documentation!
    docMA
    doc_coral
    doc_irl
+   doc_miro
 
 
 Indices and tables

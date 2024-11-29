@@ -14,7 +14,8 @@ def mk_opt(model, aconf):
     create optimizer
     """
     if model._decoratee is None:
-        optimizer = optim.Adam(model.parameters(), lr=aconf.lr)
+        class_opt = getattr(optim, aconf.opt)
+        optimizer = class_opt(model.parameters(), lr=aconf.lr)
     else:
         var1 = model.parameters()
         var2 = model._decoratee.parameters()
@@ -99,7 +100,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.list_reg_over_task_ratio = None
         # mhof
         self.dict_multiplier = {}
-
+        # MIRO
+        self.input_tensor_shape = None
 
     @property
     def model(self):
@@ -221,6 +223,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
+            self.input_tensor_shape = tensor_x.shape
+
             tensor_x, tensor_y, tensor_d = (
                 tensor_x.to(self.device),
                 tensor_y.to(self.device),
