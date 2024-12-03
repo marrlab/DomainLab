@@ -5,6 +5,7 @@ import abc
 
 import torch
 from torch import optim
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
@@ -16,6 +17,7 @@ def mk_opt(model, aconf):
     if model._decoratee is None:
         class_opt = getattr(optim, aconf.opt)
         optimizer = class_opt(model.parameters(), lr=aconf.lr)
+        scheduler = CosineAnnealingLR(optimizer, T_max=aconf.epos)
     else:
         var1 = model.parameters()
         var2 = model._decoratee.parameters()
@@ -27,7 +29,7 @@ def mk_opt(model, aconf):
         #    {'params': model._decoratee.parameters()}
         # ], lr=aconf.lr)
         optimizer = optim.Adam(list_par, lr=aconf.lr)
-    return optimizer
+    return optimizer, scheduler
 
 
 class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
@@ -94,6 +96,8 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         self.list_reg_over_task_ratio = None
         # MIRO
         self.input_tensor_shape = None
+        # LR-scheduler
+        self.lr_scheduler = None
 
     @property
     def model(self):
@@ -168,7 +172,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
         """
         make a new optimizer to clear internal state
         """
-        self.optimizer = mk_opt(self.model, self.aconf)
+        self.optimizer, self.lr_scheduler = mk_opt(self.model, self.aconf)
 
     @abc.abstractmethod
     def tr_epoch(self, epoch):
