@@ -8,7 +8,7 @@ cluster:
     --qos=gpu_normal
     --gres=gpu:1
     --nice=10000
-    -t 48:00:00
+    -t 24:00:00
     -c 2
     --mem=160G
     --job-name=$outputfolder-{rule}-{wildcards}
