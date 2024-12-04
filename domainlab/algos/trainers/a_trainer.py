@@ -5,7 +5,7 @@ import abc
 
 import torch
 from torch import optim
-from torch.optim.lr_scheduler import CosineAnnealingLR
+from torch.optim import lr_scheduler 
 
 from domainlab.compos.pcr.p_chain_handler import AbstractChainNodeHandler
 
@@ -14,7 +14,6 @@ def mk_opt(model, aconf):
     """
     create optimizer
     """
-    scheduler = CosineAnnealingLR(optimizer, T_max=aconf.epos)
     if model._decoratee is None:
         class_opt = getattr(optim, aconf.opt)
         optimizer = class_opt(model.parameters(), lr=aconf.lr)
@@ -29,6 +28,11 @@ def mk_opt(model, aconf):
         #    {'params': model._decoratee.parameters()}
         # ], lr=aconf.lr)
         optimizer = optim.Adam(list_par, lr=aconf.lr)
+    if aconf.lr_scheduler is not None:
+        class_lr_scheduler = getattr(lr_scheduler, aconf.lr_scheduler)
+        scheduler = class_lr_scheduler(optimizer, T_max=aconf.epos)
+    else:
+        scheduler = None
     return optimizer, scheduler
 
 
