@@ -14,10 +14,10 @@ def mk_opt(model, aconf):
     """
     create optimizer
     """
+    scheduler = CosineAnnealingLR(optimizer, T_max=aconf.epos)
     if model._decoratee is None:
         class_opt = getattr(optim, aconf.opt)
         optimizer = class_opt(model.parameters(), lr=aconf.lr)
-        scheduler = CosineAnnealingLR(optimizer, T_max=aconf.epos)
     else:
         var1 = model.parameters()
         var2 = model._decoratee.parameters()
