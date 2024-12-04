@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: mhof_dev_merge
+    branches: mhof_dev
   pull_request:
-    branches: mhof_dev_merge
+    branches: mhof_dev
   workflow_dispatch:
 jobs:
   test:
