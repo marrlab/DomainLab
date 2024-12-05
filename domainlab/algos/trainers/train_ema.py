@@ -63,4 +63,4 @@ class TrainerMA(TrainerBasic):
         new_dict_para = self.move_average(dict_para, epoch)
         # without deepcopy, this seems to work
         torch_model.load_state_dict(new_dict_para)
-        super().after_epoch(epoch)
+        super().after_epoch(epoch, flag_info)
