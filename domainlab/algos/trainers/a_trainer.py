@@ -319,7 +319,7 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
             list_reg_loss_trainer_tensor
         list_mu = list_mu_model + list_mu_trainer
         # ERM return a tensor of all zeros, delete here
-        if len(list_mu) > 1:
+        if len(list_mu) > 1 and "ModelERM" == type(self.get_model()).__name__:
             list_boolean_zero = [torch.all(torch.eq(list_loss_tensor[i], 0)).item()
                                  for i in range(len(list_mu))]
             list_loss_tensor = [list_loss_tensor[i] for (i, flag) in
