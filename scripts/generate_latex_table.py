@@ -12,6 +12,8 @@ def gen_latex_table(raw_df, fname="table_perf.tex",
     """
     df_result = raw_df.groupby(group)[str_perf].agg(["mean", "std"])
     latex_table = df_result.to_latex(float_format="%.3f")
+    str_table = df_result.to_string()
+    print(str_table)
     with open(fname, 'w') as file:
         file.write(latex_table)
 
