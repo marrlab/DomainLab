@@ -1,6 +1,7 @@
 """
 unit and end-end test for deep all, mldg
 """
+import pytest
 from tests.utils_test import utils_test_algo
 
 
@@ -27,12 +28,23 @@ def test_diva_fbopt():
     args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=diva --gamma_y=1.0 --trainer=fbopt --nname=alexnet --epos=3"
     utils_test_algo(args)
 
+
 def test_erm_fbopt():
     """
     erm
     """
     args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=fbopt --nname=alexnet --epos=3" # pylint: disable=line-too-long
+    with pytest.raises(RuntimeError):
+        utils_test_algo(args)
+
+
+def test_irm_fbopt():
+    """
+    irm
+    """
+    args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm --trainer=fbopt_irm --nname=alexnet --epos=3" # pylint: disable=line-too-long
     utils_test_algo(args)
+
 
 def test_forcesetpoint_fbopt():
     """
