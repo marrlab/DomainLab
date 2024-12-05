@@ -57,7 +57,7 @@ class TrainerMA(TrainerBasic):
         self._ma_iter += 1
         return dict_return_ema_para_curr_iter
 
-    def after_epoch(self, epoch):
+    def after_epoch(self, epoch, flag_info=None):
         torch_model = self.get_model()
         dict_para = torch_model.state_dict()  # only for trainable parameters
         new_dict_para = self.move_average(dict_para, epoch)
