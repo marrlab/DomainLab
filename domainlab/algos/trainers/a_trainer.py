@@ -326,7 +326,9 @@ class AbstractTrainer(AbstractChainNodeHandler, metaclass=abc.ABCMeta):
                                 enumerate(list_boolean_zero) if not flag]
             list_mu = [list_mu[i] for (i, flag) in enumerate(list_boolean_zero) if not flag]
         if self.dict_multiplier:
-            list_mu = list(self.dict_multiplier.values())
+            #list_mu = list(self.dict_multiplier.values())
+            # use unique order of keys to keep the order of list_mu consistent each time
+            list_mu = [self.dict_multiplier[key] for key in sorted(self.dict_multiplier.keys())]
 
         list_loss_tensor_normalized = list_loss_tensor
         if self.list_reg_over_task_ratio:
