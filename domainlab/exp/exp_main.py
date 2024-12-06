@@ -133,3 +133,20 @@ class Exp:
             self.visitor.remove("ctr")  # pylint: disable=E1101
         except FileNotFoundError:
             pass
+
+    def cal_oracle_perf(self):
+        """
+        calculate oracle performance
+        """
+        try:
+            model_or = self.visitor.load("oracle")
+            # @FIXME: name "oracle is a strong dependency
+            model_or = model_or.to(self.device)
+            model_or.eval()
+        except FileNotFoundError:
+            return {"acc_oracle": -1}
+        logger = Logger.get_logger()
+        logger.info("oracle model performance metric: \n")
+        metric_te = model_or.cal_perf_metric(self.observer.loader_te,
+                                             self.device)
+        return {"acc_oracle": metric_te["acc"]}
