@@ -83,6 +83,8 @@ class TrainerBasic(AbstractTrainer):
         loss, *_ = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
         loss.backward()
         self.optimizer.step()
+        if self.lr_scheduler:
+            self.lr_scheduler.step()
         self.after_batch(epoch, ind_batch)
         self.counter_batch += 1
 

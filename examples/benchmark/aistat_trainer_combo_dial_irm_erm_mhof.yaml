@@ -24,6 +24,7 @@ domainlab_args:
   zy_dim: 64
   zd_dim: 64
   opt: AdamW
+  lr_scheduler: CosineAnnealingLR
 
 
 Shared params:

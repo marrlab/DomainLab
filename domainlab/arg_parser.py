@@ -265,6 +265,13 @@ def mk_parser_main():
     )
 
     parser.add_argument(
+        "--lr_scheduler",
+        type=str,
+        default="CosineAnnealingLR",
+        help="name of pytorch learning rate scheduler",
+    )
+
+    parser.add_argument(
         "--param_idx",
         type=bool,
         default=True,
