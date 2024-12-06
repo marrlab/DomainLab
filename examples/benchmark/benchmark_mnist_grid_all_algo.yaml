@@ -1,0 +1,147 @@
+
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_mnist_grid_all_algo
+num_param_samples: 10
+startseed: 0
+endseed: 2
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [0, 3]
+  dmem: False
+  lr: 0.001
+  epos: 3
+  es: 5
+  bs: 32
+  nname: conv_bn_pool_2
+  san_check: True
+
+test_domains:
+  - 1
+  - 2
+
+
+Shared params:
+  num_shared_param_samples: 3
+  gamma_y:
+    min: 1000
+    max: 10000
+    step: 100
+    num: 2
+    distribution: uniform
+
+  zy_dim:
+    min: 32
+    max: 96
+    step: 32
+    num: 2
+    distribution: uniform
+    datatype: int
+
+  zd_dim:
+    min: 32
+    max: 96
+    step: 32
+    num: 2
+    distribution: uniform
+    datatype: int
+
+  gamma_reg:
+    min: 0.01
+    max: 10
+    num: 1
+    distribution: loguniform
+
+  gamma_d:
+    min: 1000
+    max: 10000
+    step: 10
+    num: 2
+    distribution: uniform
+    
+
+ExperimentDann:
+  aname: dann
+  shared:
+    - gamma_reg
+
+
+ExperimentDeepall:
+  aname: deepall
+
+
+
+ExperimentDiva:
+  aname: diva
+  nname_dom: conv_bn_pool_2
+  shared: 
+    - gamma_y
+    - zy_dim
+    - zd_dim
+    - gamma_d
+
+
+
+ExperimentHduva:
+  aname: hduva
+  nname_topic_distrib_img2topic: conv_bn_pool_2
+  nname_encoder_sandwich_layer_img2h4zd: conv_bn_pool_2
+
+  shared:
+    - gamma_y
+    - zy_dim
+    - zd_dim
+
+  zx_dim: 0
+
+
+
+ExperimentMatchdg:
+  aname: matchdg
+  
+  shared:
+    - gamma_reg
+
+  hyperparameters:
+    epochs_ctr:
+      min: 2
+      max: 10
+      step: 1
+      num: 2
+      distribution: uniform
+
+    tau:
+      min: 0.01
+      max: 1
+      num: 2
+      distribution: loguniform
+
+    epos_per_match_update:
+      min: 1
+      max: 20
+      step: 1
+      num: 2
+      distribution: uniform
+
+
+ExperimentJigen:
+  aname: jigen
+  grid_len: 3
+  shared:
+    - gamma_reg
+
+  hyperparameters:
+    pperm:
+      min: 0.1
+      max: 0.5
+      distribution: uniform
+      num: 3
+
+    nperm:
+      distribution: categorical
+      values:
+        - 30
+        - 31
+        - 100
+      datatype: int
