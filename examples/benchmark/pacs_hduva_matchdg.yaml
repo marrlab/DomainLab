@@ -1,0 +1,112 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/pacs_hduva_fbopt_alone_aug
+
+sampling_seed: 0
+
+startseed: 0
+endseed: 10
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_aug.py
+  dmem: False
+  lr: 5e-5
+  epos: 500
+  epos_min: 100
+  es: 10
+  bs: 16
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  npath_encoder_x2topic_h: examples/nets/resnet50domainbed.py
+  npath_encoder_sandwich_x2h4zd: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.990
+    max: 0.999
+    num: 2
+    distribution: uniform
+
+  str_diva_multiplier_type:
+    distribution: categorical
+    datatype: str
+    values:
+      - gammad_recon
+      - gammad_recon_per_pixel
+
+  coeff_ma_output_state:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.1
+      - 0.5
+      - 0.8
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 10
+      - 1000
+      - 1
+      - 100
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    distribution: uniform
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 10
+    num: 10
+    distribution: loguniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    step: 0.000001
+    num: 3
+    distribution: loguniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_reg:
+    min: 0.01
+    max: 10
+    distribution: loguniform
+    num: 3
+
+
+
+
+
+# Test fbopt with different hyperparameter configurations, no noeed to tune mu_clip since this is the job of KI gain when mu_init is small
+
+match_duva:
+  model: matchhduva
+  epochs_ctr: 10
+  shared:
+    - gamma_y
+    - gamma_reg

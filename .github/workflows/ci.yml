@@ -2,11 +2,10 @@ name: CI
 
 on:
   push:
-    branches: master
+    branches: mhof_dev
   pull_request:
-    branches: master
+    branches: mhof_dev
   workflow_dispatch:
-
 jobs:
   test:
     name: Run tests

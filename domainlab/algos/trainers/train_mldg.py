@@ -52,7 +52,7 @@ class TrainerMLDG(AbstractTrainer):
         ddset_mix = DsetZip(ddset_source, ddset_target)
         self.loader_tr_source_target = mk_loader(ddset_mix, self.aconf.bs)
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         self.model.train()
         self.epo_loss_tr = 0
         self.prepare_ziped_loader()
@@ -118,5 +118,5 @@ class TrainerMLDG(AbstractTrainer):
             self.optimizer.step()
             self.epo_loss_tr += loss.detach().item()
             self.after_batch(epoch, ind_batch)
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         return flag_stop
