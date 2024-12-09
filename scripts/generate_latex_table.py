@@ -10,7 +10,7 @@ def gen_latex_table(raw_df, fname="table_perf.tex",
     """
     aggregate benchmark csv file to generate latex table
     """
-    df_result = raw_df.groupby(group)[str_perf].agg(["mean", "std"])
+    df_result = raw_df.groupby(group)[str_perf].agg(["mean", "std", "count"])
     latex_table = df_result.to_latex(float_format="%.3f")
     str_table = df_result.to_string()
     print(str_table)
