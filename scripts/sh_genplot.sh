@@ -1,2 +1,3 @@
 mkdir $2
-python main_out.py --gen_plots $1 --outp_dir $2
+merge_csvs.sh
+python main_out.py --gen_plots merged_data.csv  --outp_dir $2
