@@ -23,10 +23,17 @@ domainlab_args:
   zx_dim: 0
   zy_dim: 64
   zd_dim: 64
-  opt: AdamW
+  lr_scheduler: CosineAnnealingLR
 
 
 Shared params:
+  opt:
+    distribution: categorical
+    datatype: str
+    values:
+      - AdamW
+      - Adam
+      
   nb4reg_over_task_ratio:
     distribution: categorical   # name of the distribution
     datatype: int
@@ -79,14 +86,14 @@ fixed_multplier_irm_dial:
   trainer: irm_dial
   shared:
     - gamma_reg
-    - nb4reg_over_task_ratio
+    - opt
 
 feedforward_irm_dial:
   model: erm
   trainer: hyperscheduler_irm_dial
   shared:
     - gamma_reg
-    - nb4reg_over_task_ratio
+    - opt
 
 mhof_irm_dial_erm:
   model: erm
@@ -98,7 +105,13 @@ mhof_irm_dial_erm:
   nb4reg_over_task_ratio: 0
   str_setpoint_ada: "SliderAnyComponent()"
   shared:
+    - opt
     - k_i_gain_ratio
     - mu_init
     - mu_clip
     - exp_shoulder_clip
+    
+  erm:
+    model: erm
+    shared:
+      - opt
