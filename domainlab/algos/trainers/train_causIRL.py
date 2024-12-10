@@ -69,7 +69,7 @@ class TrainerCausalIRL(TrainerBasic):
             penalty = torch.nan_to_num(self.mmd(first, second))
         else:
             penalty = torch.tensor(0)
-        loss = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        loss, *_ = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
         loss = loss + penalty
         loss.backward()
         self.optimizer.step()
