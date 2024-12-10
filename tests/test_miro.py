@@ -9,5 +9,5 @@ def test_miro():
     train with MIRO
     """
     args = "--te_d=caltech --task=mini_vlcs --debug --bs=2 --model=erm \
-        --trainer=miro --nname=alexnet"
+        --trainer=miro --nname=alexnet --no_dump"
     utils_test_algo(args)
