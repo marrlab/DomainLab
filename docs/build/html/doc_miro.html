@@ -407,14 +407,16 @@
 <h3 id="pre-requisite-variational-lower-bound-on-mutual-information">Pre-requisite: Variational lower bound on mutual information<a class="headerlink" href="#pre-requisite-variational-lower-bound-on-mutual-information" title="Link to this heading">¶</a></h3>
 <p>Barber, David, and Felix Agakov. “The im algorithm: a variational approach to information maximization.” Advances in neural information processing systems 16, no. 320 (2004): 201.</p>
 <div class="math notranslate nohighlight">
+\[H(Y|X):=E_X[{\langle \log p(Y|X)\rangle}_{p(Y|X)}]\]</div>
+<div class="math notranslate nohighlight">
 \[I(X,Y)=H(Y)-H(Y|X)=-{\langle\log p_y(Y)\rangle}_{p_y(Y)}+{\langle\log p(Y|X)\rangle}_{p(X,Y)}\]</div>
 <p>Given variational distribution of <span class="math notranslate nohighlight">\(q(x|y)\)</span> as decoder (i.e. <span class="math notranslate nohighlight">\(Y\)</span> encodes information from <span class="math notranslate nohighlight">\(X\)</span>)</p>
 <p>Since</p>
 <div class="math notranslate nohighlight">
-\[KL\left(p(X|Y)|q(X|Y)\right)={\langle\log p(X|Y)\rangle}_{p(X|Y)}-\langle{\log q(X,Y)\rangle}_{p(X|Y)} &gt;0\]</div>
+\[KL\left(p(X|Y)|q(X|Y)\right):={\langle\log p(X|Y)\rangle}_{p(X|Y)}-\langle{\log q(X|Y)\rangle}_{p(X|Y)} &gt;0\]</div>
 <p>We have</p>
 <div class="math notranslate nohighlight">
-\[{\langle\log p(X|Y)\rangle}_{p(X|Y)}&gt;{\langle\log q(X,Y)\rangle}_{p(X|Y)}\]</div>
+\[{\langle\log p(X|Y)\rangle}_{p(X|Y)}&gt;{\langle\log q(X|Y)\rangle}_{p(X|Y)}\]</div>
 <p>Then</p>
 <div class="math notranslate nohighlight">
 \[I(X,Y)=-{\langle\log p_y(Y)\rangle}_{p_y(Y)}+{\langle\log p(Y|X)\rangle}_{p(X,Y)}&gt;-{\langle\log p_y(Y)\rangle}_{p_y(Y)}+{\langle\log q(X,Y)\rangle}_{p(X|Y)}\]</div>

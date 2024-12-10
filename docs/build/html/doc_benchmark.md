@@ -132,8 +132,9 @@ In case that the benchmark is not entirely completed, the user can obtain partia
 explained below.
 
 
-### Obtain partial results
-If the benchmark is not yet completed (still running or has some failed jobs, e.g. BrokenPipe Error due to multiprocessing in PIL image reading), the `results.csv` file containing the aggregated results will not be created.
+### Aggregate obtained partial results
+If the benchmark is not yet completed (still running or has some failed jobs, e.g. Out of Memory, BrokenPipe Error due to multiprocessing in PIL image reading), the `results.csv` file containing the aggregated results will not be created.
+
 The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:
 ```commandline
@@ -144,9 +145,9 @@ e.g. `./zoutput/benchmarks/demo_benchmark`, where `demo_benchmark` is a name def
 
 Alternatively, one could use
 ```examples
-cat ./zoutput/benchmarks/[name of the benchmark]/rule_results/*.csv > result.csv
+sh scripts/sh_benchmark_partial_agg.sh OUTPUT_DIR/rule_results
 ```
-clean up the extra csv head generated and plot the csv using command below
+where rule_results is the subfolder that contains partially finished csv result files. This script will partially aggregate the csv files in a faster fashion, output latex table which summarizes the results named "output_table_perf.tex" (which also contains a text format table before the latex table), and at the end generate plots using the following functionality.
 
 ### Generate plots from .csv file
 If the benchmark is not completed, the `graphics` subdirectory might not be created. The user can then manually

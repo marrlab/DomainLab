@@ -357,7 +357,7 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#output-folder-structure" class="md-nav__link">Output folder structure</a>
         </li>
-        <li class="md-nav__item"><a href="#obtain-partial-results" class="md-nav__link">Obtain partial results</a>
+        <li class="md-nav__item"><a href="#aggregate-obtained-partial-results" class="md-nav__link">Aggregate obtained partial results</a>
         </li>
         <li class="md-nav__item"><a href="#generate-plots-from-csv-file" class="md-nav__link">Generate plots from .csv file</a>
         </li></ul>
@@ -505,10 +505,10 @@ visualized for interpretation.</p>
 <p>In case that the benchmark is not entirely completed, the user can obtain partial results as
 explained below.</p>
 </section>
-<section id="obtain-partial-results">
-<h3 id="obtain-partial-results">Obtain partial results<a class="headerlink" href="#obtain-partial-results" title="Link to this heading">¶</a></h3>
-<p>If the benchmark is not yet completed (still running or has some failed jobs, e.g. BrokenPipe Error due to multiprocessing in PIL image reading), the <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> file containing the aggregated results will not be created.
-The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
+<section id="aggregate-obtained-partial-results">
+<h3 id="aggregate-obtained-partial-results">Aggregate obtained partial results<a class="headerlink" href="#aggregate-obtained-partial-results" title="Link to this heading">¶</a></h3>
+<p>If the benchmark is not yet completed (still running or has some failed jobs, e.g. Out of Memory, BrokenPipe Error due to multiprocessing in PIL image reading), the <code class="docutils literal notranslate"><span class="pre">results.csv</span></code> file containing the aggregated results will not be created.</p>
+<p>The user can then obtain the aggregated partial results with plots from the partially completed benchmark by running
 the following after cd into the DomainLab directory:</p>
 <div class="highlight-commandline notranslate"><div class="highlight"><pre><span></span>python main_out.py --agg_partial_bm OUTPUT_DIR
 </pre></div>
@@ -516,10 +516,10 @@ the following after cd into the DomainLab directory:</p>
 <p>where <code class="docutils literal notranslate"><span class="pre">OUTPUT_DIR</span></code> specifying the benchmark output directory containing the partially completed benchmark,
 e.g. <code class="docutils literal notranslate"><span class="pre">./zoutput/benchmarks/demo_benchmark</span></code>, where <code class="docutils literal notranslate"><span class="pre">demo_benchmark</span></code> is a name defined in the benchmark yaml file.</p>
 <p>Alternatively, one could use</p>
-<div class="highlight-examples notranslate"><div class="highlight"><pre><span></span>cat ./zoutput/benchmarks/[name of the benchmark]/rule_results/*.csv &gt; result.csv
+<div class="highlight-examples notranslate"><div class="highlight"><pre><span></span>sh scripts/sh_benchmark_partial_agg.sh OUTPUT_DIR/rule_results
 </pre></div>
 </div>
-<p>clean up the extra csv head generated and plot the csv using command below</p>
+<p>where rule_results is the subfolder that contains partially finished csv result files. This script will partially aggregate the csv files in a faster fashion, output latex table which summarizes the results named “output_table_perf.tex” (which also contains a text format table before the latex table), and at the end generate plots using the following functionality.</p>
 </section>
 <section id="generate-plots-from-csv-file">
 <h3 id="generate-plots-from-csv-file">Generate plots from .csv file<a class="headerlink" href="#generate-plots-from-csv-file" title="Link to this heading">¶</a></h3>
