@@ -45,6 +45,9 @@ class HyperSchedulerFeedback:
         self.mu_min = trainer.aconf.mu_min
         self.mu_clip = trainer.aconf.mu_clip
 
+        if not kwargs:
+            raise RuntimeError("feedback scheduler requires **kwargs, the set \
+                               of multipliers non-empty")
         self.mmu = kwargs
         # force initial value of mu
         self.mmu = {key: self.init_mu for key, val in self.mmu.items()}
