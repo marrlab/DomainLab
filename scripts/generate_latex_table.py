@@ -5,7 +5,7 @@ import argparse
 import pandas as pd
 
 
-def gen_latex_table(raw_df, fname="table_perf.tex",
+def gen_latex_table(raw_df, fname="output_table_perf.tex",
                     group="method", str_perf="acc"):
     """
     aggregate benchmark csv file to generate latex table
@@ -15,6 +15,8 @@ def gen_latex_table(raw_df, fname="table_perf.tex",
     str_table = df_result.to_string()
     print(str_table)
     with open(fname, 'w') as file:
+        file.write(str_table)
+        file.write("\n")
         file.write(latex_table)
 
 
