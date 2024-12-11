@@ -22,7 +22,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-cov pytest-shell
+        pip install pytest pytest-cov pytest-shell pytest-shell-utilities
         python setup.py install
     - name: Install Python Poetry
       run: |
