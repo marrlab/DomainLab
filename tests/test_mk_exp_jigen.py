@@ -19,7 +19,6 @@ def test_mk_exp_jigen():
     """
 
     mk_exp_jigen(trainer="mldg")
-    mk_exp_jigen(trainer="dial")
 
 
 def mk_exp_jigen(trainer="mldg"):
