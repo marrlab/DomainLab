@@ -6,8 +6,6 @@ tests/__pycache__/
 .vscode/
 domainlab/zdata/pacs
 /data/
-/.snakemake/
 /dist 
 /domainlab.egg-info
 /runs
-/slurm_errors.txt

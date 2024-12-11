@@ -1,0 +1,85 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt_dial_diva_pacs
+
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_aug.py
+  dmem: False
+  lr: 5e-5
+  epos: 500
+  epos_min: 20
+  es: 5
+  bs: 16
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+
+
+Shared params:
+  k_i_gain_ratio:
+    min: 0.01
+    max: 0.90
+    num: 3
+    step: 0.0001
+    distribution: uniform
+  
+  dial_lr: 
+    min: 1e-5
+    max: 1e-3
+    num: 2
+    step: 1e-5
+    distribution: uniform
+
+  dial_epsilon: 
+    min: 1e-5
+    max: 1e-3
+    num: 2
+    step: 1e-5
+    distribution: uniform
+
+  gamma_y:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+  gamma_d:
+    min: 1.0
+    max: 1e6
+    step: 100
+    num: 3
+    distribution: loguniform
+
+
+# Test fbopt with different hyperparameter configurations
+
+dial_fbopt:
+  model: diva
+  trainer: fbopt_dial
+  gamma_y: 1.0
+  shared:
+    - k_i_gain_ratio
+    - dial_lr 
+    - dial_epsilon
+
+dial_diva:
+  model: diva
+  trainer: dial
+  shared:
+    - dial_lr 
+    - dial_epsilon
+    - gamma_y
+    - gamma_d

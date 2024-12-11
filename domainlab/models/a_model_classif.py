@@ -25,7 +25,6 @@ except:
 
 loss_cross_entropy_extended = extend(nn.CrossEntropyLoss(reduction="none"))
 
-
 class AModelClassif(AModel, metaclass=abc.ABCMeta):
     """
     operations that all classification model should have
@@ -244,3 +243,4 @@ class AModelClassif(AModel, metaclass=abc.ABCMeta):
         device = tensor_x.device
         bsize = tensor_x.shape[0]
         return [torch.zeros(bsize).to(device)], [0.0]
+        # return [], []
