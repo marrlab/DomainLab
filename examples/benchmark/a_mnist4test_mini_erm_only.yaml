@@ -1,0 +1,39 @@
+# Example benchmark config script.
+
+# list of all domains that are used as test domain
+# in a leave-one-out setup, i.e. for each run,
+# one domain from this list is chosen as test domain
+# while training is performed on all other domains
+# of the specified dataset.
+test_domains:
+  - 0
+
+output_dir: zoutput/benchmarks/a_demo_benchmark00
+
+# number of hyperparameter samples per task.
+# Thus, the total runs of each task are given
+# by len(test_domains) * num_param_samples * num_seeds (see below)
+num_param_samples: 2
+# sets the seed for hyperparameter sampling.
+# With this option and the experiment seeds from
+# startseed and endseed, this benchmark is fully reproducible.
+sampling_seed: 1  # Optional
+
+# the seed is increased by +1 until it reaches endseed.
+# endseed is included, so in total startseed - endseed + 1
+# different seeds are used to estimate the stochastic
+# variance.
+startseed: 1
+endseed: 2  # currently included
+
+domainlab_args:
+  # Domainlab arguments passed to each task.
+  # task specific arguments take precedence.
+  task: mnistcolor10
+  tr_d: [1, 2]
+  epos: 2
+  bs: 2
+
+erm:
+  model: erm
+  nname: conv_bn_pool_2
