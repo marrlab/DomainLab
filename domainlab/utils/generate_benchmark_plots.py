@@ -538,6 +538,7 @@ def boxplot_stochastic(dataframe_in, obj, file=None):
                 x=COLNAME_IDX_PARAM,
                 y=obj,
                 legend=False,
+                color="black",
                 ax=axes[num],
             )
             # remove legend, set ylim, set x-label and remove y-label
