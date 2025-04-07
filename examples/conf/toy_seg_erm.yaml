@@ -1,0 +1,6 @@
+te_d: domain1                       # domain name of test domain
+tpath: examples/tasks/task_seg_toy.py  # python file path to specify the task
+bs: 8                               # batch size
+model: seg                          # 
+epos: 1                             # number of epochs
+npath: examples/nets/seg/unet.py    # neural network for class classification
