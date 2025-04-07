@@ -1,0 +1,80 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/mnist_fbopt_and_others
+
+sampling_seed: 0
+startseed: 0
+endseed: 4
+
+test_domains:
+  - 0
+
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [1, 2]
+  dmem: False
+  lr: 0.001
+  epos: 2000
+  epos_min: 100
+  es: 1
+  bs: 64
+  nname: conv_bn_pool_2
+  san_check: False
+  no_tensorboard: False
+  pperm: 0.5
+
+
+
+Shared params:
+  k_i_gain:
+    min: 1e-4
+    max: 1e-3
+    num: 2
+    distribution: uniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    num: 3
+    distribution: loguniform
+
+  gamma_reg:
+    min: 0.01
+    max: 1e4
+    num: 3
+    distribution: loguniform
+
+  mu_clip:
+    min: 0.01
+    max: 1e4
+    num: 3
+    distribution: loguniform
+
+
+
+# Test fbopt with different hyperparameter configurations
+
+jigen_feedback:
+  model: jigen
+  trainer: fbopt
+  ini_setpoint_ratio: 0.99
+  mu_init: 1e-6
+  shared:
+    - k_i_gain
+    - mu_clip
+
+jigen_feedforward:
+  model: jigen
+  trainer: hyperscheduler
+  shared:
+    - gamma_reg
+
+jigen_fixed_penalty:
+  model: jigen
+  trainer: basic
+  shared:
+    - gamma_reg
+
+erm:
+  model: erm

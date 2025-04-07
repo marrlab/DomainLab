@@ -1,0 +1,62 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_fbopt
+
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - 0
+
+
+domainlab_args:
+  task: mnistcolor10
+  tr_d: [1, 2]
+  dmem: False
+  lr: 0.0001
+  epos: 500
+  es: 100
+  bs: 64
+  nname: conv_bn_pool_2
+  san_check: False
+  exp_shoulder_clip: 10
+  mu_clip: 10_000
+  coeff_ma: 0.5
+  no_tensorboard: False
+
+
+
+Shared params:
+  ini_setpoint_ratio:
+    min: 0.9
+    max: 0.99
+    num: 3
+    step: 0.05
+    distribution: uniform
+
+  k_i_gain:
+    min: 0.0001
+    max: 0.01
+    num: 2
+    step: 0.0001
+    distribution: uniform
+
+  mu_init:
+    min: 0.000001
+    max: 0.00001
+    num: 2
+    distribution: uniform
+
+# Test fbopt with different hyperparameter configurations
+
+dann_fbopt:
+  model: dann
+  trainer: fbopt
+  ini_setpoint_ratio: 0.9
+  shared:
+    - k_i_gain
+    - mu_init
+
+erm:
+  model: erm
