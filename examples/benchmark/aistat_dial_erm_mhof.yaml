@@ -1,0 +1,84 @@
+mode: grid
+
+output_dir: zoutput/benchmarks/benchmark_mhof_dial
+
+sampling_seed: 0
+startseed: 0
+endseed: 2
+
+test_domains:
+  - sketch
+
+domainlab_args:
+  tpath: examples/tasks/task_pacs_aug.py
+  dmem: False
+  lr: 5e-5
+  epos: 500
+  epos_min: 200
+  es: 5
+  bs: 32
+  san_check: False
+  npath: examples/nets/resnet50domainbed.py
+  npath_dom: examples/nets/resnet50domainbed.py
+  zx_dim: 0
+  zy_dim: 64
+  zd_dim: 64
+
+
+
+
+Shared params:
+  nb4reg_over_task_ratio:
+    distribution: categorical   # name of the distribution
+    datatype: int
+    values:                     # concrete values to choose from
+      - 0
+      - 100
+ 
+  mu_init:
+    distribution: categorical
+    datatype: float
+    values:
+      - 0.000001
+      - 0.001
+
+  mu_clip:
+    distribution: categorical
+    datatype: float
+    values:
+      - 1
+      - 10
+      - 100
+      - 1000
+
+  k_i_gain_ratio:
+    min: 0.1
+    max: 1
+    num: 3
+    distribution: uniform
+
+  gamma_reg:
+    min: 0.01
+    max: 1e4
+    num: 4
+    distribution: loguniform
+
+
+# Test fbopt with different hyperparameter configurations
+
+fbopt_dial_erm:
+  model: erm
+  trainer: fbopt_dial
+  nb4reg_over_task_ratio: 0
+  force_setpoint_change_once: True
+  shared:
+    - k_i_gain_ratio
+    - mu_init
+    - mu_clip
+
+dial_erm:
+  model: erm
+  nb4reg_over_task_ratio: 0
+  trainer: dial
+  shared:
+    - gamma_reg

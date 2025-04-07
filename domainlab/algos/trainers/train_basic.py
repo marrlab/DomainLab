@@ -23,6 +23,7 @@ class TrainerBasic(AbstractTrainer):
         """
         self.model.evaluate(self.loader_te, self.device)
         super().before_tr()
+        self.before_epoch()
 
     def before_epoch(self):
         """
@@ -35,15 +36,15 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = [0.0 for _ in range(10)]
         self.epo_task_loss_tr = 0
 
-    def tr_epoch(self, epoch):
+    def tr_epoch(self, epoch, flag_info=False):
         self.before_epoch()
         for ind_batch, (tensor_x, tensor_y, tensor_d, *others) in enumerate(
             self.loader_tr
         ):
             self.tr_batch(tensor_x, tensor_y, tensor_d, others, ind_batch, epoch)
-        return self.after_epoch(epoch)
+        return self.after_epoch(epoch, flag_info)
 
-    def after_epoch(self, epoch):
+    def after_epoch(self, epoch, flag_info):
         """
         observer collect information
         """
@@ -52,7 +53,7 @@ class TrainerBasic(AbstractTrainer):
         self.epo_reg_loss_tr = list_divide(self.epo_reg_loss_tr, self.counter_batch)
         assert self.epo_loss_tr is not None
         assert not math.isnan(self.epo_loss_tr)
-        flag_stop = self.observer.update(epoch)  # notify observer
+        flag_stop = self.observer.update(epoch, flag_info)  # notify observer
         assert flag_stop is not None
         return flag_stop
 
@@ -79,7 +80,7 @@ class TrainerBasic(AbstractTrainer):
             tensor_d.to(self.device),
         )
         self.optimizer.zero_grad()
-        loss = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
+        loss, *_ = self.cal_loss(tensor_x, tensor_y, tensor_d, others)
         loss.backward()
         self.optimizer.step()
         if self.lr_scheduler:
@@ -96,17 +97,11 @@ class TrainerBasic(AbstractTrainer):
         list_reg_tr_batch, list_mu_tr = self.cal_reg_loss(
             tensor_x, tensor_y, tensor_d, others
         )
-
         list_mu_tr_normalized = list_mu_tr
-        if self.list_reg_over_task_ratio:
-            assert len(list_mu_tr) == len(self.list_reg_over_task_ratio)
-            list_mu_tr_normalized = \
-                [mu / reg_over_task_ratio if reg_over_task_ratio != 0
-                 else mu for (mu, reg_over_task_ratio)
-                 in zip(list_mu_tr, self.list_reg_over_task_ratio)]
         tensor_batch_reg_loss_penalized = self.model.list_inner_product(
             list_reg_tr_batch, list_mu_tr_normalized
         )
+
         assert len(tensor_batch_reg_loss_penalized.shape) == 1
         loss_erm_agg = g_tensor_batch_agg(loss_task)
         loss_reg_penalized_agg = g_tensor_batch_agg(tensor_batch_reg_loss_penalized)
@@ -114,4 +109,4 @@ class TrainerBasic(AbstractTrainer):
             self.model.multiplier4task_loss * loss_erm_agg + loss_reg_penalized_agg
         )
         self.log_loss(list_reg_tr_batch, loss_task, loss_penalized)
-        return loss_penalized
+        return loss_penalized, list_reg_tr_batch, loss_erm_agg
