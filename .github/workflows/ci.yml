@@ -12,6 +12,12 @@ jobs:
     name: Run tests
     runs-on: ubuntu-latest
     steps:
+    - name: Clean up after test
+      if: always()
+      run: |
+        if [ -d "zoutput" ]; then
+          rm -r zoutput
+        fi
     - name: Check out repository
       uses: actions/checkout@v2
     - name: Set up Python
