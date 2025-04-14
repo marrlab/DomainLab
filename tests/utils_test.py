@@ -22,6 +22,8 @@ def utils_test_algo(argsstr="--help"):
     del exp
     torch.cuda.empty_cache()
     gc.collect()
+    ret = shell.run("rm", "-rf zoutput")
+    assert ret.returncode == 0
 
 
 def assert_frame_not_equal(*args, **kwargs):
